@@ -22,9 +22,16 @@ public class SceneManager {
         assets.loadGlobalFiles();
         PlayerDeckController controller = new PlayerDeckController(
                 model,
+                this,
                 assets
         );
-        setScene(controller.getView().getRoot());
+        setScene(controller.getViewRoot());
+    }
+
+    public void showErrorView() {
+        assets.loadGlobalFiles();
+        ErrorController controller = new ErrorController();
+        setScene(controller.getViewRoot());
     }
 
     private void setScene(Parent root) {

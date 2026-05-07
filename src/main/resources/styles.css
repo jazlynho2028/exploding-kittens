@@ -37,6 +37,18 @@
     -fx-background-color: magenta-6;
 }
 
+.h1 {
+    -fx-font-family: "Koulen";
+    -fx-font-weight: normal;
+    -fx-font-size: 96px;
+}
+
+.h2 {
+    -fx-font-family: "Koulen";
+    -fx-font-weight: normal;
+    -fx-font-size: 38px;
+}
+
 .h3 {
     -fx-font-family: "Koulen";
     -fx-font-weight: normal;

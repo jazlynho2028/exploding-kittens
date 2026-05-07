@@ -3,16 +3,19 @@ package ui;
 import domain.GameState;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 
 import java.util.function.Consumer;
 
 public class PlayerDeckController {
 
     private final PlayerDeckView view;
+    private final SceneManager sceneManager;
     private final GameState model;
 
-    public PlayerDeckController(GameState model, AssetManager assets) {
+    public PlayerDeckController(GameState model, SceneManager sceneManager, AssetManager assets) {
         this.model = model;
+        this.sceneManager = sceneManager;
         this.view = new PlayerDeckView(assets);
         view.buildAndAddPlayerHandCards(
                 this.model.getCurrentPlayerHand(),
@@ -179,8 +182,11 @@ public class PlayerDeckController {
         System.out.println("START GAME BUTTON CLICKED");
     }
 
-    public PlayerDeckView getView() {
-        return view;
+    public Parent getViewRoot() {
+        return view.getRoot();
     }
 
+    public void handleError() {
+        sceneManager.showErrorView();
+    }
 }
