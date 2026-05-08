@@ -39,25 +39,14 @@
 
 # Week 6 (05/04/2026-05/08/2026)
 **Planning and Progress Tracking**:
-1. [done] Luke: StartView.java
-2. [done] Luke: StartController.java
-3. [80% Done] Luke: PlayerSetUpView.java
-4. [80% Done] Luke: PlayerSetUpController.java
-5. [done] Jazlyn: PlayerDecksView.java
-6. [done] Jazlyn: PlayerDecksController.java
-7. [done] Jazlyn: FileLoader.java interface
-8. [done] Jazlyn: FontLoader.java
-9. [done] Jazlyn: ImageLoader.java
-10. [done] Jazlyn: StyleSheetLoader.java
-11. [done] Jazlyn: PathLoader.java interface
-12. [done] Jazlyn: IconLoader.java
-13. [done] Jazlyn: SceneManager.java
-14. [done] Jazlyn: AssetManager.java
-15. [done] Jazlyn: UIConstants.java
-16. [50% Done] Ejean: DeckBuilder.java
-17. [30% Done] DJ: Game.java
-18. [30% Done] DJ: TurnManager.java
-19. [50% Done] DJ: Player.java
-20. [not started] Irene: Card.java
-21. [50% Done] Irene: Deck.java
-22. [not started] Irene: CardTypes.java
+1. [80% Done] Luke: PlayerSetUpView.java
+2. [80% Done] Luke: PlayerSetUpController.java
+3. [10% Done] Jazlyn: set up linters (spotbugs + Google checkstyle)
+4. [0% Done] Jazlyn: PlayerSetUpController.java BVA
+5. [50% Done] Ejean: DeckBuilder.java
+6. [30% Done] DJ: Game.java
+7. [30% Done] DJ: TurnManager.java
+8. [50% Done] DJ: Player.java
+9. [not started] Irene: Card.java
+10. [50% Done] Irene: Deck.java
+11. [not started] Irene: CardTypes.java
