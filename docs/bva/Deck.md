@@ -18,7 +18,7 @@
 ### Method under test: `peekTop()`
 - **TC5: Peek top of empty deck** ( :x: )
     - **State of the system**: Deck is empty: []
-    - **Expected output**: Returns null; deck is still empty: []
+    - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
 
 - **TC6: Peek top of deck with one card** ( :x: )
     - **State of the system**: Deck has exactly one card: [card1]
