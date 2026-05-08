@@ -8,8 +8,13 @@ public class Player {
     private String name;
     private List<Card> hand;
 
-    public Player(String name) {
-        this.name = name;
+    public Player(String name, int playerNumber) {
+        if (name == null || name.isEmpty()) {
+            this.name = "Player " + playerNumber;
+        }
+        else {
+            this.name = name;
+        }
         this.hand = new ArrayList<>();
     }
 
