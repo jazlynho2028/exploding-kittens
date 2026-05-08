@@ -31,3 +31,20 @@
 - **TC8: Peek top of deck with more than one duplicate card** ( :x: )
     - **State of the system**: Deck has more than one card with duplicates: [card1, card1]
     - **Expected output**: Returns card1; deck is still [card1, card1]
+
+### Method under test: `removeTop()`
+- **TC9: Remove top from empty deck** ( :x: )
+    - **State of the system**: Deck is empty: []
+    - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
+
+- **TC10: Remove top from deck with one card** ( :x: )
+    - **State of the system**: Deck has exactly one card: [card1]
+    - **Expected output**: Returns card1; deck becomes empty: []
+
+- **TC11: Remove top from deck with more than one different card** ( :x: )
+    - **State of the system**: Deck has more than one card with different cards: [card1, card2]
+    - **Expected output**: Returns card1; deck becomes [card2]
+
+- **TC12: Remove top from deck with more than one duplicate card** ( :x: )
+    - **State of the system**: Deck has more than one card with duplicates: [card1, card1]
+    - **Expected output**: Returns card1; deck becomes [card1]
