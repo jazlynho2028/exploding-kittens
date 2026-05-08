@@ -17,7 +17,7 @@
   - **Expected output**: Returns "Player 4"
 
 ### Method under test: `addCardToHand(Card card)`
-- **TC5: add card to empty hand** ( x )
+- **TC5: add card to empty hand** ( checkmark )
     - **State of the system**: player hand is empty; card is non-null and valid 
     - **Expected output**: player hand has one card; hand contains the specified card
 
