@@ -12,7 +12,7 @@
     - **State of the system**: Player constructed with name = ""; playerNumber is 1
     - **Expected output**: Returns "Player 1"
 
-- **TC4: get name when name is empty and max playerNumber** ( x )
+- **TC4: get name when name is empty and max playerNumber** ( checkmark )
   - **State of the system**: Player constructed with name = ""; playerNumber is 4
   - **Expected output**: Returns "Player 4"
 

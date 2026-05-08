@@ -38,4 +38,14 @@ public class PlayerTests {
 
         assertEquals("Player 1", actual);
     }
+
+    @Test
+    public void TestGetNameWhenNameIsEmptyAndMaxPlayers() {
+        int playerNum = 4;
+        Player player = new Player("", playerNum);
+
+        String actual = player.getName();
+
+        assertEquals("Player 4", actual);
+    }
 }
