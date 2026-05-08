@@ -22,8 +22,12 @@ public class Player {
         return this.name;
     }
 
-    public void addCardtoHand() {
+    public List<Card> getHand() {
+        return hand;
+    }
 
+    public void addCardtoHand(Card card) {
+        this.hand.add(card);
     }
 
     public void removeCardFromHand() {
