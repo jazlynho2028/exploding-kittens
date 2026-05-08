@@ -1,19 +1,19 @@
 ### Method under test: `shuffle()`
 - **TC1: Shuffle empty deck** ( :x: )
     - **State of the system**: Deck is empty: []
-    - **Expected output**: Deck is still empty: []; orderingChanged = false
+    - **Expected output**: Deck is still empty: []; deck size is 0
 
-- **TC2: Shuffle deck with one card** ( :x: ) 
+- **TC2: Shuffle deck with one card** ( :x: )
     - **State of the system**: Deck has exactly one card: [card1]
-    - **Expected output**: Deck still has exactly one card: [card1]; orderingChanged = false
+    - **Expected output**: Deck is still [card1]; deck size is 1
 
-- **TC3: Shuffle deck with more than one duplicate card** ( :x: )
-    - **State of the system**: Deck has more than one card with duplicates: [card1, card1]
-    - **Expected output**: Deck still has two copies of card1: [card1, card1]; orderingChanged = false
+- **TC3: Shuffle deck with more than one different card using controlled random value** ( :x: )
+    - **State of the system**: Deck has more than one different card: [card2, card1]; mocked random value returns 0
+    - **Expected output**: Deck still contains card1 and card2; card1 is at index 0 after shuffle
 
-- **TC4: Shuffle deck with more than one different card** ( :x: )
-    - **State of the system**: Deck has more than one card with different cards: [card1, card2]
-    - **Expected output**: Deck still contains card1 and card2; orderingChanged = true (we should implement this so that it will never be the same ordering)
+- **TC4: Shuffle deck with more than one duplicate card using controlled random values** ( :x: )
+    - **State of the system**: Deck has more than one card with duplicates: [card1, card1, card2]; mocked random values return 0 and 0
+    - **Expected output**: Deck becomes [card1, card2, card1]; deck size is 3
 
 ### Method under test: `peekTop()`
 - **TC5: Peek top of empty deck** ( :x: )
