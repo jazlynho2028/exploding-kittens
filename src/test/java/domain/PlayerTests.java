@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PlayerTests {
 
     @Test
-    public void TestGetNameWhenNameIsFilledAndMinPlayers() {
+    public void TestGetName_WhenNameIsFilledAndMinPlayers() {
         String expected = "Alice";
         int playerNum = 1;
         Player player = new Player(expected, playerNum);
@@ -23,7 +23,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void TestGetNameWhenNameIsFilledAndMaxPlayers() {
+    public void TestGetName_WhenNameIsFilledAndMaxPlayers() {
         String expected = "Alice";
         int playerNum = 4;
         Player player = new Player(expected, playerNum);
@@ -34,7 +34,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void TestGetNameWhenNameIsEmptyAndMinPlayers() {
+    public void TestGetName_WhenNameIsEmptyAndMinPlayers() {
         int playerNum = 1;
         Player player = new Player("", playerNum);
 
@@ -44,7 +44,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void TestGetNameWhenNameIsEmptyAndMaxPlayers() {
+    public void TestGetName_WhenNameIsEmptyAndMaxPlayers() {
         int playerNum = 4;
         Player player = new Player("", playerNum);
 
