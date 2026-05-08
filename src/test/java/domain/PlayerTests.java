@@ -7,13 +7,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PlayerTests {
 
     @Test
-    public void TestGetNameWhenNameIsFilled() {
+    public void TestGetNameWhenNameIsFilledAndMinPlayers() {
         String expected = "Alice";
-        Player player = new Player(expected);
+        int playerNum = 1;
+        Player player = new Player(expected, playerNum);
 
         String actual = player.getName();
 
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void TestGetNameWhenNameIsFilledAndMaxPlayers() {
+        String expected = "Alice";
+        int playerNum = 4;
+        Player player = new Player(expected, playerNum);
+
+        String actual = player.getName();
+
+        assertEquals(expected, actual);
+    }
 }

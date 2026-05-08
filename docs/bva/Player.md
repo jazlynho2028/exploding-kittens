@@ -4,7 +4,7 @@
     - **State of the system**: Player constructed with name = "Alice"; playerNumber is 1
     - **Expected output**: Returns "Alice"
   
-- **TC2: get name when name is filled and max playerNumber** ( x )
+- **TC2: get name when name is filled and max playerNumber** ( checkmark )
   - **State of the system**: Player constructed with name = "Alice"; playerNumber is 4
   - **Expected output**: Returns "Alice"
 
