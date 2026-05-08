@@ -1,6 +1,7 @@
 package domain;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,5 +27,15 @@ public class PlayerTests {
         String actual = player.getName();
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void TestGetNameWhenNameIsEmptyAndMinPlayers() {
+        int playerNum = 1;
+        Player player = new Player("", playerNum);
+
+        String actual = player.getName();
+
+        assertEquals("Player 1", actual);
     }
 }

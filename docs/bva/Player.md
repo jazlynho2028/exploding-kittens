@@ -8,7 +8,7 @@
   - **State of the system**: Player constructed with name = "Alice"; playerNumber is 4
   - **Expected output**: Returns "Alice"
 
-- **TC3: get name when name is empty and min playerNumber** ( x )
+- **TC3: get name when name is empty and min playerNumber** ( checkmark )
     - **State of the system**: Player constructed with name = ""; playerNumber is 1
     - **Expected output**: Returns "Player 1"
 
