@@ -1,6 +1,6 @@
 package ui;
 
-import domain.GameState;
+import domain.Game;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,7 +11,7 @@ public class ExplodingKittensApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        GameState model = new GameState();
+        Game model = new Game();
         assets.loadGlobalFiles();
 
         PlayerDeckController controller = new PlayerDeckController(model, assets);

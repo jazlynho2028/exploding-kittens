@@ -2,7 +2,7 @@ package domain;
 
 import java.util.List;
 
-public interface GameStateData {
+public interface GameData {
 
 	List<String> getPlayerNames();
 
