@@ -7,8 +7,7 @@ import org.easymock.EasyMock;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTests {
 
@@ -111,5 +110,21 @@ public class PlayerTests {
         });
 
         EasyMock.verify(mockExistingCard, mockNonexistingCard);
+    }
+
+    @Test
+    public void TestRemoveCardFromHand_ExistingCardFromHandWithOneCard() {
+        Card mockExistingCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(mockExistingCard);
+
+        Player player = new Player("Alice");
+        player.addCardtoHand(mockExistingCard);
+
+        player.removeCardFromHand(mockExistingCard);
+
+        assertEquals(0, player.getHand().size());
+        assertFalse(player.getHand().contains(mockExistingCard));
+
+        EasyMock.verify(mockExistingCard);
     }
 }
