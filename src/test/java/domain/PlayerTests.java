@@ -61,4 +61,25 @@ public class PlayerTests {
         EasyMock.verify(sixthCard);
     }
 
+    @Test
+    public void TestAddCardToHand_WithDuplicateCards() {
+        Card mockDuplicateCard = EasyMock.createMock(Card.class);
+        Card mockNewCard = EasyMock.createMock(Card.class);
+
+        EasyMock.replay(mockDuplicateCard, mockNewCard);
+
+        Player player = new Player("Alice");
+
+        player.addCardtoHand(mockDuplicateCard);
+        player.addCardtoHand(mockDuplicateCard);
+
+        player.addCardtoHand(mockNewCard);
+
+        assertEquals(3, player.getHand().size());
+        assertEquals(mockDuplicateCard, player.getHand().get(0));
+        assertEquals(mockDuplicateCard, player.getHand().get(1));
+        assertEquals(mockNewCard, player.getHand().get(2));
+
+        EasyMock.verify(mockDuplicateCard, mockNewCard);
+    }
 }

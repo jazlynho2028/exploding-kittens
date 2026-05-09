@@ -12,7 +12,7 @@
     - **State of the system**: player hand contains five cards; card is non-null
     - **Expected output**: player hand contains six cards; hand contains specified card 
 
-- **TC4: add card to hand with duplicate cards** ( x )
+- **TC4: add card to hand with duplicate cards** ( checkmark )
     - **State of the system**: player hand has duplicate cards; card is non-null
     - **Expected output**: player hand still has duplicate cards; hand contains specified card
 
