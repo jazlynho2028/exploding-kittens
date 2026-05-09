@@ -24,6 +24,8 @@ public class SceneManager {
     }
 
     private void setScene(Scene scene) {
+        scene.getStylesheets().add(assets.getStylesheet());
+
         stage.setScene(scene);
         stage.setTitle(UIConstants.TITLE);
         stage.setResizable(false);
