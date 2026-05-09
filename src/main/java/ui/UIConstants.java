@@ -2,7 +2,7 @@ package ui;
 
 public final class UIConstants {
 
-    private UIConstants() {}
+    private UIConstants() { }
 
     public static final String TITLE = "Exploding Kittens";
     public static final String ERROR_MESSAGE_TITLE = "AN ERROR OCCURRED";
@@ -17,8 +17,12 @@ public final class UIConstants {
     public static final String START_GAME_LABEL = "START GAME";
     public static final String END_TURN_LABEL = "END TURN";
 
+    public static final int LOADED_FONT_SIZE = 12;
+
     public static final int SCENE_WIDTH = 1280;
     public static final int SCENE_HEIGHT = 832;
+
+    public static final int SCREEN_OVERLAY_INSETS = 8;
 
     public static final int CARD_BACK_ICON_WIDTH = 40;
     public static final int CARD_DESCRIPTION_WRAPPING_WIDTH = 100;

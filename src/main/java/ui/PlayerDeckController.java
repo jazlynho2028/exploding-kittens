@@ -1,21 +1,22 @@
 package ui;
 
 import domain.GameState;
+import domain.GameStateData;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 import java.util.function.Consumer;
 
 public class PlayerDeckController {
 
     private final PlayerDeckView view;
-    private final SceneManager sceneManager;
-    private final GameState model;
+    private final GameStateData model;
 
-    public PlayerDeckController(GameState model, SceneManager sceneManager, AssetManager assets) {
+    public PlayerDeckController(GameState model, AssetProvider assets) {
         this.model = model;
-        this.sceneManager = sceneManager;
+
         this.view = new PlayerDeckView(assets);
         view.buildAndAddPlayerHandCards(
                 this.model.getCurrentPlayerHand(),
@@ -79,14 +80,14 @@ public class PlayerDeckController {
     }
 
     private void onNameTag(int playerIndex) {
-        if (model.getCurrentPlayerIndex() != playerIndex) {
+        if (((GameState) model).getCurrentPlayerIndex() != playerIndex) {
             handleChangeCurrentPlayer(playerIndex);
         }
         System.out.println("NAME TAG CLICKED");
     }
 
     private void handleChangeCurrentPlayer(int playerIndex) {
-        model.changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
+        ((GameState) model).changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
 
         view.renderPlayerNameTags(
                 model.getCurrentPlayerIndex(),
@@ -106,7 +107,7 @@ public class PlayerDeckController {
     }
 
     private void onDrawPile() {
-        model.drawFromPile();
+        ((GameState) model).drawFromPile();
 
         view.renderDrawPile(
                 model.canDraw(),
@@ -122,7 +123,7 @@ public class PlayerDeckController {
     }
 
     private void onHandVisibilityButton() {
-        model.setIsFaceUpToOpposite();
+        ((GameState) model).setIsFaceUpToOpposite();
 
         view.renderHandVisibilityButton(model.getIsFaceUp());
         buildAddBindPlayerHandCards();
@@ -153,19 +154,19 @@ public class PlayerDeckController {
         String selectedCard = model.getCurrentPlayerHand().get(handCardIndex);
 
         if (view.isSelectedHandCard(handCardIndex)) {
-            model.addToSelectedHandCards(selectedCard);
+            ((GameState) model).addToSelectedHandCards(selectedCard);
 
             System.out.println(selectedCard + " IN HAND SELECTED");
         }
         else {
-            model.removeFromSelectedHandCards(selectedCard);
+            ((GameState) model).removeFromSelectedHandCards(selectedCard);
 
             System.out.println(selectedCard + " IN HAND DESELECTED");
         }
     }
 
     private void onStartGameButton() {
-        model.startGame();
+        ((GameState) model).startGame();
 
         handleChangeCurrentPlayer(model.getStartingPlayerIndex());
 
@@ -182,11 +183,8 @@ public class PlayerDeckController {
         System.out.println("START GAME BUTTON CLICKED");
     }
 
-    public Parent getViewRoot() {
-        return view.getRoot();
+    public Scene getPlayerDeckScene() {
+        return view.createPlayerDeckScene();
     }
 
-    public void handleError() {
-        sceneManager.showErrorView();
-    }
 }

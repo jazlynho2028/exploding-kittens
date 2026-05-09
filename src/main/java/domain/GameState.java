@@ -2,7 +2,7 @@ package domain;
 
 import java.util.*;
 
-public class GameState {
+public class GameState implements GameStateData {
 
     // initialized before game starts
     private final List<String> playerNames;
@@ -84,7 +84,7 @@ public class GameState {
         return !selectedHandCards.isEmpty() && (
                 isOneOfAKind() ||
                 isNOfAKind(2) ||
-                isNOfAKind(3));
+                isNOfAKind(THREE));
     }
 
     private boolean isOneOfAKind() {
@@ -157,10 +157,12 @@ public class GameState {
             2, new ArrayList<>(List.of(
                     "DEFUSE", "CAT", "CLONE", "RAISING HECK", "GODCAT", "CAT"
                 )),
-            3, new ArrayList<>(List.of(
+                THREE, new ArrayList<>(List.of(
                     "DEFUSE", "CAT", "CAT", "CAT", "CAT", "CAT"
                 ))
         ));
     }
+
+    private static final int THREE = 3;
 
 }

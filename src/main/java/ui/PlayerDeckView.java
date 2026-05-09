@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class PlayerDeckView {
 
-    private final AssetManager assets;
+    private final AssetProvider assetProvider;
 
     public final HBox playerNamesContainer;
     public final Button drawPileButton;
@@ -29,8 +30,8 @@ public class PlayerDeckView {
     private final StackPane root;
     private final HBox turnControlSection;
 
-    public PlayerDeckView(AssetManager assets) {
-        this.assets = assets;
+    public PlayerDeckView(AssetProvider assetProvider) {
+        this.assetProvider = assetProvider;
 
         root = new StackPane();
         playerNamesContainer = new HBox();
@@ -45,11 +46,15 @@ public class PlayerDeckView {
         buildUI();
     }
 
-    public Parent getRoot() {
-        return root;
+    public Scene createPlayerDeckScene() {
+        return new Scene(root, UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
     }
 
-    public void buildAddRenderPlayerNameTags(List<String> playerNames, int currentPlayerIndex, boolean isGameOngoing) {
+    public void buildAddRenderPlayerNameTags(
+            List<String> playerNames,
+            int currentPlayerIndex,
+            boolean isGameOngoing
+    ) {
         buildAndAddPlayerNameTags(playerNames);
         renderPlayerNameTags(currentPlayerIndex, isGameOngoing);
     }
@@ -89,7 +94,11 @@ public class PlayerDeckView {
         }
     }
 
-    public void buildAndAddPlayerHandCards(List<String> currentPlayerHand, boolean isFaceUp, boolean isBeforeDraw) {
+    public void buildAndAddPlayerHandCards(
+            List<String> currentPlayerHand,
+            boolean isFaceUp,
+            boolean isBeforeDraw
+    ) {
         handCardsContainer.getChildren().clear();
 
         for (String cardName : currentPlayerHand) {
@@ -102,7 +111,11 @@ public class PlayerDeckView {
         }
     }
 
-    public void buildAndRenderTurnControlSection(boolean isGameOngoing, boolean canPlaySelected, boolean canEndTurn) {
+    public void buildAndRenderTurnControlSection(
+            boolean isGameOngoing,
+            boolean canPlaySelected,
+            boolean canEndTurn
+    ) {
         buildTurnControlSection(isGameOngoing);
         renderTurnControlSection(canPlaySelected, canEndTurn);
     }
@@ -302,7 +315,7 @@ public class PlayerDeckView {
     }
 
     private ImageView buildCardBackIconView() {
-        Image cardBackIcon = assets.getImage("placeholder");
+        Image cardBackIcon = assetProvider.getImage("placeholder");
         ImageView cardBackIconView = new ImageView(cardBackIcon);
 
         cardBackIconView.setFitWidth(UIConstants.CARD_BACK_ICON_WIDTH);
@@ -316,9 +329,9 @@ public class PlayerDeckView {
         explodingKittensText.setAlignment(Pos.CENTER);
         explodingKittensText.getStyleClass().add("exploding-kittens-text");
 
-        String[] title_words = UIConstants.TITLE.split(" ");
-        Text explodingText = buildExplodingText(title_words[0]);
-        Text kittensText = buildKittensText(title_words[1]);
+        String[] titleWords = UIConstants.TITLE.split(" ");
+        Text explodingText = buildExplodingText(titleWords[0]);
+        Text kittensText = buildKittensText(titleWords[1]);
 
         explodingKittensText.getChildren().addAll(
                 explodingText,
@@ -431,7 +444,11 @@ public class PlayerDeckView {
         handCardsContainer.getStyleClass().add("hand-cards-container");
     }
 
-    private ToggleButton buildHandCardButton(String cardName, boolean isFaceUp, boolean isBeforeDraw) {
+    private ToggleButton buildHandCardButton(
+            String cardName,
+            boolean isFaceUp,
+            boolean isBeforeDraw
+    ) {
         ToggleButton handCardButton = new ToggleButton();
         handCardButton.getStyleClass().add("card");
 
@@ -538,7 +555,12 @@ public class PlayerDeckView {
         ImageView cardImageView = buildCardImageView();
         HBox cardDescriptionSection = buildCardDescriptionSection(description);
 
-        Insets inset = new Insets(0, 0, UIConstants.CARD_IMAGE_BOTTOM_PADDING, 0);
+        Insets inset = new Insets(
+                0,
+                0,
+                UIConstants.CARD_IMAGE_BOTTOM_PADDING,
+                0
+        );
         StackPane.setMargin(cardDescriptionSection, inset);
 
         cardVisualSection.getChildren().addAll(
@@ -549,7 +571,7 @@ public class PlayerDeckView {
     }
 
     private ImageView buildCardImageView() {
-        Image cardImage = assets.getImage("placeholder");
+        Image cardImage = assetProvider.getImage("placeholder");
         ImageView cardImageView = new ImageView(cardImage);
 
         cardImageView.setFitWidth(UIConstants.CARD_IMAGE_WIDTH);
@@ -632,7 +654,12 @@ public class PlayerDeckView {
         Button restartButton = buildRestartButton();
         overlayLayer.getChildren().add(restartButton);
 
-        Insets insets = new Insets(8, 8, 0, 0);
+        Insets insets = new Insets(
+                UIConstants.SCREEN_OVERLAY_INSETS,
+                UIConstants.SCREEN_OVERLAY_INSETS,
+                0,
+                0
+        );
         StackPane.setMargin(restartButton, insets);
         StackPane.setAlignment(restartButton, Pos.TOP_RIGHT);
 
@@ -651,7 +678,7 @@ public class PlayerDeckView {
 
     private SVGPath buildIcon(String key) {
         SVGPath icon = new SVGPath();
-        icon.setContent(assets.getSvg(key));
+        icon.setContent(assetProvider.getSvg(key));
         icon.getStyleClass().add(String.format("%s-icon", key));
 
         return icon;
