@@ -4,8 +4,8 @@
     - **State of the system**: playerIndex = 0, currentPlayerIndex = 0
     - **Expected output**: no model method is called
 
-- **TC2: player index is different from current player index** ( :x: )
-    - **Name of the test**: 
+- **TC2: player index is different from current player index** ( :white-check-mark: )
+    - **Name of the test**: onNameTag_playerChanges_success
     - **State of the system**: playerIndex = 0, currentPlayerIndex = 1
     - **Expected output**: called handleChangeCurrentPlayer(playerIndex)
 
