@@ -41,12 +41,14 @@
     -fx-font-family: "Koulen";
     -fx-font-weight: normal;
     -fx-font-size: 96px;
+    -fx-fill: linear-gradient(to bottom, yellow-3, orange-3, red-3);
 }
 
 .h2 {
     -fx-font-family: "Koulen";
     -fx-font-weight: normal;
     -fx-font-size: 38px;
+    -fx-fill: linear-gradient(to bottom, yellow-1, yellow-4);
 }
 
 .h3 {

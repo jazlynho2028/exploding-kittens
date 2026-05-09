@@ -15,10 +15,10 @@
     - **State of the system**: playerIndex = 0
     - **Expected output**: called model.changeCurrentPlayerIndexAndSetFaceUpToFalse(playerIndex), called buildAddBindPlayerHandCards()
 
-- **TC4: model throws InvalidStateException** ( :x: )
-  - **Name of the test**:
+- **TC4: model throws InvalidStateException** ( :white-check-mark: )
+  - **Name of the test**: handleChangeCurrentPlayer_playerChanges_fail
   - **State of the system**: playerIndex = 0
-  - **Expected output**: caught exception from model.changeCurrentPlayerIndexAndSetFaceUpToFalse(playerIndex), called handleError()
+  - **Expected output**: caught exception from model.changeCurrentPlayerIndexAndSetFaceUpToFalse(playerIndex), called onError.accept("Failed to change current player.")
 
 ### Method under test: `onDrawPile()`
 - **TC5: card is drawn from pile successfully** ( :x: )
@@ -63,7 +63,7 @@
 - **TC12: model throws InvalidStateException** ( :x: )
     - **Name of the test**:
     - **State of the system**: handCardIndex = 0
-    - **Expected output**: caught exception from model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite(handCardIndex), called handleError()
+    - **Expected output**: caught exception from model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite(handCardIndex), called onError.accept("Failed to select/deselect card.")
 
 ### Method under test: `onStartGameButton()`
 - **TC13: game starts successfully** ( :x: )
@@ -74,7 +74,7 @@
 - **TC14: model throws InvalidStateException** ( :x: )
     - **Name of the test**:
     - **State of the system**: N/A
-    - **Expected output**: caught exception from model.startGame(), called handleError()
+    - **Expected output**: caught exception from model.startGame(), called onError.accept("Failed to start game.")
 
 ### Method under test: `handleError()`
 - **TC15: this method is called** ( :x: )

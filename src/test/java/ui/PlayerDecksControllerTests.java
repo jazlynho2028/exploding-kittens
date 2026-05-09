@@ -4,6 +4,8 @@ import domain.Game;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
+import java.util.function.Consumer;
+
 public class PlayerDecksControllerTests {
 
 	@Test
@@ -67,6 +69,29 @@ public class PlayerDecksControllerTests {
 		controller.handleChangeCurrentPlayer(playerIndex);
 
 		EasyMock.verify(model, controller);
+	}
+
+	@Test
+	public void handleChangeCurrentPlayer_playerChanges_fail() {
+		Game model = EasyMock.createNiceMock(Game.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		Consumer<String> onError = EasyMock.createMock(Consumer.class);
+		int playerIndex = 0;
+		String expectedMsg = "Failed to change current player.";
+
+		model.changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
+		EasyMock.expectLastCall().andThrow(new IllegalStateException());
+		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, onError);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.setOnError(onError);
+
+		controller.handleChangeCurrentPlayer(playerIndex);
+
+		EasyMock.verify(model, onError);
 	}
 
 }

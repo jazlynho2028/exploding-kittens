@@ -12,11 +12,13 @@ public class PlayerDeckController {
 
     private final PlayerDeckView view;
     private final GameData model;
+    private Consumer<String> onError;
 
     public PlayerDeckController(Game model, AssetProvider assets) {
         this.model = model;
-
         this.view = new PlayerDeckView(assets);
+        this.onError = message -> {};
+
         buildAndBindUI();
     }
 
@@ -24,6 +26,10 @@ public class PlayerDeckController {
     PlayerDeckController(Game model, PlayerDeckView view) {
         this.model = model;
         this.view = view;
+    }
+
+    public void setOnError(Consumer<String> onError) {
+        this.onError = onError;
     }
 
     private void buildAndBindUI() {
@@ -96,14 +102,19 @@ public class PlayerDeckController {
     }
 
     void handleChangeCurrentPlayer(int playerIndex) {
-        ((Game) model).changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
+        try {
+            ((Game) model).changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
 
-        view.renderPlayerNameTags(
-                model.getCurrentPlayerIndex(),
-                model.isGameOngoing()
-        );
-        view.renderHandVisibilityButton(model.getIsFaceUp());
-        buildAddBindPlayerHandCards();
+            view.renderPlayerNameTags(
+                    model.getCurrentPlayerIndex(),
+                    model.isGameOngoing()
+            );
+            view.renderHandVisibilityButton(model.getIsFaceUp());
+            buildAddBindPlayerHandCards();
+        }
+        catch (Exception e) {
+            onError.accept("Failed to change current player.");
+        }
     }
 
     void buildAddBindPlayerHandCards() {
