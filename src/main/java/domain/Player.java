@@ -29,7 +29,10 @@ public class Player {
         this.hand.add(card);
     }
 
-    public void removeCardFromHand() {
-
+    public void removeCardFromHand(Card card) {
+        if (!this.hand.contains(card)) {
+            throw new IllegalArgumentException("Card not found in player hand.");
+        }
+        this.hand.remove(card);
     }
 }

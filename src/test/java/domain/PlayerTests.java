@@ -8,6 +8,7 @@ import org.easymock.EasyMock;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PlayerTests {
 
@@ -81,5 +82,18 @@ public class PlayerTests {
         assertEquals(mockNewCard, player.getHand().get(2));
 
         EasyMock.verify(mockDuplicateCard, mockNewCard);
+    }
+
+    @Test
+    public void TestRemoveCardFromHand_NonExistingCardFromEmptyHand() {
+        Player player = new Player("Alice");
+        Card mockCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(mockCard);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            player.removeCardFromHand(mockCard);
+        });
+
+        EasyMock.verify(mockCard);
     }
 }

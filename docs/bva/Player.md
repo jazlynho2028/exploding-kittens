@@ -17,7 +17,7 @@
     - **Expected output**: player hand still has duplicate cards; hand contains specified card
 
 ### Method under test: `removeCardFromHand(Card card)`
-- **TC5: remove non-existing card from empty hand** ( x )
+- **TC5: remove non-existing card from empty hand** ( checkmark )
     - **State of the system**: player hand is empty; card to remove holds any value 
     - **Expected output**: IllegalArgumentException
 
