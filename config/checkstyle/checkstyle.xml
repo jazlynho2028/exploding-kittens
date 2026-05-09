@@ -10,7 +10,7 @@
     <module name="TreeWalker">
 
         <module name="RegexpSinglelineJava">
-            <property name="format" value="^\t* "/>
+            <property name="format" value="^\t+"/>
             <property name="message" value="Indent must use tab characters"/>
             <property name="ignoreComments" value="true"/>
         </module>
