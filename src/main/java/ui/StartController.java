@@ -1,5 +1,7 @@
 package ui;
 
+import javafx.scene.Scene;
+
 public class StartController {
 
     private final StartView view;
@@ -8,8 +10,8 @@ public class StartController {
         this.view = new StartView(assets);
     }
 
-    public StartView getStartView() {
-        return view;
+    public Scene getStartScene() {
+        return view.createStartScene();
     }
 
 }

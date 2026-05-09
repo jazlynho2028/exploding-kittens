@@ -1,7 +1,7 @@
 package ui;
 
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,19 +11,20 @@ import javafx.scene.text.Text;
 
 public class StartView {
     private final AssetManager assets;
-    private StackPane root;
+    private final StackPane root;
 
-    public StartView(AssetManager assets){
+    public StartView(AssetManager assets) {
         this.assets = assets;
+        root = new StackPane();
 
         buildUI();
     }
 
-    public Parent getRoot() { return root; }
+    public Scene createStartScene () {
+        return new Scene(root, UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
+    }
 
     private void buildUI() {
-        root = new StackPane();
-
         StackPane startScreen = buildStartScreen();
         root.getChildren().add(startScreen);
     }

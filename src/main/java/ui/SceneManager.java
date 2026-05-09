@@ -1,7 +1,6 @@
 package ui;
 
 import datasource.*;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -17,16 +16,14 @@ public class SceneManager {
 
     public void showStartView() {
         assets.loadGlobalFiles();
+
         StartController controller = new StartController(assets);
-        setScene(controller.getStartView().getRoot());
+
+        Scene startScene = controller.getStartScene();
+        setScene(startScene);
     }
 
-    private void setScene(Parent root) {
-        Scene scene = new Scene(root, UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
-
-        String cssUrl = assets.getStylesheet();
-        scene.getStylesheets().add(cssUrl);
-
+    private void setScene(Scene scene) {
         stage.setScene(scene);
         stage.setTitle(UIConstants.TITLE);
         stage.setResizable(false);

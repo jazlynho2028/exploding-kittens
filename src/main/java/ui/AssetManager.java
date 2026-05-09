@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class AssetManager {
 
-    public AssetManager() {}
+    public AssetManager() { }
 
     private final Map<String, Image> images = new HashMap<>();
     private final Map<String, String> svgPaths = new HashMap<>();
@@ -52,7 +52,7 @@ public class AssetManager {
         FileLoader loader = new FontLoader();
         loader.open(fileName);
         InputStream fontStream = getClass().getResourceAsStream(fileName);
-        Font.loadFont(fontStream, 12);
+        Font.loadFont(fontStream, UIConstants.LOADED_FONT_SIZE);
     }
 
     public void addImage(String key, String imageUrl) {
