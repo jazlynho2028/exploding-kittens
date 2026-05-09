@@ -8,7 +8,7 @@
     - **State of the system**: player hand contains one card; card is non-null and valid 
     - **Expected output**: player hand has two cards; hand contains the specified card
 
-- **TC3: add card to hand with five cards** ( x )
+- **TC3: add card to hand with five cards** ( checkmark )
     - **State of the system**: player hand contains five cards; card is non-null
     - **Expected output**: player hand contains six cards; hand contains specified card 
 

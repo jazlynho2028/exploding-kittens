@@ -41,4 +41,24 @@ public class PlayerTests {
         EasyMock.verify(mockFirstCard, mockSecondCard);
     }
 
+    @Test
+    public void TestAddCardToHand_WhenHandHasFiveCards() {
+        Player player = new Player("Alice");
+        for (int i = 0; i < 5; i++) {
+            Card initialCard = EasyMock.createMock(Card.class);
+            EasyMock.replay(initialCard);
+            player.addCardtoHand(initialCard);
+        }
+
+        Card sixthCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(sixthCard);
+
+        player.addCardtoHand(sixthCard);
+
+        assertEquals(6, player.getHand().size());
+        assertEquals(sixthCard, player.getHand().get(5));
+
+        EasyMock.verify(sixthCard);
+    }
+
 }
