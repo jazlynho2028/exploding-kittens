@@ -10,11 +10,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class StartView {
-    private final AssetManager assets;
+    private final AssetProvider assetProvider;
     private final StackPane root;
 
-    public StartView(AssetManager assets) {
-        this.assets = assets;
+    public StartView(AssetProvider assetProvider) {
+        this.assetProvider = assetProvider;
         root = new StackPane();
 
         buildUI();
@@ -54,7 +54,7 @@ public class StartView {
     }
 
     private ImageView buildExplosionImage() {
-        Image image = assets.getImage("placeholder");
+        Image image = assetProvider.getImage("placeholder");
         ImageView imageView = new ImageView(image);
 
         imageView.setFitWidth(UIConstants.BACKGROUND_IMAGE_WIDTH);
