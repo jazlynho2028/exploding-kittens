@@ -1,6 +1,6 @@
 ### Method under test: `onNameTag(int playerIndex)`
 - **TC1: player index is the same as current player index** ( :white-check-mark: )
-    - **Name of the test**: OnNameTag_playerStaysTheSame_NoChange
+    - **Name of the test**: onNameTag_playerStaysTheSame_noChange
     - **State of the system**: playerIndex = 0, currentPlayerIndex = 0
     - **Expected output**: no model method is called
 
