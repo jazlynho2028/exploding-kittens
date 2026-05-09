@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PlayerTests {
 
     @Test
-    public void TestAddCardToHand_WhenHandIsEmpty() {
+    public void testAddCardToHand_WhenHandIsEmpty() {
         Card mockCard = EasyMock.createMock(Card.class);
         EasyMock.replay(mockCard);
 
@@ -26,7 +26,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void TestAddCardToHand_WhenHandHasOneCard() {
+    public void testAddCardToHand_WhenHandHasOneCard() {
         Card mockFirstCard = EasyMock.createMock(Card.class);
         Card mockSecondCard = EasyMock.createMock(Card.class);
         EasyMock.replay(mockFirstCard, mockSecondCard);
@@ -42,27 +42,39 @@ public class PlayerTests {
     }
 
     @Test
-    public void TestAddCardToHand_WhenHandHasFiveCards() {
+    public void testAddCardToHand_WhenHandHasFiveCards() {
+        final int finalHandSize = 6;
+        final int finalCardIndex = 5;
         Player player = new Player("Alice");
-        for (int i = 0; i < 5; i++) {
-            Card initialCard = EasyMock.createMock(Card.class);
-            EasyMock.replay(initialCard);
-            player.addCardtoHand(initialCard);
-        }
 
-        Card sixthCard = EasyMock.createMock(Card.class);
-        EasyMock.replay(sixthCard);
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        Card card3 = EasyMock.createMock(Card.class);
+        Card card4 = EasyMock.createMock(Card.class);
+        Card card5 = EasyMock.createMock(Card.class);
 
-        player.addCardtoHand(sixthCard);
+        EasyMock.replay(card1, card2, card3, card4, card5);
 
-        assertEquals(6, player.getHand().size());
-        assertEquals(sixthCard, player.getHand().get(5));
+        player.addCardtoHand(card1);
+        player.addCardtoHand(card2);
+        player.addCardtoHand(card3);
+        player.addCardtoHand(card4);
+        player.addCardtoHand(card5);
 
-        EasyMock.verify(sixthCard);
+        Card card6 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card6);
+
+        player.addCardtoHand(card6);
+
+        assertEquals(finalHandSize, player.getHand().size());
+        assertEquals(card6, player.getHand().get(finalCardIndex));
+
+        EasyMock.verify(card1, card2, card3, card4, card5, card6);
     }
 
     @Test
-    public void TestAddCardToHand_WithDuplicateCards() {
+    public void testAddCardToHand_WithDuplicateCards() {
+        final int finalHandSize = 3;
         Card mockDuplicateCard = EasyMock.createMock(Card.class);
         Card mockNewCard = EasyMock.createMock(Card.class);
 
@@ -75,7 +87,7 @@ public class PlayerTests {
 
         player.addCardtoHand(mockNewCard);
 
-        assertEquals(3, player.getHand().size());
+        assertEquals(finalHandSize, player.getHand().size());
         assertEquals(mockDuplicateCard, player.getHand().get(0));
         assertEquals(mockDuplicateCard, player.getHand().get(1));
         assertEquals(mockNewCard, player.getHand().get(2));
@@ -84,7 +96,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void TestRemoveCardFromHand_NonExistingCardFromEmptyHand() {
+    public void testRemoveCardFromHand_NonExistingCardFromEmptyHand() {
         Player player = new Player("Alice");
         Card mockCard = EasyMock.createMock(Card.class);
         EasyMock.replay(mockCard);
@@ -97,7 +109,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void TestRemoveCardFromHand_NonExistingCardFromHandWithOneCard() {
+    public void testRemoveCardFromHand_NonExistingCardFromHandWithOneCard() {
         Card mockExistingCard = EasyMock.createMock(Card.class);
         Card mockNonexistingCard = EasyMock.createMock(Card.class);
         EasyMock.replay(mockExistingCard, mockNonexistingCard);
@@ -113,7 +125,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void TestRemoveCardFromHand_ExistingCardFromHandWithOneCard() {
+    public void testRemoveCardFromHand_ExistingCardFromHandWithOneCard() {
         Card mockExistingCard = EasyMock.createMock(Card.class);
         EasyMock.replay(mockExistingCard);
 

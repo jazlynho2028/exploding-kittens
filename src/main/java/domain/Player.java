@@ -18,7 +18,7 @@ public class Player {
     }
 
     public List<Card> getHand() {
-        return hand;
+        return new ArrayList<>(hand);
     }
 
     public int getHandSize() {
