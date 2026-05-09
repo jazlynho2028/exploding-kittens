@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 
 public class ExplodingKittensApp extends Application {
 
-    private AssetManager assets = new AssetManager();
+    private final AssetManager assets = new AssetManager();
 
     @Override
     public void start(Stage stage) {
