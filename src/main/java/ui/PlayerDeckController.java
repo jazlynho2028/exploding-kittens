@@ -86,7 +86,7 @@ public class PlayerDeckController {
         System.out.println("NAME TAG CLICKED");
     }
 
-    private void handleChangeCurrentPlayer(int playerIndex) {
+    void handleChangeCurrentPlayer(int playerIndex) {
         ((GameState) model).changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
 
         view.renderPlayerNameTags(
