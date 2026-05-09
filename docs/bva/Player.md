@@ -4,7 +4,7 @@
     - **State of the system**: player hand is empty; card is non-null and valid 
     - **Expected output**: player hand has one card; hand contains the specified card
 
-- **TC2: add card to hand with one card** ( x )
+- **TC2: add card to hand with one card** ( checkmark )
     - **State of the system**: player hand contains one card; card is non-null and valid 
     - **Expected output**: player hand has two cards; hand contains the specified card
 

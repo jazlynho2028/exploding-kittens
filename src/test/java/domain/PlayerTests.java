@@ -24,4 +24,21 @@ public class PlayerTests {
 
         EasyMock.verify(mockCard);
     }
+
+    @Test
+    public void TestAddCardToHand_WhenHandHasOneCard() {
+        Card mockFirstCard = EasyMock.createMock(Card.class);
+        Card mockSecondCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(mockFirstCard, mockSecondCard);
+
+        Player player = new Player("Alice");
+        player.addCardtoHand(mockFirstCard);
+        player.addCardtoHand(mockSecondCard);
+
+        assertEquals(2, player.getHandSize());
+        assertEquals(mockSecondCard, player.getHand().get(1));
+
+        EasyMock.verify(mockFirstCard, mockSecondCard);
+    }
+
 }
