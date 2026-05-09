@@ -10,10 +10,10 @@
     - **Expected output**: called handleChangeCurrentPlayer(playerIndex)
 
 ### Method under test: `handleChangeCurrentPlayer(int playerIndex)`
-- **TC3: current player changes successfully** ( :x: )
-    - **Name of the test**:
+- **TC3: current player changes successfully** ( :white-check-mark: )
+    - **Name of the test**: handleChangeCurrentPlayer_playerChanges_success
     - **State of the system**: playerIndex = 0
-    - **Expected output**: called model.changeCurrentPlayerIndexAndSetFaceUpToFalse(playerIndex)
+    - **Expected output**: called model.changeCurrentPlayerIndexAndSetFaceUpToFalse(playerIndex), called buildAddBindPlayerHandCards()
 
 - **TC4: model throws InvalidStateException** ( :x: )
   - **Name of the test**:
@@ -24,7 +24,7 @@
 - **TC5: card is drawn from pile successfully** ( :x: )
     - **Name of the test**:
     - **State of the system**: N/A
-    - **Expected output**: called model.drawFromPile()
+    - **Expected output**: called model.drawFromPile(), called buildAddBindPlayerHandCards()
 
 - **TC6: model throws InvalidStateException** ( :x: )
   - **Name of the test**:
@@ -35,7 +35,7 @@
 - **TC7: this method is called** ( :x: )
     - **Name of the test**:
     - **State of the system**: N/A
-    - **Expected output**: called model.setIsFaceUpToOpposite()
+    - **Expected output**: called model.setIsFaceUpToOpposite(), called buildAddBindPlayerHandCards()
 
 ### Method under test: `onPlayerHandCardButton(int handCardIndex)`
 - **TC8: cards are face down** ( :x: )

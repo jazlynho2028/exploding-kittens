@@ -22,4 +22,51 @@ public class PlayerDecksControllerTests {
 		EasyMock.verify(model);
 	}
 
+	@Test
+	public void onNameTag_playerChanges_success() {
+		Game model = EasyMock.createMock(Game.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("handleChangeCurrentPlayer")
+				.createMock();
+		int playerIndex = 0;
+
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(1);
+		controller.handleChangeCurrentPlayer(playerIndex);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, controller);
+
+		controller.onNameTag(playerIndex);
+
+		EasyMock.verify(model, controller);
+	}
+
+	@Test
+	public void handleChangeCurrentPlayer_playerChanges_success() {
+		Game model = EasyMock.createNiceMock(Game.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("buildAddBindPlayerHandCards")
+				.createMock();
+		int playerIndex = 0;
+
+		model.changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
+		EasyMock.expectLastCall();
+		controller.buildAddBindPlayerHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, controller);
+
+		controller.handleChangeCurrentPlayer(playerIndex);
+
+		EasyMock.verify(model, controller);
+	}
+
 }

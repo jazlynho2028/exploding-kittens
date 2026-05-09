@@ -17,6 +17,16 @@ public class PlayerDeckController {
         this.model = model;
 
         this.view = new PlayerDeckView(assets);
+        buildAndBindUI();
+    }
+
+    // Fake constructor for tests to exclude UI view implementation
+    PlayerDeckController(Game model, PlayerDeckView view) {
+        this.model = model;
+        this.view = view;
+    }
+
+    private void buildAndBindUI() {
         view.buildAndAddPlayerHandCards(
                 this.model.getCurrentPlayerHand(),
                 this.model.getIsFaceUp(),
@@ -29,12 +39,6 @@ public class PlayerDeckController {
         );
 
         bindUI();
-    }
-
-    // Fake constructor for tests to exclude UI view implementation
-    PlayerDeckController(Game model, PlayerDeckView view) {
-        this.model = model;
-        this.view = view;
     }
 
     private void bindUI() {
@@ -102,7 +106,7 @@ public class PlayerDeckController {
         buildAddBindPlayerHandCards();
     }
 
-    private void buildAddBindPlayerHandCards() {
+    void buildAddBindPlayerHandCards() {
         view.buildAndAddPlayerHandCards(
                 model.getCurrentPlayerHand(),
                 model.getIsFaceUp(),
