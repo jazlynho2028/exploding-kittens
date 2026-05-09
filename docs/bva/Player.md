@@ -29,7 +29,7 @@
     - **State of the system**: player hand has one card; card to remove does exist in hand
     - **Expected output**: player hand does not have card anymore 
 
-- **TC9: remove non-existing card from hand with more than one card** ( x )
+- **TC9: remove non-existing card from hand with more than one card** ( checkmark )
   - **State of the system**: player hand has more than one card; card to remove does not exist in hand
   - **Expected output**: IllegalArgumentException
 
