@@ -113,8 +113,8 @@ tasks.jacocoTestReport {
 }
 
 pitest {
-    targetClasses = setOf("Code.*") //by default "${project.group}.*"
-    targetTests = setOf("Code.*")
+    targetClasses.set(listOf("domain.*", "datasource.*"))
+    targetTests.set(listOf("domain.*", "datasource.*"))
     junit5PluginVersion = "1.2.1"
     pitestVersion = "1.15.0" //not needed when a default PIT version should be used
 
