@@ -79,7 +79,7 @@ public class PlayerDeckController {
         );
     }
 
-    private void onNameTag(int playerIndex) {
+    void onNameTag(int playerIndex) {
         if (model.getCurrentPlayerIndex() != playerIndex) {
             handleChangeCurrentPlayer(playerIndex);
         }
