@@ -96,4 +96,20 @@ public class PlayerTests {
 
         EasyMock.verify(mockCard);
     }
+
+    @Test
+    public void TestRemoveCardFromHand_NonExistingCardFromHandWithOneCard() {
+        Card mockExistingCard = EasyMock.createMock(Card.class);
+        Card mockNonexistingCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(mockExistingCard, mockNonexistingCard);
+
+        Player player = new Player("Alice");
+        player.addCardtoHand(mockExistingCard);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            player.removeCardFromHand(mockNonexistingCard);
+        });
+
+        EasyMock.verify(mockExistingCard, mockNonexistingCard);
+    }
 }

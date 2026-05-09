@@ -21,7 +21,7 @@
     - **State of the system**: player hand is empty; card to remove holds any value 
     - **Expected output**: IllegalArgumentException
 
-- **TC6: remove non-existing card from hand with one card** ( x )
+- **TC6: remove non-existing card from hand with one card** ( checkmark )
     - **State of the system**: player hand has one card; card to remove does not exist in hand 
     - **Expected output**: IllegalArgumentException
 
