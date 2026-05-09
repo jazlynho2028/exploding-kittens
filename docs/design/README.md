@@ -18,12 +18,12 @@
 
 **View Classes**
 - StartView.java
-- PlayerSetUpView.java
+- PlayerCreateView.java
 - PlayerDecksView.java
 
 **Controller Classes**
 - StartController.java
-- PlayerSetUpController.java
+- PlayerCreateController.java
 - PlayerDecksController.java
 
 **Model Classes**

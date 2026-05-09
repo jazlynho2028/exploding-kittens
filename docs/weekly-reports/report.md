@@ -10,10 +10,29 @@
 3. [done] All: Understand Exploding Kittens rules 
 4. [done] All: Game setup phase: determine User Story, acceptance criteria, and use cases
 5. [done] All: Produce Game Setup Phase requirements + design
-6. [40% done] All: Split the tasks and begin Game Setup implementation by following TDD
+6. [done] All: Split the tasks
 
-# Week X (XX/XX/2026-XX/XX/2026) TEMPLATE (You can change the format to whatever the team likes better)
+# Week 5 (04/27/2026-05/03/2026)
 **Planning and Progress Tracking**:
-1. [done] Person: Task (Links to PR)
-2. [not started] Person: Task (Links to PR)
-3. [80% done] Person: Task (Links to PR)
+1. [done] Luke: StartView.java
+2. [done] Luke: StartController.java
+3. [80% Done] Luke: PlayerSetUpView.java
+4. [80% Done] Luke: PlayerSetUpController.java
+5. [done] Jazlyn: PlayerDecksView.java
+6. [done] Jazlyn: PlayerDecksController.java
+7. [done] Jazlyn: FileLoader.java interface
+8. [done] Jazlyn: FontLoader.java
+9. [done] Jazlyn: ImageLoader.java
+10. [done] Jazlyn: StyleSheetLoader.java
+11. [done] Jazlyn: PathLoader.java interface
+12. [done] Jazlyn: IconLoader.java
+13. [done] Jazlyn: SceneManager.java
+14. [done] Jazlyn: AssetManager.java
+15. [done] Jazlyn: UIConstants.java
+16. [not started] Ejean: DeckBuilder.java
+17. [30% Done] DJ: Game.java
+18. [30% Done] DJ: TurnManager.java
+19. [30% Done] DJ: Player.java
+20. [not started] Irene: Card.java
+21. [30% Done] Irene: Deck.java
+22. [not started] Irene: CardTypes.java
