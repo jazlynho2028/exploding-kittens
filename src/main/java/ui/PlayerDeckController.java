@@ -80,7 +80,7 @@ public class PlayerDeckController {
     }
 
     private void onNameTag(int playerIndex) {
-        if (((GameState) model).getCurrentPlayerIndex() != playerIndex) {
+        if (model.getCurrentPlayerIndex() != playerIndex) {
             handleChangeCurrentPlayer(playerIndex);
         }
         System.out.println("NAME TAG CLICKED");
