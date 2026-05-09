@@ -31,6 +31,12 @@ public class PlayerDeckController {
         bindUI();
     }
 
+    // Fake constructor for tests to exclude UI view implementation
+    PlayerDeckController(Game model, PlayerDeckView view) {
+        this.model = model;
+        this.view = view;
+    }
+
     private void bindUI() {
         bindNameTags(this::onNameTag);
         bindDrawPile(this::onDrawPile);
