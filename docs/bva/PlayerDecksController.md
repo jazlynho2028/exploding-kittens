@@ -39,45 +39,28 @@
 
 ### Method under test: `onPlayerHandCardButton(int handCardIndex)`
 - **TC8: cards are face down** ( :white-check-mark: )
-    - **Name of the test**: onPlayerHandCardButton_cardsFaceDown_callsFaceDownMethod
+    - **Name of the test**: onPlayerHandCardButton_cardsFaceDown_callsOnHandVisibility
     - **State of the system**: handCardIndex = 0, isFaceUp = false
-    - **Expected output**: called onFaceDownPlayerHandCardButton()
+    - **Expected output**: called onHandVisibilityButton()
 
 - **TC9: cards are face up** ( :white-check-mark: )
     - **Name of the test**: onPlayerHandCardButton_cardsFaceUp_callsFaceUpMethod
     - **State of the system**: andCardIndex = 0, isFaceUp = true
-    - **Expected output**: called onFaceUpPlayerHandCardButton(handCardIndex)
-
-### Method under test: `onFaceDownPlayerHandCardButton()`
-- **TC10: this method is called** ( :white-check-mark: )
-    - **Name of the test**: onFaceDownPlayerHandCardButton_called_calledOnHandVisibility
-    - **State of the system**: N/A
-    - **Expected output**: called onHandVisibilityButton()
-
-### Method under test: `onFaceUpPlayerHandCardButton(int handCardIndex)`
-- **TC11: player selects card successfully** ( :x: )
-  - **Name of the test**:
-  - **State of the system**: handCardIndex = 0
-  - **Expected output**: called model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite(handCardIndex)
-
-- **TC12: model throws InvalidStateException** ( :x: )
-    - **Name of the test**:
-    - **State of the system**: handCardIndex = 0
-    - **Expected output**: caught exception from model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite(handCardIndex), called onError.accept("Failed to select/deselect card.")
+    - **Expected output**: called model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite(handCardIndex)
 
 ### Method under test: `onStartGameButton()`
-- **TC13: game starts successfully** ( :x: )
+- **TC10: game starts successfully** ( :x: )
   - **Name of the test**:
   - **State of the system**: startingPlayerIndex = 0
   - **Expected output**: called model.startGame(), handleChangeCurrentPlayer(startingPlayerIndex)
 
-- **TC14: model throws InvalidStateException** ( :x: )
+- **TC11: model throws InvalidStateException** ( :x: )
     - **Name of the test**:
     - **State of the system**: N/A
     - **Expected output**: caught exception from model.startGame(), called onError.accept("Failed to start game.")
 
 ### Method under test: `handleError()`
-- **TC15: this method is called** ( :x: )
+- **TC12: this method is called** ( :x: )
     - **Name of the test**:
     - **State of the system**: N/A
     - **Expected output**: called screenSwitcher.showErrorView()
