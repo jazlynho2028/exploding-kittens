@@ -38,14 +38,14 @@
     - **Expected output**: called model.setIsFaceUpToOpposite(), called buildAddBindPlayerHandCards()
 
 ### Method under test: `onPlayerHandCardButton(int handCardIndex)`
-- **TC8: cards are face down** ( :x: )
-    - **Name of the test**:
-    - **State of the system**: isFaceUp = false
+- **TC8: cards are face down** ( :white-check-mark: )
+    - **Name of the test**: onPlayerHandCardButton_cardsFaceDown_callsFaceDownMethod
+    - **State of the system**: handCardIndex = 0, isFaceUp = false
     - **Expected output**: called onFaceDownPlayerHandCardButton()
 
 - **TC9: cards are face up** ( :x: )
     - **Name of the test**:
-    - **State of the system**: isFaceUp = true
+    - **State of the system**: andCardIndex = 0, isFaceUp = true
     - **Expected output**: called onFaceUpPlayerHandCardButton(handCardIndex)
 
 ### Method under test: `onFaceDownPlayerHandCardButton()`

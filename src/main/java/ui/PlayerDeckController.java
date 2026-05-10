@@ -158,7 +158,7 @@ public class PlayerDeckController {
         System.out.println("HAND VISIBILITY TOGGLE CLICKED");
     }
 
-    private void onPlayerHandCardButton(int handCardIndex) {
+    void onPlayerHandCardButton(int handCardIndex) {
         if (!model.getIsFaceUp()) {
             onFaceDownPlayerHandCardButton();
         }
@@ -171,7 +171,7 @@ public class PlayerDeckController {
         }
     }
 
-    private void onFaceDownPlayerHandCardButton() {
+    void onFaceDownPlayerHandCardButton() {
         onHandVisibilityButton();
 
         System.out.println("FACE DOWN HAND CARD BUTTON CLICKED");
