@@ -50,4 +50,4 @@
 9. [50% Done] DJ: Player.java
 10. [not started] Irene: Card.java
 11. [50% Done] Irene: Deck.java
-12. [not started] Irene: CardTypes.java
+12. [Done] Irene: CardTypes.java
