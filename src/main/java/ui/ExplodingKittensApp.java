@@ -20,8 +20,6 @@ public class ExplodingKittensApp extends Application {
     private void showStartScreen(Stage stage) {
         StartController controller = new StartController(assets);
 
-        controller.setOnError(message -> showErrorScreen(message, stage));
-
         Scene startScene = controller.getStartScene();
         setScene(startScene, stage);
     }

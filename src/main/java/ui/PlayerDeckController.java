@@ -17,7 +17,7 @@ public class PlayerDeckController {
     public PlayerDeckController(Game model, AssetProvider assets) {
         this.model = model;
         this.view = new PlayerDeckView(assets);
-        this.onError = message -> {};
+        this.onError = message -> { };
 
         buildAndBindUI();
     }
