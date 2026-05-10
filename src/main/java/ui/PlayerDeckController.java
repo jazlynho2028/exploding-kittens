@@ -177,7 +177,7 @@ public class PlayerDeckController {
         System.out.println("FACE DOWN HAND CARD BUTTON CLICKED");
     }
 
-    private void onFaceUpPlayerHandCardButton(int cardIndex) {
+    void onFaceUpPlayerHandCardButton(int cardIndex) {
         ((Game) model).setIsSelectedOfPlayerCardAtIndexToOpposite(cardIndex);
     }
 
