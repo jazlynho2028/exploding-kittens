@@ -40,7 +40,9 @@ public class PlayerCreateController {
     }
 
     private void bindUI() {
-
+        view.addPlayerButton.setOnMouseClicked(e -> onAddPlayer());
+        view.confirmButton.setOnMouseClicked(e -> onConfirmNames());
+        view.backButton.setOnMouseClicked(e -> onBack.run());
     }
 
     private void onAddPlayer() {
