@@ -111,6 +111,8 @@ public class PlayerDeckController {
             );
             view.renderHandVisibilityButton(model.getIsFaceUp());
             buildAddBindPlayerHandCards();
+
+            System.out.println("CURRENT PLAYER CHANGED");
         }
         catch (Exception e) {
             onError.accept("Failed to change current player.");
@@ -127,19 +129,24 @@ public class PlayerDeckController {
     }
 
     void onDrawPile() {
-        ((Game) model).drawFromPile();
+        try {
+            ((Game) model).drawFromPile();
 
-        view.renderDrawPile(
-                model.canDraw(),
-                model.isDrawPileEmpty()
-        );
-        buildAddBindPlayerHandCards();
-        view.renderTurnControlSection(
-                model.canPlaySelected(),
-                model.canEndTurn()
-        );
+            view.renderDrawPile(
+                    model.canDraw(),
+                    model.isDrawPileEmpty()
+            );
+            buildAddBindPlayerHandCards();
+            view.renderTurnControlSection(
+                    model.canPlaySelected(),
+                    model.canEndTurn()
+            );
 
-        System.out.println("CARD DRAWN FROM PILE");
+            System.out.println("CARD DRAWN FROM PILE");
+        }
+        catch (Exception e) {
+            onError.accept("Failed to draw from pile.");
+        }
     }
 
     private void onHandVisibilityButton() {

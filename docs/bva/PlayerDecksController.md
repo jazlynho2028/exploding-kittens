@@ -22,14 +22,14 @@
 
 ### Method under test: `onDrawPile()`
 - **TC5: card is drawn from pile successfully** ( :white-check-mark: )
-    - **Name of the test**:
+    - **Name of the test**: onDrawPile_drawsCard_success
     - **State of the system**: N/A
     - **Expected output**: called model.drawFromPile(), called buildAddBindPlayerHandCards()
 
-- **TC6: model throws InvalidStateException** ( :x: )
-  - **Name of the test**:
+- **TC6: model throws InvalidStateException** ( :white-check-mark: )
+  - **Name of the test**: onDrawPile_drawsCard_fail()
   - **State of the system**: N/A
-  - **Expected output**: caught exception from model.drawFromPile()
+  - **Expected output**: caught exception from model.drawFromPile(), , called onError.accept("Failed to draw from pile.")
 
 ### Method under test: `onHandVisibilityButton()`
 - **TC7: this method is called** ( :x: )

@@ -117,4 +117,26 @@ public class PlayerDecksControllerTests {
 		EasyMock.verify(model, controller);
 	}
 
+	@Test
+	public void onDrawPile_drawsCard_fail() {
+		Game model = EasyMock.createNiceMock(Game.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		Consumer<String> onError = EasyMock.createMock(Consumer.class);
+		String expectedMsg = "Failed to draw from pile.";
+
+		model.drawFromPile();
+		EasyMock.expectLastCall().andThrow(new IllegalStateException());
+		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, onError);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.setOnError(onError);
+
+		controller.onDrawPile();
+
+		EasyMock.verify(model, onError);
+	}
+
 }
