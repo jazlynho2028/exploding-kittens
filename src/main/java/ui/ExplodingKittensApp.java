@@ -17,6 +17,15 @@ public class ExplodingKittensApp extends Application {
         showPlayerDeckScreen(model, stage);
     }
 
+    private void showStartScreen(Stage stage) {
+        StartController controller = new StartController(assets);
+
+        controller.setOnError(message -> showErrorScreen(message, stage));
+
+        Scene startScene = controller.getStartScene();
+        setScene(startScene, stage);
+    }
+
     private void showPlayerDeckScreen(Game model, Stage stage) {
         PlayerDeckController controller = new PlayerDeckController(model, assets);
 

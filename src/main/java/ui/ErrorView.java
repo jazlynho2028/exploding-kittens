@@ -45,11 +45,13 @@ public class ErrorView {
 
 		Text errorTitleText = buildText(
 				UIConstants.ERROR_MESSAGE_TITLE,
-				"h1"
+				"h1",
+				"title"
 		);
 		Text errorCaptionText = buildText(
 				message,
-				"h2"
+				"h2",
+				"subtitle"
 		);
 
 		errorTextContainer.getChildren().addAll(errorTitleText, errorCaptionText);
@@ -57,9 +59,9 @@ public class ErrorView {
 		return errorTextContainer;
 	}
 
-	private Text buildText(String message, String styleClass) {
+	private Text buildText(String message, String... styleClasses) {
 		Text text = new Text(message);
-		text.getStyleClass().add(styleClass);
+		text.getStyleClass().addAll(styleClasses);
 
 		return text;
 	}

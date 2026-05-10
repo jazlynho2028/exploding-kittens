@@ -65,7 +65,7 @@ public class StartView {
 
     private Text buildTitleText() {
         Text titleText = new Text(UIConstants.TITLE);
-        titleText.getStyleClass().addAll("h1", "title");
+        titleText.getStyleClass().addAll("title", "h1");
 
         return titleText;
     }

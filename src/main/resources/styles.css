@@ -41,14 +41,12 @@
     -fx-font-family: "Koulen";
     -fx-font-weight: normal;
     -fx-font-size: 96px;
-    -fx-fill: linear-gradient(to bottom, yellow-3, orange-3, red-3);
 }
 
 .h2 {
     -fx-font-family: "Koulen";
     -fx-font-weight: normal;
     -fx-font-size: 38px;
-    -fx-fill: linear-gradient(to bottom, yellow-1, yellow-4);
 }
 
 .h3 {
@@ -92,6 +90,26 @@
     -fx-font-weight: normal;
     -fx-font-size: 16px;
     -fx-fill: yellow-0-tr-2;
+}
+
+.title {
+    -fx-fill: linear-gradient(to bottom, yellow-3, orange-3, red-3);
+}
+
+.start-content-section {
+    -fx-padding: 36px 16px 64px 16px;
+    -fx-spacing: 480px;
+}
+
+.play-button {
+    -fx-background-color: linear-gradient(to bottom, magenta-3, magenta-5);
+    -fx-background-radius: 16;
+    -fx-text-fill: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-border-color: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-border-width: 4;
+    -fx-border-radius: 16;
+    -fx-pref-width: 316px;
+    -fx-padding: -2 0 -2 0;
 }
 
 .content-section {
