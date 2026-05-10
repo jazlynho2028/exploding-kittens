@@ -208,4 +208,25 @@ public class PlayerDecksControllerTests {
 		EasyMock.verify(model, controller);
 	}
 
+	@Test
+	public void onFaceDownPlayerHandCardButton_called_calledOnHandVisibility() {
+		Game model = EasyMock.createMock(Game.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("onHandVisibilityButton")
+				.createMock();
+
+		controller.onHandVisibilityButton();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(controller);
+
+		controller.onFaceDownPlayerHandCardButton();
+
+		EasyMock.verify(controller);
+	}
+
 }

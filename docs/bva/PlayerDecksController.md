@@ -49,8 +49,8 @@
     - **Expected output**: called onFaceUpPlayerHandCardButton(handCardIndex)
 
 ### Method under test: `onFaceDownPlayerHandCardButton()`
-- **TC10: this method is called** ( :x: )
-    - **Name of the test**:
+- **TC10: this method is called** ( :white-check-mark: )
+    - **Name of the test**: onFaceDownPlayerHandCardButton_called_calledOnHandVisibility
     - **State of the system**: N/A
     - **Expected output**: called onHandVisibilityButton()
 
