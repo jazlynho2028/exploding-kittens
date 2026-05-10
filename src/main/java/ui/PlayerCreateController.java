@@ -34,7 +34,9 @@ public class PlayerCreateController {
     }
 
     private void buildAndBindUI() {
-
+        view.addPlayerFieldEntry();
+        view.addPlayerFieldEntry();
+        bindUI();
     }
 
     private void bindUI() {
