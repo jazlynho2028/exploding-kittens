@@ -14,17 +14,24 @@ public class AssetManager implements AssetProvider {
 
     private final Map<String, Image> images = new HashMap<>();
     private final Map<String, String> svgPaths = new HashMap<>();
+    private final Map<String, CardMetadata> cardMetaData = new HashMap<>();
 
     private String cssUrl;
 
     public void loadGlobalFiles() {
         loadCSS();
         loadImages();
-        loadIcon("restart", "/icons/restart.txt");
-        loadIcon("left-bracket", "/icons/left-bracket.txt");
+        loadIcon("restart",
+                "/icons/restart.txt"
+        );
+        loadIcon("left-bracket",
+                "/icons/left-bracket.txt"
+        );
 
         loadFont("/fonts/koulen-regular.ttf");
         loadFont("/fonts/national-park.ttf");
+
+        loadCardMetadata();
     }
 
     private void loadCSS() {
@@ -55,6 +62,12 @@ public class AssetManager implements AssetProvider {
         Font.loadFont(fontStream, UIConstants.LOADED_FONT_SIZE);
     }
 
+    private void loadCardMetadata() {
+        CardMetadataLoader loader = new CardMetadataLoader();
+        loader.open("/card-metadata.json");
+        cardMetaData.putAll(loader.getMetadata());
+    }
+
     public void addImage(String key, String imageUrl) {
         Image image = new Image(imageUrl);
         images.put(key, image);
@@ -78,6 +91,10 @@ public class AssetManager implements AssetProvider {
 
     public String getStylesheet() {
         return cssUrl;
+    }
+
+    public CardMetadata getCardMetaData(String key) {
+        return cardMetaData.get(key);
     }
 
 }
