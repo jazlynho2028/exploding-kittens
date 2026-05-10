@@ -21,7 +21,7 @@
   - **Expected output**: caught exception from model.changeCurrentPlayerIndexAndSetFaceUpToFalse(playerIndex), called onError.accept("Failed to change current player.")
 
 ### Method under test: `onDrawPile()`
-- **TC5: card is drawn from pile successfully** ( :x: )
+- **TC5: card is drawn from pile successfully** ( :white-check-mark: )
     - **Name of the test**:
     - **State of the system**: N/A
     - **Expected output**: called model.drawFromPile(), called buildAddBindPlayerHandCards()

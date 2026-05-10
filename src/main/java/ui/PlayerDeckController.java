@@ -126,7 +126,7 @@ public class PlayerDeckController {
         bindPlayerHandCardButtons(this::onPlayerHandCardButton);
     }
 
-    private void onDrawPile() {
+    void onDrawPile() {
         ((Game) model).drawFromPile();
 
         view.renderDrawPile(

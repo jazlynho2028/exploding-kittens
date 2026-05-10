@@ -94,4 +94,27 @@ public class PlayerDecksControllerTests {
 		EasyMock.verify(model, onError);
 	}
 
+	@Test
+	public void onDrawPile_drawsCard_success() {
+		Game model = EasyMock.createNiceMock(Game.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("buildAddBindPlayerHandCards")
+				.createMock();
+
+		model.drawFromPile();
+		EasyMock.expectLastCall();
+		controller.buildAddBindPlayerHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, controller);
+
+		controller.onDrawPile();
+
+		EasyMock.verify(model, controller);
+	}
+
 }
