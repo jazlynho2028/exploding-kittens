@@ -63,7 +63,18 @@ public class PlayerCreateView {
     }
 
     private VBox buildContentSection() {
+        VBox content = new VBox();
+        content.setAlignment(Pos.CENTER);
+        content.setSpacing(20);
+        content.getStyleClass().add("content-section");
 
+        setupPlayerFieldsContainer();
+        Button addButton = buildAddPlayerButton();
+        Button startButton = buildConfirmButton();
+
+        content.getChildren().addAll(buildTitleText(),  playerFieldsContainer,  addButton,  startButton);
+
+        return content;
     }
 
     private Text buildTitleText() {
