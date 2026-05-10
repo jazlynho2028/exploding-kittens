@@ -176,7 +176,7 @@ public class PlayerDeckController {
         }
     }
 
-    private void onStartGameButton() {
+    void onStartGameButton() {
         ((Game) model).startGame();
 
         handleChangeCurrentPlayer(model.getStartingPlayerIndex());

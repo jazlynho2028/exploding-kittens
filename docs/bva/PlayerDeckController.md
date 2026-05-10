@@ -49,8 +49,8 @@
     - **Expected output**: called model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite(handCardIndex)
 
 ### Method under test: `onStartGameButton()`
-- **TC10: game starts successfully** ( :x: )
-  - **Name of the test**:
+- **TC10: game starts successfully** ( :white-check-mark: )
+  - **Name of the test**: onStartGameButton_called_success
   - **State of the system**: startingPlayerIndex = 0
   - **Expected output**: called model.startGame(), handleChangeCurrentPlayer(startingPlayerIndex)
 

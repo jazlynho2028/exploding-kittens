@@ -204,4 +204,29 @@ public class PlayerDecksControllerTests {
 		EasyMock.verify(model);
 	}
 
+	@Test
+	public void onStartGameButton_called_success() {
+		Game model = EasyMock.createNiceMock(Game.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("handleChangeCurrentPlayer")
+				.createMock();
+		int startingPlayerIndex = 0;
+
+		EasyMock.expect(model.getStartingPlayerIndex()).andReturn(startingPlayerIndex);
+		model.startGame();
+		EasyMock.expectLastCall();
+		controller.handleChangeCurrentPlayer(startingPlayerIndex);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, controller);
+
+		controller.onStartGameButton();
+
+		EasyMock.verify(model, controller);
+	}
+
 }
