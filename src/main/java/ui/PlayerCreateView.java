@@ -25,7 +25,7 @@ public class PlayerCreateView {
     public final Button backButton;
 
     private final List<TextField> playerFields = new ArrayList<>();
-    private static final int MAX_PLAYERS = 5;
+    private static final int MAX_PLAYERS = 4;
 
     public PlayerCreateView(AssetProvider assets) {
         this.assets = assets;
