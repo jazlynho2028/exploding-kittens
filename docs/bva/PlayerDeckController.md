@@ -58,9 +58,3 @@
     - **Name of the test**: onStartGameButton_called_fail
     - **State of the system**: N/A
     - **Expected output**: caught exception from model.startGame(), called onError.accept("Failed to start game.")
-
-### Method under test: `handleError()`
-- **TC12: this method is called** ( :x: )
-    - **Name of the test**:
-    - **State of the system**: N/A
-    - **Expected output**: called screenSwitcher.showErrorView()
