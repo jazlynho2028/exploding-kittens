@@ -113,7 +113,21 @@ public class PlayerCreateView {
     }
 
     private StackPane buildOverlayLayer() {
+        StackPane overlayLayer = new StackPane();
+        overlayLayer.setPickOnBounds(false);
 
+        SVGPath backIcon = new SVGPath();
+        backIcon.setContent(assets.getSvg("restart"));
+        backIcon.getStyleClass().add("restart-icon");
+
+        backButton.getStyleClass().add("icon-button");
+        backButton.setGraphic(backIcon);
+
+        overlayLayer.getChildren().add(backButton);
+        StackPane.setAlignment(backButton, Pos.TOP_LEFT);
+        StackPane.setMargin(backButton, new Insets(15));
+
+        return overlayLayer;
     }
 
     public void addPlayerFieldEntry() {
