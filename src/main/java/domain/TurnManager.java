@@ -1,16 +1,20 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class TurnManager {
-    private int startingPlayerIndex;
-    private int currentPlayerIndex;
+public final class TurnManager {
+//    private int startingPlayerIndex;
+//    private int currentPlayerIndex;
     private List<Player> players;
-    private int roundCounter;
-    private int currentDrawCount;
+//    private int roundCounter;
+//    private int currentDrawCount;
 
     public TurnManager(List<Player> players) {
-        this.players = players;
+        if (players == null) {
+            throw new IllegalArgumentException("Player list cannot be null.");
+        }
+        this.players = new ArrayList<>(players);
     }
 
     public int getCurrentPlayerIndex() {
