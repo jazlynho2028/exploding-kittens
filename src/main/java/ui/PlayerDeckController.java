@@ -177,21 +177,26 @@ public class PlayerDeckController {
     }
 
     void onStartGameButton() {
-        ((Game) model).startGame();
+        try {
+            ((Game) model).startGame();
 
-        handleChangeCurrentPlayer(model.getStartingPlayerIndex());
+            handleChangeCurrentPlayer(model.getStartingPlayerIndex());
 
-        view.renderDrawPile(
-                model.canDraw(),
-                model.isDrawPileEmpty()
-        );
-        view.buildAndRenderTurnControlSection(
-                model.isGameOngoing(),
-                model.canPlaySelected(),
-                model.canEndTurn()
-        );
+            view.renderDrawPile(
+                    model.canDraw(),
+                    model.isDrawPileEmpty()
+            );
+            view.buildAndRenderTurnControlSection(
+                    model.isGameOngoing(),
+                    model.canPlaySelected(),
+                    model.canEndTurn()
+            );
 
-        System.out.println("START GAME BUTTON CLICKED");
+            System.out.println("START GAME BUTTON CLICKED");
+        }
+        catch (Exception e) {
+            onError.accept("Failed to start game.");
+        }
     }
 
     public Scene getPlayerDeckScene() {

@@ -54,8 +54,8 @@
   - **State of the system**: startingPlayerIndex = 0
   - **Expected output**: called model.startGame(), handleChangeCurrentPlayer(startingPlayerIndex)
 
-- **TC11: model throws InvalidStateException** ( :x: )
-    - **Name of the test**:
+- **TC11: model throws InvalidStateException** ( :white-check-mark: )
+    - **Name of the test**: onStartGameButton_called_fail
     - **State of the system**: N/A
     - **Expected output**: caught exception from model.startGame(), called onError.accept("Failed to start game.")
 

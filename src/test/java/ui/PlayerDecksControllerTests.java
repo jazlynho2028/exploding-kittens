@@ -216,9 +216,10 @@ public class PlayerDecksControllerTests {
 				.createMock();
 		int startingPlayerIndex = 0;
 
-		EasyMock.expect(model.getStartingPlayerIndex()).andReturn(startingPlayerIndex);
 		model.startGame();
 		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.getStartingPlayerIndex()).andReturn(startingPlayerIndex);
 		controller.handleChangeCurrentPlayer(startingPlayerIndex);
 		EasyMock.expectLastCall();
 
@@ -227,6 +228,28 @@ public class PlayerDecksControllerTests {
 		controller.onStartGameButton();
 
 		EasyMock.verify(model, controller);
+	}
+
+	@Test
+	public void onStartGameButton_called_fail() {
+		Game model = EasyMock.createMock(Game.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		Consumer<String> onError = EasyMock.createMock(Consumer.class);
+		String expectedMsg = "Failed to start game.";
+
+		model.startGame();
+		EasyMock.expectLastCall().andThrow(new IllegalStateException());
+		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, onError);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.setOnError(onError);
+
+		controller.onStartGameButton();
+
+		EasyMock.verify(model, onError);
 	}
 
 }
