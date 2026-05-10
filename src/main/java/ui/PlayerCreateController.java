@@ -1,33 +1,55 @@
 package ui;
 
-
+import domain.Game;
+import javafx.scene.Scene;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class PlayerCreateController {
 
-    private final SceneManager sceneManager;
     private final PlayerCreateView view;
+    private final Game model;
+    private Consumer<String> onError;
+    private Runnable onSuccess;
+    private Runnable onBack;
 
-    public PlayerCreateController(AssetManager assets, SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
+    public PlayerCreateController(Game model, AssetProvider assets) {
+        this.model = model;
         this.view = new PlayerCreateView(assets);
+        this.onError = message -> {};
 
-        bindUI();
+        buildAndBindUI();
     }
 
-    public PlayerCreateView getView() {
-        return view;
+    public void setOnError(Consumer<String> onError) {
+        this.onError = onError;
+    }
+
+    public void setOnSuccess(Runnable onSuccess) {
+        this.onSuccess = onSuccess;
+    }
+
+    public void setOnBack(Runnable onBack) {
+        this.onBack = onBack;
+    }
+
+    private void buildAndBindUI() {
+
     }
 
     private void bindUI() {
-        view.bindAddPlayerButton(() -> {});
 
-        view.bindConfirmButton(this::startGame);
-
-        view.bindResetButton(() -> sceneManager.showStartView());
     }
 
-    private void startGame(List<String> names) {
+    private void onAddPlayer() {
+        view.addPlayerFieldEntry();
+    }
 
+    private void onConfirmNames() {
+
+    }
+
+    public Scene getPlayerCreateScene() {
+        return view.createPlayerCreateScene();
     }
 }
