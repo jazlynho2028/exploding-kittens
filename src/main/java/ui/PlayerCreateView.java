@@ -125,6 +125,12 @@ public class PlayerCreateView {
     }
 
     public List<String> getEnteredNames() {
-
+        List<String> names = new ArrayList<>();
+        for (TextField field : playerFields) {
+            if (!field.getText().isBlank()) {
+                names.add(field.getText().trim());
+            }
+        }
+        return names;
     }
 }
