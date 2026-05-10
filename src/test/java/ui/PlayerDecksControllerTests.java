@@ -139,4 +139,27 @@ public class PlayerDecksControllerTests {
 		EasyMock.verify(model, onError);
 	}
 
+	@Test
+	public void onHandVisibilityButton_called_success() {
+		Game model = EasyMock.createNiceMock(Game.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("buildAddBindPlayerHandCards")
+				.createMock();
+
+		model.setIsFaceUpToOpposite();
+		EasyMock.expectLastCall();
+		controller.buildAddBindPlayerHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, controller);
+
+		controller.onHandVisibilityButton();
+
+		EasyMock.verify(model, controller);
+	}
+
 }

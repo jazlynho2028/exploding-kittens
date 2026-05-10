@@ -32,8 +32,8 @@
   - **Expected output**: caught exception from model.drawFromPile(), , called onError.accept("Failed to draw from pile.")
 
 ### Method under test: `onHandVisibilityButton()`
-- **TC7: this method is called** ( :x: )
-    - **Name of the test**:
+- **TC7: this method is called** ( :white-check-mark: )
+    - **Name of the test**: onHandVisibilityButton_called_success
     - **State of the system**: N/A
     - **Expected output**: called model.setIsFaceUpToOpposite(), called buildAddBindPlayerHandCards()
 

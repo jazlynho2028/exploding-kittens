@@ -149,7 +149,7 @@ public class PlayerDeckController {
         }
     }
 
-    private void onHandVisibilityButton() {
+    void onHandVisibilityButton() {
         ((Game) model).setIsFaceUpToOpposite();
 
         view.renderHandVisibilityButton(model.getIsFaceUp());
