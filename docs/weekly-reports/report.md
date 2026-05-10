@@ -41,8 +41,8 @@
 **Planning and Progress Tracking**:
 1. [80% Done] Luke: PlayerSetUpView.java
 2. [80% Done] Luke: PlayerSetUpController.java
-3. [100% Done] Jazlyn: set up linters (spotbugs + Google checkstyle)
-4. [100% Done] Jazlyn: PlayerSetUpController.java BVA + test implementation
+3. [Done] Jazlyn: set up linters (spotbugs + Google checkstyle)
+4. [Done] Jazlyn: PlayerSetUpController.java BVA + test implementation
 5. [50% Done] Ejean: DeckBuilder.java
 6. [30% Done] DJ: Game.java
 7. [30% Done] DJ: TurnManager.java
