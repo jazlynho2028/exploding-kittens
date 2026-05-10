@@ -117,7 +117,15 @@ public class PlayerCreateView {
     }
 
     public void addPlayerFieldEntry() {
+        if (playerFields.size() >= MAX_PLAYERS) return;
 
+        TextField field = new TextField();
+        field.setPromptText("PLAYER " + (playerFields.size() + 1));
+        field.getStyleClass().addAll("name-enter", "h5");
+        field.setAlignment(Pos.CENTER_LEFT);
+
+        playerFields.add(field);
+        renderPlayerFields();
     }
 
     public void renderPlayerFields() {
