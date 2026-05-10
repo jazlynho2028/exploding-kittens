@@ -44,8 +44,8 @@
     - **Expected output**: called onHandVisibilityButton()
 
 - **TC9: cards are face up** ( :white-check-mark: )
-    - **Name of the test**: onPlayerHandCardButton_cardsFaceUp_callsFaceUpMethod
-    - **State of the system**: andCardIndex = 0, isFaceUp = true
+    - **Name of the test**: onPlayerHandCardButton_cardsFaceUp_callsModelMethod
+    - **State of the system**: handCardIndex = 0, isFaceUp = true
     - **Expected output**: called model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite(handCardIndex)
 
 ### Method under test: `onStartGameButton()`

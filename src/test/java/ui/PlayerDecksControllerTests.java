@@ -163,70 +163,45 @@ public class PlayerDecksControllerTests {
 	}
 
 	@Test
-	public void onPlayerHandCardButton_cardsFaceDown_callsFaceDownMethod() {
+	public void onPlayerHandCardButton_cardsFaceDown_callsOnHandVisibility() {
 		Game model = EasyMock.createMock(Game.class);
 		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 				PlayerDeckController.class
 				)
 				.withConstructor(model, view)
-				.addMockedMethod("onFaceDownPlayerHandCardButton")
+				.addMockedMethod("onHandVisibilityButton")
 				.createMock();
 		int handCardIndex = 0;
 
 		EasyMock.expect(model.getIsFaceUp()).andReturn(false);
-		controller.onFaceDownPlayerHandCardButton();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(model, controller);
-
-		controller.onPlayerHandCardButton(handCardIndex);
-
-		EasyMock.verify(model, controller);
-	}
-
-	@Test
-	public void onPlayerHandCardButton_cardsFaceUp_callsFaceUpMethod() {
-		Game model = EasyMock.createNiceMock(Game.class);
-		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
-		PlayerDeckController controller = EasyMock.createMockBuilder(
-						PlayerDeckController.class
-				)
-				.withConstructor(model, view)
-				.addMockedMethod("onFaceUpPlayerHandCardButton")
-				.createMock();
-		int handCardIndex = 0;
-
-		EasyMock.expect(model.getIsFaceUp()).andReturn(true);
-		controller.onFaceUpPlayerHandCardButton(handCardIndex);
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(model, controller);
-
-		controller.onPlayerHandCardButton(handCardIndex);
-
-		EasyMock.verify(model, controller);
-	}
-
-	@Test
-	public void onFaceDownPlayerHandCardButton_called_calledOnHandVisibility() {
-		Game model = EasyMock.createMock(Game.class);
-		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
-		PlayerDeckController controller = EasyMock.createMockBuilder(
-						PlayerDeckController.class
-				)
-				.withConstructor(model, view)
-				.addMockedMethod("onHandVisibilityButton")
-				.createMock();
-
 		controller.onHandVisibilityButton();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(controller);
+		EasyMock.replay(model, controller);
 
-		controller.onFaceDownPlayerHandCardButton();
+		controller.onPlayerHandCardButton(handCardIndex);
 
-		EasyMock.verify(controller);
+		EasyMock.verify(model, controller);
+	}
+
+	@Test
+	public void onPlayerHandCardButton_cardsFaceUp_callsModelMethod() {
+		Game model = EasyMock.createNiceMock(Game.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		int handCardIndex = 0;
+
+		EasyMock.expect(model.getIsFaceUp()).andReturn(true);
+		model.setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+
+		controller.onPlayerHandCardButton(handCardIndex);
+
+		EasyMock.verify(model);
 	}
 
 }

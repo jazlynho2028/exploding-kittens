@@ -160,25 +160,20 @@ public class PlayerDeckController {
 
     void onPlayerHandCardButton(int handCardIndex) {
         if (!model.getIsFaceUp()) {
-            onFaceDownPlayerHandCardButton();
+            onHandVisibilityButton();
+
+            System.out.println("FACE DOWN HAND CARD BUTTON CLICKED");
         }
         else {
-            onFaceUpPlayerHandCardButton(handCardIndex);
+            ((Game) model).setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
+
             view.renderTurnControlSection(
                     model.canPlaySelected(),
                     model.canEndTurn()
             );
+
+            System.out.println("FACE UP HAND CARD BUTTON CLICKED");
         }
-    }
-
-    void onFaceDownPlayerHandCardButton() {
-        onHandVisibilityButton();
-
-        System.out.println("FACE DOWN HAND CARD BUTTON CLICKED");
-    }
-
-    void onFaceUpPlayerHandCardButton(int cardIndex) {
-        ((Game) model).setIsSelectedOfPlayerCardAtIndexToOpposite(cardIndex);
     }
 
     private void onStartGameButton() {
