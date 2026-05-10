@@ -121,7 +121,11 @@ public class PlayerCreateView {
     }
 
     public void renderPlayerFields() {
+        playerFieldsContainer.getChildren().clear();
+        playerFieldsContainer.getChildren().addAll(playerFields);
 
+        boolean isFull = playerFields.size() >= MAX_PLAYERS;
+        addPlayerButton.setDisable(isFull);
     }
 
     public List<String> getEnteredNames() {
