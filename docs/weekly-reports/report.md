@@ -43,10 +43,11 @@
 2. [80% Done] Luke: PlayerSetUpController.java
 3. [Done] Jazlyn: set up linters (spotbugs + Google checkstyle)
 4. [Done] Jazlyn: PlayerSetUpController.java BVA + test implementation
-5. [50% Done] Ejean: DeckBuilder.java
-6. [30% Done] DJ: Game.java
-7. [30% Done] DJ: TurnManager.java
-8. [50% Done] DJ: Player.java
-9. [not started] Irene: Card.java
-10. [50% Done] Irene: Deck.java
-11. [not started] Irene: CardTypes.java
+5. [0% Done] Jazlyn: Set up card metadata for UI display
+6. [50% Done] Ejean: DeckBuilder.java
+7. [30% Done] DJ: Game.java
+8. [30% Done] DJ: TurnManager.java
+9. [50% Done] DJ: Player.java
+10. [not started] Irene: Card.java
+11. [50% Done] Irene: Deck.java
+12. [not started] Irene: CardTypes.java
