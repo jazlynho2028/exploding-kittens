@@ -24,9 +24,35 @@ public class TurnManagerTests {
         players.add(mockPlayer3);
         players.add(mockPlayer4);
 
+        EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3, mockPlayer4);
+
         TurnManager turnManager = new TurnManager(players);
         int actual = turnManager.getCurrentPlayerIndex();
 
         assertEquals(firstPlayerIndex, actual);
+
+        EasyMock.verify(mockPlayer1, mockPlayer2, mockPlayer3, mockPlayer4);
+    }
+
+    @Test
+    public void testGetCurrentPlayerIndex_BeforeTurnsWithTwoPlayers() {
+        final int firstPlayerIndex = 0;
+        List<Player> players = new ArrayList<>();
+
+        Player mockPlayer1 = EasyMock.createMock(Player.class);
+        Player mockPlayer2 = EasyMock.createMock(Player.class);
+
+        players.add(mockPlayer1);
+        players.add(mockPlayer2);
+
+        EasyMock.replay(mockPlayer1, mockPlayer2);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        int actual = turnManager.getCurrentPlayerIndex();
+
+        assertEquals(firstPlayerIndex, actual);
+
+        EasyMock.verify(mockPlayer1, mockPlayer2);
     }
 }
