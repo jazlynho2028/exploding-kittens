@@ -1,71 +1,35 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public final class TurnManager {
-
-    private static final int STARTING_PLAYER_INDEX = 0;
-
-    private final List<Player> players;
+public class TurnManager {
+    private int startingPlayerIndex;
     private int currentPlayerIndex;
-    private int currentDrawCount;
+    private List<Player> players;
     private int roundCounter;
+    private int currentDrawCount;
 
     public TurnManager(List<Player> players) {
-        if (players.isEmpty()) {
-            throw new IllegalArgumentException("Players list cannot be empty.");
-        }
-        this.players = List.copyOf(players);
-        currentPlayerIndex = 0;
-        currentDrawCount = 0;
-        roundCounter = 0;
+        this.players = players;
     }
 
     public int getCurrentPlayerIndex() {
-        return currentPlayerIndex;
+        return -1;
     }
 
-    public int getCurrentDrawCount() {
-        return currentDrawCount;
+    public void endTurn() {
+
     }
 
-    //    public int getStartingPlayerIndex() {
-    //        return STARTING_PLAYER_INDEX;
-    //    }
+    public void advanceTurn() {
 
-    //    public Player getCurrentPlayer() {
-    //        return players.get(currentPlayerIndex);
-    //    }
-
-    public void setCurrentPlayerIndex(int newPlayerIndex) {
-        currentPlayerIndex = newPlayerIndex;
     }
 
-    public void incrementDrawCount() {
-        currentDrawCount++;
+    public void skipTurn() {
+
     }
 
-    public void decrementDrawCount() {
-        currentDrawCount--;
+    public void incrementCurrentDrawCount() {
+
     }
-
-    public void incrementRound() {
-        roundCounter++;
-    }
-
-    //    public void advanceTurn() {
-    //        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
-    //
-    //        if (currentPlayerIndex == STARTING_PLAYER_INDEX) {
-    //            incrementRound();
-    //        }
-    //
-    //        incrementDrawCount();
-    //    }
-
-    public int getRoundCounter() {
-        return this.roundCounter;
-    }
-
 }
