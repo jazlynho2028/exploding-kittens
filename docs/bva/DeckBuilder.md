@@ -9,7 +9,7 @@
     - **State of the system**: numPlayers = 2
     - **Expected output**: deck has 59 cards, of which 3 are "DEFUSE"'s. deck is shuffled.
 
-- **TC3: Maximum allowed players ** ( :white_check_mark: )
+- **TC3: Maximum allowed players ** ( :x: )
     - **State of the system**: numPlayers = 4
     - **Expected output**: deck has 57 cards, of which 1 is a "DEFUSE". deck is shuffled.
 
@@ -19,27 +19,27 @@
 
 ### Helper functions
 ### Method under test: `initializeFullDeck()`
-- **TC1: NAME OF THE TEST CASE** ( :x: or :white_check_mark: )
+- **TC1: NAME OF THE TEST CASE** ( :x: )
     - **State of the system**: abc
     - **Expected output**: abc
 
 ### Method under test: `calculateDefusesToAdd()`
-- **TC1: NAME OF THE TEST CASE** ( :x: or :white_check_mark: )
+- **TC1: NAME OF THE TEST CASE** ( :x: )
     - **State of the system**: abc
     - **Expected output**: abc
 
 ### Method under test: `addPlayerDefuses()`
-- **TC1: NAME OF THE TEST CASE** ( :x: or :white_check_mark: )
+- **TC1: NAME OF THE TEST CASE** ( :x: )
     - **State of the system**: abc
     - **Expected output**: abc
 
 ### Method under test: `shuffleDeck()`
-- **TC1: NAME OF THE TEST CASE** ( :x: or :white_check_mark: )
+- **TC1: NAME OF THE TEST CASE** ( :x: )
     - **State of the system**: abc
     - **Expected output**: abc
 
 ### Method under test: `removeSpecificCards(List<Card> deck, CardType type, int count)`
-- **TC1: NAME OF THE TEST CASE** ( :x: or :white_check_mark: )
+- **TC1: NAME OF THE TEST CASE** ( :x: )
     - **State of the system**: abc
     - **Expected output**: abc
 
