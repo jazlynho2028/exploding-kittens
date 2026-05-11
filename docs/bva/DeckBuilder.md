@@ -5,7 +5,7 @@
     - **State of the system**: numPlayers = 1
     - **Expected output**: IllegalArgumentException "Number of players must be between 2 and 4"
 
-- **TC2: Minimum allowed players ** ( :x: )
+- **TC2: Minimum allowed players ** ( :white_check_mark: )
     - **State of the system**: numPlayers = 2
     - **Expected output**: deck has 59 cards, of which 3 are "DEFUSE"'s. deck is shuffled.
 

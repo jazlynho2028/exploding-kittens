@@ -11,4 +11,11 @@ public class DeckBuilderTests {
             DeckBuilder.buildDeckWithoutExplodeAndDefuse(1);
         });
     }
+
+    @Test
+    void buildDeck_MoreThanMaxPlayers_ThrowError() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            DeckBuilder.buildDeckWithoutExplodeAndDefuse(5);
+        });
+    }
 }
