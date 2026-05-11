@@ -45,9 +45,9 @@
 4. [Done] Jazlyn: PlayerSetUpController.java BVA + test implementation
 5. [Done] Jazlyn: Set up card metadata for UI display
 6. [50% Done] Ejean: DeckBuilder.java
-7. [30% Done] DJ: Game.java
-8. [30% Done] DJ: TurnManager.java
-9. [50% Done] DJ: Player.java
+7. [10% Done] DJ: Game.java
+8. [95% Done] DJ: TurnManager.java
+9. [95% Done] DJ: Player.java
 10. [not started] Irene: Card.java
 11. [50% Done] Irene: Deck.java
 12. [Done] Irene: CardTypes.java
