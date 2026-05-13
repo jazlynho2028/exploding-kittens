@@ -9,10 +9,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static ui.StartView.buildTitleText;
 
 public class PlayerCreateView {
 
@@ -78,12 +79,6 @@ public class PlayerCreateView {
                 confirmButton);
 
         return content;
-    }
-
-    private Text buildTitleText() {
-        Text title = new Text("EXPLODING KITTENS");
-        title.getStyleClass().addAll("title", "h1");
-        return title;
     }
 
     private void setupPlayerFieldsContainer() {

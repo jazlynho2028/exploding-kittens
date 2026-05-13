@@ -64,7 +64,7 @@ public class StartView {
         return imageView;
     }
 
-    private Text buildTitleText() {
+    static Text buildTitleText() {
         Text titleText = new Text(UIConstants.TITLE);
         titleText.getStyleClass().addAll("h1", "title");
 
