@@ -20,7 +20,6 @@ public class PlayerCreateView {
     private final AssetProvider assets;
     private final StackPane root;
 
-    private static double backgroundOpacity = 0.4;
     private static int marginInsets = 15;
 
     public final VBox playerFieldsContainer;
@@ -109,7 +108,7 @@ public class PlayerCreateView {
         Image image = assets.getImage("placeholder");
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
-        imageView.setOpacity(backgroundOpacity);
+        imageView.setOpacity(UIConstants.BACKGROUND_IMAGE_OPACITY);
 
         imageView.fitWidthProperty().bind(root.widthProperty());
         imageView.fitHeightProperty().bind(root.heightProperty());

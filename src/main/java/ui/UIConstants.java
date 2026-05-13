@@ -13,4 +13,5 @@ public final class UIConstants {
     public static final int SCENE_HEIGHT = 832;
 
     public static final int BACKGROUND_IMAGE_WIDTH = 500;
+    public static final double BACKGROUND_IMAGE_OPACITY = 0.4;
 }
