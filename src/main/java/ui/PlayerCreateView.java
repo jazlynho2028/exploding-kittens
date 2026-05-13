@@ -20,7 +20,6 @@ public class PlayerCreateView {
     private final AssetProvider assets;
     private final StackPane root;
 
-    private static int contentSpacing = 20;
     private static int fieldSpacing = 12;
     private static double backgroundOpacity = 0.4;
     private static int marginInsets = 15;
@@ -71,7 +70,6 @@ public class PlayerCreateView {
     private VBox buildContentSection() {
         VBox content = new VBox();
         content.setAlignment(Pos.CENTER);
-        content.setSpacing(contentSpacing);
         content.getStyleClass().add("content-section");
 
         setupPlayerFieldsContainer();
