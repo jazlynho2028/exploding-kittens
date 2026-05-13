@@ -20,8 +20,6 @@ public class PlayerCreateView {
     private final AssetProvider assets;
     private final StackPane root;
 
-    private static int marginInsets = 15;
-
     public final VBox playerFieldsContainer;
     public final Button addPlayerButton;
     public final Button confirmButton;
@@ -128,7 +126,7 @@ public class PlayerCreateView {
 
         overlayLayer.getChildren().add(backButton);
         StackPane.setAlignment(backButton, Pos.TOP_LEFT);
-        StackPane.setMargin(backButton, new Insets(marginInsets));
+        StackPane.setMargin(backButton, new Insets(UIConstants.BUTTON_MARGIN_INSETS));
 
         return overlayLayer;
     }
