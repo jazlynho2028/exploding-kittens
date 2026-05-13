@@ -13,11 +13,12 @@ import javafx.scene.shape.SVGPath;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ui.StartView.buildExplosionImage;
 import static ui.StartView.buildTitleText;
 
 public class PlayerCreateView {
 
-    private final AssetProvider assets;
+    private final AssetProvider assetProvider;
     private final StackPane root;
 
     public final VBox playerFieldsContainer;
@@ -29,7 +30,7 @@ public class PlayerCreateView {
     private static final int MAX_PLAYERS = 4;
 
     public PlayerCreateView(AssetProvider assets) {
-        this.assets = assets;
+        this.assetProvider = assets;
         this.root = new StackPane();
 
         this.playerFieldsContainer = new VBox();
@@ -48,6 +49,7 @@ public class PlayerCreateView {
         root.getStyleClass().add("root");
 
         ImageView backgroundImage = buildBackgroundImage();
+
         StackPane createScreen = buildCreateScreen();
         StackPane overlayLayer = buildOverlayLayer();
 
@@ -96,23 +98,12 @@ public class PlayerCreateView {
         return confirmButton;
     }
 
-    private ImageView buildBackgroundImage() {
-        Image image = assets.getImage("placeholder");
-        ImageView imageView = new ImageView(image);
-        imageView.setPreserveRatio(true);
-        imageView.setOpacity(UIConstants.BACKGROUND_IMAGE_OPACITY);
-
-        imageView.fitWidthProperty().bind(root.widthProperty());
-        imageView.fitHeightProperty().bind(root.heightProperty());
-        return imageView;
-    }
-
     private StackPane buildOverlayLayer() {
         StackPane overlayLayer = new StackPane();
         overlayLayer.setPickOnBounds(false);
 
         SVGPath backIcon = new SVGPath();
-        backIcon.setContent(assets.getSvg("restart"));
+        backIcon.setContent(assetProvider.getSvg("restart"));
         backIcon.getStyleClass().add("restart-icon");
 
         backButton.getStyleClass().add("icon-button");
@@ -123,6 +114,13 @@ public class PlayerCreateView {
         StackPane.setMargin(backButton, new Insets(UIConstants.BUTTON_MARGIN_INSETS));
 
         return overlayLayer;
+    }
+
+    private ImageView buildBackgroundImage() {
+        ImageView backgroundImage = buildExplosionImage(assetProvider);
+        backgroundImage.setOpacity(UIConstants.BACKGROUND_IMAGE_OPACITY);
+
+        return backgroundImage;
     }
 
     public void addPlayerFieldEntry() {
