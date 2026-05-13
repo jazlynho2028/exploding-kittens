@@ -16,7 +16,7 @@ public class PlayerCreateController {
     public PlayerCreateController(Game model, AssetProvider assets) {
         this.model = model;
         this.view = new PlayerCreateView(assets);
-        this.onError = message -> {};
+        this.onError = message -> { };
 
         buildAndBindUI();
     }
@@ -62,7 +62,8 @@ public class PlayerCreateController {
             if (onSuccess != null) {
                 onSuccess.run();
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             onError.accept("Error initializing game: " + e.getMessage());
         }
     }
