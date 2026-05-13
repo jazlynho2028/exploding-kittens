@@ -1,7 +1,9 @@
 .root {
     gray-0: #EFEEF4;
+    gray-1: #E4E3E9;
     gray-2: #B7B4BE;
     gray-4: #4E4E4E;
+    gray-6-tr: #01010120;
     gray-6: #010101;
 
     beige-2: #D2C3AA;
@@ -21,16 +23,30 @@
 
     red-3: #DF2126;
     red-4: #B31F23;
-    red-5: #660B09;
+    red-5: #a51d20;
+    red-6: #660B09;
 
     magenta-3: #B3294C;
-    magenta-4-tr: #54193150;
-    magenta-4: #541931;
-    magenta-5: #3B081D;
-    magenta-6-tr: #14020850;
-    magenta-6: #140208;
+    magenta-4: #611F3A;
+    magenta-5-tr: #54193150;
+    magenta-5: #541931;
+    magenta-6: #3B081D;
+    magenta-7-tr: #14020850;
+    magenta-7: #140208;
 
-    -fx-background-color: magenta-5;
+    -fx-background-color: magenta-6;
+}
+
+.h1 {
+    -fx-font-family: "Koulen";
+    -fx-font-weight: normal;
+    -fx-font-size: 96px;
+}
+
+.h2 {
+    -fx-font-family: "Koulen";
+    -fx-font-weight: normal;
+    -fx-font-size: 38px;
 }
 
 .h3 {
@@ -54,7 +70,24 @@
 .h6 {
     -fx-font-family: "Koulen";
     -fx-font-weight: normal;
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
+}
+.h7 {
+    -fx-font-family: "Koulen";
+    -fx-font-weight: normal;
+    -fx-font-size: 50px;
+}
+
+.b1 {
+    -fx-font-family: "Koulen";
+    -fx-font-weight: normal;
+    -fx-font-size: 12px;
+}
+
+.b2 {
+    -fx-font-family: "Koulen";
+    -fx-font-weight: normal;
+    -fx-font-size: 10px;
 }
 
 .caption {
@@ -62,6 +95,26 @@
     -fx-font-weight: normal;
     -fx-font-size: 16px;
     -fx-fill: yellow-0-tr-2;
+}
+
+.title {
+    -fx-fill: linear-gradient(to bottom, yellow-3, orange-3, red-3);
+}
+
+.start-content-section {
+    -fx-padding: 36px 16px 64px 16px;
+    -fx-spacing: 480px;
+}
+
+.play-button {
+    -fx-background-color: linear-gradient(to bottom, magenta-3, magenta-5);
+    -fx-background-radius: 16;
+    -fx-text-fill: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-border-color: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-border-width: 4;
+    -fx-border-radius: 16;
+    -fx-pref-width: 316px;
+    -fx-padding: -2 0 -2 0;
 }
 
 .content-section {
@@ -73,19 +126,90 @@
     -fx-spacing: 64px;
 }
 
-.player-names-bar {
+.player-header-section {
+    -fx-spacing: 12px;
+}
+
+.player-names-container {
     -fx-padding: 4px;
     -fx-spacing: 8px;
 }
 
+.name-enter {
+    -fx-background-color: yellow-1;
+
+    -fx-text-fill: magenta-7;
+
+    -fx-border-width: 0;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+
+    -fx-padding: 8px 16px;
+    -fx-pref-width: 300px;
+    -fx-font-family: "Koulen";
+    -fx-font-size: 21px;
+}
+
+.name-enter:focused {
+    -fx-background-color: yellow-0;
+    -fx-prompt-text-fill: gray-2;
+}
+
+.add-player-button {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+
+    -fx-text-fill: white;
+
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-width: 1;
+
+    -fx-font-family: "Koulen";
+    -fx-font-size: 24px;
+    -fx-pref-height: 40px;
+    -fx-pref-width: 300px;
+
+    -fx-cursor: hand;
+}
+
+.add-player-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+.add-player-button:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
 .name-tag {
-    -fx-background-color: magenta-4;
-    -fx-border-color: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-background-color: magenta-5;
     -fx-border-width: 2;
     -fx-background-radius: 8;
     -fx-border-radius: 8;
     -fx-padding: 0px 16px;
-    -fx-pref-width: 236px;
+    -fx-pref-width: 300px;
+
+    -fx-border-color: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-text-fill: linear-gradient(to bottom, yellow-1, yellow-4);
+}
+
+.name-tag:hover {
+    -fx-background-color: magenta-4;
+}
+
+.name-tag:selected,
+.name-tag:selected:disabled {
+    -fx-opacity: 1.0;
+    -fx-border-width: 2;
+    -fx-border-color: linear-gradient(to bottom, yellow-3, orange-3, red-3);
+    -fx-text-fill: linear-gradient(to bottom, yellow-3, orange-3, red-3);
+}
+
+.name-tag:disabled {
+    -fx-opacity: 1.0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-text-fill: yellow-0-tr-2;
 }
 
 .card-piles-section {
@@ -96,24 +220,106 @@
     -fx-spacing: 12px;
 }
 
-.card-back {
+.card {
+    -fx-pref-width: 176px;
+    -fx-pref-height: 230px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 4;
+    -fx-border-color: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-border-width: 2;
+}
+
+.card.empty {
+    -fx-border-color: yellow-0-tr-2;
+    -fx-border-width: 2;
+    -fx-border-style: dashed;
+    -fx-background-color: transparent;
+}
+
+.card.back {
     -fx-background-color: red-4;
-    -fx-pref-width: 180px;
-    -fx-pref-height: 235px;
-    -fx-background-radius: 4;
+}
+
+.card.front {
+    -fx-background-color: gray-0;
+    -fx-padding: 8px;
+}
+
+.card:disabled {
+    -fx-border-color: transparent;
+    -fx-opacity: 0.9;
+    -fx-border-width: 0;
+}
+
+.card:selected {
+    -fx-border-width: 4;
+    -fx-border-color: linear-gradient(to bottom, yellow-3, orange-3, red-3);
+}
+
+.card.back:hover {
+    -fx-background-color: red-5;
+}
+
+.card.front:hover {
+    -fx-background-color: gray-1;
+}
+
+.card-front-content {
+    -fx-padding: 2px 6px 16px 6px;
+    -fx-border-radius: 4;
+    -fx-border-color: green-4;
+    -fx-border-width: 2;
+    -fx-spacing: 4px;
+}
+
+.card-header {
+    -fx-spacing: 4px;
+    -fx-pref-height: 28px;
+}
+
+.card-circle {
+    -fx-min-width: 24px;
+    -fx-min-height: 24px;
+    -fx-max-width: 24px;
+    -fx-max-height: 24px;
+    -fx-background-radius: 12px;
+    -fx-background-color: green-4;
+}
+
+.card-title-section {
+    -fx-spacing: -8px;
+}
+
+.card-title {
+    -fx-fill: gray-6;
+}
+
+.card-subtitle {
+    -fx-fill: gray-2;
+}
+
+.card-description {
+    -fx-fill: gray-0;
+    -fx-text-alignment: center;
+    -fx-line-spacing: -6;
+}
+
+.bracket-icon {
+    -fx-fill: transparent;
+    -fx-stroke: gray-0;
+    -fx-stroke-width: 1.5;
+}
+
+.exploding-kittens-text {
+    -fx-spacing: -20px;
+}
+
+.exploding-text {
+    -fx-fill: linear-gradient(to bottom, yellow-3, orange-3, red-3);
 }
 
 .kittens-text {
     -fx-fill: gray-0;
-}
-
-.empty-pile {
-    -fx-pref-width: 180px;
-    -fx-pref-height: 235px;
-    -fx-border-radius: 4;
-    -fx-border-color: yellow-0-tr-2;
-    -fx-border-width: 2;
-    -fx-border-style: dashed;
 }
 
 .player-hand-section {
@@ -125,6 +331,10 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-padding: 4;
+}
+
+.hand-visibility-toggle:hover {
+    -fx-underline: true;
 }
 
 .scroll-pane {
@@ -139,26 +349,29 @@
     -fx-opacity: 0;
 }
 
-.hand-cards {
+.hand-cards-container {
     -fx-spacing: 8px;
-}
-
-.card-enabled {
-    -fx-border-radius: 4;
-    -fx-border-color: linear-gradient(to bottom, yellow-1, yellow-4);
-    -fx-border-width: 2;
 }
 
 .turn-control-section {
     -fx-spacing: 8;
 }
 
-.start-game-button {
+.turn-control-button {
     -fx-border-radius: 8;
-    -fx-background-color: linear-gradient(to bottom, yellow-1, yellow-4);
     -fx-padding: 0px 16px;
-    -fx-text-fill: magenta-5;
-    -fx-effect: dropshadow(gaussian, magenta-4-tr, 2, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, magenta-5-tr, 2, 0, 0, 2);
+}
+
+.turn-control-button {
+    -fx-background-color: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-text-fill: magenta-6;
+}
+
+.turn-control-button:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: beige-2;
+    -fx-text-fill: beige-3;
 }
 
 .icon-button {
