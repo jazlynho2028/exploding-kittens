@@ -122,6 +122,10 @@
     -fx-spacing: 24px;
 }
 
+.content-section > * {
+    -fx-pref-width: 600px;
+}
+
 .game-board-section {
     -fx-spacing: 64px;
 }
@@ -137,6 +141,7 @@
 
 .name-enter {
     -fx-background-color: yellow-1;
+    -fx-max-width: 600px;
 
     -fx-text-fill: magenta-7;
 
@@ -145,7 +150,6 @@
     -fx-border-radius: 8;
 
     -fx-padding: 8px 16px;
-    -fx-pref-width: 300px;
     -fx-font-family: "Koulen";
     -fx-font-size: 21px;
 }
@@ -167,8 +171,7 @@
 
     -fx-font-family: "Koulen";
     -fx-font-size: 24px;
-    -fx-pref-height: 40px;
-    -fx-pref-width: 300px;
+    -fx-pref-height: 32px;
 
     -fx-cursor: hand;
 }

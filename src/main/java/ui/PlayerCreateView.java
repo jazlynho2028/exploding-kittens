@@ -2,6 +2,7 @@ package ui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -19,7 +20,6 @@ public class PlayerCreateView {
     private final AssetProvider assets;
     private final StackPane root;
 
-    private static int preferredWidth = 300;
     private static int contentSpacing = 20;
     private static int fieldSpacing = 12;
     private static double backgroundOpacity = 0.4;
@@ -75,14 +75,14 @@ public class PlayerCreateView {
         content.getStyleClass().add("content-section");
 
         setupPlayerFieldsContainer();
-        Button addButton = buildAddPlayerButton();
-        Button startButton = buildConfirmButton();
+        Button addPlayerButton = buildAddPlayerButton();
+        Button confirmButton = buildConfirmButton();
 
         content.getChildren().addAll(
                 buildTitleText(),
                 playerFieldsContainer,
-                addButton,
-                startButton);
+                addPlayerButton,
+                confirmButton);
 
         return content;
     }
@@ -96,18 +96,15 @@ public class PlayerCreateView {
     private void setupPlayerFieldsContainer() {
         playerFieldsContainer.setAlignment(Pos.CENTER);
         playerFieldsContainer.setSpacing(fieldSpacing);
-        playerFieldsContainer.setMaxWidth(preferredWidth);
     }
 
     private Button buildAddPlayerButton() {
         addPlayerButton.getStyleClass().addAll("add-player-button");
-        addPlayerButton.setPrefWidth(preferredWidth);
         return addPlayerButton;
     }
 
     private Button buildConfirmButton() {
         confirmButton.getStyleClass().addAll("start-game-button", "h3");
-        confirmButton.setPrefWidth(preferredWidth);
         return confirmButton;
     }
 
