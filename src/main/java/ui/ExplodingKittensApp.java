@@ -28,7 +28,7 @@ public class ExplodingKittensApp extends Application {
     private void showPlayerCreateScreen(Game model, Stage stage) {
         PlayerCreateController controller = new PlayerCreateController(model, assets);
 
-        controller.setOnError(message -> System.out.println("Error: " + message));
+        controller.setOnError(message -> showErrorScreen(message, stage));
         controller.setOnSuccess(() -> showPlayerDeckScreen(model, stage));
         controller.setOnBack(() -> showStartScreen(model, stage));
 
