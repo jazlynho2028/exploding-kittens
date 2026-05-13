@@ -2,7 +2,7 @@ package ui;
 
 public final class UIConstants {
 
-    private UIConstants() {}
+    private UIConstants() { }
 
     public static final String TITLE = "Exploding Kittens";
     public static final String PLAY_BUTTON_LABEL = "PLAY";
