@@ -126,6 +126,10 @@
     -fx-pref-width: 600px;
 }
 
+.player-fields-container {
+    -fx-spacing: inherit;
+}
+
 .game-board-section {
     -fx-spacing: 64px;
 }

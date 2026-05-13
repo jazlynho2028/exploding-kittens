@@ -20,7 +20,6 @@ public class PlayerCreateView {
     private final AssetProvider assets;
     private final StackPane root;
 
-    private static int fieldSpacing = 12;
     private static double backgroundOpacity = 0.4;
     private static int marginInsets = 15;
 
@@ -93,7 +92,7 @@ public class PlayerCreateView {
 
     private void setupPlayerFieldsContainer() {
         playerFieldsContainer.setAlignment(Pos.CENTER);
-        playerFieldsContainer.setSpacing(fieldSpacing);
+        playerFieldsContainer.getStyleClass().add("player-fields-container");
     }
 
     private Button buildAddPlayerButton() {
