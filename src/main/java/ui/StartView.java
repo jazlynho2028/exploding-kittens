@@ -12,10 +12,12 @@ import javafx.scene.text.Text;
 public class StartView {
     private final AssetProvider assetProvider;
     private final StackPane root;
+    public final Button playButton;
 
     public StartView(AssetProvider assetProvider) {
         this.assetProvider = assetProvider;
-        root = new StackPane();
+        this.root = new StackPane();
+        this.playButton = new Button();
 
         buildUI();
     }
@@ -37,7 +39,6 @@ public class StartView {
 
         startScreen.getChildren().addAll(explosionCatImage, contentSection);
         return startScreen;
-
     }
 
     private VBox buildContentSection() {
@@ -46,9 +47,9 @@ public class StartView {
         contentSection.setAlignment(Pos.CENTER);
 
         Text titleText = buildTitleText();
-        Button playButton = buildPlayButton();
+        Button button = buildPlayButton();
 
-        contentSection.getChildren().addAll(titleText, playButton);
+        contentSection.getChildren().addAll(titleText, button);
 
         return contentSection;
     }
@@ -71,12 +72,9 @@ public class StartView {
     }
 
     private Button buildPlayButton() {
-        Button playButton = new Button();
         playButton.getStyleClass().addAll("play-button", "h2");
-
         playButton.setText(UIConstants.PLAY_BUTTON_LABEL);
 
         return playButton;
     }
-
 }
