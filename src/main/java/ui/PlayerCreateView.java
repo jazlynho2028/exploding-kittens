@@ -19,6 +19,12 @@ public class PlayerCreateView {
     private final AssetProvider assets;
     private final StackPane root;
 
+    private static int preferredWidth = 300;
+    private static int contentSpacing = 20;
+    private static int fieldSpacing = 12;
+    private static double backgroundOpacity = 0.4;
+    private static int marginInsets = 15;
+
     public final VBox playerFieldsContainer;
     public final Button addPlayerButton;
     public final Button confirmButton;
@@ -65,14 +71,18 @@ public class PlayerCreateView {
     private VBox buildContentSection() {
         VBox content = new VBox();
         content.setAlignment(Pos.CENTER);
-        content.setSpacing(20);
+        content.setSpacing(contentSpacing);
         content.getStyleClass().add("content-section");
 
         setupPlayerFieldsContainer();
         Button addButton = buildAddPlayerButton();
         Button startButton = buildConfirmButton();
 
-        content.getChildren().addAll(buildTitleText(),  playerFieldsContainer,  addButton,  startButton);
+        content.getChildren().addAll(
+                buildTitleText(),
+                playerFieldsContainer,
+                addButton,
+                startButton);
 
         return content;
     }
@@ -85,19 +95,19 @@ public class PlayerCreateView {
 
     private void setupPlayerFieldsContainer() {
         playerFieldsContainer.setAlignment(Pos.CENTER);
-        playerFieldsContainer.setSpacing(12);
-        playerFieldsContainer.setMaxWidth(300);
+        playerFieldsContainer.setSpacing(fieldSpacing);
+        playerFieldsContainer.setMaxWidth(preferredWidth);
     }
 
     private Button buildAddPlayerButton() {
         addPlayerButton.getStyleClass().addAll("add-player-button");
-        addPlayerButton.setPrefWidth(300);
+        addPlayerButton.setPrefWidth(preferredWidth);
         return addPlayerButton;
     }
 
     private Button buildConfirmButton() {
         confirmButton.getStyleClass().addAll("start-game-button", "h3");
-        confirmButton.setPrefWidth(300);
+        confirmButton.setPrefWidth(preferredWidth);
         return confirmButton;
     }
 
@@ -105,7 +115,7 @@ public class PlayerCreateView {
         Image image = assets.getImage("placeholder");
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
-        imageView.setOpacity(0.4);
+        imageView.setOpacity(backgroundOpacity);
 
         imageView.fitWidthProperty().bind(root.widthProperty());
         imageView.fitHeightProperty().bind(root.heightProperty());
@@ -125,13 +135,15 @@ public class PlayerCreateView {
 
         overlayLayer.getChildren().add(backButton);
         StackPane.setAlignment(backButton, Pos.TOP_LEFT);
-        StackPane.setMargin(backButton, new Insets(15));
+        StackPane.setMargin(backButton, new Insets(marginInsets));
 
         return overlayLayer;
     }
 
     public void addPlayerFieldEntry() {
-        if (playerFields.size() >= MAX_PLAYERS) return;
+        if (playerFields.size() >= MAX_PLAYERS) {
+            return;
+        }
 
         TextField field = new TextField();
         field.setPromptText("PLAYER " + (playerFields.size() + 1));

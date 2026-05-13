@@ -50,7 +50,21 @@ public class PlayerCreateController {
     }
 
     private void onConfirmNames() {
+        List<String> names = view.getEnteredNames();
 
+        if (names.size() < 2) {
+            onError.accept("You need at least 2 players to start!");
+            return;
+        }
+
+        try {
+            //send the players over to the game class
+            if (onSuccess != null) {
+                onSuccess.run();
+            }
+        } catch (Exception e) {
+            onError.accept("Error initializing game: " + e.getMessage());
+        }
     }
 
     public Scene getPlayerCreateScene() {
