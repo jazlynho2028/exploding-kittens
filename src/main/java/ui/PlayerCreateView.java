@@ -97,7 +97,7 @@ public class PlayerCreateView {
     }
 
     private Button buildConfirmButton() {
-        confirmButton.getStyleClass().addAll("start-game-button", "h3");
+        confirmButton.getStyleClass().addAll("play-button", "h2");
         return confirmButton;
     }
 

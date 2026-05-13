@@ -146,10 +146,11 @@
 .name-enter {
     -fx-background-color: yellow-1;
     -fx-max-width: 600px;
+    -fx-prompt-text-fill: beige-2;
+    -fx-text-fill: magenta-6;
 
-    -fx-text-fill: magenta-7;
-
-    -fx-border-width: 0;
+    -fx-border-width: 2;
+    -fx-border-color: yellow-2;
     -fx-background-radius: 8;
     -fx-border-radius: 8;
 
@@ -160,32 +161,24 @@
 
 .name-enter:focused {
     -fx-background-color: yellow-0;
-    -fx-prompt-text-fill: gray-2;
 }
 
 .add-player-button {
-    -fx-background-color: rgba(255, 255, 255, 0.2);
-
-    -fx-text-fill: white;
+    -fx-background-color: yellow-0-tr-1;
+    -fx-text-fill: yellow-0;
 
     -fx-background-radius: 8;
     -fx-border-radius: 8;
-    -fx-border-color: rgba(255, 255, 255, 0.1);
-    -fx-border-width: 1;
+    -fx-border-width: 0;
 
     -fx-font-family: "Koulen";
     -fx-font-size: 24px;
-    -fx-pref-height: 32px;
 
     -fx-cursor: hand;
 }
 
 .add-player-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.3);
-}
-
-.add-player-button:pressed {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-color: yellow-0-tr-2;
 }
 
 .name-tag {
