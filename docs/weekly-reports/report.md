@@ -37,13 +37,26 @@
 21. [30% Done] Irene: Deck.java
 22. [not started] Irene: CardTypes.java
 
-# Week 6 (05/04/2026-05/08/2026)
+# Week 6 (05/04/2026-05/10/2026)
 **Planning and Progress Tracking**:
 1. [80% Done] Luke: PlayerSetUpView.java
 2. [80% Done] Luke: PlayerSetUpController.java
 3. [Done] Jazlyn: set up linters (spotbugs + Google checkstyle)
 4. [Done] Jazlyn: PlayerSetUpController.java BVA + test implementation
 5. [Done] Jazlyn: Set up card metadata for UI display
+6. [50% Done] Ejean: DeckBuilder.java
+7. [10% Done] DJ: Game.java
+8. [95% Done] DJ: TurnManager.java
+9. [95% Done] DJ: Player.java
+10. [not started] Irene: Card.java
+11. [50% Done] Irene: Deck.java
+12. [Done] Irene: CardTypes.java
+
+# Week 7 (05/11/2026-05/17/2026)
+**Planning and Progress Tracking**:
+1. [80% Done] Luke: PlayerSetUpView.java
+2. [80% Done] Luke: PlayerSetUpController.java
+3. [Done] Jazlyn: set up jacoco + pitest
 6. [50% Done] Ejean: DeckBuilder.java
 7. [10% Done] DJ: Game.java
 8. [95% Done] DJ: TurnManager.java
