@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class PlayerCreateController {
-    // create a getter for the player names so ExplodingKittensApp can just grab them whenever
     private final PlayerCreateView view;
     private List<String> confirmedNames;
     private Consumer<String> onError;
