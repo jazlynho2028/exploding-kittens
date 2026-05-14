@@ -10,4 +10,6 @@ public interface AssetProvider {
 
 	String getStylesheet();
 
+	CardMetadata getCardMetaData(String key);
+
 }
