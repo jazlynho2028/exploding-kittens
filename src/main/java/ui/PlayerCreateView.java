@@ -19,11 +19,11 @@ public class PlayerCreateView {
     private final AssetProvider assets;
     private final StackPane root;
 
-    private static int preferredWidth = 300;
-    private static int contentSpacing = 20;
-    private static int fieldSpacing = 12;
-    private static double backgroundOpacity = 0.4;
-    private static int marginInsets = 15;
+    private static final int preferredWidth = 300;
+    private static final int contentSpacing = 20;
+    private static final int fieldSpacing = 12;
+    private static final double backgroundOpacity = 0.4;
+    private static final int marginInsets = 15;
 
     public final VBox playerFieldsContainer;
     public final Button addPlayerButton;
@@ -165,9 +165,7 @@ public class PlayerCreateView {
     public List<String> getEnteredNames() {
         List<String> names = new ArrayList<>();
         for (TextField field : playerFields) {
-            if (!field.getText().isBlank()) {
-                names.add(field.getText().trim());
-            }
+            names.add(field.getText().trim());
         }
         return names;
     }
