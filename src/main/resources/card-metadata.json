@@ -294,21 +294,21 @@
     "imageUrl": "clone_3.png"
   },
   "SWAPTOPANDBOTTOM_1": {
-    "title": "SWAP TOP AND BOTTOM",
-    "subtitle": "MAKE SOME POOR MEDICAL DECISIONS",
-    "description": "SWAP THE TOP AND BOTTOM CARDS OF THE DRAW PILE.",
+    "title": "card.swapTopAndBottom.title",
+    "subtitle": "card.swapTopAndBottom.subtitle1",
+    "description": "card.swapTopAndBottom.description",
     "imageUrl": "swap_top_and_bottom_1.png"
   },
   "SWAPTOPANDBOTTOM_2": {
-    "title": "SWAP TOP AND BOTTOM",
-    "subtitle": "EXPERIMENT ON FRANKENCAT",
-    "description": "SWAP THE TOP AND BOTTOM CARDS OF THE DRAW PILE.",
+    "title": "card.swapTopAndBottom.title",
+    "subtitle": "card.swapTopAndBottom.subtitle2",
+    "description": "card.swapTopAndBottom.description",
     "imageUrl": "swap_top_and_bottom_2.png"
   },
   "SWAPTOPANDBOTTOM_3": {
-    "title": "SWAP TOP AND BOTTOM",
-    "subtitle": "POISON YOUR NEMESIS",
-    "description": "SWAP THE TOP AND BOTTOM CARDS OF THE DRAW PILE.",
+    "title": "card.swapTopAndBottom.title",
+    "subtitle": "card.swapTopAndBottom.subtitle3",
+    "description": "card.swapTopAndBottom.description",
     "imageUrl": "swap_top_and_bottom_3.png"
   },
   "DRAWFROMTHEBOTTOM_1": {
