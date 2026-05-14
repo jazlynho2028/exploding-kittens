@@ -6,8 +6,8 @@ public class ErrorController {
 
 	private final ErrorView view;
 
-	public ErrorController(String message) {
-		this.view = new ErrorView(message);
+	public ErrorController(AssetProvider assetProvider, String message) {
+		this.view = new ErrorView(assetProvider, message);
 	}
 
 	public Scene getErrorScene() {

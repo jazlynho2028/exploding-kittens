@@ -4,8 +4,6 @@ public final class UIConstants {
 
     private UIConstants() { }
 
-    public static final String ERROR_MESSAGE_TITLE = "AN ERROR OCCURRED";
-
     public static final int LOADED_FONT_SIZE = 12;
 
     public static final int SCENE_WIDTH = 1280;

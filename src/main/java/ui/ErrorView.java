@@ -1,7 +1,6 @@
 package ui;
 
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -9,12 +8,15 @@ import javafx.scene.text.Text;
 
 public class ErrorView {
 
+	private final AssetProvider assetProvider;
 	private final StackPane root;
 	private final String message;
 
 
-	public ErrorView(String message) {
+	public ErrorView(AssetProvider assetProvider, String message) {
 		root = new StackPane();
+
+		this.assetProvider = assetProvider;
 		this.message = message;
 
 		buildUI();
@@ -44,7 +46,7 @@ public class ErrorView {
 		errorTextContainer.setAlignment(Pos.CENTER);
 
 		Text errorTitleText = buildText(
-				UIConstants.ERROR_MESSAGE_TITLE,
+				assetProvider.getString("error.title"),
 				"h1",
 				"title"
 		);
