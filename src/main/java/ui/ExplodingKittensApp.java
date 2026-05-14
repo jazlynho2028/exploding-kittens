@@ -8,11 +8,12 @@ import javafx.stage.Stage;
 public class ExplodingKittensApp extends Application {
 
     private final AssetManager assets = new AssetManager();
+    private static final String languageName = "English";
 
     @Override
     public void start(Stage stage) {
         Game model = new Game();
-        assets.loadGlobalFiles();
+        assets.loadGlobalFiles(languageName);
 
         showPlayerDeckScreen(model, stage);
     }
@@ -44,7 +45,7 @@ public class ExplodingKittensApp extends Application {
         scene.getStylesheets().add(assets.getStylesheet());
 
         stage.setScene(scene);
-        stage.setTitle(UIConstants.TITLE);
+        stage.setTitle(assets.getString("global.title"));
         stage.setResizable(false);
 
         stage.show();
