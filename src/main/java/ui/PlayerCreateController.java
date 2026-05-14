@@ -79,7 +79,7 @@ public class PlayerCreateController {
     }
 
     public List<String> getConfirmedNames() {
-        return confirmedNames;
+        return new ArrayList<>(confirmedNames);
     }
 
     public Scene getPlayerCreateScene() {

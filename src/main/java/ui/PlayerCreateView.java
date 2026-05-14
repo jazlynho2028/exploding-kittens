@@ -5,25 +5,20 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static ui.StartView.buildExplosionImage;
+import static ui.StartView.buildTitleText;
+
 public class PlayerCreateView {
 
-    private final AssetProvider assets;
+    private final AssetProvider assetProvider;
     private final StackPane root;
-
-    private static final int preferredWidth = 300;
-    private static final int contentSpacing = 20;
-    private static final int fieldSpacing = 12;
-    private static final double backgroundOpacity = 0.4;
-    private static final int marginInsets = 15;
 
     public final VBox playerFieldsContainer;
     public final Button addPlayerButton;
@@ -34,7 +29,7 @@ public class PlayerCreateView {
     private static final int MAX_PLAYERS = 4;
 
     public PlayerCreateView(AssetProvider assets) {
-        this.assets = assets;
+        this.assetProvider = assets;
         this.root = new StackPane();
 
         this.playerFieldsContainer = new VBox();
@@ -53,6 +48,7 @@ public class PlayerCreateView {
         root.getStyleClass().add("root");
 
         ImageView backgroundImage = buildBackgroundImage();
+
         StackPane createScreen = buildCreateScreen();
         StackPane overlayLayer = buildOverlayLayer();
 
@@ -71,55 +67,34 @@ public class PlayerCreateView {
     private VBox buildContentSection() {
         VBox content = new VBox();
         content.setAlignment(Pos.CENTER);
-        content.setSpacing(contentSpacing);
         content.getStyleClass().add("content-section");
 
         setupPlayerFieldsContainer();
-        Button addButton = buildAddPlayerButton();
-        Button startButton = buildConfirmButton();
+        Button addPlayerButton = buildAddPlayerButton();
+        Button confirmButton = buildConfirmButton();
 
         content.getChildren().addAll(
                 buildTitleText(),
                 playerFieldsContainer,
-                addButton,
-                startButton);
+                addPlayerButton,
+                confirmButton);
 
         return content;
     }
 
-    private Text buildTitleText() {
-        Text title = new Text("EXPLODING KITTENS");
-        title.getStyleClass().addAll("title", "h1");
-        return title;
-    }
-
     private void setupPlayerFieldsContainer() {
         playerFieldsContainer.setAlignment(Pos.CENTER);
-        playerFieldsContainer.setSpacing(fieldSpacing);
-        playerFieldsContainer.setMaxWidth(preferredWidth);
+        playerFieldsContainer.getStyleClass().add("player-fields-container");
     }
 
     private Button buildAddPlayerButton() {
         addPlayerButton.getStyleClass().addAll("add-player-button");
-        addPlayerButton.setPrefWidth(preferredWidth);
         return addPlayerButton;
     }
 
     private Button buildConfirmButton() {
-        confirmButton.getStyleClass().addAll("start-game-button", "h3");
-        confirmButton.setPrefWidth(preferredWidth);
+        confirmButton.getStyleClass().addAll("play-button", "h2");
         return confirmButton;
-    }
-
-    private ImageView buildBackgroundImage() {
-        Image image = assets.getImage("placeholder");
-        ImageView imageView = new ImageView(image);
-        imageView.setPreserveRatio(true);
-        imageView.setOpacity(backgroundOpacity);
-
-        imageView.fitWidthProperty().bind(root.widthProperty());
-        imageView.fitHeightProperty().bind(root.heightProperty());
-        return imageView;
     }
 
     private StackPane buildOverlayLayer() {
@@ -127,7 +102,7 @@ public class PlayerCreateView {
         overlayLayer.setPickOnBounds(false);
 
         SVGPath backIcon = new SVGPath();
-        backIcon.setContent(assets.getSvg("restart"));
+        backIcon.setContent(assetProvider.getSvg("restart"));
         backIcon.getStyleClass().add("restart-icon");
 
         backButton.getStyleClass().add("icon-button");
@@ -135,9 +110,16 @@ public class PlayerCreateView {
 
         overlayLayer.getChildren().add(backButton);
         StackPane.setAlignment(backButton, Pos.TOP_LEFT);
-        StackPane.setMargin(backButton, new Insets(marginInsets));
+        StackPane.setMargin(backButton, new Insets(UIConstants.BUTTON_MARGIN_INSETS));
 
         return overlayLayer;
+    }
+
+    private ImageView buildBackgroundImage() {
+        ImageView backgroundImage = buildExplosionImage(assetProvider);
+        backgroundImage.setOpacity(UIConstants.BACKGROUND_IMAGE_OPACITY);
+
+        return backgroundImage;
     }
 
     public void addPlayerFieldEntry() {

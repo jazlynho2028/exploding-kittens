@@ -34,7 +34,7 @@ public class StartView {
     private StackPane buildStartScreen() {
         StackPane startScreen = new StackPane();
 
-        ImageView explosionCatImage = buildExplosionImage();
+        ImageView explosionCatImage = buildExplosionImage(assetProvider);
         VBox contentSection = buildContentSection();
 
         startScreen.getChildren().addAll(explosionCatImage, contentSection);
@@ -54,7 +54,7 @@ public class StartView {
         return contentSection;
     }
 
-    private ImageView buildExplosionImage() {
+    static ImageView buildExplosionImage(AssetProvider assetProvider) {
         Image image = assetProvider.getImage("placeholder");
         ImageView imageView = new ImageView(image);
 
@@ -64,7 +64,7 @@ public class StartView {
         return imageView;
     }
 
-    private Text buildTitleText() {
+    static Text buildTitleText() {
         Text titleText = new Text(UIConstants.TITLE);
         titleText.getStyleClass().addAll("h1", "title");
 
