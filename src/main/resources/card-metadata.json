@@ -354,33 +354,33 @@
     "imageUrl": "targeted_attack_4.png"
   },
   "WINNERWINNERCATNIPDINNER_1": {
-    "title": "WINNER WINNER CATNIP DINNER",
-    "subtitle": "GET TEN BOXES FROM COSTCO",
-    "description": "IF YOU HOLD THIS CARD FOR 4 FULL ROUNDS, YOU AUTOMATICALLY WIN.",
+    "title": "card.winnerWinnerCatnipDinner.title",
+    "subtitle": "card.winnerWinnerCatnipDinner.subtitle",
+    "description": "card.winnerWinnerCatnipDinner.description",
     "imageUrl": "winner_winner_catnip_dinner_1.png"
   },
   "RAGEBAIT_1": {
-    "title": "RAGEBAIT",
-    "subtitle": "GO FISHING ON AN ANGRY STOMACH",
-    "description": "SWITCH HANDS WITH A PLAYER OF YOUR CHOICE.",
+    "title": "card.ragebait.title",
+    "subtitle": "card.ragebait.subtitle",
+    "description": "card.ragebait.description",
     "imageUrl": "ragebait_1.png"
   },
   "RECYCLE_1": {
-    "title": "RECYCLE",
-    "subtitle": "THROW DOG POOP IN YOUR NEIGHBOR'S RECYCLING BIN",
-    "description": "SHUFFLE THE DISCARD PILE. DRAW THE BOTTOM CARD TO TAKE ONE TURN.",
+    "title": "card.recycle.title",
+    "subtitle": "card.recycle.subtitle",
+    "description": "card.recycle.description",
     "imageUrl": "recycle_1.png"
   },
   "DOUBLEUP_1": {
-    "title": "DOUBLE UP",
-    "subtitle": "SPLURGE AT IN-N-OUT",
-    "description": "DRAW AN EXTRA CARD AT THE END OF YOUR TURN.",
+    "title": "card.doubleUp.title",
+    "subtitle": "card.doubleUp.subtitle",
+    "description": "card.doubleUp.description",
     "imageUrl": "double_up_1.png"
   },
   "CLEANUP_1": {
-    "title": "CLEAN UP",
-    "subtitle": "RELEASE THE CLEANING GOATS",
-    "description": "DRAW AN EXTRA CARD AT THE END OF YOUR TURN.",
+    "title": "card.cleanUp.title",
+    "subtitle": "card.cleanUp.subtitle",
+    "description": "card.cleanUp.description",
     "imageUrl": "clean_up_1.png"
   }
 }
