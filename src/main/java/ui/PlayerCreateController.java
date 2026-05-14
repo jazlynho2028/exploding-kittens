@@ -2,6 +2,8 @@ package ui;
 
 import domain.Game;
 import javafx.scene.Scene;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -50,7 +52,14 @@ public class PlayerCreateController {
     }
 
     private void onConfirmNames() {
-        List<String> names = view.getEnteredNames();
+        List<String> rawNames = view.getEnteredNames();
+
+        List<String> names = new ArrayList<>();
+        for (String input : rawNames) {
+            if (input != null && !input.isBlank()) {
+                names.add(input.trim());
+            }
+        }
 
         if (names.size() < 2) {
             onError.accept("You need at least 2 players to start!");
