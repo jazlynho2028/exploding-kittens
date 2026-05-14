@@ -14,7 +14,7 @@ public class AssetManager implements AssetProvider {
 
     private final Map<String, Image> images = new HashMap<>();
     private final Map<String, String> svgPaths = new HashMap<>();
-    private final Map<String, CardMetadata> cardMetaData = new HashMap<>();
+    private final Map<String, CardMetadata> cardMetadata = new HashMap<>();
 
     private String cssUrl;
 
@@ -65,7 +65,7 @@ public class AssetManager implements AssetProvider {
     private void loadCardMetadata() {
         CardMetadataLoader loader = new CardMetadataLoader();
         loader.open("/card-metadata.json");
-        cardMetaData.putAll(loader.getMetadata());
+        cardMetadata.putAll(loader.getMetadata());
     }
 
     public void addImage(String key, String imageUrl) {
@@ -93,8 +93,8 @@ public class AssetManager implements AssetProvider {
         return cssUrl;
     }
 
-    public CardMetadata getCardMetaData(String key) {
-        return cardMetaData.get(key);
+    public CardMetadata getCardMetadata(String key) {
+        return cardMetadata.get(key);
     }
 
 }
