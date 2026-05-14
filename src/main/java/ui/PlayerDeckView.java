@@ -329,9 +329,8 @@ public class PlayerDeckView {
         explodingKittensText.setAlignment(Pos.CENTER);
         explodingKittensText.getStyleClass().add("exploding-kittens-text");
 
-        String[] titleWords = UIConstants.TITLE.split(" ");
-        Text explodingText = buildExplodingText(titleWords[0]);
-        Text kittensText = buildKittensText(titleWords[1]);
+        Text explodingText = buildExplodingText(UIConstants.EXPLODING_TEXT);
+        Text kittensText = buildKittensText(UIConstants.KITTENS_TEXT);
 
         explodingKittensText.getChildren().addAll(
                 explodingText,
