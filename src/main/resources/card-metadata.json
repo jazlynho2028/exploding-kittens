@@ -252,9 +252,9 @@
     "imageUrl": "cat_card_4.png"
   },
   "CATOMICBOMB_1": {
-    "title": "CATOMIC BOMB",
-    "subtitle": "THIS IS A CAUSE FOR ALARM",
-    "description": "REMOVE THE EXPLODING KITTENS FROM THE DECK. SHUFFLE THE DECK. PUT ALL THOSE KITTENS FACE DOWN ON TOP. YOUR TURN ENDS AFTER PLAYING THIS CARD.",
+    "title": "card.catomicBomb.title",
+    "subtitle": "card.catomicBomb.subtitle",
+    "description": "card.catomicBomb.description",
     "imageUrl": "catomic_bomb.png"
   },
   "RAISINGHECK_1": {
