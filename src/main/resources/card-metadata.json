@@ -330,27 +330,27 @@
     "imageUrl": "draw_from_the_bottom_3.png"
   },
   "TARGETEDATTACK_1": {
-    "title": "TARGETED ATTACK",
-    "subtitle": "DEPLOY THE GROIN-KICKING PANDA BEAR",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE PLAYER OF YOUR CHOICE TO TAKE 2 TURNS. PLAY CONTINUES FROM THAT PLAYER.",
+    "title": "card.targetedAttack.title",
+    "subtitle": "card.targetedAttack.subtitle1",
+    "description": "card.targetedAttack.description",
     "imageUrl": "targeted_attack_1.png"
   },
   "TARGETEDATTACK_2": {
-    "title": "TARGETED ATTACK",
-    "subtitle": "FIRE THE FAT-HAMPSTER CATAPULT",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE PLAYER OF YOUR CHOICE TO TAKE 2 TURNS. PLAY CONTINUES FROM THAT PLAYER.",
+    "title": "card.targetedAttack.title",
+    "subtitle": "card.targetedAttack.subtitle2",
+    "description": "card.targetedAttack.description",
     "imageUrl": "targeted_attack_2.png"
   },
   "TARGETEDATTACK_3": {
-    "title": "TARGETED ATTACK",
-    "subtitle": "UNLEASH A SHARK WHO HURTS WITH WORDS INSTEAD OF TEETH",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE PLAYER OF YOUR CHOICE TO TAKE 2 TURNS. PLAY CONTINUES FROM THAT PLAYER.",
+    "title": "card.targetedAttack.title",
+    "subtitle": "card.targetedAttack.subtitle3",
+    "description": "card.targetedAttack.description",
     "imageUrl": "targeted_attack_3.png"
   },
   "TARGETEDATTACK_4": {
-    "title": "TARGETED ATTACK",
-    "subtitle": "UNLEASH THE RUNNING PIRANHA",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE PLAYER OF YOUR CHOICE TO TAKE 2 TURNS. PLAY CONTINUES FROM THAT PLAYER.",
+    "title": "card.targetedAttack.title",
+    "subtitle": "card.targetedAttack.subtitle4",
+    "description": "card.targetedAttack.description",
     "imageUrl": "targeted_attack_4.png"
   },
   "WINNERWINNERCATNIPDINNER_1": {
