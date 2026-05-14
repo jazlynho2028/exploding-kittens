@@ -18,33 +18,33 @@
     "imageUrl": "exploding_kitten_3.png"
   },
   "DEFUSE_1": {
-    "title": "DEFUSE",
-    "subtitle": "VIA CATNIP SANDWICHES",
-    "description": "PUT YOUR LAST DRAWN CARD BACK INTO THE DECK.",
+    "title": "card.defuse.title",
+    "subtitle": "card.defuse.subtitle1",
+    "description": "card.defuse.description",
     "imageUrl": "defuse_1.png"
   },
   "DEFUSE_2": {
-    "title": "DEFUSE",
-    "subtitle": "VIA CRATE",
-    "description": "PUT YOUR LAST DRAWN CARD BACK INTO THE DECK.",
+    "title": "card.defuse.title",
+    "subtitle": "card.defuse.subtitle2",
+    "description": "card.defuse.description",
     "imageUrl": "defuse_2.png"
   },
   "DEFUSE_3": {
-    "title": "DEFUSE",
-    "subtitle": "VIA LASER POINTER",
-    "description": "PUT YOUR LAST DRAWN CARD BACK INTO THE DECK.",
+    "title": "card.defuse.title",
+    "subtitle": "card.defuse.subtitle3",
+    "description": "card.defuse.description",
     "imageUrl": "defuse_3.png"
   },
   "DEFUSE_4": {
-    "title": "DEFUSE",
-    "subtitle": "VIA MAULING A BABY",
-    "description": "PUT YOUR LAST DRAWN CARD BACK INTO THE DECK.",
+    "title": "card.defuse.title",
+    "subtitle": "card.defuse.subtitle4",
+    "description": "card.defuse.description",
     "imageUrl": "defuse_4.png"
   },
   "DEFUSE_5": {
-    "title": "DEFUSE",
-    "subtitle": "VIA SPAY/NEUTER",
-    "description": "PUT YOUR LAST DRAWN CARD BACK INTO THE DECK.",
+    "title": "card.defuse.title",
+    "subtitle": "card.defuse.subtitle5",
+    "description": "card.defuse.description",
     "imageUrl": "defuse_5.png"
   },
   "ATTACK_1": {
