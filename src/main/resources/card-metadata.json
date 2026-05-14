@@ -1,20 +1,20 @@
 {
   "EXPLODINGKITTEN_1": {
-    "title": "EXPLODING KITTEN",
-    "subtitle": "",
-    "description": "SHOW THIS CARD IMMEDIATELY.",
+    "title": "card.explodingKitten.title",
+    "subtitle": "global.empty",
+    "description": "card.explodingKitten.description",
     "imageUrl": "exploding_kitten_1.png"
   },
   "EXPLODINGKITTEN_2": {
-    "title": "EXPLODING KITTEN",
-    "subtitle": "",
-    "description": "SHOW THIS CARD IMMEDIATELY.",
+    "title": "card.explodingKitten.title",
+    "subtitle": "global.empty",
+    "description": "card.explodingKitten.description",
     "imageUrl": "exploding_kitten_2.png"
   },
   "EXPLODINGKITTEN_3": {
-    "title": "EXPLODING KITTEN",
-    "subtitle": "",
-    "description": "SHOW THIS CARD IMMEDIATELY.",
+    "title": "card.explodingKitten.title",
+    "subtitle": "global.empty",
+    "description": "card.explodingKitten.description",
     "imageUrl": "exploding_kitten_3.png"
   },
   "DEFUSE_1": {
