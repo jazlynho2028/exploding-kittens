@@ -16,6 +16,7 @@ public class AssetManager implements AssetProvider {
     private final Map<String, Image> images = new HashMap<>();
     private final Map<String, String> svgPaths = new HashMap<>();
     private final Map<String, CardMetadata> cardMetadata = new HashMap<>();
+    private ResourceBundle languageBundle;
 
     private String cssUrl;
 
