@@ -18,7 +18,7 @@
 
 ### Method under test: `removeCardFromHand(Card card)`
 - **TC5: remove non-existing card from empty hand** ( checkmark )
-    - **State of the system**: player hand is empty; card to remove holds any value 
+    - **State of the system**: player hand is empty; card to remove does not exist in hand 
     - **Expected output**: IllegalArgumentException
 
 - **TC6: remove non-existing card from hand with one card** ( checkmark )
@@ -27,12 +27,12 @@
 
 - **TC7: remove existing card from hand with one card** ( checkmark )
     - **State of the system**: player hand has one card; card to remove does exist in hand
-    - **Expected output**: player hand does not have card anymore 
+    - **Expected output**: player hand does not have card anymore; player hand size decreased by 1
 
 - **TC9: remove non-existing card from hand with more than one card** ( checkmark )
   - **State of the system**: player hand has more than one card; card to remove does not exist in hand
   - **Expected output**: IllegalArgumentException
 
-- **TC10: remove existing card from hand with more than one card** ( x )
+- **TC10: remove existing card from hand with more than one card** ( checkmark )
     - **State of the system**: player hand has more than one card; card to remove does exist in hand 
-    - **Expected output**: player hand does not have card anymore 
+    - **Expected output**: player hand does not have card anymore; player hand size decreased by 1

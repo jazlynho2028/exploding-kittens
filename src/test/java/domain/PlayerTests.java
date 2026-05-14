@@ -158,4 +158,24 @@ public class PlayerTests {
 
         EasyMock.verify(mockFirstCard, mockSecondCard, mockNonexistingCard);
     }
+
+    @Test
+    public void testRemoveCardFromHand_ExistingCardFromCardWithMultipleCards() {
+        final int maintainHandSize = 1;
+        Card mockCardToRemove = EasyMock.createMock(Card.class);
+        Card mockCardToKeep = EasyMock.createMock(Card.class);
+        EasyMock.replay(mockCardToRemove, mockCardToKeep);
+
+        Player player = new Player("Alice");
+        player.addCardtoHand(mockCardToRemove);
+        player.addCardtoHand(mockCardToKeep);
+
+        player.removeCardFromHand(mockCardToRemove);
+
+        assertEquals(maintainHandSize, player.getHand().size());
+        assertFalse(player.getHand().contains(mockCardToRemove));
+        assertTrue(player.getHand().contains(mockCardToKeep));
+
+        EasyMock.verify(mockCardToRemove, mockCardToKeep);
+    }
 }
