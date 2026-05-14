@@ -6,17 +6,17 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class PlayerCreateController {
-
+    // create a getter for the player names so ExplodingKittensApp can just grab them whenever
     private final PlayerCreateView view;
-    private final Game model;
+    private List<String> confirmedNames;
     private Consumer<String> onError;
     private Runnable onSuccess;
     private Runnable onBack;
 
-    public PlayerCreateController(Game model, AssetProvider assets) {
-        this.model = model;
+    public PlayerCreateController(AssetProvider assets) {
         this.view = new PlayerCreateView(assets);
         this.onError = message -> { };
+
 
         buildAndBindUI();
     }
@@ -57,8 +57,9 @@ public class PlayerCreateController {
             return;
         }
 
+        this.confirmedNames = names;
+
         try {
-            //send the players over to the game class
             if (onSuccess != null) {
                 onSuccess.run();
             }
@@ -66,6 +67,10 @@ public class PlayerCreateController {
         catch (Exception e) {
             onError.accept("Error initializing game: " + e.getMessage());
         }
+    }
+
+    public List<String> getConfirmedNames() {
+        return confirmedNames;
     }
 
     public Scene getPlayerCreateScene() {
