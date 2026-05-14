@@ -90,45 +90,45 @@
     "imageUrl": "shuffle_4.png"
   },
   "SKIP_1": {
-    "title": "SKIP",
-    "subtitle": "COMMANDEER A BUNNYRAPTOR",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD.",
+    "title": "card.skip.title",
+    "subtitle": "card.skip.subtitle1",
+    "description": "card.skip.description",
     "imageUrl": "skip_1.png"
   },
   "SKIP_2": {
-    "title": "SKIP",
-    "subtitle": "CRAB WALK WITH SOME CRABS",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD.",
+    "title": "card.skip.title",
+    "subtitle": "card.skip.subtitle2",
+    "description": "card.skip.description",
     "imageUrl": "skip_2.png"
   },
   "SKIP_3": {
-    "title": "SKIP",
-    "subtitle": "ENGAGE THE HYPERGOAT",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD.",
+    "title": "card.skip.title",
+    "subtitle": "card.skip.subtitle3",
+    "description": "card.skip.description",
     "imageUrl": "skip_3.png"
   },
   "SEETHEFUTURE_1": {
-    "title": "SEE THE FUTURE",
-    "subtitle": "ASK THE ALL-SEEING GOAT WIZARD",
-    "description": "PRIVATELY VIEW THE TOP THREE CARDS OF THE DECK.",
+    "title": "card.seeTheFuture.title",
+    "subtitle": "card.seeTheFuture.subtitle1",
+    "description": "card.seeTheFuture.description",
     "imageUrl": "see_the_future_1.png"
   },
   "SEETHEFUTURE_2": {
-    "title": "SEE THE FUTURE",
-    "subtitle": "DEPLOY THE SPECIAL-OPS BUNNIES",
-    "description": "PRIVATELY VIEW THE TOP THREE CARDS OF THE DECK.",
+    "title": "card.seeTheFuture.title",
+    "subtitle": "card.seeTheFuture.subtitle2",
+    "description": "card.seeTheFuture.description",
     "imageUrl": "see_the_future_2.png"
   },
   "SEETHEFUTURE_3": {
-    "title": "SEE THE FUTURE",
-    "subtitle": "FEAST UPON A UNICORN ENCHILADA AND GAIN ITS ENCHILADA POWERS",
-    "description": "PRIVATELY VIEW THE TOP THREE CARDS OF THE DECK.",
+    "title": "card.seeTheFuture.title",
+    "subtitle": "card.seeTheFuture.subtitle3",
+    "description": "card.seeTheFuture.description",
     "imageUrl": "see_the_future_3.png"
   },
   "SEETHEFUTURE_4": {
-    "title": "SEE THE FUTURE",
-    "subtitle": "RUB THE BELLY OF A PIG-A-CORN",
-    "description": "PRIVATELY VIEW THE TOP THREE CARDS OF THE DECK.",
+    "title": "card.seeTheFuture.title",
+    "subtitle": "card.seeTheFuture.subtitle4",
+    "description": "card.seeTheFuture.description",
     "imageUrl": "see_the_future_4.png"
   },
   "NOPE_1": {
