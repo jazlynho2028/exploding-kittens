@@ -66,27 +66,27 @@
     "imageUrl": "attack_3.png"
   },
   "SHUFFLE_1": {
-    "title": "SHUFFLE",
-    "subtitle": "A KRAKEN EMERGES AND HE'S SUPER UPSET",
-    "description": "SHUFFLE THE DRAW PILE.",
+    "title": "card.shuffle.title",
+    "subtitle": "card.shuffle.subtitle1",
+    "description": "card.shuffle.description",
     "imageUrl": "shuffle_1.png"
   },
   "SHUFFLE_2": {
-    "title": "SHUFFLE",
-    "subtitle": "A TRANSDIMENSIONAL LITTER BOX MATERIALIZES",
-    "description": "SHUFFLE THE DRAW PILE.",
+    "title": "card.shuffle.title",
+    "subtitle": "card.shuffle.subtitle2",
+    "description": "card.shuffle.description",
     "imageUrl": "shuffle_2.png"
   },
   "SHUFFLE_3": {
-    "title": "SHUFFLE",
-    "subtitle": "AN ELECTROMAGNETIC POMERANIAN STORM ROLLS IN FROM THE EAST",
-    "description": "SHUFFLE THE DRAW PILE.",
+    "title": "card.shuffle.title",
+    "subtitle": "card.shuffle.subtitle3",
+    "description": "card.shuffle.description",
     "imageUrl": "shuffle_3.png"
   },
   "SHUFFLE_4": {
-    "title": "SHUFFLE",
-    "subtitle": "DISCOVER YOU HAVE A TOILET WEREWOLF",
-    "description": "SHUFFLE THE DRAW PILE.",
+    "title": "card.shuffle.title",
+    "subtitle": "card.shuffle.subtitle4",
+    "description": "card.shuffle.description",
     "imageUrl": "shuffle_4.png"
   },
   "SKIP_1": {
