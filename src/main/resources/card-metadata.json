@@ -132,27 +132,27 @@
     "imageUrl": "see_the_future_4.png"
   },
   "NOPE_1": {
-    "title": "NOPE",
-    "subtitle": "A JACKANOPE BOUNDS INTO THE ROOM",
-    "description": "STOP THE ACTION OF ANOTHER PLAYER. YOU CAN PLAY THIS ANY TIME.",
+    "title": "card.nope.title",
+    "subtitle": "card.nope.subtitle1",
+    "description": "card.nope.description",
     "imageUrl": "nope_1.png"
   },
   "NOPE_2": {
-    "title": "NOPE",
-    "subtitle": "THE POPE OF NOPE HAS SPOKEN",
-    "description": "STOP THE ACTION OF ANOTHER PLAYER. YOU CAN PLAY THIS ANY TIME.",
+    "title": "card.nope.title",
+    "subtitle": "card.nope.subtitle2",
+    "description": "card.nope.description",
     "imageUrl": "nope_2.png"
   },
   "NOPE_3": {
-    "title": "NOPE",
-    "subtitle": "WIN THE NOPEBELL PEACE PRIZE",
-    "description": "STOP THE ACTION OF ANOTHER PLAYER. YOU CAN PLAY THIS ANY TIME.",
+    "title": "card.nope.title",
+    "subtitle": "card.nope.subtitle3",
+    "description": "card.nope.description",
     "imageUrl": "nope_3.png"
   },
   "NOPE_4": {
-    "title": "NOPE",
-    "subtitle": "A NOPE NINJA DELIVERS A WICKED DRAGON KICK",
-    "description": "STOP THE ACTION OF ANOTHER PLAYER. YOU CAN PLAY THIS ANY TIME.",
+    "title": "card.nope.title",
+    "subtitle": "card.nope.subtitle4",
+    "description": "card.nope.description",
     "imageUrl": "nope_4.png"
   },
   "CATCARD_11": {
