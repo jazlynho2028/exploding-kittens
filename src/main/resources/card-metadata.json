@@ -312,21 +312,21 @@
     "imageUrl": "swap_top_and_bottom_3.png"
   },
   "DRAWFROMTHEBOTTOM_1": {
-    "title": "DRAW FROM THE BOTTOM",
-    "subtitle": "TAKE A BIG BITE OF YOUR COWARD SANDWICH",
-    "description": "END YOUR TURN BY DRAWING THE CARD AT THE BOTTOM OF THE DRAW PILE.",
+    "title": "card.drawFromTheBottom.title",
+    "subtitle": "card.drawFromTheBottom.subtitle1",
+    "description": "card.drawFromTheBottom.description",
     "imageUrl": "draw_from_the_bottom_1.png"
   },
   "DRAWFROMTHEBOTTOM_2": {
-    "title": "DRAW FROM THE BOTTOM",
-    "subtitle": "PLAY A LEGENDARY JENGA MOVE",
-    "description": "END YOUR TURN BY DRAWING THE CARD AT THE BOTTOM OF THE DRAW PILE.",
+    "title": "card.drawFromTheBottom.title",
+    "subtitle": "card.drawFromTheBottom.subtitle2",
+    "description": "card.drawFromTheBottom.description",
     "imageUrl": "draw_from_the_bottom_2.png"
   },
   "DRAWFROMTHEBOTTOM_3": {
-    "title": "DRAW FROM THE BOTTOM",
-    "subtitle": "INVENT A NEW ART FORM",
-    "description": "END YOUR TURN BY DRAWING THE CARD AT THE BOTTOM OF THE DRAW PILE.",
+    "title": "card.drawFromTheBottom.title",
+    "subtitle": "card.drawFromTheBottom.subtitle3",
+    "description": "card.drawFromTheBottom.description",
     "imageUrl": "draw_from_the_bottom_3.png"
   },
   "TARGETEDATTACK_1": {
