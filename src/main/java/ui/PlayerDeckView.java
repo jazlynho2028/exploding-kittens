@@ -87,10 +87,12 @@ public class PlayerDeckView {
 
     public void renderHandVisibilityButton(boolean isFaceUp) {
         if (isFaceUp) {
-            handVisibilityButton.setText(assetProvider.getString("playerDeckScreen.hideHandLabel"));
+            handVisibilityButton.setText(
+                    assetProvider.getString("playerDeckScreen.hideHandLabel"));
         }
         else {
-            handVisibilityButton.setText(assetProvider.getString("playerDeckScreen.showHandLabel"));
+            handVisibilityButton.setText(
+                    assetProvider.getString("playerDeckScreen.showHandLabel"));
         }
     }
 
@@ -201,7 +203,8 @@ public class PlayerDeckView {
         playerHeaderSection.getStyleClass().add("player-header-section");
 
         renderPlayerNamesContainer();
-        Text playerHeaderCaption = buildCaption(assetProvider.getString("playerDeckScreen.playerHeaderCaption"));
+        Text playerHeaderCaption = buildCaption(
+                assetProvider.getString("playerDeckScreen.playerHeaderCaption"));
 
         playerHeaderSection.getChildren().addAll(
                 playerNamesContainer,
@@ -254,7 +257,8 @@ public class PlayerDeckView {
         StackPane drawPileContainer = buildDrawPileContainer();
         drawPileButton.setDisable(true);
 
-        Text drawPileCaption = buildCaption(assetProvider.getString("playerDeckScreen.drawPileCaption"));
+        Text drawPileCaption = buildCaption(
+                assetProvider.getString("playerDeckScreen.drawPileCaption"));
 
         drawPileSection.getChildren().addAll(
                 drawPileContainer,
@@ -329,8 +333,10 @@ public class PlayerDeckView {
         explodingKittensText.setAlignment(Pos.CENTER);
         explodingKittensText.getStyleClass().add("exploding-kittens-text");
 
-        Text explodingText = buildExplodingText(assetProvider.getString("playerDeckScreen.exploding"));
-        Text kittensText = buildKittensText(assetProvider.getString("playerDeckScreen.kittens"));
+        Text explodingText = buildExplodingText(
+                assetProvider.getString("playerDeckScreen.exploding"));
+        Text kittensText = buildKittensText(
+                assetProvider.getString("playerDeckScreen.kittens"));
 
         explodingKittensText.getChildren().addAll(
                 explodingText,
@@ -366,7 +372,8 @@ public class PlayerDeckView {
         discardPileSection.getStyleClass().add("card-pile-section");
 
         StackPane discardPileContainer = buildDiscardPileContainer();
-        Text discardPileCaption = buildCaption(assetProvider.getString("playerDeckScreen.discardPileCaption"));
+        Text discardPileCaption = buildCaption(
+                assetProvider.getString("playerDeckScreen.discardPileCaption"));
 
         discardPileSection.getChildren().addAll(
                 discardPileContainer,
@@ -406,7 +413,8 @@ public class PlayerDeckView {
 
         renderHandVisibilityToggle();
         ScrollPane handScrollPane = buildHandScrollPane();
-        Text handCaption = buildCaption(assetProvider.getString("playerDeckScreen.handCaption"));
+        Text handCaption = buildCaption(
+                assetProvider.getString("playerDeckScreen.handCaption"));
 
         playerHandSection.getChildren().addAll(
                 handVisibilityButton,
@@ -418,7 +426,8 @@ public class PlayerDeckView {
     }
 
     private void renderHandVisibilityToggle() {
-        handVisibilityButton.setText(assetProvider.getString("playerDeckScreen.showHandLabel"));
+        handVisibilityButton.setText(
+                assetProvider.getString("playerDeckScreen.showHandLabel"));
         handVisibilityButton.getStyleClass().addAll(
                 "hand-visibility-toggle",
                 "h6"
@@ -623,8 +632,10 @@ public class PlayerDeckView {
     }
 
     private void buildAndAddTurnControlButtonsAfterGameStart() {
-        renderTurnControlButton(playCardsButton, assetProvider.getString("playerDeckScreen.playCardsLabel"));
-        renderTurnControlButton(endTurnButton, assetProvider.getString("playerDeckScreen.endTurnLabel"));
+        renderTurnControlButton(playCardsButton,
+                assetProvider.getString("playerDeckScreen.playCardsLabel"));
+        renderTurnControlButton(endTurnButton,
+                assetProvider.getString("playerDeckScreen.endTurnLabel"));
 
         turnControlSection.getChildren().addAll(
                 playCardsButton,
@@ -633,7 +644,8 @@ public class PlayerDeckView {
     }
 
     private void buildAndAddTurnControlButtonsBeforeGameStart() {
-        renderTurnControlButton(startGameButton, assetProvider.getString("playerDeckScreen.startGameLabel"));
+        renderTurnControlButton(startGameButton,
+                assetProvider.getString("playerDeckScreen.startGameLabel"));
 
         turnControlSection.getChildren().add(startGameButton);
     }
