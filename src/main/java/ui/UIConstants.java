@@ -4,8 +4,6 @@ public final class UIConstants {
 
     private UIConstants() { }
 
-    public static final String EXPLODING_TEXT = "EXPLODING";
-    public static final String KITTENS_TEXT = "KITTENS";
     public static final String ERROR_MESSAGE_TITLE = "AN ERROR OCCURRED";
     public static final String PLAYER_HEADER_CAPTION = "CLICK TO SEE EACH PLAYER'S CARDS";
     public static final String DRAW_PILE_CAPTION = "CLICK TO DRAW";
