@@ -156,99 +156,99 @@
     "imageUrl": "nope_4.png"
   },
   "CATCARD_11": {
-    "title": "HAIRY POTATO CAT",
-    "subtitle": "",
+    "title": "card.catcard1.title",
+    "subtitle": "global.empty",
     "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
     "imageUrl": "cat_card_1.png"
   },
   "CATCARD_12": {
-    "title": "HAIRY POTATO CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard1.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_1.png"
   },
   "CATCARD_13": {
-    "title": "HAIRY POTATO CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard1.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_1.png"
   },
   "CATCARD_14": {
-    "title": "HAIRY POTATO CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard1.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_1.png"
   },
   "CATCARD_21": {
-    "title": "KIT-TEA-CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard2.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_2.png"
   },
   "CATCARD_22": {
-    "title": "KIT-TEA-CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard2.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_2.png"
   },
   "CATCARD_23": {
-    "title": "KIT-TEA-CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard2.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_2.png"
   },
   "CATCARD_24": {
-    "title": "KIT-TEA-CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard2.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_2.png"
   },
   "CATCARD_31": {
-    "title": "RAINBOW-RALPHING CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard3.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_3.png"
   },
   "CATCARD_32": {
-    "title": "RAINBOW-RALPHING CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard3.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_3.png"
   },
   "CATCARD_33": {
-    "title": "RAINBOW-RALPHING CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard3.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_3.png"
   },
   "CATCARD_34": {
-    "title": "RAINBOW-RALPHING CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard3.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_3.png"
   },
   "CATCARD_41": {
-    "title": "TROLL CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard4.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_4.png"
   },
   "CATCARD_42": {
-    "title": "TROLL CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard4.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_4.png"
   },
   "CATCARD_43": {
-    "title": "TROLL CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard4.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_4.png"
   },
   "CATCARD_44": {
-    "title": "TROLL CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard4.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_4.png"
   },
   "CATOMICBOMB_1": {
