@@ -1,7 +1,7 @@
 package ui;
 
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,20 +10,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class StartView {
-    private final AssetManager assets;
-    private StackPane root;
+    private final AssetProvider assetProvider;
+    private final StackPane root;
 
-    public StartView(AssetManager assets){
-        this.assets = assets;
+    public StartView(AssetProvider assetProvider) {
+        this.assetProvider = assetProvider;
+        root = new StackPane();
 
         buildUI();
     }
 
-    public Parent getRoot() { return root; }
+    public Scene createStartScene () {
+        return new Scene(root, UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
+    }
 
     private void buildUI() {
-        root = new StackPane();
-
         StackPane startScreen = buildStartScreen();
         root.getChildren().add(startScreen);
     }
@@ -53,7 +54,7 @@ public class StartView {
     }
 
     private ImageView buildExplosionImage() {
-        Image image = assets.getImage("placeholder");
+        Image image = assetProvider.getImage("placeholder");
         ImageView imageView = new ImageView(image);
 
         imageView.setFitWidth(UIConstants.BACKGROUND_IMAGE_WIDTH);
@@ -63,7 +64,7 @@ public class StartView {
     }
 
     private Text buildTitleText() {
-        Text titleText = new Text(UIConstants.TITLE);
+        Text titleText = new Text(assetProvider.getString("global.title"));
         titleText.getStyleClass().addAll("h1", "title");
 
         return titleText;
@@ -73,7 +74,7 @@ public class StartView {
         Button playButton = new Button();
         playButton.getStyleClass().addAll("play-button", "h2");
 
-        playButton.setText(UIConstants.PLAY_BUTTON_LABEL);
+        playButton.setText(assetProvider.getString("startScreen.play"));
 
         return playButton;
     }
