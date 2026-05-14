@@ -14,6 +14,8 @@ public class GameState {
     private boolean isGameOngoing;
     private boolean isValidPlay;
     private int currentDrawCount;
+    private static final int playerThreeIndex = 3;
+    private static final int playerFourIndex = 4;
 
     public GameState() {
         playerNames = List.of("STEVE", "MONKEY", "JENNY", "ELI", "GEORGE WASHINGTON");
@@ -82,10 +84,10 @@ public class GameState {
             2, List.of(
                     "DEFUSE", "CAT", "CLONE", "RAISING HECK", "GODCAT", "CAT"
                 ),
-            3, List.of(
+            playerThreeIndex, List.of(
                     "DEFUSE", "CAT", "CAT", "CAT", "CAT", "CAT"
                 ),
-            4, List.of(
+            playerFourIndex, List.of(
                     "DEFUSE", "FEED THE DEAD", "ATTACK", "ATTACK", "CAT", "CAT"
                 )
         ));
