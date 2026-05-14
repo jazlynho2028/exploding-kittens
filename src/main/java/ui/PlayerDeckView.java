@@ -87,10 +87,10 @@ public class PlayerDeckView {
 
     public void renderHandVisibilityButton(boolean isFaceUp) {
         if (isFaceUp) {
-            handVisibilityButton.setText(UIConstants.HIDE_HAND_LABEL);
+            handVisibilityButton.setText(assetProvider.getString("playerDeckScreen.hideHandLabel"));
         }
         else {
-            handVisibilityButton.setText(UIConstants.SHOW_HAND_LABEL);
+            handVisibilityButton.setText(assetProvider.getString("playerDeckScreen.showHandLabel"));
         }
     }
 
@@ -201,7 +201,7 @@ public class PlayerDeckView {
         playerHeaderSection.getStyleClass().add("player-header-section");
 
         renderPlayerNamesContainer();
-        Text playerHeaderCaption = buildCaption(UIConstants.PLAYER_HEADER_CAPTION);
+        Text playerHeaderCaption = buildCaption(assetProvider.getString("playerDeckScreen.playerHeaderCaption"));
 
         playerHeaderSection.getChildren().addAll(
                 playerNamesContainer,
@@ -254,7 +254,7 @@ public class PlayerDeckView {
         StackPane drawPileContainer = buildDrawPileContainer();
         drawPileButton.setDisable(true);
 
-        Text drawPileCaption = buildCaption(UIConstants.DRAW_PILE_CAPTION);
+        Text drawPileCaption = buildCaption(assetProvider.getString("playerDeckScreen.drawPileCaption"));
 
         drawPileSection.getChildren().addAll(
                 drawPileContainer,
@@ -366,7 +366,7 @@ public class PlayerDeckView {
         discardPileSection.getStyleClass().add("card-pile-section");
 
         StackPane discardPileContainer = buildDiscardPileContainer();
-        Text discardPileCaption = buildCaption(UIConstants.DISCARD_PILE_CAPTION);
+        Text discardPileCaption = buildCaption(assetProvider.getString("playerDeckScreen.discardPileCaption"));
 
         discardPileSection.getChildren().addAll(
                 discardPileContainer,
@@ -406,7 +406,7 @@ public class PlayerDeckView {
 
         renderHandVisibilityToggle();
         ScrollPane handScrollPane = buildHandScrollPane();
-        Text handCaption = buildCaption(UIConstants.HAND_CAPTION);
+        Text handCaption = buildCaption(assetProvider.getString("playerDeckScreen.handCaption"));
 
         playerHandSection.getChildren().addAll(
                 handVisibilityButton,
@@ -418,7 +418,7 @@ public class PlayerDeckView {
     }
 
     private void renderHandVisibilityToggle() {
-        handVisibilityButton.setText(UIConstants.SHOW_HAND_LABEL);
+        handVisibilityButton.setText(assetProvider.getString("playerDeckScreen.showHandLabel"));
         handVisibilityButton.getStyleClass().addAll(
                 "hand-visibility-toggle",
                 "h6"
@@ -623,8 +623,8 @@ public class PlayerDeckView {
     }
 
     private void buildAndAddTurnControlButtonsAfterGameStart() {
-        renderTurnControlButton(playCardsButton, UIConstants.PLAY_CARDS_LABEL);
-        renderTurnControlButton(endTurnButton, UIConstants.END_TURN_LABEL);
+        renderTurnControlButton(playCardsButton, assetProvider.getString("playerDeckScreen.playCardsLabel"));
+        renderTurnControlButton(endTurnButton, assetProvider.getString("playerDeckScreen.endTurnLabel"));
 
         turnControlSection.getChildren().addAll(
                 playCardsButton,
@@ -633,7 +633,7 @@ public class PlayerDeckView {
     }
 
     private void buildAndAddTurnControlButtonsBeforeGameStart() {
-        renderTurnControlButton(startGameButton, UIConstants.START_GAME_LABEL);
+        renderTurnControlButton(startGameButton, assetProvider.getString("playerDeckScreen.startGameLabel"));
 
         turnControlSection.getChildren().add(startGameButton);
     }
