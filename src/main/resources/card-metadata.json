@@ -276,21 +276,21 @@
     "imageUrl": "godcat_1.png"
   },
   "CLONE_1": {
-    "title": "CLONE",
-    "subtitle": "FIND A PAIR OF NOSFERA-TWOS",
-    "description": "WHEN YOU PLAY THIS CARD, IT BECOMES WHATEVER CARD IS BENEATH IT.",
+    "title": "card.clone.title",
+    "subtitle": "card.clone.subtitle1",
+    "description": "card.clone.description",
     "imageUrl": "clone_1.png"
   },
   "CLONE_2": {
-    "title": "CLONE",
-    "subtitle": "MAKE YOUR VOODOO DOLLS DO ALL THE DIRTY WORK",
-    "description": "WHEN YOU PLAY THIS CARD, IT BECOMES WHATEVER CARD IS BENEATH IT.",
+    "title": "card.clone.title",
+    "subtitle": "card.clone.subtitle2",
+    "description": "card.clone.description",
     "imageUrl": "clone_2.png"
   },
   "CLONE_3": {
-    "title": "CLONE",
-    "subtitle": "WORK OUT THE KINKS LATER",
-    "description": "WHEN YOU PLAY THIS CARD, IT BECOMES WHATEVER CARD IS BENEATH IT.",
+    "title": "card.clone.title",
+    "subtitle": "card.clone.subtitle3",
+    "description": "card.clone.description",
     "imageUrl": "clone_3.png"
   },
   "SWAPTOPANDBOTTOM_1": {
