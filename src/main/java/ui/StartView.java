@@ -64,7 +64,7 @@ public class StartView {
     }
 
     private Text buildTitleText() {
-        Text titleText = new Text(UIConstants.TITLE);
+        Text titleText = new Text(assetProvider.getString("global.title"));
         titleText.getStyleClass().addAll("h1", "title");
 
         return titleText;
@@ -74,7 +74,7 @@ public class StartView {
         Button playButton = new Button();
         playButton.getStyleClass().addAll("play-button", "h2");
 
-        playButton.setText(UIConstants.PLAY_BUTTON_LABEL);
+        playButton.setText(assetProvider.getString("startScreen.play"));
 
         return playButton;
     }

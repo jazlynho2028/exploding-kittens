@@ -7,6 +7,7 @@ import javafx.scene.text.Font;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class AssetManager implements AssetProvider {
 
@@ -18,7 +19,7 @@ public class AssetManager implements AssetProvider {
 
     private String cssUrl;
 
-    public void loadGlobalFiles() {
+    public void loadGlobalFiles(String language) {
         loadCSS();
         loadImages();
         loadIcon("restart",
@@ -32,6 +33,8 @@ public class AssetManager implements AssetProvider {
         loadFont("/fonts/national-park.ttf");
 
         loadCardMetadata();
+
+        loadLanguage(language);
     }
 
     private void loadCSS() {
@@ -68,6 +71,12 @@ public class AssetManager implements AssetProvider {
         cardMetadata.putAll(loader.getMetadata());
     }
 
+    private void loadLanguage(String language) {
+        StringsBundleLoader loader = new StringsBundleLoader();
+        loader.open(language);
+        languageBundle = loader.getBundle();
+    }
+
     public void addImage(String key, String imageUrl) {
         Image image = new Image(imageUrl);
         images.put(key, image);
@@ -95,6 +104,10 @@ public class AssetManager implements AssetProvider {
 
     public CardMetadata getCardMetadata(String key) {
         return cardMetadata.get(key);
+    }
+
+    public String getString(String key) {
+        return languageBundle.getString(key);
     }
 
 }

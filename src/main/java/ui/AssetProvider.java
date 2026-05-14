@@ -12,4 +12,6 @@ public interface AssetProvider {
 
 	CardMetadata getCardMetadata(String key);
 
+	String getString(String key);
+
 }
