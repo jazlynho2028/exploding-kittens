@@ -270,9 +270,9 @@
     "imageUrl": "raising_heck_2.png"
   },
   "GODCAT_1": {
-    "title": "GODCAT",
-    "subtitle": "THE BEST OF THE BLESSED",
-    "description": "PLAY AS ANY CARD IN THE GAME, EXCEPT A NOPE. AFTER PLAYING GODCAT, PUT IT BACK ON THE PLAYMAT.",
+    "title": "card.godcat.title",
+    "subtitle": "card.godcat.subtitle",
+    "description": "card.godcat.description",
     "imageUrl": "godcat_1.png"
   },
   "CLONE_1": {
