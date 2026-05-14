@@ -5,37 +5,40 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class ExplodingKittensApp extends Application {
 
     private final AssetManager assets = new AssetManager();
 
     @Override
     public void start(Stage stage) {
-        Game model = new Game();
+
         assets.loadGlobalFiles();
 
-        showStartScreen(model, stage);
+        showStartScreen(stage);
     }
 
-    private void showStartScreen(Game model, Stage stage) {
+    private void showStartScreen(Stage stage) {
         StartController controller = new StartController(assets);
 
-        controller.setOnPlay(() -> showPlayerCreateScreen(model, stage));
+        controller.setOnPlay(() -> showPlayerCreateScreen(stage));
 
         setScene(controller.getStartScene(), stage);
     }
 
-    private void showPlayerCreateScreen(Game model, Stage stage) {
-        PlayerCreateController controller = new PlayerCreateController(model, assets);
+    private void showPlayerCreateScreen(Stage stage) {
+        PlayerCreateController controller = new PlayerCreateController(assets);
 
         controller.setOnError(message -> showErrorScreen(message, stage));
-        controller.setOnSuccess(() -> showPlayerDeckScreen(model, stage));
-        controller.setOnBack(() -> showStartScreen(model, stage));
-
+        controller.setOnSuccess(() -> showPlayerDeckScreen(controller, stage));
+        controller.setOnBack(() -> showStartScreen(stage));
         setScene(controller.getPlayerCreateScene(), stage);
     }
 
-    private void showPlayerDeckScreen(Game model, Stage stage) {
+    private void showPlayerDeckScreen(PlayerCreateController createController, Stage stage) {
+        List<String> playerNames = createController.getConfirmedNames();
+        Game model = new Game(playerNames);
 
     }
 
