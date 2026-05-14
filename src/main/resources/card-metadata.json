@@ -48,21 +48,21 @@
     "imageUrl": "defuse_5.png"
   },
   "ATTACK_1": {
-    "title": "ATTACK",
-    "subtitle": "WHIP OUT YOUR RUBBER DUCK COLLECTION",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE NEXT PLAYER TO TAKE TWO TURNS.",
+    "title": "card.attack.title",
+    "subtitle": "card.attack.subtitle1",
+    "description": "card.attack.description",
     "imageUrl": "attack_1.png"
   },
   "ATTACK_2": {
-    "title": "ATTACK",
-    "subtitle": "UNLEASH SOME ADORABLE PENGUIN DIARRHEA",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE NEXT PLAYER TO TAKE TWO TURNS.",
+    "title": "card.attack.title",
+    "subtitle": "card.attack.subtitle2",
+    "description": "card.attack.description",
     "imageUrl": "attack_2.png"
   },
   "ATTACK_3": {
-    "title": "ATTACK",
-    "subtitle": "RELEASE THE TORTURE BUNNIES",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE NEXT PLAYER TO TAKE TWO TURNS.",
+    "title": "card.attack.title",
+    "subtitle": "card.attack.subtitle3",
+    "description": "card.attack.description",
     "imageUrl": "attack_3.png"
   },
   "SHUFFLE_1": {
