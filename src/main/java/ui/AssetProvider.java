@@ -10,4 +10,6 @@ public interface AssetProvider {
 
 	String getStylesheet();
 
+	String getString(String key);
+
 }
