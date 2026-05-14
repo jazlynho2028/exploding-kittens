@@ -7,10 +7,11 @@ import javafx.stage.Stage;
 public class ExplodingKittensApp extends Application {
 
     private final AssetManager assets = new AssetManager();
+    private final String languageName = "English";
 
     @Override
     public void start(Stage stage) {
-        assets.loadGlobalFiles();
+        assets.loadGlobalFiles(languageName);
 
         StartController controller = new StartController(assets);
 
@@ -22,7 +23,7 @@ public class ExplodingKittensApp extends Application {
         scene.getStylesheets().add(assets.getStylesheet());
 
         stage.setScene(scene);
-        stage.setTitle(UIConstants.TITLE);
+        stage.setTitle(assets.getString("global.title"));
         stage.setResizable(false);
 
         stage.show();
