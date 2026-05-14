@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 public class ExplodingKittensApp extends Application {
 
     private final AssetManager assets = new AssetManager();
-    private final String languageName = "English";
+    private static final String languageName = "English";
 
     @Override
     public void start(Stage stage) {

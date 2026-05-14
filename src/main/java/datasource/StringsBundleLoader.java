@@ -5,8 +5,8 @@ import java.util.ResourceBundle;
 
 public class StringsBundleLoader {
 
-	private final String bundleName = "languages/strings";
-	private Locale currentLocale = Locale.ENGLISH;
+	private static final String bundleName = "languages/strings";
+	private static Locale currentLocale = Locale.ENGLISH;
 
 	public void open(String localeName) {
 		Locale newLocale = new Locale(localeName);
