@@ -6,14 +6,14 @@ public enum CardType {
     ATTACK,
     SHUFFLE,
     SKIP,
-    SEE_THE_FUTURE,
-    NOPE,
+    BURY,
+    FERAL_CAT,
     CAT_CARD_1,
     CAT_CARD_2,
     CAT_CARD_3,
     CAT_CARD_4,
     CATOMIC_BOMB,
-    RAISING_HECK,
+    SUPER_SKIP,
     GODCAT,
     CLONE,
     SWAP_TOP_AND_BOTTOM,
@@ -23,5 +23,5 @@ public enum CardType {
     RAGEBAIT,
     RECYCLE,
     DOUBLE_UP,
-    CLEAN_UP
+    MILD_DRAW
 }
