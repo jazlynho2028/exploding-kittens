@@ -131,29 +131,29 @@
     "description": "card.bury.description",
     "imageUrl": "bury_4.png"
   },
-  "NOPE_1": {
-    "title": "card.nope.title",
-    "subtitle": "card.nope.subtitle1",
-    "description": "card.nope.description",
-    "imageUrl": "nope_1.png"
+  "FERALCAT_1": {
+    "title": "card.feralCat.title",
+    "subtitle": "card.feralCat.subtitle1",
+    "description": "card.feralCat.description",
+    "imageUrl": "feralCat_1.png"
   },
-  "NOPE_2": {
-    "title": "card.nope.title",
-    "subtitle": "card.nope.subtitle2",
-    "description": "card.nope.description",
-    "imageUrl": "nope_2.png"
+  "FERALCAT_2": {
+    "title": "card.feralCat.title",
+    "subtitle": "card.feralCat.subtitle2",
+    "description": "card.feralCat.description",
+    "imageUrl": "feralCat_2.png"
   },
-  "NOPE_3": {
-    "title": "card.nope.title",
-    "subtitle": "card.nope.subtitle3",
-    "description": "card.nope.description",
-    "imageUrl": "nope_3.png"
+  "FERALCAT_3": {
+    "title": "card.feralCat.title",
+    "subtitle": "card.feralCat.subtitle3",
+    "description": "card.feralCat.description",
+    "imageUrl": "feralCat_3.png"
   },
-  "NOPE_4": {
-    "title": "card.nope.title",
-    "subtitle": "card.nope.subtitle4",
-    "description": "card.nope.description",
-    "imageUrl": "nope_4.png"
+  "FERALCAT_4": {
+    "title": "card.feralCat.title",
+    "subtitle": "card.feralCat.subtitle4",
+    "description": "card.feralCat.description",
+    "imageUrl": "feralCat_4.png"
   },
   "CATCARD_11": {
     "title": "card.catcard1.title",
