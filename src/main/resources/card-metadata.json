@@ -107,29 +107,29 @@
     "description": "card.skip.description",
     "imageUrl": "skip_3.png"
   },
-  "SEETHEFUTURE_1": {
-    "title": "card.seeTheFuture.title",
-    "subtitle": "card.seeTheFuture.subtitle1",
-    "description": "card.seeTheFuture.description",
-    "imageUrl": "see_the_future_1.png"
+  "BURY_1": {
+    "title": "card.bury.title",
+    "subtitle": "card.bury.subtitle1",
+    "description": "card.bury.description",
+    "imageUrl": "bury_1.png"
   },
-  "SEETHEFUTURE_2": {
-    "title": "card.seeTheFuture.title",
-    "subtitle": "card.seeTheFuture.subtitle2",
-    "description": "card.seeTheFuture.description",
-    "imageUrl": "see_the_future_2.png"
+  "BURY_2": {
+    "title": "card.bury.title",
+    "subtitle": "card.bury.subtitle2",
+    "description": "card.bury.description",
+    "imageUrl": "bury_2.png"
   },
-  "SEETHEFUTURE_3": {
-    "title": "card.seeTheFuture.title",
-    "subtitle": "card.seeTheFuture.subtitle3",
-    "description": "card.seeTheFuture.description",
-    "imageUrl": "see_the_future_3.png"
+  "BURY_3": {
+    "title": "card.bury.title",
+    "subtitle": "card.bury.subtitle3",
+    "description": "card.bury.description",
+    "imageUrl": "bury_3.png"
   },
-  "SEETHEFUTURE_4": {
-    "title": "card.seeTheFuture.title",
-    "subtitle": "card.seeTheFuture.subtitle4",
-    "description": "card.seeTheFuture.description",
-    "imageUrl": "see_the_future_4.png"
+  "BURY_4": {
+    "title": "card.bury.title",
+    "subtitle": "card.bury.subtitle4",
+    "description": "card.bury.description",
+    "imageUrl": "bury_4.png"
   },
   "NOPE_1": {
     "title": "card.nope.title",
