@@ -257,17 +257,17 @@
     "description": "card.catomicBomb.description",
     "imageUrl": "catomic_bomb.png"
   },
-  "RAISINGHECK_1": {
-    "title": "card.raisingHeck.title",
-    "subtitle": "card.raisingHeck.subtitle1",
-    "description": "card.raisingHeck.description",
-    "imageUrl": "raising_heck_1.png"
+  "SUPERSKIP_1": {
+    "title": "card.superSkip.title",
+    "subtitle": "card.superSkip.subtitle1",
+    "description": "card.superSkip.description",
+    "imageUrl": "superSkip_1.png"
   },
-  "RAISINGHECK_2": {
-    "title": "card.raisingHeck.title",
-    "subtitle": "card.raisingHeck.subtitle2",
-    "description": "card.raisingHeck.description",
-    "imageUrl": "raising_heck_2.png"
+  "SUPERSKIP_2": {
+    "title": "card.superSkip.title",
+    "subtitle": "card.superSkip.subtitle2",
+    "description": "card.superSkip.description",
+    "imageUrl": "superSkip_2.png"
   },
   "GODCAT_1": {
     "title": "card.godcat.title",
