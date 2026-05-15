@@ -6,7 +6,7 @@ public enum CardType {
     ATTACK,
     SHUFFLE,
     SKIP,
-    BURY,
+    SEE_THE_FUTURE,
     FERAL_CAT,
     CAT_CARD_1,
     CAT_CARD_2,
