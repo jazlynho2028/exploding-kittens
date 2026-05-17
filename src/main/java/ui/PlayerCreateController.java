@@ -1,16 +1,13 @@
 package ui;
 
-import domain.Game;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class PlayerCreateController {
     private final PlayerCreateView view;
-    private final List<TextField> playerFields = new ArrayList<>();
+    private final List<String> playerFields = new ArrayList<>();
 
     private List<String> confirmedNames;
     private Consumer<String> onError;
@@ -24,6 +21,10 @@ public class PlayerCreateController {
         this.onError = message -> { };
 
         buildAndBindUI();
+    }
+
+    PlayerCreateController(PlayerCreateView view) {
+        this.view = view;
     }
 
     public void setOnError(Consumer<String> onError) {
@@ -52,30 +53,30 @@ public class PlayerCreateController {
 
     void onAddPlayer() {
         int visualIndex = playerFields.size() + 1;
-        if (visualIndex > MAX_PLAYERS)
-        {
+        if (visualIndex > MAX_PLAYERS) {
             onError.accept("You cannot have more than 4 players");
             return;
         }
-        TextField field = view.createPlayerTextField(visualIndex);
-        playerFields.add(field);
 
-        view.updatePlayerFieldsDisplay(playerFields);
+        playerFields.add("");
+
+        view.updatePlayerFieldsDisplay(playerFields.size());
         view.setAddPlayerButtonDisabled(playerFields.size() >= MAX_PLAYERS);
     }
 
     private void onConfirmNames() {
         List<String> names = new ArrayList<>();
-        for (TextField field : playerFields) {
-            String input = field.getText();
+
+        List<String> inputsFromView = view.getPlayerNamesFromFields();
+
+        for (String input : inputsFromView) {
             if (input != null && !input.isBlank()) {
                 names.add(input.trim());
             }
         }
 
         if (names.size() < 2) {
-            onError.accept(
-                    "You need at least 2 players");
+            onError.accept("You need at least 2 players");
             return;
         }
 
@@ -85,8 +86,7 @@ public class PlayerCreateController {
             if (onSuccess != null) {
                 onSuccess.run();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             onError.accept("Error initializing game: " + e.getMessage());
         }
     }

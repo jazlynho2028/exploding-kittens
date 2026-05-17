@@ -25,6 +25,8 @@ public class PlayerCreateView {
     public final Button confirmButton;
     public final Button backButton;
 
+    private final List<TextField> textFields = new ArrayList<>();
+
     public PlayerCreateView(AssetProvider assets) {
         this.assetProvider = assets;
         this.root = new StackPane();
@@ -127,9 +129,23 @@ public class PlayerCreateView {
         return field;
     }
 
-    public void updatePlayerFieldsDisplay(List<TextField> fields) {
+    public void updatePlayerFieldsDisplay(int numberOfPlayers) {
         playerFieldsContainer.getChildren().clear();
-        playerFieldsContainer.getChildren().addAll(fields);
+        textFields.clear();
+
+        for (int i = 1; i <= numberOfPlayers; i++) {
+            TextField field = createPlayerTextField(i);
+            textFields.add(field);
+            playerFieldsContainer.getChildren().add(field);
+        }
+    }
+
+    public List<String> getPlayerNamesFromFields() {
+        List<String> names = new ArrayList<>();
+        for (TextField field : textFields) {
+            names.add(field.getText());
+        }
+        return names;
     }
 
     public void setAddPlayerButtonDisabled(boolean disabled) {
