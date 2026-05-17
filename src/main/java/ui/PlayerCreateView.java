@@ -108,7 +108,7 @@ public class PlayerCreateView {
         backButton.setGraphic(backIcon);
 
         overlayLayer.getChildren().add(backButton);
-        StackPane.setAlignment(backButton, Pos.TOP_LEFT);
+        StackPane.setAlignment(backButton, Pos.TOP_RIGHT);
         StackPane.setMargin(backButton, new Insets(UIConstants.BUTTON_MARGIN_INSETS));
 
         return overlayLayer;
