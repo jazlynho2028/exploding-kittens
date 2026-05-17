@@ -39,8 +39,8 @@ public class PlayerCreateController {
     }
 
     private void buildAndBindUI() {
-        addPlayerFieldEntry();
-        addPlayerFieldEntry();
+        onAddPlayer();
+        onAddPlayer();
         bindUI();
     }
 
@@ -50,16 +50,13 @@ public class PlayerCreateController {
         view.backButton.setOnMouseClicked(e -> onBack.run());
     }
 
-    private void onAddPlayer() {
-        addPlayerFieldEntry();
-    }
-
-    private void addPlayerFieldEntry() {
-        if (playerFields.size() >= MAX_PLAYERS) {
+    void onAddPlayer() {
+        int visualIndex = playerFields.size() + 1;
+        if (visualIndex > MAX_PLAYERS)
+        {
+            onError.accept("You cannot have more than 4 players");
             return;
         }
-
-        int visualIndex = playerFields.size() + 1;
         TextField field = view.createPlayerTextField(visualIndex);
         playerFields.add(field);
 
@@ -77,7 +74,8 @@ public class PlayerCreateController {
         }
 
         if (names.size() < 2) {
-            onError.accept("You need at least 2 players to start!");
+            onError.accept(
+                    "You need at least 2 players");
             return;
         }
 
@@ -87,7 +85,8 @@ public class PlayerCreateController {
             if (onSuccess != null) {
                 onSuccess.run();
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             onError.accept("Error initializing game: " + e.getMessage());
         }
     }

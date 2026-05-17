@@ -1,0 +1,18 @@
+### Method under test: `abc()`
+- **TC1: NAME OF THE TEST CASE** ( :x: or :white_check_mark: )
+    - **State of the system**: abc
+    - **Expected output**: abc
+
+### Method under test: `onAddPlayer()`
+- **TC1: Adding a field with 0 players** (:x:)
+  - **Name of the test:** onAddPlayer_CurrentZero_Success
+  - **State of the system:** playerFields = []
+  - **Expected output:** playerFields now holds a singular TextField, setAddPlayerButtonDisabled gets called with false
+- **TC2: Adding the last field allowed, the fourth player** (:x:)
+  - **Name of the test:** onAddPlayer_CurrentThree_Success
+  - **State of the System:** playerFields = [TextField, TextField, TextField]
+  - **Expected output:** playerFields now holds four TextFields, setAddPlayerButtonDisabled gets called with true
+- **TC3: Adding a fifth player that's above the maximum** (:x:)
+  - **Name of the test:** onAddPlayer_CurrentFour_Failed
+  - **State of the System:** PlayerFields = [TextField, TextField, TextField]
+  - **Expected output:** calls onError.accept("You cannot have more than 4 players")
