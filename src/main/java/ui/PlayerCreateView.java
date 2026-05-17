@@ -148,6 +148,13 @@ public class PlayerCreateView {
         return names;
     }
 
+    public void addPlayerField(int index) {
+        TextField field = createPlayerTextField(index);
+
+        textFields.add(field);
+        playerFieldsContainer.getChildren().add(field);
+    }
+
     public void setAddPlayerButtonDisabled(boolean disabled) {
         addPlayerButton.setDisable(disabled);
     }

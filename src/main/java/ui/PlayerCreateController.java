@@ -52,7 +52,9 @@ public class PlayerCreateController {
     }
 
     void onAddPlayer() {
+
         int visualIndex = playerFields.size() + 1;
+
         if (visualIndex > MAX_PLAYERS) {
             onError.accept("You cannot have more than 4 players");
             return;
@@ -60,8 +62,11 @@ public class PlayerCreateController {
 
         playerFields.add("");
 
-        view.updatePlayerFieldsDisplay(playerFields.size());
-        view.setAddPlayerButtonDisabled(playerFields.size() >= MAX_PLAYERS);
+        view.addPlayerField(visualIndex);
+
+        view.setAddPlayerButtonDisabled(
+                playerFields.size() >= MAX_PLAYERS
+        );
     }
 
     private void onConfirmNames() {
