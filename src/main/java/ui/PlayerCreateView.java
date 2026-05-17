@@ -23,7 +23,7 @@ public class PlayerCreateView {
     public final VBox playerFieldsContainer;
     public final Button addPlayerButton;
     public final Button confirmButton;
-    public final Button backButton;
+    public final Button restartButton;
 
     private final List<TextField> textFields = new ArrayList<>();
 
@@ -34,7 +34,7 @@ public class PlayerCreateView {
         this.playerFieldsContainer = new VBox();
         this.addPlayerButton = new Button("+");
         this.confirmButton = new Button("CONFIRM");
-        this.backButton = new Button();
+        this.restartButton = new Button();
 
         buildUI();
     }
@@ -100,16 +100,16 @@ public class PlayerCreateView {
         StackPane overlayLayer = new StackPane();
         overlayLayer.setPickOnBounds(false);
 
-        SVGPath backIcon = new SVGPath();
-        backIcon.setContent(assetProvider.getSvg("restart"));
-        backIcon.getStyleClass().add("restart-icon");
+        SVGPath restartIcon = new SVGPath();
+        restartIcon.setContent(assetProvider.getSvg("restart"));
+        restartIcon.getStyleClass().add("restart-icon");
 
-        backButton.getStyleClass().add("icon-button");
-        backButton.setGraphic(backIcon);
+        restartButton.getStyleClass().add("icon-button");
+        restartButton.setGraphic(restartIcon);
 
-        overlayLayer.getChildren().add(backButton);
-        StackPane.setAlignment(backButton, Pos.TOP_RIGHT);
-        StackPane.setMargin(backButton, new Insets(UIConstants.BUTTON_MARGIN_INSETS));
+        overlayLayer.getChildren().add(restartButton);
+        StackPane.setAlignment(restartButton, Pos.TOP_RIGHT);
+        StackPane.setMargin(restartButton, new Insets(UIConstants.BUTTON_MARGIN_INSETS));
 
         return overlayLayer;
     }
