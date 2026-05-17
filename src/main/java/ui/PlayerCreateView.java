@@ -25,9 +25,6 @@ public class PlayerCreateView {
     public final Button confirmButton;
     public final Button backButton;
 
-    private final List<TextField> playerFields = new ArrayList<>();
-    private static final int MAX_PLAYERS = 4;
-
     public PlayerCreateView(AssetProvider assets) {
         this.assetProvider = assets;
         this.root = new StackPane();
@@ -122,33 +119,20 @@ public class PlayerCreateView {
         return backgroundImage;
     }
 
-    public void addPlayerFieldEntry() {
-        if (playerFields.size() >= MAX_PLAYERS) {
-            return;
-        }
-
+    public TextField createPlayerTextField(int index) {
         TextField field = new TextField();
-        field.setPromptText("PLAYER " + (playerFields.size() + 1));
+        field.setPromptText("PLAYER " + index);
         field.getStyleClass().addAll("name-enter", "h5");
         field.setAlignment(Pos.CENTER_LEFT);
-
-        playerFields.add(field);
-        renderPlayerFields();
+        return field;
     }
 
-    public void renderPlayerFields() {
+    public void updatePlayerFieldsDisplay(List<TextField> fields) {
         playerFieldsContainer.getChildren().clear();
-        playerFieldsContainer.getChildren().addAll(playerFields);
-
-        boolean isFull = playerFields.size() >= MAX_PLAYERS;
-        addPlayerButton.setDisable(isFull);
+        playerFieldsContainer.getChildren().addAll(fields);
     }
 
-    public List<String> getEnteredNames() {
-        List<String> names = new ArrayList<>();
-        for (TextField field : playerFields) {
-            names.add(field.getText().trim());
-        }
-        return names;
+    public void setAddPlayerButtonDisabled(boolean disabled) {
+        addPlayerButton.setDisable(disabled);
     }
 }
