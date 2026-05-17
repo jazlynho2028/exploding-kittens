@@ -73,7 +73,7 @@ public class PlayerCreateView {
         Button confirmButton = buildConfirmButton();
 
         content.getChildren().addAll(
-                buildTitleText(),
+                buildTitleText(assetProvider),
                 playerFieldsContainer,
                 addPlayerButton,
                 confirmButton);

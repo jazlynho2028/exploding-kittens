@@ -46,7 +46,7 @@ public class StartView {
         contentSection.getStyleClass().add("start-content-section");
         contentSection.setAlignment(Pos.CENTER);
 
-        Text titleText = buildTitleText();
+        Text titleText = buildTitleText(assetProvider);
         Button button = buildPlayButton();
 
         contentSection.getChildren().addAll(titleText, button);
@@ -64,7 +64,7 @@ public class StartView {
         return imageView;
     }
 
-    private Text buildTitleText() {
+    static Text buildTitleText(AssetProvider assetProvider) {
         Text titleText = new Text(assetProvider.getString("global.title"));
         titleText.getStyleClass().addAll("h1", "title");
 
