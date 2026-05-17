@@ -10,11 +10,11 @@ import java.util.List;
 public class ExplodingKittensApp extends Application {
 
     private final AssetManager assets = new AssetManager();
+    private static final String languageName = "English";
 
     @Override
     public void start(Stage stage) {
-
-        assets.loadGlobalFiles();
+        assets.loadGlobalFiles(languageName);
 
         showStartScreen(stage);
     }
@@ -50,7 +50,7 @@ public class ExplodingKittensApp extends Application {
         scene.getStylesheets().add(assets.getStylesheet());
 
         stage.setScene(scene);
-        stage.setTitle(UIConstants.TITLE);
+        stage.setTitle(assets.getString("global.title"));
         stage.setResizable(false);
 
         stage.show();
