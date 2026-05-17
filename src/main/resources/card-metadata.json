@@ -1,386 +1,386 @@
 {
   "EXPLODINGKITTEN_1": {
-    "title": "EXPLODING KITTEN",
-    "subtitle": "",
-    "description": "SHOW THIS CARD IMMEDIATELY.",
+    "title": "card.explodingKitten.title",
+    "subtitle": "global.empty",
+    "description": "card.explodingKitten.description",
     "imageUrl": "exploding_kitten_1.png"
   },
   "EXPLODINGKITTEN_2": {
-    "title": "EXPLODING KITTEN",
-    "subtitle": "",
-    "description": "SHOW THIS CARD IMMEDIATELY.",
+    "title": "card.explodingKitten.title",
+    "subtitle": "global.empty",
+    "description": "card.explodingKitten.description",
     "imageUrl": "exploding_kitten_2.png"
   },
   "EXPLODINGKITTEN_3": {
-    "title": "EXPLODING KITTEN",
-    "subtitle": "",
-    "description": "SHOW THIS CARD IMMEDIATELY.",
+    "title": "card.explodingKitten.title",
+    "subtitle": "global.empty",
+    "description": "card.explodingKitten.description",
     "imageUrl": "exploding_kitten_3.png"
   },
   "DEFUSE_1": {
-    "title": "DEFUSE",
-    "subtitle": "VIA CATNIP SANDWICHES",
-    "description": "PUT YOUR LAST DRAWN CARD BACK INTO THE DECK.",
+    "title": "card.defuse.title",
+    "subtitle": "card.defuse.subtitle1",
+    "description": "card.defuse.description",
     "imageUrl": "defuse_1.png"
   },
   "DEFUSE_2": {
-    "title": "DEFUSE",
-    "subtitle": "VIA CRATE",
-    "description": "PUT YOUR LAST DRAWN CARD BACK INTO THE DECK.",
+    "title": "card.defuse.title",
+    "subtitle": "card.defuse.subtitle2",
+    "description": "card.defuse.description",
     "imageUrl": "defuse_2.png"
   },
   "DEFUSE_3": {
-    "title": "DEFUSE",
-    "subtitle": "VIA LASER POINTER",
-    "description": "PUT YOUR LAST DRAWN CARD BACK INTO THE DECK.",
+    "title": "card.defuse.title",
+    "subtitle": "card.defuse.subtitle3",
+    "description": "card.defuse.description",
     "imageUrl": "defuse_3.png"
   },
   "DEFUSE_4": {
-    "title": "DEFUSE",
-    "subtitle": "VIA MAULING A BABY",
-    "description": "PUT YOUR LAST DRAWN CARD BACK INTO THE DECK.",
+    "title": "card.defuse.title",
+    "subtitle": "card.defuse.subtitle4",
+    "description": "card.defuse.description",
     "imageUrl": "defuse_4.png"
   },
   "DEFUSE_5": {
-    "title": "DEFUSE",
-    "subtitle": "VIA SPAY/NEUTER",
-    "description": "PUT YOUR LAST DRAWN CARD BACK INTO THE DECK.",
+    "title": "card.defuse.title",
+    "subtitle": "card.defuse.subtitle5",
+    "description": "card.defuse.description",
     "imageUrl": "defuse_5.png"
   },
   "ATTACK_1": {
-    "title": "ATTACK",
-    "subtitle": "WHIP OUT YOUR RUBBER DUCK COLLECTION",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE NEXT PLAYER TO TAKE TWO TURNS.",
+    "title": "card.attack.title",
+    "subtitle": "card.attack.subtitle1",
+    "description": "card.attack.description",
     "imageUrl": "attack_1.png"
   },
   "ATTACK_2": {
-    "title": "ATTACK",
-    "subtitle": "UNLEASH SOME ADORABLE PENGUIN DIARRHEA",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE NEXT PLAYER TO TAKE TWO TURNS.",
+    "title": "card.attack.title",
+    "subtitle": "card.attack.subtitle2",
+    "description": "card.attack.description",
     "imageUrl": "attack_2.png"
   },
   "ATTACK_3": {
-    "title": "ATTACK",
-    "subtitle": "RELEASE THE TORTURE BUNNIES",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE NEXT PLAYER TO TAKE TWO TURNS.",
+    "title": "card.attack.title",
+    "subtitle": "card.attack.subtitle3",
+    "description": "card.attack.description",
     "imageUrl": "attack_3.png"
   },
   "SHUFFLE_1": {
-    "title": "SHUFFLE",
-    "subtitle": "A KRAKEN EMERGES AND HE'S SUPER UPSET",
-    "description": "SHUFFLE THE DRAW PILE.",
+    "title": "card.shuffle.title",
+    "subtitle": "card.shuffle.subtitle1",
+    "description": "card.shuffle.description",
     "imageUrl": "shuffle_1.png"
   },
   "SHUFFLE_2": {
-    "title": "SHUFFLE",
-    "subtitle": "A TRANSDIMENSIONAL LITTER BOX MATERIALIZES",
-    "description": "SHUFFLE THE DRAW PILE.",
+    "title": "card.shuffle.title",
+    "subtitle": "card.shuffle.subtitle2",
+    "description": "card.shuffle.description",
     "imageUrl": "shuffle_2.png"
   },
   "SHUFFLE_3": {
-    "title": "SHUFFLE",
-    "subtitle": "AN ELECTROMAGNETIC POMERANIAN STORM ROLLS IN FROM THE EAST",
-    "description": "SHUFFLE THE DRAW PILE.",
+    "title": "card.shuffle.title",
+    "subtitle": "card.shuffle.subtitle3",
+    "description": "card.shuffle.description",
     "imageUrl": "shuffle_3.png"
   },
   "SHUFFLE_4": {
-    "title": "SHUFFLE",
-    "subtitle": "DISCOVER YOU HAVE A TOILET WEREWOLF",
-    "description": "SHUFFLE THE DRAW PILE.",
+    "title": "card.shuffle.title",
+    "subtitle": "card.shuffle.subtitle4",
+    "description": "card.shuffle.description",
     "imageUrl": "shuffle_4.png"
   },
   "SKIP_1": {
-    "title": "SKIP",
-    "subtitle": "COMMANDEER A BUNNYRAPTOR",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD.",
+    "title": "card.skip.title",
+    "subtitle": "card.skip.subtitle1",
+    "description": "card.skip.description",
     "imageUrl": "skip_1.png"
   },
   "SKIP_2": {
-    "title": "SKIP",
-    "subtitle": "CRAB WALK WITH SOME CRABS",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD.",
+    "title": "card.skip.title",
+    "subtitle": "card.skip.subtitle2",
+    "description": "card.skip.description",
     "imageUrl": "skip_2.png"
   },
   "SKIP_3": {
-    "title": "SKIP",
-    "subtitle": "ENGAGE THE HYPERGOAT",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD.",
+    "title": "card.skip.title",
+    "subtitle": "card.skip.subtitle3",
+    "description": "card.skip.description",
     "imageUrl": "skip_3.png"
   },
   "SEETHEFUTURE_1": {
-    "title": "SEE THE FUTURE",
-    "subtitle": "ASK THE ALL-SEEING GOAT WIZARD",
-    "description": "PRIVATELY VIEW THE TOP THREE CARDS OF THE DECK.",
+    "title": "card.seeTheFuture.title",
+    "subtitle": "card.seeTheFuture.subtitle1",
+    "description": "card.seeTheFuture.description",
     "imageUrl": "see_the_future_1.png"
   },
   "SEETHEFUTURE_2": {
-    "title": "SEE THE FUTURE",
-    "subtitle": "DEPLOY THE SPECIAL-OPS BUNNIES",
-    "description": "PRIVATELY VIEW THE TOP THREE CARDS OF THE DECK.",
+    "title": "card.seeTheFuture.title",
+    "subtitle": "card.seeTheFuture.subtitle2",
+    "description": "card.seeTheFuture.description",
     "imageUrl": "see_the_future_2.png"
   },
   "SEETHEFUTURE_3": {
-    "title": "SEE THE FUTURE",
-    "subtitle": "FEAST UPON A UNICORN ENCHILADA AND GAIN ITS ENCHILADA POWERS",
-    "description": "PRIVATELY VIEW THE TOP THREE CARDS OF THE DECK.",
+    "title": "card.seeTheFuture.title",
+    "subtitle": "card.seeTheFuture.subtitle3",
+    "description": "card.seeTheFuture.description",
     "imageUrl": "see_the_future_3.png"
   },
   "SEETHEFUTURE_4": {
-    "title": "SEE THE FUTURE",
-    "subtitle": "RUB THE BELLY OF A PIG-A-CORN",
-    "description": "PRIVATELY VIEW THE TOP THREE CARDS OF THE DECK.",
+    "title": "card.seeTheFuture.title",
+    "subtitle": "card.seeTheFuture.subtitle4",
+    "description": "card.seeTheFuture.description",
     "imageUrl": "see_the_future_4.png"
   },
-  "NOPE_1": {
-    "title": "NOPE",
-    "subtitle": "A JACKANOPE BOUNDS INTO THE ROOM",
-    "description": "STOP THE ACTION OF ANOTHER PLAYER. YOU CAN PLAY THIS ANY TIME.",
-    "imageUrl": "nope_1.png"
+  "FERALCAT_1": {
+    "title": "card.feralCat.title",
+    "subtitle": "card.feralCat.subtitle1",
+    "description": "card.feralCat.description",
+    "imageUrl": "feralCat_1.png"
   },
-  "NOPE_2": {
-    "title": "NOPE",
-    "subtitle": "THE POPE OF NOPE HAS SPOKEN",
-    "description": "STOP THE ACTION OF ANOTHER PLAYER. YOU CAN PLAY THIS ANY TIME.",
-    "imageUrl": "nope_2.png"
+  "FERALCAT_2": {
+    "title": "card.feralCat.title",
+    "subtitle": "card.feralCat.subtitle2",
+    "description": "card.feralCat.description",
+    "imageUrl": "feralCat_2.png"
   },
-  "NOPE_3": {
-    "title": "NOPE",
-    "subtitle": "WIN THE NOPEBELL PEACE PRIZE",
-    "description": "STOP THE ACTION OF ANOTHER PLAYER. YOU CAN PLAY THIS ANY TIME.",
-    "imageUrl": "nope_3.png"
+  "FERALCAT_3": {
+    "title": "card.feralCat.title",
+    "subtitle": "card.feralCat.subtitle3",
+    "description": "card.feralCat.description",
+    "imageUrl": "feralCat_3.png"
   },
-  "NOPE_4": {
-    "title": "NOPE",
-    "subtitle": "A NOPE NINJA DELIVERS A WICKED DRAGON KICK",
-    "description": "STOP THE ACTION OF ANOTHER PLAYER. YOU CAN PLAY THIS ANY TIME.",
-    "imageUrl": "nope_4.png"
+  "FERALCAT_4": {
+    "title": "card.feralCat.title",
+    "subtitle": "card.feralCat.subtitle4",
+    "description": "card.feralCat.description",
+    "imageUrl": "feralCat_4.png"
   },
   "CATCARD_11": {
-    "title": "HAIRY POTATO CAT",
-    "subtitle": "",
+    "title": "card.catcard1.title",
+    "subtitle": "global.empty",
     "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
     "imageUrl": "cat_card_1.png"
   },
   "CATCARD_12": {
-    "title": "HAIRY POTATO CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard1.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_1.png"
   },
   "CATCARD_13": {
-    "title": "HAIRY POTATO CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard1.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_1.png"
   },
   "CATCARD_14": {
-    "title": "HAIRY POTATO CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard1.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_1.png"
   },
   "CATCARD_21": {
-    "title": "KIT-TEA-CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard2.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_2.png"
   },
   "CATCARD_22": {
-    "title": "KIT-TEA-CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard2.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_2.png"
   },
   "CATCARD_23": {
-    "title": "KIT-TEA-CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard2.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_2.png"
   },
   "CATCARD_24": {
-    "title": "KIT-TEA-CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard2.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_2.png"
   },
   "CATCARD_31": {
-    "title": "RAINBOW-RALPHING CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard3.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_3.png"
   },
   "CATCARD_32": {
-    "title": "RAINBOW-RALPHING CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard3.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_3.png"
   },
   "CATCARD_33": {
-    "title": "RAINBOW-RALPHING CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard3.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_3.png"
   },
   "CATCARD_34": {
-    "title": "RAINBOW-RALPHING CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard3.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_3.png"
   },
   "CATCARD_41": {
-    "title": "TROLL CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard4.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_4.png"
   },
   "CATCARD_42": {
-    "title": "TROLL CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard4.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_4.png"
   },
   "CATCARD_43": {
-    "title": "TROLL CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard4.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_4.png"
   },
   "CATCARD_44": {
-    "title": "TROLL CAT",
-    "subtitle": "",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "title": "card.catcard4.title",
+    "subtitle": "global.empty",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_4.png"
   },
   "CATOMICBOMB_1": {
-    "title": "CATOMIC BOMB",
-    "subtitle": "THIS IS A CAUSE FOR ALARM",
-    "description": "REMOVE THE EXPLODING KITTENS FROM THE DECK. SHUFFLE THE DECK. PUT ALL THOSE KITTENS FACE DOWN ON TOP. YOUR TURN ENDS AFTER PLAYING THIS CARD.",
+    "title": "card.catomicBomb.title",
+    "subtitle": "card.catomicBomb.subtitle",
+    "description": "card.catomicBomb.description",
     "imageUrl": "catomic_bomb.png"
   },
-  "RAISINGHECK_1": {
-    "title": "RAISING HECK",
-    "subtitle": "RAISE A DEMON",
-    "description": "DRAW THE BOTTOM CARD FROM THE DRAW PILE. LOOK AT IT, AND EITHER KEEP IT OR PUT IT ON THE TOP OF THE DRAW PILE. THIS ENDS YOUR TURN.",
-    "imageUrl": "raising_heck_1.png"
+  "SUPERSKIP_1": {
+    "title": "card.superSkip.title",
+    "subtitle": "card.superSkip.subtitle1",
+    "description": "card.superSkip.description",
+    "imageUrl": "superSkip_1.png"
   },
-  "RAISINGHECK_2": {
-    "title": "RAISING HECK",
-    "subtitle": "RAISE THAT FLUSHED GOLDFISH FROM LONG AGO",
-    "description": "DRAW THE BOTTOM CARD FROM THE DRAW PILE. LOOK AT IT, AND EITHER KEEP IT OR PUT IT ON THE TOP OF THE DRAW PILE. THIS ENDS YOUR TURN.",
-    "imageUrl": "raising_heck_2.png"
+  "SUPERSKIP_2": {
+    "title": "card.superSkip.title",
+    "subtitle": "card.superSkip.subtitle2",
+    "description": "card.superSkip.description",
+    "imageUrl": "superSkip_2.png"
   },
   "GODCAT_1": {
-    "title": "GODCAT",
-    "subtitle": "THE BEST OF THE BLESSED",
-    "description": "PLAY AS ANY CARD IN THE GAME, EXCEPT A NOPE. AFTER PLAYING GODCAT, PUT IT BACK ON THE PLAYMAT.",
+    "title": "card.godcat.title",
+    "subtitle": "card.godcat.subtitle",
+    "description": "card.godcat.description",
     "imageUrl": "godcat_1.png"
   },
   "CLONE_1": {
-    "title": "CLONE",
-    "subtitle": "FIND A PAIR OF NOSFERA-TWOS",
-    "description": "WHEN YOU PLAY THIS CARD, IT BECOMES WHATEVER CARD IS BENEATH IT.",
+    "title": "card.clone.title",
+    "subtitle": "card.clone.subtitle1",
+    "description": "card.clone.description",
     "imageUrl": "clone_1.png"
   },
   "CLONE_2": {
-    "title": "CLONE",
-    "subtitle": "MAKE YOUR VOODOO DOLLS DO ALL THE DIRTY WORK",
-    "description": "WHEN YOU PLAY THIS CARD, IT BECOMES WHATEVER CARD IS BENEATH IT.",
+    "title": "card.clone.title",
+    "subtitle": "card.clone.subtitle2",
+    "description": "card.clone.description",
     "imageUrl": "clone_2.png"
   },
   "CLONE_3": {
-    "title": "CLONE",
-    "subtitle": "WORK OUT THE KINKS LATER",
-    "description": "WHEN YOU PLAY THIS CARD, IT BECOMES WHATEVER CARD IS BENEATH IT.",
+    "title": "card.clone.title",
+    "subtitle": "card.clone.subtitle3",
+    "description": "card.clone.description",
     "imageUrl": "clone_3.png"
   },
   "SWAPTOPANDBOTTOM_1": {
-    "title": "SWAP TOP AND BOTTOM",
-    "subtitle": "MAKE SOME POOR MEDICAL DECISIONS",
-    "description": "SWAP THE TOP AND BOTTOM CARDS OF THE DRAW PILE.",
+    "title": "card.swapTopAndBottom.title",
+    "subtitle": "card.swapTopAndBottom.subtitle1",
+    "description": "card.swapTopAndBottom.description",
     "imageUrl": "swap_top_and_bottom_1.png"
   },
   "SWAPTOPANDBOTTOM_2": {
-    "title": "SWAP TOP AND BOTTOM",
-    "subtitle": "EXPERIMENT ON FRANKENCAT",
-    "description": "SWAP THE TOP AND BOTTOM CARDS OF THE DRAW PILE.",
+    "title": "card.swapTopAndBottom.title",
+    "subtitle": "card.swapTopAndBottom.subtitle2",
+    "description": "card.swapTopAndBottom.description",
     "imageUrl": "swap_top_and_bottom_2.png"
   },
   "SWAPTOPANDBOTTOM_3": {
-    "title": "SWAP TOP AND BOTTOM",
-    "subtitle": "POISON YOUR NEMESIS",
-    "description": "SWAP THE TOP AND BOTTOM CARDS OF THE DRAW PILE.",
+    "title": "card.swapTopAndBottom.title",
+    "subtitle": "card.swapTopAndBottom.subtitle3",
+    "description": "card.swapTopAndBottom.description",
     "imageUrl": "swap_top_and_bottom_3.png"
   },
   "DRAWFROMTHEBOTTOM_1": {
-    "title": "DRAW FROM THE BOTTOM",
-    "subtitle": "TAKE A BIG BITE OF YOUR COWARD SANDWICH",
-    "description": "END YOUR TURN BY DRAWING THE CARD AT THE BOTTOM OF THE DRAW PILE.",
+    "title": "card.drawFromTheBottom.title",
+    "subtitle": "card.drawFromTheBottom.subtitle1",
+    "description": "card.drawFromTheBottom.description",
     "imageUrl": "draw_from_the_bottom_1.png"
   },
   "DRAWFROMTHEBOTTOM_2": {
-    "title": "DRAW FROM THE BOTTOM",
-    "subtitle": "PLAY A LEGENDARY JENGA MOVE",
-    "description": "END YOUR TURN BY DRAWING THE CARD AT THE BOTTOM OF THE DRAW PILE.",
+    "title": "card.drawFromTheBottom.title",
+    "subtitle": "card.drawFromTheBottom.subtitle2",
+    "description": "card.drawFromTheBottom.description",
     "imageUrl": "draw_from_the_bottom_2.png"
   },
   "DRAWFROMTHEBOTTOM_3": {
-    "title": "DRAW FROM THE BOTTOM",
-    "subtitle": "INVENT A NEW ART FORM",
-    "description": "END YOUR TURN BY DRAWING THE CARD AT THE BOTTOM OF THE DRAW PILE.",
+    "title": "card.drawFromTheBottom.title",
+    "subtitle": "card.drawFromTheBottom.subtitle3",
+    "description": "card.drawFromTheBottom.description",
     "imageUrl": "draw_from_the_bottom_3.png"
   },
   "TARGETEDATTACK_1": {
-    "title": "TARGETED ATTACK",
-    "subtitle": "DEPLOY THE GROIN-KICKING PANDA BEAR",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE PLAYER OF YOUR CHOICE TO TAKE 2 TURNS. PLAY CONTINUES FROM THAT PLAYER.",
+    "title": "card.targetedAttack.title",
+    "subtitle": "card.targetedAttack.subtitle1",
+    "description": "card.targetedAttack.description",
     "imageUrl": "targeted_attack_1.png"
   },
   "TARGETEDATTACK_2": {
-    "title": "TARGETED ATTACK",
-    "subtitle": "FIRE THE FAT-HAMPSTER CATAPULT",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE PLAYER OF YOUR CHOICE TO TAKE 2 TURNS. PLAY CONTINUES FROM THAT PLAYER.",
+    "title": "card.targetedAttack.title",
+    "subtitle": "card.targetedAttack.subtitle2",
+    "description": "card.targetedAttack.description",
     "imageUrl": "targeted_attack_2.png"
   },
   "TARGETEDATTACK_3": {
-    "title": "TARGETED ATTACK",
-    "subtitle": "UNLEASH A SHARK WHO HURTS WITH WORDS INSTEAD OF TEETH",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE PLAYER OF YOUR CHOICE TO TAKE 2 TURNS. PLAY CONTINUES FROM THAT PLAYER.",
+    "title": "card.targetedAttack.title",
+    "subtitle": "card.targetedAttack.subtitle3",
+    "description": "card.targetedAttack.description",
     "imageUrl": "targeted_attack_3.png"
   },
   "TARGETEDATTACK_4": {
-    "title": "TARGETED ATTACK",
-    "subtitle": "UNLEASH THE RUNNING PIRANHA",
-    "description": "END YOUR TURN WITHOUT DRAWING A CARD. FORCE THE PLAYER OF YOUR CHOICE TO TAKE 2 TURNS. PLAY CONTINUES FROM THAT PLAYER.",
+    "title": "card.targetedAttack.title",
+    "subtitle": "card.targetedAttack.subtitle4",
+    "description": "card.targetedAttack.description",
     "imageUrl": "targeted_attack_4.png"
   },
   "WINNERWINNERCATNIPDINNER_1": {
-    "title": "WINNER WINNER CATNIP DINNER",
-    "subtitle": "GET TEN BOXES FROM COSTCO",
-    "description": "IF YOU HOLD THIS CARD FOR 4 FULL ROUNDS, YOU AUTOMATICALLY WIN.",
+    "title": "card.winnerWinnerCatnipDinner.title",
+    "subtitle": "card.winnerWinnerCatnipDinner.subtitle",
+    "description": "card.winnerWinnerCatnipDinner.description",
     "imageUrl": "winner_winner_catnip_dinner_1.png"
   },
   "RAGEBAIT_1": {
-    "title": "RAGEBAIT",
-    "subtitle": "GO FISHING ON AN ANGRY STOMACH",
-    "description": "SWITCH HANDS WITH A PLAYER OF YOUR CHOICE.",
+    "title": "card.ragebait.title",
+    "subtitle": "card.ragebait.subtitle",
+    "description": "card.ragebait.description",
     "imageUrl": "ragebait_1.png"
   },
   "RECYCLE_1": {
-    "title": "RECYCLE",
-    "subtitle": "THROW DOG POOP IN YOUR NEIGHBOR'S RECYCLING BIN",
-    "description": "SHUFFLE THE DISCARD PILE. DRAW THE BOTTOM CARD TO TAKE ONE TURN.",
+    "title": "card.recycle.title",
+    "subtitle": "card.recycle.subtitle",
+    "description": "card.recycle.description",
     "imageUrl": "recycle_1.png"
   },
   "DOUBLEUP_1": {
-    "title": "DOUBLE UP",
-    "subtitle": "SPLURGE AT IN-N-OUT",
-    "description": "DRAW AN EXTRA CARD AT THE END OF YOUR TURN.",
+    "title": "card.doubleUp.title",
+    "subtitle": "card.doubleUp.subtitle",
+    "description": "card.doubleUp.description",
     "imageUrl": "double_up_1.png"
   },
-  "CLEANUP_1": {
-    "title": "CLEAN UP",
-    "subtitle": "RELEASE THE CLEANING GOATS",
-    "description": "DRAW AN EXTRA CARD AT THE END OF YOUR TURN.",
-    "imageUrl": "clean_up_1.png"
+  "MILDDRAW_1": {
+    "title": "card.mildDraw.title",
+    "subtitle": "card.mildDraw.subtitle",
+    "description": "card.mildDraw.description",
+    "imageUrl": "mildDraw_1.png"
   }
 }
