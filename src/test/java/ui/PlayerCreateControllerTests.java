@@ -70,4 +70,38 @@ public class PlayerCreateControllerTests {
         EasyMock.verify(view);
     }
 
+    @Test
+    public void onAddPlayer_CurrentFour_Failed() {
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        Consumer<String> onError = EasyMock.createMock(Consumer.class);
+
+        PlayerCreateController controller = EasyMock.createMockBuilder(PlayerCreateController.class)
+                .withConstructor(view)
+                .createMock();
+
+        controller.setOnError(onError);
+
+        for (int i = 1; i <= 4; i++) {
+            view.addPlayerField(i);
+            EasyMock.expectLastCall();
+            view.setAddPlayerButtonDisabled(i == 4);
+            EasyMock.expectLastCall();
+        }
+
+        onError.accept("You cannot have more than 4 players");
+        EasyMock.expectLastCall();
+
+        EasyMock.replay(view, onError);
+
+        controller.onAddPlayer();
+        controller.onAddPlayer();
+        controller.onAddPlayer();
+        controller.onAddPlayer();
+
+        controller.onAddPlayer();
+
+        assertEquals(4,controller.getPlayerNumbers());
+
+        EasyMock.verify(view, onError);
+    }
 }

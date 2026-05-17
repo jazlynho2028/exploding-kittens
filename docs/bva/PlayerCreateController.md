@@ -7,7 +7,7 @@
   - **Name of the test:** onAddPlayer_CurrentThree_Success
   - **State of the System:** playerFields = [TextField, TextField, TextField]
   - **Expected output:** playerFields now holds four TextFields, setAddPlayerButtonDisabled gets called with true
-- **TC3: Adding a fifth player that's above the maximum** (:x:)
+- **TC3: Adding a fifth player that's above the maximum** (:white_check_mark:)
   - **Name of the test:** onAddPlayer_CurrentFour_Failed
   - **State of the System:** PlayerFields = [TextField, TextField, TextField]
   - **Expected output:** calls onError.accept("You cannot have more than 4 players")
