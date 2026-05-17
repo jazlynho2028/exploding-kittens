@@ -31,19 +31,16 @@ public class ExplodingKittensApp extends Application {
         PlayerCreateController controller = new PlayerCreateController(assets);
 
         controller.setOnError(message -> showErrorScreen(message, stage));
-        controller.setOnSuccess(() -> showPlayerDeckScreen(controller, stage));
+        // TODO: controller.setOnSuccess(() -> showPlayerDeckScreen(controller, stage));
         controller.setOnBack(() -> showStartScreen(stage));
         setScene(controller.getPlayerCreateScene(), stage);
     }
 
-    private void showPlayerDeckScreen(PlayerCreateController createController, Stage stage) {
-        List<String> playerNames = createController.getConfirmedNames();
-        Game model = new Game(playerNames);
-
-    }
-
     private void showErrorScreen(String message, Stage stage) {
+        ErrorController controller = new ErrorController(assets, message);
 
+        Scene errorScene = controller.getErrorScene();
+        setScene(errorScene, stage);
     }
 
     private void setScene(Scene scene, Stage stage) {
