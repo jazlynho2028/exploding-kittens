@@ -69,7 +69,7 @@ public class PlayerCreateController {
         );
     }
 
-    private void onConfirmNames() {
+    void onConfirmNames() {
         List<String> names = new ArrayList<>();
 
         List<String> inputsFromView = view.getPlayerNamesFromFields();
@@ -91,13 +91,18 @@ public class PlayerCreateController {
             if (onSuccess != null) {
                 onSuccess.run();
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             onError.accept("Error initializing game: " + e.getMessage());
         }
     }
 
     public List<String> getConfirmedNames() {
         return new ArrayList<>(confirmedNames);
+    }
+
+    public int getPlayerNumbers() {
+        return playerFields.size();
     }
 
     public Scene getPlayerCreateScene() {
