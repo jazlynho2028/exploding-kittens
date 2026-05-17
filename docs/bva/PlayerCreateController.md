@@ -3,7 +3,7 @@
   - **Name of the test:** onAddPlayer_CurrentZero_Success
   - **State of the system:** playerFields = []
   - **Expected output:** playerFields now holds a singular TextField, setAddPlayerButtonDisabled gets called with false
-- **TC2: Adding the last field allowed, the fourth player** (:x:)
+- **TC2: Adding the last field allowed, the fourth player** (:white_check_mark:)
   - **Name of the test:** onAddPlayer_CurrentThree_Success
   - **State of the System:** playerFields = [TextField, TextField, TextField]
   - **Expected output:** playerFields now holds four TextFields, setAddPlayerButtonDisabled gets called with true
