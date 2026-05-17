@@ -112,7 +112,6 @@ public class PlayerCreateControllerTests {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public void onConfirmNames_OnePlayer_Failed() {
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         Consumer<String> onError = EasyMock.createMock(Consumer.class);
@@ -133,6 +132,32 @@ public class PlayerCreateControllerTests {
         controller.onConfirmNames();
 
         EasyMock.verify(view, onError, onSuccess);
+    }
+
+    @Test
+    public void onConfirmNames_TwoPlayers_Success() {
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        Runnable onSuccess = EasyMock.createMock(Runnable.class);
+
+        List<String> mockInputs = List.of("Alice", "Bob");
+        EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(mockInputs);
+
+        onSuccess.run();
+        EasyMock.expectLastCall();
+
+        EasyMock.replay(view, onSuccess);
+
+        PlayerCreateController controller = new PlayerCreateController(view);
+        controller.setOnSuccess(onSuccess);
+
+        controller.onConfirmNames();
+
+        EasyMock.verify(view, onSuccess);
+
+        List<String> confirmed = controller.getConfirmedNames();
+        assertEquals(PLAYER_COUNT_TWO, confirmed.size());
+        assertEquals("Alice", confirmed.get(0));
+        assertEquals("Bob", confirmed.get(1));
     }
 
 }

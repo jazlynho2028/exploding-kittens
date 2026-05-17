@@ -17,7 +17,7 @@
   - **Name of the test:** onConfirmNames_OnePlayer_Failed
   - **State of the System:** view.getPlayerNamesFromFields() = ["Alice"]
   - **Expected output:** calls onError.accept("you need at least 2 players") onSuccess.run() not called
-- **TC5: Confirming at the minimum number of players** (:x:)
+- **TC5: Confirming at the minimum number of players** (:white_check_mark:)
   - **Name of the test:** onConfirmNames_TwoPlayers_Success
   - **State of the System:** view.getPlayerNamesFromFields() = ["Alice", "Bob"]
   - **Expected output:** onSuccess.run() executes, list of confirmedNames becomes size 2
