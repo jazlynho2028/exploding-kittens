@@ -160,4 +160,30 @@ public class PlayerCreateControllerTests {
         assertEquals("Bob", confirmed.get(1));
     }
 
+    @Test
+    public void onConfirmNames_onSuccess_Error() {
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        Runnable onSuccess = EasyMock.createMock(Runnable.class);
+        Consumer<String> onError = EasyMock.createMock(Consumer.class);
+
+        List<String> mockInputs = List.of("Alice", "Bob", "Dave");
+        EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(mockInputs);
+
+        String errorMsg = "Deck creation failed";
+        onSuccess.run();
+        EasyMock.expectLastCall().andThrow(new IllegalStateException(errorMsg));
+
+        onError.accept("Error initializing game: " + errorMsg);
+        EasyMock.expectLastCall();
+
+        EasyMock.replay(view, onSuccess, onError);
+
+        PlayerCreateController controller = new PlayerCreateController(view);
+        controller.setOnSuccess(onSuccess);
+        controller.setOnError(onError);
+
+        controller.onConfirmNames();
+
+        EasyMock.verify(view, onSuccess, onError);
+    }
 }
