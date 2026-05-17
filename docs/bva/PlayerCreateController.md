@@ -1,10 +1,5 @@
-### Method under test: `abc()`
-- **TC1: NAME OF THE TEST CASE** ( :x: or :white_check_mark: )
-    - **State of the system**: abc
-    - **Expected output**: abc
-
 ### Method under test: `onAddPlayer()`
-- **TC1: Adding a field with 0 players** (:x:)
+- **TC1: Adding a field with 0 players** (:white_check_mark:)
   - **Name of the test:** onAddPlayer_CurrentZero_Success
   - **State of the system:** playerFields = []
   - **Expected output:** playerFields now holds a singular TextField, setAddPlayerButtonDisabled gets called with false
