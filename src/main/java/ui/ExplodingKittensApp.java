@@ -31,8 +31,11 @@ public class ExplodingKittensApp extends Application {
         PlayerCreateController controller = new PlayerCreateController(assets);
 
         controller.setOnError(message -> showErrorScreen(message, stage));
+        controller.setOnSuccess(() -> initializeGame(controller, stage));
         controller.setOnBack(() -> showStartScreen(stage));
-        setScene(controller.getPlayerCreateScene(), stage);
+
+        Scene playerCreateScene = controller.getPlayerCreateScene();
+        setScene(playerCreateScene, stage);
     }
 
     private void showErrorScreen(String message, Stage stage) {
@@ -40,6 +43,13 @@ public class ExplodingKittensApp extends Application {
 
         Scene errorScene = controller.getErrorScene();
         setScene(errorScene, stage);
+    }
+
+    private void initializeGame(PlayerCreateController createController, Stage stage) {
+        List<String> playerNames = createController.getConfirmedNames();
+        Game model = new Game(playerNames);
+
+        showPlayerDeckScreen(model, stage);
     }
 
     private void showPlayerDeckScreen(Game model, Stage stage) {
@@ -49,13 +59,6 @@ public class ExplodingKittensApp extends Application {
 
         Scene playerDeckScene = controller.getPlayerDeckScene();
         setScene(playerDeckScene, stage);
-    }
-
-    private void showErrorScreen(String message, Stage stage) {
-        ErrorController controller = new ErrorController(assets, message);
-
-        Scene errorScene = controller.getErrorScene();
-        setScene(errorScene, stage);
     }
 
     private void setScene(Scene scene, Stage stage) {
