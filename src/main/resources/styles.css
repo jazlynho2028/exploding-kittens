@@ -9,8 +9,6 @@
     beige-2: #D2C3AA;
     beige-3: #A7987E;
 
-    green-4: #8BA00A;
-
     yellow-0-tr-1: #FFFAF228;
     yellow-0-tr-2: #FFFAF250;
     yellow-0: #FFFAF2;
@@ -33,6 +31,25 @@
     magenta-6: #3B081D;
     magenta-7-tr: #14020850;
     magenta-7: #140208;
+
+    exploding-kitten: #282922;
+    defuse: #8BA00A;
+    attack: #DEAD02;
+    shuffle: #4C341F;
+    skip: #5A87C9;
+    see-the-future: #EB6396;
+    feral-cat: #E6094D;
+    cat-card: #BDBDBD;
+    catomic-bomb: #303431;
+    godcat: #F26223;
+    clone: #30C1D9;
+    swap-top-and-bottom: #BA6A4E;
+    draw-from-the-bottom: #8C867C;
+    targeted-attack: #F6B62D;
+    winner-winner-catnip-dinner: #7840E6;
+    ragebait: #C82014;
+    recycle: #2EC7A1;
+    double-up: #A05FAA;
 
     -fx-background-color: magenta-6;
 }
@@ -266,9 +283,80 @@
 .card-front-content {
     -fx-padding: 2px 6px 16px 6px;
     -fx-border-radius: 4;
-    -fx-border-color: green-4;
     -fx-border-width: 2;
     -fx-spacing: 4px;
+}
+
+.card-front.exploding-kitten {
+    -fx-border-color: exploding-kitten;
+}
+
+.card-front.defuse {
+    -fx-border-color: defuse;
+}
+
+.card-front.attack {
+    -fx-border-color: attack;
+}
+
+.card-front.shuffle {
+    -fx-border-color: shuffle;
+}
+
+.card-front.skip {
+    -fx-border-color: skip;
+}
+
+.card-front.see-the-future {
+    -fx-border-color: see-the-future;
+}
+
+.card-front.feral-cat {
+    -fx-border-color: feral-cat;
+}
+
+.card-front.cat-card {
+    -fx-border-color: cat-card;
+}
+
+.card-front.catomic-bomb {
+    -fx-border-color: catomic-bomb;
+}
+
+.card-front.godcat {
+    -fx-border-color: godcat;
+}
+
+.card-front.clone {
+    -fx-border-color: clone;
+}
+
+.card-front.swap-top-and-bottom {
+    -fx-border-color: swap-top-and-bottom;
+}
+
+.card-front.draw-from-the-bottom {
+    -fx-border-color: draw-from-the-bottom;
+}
+
+.card-front.targeted-attack {
+    -fx-border-color: targeted-attack;
+}
+
+.card-front.winner-winner-catnip-dinner {
+    -fx-border-color: winner-winner-catnip-dinner;
+}
+
+.card-front.ragebait {
+    -fx-border-color: ragebait;
+}
+
+.card-front.recycle {
+    -fx-border-color: recycle;
+}
+
+.card-front.double-up {
+    -fx-border-color: double-up;
 }
 
 .card-header {
@@ -282,7 +370,78 @@
     -fx-max-width: 24px;
     -fx-max-height: 24px;
     -fx-background-radius: 12px;
-    -fx-background-color: green-4;
+}
+
+.card-circle.exploding-kitten {
+    -fx-background-color: exploding-kitten;
+}
+
+.card-circle.defuse {
+    -fx-background-color: defuse;
+}
+
+.card-circle.attack {
+    -fx-background-color: attack;
+}
+
+.card-circle.shuffle {
+    -fx-background-color: shuffle;
+}
+
+.card-circle.skip {
+    -fx-background-color: skip;
+}
+
+.card-circle.see-the-future {
+    -fx-background-color: see-the-future;
+}
+
+.card-circle.feral-cat {
+    -fx-background-color: feral-cat;
+}
+
+.card-circle.cat-card {
+    -fx-background-color: cat-card;
+}
+
+.card-circle.catomic-bomb {
+    -fx-background-color: catomic-bomb;
+}
+
+.card-circle.godcat {
+    -fx-background-color: godcat;
+}
+
+.card-circle.clone {
+    -fx-background-color: clone;
+}
+
+.card-circle.swap-top-and-bottom {
+    -fx-background-color: swap-top-and-bottom;
+}
+
+.card-circle.draw-from-the-bottom {
+    -fx-background-color: draw-from-the-bottom;
+}
+
+.card-circle.targeted-attack {
+    -fx-background-color: targeted-attack;
+}
+
+.card-circle.winner-winner-catnip-dinner {
+    -fx-background-color: winner-winner-catnip-dinner;
+}
+
+.card-circle.ragebait {
+    -fx-background-color: ragebait;
+}
+
+.card-circle.recycle {
+    -fx-background-color: recycle;
+}
+
+.card-circle.double-up {
+    -fx-background-color: double-up;
 }
 
 .card-title-section {
