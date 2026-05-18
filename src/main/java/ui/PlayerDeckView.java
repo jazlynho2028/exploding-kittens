@@ -13,6 +13,7 @@ import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PlayerDeckView {
 
@@ -485,6 +486,7 @@ public class PlayerDeckView {
 
         VBox cardFrontContent = buildCardFrontContent(cardId);
 
+        VBox.setVgrow(cardFrontContent, Priority.ALWAYS);
         cardFront.getChildren().add(cardFrontContent);
         return cardFront;
     }
@@ -495,13 +497,22 @@ public class PlayerDeckView {
         addCardStyleById(cardFrontContent, cardId);
 
         HBox cardHeader = buildCardHeader(cardId);
+        Region spacer = buildSpacer();
         StackPane cardVisualSection = buildCardVisualSection(cardId);
 
         cardFrontContent.getChildren().addAll(
                 cardHeader,
+                spacer,
                 cardVisualSection
         );
         return cardFrontContent;
+    }
+
+    private Region buildSpacer() {
+        Region spacer = new Region();
+        VBox.setVgrow(spacer, Priority.ALWAYS);
+
+        return spacer;
     }
 
     private void addCardStyleById(Node cardFrontContent, String cardId) {
@@ -538,22 +549,25 @@ public class PlayerDeckView {
 
     private VBox buildCardTitleSection(String cardId) {
         VBox cardTitleSection = new VBox();
+        cardTitleSection.setAlignment(Pos.CENTER_LEFT);
         cardTitleSection.getStyleClass().add("card-title-section");
 
         CardMetadata cardMetadata = assetProvider.getCardMetadata(cardId);
 
         Text cardTitle = buildCardTitle(cardMetadata.getTitle());
-        Text cardSubtitle = buildCardSubtitle(cardMetadata.getSubtitle());
+        cardTitleSection.getChildren().add(cardTitle);
 
-        cardTitleSection.getChildren().addAll(
-                cardTitle,
-                cardSubtitle
-        );
+        if (!Objects.equals(cardMetadata.getSubtitle(), "")) {
+            Text cardSubtitle = buildCardSubtitle(cardMetadata.getSubtitle());
+            cardTitleSection.getChildren().add(cardSubtitle);
+        }
+
         return cardTitleSection;
     }
 
     private Text buildCardTitle(String title) {
         Text cardTitle = new Text(title);
+        cardTitle.setWrappingWidth(UIConstants.CARD_HEADER_WRAPPING_WIDTH);
         cardTitle.getStyleClass().addAll(
                 "card-title",
                 "b1"
@@ -564,6 +578,7 @@ public class PlayerDeckView {
 
     private Text buildCardSubtitle(String subtitle) {
         Text cardSubtitle = new Text(subtitle);
+        cardSubtitle.setWrappingWidth(UIConstants.CARD_HEADER_WRAPPING_WIDTH);
         cardSubtitle.getStyleClass().addAll(
                 "card-subtitle",
                 "b2"

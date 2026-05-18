@@ -15,6 +15,7 @@ public final class UIConstants {
     public static final double BACKGROUND_IMAGE_OPACITY = 0.4;
 
     public static final int CARD_BACK_ICON_WIDTH = 40;
+    public static final int CARD_HEADER_WRAPPING_WIDTH = 110;
     public static final int CARD_DESCRIPTION_WRAPPING_WIDTH = 100;
 
     public static final int CARD_IMAGE_WIDTH = 140;

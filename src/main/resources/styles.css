@@ -282,10 +282,9 @@
 }
 
 .card-front-content {
-    -fx-padding: 2px 6px 16px 6px;
+    -fx-padding: 2px 6px 6px 6px;
     -fx-border-radius: 4;
     -fx-border-width: 2;
-    -fx-spacing: 4px;
 }
 
 .card-front-content.explodingkitten {
@@ -459,10 +458,12 @@
 
 .card-title {
     -fx-fill: gray-6;
+    -fx-line-spacing: -8px;
 }
 
 .card-subtitle {
     -fx-fill: gray-2;
+    -fx-line-spacing: -8px;
 }
 
 .card-description {
