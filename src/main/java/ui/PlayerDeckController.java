@@ -14,7 +14,6 @@ public class PlayerDeckController {
     private final GameData model;
 
     private Consumer<String> onError;
-    private Runnable onRestart;
 
     public PlayerDeckController(Game model, AssetProvider assets) {
         this.model = model;
@@ -34,10 +33,6 @@ public class PlayerDeckController {
         this.onError = onError;
     }
 
-    public void setOnRestart(Runnable handler) {
-        onRestart = handler;
-    }
-
     private void buildAndBindUI() {
         view.buildAndAddPlayerHandCards(
                 this.model.getCurrentPlayerHand(),
@@ -54,16 +49,11 @@ public class PlayerDeckController {
     }
 
     private void bindUI() {
-        bindRestartButton(onRestart);
         bindNameTags(this::onNameTag);
         bindDrawPile(this::onDrawPile);
         bindHandVisibilityButton(this::onHandVisibilityButton);
         bindPlayerHandCardButtons(this::onPlayerHandCardButton);
         bindStartGameButton(this::onStartGameButton);
-    }
-
-    private void bindRestartButton(Runnable handler) {
-        view.restartButton.setOnMouseClicked(e -> onRestart.run());
     }
 
     private void bindNameTags(Consumer<Integer> handler) {
