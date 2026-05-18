@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.function.Consumer;
 
-public class PlayerDecksControllerTests {
+public class PlayerDeckControllerTests {
 
 	@Test
 	public void onNameTag_playerStaysTheSame_noChange() {
