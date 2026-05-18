@@ -50,6 +50,7 @@
     ragebait: #C82014;
     recycle: #2EC7A1;
     double-up: #A05FAA;
+    mild-draw: #F97371;
 
     -fx-background-color: magenta-6;
 }
@@ -359,6 +360,10 @@
     -fx-border-color: double-up;
 }
 
+.card-front-content.milddraw {
+    -fx-border-color: mild-draw;
+}
+
 .card-header {
     -fx-spacing: 4px;
     -fx-pref-height: 28px;
@@ -442,6 +447,10 @@
 
 .card-circle.doubleup {
     -fx-background-color: double-up;
+}
+
+.card-circle.milddraw {
+    -fx-background-color: mild-draw;
 }
 
 .card-title-section {
