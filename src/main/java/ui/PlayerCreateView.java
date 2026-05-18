@@ -134,17 +134,6 @@ public class PlayerCreateView {
         return field;
     }
 
-    public void updatePlayerFieldsDisplay(int numberOfPlayers) {
-        playerFieldsContainer.getChildren().clear();
-        textFields.clear();
-
-        for (int i = 1; i <= numberOfPlayers; i++) {
-            TextField field = createPlayerTextField(i);
-            textFields.add(field);
-            playerFieldsContainer.getChildren().add(field);
-        }
-    }
-
     public List<String> getPlayerNamesFromFields() {
         List<String> names = new ArrayList<>();
         for (TextField field : textFields) {
