@@ -11,6 +11,7 @@ import javafx.scene.shape.SVGPath;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static ui.StartView.buildExplosionImage;
 import static ui.StartView.buildTitleText;
@@ -137,7 +138,13 @@ public class PlayerCreateView {
     public List<String> getPlayerNamesFromFields() {
         List<String> names = new ArrayList<>();
         for (TextField field : textFields) {
-            names.add(field.getText());
+            String name = field.getText();
+
+            if (Objects.equals(name, "")) {
+                name = field.getPromptText();
+            }
+
+            names.add(name);
         }
         return names;
     }
