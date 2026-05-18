@@ -41,6 +41,7 @@
     feral-cat: #E6094D;
     cat-card: #BDBDBD;
     catomic-bomb: #303431;
+    super-skip: #3B94E7;
     godcat: #F26223;
     clone: #30C1D9;
     swap-top-and-bottom: #BA6A4E;
@@ -323,6 +324,10 @@
     -fx-border-color: catomic-bomb;
 }
 
+.card-front-content.superskip {
+    -fx-border-color: super-skip;
+}
+
 .card-front-content.godcat {
     -fx-border-color: godcat;
 }
@@ -410,6 +415,10 @@
 
 .card-circle.catomicbomb {
     -fx-background-color: catomic-bomb;
+}
+
+.card-circle.superskip {
+    -fx-background-color: super-skip;
 }
 
 .card-circle.godcat {
