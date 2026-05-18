@@ -33,7 +33,9 @@ public class PlayerCreateView {
 
         this.playerFieldsContainer = new VBox();
         this.addPlayerButton = new Button("+");
-        this.confirmButton = new Button("CONFIRM");
+        this.confirmButton = new Button(
+                assetProvider.getString("playerCreateScreen.confirm")
+        );
         this.restartButton = new Button();
 
         buildUI();
@@ -123,7 +125,10 @@ public class PlayerCreateView {
 
     public TextField createPlayerTextField(int index) {
         TextField field = new TextField();
-        field.setPromptText("PLAYER " + index);
+        field.setPromptText(
+                assetProvider.getString("playerCreateScreen.player")
+                        + index
+        );
         field.getStyleClass().addAll("name-enter", "h5");
         field.setAlignment(Pos.CENTER_LEFT);
         return field;
