@@ -48,7 +48,10 @@ public class Game implements GameData {
         list.add("SKIP_1");
         list.add("SKIP_2");
         list.add("SKIP_3");
-        //        list.add("SEETHEFUTURE_1");
+        list.add("SEETHEFUTURE_1");
+        list.add("SEETHEFUTURE_2");
+        list.add("SEETHEFUTURE_3");
+        list.add("SEETHEFUTURE_4");
         //        list.add("FERALCAT_1");
         //        list.add("CATCARD_11");
         //        list.add("CATCARD_21");
