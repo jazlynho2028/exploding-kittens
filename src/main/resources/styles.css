@@ -287,75 +287,75 @@
     -fx-spacing: 4px;
 }
 
-.card-front.exploding-kitten {
+.card-front-content.exploding-kitten {
     -fx-border-color: exploding-kitten;
 }
 
-.card-front.defuse {
+.card-front-content.defuse {
     -fx-border-color: defuse;
 }
 
-.card-front.attack {
+.card-front-content.attack {
     -fx-border-color: attack;
 }
 
-.card-front.shuffle {
+.card-front-content.shuffle {
     -fx-border-color: shuffle;
 }
 
-.card-front.skip {
+.card-front-content.skip {
     -fx-border-color: skip;
 }
 
-.card-front.see-the-future {
+.card-front-content.see-the-future {
     -fx-border-color: see-the-future;
 }
 
-.card-front.feral-cat {
+.card-front-content.feral-cat {
     -fx-border-color: feral-cat;
 }
 
-.card-front.cat-card {
+.card-front-content.cat-card {
     -fx-border-color: cat-card;
 }
 
-.card-front.catomic-bomb {
+.card-front-content.catomic-bomb {
     -fx-border-color: catomic-bomb;
 }
 
-.card-front.godcat {
+.card-front-content.godcat {
     -fx-border-color: godcat;
 }
 
-.card-front.clone {
+.card-front-content.clone {
     -fx-border-color: clone;
 }
 
-.card-front.swap-top-and-bottom {
+.card-front-content.swap-top-and-bottom {
     -fx-border-color: swap-top-and-bottom;
 }
 
-.card-front.draw-from-the-bottom {
+.card-front-content.draw-from-the-bottom {
     -fx-border-color: draw-from-the-bottom;
 }
 
-.card-front.targeted-attack {
+.card-front-content.targeted-attack {
     -fx-border-color: targeted-attack;
 }
 
-.card-front.winner-winner-catnip-dinner {
+.card-front-content.winner-winner-catnip-dinner {
     -fx-border-color: winner-winner-catnip-dinner;
 }
 
-.card-front.ragebait {
+.card-front-content.ragebait {
     -fx-border-color: ragebait;
 }
 
-.card-front.recycle {
+.card-front-content.recycle {
     -fx-border-color: recycle;
 }
 
-.card-front.double-up {
+.card-front-content.double-up {
     -fx-border-color: double-up;
 }
 
