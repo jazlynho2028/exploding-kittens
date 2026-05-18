@@ -287,7 +287,7 @@
     -fx-spacing: 4px;
 }
 
-.card-front-content.exploding-kitten {
+.card-front-content.explodingkitten {
     -fx-border-color: exploding-kitten;
 }
 
@@ -307,19 +307,19 @@
     -fx-border-color: skip;
 }
 
-.card-front-content.see-the-future {
+.card-front-content.seethefuture {
     -fx-border-color: see-the-future;
 }
 
-.card-front-content.feral-cat {
+.card-front-content.feralcat {
     -fx-border-color: feral-cat;
 }
 
-.card-front-content.cat-card {
+.card-front-content.catcard {
     -fx-border-color: cat-card;
 }
 
-.card-front-content.catomic-bomb {
+.card-front-content.catomicbomb {
     -fx-border-color: catomic-bomb;
 }
 
@@ -331,19 +331,19 @@
     -fx-border-color: clone;
 }
 
-.card-front-content.swap-top-and-bottom {
+.card-front-content.swaptopandbottom {
     -fx-border-color: swap-top-and-bottom;
 }
 
-.card-front-content.draw-from-the-bottom {
+.card-front-content.drawfromthebottom {
     -fx-border-color: draw-from-the-bottom;
 }
 
-.card-front-content.targeted-attack {
+.card-front-content.targetedattack {
     -fx-border-color: targeted-attack;
 }
 
-.card-front-content.winner-winner-catnip-dinner {
+.card-front-content.winnerwinnercatnipdinner {
     -fx-border-color: winner-winner-catnip-dinner;
 }
 
@@ -355,7 +355,7 @@
     -fx-border-color: recycle;
 }
 
-.card-front-content.double-up {
+.card-front-content.doubleup {
     -fx-border-color: double-up;
 }
 
@@ -372,7 +372,7 @@
     -fx-background-radius: 12px;
 }
 
-.card-circle.exploding-kitten {
+.card-circle.explodingkitten {
     -fx-background-color: exploding-kitten;
 }
 
@@ -392,19 +392,19 @@
     -fx-background-color: skip;
 }
 
-.card-circle.see-the-future {
+.card-circle.seethefuture {
     -fx-background-color: see-the-future;
 }
 
-.card-circle.feral-cat {
+.card-circle.feralcat {
     -fx-background-color: feral-cat;
 }
 
-.card-circle.cat-card {
+.card-circle.catcard {
     -fx-background-color: cat-card;
 }
 
-.card-circle.catomic-bomb {
+.card-circle.catomicbomb {
     -fx-background-color: catomic-bomb;
 }
 
@@ -416,19 +416,19 @@
     -fx-background-color: clone;
 }
 
-.card-circle.swap-top-and-bottom {
+.card-circle.swaptopandbottom {
     -fx-background-color: swap-top-and-bottom;
 }
 
-.card-circle.draw-from-the-bottom {
+.card-circle.drawfromthebottom {
     -fx-background-color: draw-from-the-bottom;
 }
 
-.card-circle.targeted-attack {
+.card-circle.targetedattack {
     -fx-background-color: targeted-attack;
 }
 
-.card-circle.winner-winner-catnip-dinner {
+.card-circle.winnerwinnercatnipdinner {
     -fx-background-color: winner-winner-catnip-dinner;
 }
 
@@ -440,7 +440,7 @@
     -fx-background-color: recycle;
 }
 
-.card-circle.double-up {
+.card-circle.doubleup {
     -fx-background-color: double-up;
 }
 

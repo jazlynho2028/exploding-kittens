@@ -20,8 +20,11 @@ public class Game implements GameData {
         return 0;
     }
 
-    public List<String> getCurrentPlayerHand() {
-        return new ArrayList<>();
+    public List<String> getCurrentPlayerHandIds() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("DEFUSE_4");
+        list.add("EXPLODINGKITTEN_1");
+        return list;
     }
 
     public boolean getIsFaceUp() {

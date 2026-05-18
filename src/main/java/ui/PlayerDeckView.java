@@ -4,7 +4,6 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -105,9 +104,9 @@ public class PlayerDeckView {
     ) {
         handCardsContainer.getChildren().clear();
 
-        for (String cardName : currentPlayerHand) {
+        for (String cardId : currentPlayerHand) {
             ToggleButton handCardButton = buildHandCardButton(
-                    cardName,
+                    cardId,
                     isFaceUp,
                     isBeforeDraw
             );
@@ -455,7 +454,7 @@ public class PlayerDeckView {
     }
 
     private ToggleButton buildHandCardButton(
-            String cardName,
+            String cardId,
             boolean isFaceUp,
             boolean isBeforeDraw
     ) {
@@ -465,7 +464,7 @@ public class PlayerDeckView {
         VBox handCard;
 
         if (isFaceUp) {
-            handCard = buildCardFront(cardName);
+            handCard = buildCardFront(cardId);
 
             handCardButton.setDisable(!isBeforeDraw);
             handCardButton.getStyleClass().add("front");
@@ -481,21 +480,22 @@ public class PlayerDeckView {
         return handCardButton;
     }
 
-    private VBox buildCardFront(String cardName) {
+    private VBox buildCardFront(String cardId) {
         VBox cardFront = new VBox();
 
-        VBox cardFrontContent = buildCardFrontContent(cardName);
+        VBox cardFrontContent = buildCardFrontContent(cardId);
 
         cardFront.getChildren().add(cardFrontContent);
         return cardFront;
     }
 
-    private VBox buildCardFrontContent(String cardName) {
+    private VBox buildCardFrontContent(String cardId) {
         VBox cardFrontContent = new VBox();
         cardFrontContent.getStyleClass().add("card-front-content");
+        addCardStyleById(cardFrontContent, cardId);
 
-        HBox cardHeader = buildCardHeader(cardName);
-        StackPane cardVisualSection = buildCardVisualSection(cardName);
+        HBox cardHeader = buildCardHeader(cardId);
+        StackPane cardVisualSection = buildCardVisualSection(cardId);
 
         cardFrontContent.getChildren().addAll(
                 cardHeader,
@@ -504,13 +504,23 @@ public class PlayerDeckView {
         return cardFrontContent;
     }
 
-    private HBox buildCardHeader(String cardName) {
+    private void addCardStyleById(Node cardFrontContent, String cardId) {
+        cardFrontContent.getStyleClass().add(
+                cardIdToCssClass(cardId)
+        );
+    }
+
+    private String cardIdToCssClass(String cardId) {
+        return cardId.toLowerCase().replaceAll("_[0-9]+$", "");
+    }
+
+    private HBox buildCardHeader(String cardId) {
         HBox cardHeader = new HBox();
         cardHeader.setAlignment(Pos.CENTER_LEFT);
         cardHeader.getStyleClass().add("card-header");
 
-        StackPane cardCircle = buildCardCircle();
-        VBox cardTitleSection = buildCardTitleSection(cardName);
+        StackPane cardCircle = buildCardCircle(cardId);
+        VBox cardTitleSection = buildCardTitleSection(cardId);
 
         cardHeader.getChildren().addAll(
                 cardCircle,
@@ -519,18 +529,21 @@ public class PlayerDeckView {
         return cardHeader;
     }
 
-    private StackPane buildCardCircle() {
+    private StackPane buildCardCircle(String cardId) {
         StackPane cardCircle = new StackPane();
         cardCircle.getStyleClass().add("card-circle");
+        addCardStyleById(cardCircle, cardId);
         return cardCircle;
     }
 
-    private VBox buildCardTitleSection(String cardName) {
+    private VBox buildCardTitleSection(String cardId) {
         VBox cardTitleSection = new VBox();
         cardTitleSection.getStyleClass().add("card-title-section");
 
-        Text cardTitle = buildCardTitle(cardName);
-        Text cardSubtitle = buildCardSubtitle(cardName);
+        CardMetadata cardMetadata = assetProvider.getCardMetadata(cardId);
+
+        Text cardTitle = buildCardTitle(cardMetadata.getTitle());
+        Text cardSubtitle = buildCardSubtitle(cardMetadata.getSubtitle());
 
         cardTitleSection.getChildren().addAll(
                 cardTitle,
@@ -559,11 +572,15 @@ public class PlayerDeckView {
         return cardSubtitle;
     }
 
-    private StackPane buildCardVisualSection(String description) {
+    private StackPane buildCardVisualSection(String cardId) {
         StackPane cardVisualSection = new StackPane();
 
         ImageView cardImageView = buildCardImageView();
-        HBox cardDescriptionSection = buildCardDescriptionSection(description);
+
+        CardMetadata cardMetadata = assetProvider.getCardMetadata(cardId);
+        HBox cardDescriptionSection = buildCardDescriptionSection(
+                cardMetadata.getDescription()
+        );
 
         Insets inset = new Insets(
                 0,

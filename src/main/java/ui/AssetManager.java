@@ -33,9 +33,9 @@ public class AssetManager implements AssetProvider {
         loadFont("/fonts/koulen-regular.ttf");
         loadFont("/fonts/national-park.ttf");
 
-        loadCardMetadata();
-
         loadLanguage(language);
+
+        loadCardMetadata();
     }
 
     private void loadCSS() {
@@ -69,7 +69,18 @@ public class AssetManager implements AssetProvider {
     private void loadCardMetadata() {
         CardMetadataLoader loader = new CardMetadataLoader();
         loader.open("/card-metadata.json");
+
         cardMetadata.putAll(loader.getMetadata());
+        convertPropertiesToString();
+    }
+
+    private void convertPropertiesToString() {
+        cardMetadata.replaceAll((id, metadata) -> new CardMetadata(
+                getString(metadata.getTitle()),
+                getString(metadata.getSubtitle()),
+                getString(metadata.getDescription()),
+                metadata.getImageUrl()
+        ));
     }
 
     private void loadLanguage(String language) {

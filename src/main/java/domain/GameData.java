@@ -10,7 +10,7 @@ public interface GameData {
 
 	int getStartingPlayerIndex();
 
-	List<String> getCurrentPlayerHand();
+	List<String> getCurrentPlayerHandIds();
 
 	boolean getIsFaceUp();
 

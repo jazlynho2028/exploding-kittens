@@ -133,32 +133,32 @@
   },
   "FERALCAT_1": {
     "title": "card.feralCat.title",
-    "subtitle": "card.feralCat.subtitle1",
+    "subtitle": "global.empty",
     "description": "card.feralCat.description",
     "imageUrl": "feralCat_1.png"
   },
   "FERALCAT_2": {
     "title": "card.feralCat.title",
-    "subtitle": "card.feralCat.subtitle2",
+    "subtitle": "global.empty",
     "description": "card.feralCat.description",
     "imageUrl": "feralCat_2.png"
   },
   "FERALCAT_3": {
     "title": "card.feralCat.title",
-    "subtitle": "card.feralCat.subtitle3",
+    "subtitle": "global.empty",
     "description": "card.feralCat.description",
     "imageUrl": "feralCat_3.png"
   },
   "FERALCAT_4": {
     "title": "card.feralCat.title",
-    "subtitle": "card.feralCat.subtitle4",
+    "subtitle": "global.empty",
     "description": "card.feralCat.description",
     "imageUrl": "feralCat_4.png"
   },
   "CATCARD_11": {
     "title": "card.catcard1.title",
     "subtitle": "global.empty",
-    "description": "THIS IS A CAT CARD AND IS POWERLESS ON ITS OWN.",
+    "description": "card.catcard.description",
     "imageUrl": "cat_card_1.png"
   },
   "CATCARD_12": {
