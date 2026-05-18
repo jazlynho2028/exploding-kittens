@@ -130,5 +130,29 @@
     "subtitle": "card.seeTheFuture.subtitle4",
     "description": "card.seeTheFuture.description",
     "imageUrl": "see_the_future_4.png"
+  },
+  "FERALCAT_1": {
+    "title": "card.feralCat.title",
+    "subtitle": "global.empty",
+    "description": "card.feralCat.description",
+    "imageUrl": "feral_cat_1.png"
+  },
+  "FERALCAT_2": {
+    "title": "card.feralCat.title",
+    "subtitle": "global.empty",
+    "description": "card.feralCat.description",
+    "imageUrl": "feral_cat_1.png"
+  },
+  "FERALCAT_3": {
+    "title": "card.feralCat.title",
+    "subtitle": "global.empty",
+    "description": "card.feralCat.description",
+    "imageUrl": "feral_cat_1.png"
+  },
+  "FERALCAT_4": {
+    "title": "card.feralCat.title",
+    "subtitle": "global.empty",
+    "description": "card.feralCat.description",
+    "imageUrl": "feral_cat_1.png"
   }
 }
