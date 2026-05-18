@@ -35,7 +35,7 @@ public class PlayerDeckController {
 
     private void buildAndBindUI() {
         view.buildAndAddPlayerHandCards(
-                this.model.getCurrentPlayerHand(),
+                this.model.getCurrentPlayerHandIds(),
                 this.model.getIsFaceUp(),
                 this.model.getIsBeforeDraw()
         );
@@ -105,7 +105,7 @@ public class PlayerDeckController {
 
     void buildAddBindPlayerHandCards() {
         view.buildAndAddPlayerHandCards(
-                model.getCurrentPlayerHand(),
+                model.getCurrentPlayerHandIds(),
                 model.getIsFaceUp(),
                 model.getIsBeforeDraw()
         );
