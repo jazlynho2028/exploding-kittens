@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static ui.PlayerDeckView.buildIcon;
 import static ui.StartView.buildExplosionImage;
 import static ui.StartView.buildTitleText;
 
@@ -103,18 +104,20 @@ public class PlayerCreateView {
         StackPane overlayLayer = new StackPane();
         overlayLayer.setPickOnBounds(false);
 
-        SVGPath restartIcon = new SVGPath();
-        restartIcon.setContent(assetProvider.getSvg("restart"));
-        restartIcon.getStyleClass().add("restart-icon");
-
-        restartButton.getStyleClass().add("icon-button");
-        restartButton.setGraphic(restartIcon);
+        buildRestartButton(assetProvider, restartButton);
 
         overlayLayer.getChildren().add(restartButton);
         StackPane.setAlignment(restartButton, Pos.TOP_RIGHT);
         StackPane.setMargin(restartButton, new Insets(UIConstants.BUTTON_MARGIN_INSETS));
 
         return overlayLayer;
+    }
+
+    private void buildRestartButton(AssetProvider assetProvider, Button restartButton) {
+        restartButton.getStyleClass().add("icon-button");
+
+        SVGPath restartIcon = buildIcon(assetProvider, "restart");
+        restartButton.setGraphic(restartIcon);
     }
 
     private ImageView buildBackgroundImage() {

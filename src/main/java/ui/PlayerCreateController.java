@@ -12,8 +12,9 @@ public class PlayerCreateController {
     private List<String> confirmedNames;
     private Consumer<String> onError;
     private Runnable onSuccess;
-    private Runnable onBack;
+    private Runnable onRestart;
 
+    private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
 
     public PlayerCreateController(AssetProvider assets) {
@@ -35,8 +36,8 @@ public class PlayerCreateController {
         this.onSuccess = onSuccess;
     }
 
-    public void setOnBack(Runnable onBack) {
-        this.onBack = onBack;
+    public void setOnRestart(Runnable onRestart) {
+        this.onRestart = onRestart;
     }
 
     private void buildAndBindUI() {
@@ -48,7 +49,7 @@ public class PlayerCreateController {
     private void bindUI() {
         view.addPlayerButton.setOnMouseClicked(e -> onAddPlayer());
         view.confirmButton.setOnMouseClicked(e -> onConfirmNames());
-        view.restartButton.setOnMouseClicked(e -> onBack.run());
+        view.restartButton.setOnMouseClicked(e -> onRestart.run());
     }
 
     void onAddPlayer() {
@@ -80,7 +81,7 @@ public class PlayerCreateController {
             }
         }
 
-        if (names.size() < 2) {
+        if (names.size() < MIN_PLAYERS) {
             onError.accept("You need at least 2 players");
             return;
         }

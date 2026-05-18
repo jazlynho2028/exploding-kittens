@@ -19,6 +19,7 @@ public class PlayerDeckView {
 
     private final AssetProvider assetProvider;
 
+    public final Button restartButton;
     public final HBox playerNamesContainer;
     public final Button drawPileButton;
     public final HBox handCardsContainer;
@@ -34,6 +35,7 @@ public class PlayerDeckView {
         this.assetProvider = assetProvider;
 
         root = new StackPane();
+        restartButton = new Button();
         playerNamesContainer = new HBox();
         drawPileButton = new Button();
         handCardsContainer = new HBox();
@@ -606,7 +608,7 @@ public class PlayerDeckView {
     }
 
     private SVGPath buildLeftBracketIcon() {
-        SVGPath leftBracketIcon = buildIcon("left-bracket");
+        SVGPath leftBracketIcon = buildIcon(assetProvider, "left-bracket");
         leftBracketIcon.getStyleClass().add("bracket-icon");
 
         return leftBracketIcon;
@@ -662,32 +664,10 @@ public class PlayerDeckView {
         StackPane overlayLayer = new StackPane();
         overlayLayer.setPickOnBounds(false);
 
-        Button restartButton = buildRestartButton();
-        overlayLayer.getChildren().add(restartButton);
-
-        Insets insets = new Insets(
-                UIConstants.SCREEN_OVERLAY_INSETS,
-                UIConstants.SCREEN_OVERLAY_INSETS,
-                0,
-                0
-        );
-        StackPane.setMargin(restartButton, insets);
-        StackPane.setAlignment(restartButton, Pos.TOP_RIGHT);
-
         return overlayLayer;
     }
 
-    private Button buildRestartButton() {
-        Button restartButton = new Button();
-        restartButton.getStyleClass().add("icon-button");
-
-        SVGPath restartIcon = buildIcon("restart");
-        restartButton.setGraphic(restartIcon);
-
-        return restartButton;
-    }
-
-    private SVGPath buildIcon(String key) {
+    static SVGPath buildIcon(AssetProvider assetProvider, String key) {
         SVGPath icon = new SVGPath();
         icon.setContent(assetProvider.getSvg(key));
         icon.getStyleClass().add(String.format("%s-icon", key));
