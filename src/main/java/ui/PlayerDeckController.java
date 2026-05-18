@@ -50,10 +50,10 @@ public class PlayerDeckController {
 
     private void bindUI() {
         bindNameTags(this::onNameTag);
-        bindDrawPile(this::onDrawPile);
-        bindHandVisibilityButton(this::onHandVisibilityButton);
+        view.drawPileButton.setOnMouseClicked(e -> onDrawPile());
+        view.handVisibilityButton.setOnMouseClicked(e -> onHandVisibilityButton());
         bindPlayerHandCardButtons(this::onPlayerHandCardButton);
-        bindStartGameButton(this::onStartGameButton);
+        view.startGameButton.setOnMouseClicked(e -> onStartGameButton());
     }
 
     private void bindNameTags(Consumer<Integer> handler) {
@@ -67,17 +67,6 @@ public class PlayerDeckController {
         }
     }
 
-    private void bindDrawPile(Runnable handler) {
-        view.drawPileButton.setOnMouseClicked(e ->
-                handler.run());
-    }
-
-    private void bindHandVisibilityButton(Runnable handler) {
-        view.handVisibilityButton.setOnMouseClicked(e ->
-                handler.run()
-        );
-    }
-
     private void bindPlayerHandCardButtons(Consumer<Integer> handler) {
         ObservableList<Node> handCards = view.handCardsContainer.getChildren();
 
@@ -88,14 +77,6 @@ public class PlayerDeckController {
             ));
         }
     }
-
-    private void bindStartGameButton(Runnable handler) {
-        view.startGameButton.setOnMouseClicked(e ->
-                handler.run()
-        );
-    }
-
-
 
     void onNameTag(int playerIndex) {
         if (model.getCurrentPlayerIndex() != playerIndex) {
