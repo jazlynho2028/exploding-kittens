@@ -88,5 +88,23 @@
     "subtitle": "card.shuffle.subtitle4",
     "description": "card.shuffle.description",
     "imageUrl": "shuffle_4.png"
+  },
+  "SKIP_1": {
+    "title": "card.skip.title",
+    "subtitle": "card.skip.subtitle1",
+    "description": "card.skip.description",
+    "imageUrl": "skip_1.png"
+  },
+  "SKIP_2": {
+    "title": "card.skip.title",
+    "subtitle": "card.skip.subtitle2",
+    "description": "card.skip.description",
+    "imageUrl": "skip_2.png"
+  },
+  "SKIP_3": {
+    "title": "card.skip.title",
+    "subtitle": "card.skip.subtitle3",
+    "description": "card.skip.description",
+    "imageUrl": "skip_3.png"
   }
 }
