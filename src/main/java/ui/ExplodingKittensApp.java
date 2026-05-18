@@ -5,6 +5,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class ExplodingKittensApp extends Application {
 
     private final AssetManager assets = new AssetManager();
@@ -12,17 +14,32 @@ public class ExplodingKittensApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Game model = new Game();
         assets.loadGlobalFiles(languageName);
 
-        showPlayerDeckScreen(model, stage);
+        showStartScreen(stage);
     }
 
     private void showStartScreen(Stage stage) {
         StartController controller = new StartController(assets);
 
-        Scene startScene = controller.getStartScene();
-        setScene(startScene, stage);
+        controller.setOnPlay(() -> showPlayerCreateScreen(stage));
+
+        setScene(controller.getStartScene(), stage);
+    }
+
+    private void showPlayerCreateScreen(Stage stage) {
+        PlayerCreateController controller = new PlayerCreateController(assets);
+
+        controller.setOnError(message -> showErrorScreen(message, stage));
+        controller.setOnBack(() -> showStartScreen(stage));
+        setScene(controller.getPlayerCreateScene(), stage);
+    }
+
+    private void showErrorScreen(String message, Stage stage) {
+        ErrorController controller = new ErrorController(assets, message);
+
+        Scene errorScene = controller.getErrorScene();
+        setScene(errorScene, stage);
     }
 
     private void showPlayerDeckScreen(Game model, Stage stage) {

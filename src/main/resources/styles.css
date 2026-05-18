@@ -105,7 +105,6 @@
     -fx-background-color: linear-gradient(to bottom, magenta-3, magenta-5);
     -fx-background-radius: 16;
     -fx-text-fill: linear-gradient(to bottom, yellow-1, yellow-4);
-    -fx-border-color: linear-gradient(to bottom, yellow-1, yellow-4);
     -fx-border-width: 4;
     -fx-border-radius: 16;
     -fx-pref-width: 316px;
@@ -115,6 +114,14 @@
 .content-section {
     -fx-padding: 16px;
     -fx-spacing: 24px;
+}
+
+.content-section > * {
+    -fx-pref-width: 600px;
+}
+
+.player-fields-container {
+    -fx-spacing: inherit;
 }
 
 .game-board-section {
@@ -128,6 +135,44 @@
 .player-names-container {
     -fx-padding: 4px;
     -fx-spacing: 8px;
+}
+
+.name-enter {
+    -fx-background-color: yellow-1;
+    -fx-max-width: 600px;
+    -fx-prompt-text-fill: beige-2;
+    -fx-text-fill: magenta-6;
+
+    -fx-border-width: 2;
+    -fx-border-color: yellow-2;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+
+    -fx-padding: 8px 16px;
+    -fx-font-family: "Koulen";
+    -fx-font-size: 21px;
+}
+
+.name-enter:focused {
+    -fx-background-color: yellow-0;
+}
+
+.add-player-button {
+    -fx-background-color: yellow-0-tr-1;
+    -fx-text-fill: yellow-0;
+
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-width: 0;
+
+    -fx-font-family: "Koulen";
+    -fx-font-size: 24px;
+
+    -fx-cursor: hand;
+}
+
+.add-player-button:hover {
+    -fx-background-color: yellow-0-tr-2;
 }
 
 .name-tag {
@@ -266,6 +311,75 @@
 .exploding-text {
     -fx-fill: linear-gradient(to bottom, yellow-3, orange-3, red-3);
 }
+
+.kittens-text {
+    -fx-fill: gray-0;
+}
+
+.player-hand-section {
+    -fx-spacing: 12;
+}
+
+.hand-visibility-toggle {
+    -fx-text-fill: gray-0;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 4;
+}
+
+.hand-visibility-toggle:hover {
+    -fx-underline: true;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar {
+    -fx-opacity: 0;
+}
+
+.hand-cards-container {
+    -fx-spacing: 8px;
+}
+
+.turn-control-section {
+    -fx-spacing: 8;
+}
+
+.turn-control-button {
+    -fx-border-radius: 8;
+    -fx-padding: 0px 16px;
+    -fx-effect: dropshadow(gaussian, magenta-5-tr, 2, 0, 0, 2);
+}
+
+.turn-control-button {
+    -fx-background-color: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-text-fill: magenta-6;
+}
+
+.turn-control-button:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: beige-2;
+    -fx-text-fill: beige-3;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-effect: none;
+}
+
+.restart-icon {
+    -fx-fill: yellow-1;
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
+
 
 .kittens-text {
     -fx-fill: gray-0;
