@@ -24,6 +24,6 @@ public interface GameData {
 
     boolean canDraw();
 
-    boolean isDrawPileEmpty();
+	boolean isDrawPileEmpty();
 
 }
