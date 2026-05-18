@@ -590,9 +590,9 @@ public class PlayerDeckView {
     private StackPane buildCardVisualSection(String cardId) {
         StackPane cardVisualSection = new StackPane();
 
-        ImageView cardImageView = buildCardImageView();
-
         CardMetadata cardMetadata = assetProvider.getCardMetadata(cardId);
+
+        ImageView cardImageView = buildCardImageView(cardId);
         HBox cardDescriptionSection = buildCardDescriptionSection(
                 cardMetadata.getDescription()
         );
@@ -612,8 +612,9 @@ public class PlayerDeckView {
         return cardVisualSection;
     }
 
-    private ImageView buildCardImageView() {
-        Image cardImage = assetProvider.getImage("placeholder");
+    private ImageView buildCardImageView(String cardId) {
+        Image cardImage = assetProvider.getImage(cardId);
+
         ImageView cardImageView = new ImageView(cardImage);
 
         cardImageView.setFitWidth(UIConstants.CARD_IMAGE_WIDTH);

@@ -22,7 +22,7 @@ public class AssetManager implements AssetProvider {
 
     public void loadGlobalFiles(String language) {
         loadCSS();
-        loadImages();
+
         loadIcon("restart",
                 "/icons/restart.txt"
         );
@@ -36,6 +36,15 @@ public class AssetManager implements AssetProvider {
         loadLanguage(language);
 
         loadCardMetadata();
+
+        loadImage("placeholder", "/images/placeholder.png");
+
+        for (Map.Entry<String, CardMetadata> entry : cardMetadata.entrySet()) {
+            String id = entry.getKey();
+            String imageUrl = "/images/" + entry.getValue().getImageUrl();
+            loadImage(id, imageUrl);
+        }
+
     }
 
     private void loadCSS() {
@@ -45,11 +54,11 @@ public class AssetManager implements AssetProvider {
         setStylesheet(cssUrl);
     }
 
-    private void loadImages() {
+    private void loadImage(String key, String fileName) {
         FileLoader loader = new ImageLoader();
-        loader.open("/images/placeholder.png");
+        loader.open(fileName);
         String imageUrl = loader.getFileUrl().toExternalForm();
-        addImage("placeholder", imageUrl);
+        addImage(key, imageUrl);
     }
 
     private void loadIcon(String key, String fileName) {
