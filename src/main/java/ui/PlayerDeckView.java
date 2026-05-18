@@ -77,7 +77,7 @@ public class PlayerDeckView {
             boolean isAtCurrentPlayerIndex = (i == currentPlayerIndex);
             nameTagButton.setSelected(isAtCurrentPlayerIndex);
 
-            nameTagButton.setDisable(isGameOngoing);
+            nameTagButton.setDisable(isAtCurrentPlayerIndex || isGameOngoing);
         }
     }
 
