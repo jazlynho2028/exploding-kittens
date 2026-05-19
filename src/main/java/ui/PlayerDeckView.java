@@ -265,7 +265,7 @@ public class PlayerDeckView {
         drawPileButton.setDisable(true);
 
         Text drawPileCaption = buildCaption(
-                assetProvider.getString("playerDeckScreen.drawPileCaption"));
+                assetProvider.getString("playerDeckScreen.drawPileFromTopCaption"));
 
         drawPileSection.getChildren().addAll(
                 drawPileContainer,
