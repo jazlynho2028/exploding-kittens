@@ -79,7 +79,9 @@ public class Game implements GameData {
         list.add("CLONE_1");
         list.add("CLONE_2");
         list.add("CLONE_3");
-        //        list.add("SWAPTOPANDBOTTOM_1");
+        list.add("SWAPTOPANDBOTTOM_1");
+        list.add("SWAPTOPANDBOTTOM_2");
+        list.add("SWAPTOPANDBOTTOM_3");
         //        list.add("DRAWFROMTHEBOTTOM_1");
         //        list.add("TARGETEDATTACK_1");
         //        list.add("WINNERWINNERCATNIPDINNER_1");
