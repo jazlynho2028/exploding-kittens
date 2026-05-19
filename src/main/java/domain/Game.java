@@ -93,7 +93,7 @@ public class Game implements GameData {
         list.add("RAGEBAIT_1");
         list.add("RECYCLE_1");
         list.add("DOUBLEUP_1");
-        //        list.add("MILDDRAW_1");
+        list.add("MILDDRAW_1");
         return list;
     }
 

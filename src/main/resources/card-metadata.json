@@ -376,5 +376,11 @@
     "subtitle": "card.doubleUp.subtitle",
     "description": "card.doubleUp.description",
     "imageUrl": "double_up_1.png"
+  },
+  "MILDDRAW_1": {
+    "title": "card.mildDraw.title",
+    "subtitle": "card.mildDraw.subtitle",
+    "description": "card.mildDraw.description",
+    "imageUrl": "mild_draw_1.png"
   }
 }
