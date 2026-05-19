@@ -75,8 +75,10 @@ public class Game implements GameData {
         list.add("CATOMICBOMB_1");
         list.add("SUPERSKIP_1");
         list.add("SUPERSKIP_2");
-        //        list.add("GODCAT_1");
-        //        list.add("CLONE_1");
+        list.add("GODCAT_1");
+        list.add("CLONE_1");
+        list.add("CLONE_2");
+        list.add("CLONE_3");
         //        list.add("SWAPTOPANDBOTTOM_1");
         //        list.add("DRAWFROMTHEBOTTOM_1");
         //        list.add("TARGETEDATTACK_1");

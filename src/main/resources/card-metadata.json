@@ -268,5 +268,29 @@
     "subtitle": "card.superSkip.subtitle2",
     "description": "card.superSkip.description",
     "imageUrl": "super_skip_2.png"
+  },
+  "GODCAT_1": {
+    "title": "card.godcat.title",
+    "subtitle": "card.godcat.subtitle",
+    "description": "card.godcat.description",
+    "imageUrl": "godcat_1.png"
+  },
+  "CLONE_1": {
+    "title": "card.clone.title",
+    "subtitle": "card.clone.subtitle1",
+    "description": "card.clone.description",
+    "imageUrl": "clone_1.png"
+  },
+  "CLONE_2": {
+    "title": "card.clone.title",
+    "subtitle": "card.clone.subtitle2",
+    "description": "card.clone.description",
+    "imageUrl": "clone_2.png"
+  },
+  "CLONE_3": {
+    "title": "card.clone.title",
+    "subtitle": "card.clone.subtitle3",
+    "description": "card.clone.description",
+    "imageUrl": "clone_3.png"
   }
 }
