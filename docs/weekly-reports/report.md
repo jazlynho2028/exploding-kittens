@@ -58,7 +58,7 @@
 2. [Done] Luke: PlayerSetUpController.java
 3. [Done] Jazlyn: set up jacoco + pitest
 6. [50% Done] Ejean: DeckBuilder.java
-7. [10% Done] DJ: Game.java
+7. [40% Done] DJ: Game.java
 8. [95% Done] DJ: TurnManager.java
 9. [95% Done] DJ: Player.java
 10. [not started] Irene: Card.java
