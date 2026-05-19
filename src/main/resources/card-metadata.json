@@ -364,5 +364,11 @@
     "subtitle": "card.ragebait.subtitle",
     "description": "card.ragebait.description",
     "imageUrl": "ragebait_1.png"
+  },
+  "RECYCLE_1": {
+    "title": "card.recycle.title",
+    "subtitle": "card.recycle.subtitle",
+    "description": "card.recycle.description",
+    "imageUrl": "recycle_1.png"
   }
 }

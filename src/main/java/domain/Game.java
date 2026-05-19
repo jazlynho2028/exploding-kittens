@@ -91,7 +91,7 @@ public class Game implements GameData {
         list.add("TARGETEDATTACK_4");
         list.add("WINNERWINNERCATNIPDINNER_1");
         list.add("RAGEBAIT_1");
-        //        list.add("RECYCLE_1");
+        list.add("RECYCLE_1");
         //        list.add("DOUBLEUP_1");
         //        list.add("MILDDRAW_1");
         return list;
