@@ -326,7 +326,7 @@ public class PlayerDeckView {
     }
 
     private ImageView buildCardBackIconView() {
-        Image cardBackIcon = assetProvider.getImage("placeholder");
+        Image cardBackIcon = assetProvider.getImage("card_back_cat");
         ImageView cardBackIconView = new ImageView(cardBackIcon);
 
         cardBackIconView.setFitWidth(UIConstants.CARD_BACK_ICON_WIDTH);
