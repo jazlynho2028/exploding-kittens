@@ -250,5 +250,23 @@
     "subtitle": "global.empty",
     "description": "card.catcard.description",
     "imageUrl": "cat_card_4.png"
+  },
+  "CATOMICBOMB_1": {
+    "title": "card.catomicBomb.title",
+    "subtitle": "card.catomicBomb.subtitle",
+    "description": "card.catomicBomb.description",
+    "imageUrl": "catomic_bomb_1.png"
+  },
+  "SUPERSKIP_1": {
+    "title": "card.superSkip.title",
+    "subtitle": "card.superSkip.subtitle1",
+    "description": "card.superSkip.description",
+    "imageUrl": "super_skip_1.png"
+  },
+  "SUPERSKIP_2": {
+    "title": "card.superSkip.title",
+    "subtitle": "card.superSkip.subtitle2",
+    "description": "card.superSkip.description",
+    "imageUrl": "super_skip_2.png"
   }
 }

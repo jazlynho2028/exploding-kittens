@@ -72,8 +72,9 @@ public class Game implements GameData {
         list.add("CATCARD_42");
         list.add("CATCARD_43");
         list.add("CATCARD_44");
-        //        list.add("CATOMICBOMB_1");
-        //        list.add("SUPERSKIP_1");
+        list.add("CATOMICBOMB_1");
+        list.add("SUPERSKIP_1");
+        list.add("SUPERSKIP_2");
         //        list.add("GODCAT_1");
         //        list.add("CLONE_1");
         //        list.add("SWAPTOPANDBOTTOM_1");
