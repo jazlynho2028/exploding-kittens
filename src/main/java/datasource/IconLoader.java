@@ -35,4 +35,5 @@ public class IconLoader implements PathLoader {
     public String getPathData() {
         return iconData;
     }
+
 }
