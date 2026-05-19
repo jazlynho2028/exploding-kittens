@@ -16,8 +16,8 @@
 **Planning and Progress Tracking**:
 1. [done] Luke: StartView.java
 2. [done] Luke: StartController.java
-3. [80% Done] Luke: PlayerSetUpView.java
-4. [80% Done] Luke: PlayerSetUpController.java
+3. [80% Done] Luke: PlayerCreateView.java
+4. [80% Done] Luke: PlayerCreateController.java
 5. [done] Jazlyn: PlayerDecksView.java
 6. [done] Jazlyn: PlayerDecksController.java
 7. [done] Jazlyn: FileLoader.java interface
@@ -39,8 +39,8 @@
 
 # Week 6 (05/04/2026-05/10/2026)
 **Planning and Progress Tracking**:
-1. [80% Done] Luke: PlayerSetUpView.java
-2. [80% Done] Luke: PlayerSetUpController.java
+1. [80% Done] Luke: PlayerCreateView.java
+2. [80% Done] Luke: PlayerCreateController.java
 3. [Done] Jazlyn: set up linters (spotbugs + Google checkstyle)
 4. [Done] Jazlyn: PlayerSetUpController.java BVA + test implementation
 5. [Done] Jazlyn: Set up card metadata for UI display
@@ -54,8 +54,8 @@
 
 # Week 7 (05/11/2026-05/17/2026)
 **Planning and Progress Tracking**:
-1. [Done] Luke: PlayerSetUpView.java
-2. [Done] Luke: PlayerSetUpController.java
+1. [Done] Luke: PlayerCreateView.java
+2. [Done] Luke: PlayerCreateController.java
 3. [Done] Jazlyn: set up jacoco + pitest
 6. [50% Done] Ejean: DeckBuilder.java
 7. [40% Done] DJ: Game.java
