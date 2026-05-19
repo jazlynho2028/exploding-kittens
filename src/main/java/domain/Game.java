@@ -5,11 +5,8 @@ import java.util.List;
 
 public class Game implements GameData {
 
-    private int currentPlayerIndex;
 
-    public Game(List<String> playerNames) {
-        currentPlayerIndex = 0;
-    }
+    public Game(List<String> playerNames) { }
 
     // GameData methods
     public List<String> getPlayerNames() {
@@ -21,7 +18,7 @@ public class Game implements GameData {
     }
 
     public int getCurrentPlayerIndex() {
-        return currentPlayerIndex;
+        return 0;
     }
 
     public int getStartingPlayerIndex() {
@@ -126,9 +123,7 @@ public class Game implements GameData {
     }
 
     // Mutable Game methods
-    public void changeCurrentPlayerIndexAndSetIsFaceUpToFalse(int playerIndex) {
-        currentPlayerIndex = playerIndex;
-    }
+    public void changeCurrentPlayerIndexAndSetIsFaceUpToFalse(int playerIndex) { }
 
     public void drawFromPile() { }
 
