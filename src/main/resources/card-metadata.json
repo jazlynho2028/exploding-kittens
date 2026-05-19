@@ -310,5 +310,47 @@
     "subtitle": "card.swapTopAndBottom.subtitle3",
     "description": "card.swapTopAndBottom.description",
     "imageUrl": "swap_top_and_bottom_3.png"
+  },
+  "DRAWFROMTHEBOTTOM_1": {
+    "title": "card.drawFromTheBottom.title",
+    "subtitle": "card.drawFromTheBottom.subtitle1",
+    "description": "card.drawFromTheBottom.description",
+    "imageUrl": "draw_from_the_bottom_1.png"
+  },
+  "DRAWFROMTHEBOTTOM_2": {
+    "title": "card.drawFromTheBottom.title",
+    "subtitle": "card.drawFromTheBottom.subtitle2",
+    "description": "card.drawFromTheBottom.description",
+    "imageUrl": "draw_from_the_bottom_2.png"
+  },
+  "DRAWFROMTHEBOTTOM_3": {
+    "title": "card.drawFromTheBottom.title",
+    "subtitle": "card.drawFromTheBottom.subtitle3",
+    "description": "card.drawFromTheBottom.description",
+    "imageUrl": "draw_from_the_bottom_3.png"
+  },
+  "TARGETEDATTACK_1": {
+    "title": "card.targetedAttack.title",
+    "subtitle": "card.targetedAttack.subtitle1",
+    "description": "card.targetedAttack.description",
+    "imageUrl": "targeted_attack_1.png"
+  },
+  "TARGETEDATTACK_2": {
+    "title": "card.targetedAttack.title",
+    "subtitle": "card.targetedAttack.subtitle2",
+    "description": "card.targetedAttack.description",
+    "imageUrl": "targeted_attack_2.png"
+  },
+  "TARGETEDATTACK_3": {
+    "title": "card.targetedAttack.title",
+    "subtitle": "card.targetedAttack.subtitle3",
+    "description": "card.targetedAttack.description",
+    "imageUrl": "targeted_attack_3.png"
+  },
+  "TARGETEDATTACK_4": {
+    "title": "card.targetedAttack.title",
+    "subtitle": "card.targetedAttack.subtitle4",
+    "description": "card.targetedAttack.description",
+    "imageUrl": "targeted_attack_4.png"
   }
 }
