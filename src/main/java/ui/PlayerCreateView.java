@@ -50,7 +50,7 @@ public class PlayerCreateView {
     private void buildUI() {
         root.getStyleClass().add("root");
 
-        ImageView backgroundImage = buildBackgroundImage();
+        ImageView backgroundImage = buildBackgroundImage(assetProvider);
 
         StackPane createScreen = buildCreateScreen();
         StackPane overlayLayer = buildOverlayLayer();
@@ -120,7 +120,7 @@ public class PlayerCreateView {
         restartButton.setGraphic(restartIcon);
     }
 
-    private ImageView buildBackgroundImage() {
+    static ImageView buildBackgroundImage(AssetProvider assetProvider) {
         ImageView backgroundImage = buildExplosionImage(assetProvider);
         backgroundImage.setOpacity(UIConstants.BACKGROUND_IMAGE_OPACITY);
 

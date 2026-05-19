@@ -15,6 +15,8 @@ import javafx.scene.text.Text;
 import java.util.List;
 import java.util.Objects;
 
+import static ui.PlayerCreateView.buildBackgroundImage;
+
 public class PlayerDeckView {
 
     private final AssetProvider assetProvider;
@@ -158,10 +160,12 @@ public class PlayerDeckView {
     private StackPane buildGameScreen() {
         StackPane gameScreen = new StackPane();
 
+        ImageView backgroundImage = buildBackgroundImage(assetProvider);
         VBox contentSection = buildContentSection();
         StackPane overlayLayer = buildOverlayLayer();
 
         gameScreen.getChildren().addAll(
+                backgroundImage,
                 contentSection,
                 overlayLayer);
 
