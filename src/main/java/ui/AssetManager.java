@@ -38,6 +38,7 @@ public class AssetManager implements AssetProvider {
         loadCardMetadata();
 
         loadImage("placeholder", "/images/placeholder.png");
+        loadImage("explosion", "/images/explosion.png");
 
         for (Map.Entry<String, CardMetadata> entry : cardMetadata.entrySet()) {
             String id = entry.getKey();

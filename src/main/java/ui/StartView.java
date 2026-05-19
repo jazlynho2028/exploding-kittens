@@ -55,7 +55,7 @@ public class StartView {
     }
 
     static ImageView buildExplosionImage(AssetProvider assetProvider) {
-        Image image = assetProvider.getImage("placeholder");
+        Image image = assetProvider.getImage("explosion");
         ImageView imageView = new ImageView(image);
 
         imageView.setFitWidth(UIConstants.BACKGROUND_IMAGE_WIDTH);

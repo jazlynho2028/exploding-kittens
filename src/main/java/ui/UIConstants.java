@@ -12,7 +12,7 @@ public final class UIConstants {
     public static final int BUTTON_MARGIN_INSETS = 15;
 
     public static final int BACKGROUND_IMAGE_WIDTH = 500;
-    public static final double BACKGROUND_IMAGE_OPACITY = 0.4;
+    public static final double BACKGROUND_IMAGE_OPACITY = 0.2;
 
     public static final int CARD_BACK_ICON_WIDTH = 40;
     public static final int CARD_HEADER_WRAPPING_WIDTH = 110;
