@@ -54,8 +54,8 @@
 
 # Week 7 (05/11/2026-05/17/2026)
 **Planning and Progress Tracking**:
-1. [80% Done] Luke: PlayerSetUpView.java
-2. [80% Done] Luke: PlayerSetUpController.java
+1. [Done] Luke: PlayerSetUpView.java
+2. [Done] Luke: PlayerSetUpController.java
 3. [Done] Jazlyn: set up jacoco + pitest
 6. [50% Done] Ejean: DeckBuilder.java
 7. [10% Done] DJ: Game.java
