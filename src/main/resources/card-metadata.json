@@ -370,5 +370,11 @@
     "subtitle": "card.recycle.subtitle",
     "description": "card.recycle.description",
     "imageUrl": "recycle_1.png"
+  },
+  "DOUBLEUP_1": {
+    "title": "card.doubleUp.title",
+    "subtitle": "card.doubleUp.subtitle",
+    "description": "card.doubleUp.description",
+    "imageUrl": "double_up_1.png"
   }
 }
