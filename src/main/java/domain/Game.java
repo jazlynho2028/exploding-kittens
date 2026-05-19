@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Game implements GameData {
 
-
     public Game(List<String> playerNames) { }
 
     // GameData methods
