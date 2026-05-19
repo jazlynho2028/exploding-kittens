@@ -57,10 +57,10 @@
 1. [Done] Luke: PlayerCreateView.java
 2. [Done] Luke: PlayerCreateController.java
 3. [Done] Jazlyn: set up jacoco + pitest
-6. [50% Done] Ejean: DeckBuilder.java
-7. [40% Done] DJ: Game.java
-8. [95% Done] DJ: TurnManager.java
-9. [95% Done] DJ: Player.java
-10. [not started] Irene: Card.java
-11. [50% Done] Irene: Deck.java
-12. [Done] Irene: CardTypes.java
+4. [Done] Jazlyn: connect PlayerDeck screen to Start and PlayerCreate screens
+5. [50% Done] Ejean: DeckBuilder.java
+6. [40% Done] DJ: Game.java
+7. [95% Done] DJ: TurnManager.java
+8. [95% Done] DJ: Player.java
+9. [not started] Irene: Card.java
+10. [50% Done] Irene: Deck.java
