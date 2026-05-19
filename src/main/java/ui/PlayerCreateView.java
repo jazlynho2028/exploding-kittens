@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static ui.PlayerDeckView.buildIcon;
 import static ui.StartView.buildExplosionImage;
 import static ui.StartView.buildTitleText;
 
@@ -161,5 +160,13 @@ public class PlayerCreateView {
 
     public void setAddPlayerButtonDisabled(boolean disabled) {
         addPlayerButton.setDisable(disabled);
+    }
+
+    static SVGPath buildIcon(AssetProvider assetProvider, String key) {
+        SVGPath icon = new SVGPath();
+        icon.setContent(assetProvider.getSvg(key));
+        icon.getStyleClass().add(String.format("%s-icon", key));
+
+        return icon;
     }
 }

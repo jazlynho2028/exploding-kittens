@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static ui.PlayerCreateView.buildBackgroundImage;
+import static ui.PlayerCreateView.buildIcon;
 
 public class PlayerDeckView {
 
@@ -702,14 +703,6 @@ public class PlayerDeckView {
         overlayLayer.setPickOnBounds(false);
 
         return overlayLayer;
-    }
-
-    static SVGPath buildIcon(AssetProvider assetProvider, String key) {
-        SVGPath icon = new SVGPath();
-        icon.setContent(assetProvider.getSvg(key));
-        icon.getStyleClass().add(String.format("%s-icon", key));
-
-        return icon;
     }
 
 }
