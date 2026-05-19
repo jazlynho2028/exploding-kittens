@@ -352,5 +352,11 @@
     "subtitle": "card.targetedAttack.subtitle4",
     "description": "card.targetedAttack.description",
     "imageUrl": "targeted_attack_4.png"
+  },
+  "WINNERWINNERCATNIPDINNER_1": {
+    "title": "card.winnerWinnerCatnipDinner.title",
+    "subtitle": "card.winnerWinnerCatnipDinner.subtitle",
+    "description": "card.winnerWinnerCatnipDinner.description",
+    "imageUrl": "winner_winner_catnip_dinner_1.png"
   }
 }
