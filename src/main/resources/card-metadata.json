@@ -358,5 +358,11 @@
     "subtitle": "card.winnerWinnerCatnipDinner.subtitle",
     "description": "card.winnerWinnerCatnipDinner.description",
     "imageUrl": "winner_winner_catnip_dinner_1.png"
+  },
+  "RAGEBAIT_1": {
+    "title": "card.ragebait.title",
+    "subtitle": "card.ragebait.subtitle",
+    "description": "card.ragebait.description",
+    "imageUrl": "ragebait_1.png"
   }
 }
