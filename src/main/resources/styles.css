@@ -382,7 +382,7 @@
 }
 
 .card-circle.explodingkitten {
-    -fx-background-color: exploding-kitten;
+    -fx-background-color: linear-gradient(to bottom, yellow-3, orange-3, red-3);;
 }
 
 .card-circle.defuse {
