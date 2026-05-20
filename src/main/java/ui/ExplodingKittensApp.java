@@ -10,8 +10,8 @@ import java.util.List;
 public class ExplodingKittensApp extends Application {
 
     private final AssetManager assets = new AssetManager();
-    private final String englishLanguage = "English";
-    private final String spanishLanguage = "Spanish";
+    private static final String englishLanguage = "English";
+    private static final String spanishLanguage = "Spanish";
 
 	@Override
     public void start(Stage stage) {
