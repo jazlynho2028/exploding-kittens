@@ -97,7 +97,7 @@ public class AssetManager implements AssetProvider {
     private void loadLanguage(String language) {
         StringsBundleLoader loader = new StringsBundleLoader();
         loader.open(language);
-        languageBundle = loader.getBundle();
+        languageBundle = loader.getCurrentBundle();
     }
 
     public void addImage(String key, String imageUrl) {
