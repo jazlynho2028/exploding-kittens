@@ -6,16 +6,23 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ExplodingKittensApp extends Application {
 
     private final AssetManager assets = new AssetManager();
     private static final String englishLanguage = "English";
     private static final String spanishLanguage = "Spanish";
+    private Stage stage;
+    private Consumer<String> errorHandler;
 
 	@Override
     public void start(Stage stage) {
-		assets.loadGlobalFiles(englishLanguage);
+		this.assets.loadGlobalFiles(englishLanguage);
+        this.stage = stage;
+        this.errorHandler = message -> {
+            showErrorScreen(message, this.stage);
+        };
 
         showStartScreen(stage);
     }
@@ -37,7 +44,7 @@ public class ExplodingKittensApp extends Application {
     private void showPlayerCreateScreen(Stage stage) {
         PlayerCreateController controller = new PlayerCreateController(assets);
 
-        controller.setOnError(message -> showErrorScreen(message, stage));
+        controller.setOnError(errorHandler);
         controller.setOnSuccess(() -> initializeGame(controller, stage));
         controller.setOnRestart(() -> showStartScreen(stage));
 
@@ -62,7 +69,7 @@ public class ExplodingKittensApp extends Application {
     private void showPlayerDeckScreen(Game model, Stage stage) {
         PlayerDeckController controller = new PlayerDeckController(model, assets);
 
-        controller.setOnError(message -> showErrorScreen(message, stage));
+        controller.setOnError(errorHandler);
 
         Scene playerDeckScene = controller.getPlayerDeckScene();
         setScene(playerDeckScene, stage);
