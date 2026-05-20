@@ -12,10 +12,12 @@ import javafx.scene.text.Text;
 public class StartView {
     private final AssetProvider assetProvider;
     private final StackPane root;
+    public final Button playButton;
 
     public StartView(AssetProvider assetProvider) {
         this.assetProvider = assetProvider;
-        root = new StackPane();
+        this.root = new StackPane();
+        this.playButton = new Button();
 
         buildUI();
     }
@@ -32,12 +34,11 @@ public class StartView {
     private StackPane buildStartScreen() {
         StackPane startScreen = new StackPane();
 
-        ImageView explosionCatImage = buildExplosionImage();
+        ImageView explosionCatImage = buildExplosionImage(assetProvider);
         VBox contentSection = buildContentSection();
 
         startScreen.getChildren().addAll(explosionCatImage, contentSection);
         return startScreen;
-
     }
 
     private VBox buildContentSection() {
@@ -45,15 +46,15 @@ public class StartView {
         contentSection.getStyleClass().add("start-content-section");
         contentSection.setAlignment(Pos.CENTER);
 
-        Text titleText = buildTitleText();
-        Button playButton = buildPlayButton();
+        Text titleText = buildTitleText(assetProvider);
+        Button button = buildPlayButton();
 
-        contentSection.getChildren().addAll(titleText, playButton);
+        contentSection.getChildren().addAll(titleText, button);
 
         return contentSection;
     }
 
-    private ImageView buildExplosionImage() {
+    static ImageView buildExplosionImage(AssetProvider assetProvider) {
         Image image = assetProvider.getImage("placeholder");
         ImageView imageView = new ImageView(image);
 
@@ -63,20 +64,18 @@ public class StartView {
         return imageView;
     }
 
-    private Text buildTitleText() {
-        Text titleText = new Text(UIConstants.TITLE);
+    static Text buildTitleText(AssetProvider assetProvider) {
+        Text titleText = new Text(assetProvider.getString("global.title"));
         titleText.getStyleClass().addAll("h1", "title");
 
         return titleText;
     }
 
     private Button buildPlayButton() {
-        Button playButton = new Button();
         playButton.getStyleClass().addAll("play-button", "h2");
 
-        playButton.setText(UIConstants.PLAY_BUTTON_LABEL);
+        playButton.setText(assetProvider.getString("startScreen.play"));
 
         return playButton;
     }
-
 }

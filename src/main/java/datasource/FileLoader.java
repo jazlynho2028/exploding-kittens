@@ -7,4 +7,5 @@ public interface FileLoader {
     boolean open(String fileName);
 
     URL getFileUrl();
+
 }
