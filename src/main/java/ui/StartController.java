@@ -13,7 +13,7 @@ public class StartController {
         this.onEnglishPlay = () -> { };
         this.onSpanishPlay = () -> { };
 
-        buildAndBindUI();
+        bindUI();
     }
 
     public void setOnEnglishPlay(Runnable onEnglishPlay) {
@@ -22,10 +22,6 @@ public class StartController {
 
     public void setOnSpanishPlay(Runnable onSpanishPlay) {
         this.onSpanishPlay = onSpanishPlay;
-    }
-
-    private void buildAndBindUI() {
-        bindUI();
     }
 
     private void bindUI() {
