@@ -124,6 +124,10 @@
     -fx-spacing: 480px;
 }
 
+.play-buttons-container {
+    -fx-spacing: 16px;
+}
+
 .play-button {
     -fx-background-color: linear-gradient(to bottom, magenta-3, magenta-5);
     -fx-background-radius: 16;

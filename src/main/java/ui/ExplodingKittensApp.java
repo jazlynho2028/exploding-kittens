@@ -10,19 +10,26 @@ import java.util.List;
 public class ExplodingKittensApp extends Application {
 
     private final AssetManager assets = new AssetManager();
-    private static final String languageName = "English";
+    private final String englishLanguage = "English";
+    private final String spanishLanguage = "Spanish";
 
-    @Override
+	@Override
     public void start(Stage stage) {
-        assets.loadGlobalFiles(languageName);
+		assets.loadGlobalFiles(englishLanguage);
 
         showStartScreen(stage);
+    }
+
+    public void switchLanguageAndView(Stage stage, String language) {
+        assets.loadLanguageAndCardMetadata(language);
+        showPlayerCreateScreen(stage);
     }
 
     private void showStartScreen(Stage stage) {
         StartController controller = new StartController(assets);
 
-        controller.setOnPlay(() -> showPlayerCreateScreen(stage));
+        controller.setOnEnglishPlay(() -> switchLanguageAndView(stage, englishLanguage));
+        controller.setOnSpanishPlay(() -> switchLanguageAndView(stage, spanishLanguage));
 
         setScene(controller.getStartScene(), stage);
     }

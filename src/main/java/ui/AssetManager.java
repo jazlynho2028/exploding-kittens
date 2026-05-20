@@ -33,9 +33,7 @@ public class AssetManager implements AssetProvider {
         loadFont("/fonts/koulen-regular.ttf");
         loadFont("/fonts/national-park.ttf");
 
-        loadLanguage(language);
-
-        loadCardMetadata();
+        loadLanguageAndCardMetadata(language);
 
         loadImage("placeholder", "/images/placeholder.png");
         loadImage("explosion", "/images/explosion.png");
@@ -77,6 +75,17 @@ public class AssetManager implements AssetProvider {
         Font.loadFont(fontStream, UIConstants.LOADED_FONT_SIZE);
     }
 
+    public void loadLanguageAndCardMetadata(String language) {
+        loadLanguage(language);
+        loadCardMetadata();
+    }
+
+    private void loadLanguage(String language) {
+        StringsBundleLoader loader = new StringsBundleLoader();
+        loader.open(language);
+        languageBundle = loader.getCurrentBundle();
+    }
+
     private void loadCardMetadata() {
         CardMetadataLoader loader = new CardMetadataLoader();
         loader.open("/card-metadata.json");
@@ -92,12 +101,6 @@ public class AssetManager implements AssetProvider {
                 getString(metadata.getDescription()),
                 metadata.getImageUrl()
         ));
-    }
-
-    private void loadLanguage(String language) {
-        StringsBundleLoader loader = new StringsBundleLoader();
-        loader.open(language);
-        languageBundle = loader.getCurrentBundle();
     }
 
     public void addImage(String key, String imageUrl) {
@@ -125,12 +128,12 @@ public class AssetManager implements AssetProvider {
         return cssUrl;
     }
 
-    public CardMetadata getCardMetadata(String key) {
-        return cardMetadata.get(key);
-    }
-
     public String getString(String key) {
         return languageBundle.getString(key);
+    }
+
+    public CardMetadata getCardMetadata(String key) {
+        return cardMetadata.get(key);
     }
 
 }
