@@ -68,9 +68,10 @@
 # Week 8 (05/18/2026-05/24/2026)
 **Planning and Progress Tracking**:
 1. [Done] Jazlyn: replaced all placeholder images with new assets for background, card back, and each card front
-2. [50% Done] Ejean: DeckBuilder.java
-3. [40% Done] DJ: Game.java
-4. [95% Done] DJ: TurnManager.java
-5. [95% Done] DJ: Player.java
-6. [not started] Irene: Card.java
-7. [50% Done] Irene: Deck.java
+2. [not started] Jazlyn: add tests to start, player create, and player deck controllers
+3. [50% Done] Ejean: DeckBuilder.java
+4. [40% Done] DJ: Game.java
+5. [95% Done] DJ: TurnManager.java
+6. [95% Done] DJ: Player.java
+7. [not started] Luke: Card.java
+8. [50% Done] Irene: Deck.java
