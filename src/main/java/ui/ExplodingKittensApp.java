@@ -13,15 +13,13 @@ public class ExplodingKittensApp extends Application {
     private final AssetManager assets = new AssetManager();
     private static final String englishLanguage = "English";
     private static final String spanishLanguage = "Spanish";
-    private Stage stage;
     private Consumer<String> errorHandler;
 
 	@Override
     public void start(Stage stage) {
 		this.assets.loadGlobalFiles(englishLanguage);
-        this.stage = stage;
         this.errorHandler = message -> {
-            showErrorScreen(message, this.stage);
+            showErrorScreen(message, stage);
         };
 
         showStartScreen(stage);
