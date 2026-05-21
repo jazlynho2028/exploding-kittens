@@ -206,7 +206,7 @@ public class PlayerCreateControllerTests {
     }
 
     @Test
-    public void getPlayerNumbers_empty_return0(){
+    public void getPlayerNumbers_empty_return0() {
         AssetProvider assets = EasyMock.createMock(AssetProvider.class);
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         int expected = 0;
@@ -219,7 +219,7 @@ public class PlayerCreateControllerTests {
     }
 
     @Test
-    public void getPlayerNumbers_onePlayer_return1(){
+    public void getPlayerNumbers_onePlayer_return1() {
         AssetProvider assets = EasyMock.createMock(AssetProvider.class);
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         int expected = 1;
@@ -233,7 +233,7 @@ public class PlayerCreateControllerTests {
     }
 
     @Test
-    public void getPlayerNumbers_twoPlayers_return2(){
+    public void getPlayerNumbers_twoPlayers_return2() {
         AssetProvider assets = EasyMock.createMock(AssetProvider.class);
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         int expected = 2;
