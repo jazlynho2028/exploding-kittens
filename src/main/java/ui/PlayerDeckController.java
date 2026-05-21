@@ -36,7 +36,7 @@ public class PlayerDeckController {
         this.onError = onError;
     }
 
-    private void buildAndBindUI() {
+    void buildAndBindUI() {
         view.buildAndAddPlayerHandCards(
                 this.model.getCurrentPlayerHandIds(),
                 this.model.getIsFaceUp(),
@@ -51,7 +51,7 @@ public class PlayerDeckController {
         bindUI();
     }
 
-    private void bindUI() {
+    void bindUI() {
         bindNameTags(this::onNameTag);
         view.drawPileButton.setOnMouseClicked(e -> onDrawPile());
         view.handVisibilityButton.setOnMouseClicked(e -> onHandVisibilityButton());

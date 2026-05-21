@@ -4,9 +4,49 @@ import domain.Game;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class PlayerDeckControllerTests {
+
+	@Test
+	public void buildAndBindUI_called_success() {
+		Game model = EasyMock.createMock(Game.class);
+		AssetProvider assets = EasyMock.createMock(AssetProvider.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+				.withConstructor(model, assets, view)
+				.addMockedMethod("bindUI")
+				.createMock();
+
+		List<String> handIds = new ArrayList<>();
+		boolean isFaceUp = true;
+		boolean isBeforeDraw = true;
+
+		List<String> playerNames = new ArrayList<>();
+		int currentPlayerIndex = 0;
+		boolean isGameOngoing = true;
+
+		EasyMock.expect(model.getCurrentPlayerHandIds()).andReturn(handIds);
+		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
+		EasyMock.expect(model.getIsBeforeDraw()).andReturn(isBeforeDraw);
+
+		EasyMock.expect(model.getPlayerNames()).andReturn(playerNames);
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		EasyMock.expect(model.isGameOngoing()).andReturn(isGameOngoing);
+
+		view.buildAndAddPlayerHandCards(handIds, isFaceUp, isBeforeDraw);
+		view.buildAddRenderPlayerNameTags(playerNames, currentPlayerIndex, isGameOngoing);
+
+		controller.bindUI();
+
+		EasyMock.replay(model, assets, view, controller);
+
+		controller.buildAndBindUI();
+
+		EasyMock.verify(model, assets, view, controller);
+	}
 
 	@Test
 	public void onNameTag_playerStaysTheSame_noChange() {
@@ -40,7 +80,6 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(1);
 		controller.handleChangeCurrentPlayer(playerIndex);
-		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, controller);
 
@@ -63,9 +102,8 @@ public class PlayerDeckControllerTests {
 		int playerIndex = 0;
 
 		model.changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
-		EasyMock.expectLastCall();
+
 		controller.buildAddBindPlayerHandCards();
-		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, controller);
 
@@ -90,7 +128,6 @@ public class PlayerDeckControllerTests {
 		model.changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
 		EasyMock.expectLastCall().andThrow(new IllegalStateException());
 		onError.accept(expectedMsg);
-		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, onError);
 
@@ -117,7 +154,6 @@ public class PlayerDeckControllerTests {
 		model.drawFromPile();
 		EasyMock.expectLastCall();
 		controller.buildAddBindPlayerHandCards();
-		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, controller);
 
@@ -142,7 +178,6 @@ public class PlayerDeckControllerTests {
 		model.drawFromPile();
 		EasyMock.expectLastCall().andThrow(new IllegalStateException());
 		onError.accept(expectedMsg);
-		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, onError);
 
@@ -169,7 +204,6 @@ public class PlayerDeckControllerTests {
 		model.setIsFaceUpToOpposite();
 		EasyMock.expectLastCall();
 		controller.buildAddBindPlayerHandCards();
-		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, controller);
 
@@ -193,7 +227,6 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.expect(model.getIsFaceUp()).andReturn(false);
 		controller.onHandVisibilityButton();
-		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, controller);
 
@@ -211,7 +244,6 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.expect(model.getIsFaceUp()).andReturn(true);
 		model.setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
-		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets);
 
@@ -240,7 +272,6 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.expect(model.getStartingPlayerIndex()).andReturn(startingPlayerIndex);
 		controller.handleChangeCurrentPlayer(startingPlayerIndex);
-		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, controller);
 
@@ -264,7 +295,6 @@ public class PlayerDeckControllerTests {
 		model.startGame();
 		EasyMock.expectLastCall().andThrow(new IllegalStateException());
 		onError.accept(expectedMsg);
-		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, onError);
 
