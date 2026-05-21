@@ -1,12 +1,14 @@
 package ui;
 
 import io.cucumber.java.an.E;
+import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class PlayerCreateControllerTests {
 
@@ -244,6 +246,26 @@ public class PlayerCreateControllerTests {
         int actual = controller.getPlayerNumbers();
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getPlayerCreateScene_none_success() {
+        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        Scene expectedScene = EasyMock.createMock(Scene.class);
+
+        EasyMock.expect(view.createPlayerCreateScene()).andReturn(
+                expectedScene
+        );
+
+        PlayerCreateController controller = new PlayerCreateController(assets, view);
+
+        EasyMock.replay(assets, view, expectedScene);
+
+        Scene actualScene = controller.getPlayerCreateScene();
+        assertSame(expectedScene, actualScene);
+
+        EasyMock.verify(assets, view, expectedScene);
     }
 
 }

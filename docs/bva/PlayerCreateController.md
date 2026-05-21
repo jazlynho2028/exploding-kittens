@@ -47,7 +47,7 @@
   - **Expected output:** return 2
 
 ### Method under test: `getPlayerCreateScene()`
-- **TC10: this method is called ** ( :x: )
-  - **Name of the test**: 
+- **TC10: this method is called ** ( :white-check-mark: )
+  - **Name of the test**: getPlayerCreateScene_none_success
   - **State of the system**: N/A
   - **Expected output**: called view.createPlayerCreateScene()
