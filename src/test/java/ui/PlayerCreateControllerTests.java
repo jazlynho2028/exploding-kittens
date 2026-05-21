@@ -16,30 +16,31 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void onAddPlayer_CurrentZero_Success() {
+        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-
         view.addPlayerField(PLAYER_COUNT_ONE);
         EasyMock.expectLastCall();
 
         view.setAddPlayerButtonDisabled(false);
         EasyMock.expectLastCall();
 
-        EasyMock.replay(view);
+        EasyMock.replay(assets, view);
 
-        PlayerCreateController controller = new PlayerCreateController(view);
+        PlayerCreateController controller = new PlayerCreateController(assets, view);
         controller.onAddPlayer();
 
         assertEquals(PLAYER_COUNT_ONE, controller.getPlayerNumbers());
 
-        EasyMock.verify(view);
+        EasyMock.verify(assets, view);
     }
 
     @Test
     public void onAddPlayer_CurrentThree_Success() {
+        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
 
         PlayerCreateController controller = EasyMock.createMockBuilder(PlayerCreateController.class)
-                .withConstructor(view)
+                .withConstructor(assets, view)
                 .createMock();
 
         view.addPlayerField(PLAYER_COUNT_ONE);
@@ -63,7 +64,7 @@ public class PlayerCreateControllerTests {
         view.setAddPlayerButtonDisabled(true);
         EasyMock.expectLastCall();
 
-        EasyMock.replay(view);
+        EasyMock.replay(assets, view);
 
         controller.onAddPlayer();
         controller.onAddPlayer();
@@ -73,16 +74,17 @@ public class PlayerCreateControllerTests {
 
         assertEquals(PLAYER_COUNT_FOUR, controller.getPlayerNumbers());
 
-        EasyMock.verify(view);
+        EasyMock.verify(assets, view);
     }
 
     @Test
     public void onAddPlayer_CurrentFour_Failed() {
+        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
         PlayerCreateController controller = EasyMock.createMockBuilder(PlayerCreateController.class)
-                .withConstructor(view)
+                .withConstructor(assets, view)
                 .createMock();
 
         controller.setOnError(onError);
@@ -94,10 +96,15 @@ public class PlayerCreateControllerTests {
             EasyMock.expectLastCall();
         }
 
-        onError.accept("You cannot have more than 4 players");
+        String expectedMsg = "You cannot have more than 4 players.";
+        EasyMock.expect(assets.getString("error.maxPlayers")).andReturn(
+                expectedMsg
+        );
+
+        onError.accept(expectedMsg);
         EasyMock.expectLastCall();
 
-        EasyMock.replay(view, onError);
+        EasyMock.replay(assets, view, onError);
 
         controller.onAddPlayer();
         controller.onAddPlayer();
@@ -108,11 +115,12 @@ public class PlayerCreateControllerTests {
 
         assertEquals(PLAYER_COUNT_FOUR, controller.getPlayerNumbers());
 
-        EasyMock.verify(view, onError);
+        EasyMock.verify(assets, view, onError);
     }
 
     @Test
     public void onConfirmNames_OnePlayer_Failed() {
+        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         Consumer<String> onError = EasyMock.createMock(Consumer.class);
         Runnable onSuccess = EasyMock.createMock(Runnable.class);
@@ -120,22 +128,29 @@ public class PlayerCreateControllerTests {
         List<String> mockInputs = List.of("Alice");
         EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(mockInputs);
 
-        onError.accept("You need at least 2 players");
+
+        String expectedMsg = "You need at least 2 players.";
+        EasyMock.expect(assets.getString("error.minPlayers")).andReturn(
+                expectedMsg
+        );
+
+        onError.accept(expectedMsg);
         EasyMock.expectLastCall();
 
-        EasyMock.replay(view, onError, onSuccess);
+        EasyMock.replay(assets, view, onError, onSuccess);
 
-        PlayerCreateController controller = new PlayerCreateController(view);
+        PlayerCreateController controller = new PlayerCreateController(assets, view);
         controller.setOnError(onError);
         controller.setOnSuccess(onSuccess);
 
         controller.onConfirmNames();
 
-        EasyMock.verify(view, onError, onSuccess);
+        EasyMock.verify(assets, view, onError, onSuccess);
     }
 
     @Test
     public void onConfirmNames_TwoPlayers_Success() {
+        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         Runnable onSuccess = EasyMock.createMock(Runnable.class);
 
@@ -145,14 +160,14 @@ public class PlayerCreateControllerTests {
         onSuccess.run();
         EasyMock.expectLastCall();
 
-        EasyMock.replay(view, onSuccess);
+        EasyMock.replay(assets, view, onSuccess);
 
-        PlayerCreateController controller = new PlayerCreateController(view);
+        PlayerCreateController controller = new PlayerCreateController(assets, view);
         controller.setOnSuccess(onSuccess);
 
         controller.onConfirmNames();
 
-        EasyMock.verify(view, onSuccess);
+        EasyMock.verify(assets, view, onSuccess);
 
         List<String> confirmed = controller.getConfirmedNames();
         assertEquals(PLAYER_COUNT_TWO, confirmed.size());
@@ -162,6 +177,7 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void onConfirmNames_onSuccess_Error() {
+        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         Runnable onSuccess = EasyMock.createMock(Runnable.class);
         Consumer<String> onError = EasyMock.createMock(Consumer.class);
@@ -169,21 +185,21 @@ public class PlayerCreateControllerTests {
         List<String> mockInputs = List.of("Alice", "Bob", "Dave");
         EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(mockInputs);
 
-        String errorMsg = "Deck creation failed";
+        String expectedMsg = "Deck creation failed";
         onSuccess.run();
-        EasyMock.expectLastCall().andThrow(new IllegalStateException(errorMsg));
+        EasyMock.expectLastCall().andThrow(new IllegalStateException(expectedMsg));
 
-        onError.accept("Error initializing game: " + errorMsg);
+        onError.accept(expectedMsg);
         EasyMock.expectLastCall();
 
-        EasyMock.replay(view, onSuccess, onError);
+        EasyMock.replay(assets, view, onSuccess, onError);
 
-        PlayerCreateController controller = new PlayerCreateController(view);
+        PlayerCreateController controller = new PlayerCreateController(assets, view);
         controller.setOnSuccess(onSuccess);
         controller.setOnError(onError);
 
         controller.onConfirmNames();
 
-        EasyMock.verify(view, onSuccess, onError);
+        EasyMock.verify(assets, view, onSuccess, onError);
     }
 }

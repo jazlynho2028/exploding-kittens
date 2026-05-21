@@ -8,8 +8,8 @@ public class StartController {
     private Runnable onEnglishPlay;
     private Runnable onSpanishPlay;
 
-    public StartController(AssetProvider assetProvider) {
-        this.view = new StartView(assetProvider);
+    public StartController(AssetProvider assets) {
+        this.view = new StartView(assets);
         this.onEnglishPlay = () -> { };
         this.onSpanishPlay = () -> { };
 
@@ -30,12 +30,10 @@ public class StartController {
     }
 
     private void onEnglishPlayButton() {
-        System.out.println("ENGLISH START GAME BUTTON CLICKED");
         onEnglishPlay.run();
     }
 
     private void onSpanishPlayButton() {
-        System.out.println("SPANISH START GAME BUTTON CLICKED");
         onSpanishPlay.run();
     }
 

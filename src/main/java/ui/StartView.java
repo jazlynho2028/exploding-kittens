@@ -101,10 +101,10 @@ public class StartView {
 
     private void setPlayButtonText(Button playButton, String languageName) {
         if (Objects.equals(languageName, "English")) {
-            playButton.setText(assetProvider.getString("startScreen.playEnglish"));
+            playButton.setText(assetProvider.getString("startScreen.English"));
         }
         else {
-            playButton.setText(assetProvider.getString("startScreen.playSpanish"));
+            playButton.setText(assetProvider.getString("startScreen.Spanish"));
         }
     }
 
