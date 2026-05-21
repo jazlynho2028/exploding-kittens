@@ -81,7 +81,7 @@ public class PlayerCreateController {
         List<String> inputsFromView = view.getPlayerNamesFromFields();
 
         for (String input : inputsFromView) {
-            if (input != null && !input.isBlank()) {
+            if (!input.isBlank()) {
                 names.add(input.trim());
             }
         }
@@ -94,9 +94,7 @@ public class PlayerCreateController {
         this.confirmedNames = names;
 
         try {
-            if (onSuccess != null) {
-                onSuccess.run();
-            }
+            onSuccess.run();
         }
         catch (Exception e) {
             onError.accept(e.getMessage());
