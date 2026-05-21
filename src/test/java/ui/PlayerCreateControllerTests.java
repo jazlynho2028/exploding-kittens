@@ -157,7 +157,6 @@ public class PlayerCreateControllerTests {
         List<String> mockInputs = List.of("");
         EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(mockInputs);
 
-
         String expectedMsg = "You need at least 2 players.";
         EasyMock.expect(assets.getString("error.minPlayers")).andReturn(
                 expectedMsg
