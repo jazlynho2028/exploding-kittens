@@ -22,36 +22,36 @@
 
 ### Method under test: `removeCardFromHand(Card card)`
 - **TC5: remove non-existing card from empty hand** ( :checkmark: )
-    - **Name of the test**: removeCardFromHand_emptyHandAndNonExistingCard_throwsIllegalArgumentException
+    - **Name of the test**: removeCardFromHand_emptyHand_throwsGameException
     - **State of the system**: player hand is empty; card to remove does not exist in hand 
     - **Expected output**: GameException thrown with key "error.cardNotInHand"
 
 - **TC6: remove non-existing card from hand with one card** ( :checkmark: )
-    - **Name of the test**: removeCardFromHand_handHasOneCardAndNonExistingCard_throwsIllegalArgumentException
+    - **Name of the test**: removeCardFromHand_oneCardAndMissingCard_throwsGameException
     - **State of the system**: player hand has one card; card to remove does not exist in hand 
     - **Expected output**: GameException thrown with key "error.cardNotInHand"
 
 - **TC7: remove existing card from hand with one card** ( :checkmark: )
-    - **Name of the test**: removeCardFromHand_handHasOneCardAndExistingCard_cardRemovedAndSizeIsZero
+    - **Name of the test**: removeCardFromHand_oneCardAndMatchingCard_handBecomesEmpty
     - **State of the system**: player hand has one card; card to remove does exist in hand
     - **Expected output**: player hand does not have card anymore; player hand size is 0
 
 - **TC8: remove non-existing card from hand with more than one card** ( :checkmark: )
-    - **Name of the test**: removeCardFromHand_handHasMultipleCardsAndNonExistingCard_throwsIllegalArgumentException
+    - **Name of the test**: removeCardFromHand_multipleCardsAndMissingCard_throwsGameException
     - **State of the system**: player hand has more than one card; card to remove does not exist in hand
     - **Expected output**: GameException thrown with key "error.cardNotInHand"
 
 - **TC8: remove existing card from hand with more than one card** ( :checkmark: )
-    - **Name of the test**: removeCardFromHand_handHasMultipleCardsAndExistingCard_cardRemovedAndSizeDecreasedByOne
+    - **Name of the test**: removeCardFromHand_multipleCardsAndMatchingCard_cardRemoved
     - **State of the system**: player hand has more than one card; card to remove does exist in hand 
     - **Expected output**: player hand does not have card anymore; player hand size decreased by 1
 
 - **TC10: remove non-existing card from hand with duplicate cards** ( :checkmark: )
-    - **Name of the test**: removeCardFromHand_handHasDuplicateCardsAndNonExistingCard_throwsIllegalArgumentException
+    - **Name of the test**: removeCardFromHand_duplicateCardsAndMissingCard_throwsGameException
     - **State of the system**: player hand has duplicate cards; card to remove does not exist in hand
     - **Expected output**: GameException thrown with key "error.cardNotInHand"
 
 - **TC11: remove existing card from hand with duplicate cards** ( :checkmark: )
-    - **Name of the test**: removeCardFromHand_handHasDuplicateCardsAndExistingCard_oneInstanceRemovedAndSizeDecreasedByOne
+    - **Name of the test**: removeCardFromHand_duplicateCardsAndMatchingCard_oneInstanceRemoved
     - **State of the system**: player hand has duplicate cards; card to remove does exist in hand
     - **Expected output**: exactly one instance of the duplicate card is not in hand (the other is still in hand); player hand size decreased by 1
