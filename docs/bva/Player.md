@@ -41,7 +41,7 @@
     - **State of the system**: player hand has more than one card; card to remove does not exist in hand
     - **Expected output**: IllegalArgumentException
 
-- **TC8: remove existing card from hand with more than one card** ( :x: )
+- **TC8: remove existing card from hand with more than one card** ( :checkmark: )
     - **Name of the test**: testRemoveCardFromHand_ExistingCardFromCardWithMultipleCards
     - **State of the system**: player hand has more than one card; card to remove does exist in hand 
     - **Expected output**: player hand does not have card anymore; player hand size decreased by 1

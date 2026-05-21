@@ -175,7 +175,7 @@ public class PlayerTests {
 
         assertEquals(maintainHandSize, player.getHand().size());
         assertFalse(player.getHand().contains(mockCardToRemove));
-        assertTrue(player.getHand().contains(mockCardToKeep));
+        assertSame(mockCardToKeep, player.getHand().get(0));
 
         EasyMock.verify(mockCardToRemove, mockCardToKeep);
     }
