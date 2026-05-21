@@ -1,38 +1,29 @@
 package domain;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Deck {
 
-    private final Queue<Card> cards;
+    private final List<Card> cards = new ArrayList<>();
 
-    public Deck(Collection<Card> cards) {
-        if (cards == null) {
-            this.cards = new ArrayDeque<>();
-        }
-        else {
-            this.cards = new ArrayDeque<>(cards);
-        }
-    }
-
-    public Collection<Card> getCards() {
-        return this.cards;
+    public int getCardCount() {
+        return this.cards.size(); // Returns collection size [cite: 182]
     }
 
     public Card removeTop() {
-        if (this.cards.isEmpty()) {
-            throw new IllegalArgumentException("error.emptyDrawPile");
-        }
-
-        return this.cards.poll();
+        return null;
     }
 
     public void addCard(Card card) {
-        this.cards.add(card);
+
     }
 
     public void shuffle() {
+
     }
 
-
+    public int getCountOfCardType(CardType type) {
+        return 0;
+    }
 }

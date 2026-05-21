@@ -2,28 +2,15 @@ package domain;
 
 public class Card {
     private final CardType type;
-    private final String cardId;
-    private boolean isSelected;
 
-    public Card(String cardId, CardType type) {
+    public Card(CardType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("Card type cannot be null.");
+        }
         this.type = type;
-        this.cardId = cardId;
-        this.isSelected = false;
-    }
-
-    public String getId() {
-        return this.cardId;
     }
 
     public CardType getType() {
         return this.type;
-    }
-
-    public boolean getIsSelected() {
-        return this.isSelected;
-    }
-
-    public void setIsSelected(boolean isSelected) {
-        this.isSelected = isSelected;
     }
 }
