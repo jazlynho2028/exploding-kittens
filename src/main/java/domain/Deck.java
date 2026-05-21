@@ -10,4 +10,20 @@ public class Deck {
     public int getCardCount() {
         return this.cards.size(); // Returns collection size [cite: 182]
     }
+
+    public Card removeTop() {
+        return null;
+    }
+
+    public void addCard(Card card) {
+
+    }
+
+    public void shuffle() {
+
+    }
+
+    public int getCountOfCardType(CardType type) {
+        return 0;
+    }
 }

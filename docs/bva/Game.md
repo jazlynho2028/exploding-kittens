@@ -41,7 +41,8 @@
 
 ### Method under test: `startGame()`
 
-- **TC6: start game with minimum valid players** ( x )
+- **TC6: start game with minimum valid players** ( checkmark )
+  - **Name of the test**: testStartGame_MinValidPlayersSuccess
   - **State of the system**: Game successfully constructed with 2 player names; isGameOngoing is false
   - **Expected output**: 
     - isGameOngoing is true

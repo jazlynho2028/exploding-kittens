@@ -106,4 +106,49 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void testStartGame_MinValidPlayersSuccess() {
+        List<String> names = Arrays.asList("Alice", "Bob");
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+
+        Card genericCard = new Card(CardType.FERAL_CAT);
+        EasyMock.expect(mockDrawPile.removeTop()).andReturn(genericCard).times(14);
+
+        mockDrawPile.addCard(EasyMock.anyObject(Card.class));
+        EasyMock.expectLastCall().times(5);
+
+        mockDrawPile.shuffle();
+        EasyMock.expectLastCall().once();
+
+        EasyMock.expect(mockDrawPile.getCountOfCardType(CardType.EXPLODING_KITTEN)).andReturn(1);
+        EasyMock.expect(mockDrawPile.getCountOfCardType(CardType.DEFUSE)).andReturn(4);
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        game.startGame();
+
+        assertTrue(game.getIsGameOngoing());
+        assertTrue(game.canDraw());
+        assertEquals(2, game.getPlayers().size());
+
+        for (Player p : game.getPlayers()) {
+            assertEquals(8, p.getHand().size());
+            long defuseCount = p.getHand().stream()
+                    .filter(c -> c.getType() == CardType.DEFUSE)
+                    .count();
+            assertEquals(1, defuseCount);
+        }
+
+        assertEquals(1, game.getDrawPile().getCountOfCardType(CardType.EXPLODING_KITTEN));
+        assertEquals(4, game.getDrawPile().getCountOfCardType(CardType.DEFUSE));
+
+        assertNotNull(game.getTurnManager());
+        assertEquals(0, game.getTurnManager().getCurrentPlayerIndex());
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
 }

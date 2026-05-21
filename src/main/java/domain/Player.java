@@ -23,4 +23,11 @@ public class Player {
         return this.name;
     }
 
+    public void addCardToHand(Card card) {
+        if (card == null) {
+            throw new IllegalArgumentException("Cannot add a null card to hand.");
+        }
+        this.hand.add(card);
+    }
+
 }

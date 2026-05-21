@@ -41,7 +41,29 @@ public class Game {
     }
 
     public void startGame() {
-        // TODO
+        this.turnManager = new TurnManager(this.players);
+
+        for (Player p : this.players) {
+            p.addCardToHand(new Card(CardType.DEFUSE));
+            for (int i = 0; i < 7; i++) {
+                p.addCardToHand(this.drawPile.removeTop());
+            }
+        }
+
+        int defusesToAdd = 6 - this.players.size();
+        for (int i = 0; i < defusesToAdd; i++) {
+            this.drawPile.addCard(new Card(CardType.DEFUSE));
+        }
+
+        int kittensToAdd = this.players.size() - 1;
+        for (int i = 0; i < kittensToAdd; i++) {
+            this.drawPile.addCard(new Card(CardType.EXPLODING_KITTEN));
+        }
+
+        this.drawPile.shuffle();
+
+        this.isGameOngoing = true;
+        this.canDraw = true;
     }
 
     public List<Player> getPlayers() {
