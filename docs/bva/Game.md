@@ -1,343 +1,73 @@
 # BVA Analysis: Game Class
-### Method under test: `Game()`
-- **TC1: construct game with minimum valid players** ( :white_check_mark: )
-  - **Name of the test**: constructor_minimumPlayers_initializesGameCorrectly
-  - **State of the system**: Game constructed with two player names, a valid drawPile, and a valid discardPile
+### Method under test: `startGame()`
+- **TC1: start game with minimum valid players** ( checkmark )
+  - **Name of the test**: testConstructor_MinValidPlayers
+  - **State of the system**: Game constructed with two player names
   - **Expected output**:
-    - players list has length 2 (with matching names) 
-    - isGameOngoing is false
+    - players list has length 2
+    - isGameOngoing is true
+    - canDraw is false
     - isFaceUp is false
-    - drawPile is initialized with a copy of the passed drawPile's cards
-    - discardPile initialized with a copy of the passed discardPile's cards
-    - turnManager is initialized using the players list
-    - each player's hand contains exactly 6 cards
-    - each player's first card is a defuse card 
+    - drawPile is initialized as empty collection 
+    - discardPile initialized as empty collection 
+    - turnManager is null
 
-- **TC2: construct game with maximum valid players** ( :white_check_mark: )
-  - **Name of the test**: constructor_maximumPlayers_initializesGameCorrectly
-  - **State of the system**: Game constructed with four player names, a valid drawPile, and a valid discardPile
+- **TC2: start game with maximum valid players** ( checkmark )
+  - **Name of the test**: testConstructor_MaxValidPlayers
+  - **State of the system**: Game constructed with four player names
   - **Expected output**:
-    - players list has length 4 (with matching names) 
-    - isGameOngoing is false
+    - players list has length 4
+    - isGameOngoing is true
+    - canDraw is false
     - isFaceUp is false
-    - drawPile initialized with a copy of the passed drawPile's cards
-    - discardPile initialized with a copy of the passed discardPile's cards
-    - turnManager is initialized using the players list
-    - each player's hand contains exactly 6 cards 
-    - each player's first card is a defuse card
+    - drawPile initialized as empty collection 
+    - discardPile initialized as empty collection 
+    - turnManager is null
 
-- **TC3: construct game with too little players** ( :white_check_mark: )
-  - **Name of the test**: constructor_tooLittlePlayers_throwsIllegalArgumentException
+- **TC3: start game with too little players** ( checkmark )
+  - **Name of the test**: testConstructor_TooFewPlayers
   - **State of the system**: Game constructed with 1 player name
-  - **Expected output**: IllegalArgumentException with message "error.invalidPlayerCount"
+  - **Expected output**: IllegalArgumentException
 
-- **TC4: construct game with too many players** ( :white_check_mark: )
-  - **Name of the test**: constructor_tooManyPlayers_throwsIllegalArgumentException
+- **TC4: start game with too many players** ( x )
   - **State of the system**: Game constructed with 5 player names
-  - **Expected output**: IllegalArgumentException with message "error.invalidPlayerCount"
+  - **Expected output**: IllegalArgumentException
 
-### Method under test: `popularPlayerHand()`
-
-- **TC5: populate hands with minimum valid players** ( :white_check_mark: )
-  - **Name of the test**: populatePlayerHands_minimumPlayers_allocatesCorrectCards
-  - **State of the system**: Game has exactly 2 players; drawPile contains a sufficient amount of cards (5 x 2)
-  - **Expected output**: 
-    - Player 1 gets a DEFUSE card with ID "defuse-5"
-    - Player 2 gets a DEFUSE card with ID "defuse-4"
-    - Each player receives 5 cards drawn from the top of drawPile
-    - total cards remaining in drawPile decreases by (5 x 2) 
-
-- **TC6: populate hands with maximum valid players** ( :white_check_mark: )
-  - **Name of the test**: populatePlayerHands_maximumPlayers_allocatesCorrectCards
-  - **State of the system**: Game has exactly 4 players; drawPile contains a sufficient amount of cards (5 x 4)
-  - **Expected output**:
-    - Player 1 gets a DEFUSE card with ID "defuse-5"
-    - Player 2 gets a DEFUSE card with ID "defuse-4"
-    - Player 3 gets a DEFUSE card with ID "defuse-3"
-    - Player 4 gets a DEFUSE card with ID "defuse-2"
-    - Each player receives 5 cards drawn from the top of drawPile
-    - total cards remaining in drawPile decreases by (5 x 4)
-
-- **TC7: populate hands when drawPile has exactly the minimum required cards** ( :white_check_mark: )
-  - **Name of the test**: populatePlayerHands_exactCards_emptiesDeck
-  - **State of the system**: Game has 3 players; drawPile contains exactly sufficient amount of cards (5 x 3)
-  - **Expected output**:
-    - Player 1 gets a DEFUSE card with ID "defuse-5"
-    - Player 2 gets a DEFUSE card with ID "defuse-4"
-    - Player 3 gets a DEFUSE card with ID "defuse-3"
-    - Each player receives 5 cards drawn from the top of drawPile
-    - the last remaining card is removed from drawPile without error/exception
-    - drawPile has 0 cards remaining
-
-- **TC8: populate hands when drawPile is short by one card** ( :white_check_mark: )
-  - **Name of the test**: populatePlayerHands_insufficientCards_throwsException
-  - **State of the system**: Game has 3 players; drawPile contains 1 card fewer than the sufficient amount of cards (5 x 3)
-  - **Expected output**:
-    - IllegalArgumentException with message "error.emptyDrawPile"
+- **TC5: start game with null player list** ( x )
+  - **State of the system**: null passed as the player names instead of a true collection 
+  - **Expected output**: IllegalArgumentException (Null pointer case) 
 
 ### Method under test: `startGame()`
 
-- **TC9: call startGame() when game has not started yet** ( :white_check_mark: )
-  - **Name of the test**: startGame_gameNotStarted_initializesGameSuccessfully
-  - **State of the system**: 
-    - isGameOngoing is false 
-    - draw pile is initialized with standard player starting hands already dealt out
-    - turnManager is at its initial state (round 0, draw count 0)
-  - **Expected output**:
-    - isGameOngoing is true
-    - Exploding Kittens are successfully inserted into the draw pile
-    - drawPile.shuffle() is called exactly once
-    - turnManger.incrementRount() and incrementDrawCount() are executed successfully
-
-- **TC10: call startGame() when game is already in progress** ( :white_check_mark: )
-  - **Name of the test**: startGame_gameAlreadyStarted_throwsIllegalStateException
-  - **State of the system**:
-    - isGameOngoing is true
-  - **Expected output**:
-    - IllegalStateException with message "error.gameAlreadyStarted"
-    - no modifications made to drawPile
-    - turnManager states are untouched
-
-### Method under test: `addExplodingKittensToDrawPile()`
-
-- **TC11: add exploding kitten cards to the lower valid player boundary** ( :white_check_mark: )
-  - **Name of the test**: addExplodingKittensToDrawPile_twoPlayers_addsOneKitten
-  - **State of the system**:
-    - Game is initialized with 2 players 
-    - drawPile is completely empty before calling method 
-  - **Expected output**:
-    - 1 (2 - 1) Exploding Kitten card is added to the drawPile 
-    - the added card has ID "exploding_kitten-1" and has CardType.EXPLODING_KITTEN
-
-- **TC12: add exploding kitten cards to game with more than one valid player** ( :white_check_mark: )
-  - **Name of the test**: addExplodingKittensToDrawPile_threePlayers_addsTwoKittens
-  - **State of the system**:
-    - Game is initialized with 3 players
-    - drawPile is completely empty before calling method
-  - **Expected output**:
-    - 2 (3 - 1) Exploding Kitten cards are added to the drawPile
-    - the added cards have ID "exploding_kitten-1" and "exploding_kitten-2" and have CardType.EXPLODING_KITTEN
-
-- **TC13: add exploding kitten cards to game with upper valid player boundary** ( :white_check_mark: )
-  - **Name of the test**: addExplodingKittensToDrawPile_fourPlayers_addsThreeKittens
-  - **State of the system**:
-    - Game is initialized with 4 players
-    - drawPile is completely empty before calling method
-  - **Expected output**:
-    - 3 (4 - 1) Exploding Kitten cards are added to the drawPile
-    - the added cards have ID "exploding_kitten-1", "exploding_kitten-2", and "exploding_kitten-3" and have CardType.EXPLODING_KITTEN
-
-- **TC14: add exploding kitten cards to game with insufficient players** ( :white_check_mark: )
-  - **Name of the test**: addExplodingKittensToDrawPile_onePlayer_gameThrowsException
-  - **State of the system**:
-    - Game is forced to be initialized with 1 player
-    - drawPile is completely empty before calling method
-  - **Expected output**: Game constructor throws IllegalArgumentException immediately with the message "error.invalidPlayerCount"
-
-- **TC15: add exploding kitten cards to game with too many players** ( :white_check_mark: )
-  - **Name of the test**: addExplodingKittensToDrawPile_fivePlayers_gameThrowsException
-  - **State of the system**:
-    - Game is forced to be initialized with 5 players
-    - drawPile is completely empty before calling method
-  - **Expected output**: Game constructor throws IllegalArgumentException immediately with the message "error.invalidPlayerCount" 
-
-### Method under test: `getCurrentPlayerIds()`
-
-- **TC16: get IDs when current player's hand is completely empty** ( :white_check_mark: )
-  - **Name of the test**: getCurrentPlayerHandIds_emptyHand_returnsEmptyList
-  - **State of the system**:
-    - Game is initialized
-    - current active player has 0 cards in their hand
+- **TC6: start game with minimum valid players** ( x )
+  - **State of the system**: Game successfully constructed with 2 player names; isGameOngoing is false
   - **Expected output**: 
-    - method returns valid, non-null List<String> instance
-    - returned list size is 0
+    - isGameOngoing is true
+    - canDraw is true
+    - players list has length 2
+    - each player hand has 8 cards (1 Defuse, 7 other) 
+    - drawPile contains N-1=1 Exploding Kitten card
+    - drawPile contains 6-N=4 Defuse cards
+    - turnManager initialized at array index 0
 
-- **TC17: get IDs when current player's hand has exactly one card** ( :white_check_mark: )
-  - **Name of the test**: getCurrentPlayerHandIds_singleCardInHand_returnsListWithOneId
-  - **State of the system**:
-    - Game is initialized
-    - current active player has 1 card in their hand
-    - card in hand has ID "defuse-5"
+- **TC7:start game with maximum valid players** ( x )
+  - **State of the system**: Game successfully constructed with 4 player names; isGameOngoing is false
+  - **Expected output**: 
+    - isGameOngoing is true
+    - canDraw is true
+    - players list has length 4
+    - each player hand as 8 cards (1 Defuse, 7 other) 
+    - drawPile contains N-1=3 Exploding Kitten card
+    - drawPile contains 6-N=2 Defuse cards
+    - turnManager initialized at array index 0
+
+- **TC8: start game with more than one valid player** ( x )
+  - **State of the system**: Game successfully constructed with 3 player names; isGameOngoing is false
   - **Expected output**:
-    - method returns List<String> instance with 1 element
-    - returned list size is 1 
-    - element in list has value "defuse-5"
-
-- **TC18: get IDs when current player's hand has more than one card** ( :white_check_mark: )
-  - **Name of the test**: getCurrentPlayerHandIds_normalHandSize_returnsAllCardIds
-  - **State of the system**:
-    - Game is initialized
-    - current active player has 6 cards in their hand
-    - cards in hand have IDs "exploding_kitten-1", "defuse-1", "defuse-2", "defuse-3", "feral_cat-1", "feral_cat-2"
-  - **Expected output**:
-    - method returns List<String> instance with 6 elements
-    - returned list size is 6
-    - element in list have values: "exploding_kitten-1", "defuse-1", "defuse-2", "defuse-3", "feral_cat-1", "feral_cat-2" in the same order
-
-### Method under test: ` canPlaySelected()`
-
-- **TC19: player selected zero cards** ( :white_check_mark: )
-  - **Name of the test**: canPlaySelected_zeroCardsSelected_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - current active player has marked 0 cards as selected in their hand 
-  - **Expected output**:
-    - return false
-
-- **TC20: player selected exactly one card** ( :white_check_mark: )
-  - **Name of the test**: canPlaySelected_oneCardSelected_returnsTrue
-  - **State of the system**:
-    - Game is initialized
-    - current active player has marked 1 card as selected in their hand
-  - **Expected output**:
-    - return true (assuming card matches single-card rules like Attack or Skip)
-
-- **TC21: player selected exactly two cards** ( :white_check_mark: )
-  - **Name of the test**: canPlaySelected_twoCardsSelected_returnsTrue
-  - **State of the system**:
-    - Game is initialized
-    - current active player has marked 2 cards as selected in their hand
-  - **Expected output**:
-    - return true (assuming card matches double-card rules like pair of cat cards)
-
-- **TC22: player selected exactly three cards** ( :white_check_mark: )
-  - **Name of the test**: canPlaySelected_threeCardsSelected_returnsTrue
-  - **State of the system**:
-    - Game is initialized
-    - current active player has marked 3 cards as selected in their hand
-  - **Expected output**:
-    - return true (assuming card matches triple-card rules like three-of-a-kind cards)
-
-- **TC23: player selected exactly four cards** ( :white_check_mark: )
-  - **Name of the test**: canPlaySelected_fourCardsSelected_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - current active player has marked 4 cards as selected in their hand
-  - **Expected output**:
-    - return false 
-
-### Method under test: `isValidOneCard()`
-
-- **TC24: empty input list of cards** ( :white_check_mark: )
-  - **Name of the test**: isValidOneCard_zeroCardsProvided_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - empty ArrayList is passed into method
-  - **Expected output**:
-    - return false 
-
-- **TC25: more than one card is provided** ( :white_check_mark: )
-  - **Name of the test**: isValidOneCard_twoCardsProvided_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - list containing 2 valid cards is passed into method 
-  - **Expected output**:
-    - return false 
-
-- **TC26: single exploding kitten card is provided** ( :white_check_mark: )
-  - **Name of the test**: isValidOneCard_singleExplodingKitten_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - list containing 1 EXPLODING KITTEN is passed into method
-  - **Expected output**:
-    - return false 
-
-- **TC27: single defuse card is provided** ( :white_check_mark: )
-  - **Name of the test**: isValidOneCard_singleDefuseCard_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - list containing 1 DEFUSE is passed into method
-  - **Expected output**:
-    - return false 
-
-- **TC28: single cat card is provided** ( :white_check_mark: )
-  - **Name of the test**: isValidOneCard_singleCatCard_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - list containing 1 CAT CARD is passed into method
-  - **Expected output**:
-    - return false 
-
-- **TC29: single valid card is provided** ( :white_check_mark: )
-  - **Name of the test**: isValidOneCard_singleValidActionCard_returnsTrue
-  - **State of the system**:
-    - Game is initialized
-    - list containing 1 valid card (FERAL_CAT) is passed into method
-  - **Expected output**:
-    - return true 
-
-### Method under test: `isCatCard()`
-
-- **TC30: card type is exact match** ( :white_check_mark: )
-  - **Name of the test**: isCatCard_exactMatchCatCard_returnsTrue
-  - **State of the system**:
-    - Game is initialized
-    - Card object whose CardType is "CAT_CARD_1" is passed into method
-  - **Expected output**:
-    - return true 
-
-- **TC31: card type contains "cat" but not "card" keyword** ( :white_check_mark: )
-  - **Name of the test**: isCatCard_nameContainsCatCard_returnsTrue
-  - **State of the system**:
-    - Game is initialized
-    - Card object whose CardType contains "FERAL_CAT" is passed into method
-  - **Expected output**:
-    - return false 
-
-- **TC32: card type contains substring "cat"** ( :white_check_mark: )
-  - **Name of the test**: isCatCard_nameHasSubstring_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - Card object whose CardType is "CATOMIC_BOMB" is passed into method
-  - **Expected output**:
-    - return false 
-
-- **TC33: card type contains no overlap with "cat" or "card"** ( :white_check_mark: )
-  - **Name of the test**: isCatCard_noOverlap_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - Card object whose CardType is "ATTACK" is passed into method
-  - **Expected output**:
-    - return false 
-
-### Method under test: `isValidTwoCards()`
-
-- **TC34: insufficient cards are provided** ( :white_check_mark: )
-  - **Name of the test**: isValidTwoCards_oneCardProvided_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - list containing 1 card is passed into method 
-  - **Expected output**:
-    - return false 
-
-- **TC35: exactly two cards are provided** ( :x: )
-  - **Name of the test**: isValidTwoCards_twoMatchingCardsProvided_returnsTrue
-  - **State of the system**:
-    - Game is initialized
-    - list containing 2 cards of the same type are passed into method
-  - **Expected output**:
-    - return true
-
-- **TC36: too many cards are provided** ( :x: )
-  - **Name of the test**: isValidTwoCards_threeMatchingCardsProvided_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - list containing 3 cards of the same type are passed into method
-  - **Expected output**:
-    - return false
-
-- **TC37: empty list of cards** ( :x: )
-  - **Name of the test**: isValidTwoCards_emptyListProvided_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - empty list is passed into method
-  - **Expected output**:
-    - return false
-
-- **TC38: two cards of different types** ( :x: )
-  - **Name of the test**: isValidTwoCards_twoDifferentCardsProvided_returnsFalse
-  - **State of the system**:
-    - Game is initialized
-    - list containing 2 cards of different types is passed into method
-  - **Expected output**:
-    - return false
+    - isGameOngoing is true
+    - canDraw is true
+    - players list has length 3
+    - each player hand has 8 cards (1 Defuse, 7 other)
+    - drawPile contains N-1=2 Exploding Kitten card
+    - drawPile contains 6-N=3 Defuse cards
+    - turnManager initialized at array index 0

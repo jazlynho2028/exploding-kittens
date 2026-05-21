@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import java.lang.reflect.Method;
@@ -1341,6 +1342,22 @@ public class GameTests {
         boolean result = (boolean) targetMethod.invoke(game, insufficientList);
 
         assertFalse(result);
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
+
+    @Test
+    public void testConstructor_TooFewPlayers() {
+        List<String> names = Collections.singletonList("Alice");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Game(names, mockDrawPile, mockDiscardPile);
+        });
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
