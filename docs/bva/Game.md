@@ -1,65 +1,70 @@
 # BVA Analysis: Game Class
 ### Method under test: `startGame()`
 - **TC1: start game with minimum valid players** ( x )
-  - **State of the system**: Game constructed with two player names; isGameOngoing is false
-  - **Expected output**: 
-    - isGameOngoing is true
+  - **State of the system**: Game constructed with two player names
+  - **Expected output**:
     - players list has length 2
-    - each player hand has 8 cards (1 Defuse, 7 other) 
-    - drawPile contains N-1 = 1 Exploding Kitten card
-    - drawPile contains 6-N = 4 Defuse cards
-    - turnManager initialized at index 0
+    - isGameOngoing is true
+    - canDraw is false
+    - isFaceUp is false
+    - drawPile is initialized as empty collection 
+    - discardPile initialized as empty collection 
+    - turnManager is null
 
 - **TC2: start game with maximum valid players** ( x )
-  - **State of the system**: Game constructed with four player names; isGameOngoing is false
+  - **State of the system**: Game constructed with four player names
   - **Expected output**:
-    - isGameOngoing is true
     - players list has length 4
-    - each player hand has 8 cards (1 Defuse, 7 other) 
-    - drawPile contains N-1 = 3 Exploding Kitten cards
-    - drawPile contains 6-N = 2 Defuse cards 
-    - turnManager initialized at index 0
+    - isGameOngoing is true
+    - canDraw is false
+    - isFaceUp is false
+    - drawPile initialized as empty collection 
+    - discardPile initialized as empty collection 
+    - turnManager is null
 
-- **TC3: start game with more than one valid players** ( x )
-  - **State of the system**: Game constructed with three player names; isGameOngoing is false
+- **TC3: start game with too little players** ( x )
+  - **State of the system**: Game constructed with 1 player name
+  - **Expected output**: IllegalArgumentException
+
+- **TC4: start game with too many players** ( x )
+  - **State of the system**: Game constructed with 5 player names
+  - **Expected output**: IllegalArgumentException
+
+- **TC5: start game with null player list** ( x )
+  - **State of the system**: null passed as the player names instead of a true collection 
+  - **Expected output**: IllegalArgumentException (Null pointer case) 
+
+### Method under test: `startGame()`
+
+- **TC6: start game with minimum valid players** ( x )
+  - **State of the system**: Game successfully constructed with 2 player names; isGameOngoing is false
+  - **Expected output**: 
+    - isGameOngoing is true
+    - canDraw is true
+    - players list has length 2
+    - each player hand has 8 cards (1 Defuse, 7 other) 
+    - drawPile contains N-1=1 Exploding Kitten card
+    - drawPile contains 6-N=4 Defuse cards
+    - turnManager initialized at array index 0
+
+- **TC7:start game with maximum valid players** ( x )
+  - **State of the system**: Game successfully constructed with 4 player names; isGameOngoing is false
+  - **Expected output**: 
+    - isGameOngoing is true
+    - canDraw is true
+    - players list has length 4
+    - each player hand as 8 cards (1 Defuse, 7 other) 
+    - drawPile contains N-1=3 Exploding Kitten card
+    - drawPile contains 6-N=2 Defuse cards
+    - turnManager initialized at array index 0
+
+- **TC8: start game with more than one valid player** ( x )
+  - **State of the system**: Game successfully constructed with 3 player names; isGameOngoing is false
   - **Expected output**:
     - isGameOngoing is true
+    - canDraw is true
     - players list has length 3
-    - each player has 8 cards in hand (1 Defuse, 7 other)
-    - drawPile contains N-1 = 2 Exploding Kitten cards
-    - drawPile contains 6-N = 3 Defuse cards
-    - turnManager initialized at index 0
-
-- **TC4: start game with too little players** ( x )
-  - **State of the system**: Game constructed with 1 player name; isGameOngoing is false
-  - **Expected output**: IllegalArgumentException
-
-- **TC5: start game with too many players** ( x )
-  - **State of the system**: Game constructed with 5 player names; isGameOngoing is false
-  - **Expected output**: IllegalArgumentException
-
-### Method under test: `getIsBeforeDraw()`
-
-- **TC6: draw availability immediately after game starts** ( x )
-  - **State of the system**: startGame completed; isGameOngoing is true
-  - **Expected output**: true
-
-- **TC7: draw availability after player draws a card** ( x )
-  - **State of the system**: canDraw is true; drawFromPile() is called
-  - **Expected output**: false
-
-- **TC8: draw availability after turn advances** ( x )
-  - **State of the system**: canDraw is false; advanceTurn() is called
-  - **Expected output**: true for new player
-
-- **TC9: draw availability after player plays a card** ( x )
-  - **State of the system**: canDraw is true; playSelectedCards() is called with non-turn-ending card
-  - **Expected output**: true 
-
-- **TC10: draw availability when game is not ongoing** ( x )
-  - **State of the system**: isGameOngoing is false
-  - **Expected output**: false
-
-- **TC12: draw availability at the end of the turn rotation** ( x )
-  - **State of the system**: canDraw is false; advanceTurn() is called 
-  - **Expected output**: true for player at index 0
+    - each player hand has 8 cards (1 Defuse, 7 other)
+    - drawPile contains N-1=2 Exploding Kitten card
+    - drawPile contains 6-N=3 Defuse cards
+    - turnManager initialized at array index 0
