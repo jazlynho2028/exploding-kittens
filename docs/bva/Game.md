@@ -1,6 +1,7 @@
 # BVA Analysis: Game Class
 ### Method under test: `startGame()`
-- **TC1: start game with minimum valid players** ( x )
+- **TC1: start game with minimum valid players** ( checkmark )
+  - **Name of the test**: testConstructor_MinValidPlayers
   - **State of the system**: Game constructed with two player names
   - **Expected output**:
     - players list has length 2
