@@ -1,6 +1,5 @@
 package ui;
 
-import org.easymock.Capture;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 import java.util.List;
