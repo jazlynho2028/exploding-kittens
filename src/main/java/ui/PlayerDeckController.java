@@ -12,11 +12,13 @@ public class PlayerDeckController {
 
     private final PlayerDeckView view;
     private final GameData model;
+    private final AssetProvider assets;
 
     private Consumer<String> onError;
 
     public PlayerDeckController(Game model, AssetProvider assets) {
         this.model = model;
+        this.assets = assets;
         this.view = new PlayerDeckView(assets);
         this.onError = message -> { };
 
@@ -24,8 +26,9 @@ public class PlayerDeckController {
     }
 
     // Fake constructor for tests to exclude UI view implementation
-    PlayerDeckController(Game model, PlayerDeckView view) {
+    PlayerDeckController(Game model, AssetProvider assets, PlayerDeckView view) {
         this.model = model;
+        this.assets = assets;
         this.view = view;
     }
 
@@ -96,7 +99,7 @@ public class PlayerDeckController {
             buildAddBindPlayerHandCards();
         }
         catch (Exception e) {
-            onError.accept("Failed to change current player.");
+            onError.accept(assets.getString("error.changePlayer"));
         }
     }
 
@@ -124,7 +127,7 @@ public class PlayerDeckController {
             );
         }
         catch (Exception e) {
-            onError.accept("Failed to draw from pile.");
+            onError.accept(assets.getString("error.drawFromPile"));
         }
     }
 
@@ -166,7 +169,7 @@ public class PlayerDeckController {
             );
         }
         catch (Exception e) {
-            onError.accept("Failed to start game.");
+            onError.accept(assets.getString("error.startGame"));
         }
     }
 
