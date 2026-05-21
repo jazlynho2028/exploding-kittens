@@ -39,9 +39,12 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.isGameOngoing()).andReturn(isGameOngoing);
 
 		view.buildAndAddPlayerHandCards(handIds, isFaceUp, isBeforeDraw);
+		EasyMock.expectLastCall();
 		view.buildAddRenderPlayerNameTags(playerNames, currentPlayerIndex, isGameOngoing);
+		EasyMock.expectLastCall();
 
 		controller.bindUI();
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, view, controller);
 
@@ -82,6 +85,7 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(1);
 		controller.handleChangeCurrentPlayer(playerIndex);
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, controller);
 
@@ -102,16 +106,30 @@ public class PlayerDeckControllerTests {
 				.addMockedMethod("buildAddBindPlayerHandCards")
 				.createMock();
 		int playerIndex = 0;
+		int currentPlayerIndex = 0;
+		boolean isGameOngoing = true;
+		boolean isFaceUp = true;
+
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		EasyMock.expect(model.isGameOngoing()).andReturn(isGameOngoing);
+		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
 
 		model.changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
+		EasyMock.expectLastCall();
+
+		view.renderPlayerNameTags(currentPlayerIndex, isGameOngoing);
+		EasyMock.expectLastCall();
+		view.renderHandVisibilityButton(isFaceUp);
+		EasyMock.expectLastCall();
 
 		controller.buildAddBindPlayerHandCards();
+		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets, controller);
+		EasyMock.replay(model, assets, view, controller);
 
 		controller.handleChangeCurrentPlayer(playerIndex);
 
-		EasyMock.verify(model, assets, controller);
+		EasyMock.verify(model, assets, view, controller);
 	}
 
 	@Test
@@ -129,7 +147,9 @@ public class PlayerDeckControllerTests {
 
 		model.changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
 		EasyMock.expectLastCall().andThrow(new IllegalStateException());
+
 		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, onError);
 
@@ -155,7 +175,9 @@ public class PlayerDeckControllerTests {
 
 		model.drawFromPile();
 		EasyMock.expectLastCall();
+
 		controller.buildAddBindPlayerHandCards();
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, controller);
 
@@ -176,10 +198,10 @@ public class PlayerDeckControllerTests {
 				expectedMsg
 		);
 
-
 		model.drawFromPile();
 		EasyMock.expectLastCall().andThrow(new IllegalStateException());
 		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, onError);
 
@@ -205,7 +227,9 @@ public class PlayerDeckControllerTests {
 
 		model.setIsFaceUpToOpposite();
 		EasyMock.expectLastCall();
+
 		controller.buildAddBindPlayerHandCards();
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, controller);
 
@@ -228,7 +252,9 @@ public class PlayerDeckControllerTests {
 		int handCardIndex = 0;
 
 		EasyMock.expect(model.getIsFaceUp()).andReturn(false);
+
 		controller.onHandVisibilityButton();
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, controller);
 
@@ -245,7 +271,9 @@ public class PlayerDeckControllerTests {
 		int handCardIndex = 0;
 
 		EasyMock.expect(model.getIsFaceUp()).andReturn(true);
+
 		model.setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets);
 
@@ -274,6 +302,7 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.expect(model.getStartingPlayerIndex()).andReturn(startingPlayerIndex);
 		controller.handleChangeCurrentPlayer(startingPlayerIndex);
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, controller);
 
@@ -296,7 +325,9 @@ public class PlayerDeckControllerTests {
 
 		model.startGame();
 		EasyMock.expectLastCall().andThrow(new IllegalStateException());
+
 		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, assets, onError);
 

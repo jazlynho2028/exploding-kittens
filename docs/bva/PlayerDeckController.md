@@ -16,7 +16,7 @@
     - **Expected output**: called handleChangeCurrentPlayer(playerIndex)
 
 ### Method under test: `handleChangeCurrentPlayer(int playerIndex)`
-- **TC4: current player changes successfully** ( :x: )
+- **TC4: current player changes successfully** ( :white-check-mark: )
     - **Name of the test**: handleChangeCurrentPlayer_playerChanges_success
     - **State of the system**: playerIndex = 0
     - **Expected output**: called model.changeCurrentPlayerIndexAndSetFaceUpToFalse(playerIndex), view.renderPlayerNameTags, view.renderHandVisibilityButton, and buildAddBindPlayerHandCards()
