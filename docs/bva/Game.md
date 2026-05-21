@@ -65,7 +65,8 @@
     - drawPile contains 6-N=2 Defuse cards
     - turnManager initialized at array index 0
 
-- **TC8: start game with more than one valid player** ( x )
+- **TC8: start game with more than one valid player** ( checkmark )
+  - **Name of the test**: testStartGame_MoreThanOneValidPlayersSuccess
   - **State of the system**: Game successfully constructed with 3 player names; isGameOngoing is false
   - **Expected output**:
     - isGameOngoing is true
