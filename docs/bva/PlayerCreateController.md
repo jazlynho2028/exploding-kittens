@@ -37,23 +37,23 @@
   - **Expected output:** onSuccess.run() fails, onError.accept(<exception message>) runs
 
 ### Method under test: `getPlayerNumbers()`
-- **TC8: Empty player fields ** ( :white-check-mark: )
+- **TC8: Empty player fields** ( :white-check-mark: )
   - **Name of the test:** getPlayerNumbers_empty_return0
   - **State of the System:** playerFields = []
   - **Expected output:** return 0
 
-- **TC9: Player fields has one field ** ( :white-check-mark: )
+- **TC9: Player fields has one field** ( :white-check-mark: )
   - **Name of the test:** getPlayerNumbers_onePlayer_return1
   - **State of the System:** playerFields = [TextField]
   - **Expected output:** return 1
 
-- **TC10: Player fields has two fields ** ( :white-check-mark: )
+- **TC10: Player fields has two fields** ( :white-check-mark: )
   - **Name of the test:** getPlayerNumbers_twoPlayers_return2
   - **State of the System:** playerFields = [TextField, TextField]
   - **Expected output:** return 2
 
 ### Method under test: `getPlayerCreateScene()`
-- **TC11: this method is called ** ( :white-check-mark: )
+- **TC11: This method is called** ( :white-check-mark: )
   - **Name of the test**: getPlayerCreateScene_called_success
   - **State of the system**: N/A
   - **Expected output**: called view.createPlayerCreateScene()
