@@ -46,11 +46,11 @@ public class PlayerDeckControllerTests {
 		controller.bindUI();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets, view, controller);
+		EasyMock.replay(model, view, controller);
 
 		controller.buildAndBindUI();
 
-		EasyMock.verify(model, assets, view, controller);
+		EasyMock.verify(model, view, controller);
 	}
 
 	@Test
@@ -60,14 +60,14 @@ public class PlayerDeckControllerTests {
 		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(0);
 
-		EasyMock.replay(model, assets);
+		EasyMock.replay(model);
 
 		PlayerDeckController controller = new PlayerDeckController(model, assets, view);
 		int playerIndex = 0;
 
 		controller.onNameTag(playerIndex);
 
-		EasyMock.verify(model, assets);
+		EasyMock.verify(model);
 	}
 
 	@Test
@@ -87,11 +87,11 @@ public class PlayerDeckControllerTests {
 		controller.handleChangeCurrentPlayer(playerIndex);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets, controller);
+		EasyMock.replay(model, controller);
 
 		controller.onNameTag(playerIndex);
 
-		EasyMock.verify(model, assets, controller);
+		EasyMock.verify(model, controller);
 	}
 
 	@Test
@@ -125,11 +125,11 @@ public class PlayerDeckControllerTests {
 		controller.buildAddBindPlayerHandCards();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets, view, controller);
+		EasyMock.replay(model, view, controller);
 
 		controller.handleChangeCurrentPlayer(playerIndex);
 
-		EasyMock.verify(model, assets, view, controller);
+		EasyMock.verify(model, view, controller);
 	}
 
 	@Test
@@ -211,11 +211,11 @@ public class PlayerDeckControllerTests {
 		controller.buildAddBindPlayerHandCards();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets, controller);
+		EasyMock.replay(model, controller);
 
 		controller.onDrawPile();
 
-		EasyMock.verify(model, assets, controller);
+		EasyMock.verify(model, controller);
 	}
 
 	@Test
@@ -263,11 +263,11 @@ public class PlayerDeckControllerTests {
 		controller.buildAddBindPlayerHandCards();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets, controller);
+		EasyMock.replay(model, controller);
 
 		controller.onHandVisibilityButton();
 
-		EasyMock.verify(model, assets, controller);
+		EasyMock.verify(model, controller);
 	}
 
 	@Test
@@ -288,11 +288,11 @@ public class PlayerDeckControllerTests {
 		controller.onHandVisibilityButton();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets, controller);
+		EasyMock.replay(model, controller);
 
 		controller.onPlayerHandCardButton(handCardIndex);
 
-		EasyMock.verify(model, assets, controller);
+		EasyMock.verify(model, controller);
 	}
 
 	@Test
@@ -307,13 +307,13 @@ public class PlayerDeckControllerTests {
 		model.setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets);
+		EasyMock.replay(model);
 
 		PlayerDeckController controller = new PlayerDeckController(model, assets, view);
 
 		controller.onPlayerHandCardButton(handCardIndex);
 
-		EasyMock.verify(model, assets);
+		EasyMock.verify(model);
 	}
 
 	@Test
@@ -336,11 +336,11 @@ public class PlayerDeckControllerTests {
 		controller.handleChangeCurrentPlayer(startingPlayerIndex);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets, controller);
+		EasyMock.replay(model, controller);
 
 		controller.onStartGameButton();
 
-		EasyMock.verify(model, assets, controller);
+		EasyMock.verify(model, controller);
 	}
 
 	@Test
