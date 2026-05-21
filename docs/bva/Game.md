@@ -12,7 +12,8 @@
     - discardPile initialized as empty collection 
     - turnManager is null
 
-- **TC2: start game with maximum valid players** ( x )
+- **TC2: start game with maximum valid players** ( checkmark )
+  - **Name of the test**: testConstructor_MaxValidPlayers
   - **State of the system**: Game constructed with four player names
   - **Expected output**:
     - players list has length 4

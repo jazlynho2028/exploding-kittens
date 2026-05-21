@@ -33,4 +33,28 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void testConstructor_MaxValidPlayers() {
+        List<String> names = Arrays.asList("Alice", "Bob", "Snoopy", "Woodstock");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+
+        assertEquals(4, game.getPlayers().size());
+        assertFalse(game.getIsGameOngoing());
+        assertFalse(game.canDraw());
+        assertFalse(game.getIsFaceUp());
+
+        assertSame(mockDrawPile, game.getDrawPile());
+        assertSame(mockDiscardPile, game.getDiscardPile());
+
+        assertNull(game.getTurnManager());
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
 }
