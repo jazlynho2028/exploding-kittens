@@ -5,11 +5,13 @@ import javafx.scene.Scene;
 public class StartController {
 
     private final StartView view;
+    private final AssetProvider assets;
     private Runnable onEnglishPlay;
     private Runnable onSpanishPlay;
 
     public StartController(AssetProvider assetProvider) {
         this.view = new StartView(assetProvider);
+        this.assets = assetProvider;
         this.onEnglishPlay = () -> { };
         this.onSpanishPlay = () -> { };
 
@@ -30,12 +32,12 @@ public class StartController {
     }
 
     private void onEnglishPlayButton() {
-        System.out.println("ENGLISH START GAME BUTTON CLICKED");
+        System.out.println(assets.getString("console.playEnglish"));
         onEnglishPlay.run();
     }
 
     private void onSpanishPlayButton() {
-        System.out.println("SPANISH START GAME BUTTON CLICKED");
+        System.out.println(assets.getString("console.playSpanish"));
         onSpanishPlay.run();
     }
 
