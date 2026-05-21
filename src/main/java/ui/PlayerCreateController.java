@@ -45,8 +45,9 @@ public class PlayerCreateController {
     }
 
     private void buildAndBindUI() {
-        onAddPlayer();
-        onAddPlayer();
+        for (int i = 0; i < MIN_PLAYERS; i++) {
+            onAddPlayer();
+        }
         bindUI();
     }
 
