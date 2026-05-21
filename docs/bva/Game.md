@@ -24,7 +24,8 @@
     - discardPile initialized as empty collection 
     - turnManager is null
 
-- **TC3: start game with too little players** ( x )
+- **TC3: start game with too little players** ( checkmark )
+  - **Name of the test**: testConstructor_TooFewPlayers
   - **State of the system**: Game constructed with 1 player name
   - **Expected output**: IllegalArgumentException
 

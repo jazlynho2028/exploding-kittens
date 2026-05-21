@@ -4,6 +4,7 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -54,6 +55,22 @@ public class GameTests {
         assertSame(mockDiscardPile, game.getDiscardPile());
 
         assertNull(game.getTurnManager());
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
+
+    @Test
+    public void testConstructor_TooFewPlayers() {
+        List<String> names = Collections.singletonList("Alice");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Game(names, mockDrawPile, mockDiscardPile);
+        });
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
