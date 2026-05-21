@@ -53,7 +53,8 @@
     - drawPile contains 6-N=4 Defuse cards
     - turnManager initialized at array index 0
 
-- **TC7:start game with maximum valid players** ( x )
+- **TC7:start game with maximum valid players** ( checkmark )
+  - **Name of the test**: testStartGame_MaxValidPlayersSuccess
   - **State of the system**: Game successfully constructed with 4 player names; isGameOngoing is false
   - **Expected output**: 
     - isGameOngoing is true
