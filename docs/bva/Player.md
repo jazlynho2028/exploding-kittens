@@ -26,7 +26,7 @@
     - **State of the system**: player hand is empty; card to remove does not exist in hand 
     - **Expected output**: IllegalArgumentException
 
-- **TC6: remove non-existing card from hand with one card** ( :x: )
+- **TC6: remove non-existing card from hand with one card** ( :checkmark: )
     - **Name of the test**: testRemoveCardFromHand_NonExistingCardFromHandWithOneCard
     - **State of the system**: player hand has one card; card to remove does not exist in hand 
     - **Expected output**: IllegalArgumentException
