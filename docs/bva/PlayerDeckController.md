@@ -44,7 +44,7 @@
   - **Expected output**: caught exception from model.drawFromPile(), , called onError.accept("Failed to draw from pile.")
 
 ### Method under test: `onHandVisibilityButton()`
-- **TC9: this method is called** ( :x: )
+- **TC9: this method is called** ( :white-check-mark: )
     - **Name of the test**: onHandVisibilityButton_called_success
     - **State of the system**: N/A
     - **Expected output**: called model.setIsFaceUpToOpposite(), view.renderHandVisibilityButton, and buildAddBindPlayerHandCards()
@@ -55,13 +55,13 @@
     - **State of the system**: handCardIndex = 0, isFaceUp = false
     - **Expected output**: called onHandVisibilityButton()
 
-- **TC11: cards are face up** ( :x: )
+- **TC11: cards are face up** ( :white-check-mark: )
     - **Name of the test**: onPlayerHandCardButton_cardsFaceUp_callsModelMethod
     - **State of the system**: handCardIndex = 0, isFaceUp = true
     - **Expected output**: called model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite(handCardIndex) and view.renderTurnControlSection
 
 ### Method under test: `onStartGameButton()`
-- **TC12: game starts successfully** ( :x: )
+- **TC12: game starts successfully** ( :white-check-mark: )
   - **Name of the test**: onStartGameButton_called_success
   - **State of the system**: startingPlayerIndex = 0
   - **Expected output**: called model.startGame(), handleChangeCurrentPlayer(startingPlayerIndex), view.renderDrawPile, and view.buildAndRenderTurnControlSection
