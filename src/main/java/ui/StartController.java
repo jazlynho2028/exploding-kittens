@@ -9,9 +9,9 @@ public class StartController {
     private Runnable onEnglishPlay;
     private Runnable onSpanishPlay;
 
-    public StartController(AssetProvider assetProvider) {
-        this.view = new StartView(assetProvider);
-        this.assets = assetProvider;
+    public StartController(AssetProvider assets) {
+        this.view = new StartView(assets);
+        this.assets = assets;
         this.onEnglishPlay = () -> { };
         this.onSpanishPlay = () -> { };
 
