@@ -1,12 +1,15 @@
 package ui;
 
 import domain.Game;
+import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class PlayerDeckControllerTests {
 
@@ -413,6 +416,27 @@ public class PlayerDeckControllerTests {
 		controller.onStartGameButton();
 
 		EasyMock.verify(model, assets, onError);
+	}
+
+	@Test
+	public void getPlayerDeckScene_called_success() {
+		Game model = EasyMock.createMock(Game.class);
+		AssetProvider assets = EasyMock.createMock(AssetProvider.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		Scene expectedScene = EasyMock.createMock(Scene.class);
+
+		EasyMock.expect(view.createPlayerDeckScene()).andReturn(
+				expectedScene
+		);
+
+		PlayerDeckController controller = new PlayerDeckController(model, assets, view);
+
+		EasyMock.replay(view);
+
+		Scene actualScene = controller.getPlayerDeckScene();
+		assertSame(expectedScene, actualScene);
+
+		EasyMock.verify(view);
 	}
 
 }

@@ -72,7 +72,7 @@
     - **Expected output**: caught exception from model.startGame(), called onError.accept("Failed to start game.")
 
 ### Method under test: `getPlayerDeckScene()`
-- **TC14: this method is called ** ( :x: )
-  - **Name of the test**: 
+- **TC14: this method is called ** ( :white-check-mark: )
+  - **Name of the test**: getPlayerDeckScene_called_success
   - **State of the system**: N/A
   - **Expected output**: called view.createPlayerDeckScene()
