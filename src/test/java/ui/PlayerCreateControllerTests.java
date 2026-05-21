@@ -1,5 +1,6 @@
 package ui;
 
+import io.cucumber.java.an.E;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 import java.util.List;
@@ -201,5 +202,18 @@ public class PlayerCreateControllerTests {
         controller.onConfirmNames();
 
         EasyMock.verify(assets, view, onSuccess, onError);
+    }
+
+    @Test
+    public void getPlayerNumbers_empty_return0(){
+        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        int expected = 0;
+
+        PlayerCreateController controller = new PlayerCreateController(assets, view);
+
+        int actual = controller.getPlayerNumbers();
+
+        assertEquals(expected, actual);
     }
 }
