@@ -97,12 +97,12 @@ public class PlayerCreateControllerTests {
             EasyMock.expectLastCall();
         }
 
-        String errorMsg = "You cannot have more than 4 players.";
+        String expectedMsg = "You cannot have more than 4 players.";
         EasyMock.expect(assets.getString("error.maxPlayers")).andReturn(
-                errorMsg
+                expectedMsg
         );
 
-        onError.accept(errorMsg);
+        onError.accept(expectedMsg);
         EasyMock.expectLastCall();
 
         EasyMock.replay(assets, view, onError);
@@ -130,12 +130,12 @@ public class PlayerCreateControllerTests {
         EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(mockInputs);
 
 
-        String errorMsg = "You need at least 2 players.";
+        String expectedMsg = "You need at least 2 players.";
         EasyMock.expect(assets.getString("error.minPlayers")).andReturn(
-                errorMsg
+                expectedMsg
         );
 
-        onError.accept(errorMsg);
+        onError.accept(expectedMsg);
         EasyMock.expectLastCall();
 
         EasyMock.replay(assets, view, onError, onSuccess);
@@ -186,11 +186,11 @@ public class PlayerCreateControllerTests {
         List<String> mockInputs = List.of("Alice", "Bob", "Dave");
         EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(mockInputs);
 
-        String errorMsg = "Deck creation failed";
+        String expectedMsg = "Deck creation failed";
         onSuccess.run();
-        EasyMock.expectLastCall().andThrow(new IllegalStateException(errorMsg));
+        EasyMock.expectLastCall().andThrow(new IllegalStateException(expectedMsg));
 
-        onError.accept(errorMsg);
+        onError.accept(expectedMsg);
         EasyMock.expectLastCall();
 
         EasyMock.replay(assets, view, onSuccess, onError);
