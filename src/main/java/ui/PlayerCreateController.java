@@ -44,14 +44,14 @@ public class PlayerCreateController {
         this.onRestart = onRestart;
     }
 
-    private void buildAndBindUI() {
+    void buildAndBindUI() {
         for (int i = 0; i < MIN_PLAYERS; i++) {
             onAddPlayer();
         }
         bindUI();
     }
 
-    private void bindUI() {
+    void bindUI() {
         view.addPlayerButton.setOnMouseClicked(e -> onAddPlayer());
         view.confirmButton.setOnMouseClicked(e -> onConfirmNames());
         view.restartButton.setOnMouseClicked(e -> onRestart.run());

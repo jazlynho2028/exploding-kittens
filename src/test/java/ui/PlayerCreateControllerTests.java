@@ -11,10 +11,36 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class PlayerCreateControllerTests {
 
+    private static final int MIN_PLAYERS = 2;
     private static final int PLAYER_COUNT_ONE = 1;
     private static final int PLAYER_COUNT_TWO = 2;
     private static final int PLAYER_COUNT_THREE = 3;
     private static final int PLAYER_COUNT_FOUR = 4;
+
+    @Test
+    public void buildAndBindUI_called_success() {
+        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        PlayerCreateController controller = EasyMock.createMockBuilder(
+                PlayerCreateController.class
+                )
+                .withConstructor(assets, view)
+                .addMockedMethod("onAddPlayer")
+                .addMockedMethod("bindUI")
+                .createMock();
+
+        controller.onAddPlayer();
+        EasyMock.expectLastCall().times(MIN_PLAYERS);
+
+        controller.bindUI();
+        EasyMock.expectLastCall();
+
+        EasyMock.replay(controller);
+
+        controller.buildAndBindUI();
+
+        EasyMock.verify(controller);
+    }
 
     @Test
     public void onAddPlayer_CurrentZero_Success() {

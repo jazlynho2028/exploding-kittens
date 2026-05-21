@@ -1,6 +1,6 @@
 ### Method under test: `buildAndBindUI()`
-- **TC1: This method is called** ( :x: )
-  - **Name of the test:** 
+- **TC1: This method is called** ( :white-check-mark: )
+  - **Name of the test:** buildAndBindUI_called_success
   - **State of the system:** N/A
   - **Expected output:** Calls onAddPlayer() twice and calls bindUI()
 
