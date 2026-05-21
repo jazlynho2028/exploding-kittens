@@ -16,6 +16,11 @@ public class StartController {
         bindUI();
     }
 
+    // Fake constructor for tests to exclude UI view implementation
+    StartController(StartView view) {
+        this.view = view;
+    }
+
     public void setOnEnglishPlay(Runnable onEnglishPlay) {
         this.onEnglishPlay = onEnglishPlay;
     }
@@ -29,7 +34,7 @@ public class StartController {
         view.playButtonSpanish.setOnMouseClicked(e -> onSpanishPlayButton());
     }
 
-    private void onEnglishPlayButton() {
+    void onEnglishPlayButton() {
         onEnglishPlay.run();
     }
 
