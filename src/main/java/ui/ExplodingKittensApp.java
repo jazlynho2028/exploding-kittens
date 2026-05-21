@@ -36,7 +36,8 @@ public class ExplodingKittensApp extends Application {
         controller.setOnEnglishPlay(() -> switchLanguageAndView(stage, englishLanguage));
         controller.setOnSpanishPlay(() -> switchLanguageAndView(stage, spanishLanguage));
 
-        setScene(controller.getStartScene(), stage);
+        Scene startScene = controller.getStartScene();
+        setScene(startScene, stage);
     }
 
     private void showPlayerCreateScreen(Stage stage) {
