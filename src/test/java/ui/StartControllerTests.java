@@ -23,4 +23,22 @@ public class StartControllerTests {
 		EasyMock.verify(view, onEnglishPlay);
 	}
 
+	@Test
+	public void onSpanishPlayButton_buttonPressed_success() {
+		StartView view = EasyMock.createMock(StartView.class);
+		Runnable onSpanishPlay = EasyMock.createMock(Runnable.class);
+
+		onSpanishPlay.run();
+		EasyMock.expectLastCall();
+
+		StartController controller = new StartController(view);
+		controller.setOnSpanishPlay(onSpanishPlay);
+
+		EasyMock.replay(view, onSpanishPlay);
+
+		controller.onSpanishPlayButton();
+
+		EasyMock.verify(view, onSpanishPlay);
+	}
+
 }

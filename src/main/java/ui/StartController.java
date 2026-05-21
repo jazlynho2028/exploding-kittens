@@ -38,7 +38,7 @@ public class StartController {
         onEnglishPlay.run();
     }
 
-    private void onSpanishPlayButton() {
+    void onSpanishPlayButton() {
         onSpanishPlay.run();
     }
 
