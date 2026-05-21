@@ -15,7 +15,7 @@
     - **State of the system**: player hand contains five cards; card is non-null
     - **Expected output**: player hand contains six cards; card at index 5 (last position) is the specified card instance
 
-- **TC4: add card to hand with duplicate cards** ( :x: )
+- **TC4: add card to hand with duplicate cards** ( :checkmark: )
     - **Name of the test**: testAddCardToHand_WithDuplicateCards
     - **State of the system**: player hand has duplicate cards; card is non-null
     - **Expected output**: player hand still has duplicate cards; card at last index (size - 1) is the specified card instance
