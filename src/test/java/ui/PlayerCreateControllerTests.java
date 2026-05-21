@@ -173,7 +173,7 @@ public class PlayerCreateControllerTests {
         onSuccess.run();
         EasyMock.expectLastCall().andThrow(new IllegalStateException(errorMsg));
 
-        onError.accept("Error initializing game: " + errorMsg);
+        onError.accept(errorMsg);
         EasyMock.expectLastCall();
 
         EasyMock.replay(view, onSuccess, onError);

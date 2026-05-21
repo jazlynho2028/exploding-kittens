@@ -94,7 +94,7 @@ public class PlayerCreateController {
             }
         }
         catch (Exception e) {
-            onError.accept("Error initializing game: " + e.getMessage());
+            onError.accept(e.getMessage());
         }
     }
 

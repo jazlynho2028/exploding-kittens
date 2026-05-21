@@ -24,4 +24,4 @@
 - **TC6: Confirming correct amount but onSuccess exception gets thrown** (:white_check_mark:)
   - **Name of the test:** onConfirmNames_onSuccess_Error
   - **State of the System:** view.getPlayerNamesFromFields() = ["Alice", "Bob", "Dave"] onSuccess = error
-  - **Expected output:** onSuccess.run() fails, onError.accept("Error initializing game: <exception message>") runs
+  - **Expected output:** onSuccess.run() fails, onError.accept(<exception message>) runs
