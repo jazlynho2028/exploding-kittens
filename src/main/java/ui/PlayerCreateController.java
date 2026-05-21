@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 public class PlayerCreateController {
     private final PlayerCreateView view;
+    private final AssetProvider assets;
     private final List<String> playerFields = new ArrayList<>();
 
     private List<String> confirmedNames;
@@ -19,13 +20,15 @@ public class PlayerCreateController {
 
     public PlayerCreateController(AssetProvider assets) {
         this.view = new PlayerCreateView(assets);
+        this.assets = assets;
         this.onError = message -> { };
 
         buildAndBindUI();
     }
 
-    PlayerCreateController(PlayerCreateView view) {
+    PlayerCreateController(AssetProvider assets, PlayerCreateView view) {
         this.view = view;
+        this.assets = assets;
     }
 
     public void setOnError(Consumer<String> onError) {
@@ -57,7 +60,7 @@ public class PlayerCreateController {
         int visualIndex = playerFields.size() + 1;
 
         if (visualIndex > MAX_PLAYERS) {
-            onError.accept("You cannot have more than 4 players");
+            onError.accept(assets.getString("error.maxPlayers"));
             return;
         }
 
@@ -82,7 +85,7 @@ public class PlayerCreateController {
         }
 
         if (names.size() < MIN_PLAYERS) {
-            onError.accept("You need at least 2 players");
+            onError.accept(assets.getString("error.minPlayers"));
             return;
         }
 
