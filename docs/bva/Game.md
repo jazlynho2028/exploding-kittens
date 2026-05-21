@@ -34,7 +34,8 @@
   - **State of the system**: Game constructed with 5 player names
   - **Expected output**: IllegalArgumentException
 
-- **TC5: start game with null player list** ( x )
+- **TC5: start game with null player list** ( checkmark )
+  - **Name of the test**: testConstructor_NullPlayerList
   - **State of the system**: null passed as the player names instead of a true collection 
   - **Expected output**: IllegalArgumentException (Null pointer case) 
 

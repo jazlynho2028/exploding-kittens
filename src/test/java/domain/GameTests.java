@@ -90,4 +90,20 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void testConstructor_NullPlayerList() {
+        List<String> names = null;
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Game(names, mockDrawPile, mockDiscardPile);
+        });
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
 }
