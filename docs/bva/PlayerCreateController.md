@@ -41,8 +41,8 @@
   - **State of the System:** playerFields = [field]
   - **Expected output:** return 1
 
-- **TC9: Player fields has two fields ** ( :x: )
-  - **Name of the test:**
+- **TC9: Player fields has two fields ** ( :white-check-mark: )
+  - **Name of the test:** getPlayerNumbers_twoPlayers_return2
   - **State of the System:** playerFields = [field, field]
   - **Expected output:** return 2
 
