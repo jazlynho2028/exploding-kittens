@@ -153,7 +153,7 @@ public class PlayerCreateControllerTests {
         Consumer<String> onError = EasyMock.createMock(Consumer.class);
         Runnable onSuccess = EasyMock.createMock(Runnable.class);
 
-        List<String> mockInputs = List.of("Alice");
+        List<String> mockInputs = List.of("");
         EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(mockInputs);
 
 

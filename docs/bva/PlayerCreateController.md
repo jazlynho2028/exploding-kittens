@@ -21,9 +21,9 @@
   - **Expected output:** calls onError.accept("You cannot have more than 4 players.")
 
 ### Method under test: `onConfirmNames()`
-- **TC5: Confirming exactly below the minimum limit, 1 player** ( :white_check_mark: )
+- **TC5: Confirming exactly below the minimum limit, 1 blank name player** ( :white_check_mark: )
   - **Name of the test:** onConfirmNames_OnePlayer_Failed
-  - **State of the System:** view.getPlayerNamesFromFields() = ["Alice"]
+  - **State of the System:** view.getPlayerNamesFromFields() = [""]
   - **Expected output:** calls onError.accept("you need at least 2 players.") onSuccess.run() not called
 
 - **TC6: Confirming at the minimum number of players** ( :white_check_mark: )
