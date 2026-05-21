@@ -1,7 +1,10 @@
 package ui;
 
+import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class StartControllerTests {
 
@@ -39,6 +42,25 @@ public class StartControllerTests {
 		controller.onSpanishPlayButton();
 
 		EasyMock.verify(view, onSpanishPlay);
+	}
+
+	@Test
+	public void getStartScene_none_success() {
+		StartView view = EasyMock.createMock(StartView.class);
+		Scene expectedScene = EasyMock.createMock(Scene.class);
+
+		EasyMock.expect(view.createStartScene()).andReturn(
+				expectedScene
+		);
+
+		StartController controller = new StartController(view);
+
+		EasyMock.replay(view, expectedScene);
+
+		Scene actualScene = controller.getStartScene();
+		assertSame(expectedScene, actualScene);
+
+		EasyMock.verify(view, expectedScene);
 	}
 
 }
