@@ -24,12 +24,12 @@
 - **TC5: remove non-existing card from empty hand** ( :checkmark: )
     - **Name of the test**: removeCardFromHand_emptyHandAndNonExistingCard_throwsIllegalArgumentException
     - **State of the system**: player hand is empty; card to remove does not exist in hand 
-    - **Expected output**: IllegalArgumentException
+    - **Expected output**: GameException thrown with key "error.cardNotInHand"
 
 - **TC6: remove non-existing card from hand with one card** ( :checkmark: )
     - **Name of the test**: removeCardFromHand_handHasOneCardAndNonExistingCard_throwsIllegalArgumentException
     - **State of the system**: player hand has one card; card to remove does not exist in hand 
-    - **Expected output**: IllegalArgumentException
+    - **Expected output**: GameException thrown with key "error.cardNotInHand"
 
 - **TC7: remove existing card from hand with one card** ( :checkmark: )
     - **Name of the test**: removeCardFromHand_handHasOneCardAndExistingCard_cardRemovedAndSizeIsZero
@@ -39,7 +39,7 @@
 - **TC8: remove non-existing card from hand with more than one card** ( :checkmark: )
     - **Name of the test**: removeCardFromHand_handHasMultipleCardsAndNonExistingCard_throwsIllegalArgumentException
     - **State of the system**: player hand has more than one card; card to remove does not exist in hand
-    - **Expected output**: IllegalArgumentException
+    - **Expected output**: GameException thrown with key "error.cardNotInHand"
 
 - **TC8: remove existing card from hand with more than one card** ( :checkmark: )
     - **Name of the test**: removeCardFromHand_handHasMultipleCardsAndExistingCard_cardRemovedAndSizeDecreasedByOne
@@ -49,7 +49,7 @@
 - **TC10: remove non-existing card from hand with duplicate cards** ( :checkmark: )
     - **Name of the test**: removeCardFromHand_handHasDuplicateCardsAndNonExistingCard_throwsIllegalArgumentException
     - **State of the system**: player hand has duplicate cards; card to remove does not exist in hand
-    - **Expected output**: IllegalArgumentException
+    - **Expected output**: GameException thrown with key "error.cardNotInHand"
 
 - **TC11: remove existing card from hand with duplicate cards** ( :checkmark: )
     - **Name of the test**: removeCardFromHand_handHasDuplicateCardsAndExistingCard_oneInstanceRemovedAndSizeDecreasedByOne
