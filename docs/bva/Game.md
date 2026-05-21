@@ -1,5 +1,5 @@
 # BVA Analysis: Game Class
-### Method under test: `startGame()`
+### Method under test: `Constructor`
 - **TC1: start game with minimum valid players** ( checkmark )
   - **Name of the test**: testConstructor_MinValidPlayers
   - **State of the system**: Game constructed with two player names
@@ -29,7 +29,8 @@
   - **State of the system**: Game constructed with 1 player name
   - **Expected output**: IllegalArgumentException
 
-- **TC4: start game with too many players** ( x )
+- **TC4: start game with too many players** ( checkmark )
+  - **Name of the test**: testConstructor_TooManyPlayers
   - **State of the system**: Game constructed with 5 player names
   - **Expected output**: IllegalArgumentException
 
