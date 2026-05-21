@@ -210,7 +210,7 @@ public class PlayerTests {
         player.removeCardFromHand(mockDuplicateCard);
 
         assertEquals(expectedFinalSize, player.getHandSize());
-        assertTrue(player.getHand().contains(mockDuplicateCard));
+        assertSame(mockDuplicateCard, player.getHand().get(0));
 
         EasyMock.verify(mockDuplicateCard);
     }

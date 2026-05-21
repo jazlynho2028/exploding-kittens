@@ -51,7 +51,7 @@
     - **State of the system**: player hand has duplicate cards; card to remove does not exist in hand
     - **Expected output**: IllegalArgumentException
 
-- **TC11: remove existing card from hand with duplicate cards** ( :x: )
+- **TC11: remove existing card from hand with duplicate cards** ( :checkmark: )
     - **Name of the test**: testRemoveCardFromHand_ExistingCardFromHandWithDuplicateCards
     - **State of the system**: player hand has duplicate cards; card to remove does exist in hand
     - **Expected output**: exactly one instance of the duplicate card is not in hand (the other is still in hand); player hand size decreased by 1
