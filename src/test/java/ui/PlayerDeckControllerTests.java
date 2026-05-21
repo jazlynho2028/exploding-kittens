@@ -15,7 +15,9 @@ public class PlayerDeckControllerTests {
 		Game model = EasyMock.createMock(Game.class);
 		AssetProvider assets = EasyMock.createMock(AssetProvider.class);
 		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
 				.withConstructor(model, assets, view)
 				.addMockedMethod("bindUI")
 				.createMock();
