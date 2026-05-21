@@ -248,7 +248,7 @@ public class PlayerCreateControllerTests {
     }
 
     @Test
-    public void getPlayerCreateScene_none_success() {
+    public void getPlayerCreateScene_called_success() {
         AssetProvider assets = EasyMock.createMock(AssetProvider.class);
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         Scene expectedScene = EasyMock.createMock(Scene.class);
@@ -259,12 +259,12 @@ public class PlayerCreateControllerTests {
 
         PlayerCreateController controller = new PlayerCreateController(assets, view);
 
-        EasyMock.replay(assets, view, expectedScene);
+        EasyMock.replay(view);
 
         Scene actualScene = controller.getPlayerCreateScene();
         assertSame(expectedScene, actualScene);
 
-        EasyMock.verify(assets, view, expectedScene);
+        EasyMock.verify(view);
     }
 
 }

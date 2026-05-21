@@ -48,6 +48,6 @@
 
 ### Method under test: `getPlayerCreateScene()`
 - **TC10: this method is called ** ( :white-check-mark: )
-  - **Name of the test**: getPlayerCreateScene_none_success
+  - **Name of the test**: getPlayerCreateScene_called_success
   - **State of the system**: N/A
   - **Expected output**: called view.createPlayerCreateScene()
