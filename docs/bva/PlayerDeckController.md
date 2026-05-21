@@ -1,13 +1,13 @@
 ### Method under test: `buildAndBindUI()`
 - **TC1: this method is called** ( :x: )
   - **Name of the test**: 
-  - **State of the system**: 
+  - **State of the system**: N/A
   - **Expected output**: called view.buildAndAddPlayerHandCards, view.buildAddRenderPlayerNameTags, and bindUI
 
 ### Method under test: `bindUI()`
 - **TC2: this method is called** ( :x: )
   - **Name of the test**:
-  - **State of the system**:
+  - **State of the system**: N/A
   - **Expected output**: called bindNameTags and bindPlayerHandCardButtons
 
 ### Method under test: `onNameTag(int playerIndex)`
