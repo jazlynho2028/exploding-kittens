@@ -216,4 +216,18 @@ public class PlayerCreateControllerTests {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void getPlayerNumbers_onePlayer_return1(){
+        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        int expected = 1;
+
+        PlayerCreateController controller = new PlayerCreateController(assets, view);
+        controller.onAddPlayer();
+
+        int actual = controller.getPlayerNumbers();
+
+        assertEquals(expected, actual);
+    }
 }

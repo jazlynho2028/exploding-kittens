@@ -36,23 +36,18 @@
   - **State of the System:** playerFields = []
   - **Expected output:** return 0
 
-- **TC8: Player fields has one player ** ( :x: )
-  - **Name of the test:**
-  - **State of the System:** playerFields = ["Alice"]
+- **TC8: Player fields has one field ** ( :white-check-mark: )
+  - **Name of the test:** getPlayerNumbers_onePlayer_return1
+  - **State of the System:** playerFields = [field]
   - **Expected output:** return 1
 
-- **TC9: Player fields has two players with different names ** ( :x: )
+- **TC9: Player fields has two fields ** ( :x: )
   - **Name of the test:**
-  - **State of the System:** playerFields = ["Alice", "Bob"]
-  - **Expected output:** return 2
-
-- **TC10: Player fields has two players with same names ** ( :x: )
-  - **Name of the test:**
-  - **State of the System:** playerFields = ["Alice", "Alice"]
+  - **State of the System:** playerFields = [field, field]
   - **Expected output:** return 2
 
 ### Method under test: `getPlayerCreateScene()`
-- **TC11: this method is called ** ( :x: )
+- **TC10: this method is called ** ( :x: )
   - **Name of the test**: 
   - **State of the system**: N/A
   - **Expected output**: called view.createPlayerCreateScene()
