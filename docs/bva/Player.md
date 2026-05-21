@@ -5,7 +5,7 @@
     - **State of the system**: player hand is empty; card is non-null and valid 
     - **Expected output**: player hand has one card; card at index 0 is the specified card instance
 
-- **TC2: add card to hand with one card** ( :x: )
+- **TC2: add card to hand with one card** ( :checkmark: )
     - **Name of the test**: testAddCardToHand_WhenHandHasOneCard
     - **State of the system**: player hand contains one card; card is non-null and valid 
     - **Expected output**: player hand has two cards; card at index 1 (last position) is the specified card instance

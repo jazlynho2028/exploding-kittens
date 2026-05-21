@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PlayerTests {
 
     @Test
-    public void testAddCardToHand_WhenHandIsEmpty() {
+    public void testAddCardtoHand_WhenHandIsEmpty() {
         Card mockCard = EasyMock.createMock(Card.class);
         EasyMock.replay(mockCard);
 
@@ -26,7 +26,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void testAddCardToHand_WhenHandHasOneCard() {
+    public void testAddCardtoHand_WhenHandHasOneCard() {
         Card mockFirstCard = EasyMock.createMock(Card.class);
         Card mockSecondCard = EasyMock.createMock(Card.class);
         EasyMock.replay(mockFirstCard, mockSecondCard);
@@ -36,6 +36,7 @@ public class PlayerTests {
         player.addCardtoHand(mockSecondCard);
 
         assertEquals(2, player.getHandSize());
+        assertSame(mockFirstCard, player.getHand().get(0));
         assertEquals(mockSecondCard, player.getHand().get(1));
 
         EasyMock.verify(mockFirstCard, mockSecondCard);
