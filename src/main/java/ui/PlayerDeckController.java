@@ -70,7 +70,7 @@ public class PlayerDeckController {
         }
     }
 
-    private void bindPlayerHandCardButtons(Consumer<Integer> handler) {
+    void bindPlayerHandCardButtons(Consumer<Integer> handler) {
         ObservableList<Node> handCards = view.handCardsContainer.getChildren();
 
         for (int i = 0; i < handCards.size(); i++) {

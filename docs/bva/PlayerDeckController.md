@@ -27,8 +27,8 @@
   - **Expected output**: caught exception from model.changeCurrentPlayerIndexAndSetFaceUpToFalse(playerIndex), called onError.accept("Failed to change current player.")
 
 ### Method under test: `buildAddBindPlayerHandCards()`
-- **TC6: this method is called** ( :x: )
-  - **Name of the test**:
+- **TC6: this method is called** ( :white-check-mark: )
+  - **Name of the test**: buildAddBindPlayerHandCards_called_success
   - **State of the system**: N/A
   - **Expected output**: called view.buildAndAddPlayerHandCards and bindPlayerHandCardButtons
 

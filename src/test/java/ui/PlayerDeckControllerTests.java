@@ -162,6 +162,38 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
+	public void buildAddBindPlayerHandCards_called_success() {
+		Game model = EasyMock.createNiceMock(Game.class);
+		AssetProvider assets = EasyMock.createMock(AssetProvider.class);
+		PlayerDeckView view = EasyMock.createMock(PlayerDeckView.class);
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class
+				)
+				.withConstructor(model, assets, view)
+				.addMockedMethod("bindPlayerHandCardButtons")
+				.createMock();
+		List<String> currentPlayerHandIds = new ArrayList<>();
+		boolean isFaceUp = true;
+		boolean isBeforeDraw = true;
+
+		EasyMock.expect(model.getCurrentPlayerHandIds()).andReturn(currentPlayerHandIds);
+		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
+		EasyMock.expect(model.getIsBeforeDraw()).andReturn(isBeforeDraw);
+
+		view.buildAndAddPlayerHandCards(currentPlayerHandIds, isFaceUp, isBeforeDraw);
+		EasyMock.expectLastCall();
+
+		controller.bindPlayerHandCardButtons(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.buildAddBindPlayerHandCards();
+
+		EasyMock.verify(model, view, controller);
+	}
+
+	@Test
 	public void onDrawPile_drawsCard_success() {
 		Game model = EasyMock.createNiceMock(Game.class);
 		AssetProvider assets = EasyMock.createMock(AssetProvider.class);
