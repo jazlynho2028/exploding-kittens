@@ -82,7 +82,6 @@ public class PlayerDeckController {
         if (model.getCurrentPlayerIndex() != playerIndex) {
             handleChangeCurrentPlayer(playerIndex);
         }
-        System.out.println("NAME TAG CLICKED");
     }
 
     void handleChangeCurrentPlayer(int playerIndex) {
@@ -95,8 +94,6 @@ public class PlayerDeckController {
             );
             view.renderHandVisibilityButton(model.getIsFaceUp());
             buildAddBindPlayerHandCards();
-
-            System.out.println("CURRENT PLAYER CHANGED");
         }
         catch (Exception e) {
             onError.accept("Failed to change current player.");
@@ -125,8 +122,6 @@ public class PlayerDeckController {
                     model.canPlaySelected(),
                     model.canEndTurn()
             );
-
-            System.out.println("CARD DRAWN FROM PILE");
         }
         catch (Exception e) {
             onError.accept("Failed to draw from pile.");
@@ -138,15 +133,11 @@ public class PlayerDeckController {
 
         view.renderHandVisibilityButton(model.getIsFaceUp());
         buildAddBindPlayerHandCards();
-
-        System.out.println("HAND VISIBILITY TOGGLE CLICKED");
     }
 
     void onPlayerHandCardButton(int handCardIndex) {
         if (!model.getIsFaceUp()) {
             onHandVisibilityButton();
-
-            System.out.println("FACE DOWN HAND CARD BUTTON CLICKED");
         }
         else {
             ((Game) model).setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
@@ -155,8 +146,6 @@ public class PlayerDeckController {
                     model.canPlaySelected(),
                     model.canEndTurn()
             );
-
-            System.out.println("FACE UP HAND CARD BUTTON CLICKED");
         }
     }
 
@@ -175,8 +164,6 @@ public class PlayerDeckController {
                     model.canPlaySelected(),
                     model.canEndTurn()
             );
-
-            System.out.println("START GAME BUTTON CLICKED");
         }
         catch (Exception e) {
             onError.accept("Failed to start game.");
