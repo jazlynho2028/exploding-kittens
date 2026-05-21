@@ -1,6 +1,5 @@
 package ui;
 
-import io.cucumber.java.an.E;
 import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
