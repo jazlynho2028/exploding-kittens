@@ -38,12 +38,12 @@
 
 - **TC8: Player fields has one field ** ( :white-check-mark: )
   - **Name of the test:** getPlayerNumbers_onePlayer_return1
-  - **State of the System:** playerFields = [field]
+  - **State of the System:** playerFields = [TextField]
   - **Expected output:** return 1
 
 - **TC9: Player fields has two fields ** ( :white-check-mark: )
   - **Name of the test:** getPlayerNumbers_twoPlayers_return2
-  - **State of the System:** playerFields = [field, field]
+  - **State of the System:** playerFields = [TextField, TextField]
   - **Expected output:** return 2
 
 ### Method under test: `getPlayerCreateScene()`
