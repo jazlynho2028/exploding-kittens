@@ -33,7 +33,7 @@
   - **Expected output**: called view.buildAndAddPlayerHandCards and bindPlayerHandCardButtons
 
 ### Method under test: `onDrawPile()`
-- **TC7: card is drawn from pile successfully** ( :x: )
+- **TC7: card is drawn from pile successfully** ( :white-check-mark: )
     - **Name of the test**: onDrawPile_drawsCard_success
     - **State of the system**: N/A
     - **Expected output**: called model.drawFromPile(), view.renderDrawPile, buildAddBindPlayerHandCards(), and view.renderTurnControlSection

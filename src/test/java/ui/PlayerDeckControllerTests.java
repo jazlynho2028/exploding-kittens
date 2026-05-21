@@ -204,18 +204,33 @@ public class PlayerDeckControllerTests {
 				.withConstructor(model, assets, view)
 				.addMockedMethod("buildAddBindPlayerHandCards")
 				.createMock();
+		boolean canDraw = true;
+		boolean isDrawPileEmpty = true;
+		boolean canPlaySelected = true;
+		boolean canEndTurn = true;
 
 		model.drawFromPile();
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.canDraw()).andReturn(canDraw);
+		EasyMock.expect(model.isDrawPileEmpty()).andReturn(isDrawPileEmpty);
+		EasyMock.expect(model.canPlaySelected()).andReturn(canPlaySelected);
+		EasyMock.expect(model.canEndTurn()).andReturn(canEndTurn);
+
+		view.renderDrawPile(canDraw, isDrawPileEmpty);
 		EasyMock.expectLastCall();
 
 		controller.buildAddBindPlayerHandCards();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, controller);
+		view.renderTurnControlSection(canPlaySelected, canEndTurn);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
 
 		controller.onDrawPile();
 
-		EasyMock.verify(model, controller);
+		EasyMock.verify(model, view, controller);
 	}
 
 	@Test
