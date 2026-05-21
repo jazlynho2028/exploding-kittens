@@ -12,13 +12,13 @@
 - **TC3: Adding a fifth player that's above the maximum** (:white_check_mark:)
   - **Name of the test:** onAddPlayer_CurrentFour_Failed
   - **State of the System:** PlayerFields = [TextField, TextField, TextField]
-  - **Expected output:** calls onError.accept("You cannot have more than 4 players")
+  - **Expected output:** calls onError.accept("You cannot have more than 4 players.")
 
 ### Method under test: `onConfirmNames()`
 - **TC4: Confirming exactly below the minimum limit, 1 player** (:white_check_mark:)
   - **Name of the test:** onConfirmNames_OnePlayer_Failed
   - **State of the System:** view.getPlayerNamesFromFields() = ["Alice"]
-  - **Expected output:** calls onError.accept("you need at least 2 players") onSuccess.run() not called
+  - **Expected output:** calls onError.accept("you need at least 2 players.") onSuccess.run() not called
 
 - **TC5: Confirming at the minimum number of players** (:white_check_mark:)
   - **Name of the test:** onConfirmNames_TwoPlayers_Success
