@@ -26,6 +26,7 @@ public class PlayerCreateController {
         buildAndBindUI();
     }
 
+    // Fake constructor for tests to exclude UI view implementation
     PlayerCreateController(AssetProvider assets, PlayerCreateView view) {
         this.view = view;
         this.assets = assets;
