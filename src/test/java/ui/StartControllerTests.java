@@ -45,7 +45,7 @@ public class StartControllerTests {
 	}
 
 	@Test
-	public void getStartScene_none_success() {
+	public void getStartScene_called_success() {
 		StartView view = EasyMock.createMock(StartView.class);
 		Scene expectedScene = EasyMock.createMock(Scene.class);
 
@@ -55,12 +55,12 @@ public class StartControllerTests {
 
 		StartController controller = new StartController(view);
 
-		EasyMock.replay(view, expectedScene);
+		EasyMock.replay(view);
 
 		Scene actualScene = controller.getStartScene();
 		assertSame(expectedScene, actualScene);
 
-		EasyMock.verify(view, expectedScene);
+		EasyMock.verify(view);
 	}
 
 }
