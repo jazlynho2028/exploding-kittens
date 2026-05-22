@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +12,7 @@ public final class TurnManager {
 
     public TurnManager(final List<Player> players) {
         if (players == null) {
-            throw new IllegalArgumentException("Player list cannot be null.");
+            throw new GameException("error.playerListNull");
         }
         this.players = Collections.unmodifiableList(players);;
         this.currentPlayerIndex = 0;

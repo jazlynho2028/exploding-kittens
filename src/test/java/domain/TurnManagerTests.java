@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TurnManagerTests {
 
     @Test
-    public void getCurrentPlayerIndex_twoPlayersInitialState_returnsZero() {
+    public void getCurrentPlayerIndex_minimumPlayers_returnsZero() {
         final int firstPlayerIndex = 0;
         List<Player> players = new ArrayList<>();
 
@@ -33,26 +33,24 @@ public class TurnManagerTests {
     }
 
     @Test
-    public void getCurrentPlayerIndex_fourPlayersInitialState_returnsZero() {
+    public void getCurrentPlayerIndex_moreThanOnePlayer_returnsZero() {
         final int firstPlayerIndex = 0;
         List<Player> players = new ArrayList<>();
         Player mockPlayer1 = EasyMock.createMock(Player.class);
         Player mockPlayer2 = EasyMock.createMock(Player.class);
         Player mockPlayer3 = EasyMock.createMock(Player.class);
-        Player mockPlayer4 = EasyMock.createMock(Player.class);
 
         players.add(mockPlayer1);
         players.add(mockPlayer2);
         players.add(mockPlayer3);
-        players.add(mockPlayer4);
 
-        EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3, mockPlayer4);
+        EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3);
 
         TurnManager turnManager = new TurnManager(players);
         int actual = turnManager.getCurrentPlayerIndex();
 
         assertEquals(firstPlayerIndex, actual);
 
-        EasyMock.verify(mockPlayer1, mockPlayer2, mockPlayer3, mockPlayer4);
+        EasyMock.verify(mockPlayer1, mockPlayer2, mockPlayer3);
     }
 }
