@@ -10,7 +10,7 @@
   - **State of the system**: TurnManager constructed with list of 3 players
   - **Expected output**: Returns 0 (first player's index)
 
-- **TC3: first player's index before any turns taken with list of maximum players** ( :x: )
-  - **Name of the test**: 
+- **TC3: first player's index before any turns taken with list of maximum players** ( :white_check_mark: )
+  - **Name of the test**: getCurrentPlayerIndex_maximumPlayers_returnsZero
   - **State of the system**: TurnManager constructed with list of 4 players
   - **Expected output**: Returns 0 (first player's index)
