@@ -11,6 +11,7 @@ import javafx.scene.shape.SVGPath;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static ui.StartView.buildExplosionImage;
 import static ui.StartView.buildTitleText;
@@ -33,7 +34,9 @@ public class PlayerCreateView {
 
         this.playerFieldsContainer = new VBox();
         this.addPlayerButton = new Button("+");
-        this.confirmButton = new Button("CONFIRM");
+        this.confirmButton = new Button(
+                assetProvider.getString("playerCreateScreen.confirm")
+        );
         this.restartButton = new Button();
 
         buildUI();
@@ -46,7 +49,7 @@ public class PlayerCreateView {
     private void buildUI() {
         root.getStyleClass().add("root");
 
-        ImageView backgroundImage = buildBackgroundImage();
+        ImageView backgroundImage = buildBackgroundImage(assetProvider);
 
         StackPane createScreen = buildCreateScreen();
         StackPane overlayLayer = buildOverlayLayer();
@@ -100,12 +103,7 @@ public class PlayerCreateView {
         StackPane overlayLayer = new StackPane();
         overlayLayer.setPickOnBounds(false);
 
-        SVGPath restartIcon = new SVGPath();
-        restartIcon.setContent(assetProvider.getSvg("restart"));
-        restartIcon.getStyleClass().add("restart-icon");
-
-        restartButton.getStyleClass().add("icon-button");
-        restartButton.setGraphic(restartIcon);
+        buildRestartButton(assetProvider, restartButton);
 
         overlayLayer.getChildren().add(restartButton);
         StackPane.setAlignment(restartButton, Pos.TOP_RIGHT);
@@ -114,7 +112,14 @@ public class PlayerCreateView {
         return overlayLayer;
     }
 
-    private ImageView buildBackgroundImage() {
+    private void buildRestartButton(AssetProvider assetProvider, Button restartButton) {
+        restartButton.getStyleClass().add("icon-button");
+
+        SVGPath restartIcon = buildIcon(assetProvider, "restart");
+        restartButton.setGraphic(restartIcon);
+    }
+
+    static ImageView buildBackgroundImage(AssetProvider assetProvider) {
         ImageView backgroundImage = buildExplosionImage(assetProvider);
         backgroundImage.setOpacity(UIConstants.BACKGROUND_IMAGE_OPACITY);
 
@@ -123,27 +128,25 @@ public class PlayerCreateView {
 
     public TextField createPlayerTextField(int index) {
         TextField field = new TextField();
-        field.setPromptText("PLAYER " + index);
+        field.setPromptText(
+                assetProvider.getString("playerCreateScreen.player")
+                        + index
+        );
         field.getStyleClass().addAll("name-enter", "h5");
         field.setAlignment(Pos.CENTER_LEFT);
         return field;
     }
 
-    public void updatePlayerFieldsDisplay(int numberOfPlayers) {
-        playerFieldsContainer.getChildren().clear();
-        textFields.clear();
-
-        for (int i = 1; i <= numberOfPlayers; i++) {
-            TextField field = createPlayerTextField(i);
-            textFields.add(field);
-            playerFieldsContainer.getChildren().add(field);
-        }
-    }
-
     public List<String> getPlayerNamesFromFields() {
         List<String> names = new ArrayList<>();
         for (TextField field : textFields) {
-            names.add(field.getText());
+            String name = field.getText();
+
+            if (Objects.equals(name, "")) {
+                name = field.getPromptText();
+            }
+
+            names.add(name);
         }
         return names;
     }
@@ -157,5 +160,13 @@ public class PlayerCreateView {
 
     public void setAddPlayerButtonDisabled(boolean disabled) {
         addPlayerButton.setDisable(disabled);
+    }
+
+    static SVGPath buildIcon(AssetProvider assetProvider, String key) {
+        SVGPath icon = new SVGPath();
+        icon.setContent(assetProvider.getSvg(key));
+        icon.getStyleClass().add(String.format("%s-icon", key));
+
+        return icon;
     }
 }
