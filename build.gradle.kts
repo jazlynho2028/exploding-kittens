@@ -26,9 +26,10 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.junit.platform:junit-platform-suite")
+    testImplementation("org.pitest:pitest-junit5-plugin:1.2.2")
 
     // https://mvnrepository.com/artifact/org.easymock/easymock
-    testImplementation("org.easymock:easymock:3.1")
+    testImplementation("org.easymock:easymock:5.4.0")
 
     // cucumber
     testImplementation(platform("io.cucumber:cucumber-bom:7.20.1"))
@@ -118,9 +119,9 @@ tasks.jacocoTestReport {
 }
 
 pitest {
-    targetClasses = setOf("domain.*")
-    targetTests = setOf("Code*")
-    junit5PluginVersion = "1.2.1"
+    targetClasses.set(listOf("domain.*"))
+    targetTests.set(listOf("domain.*"))
+    junit5PluginVersion = "1.2.2"
     pitestVersion = "1.15.0" //not needed when a default PIT version should be used
 
     threads = 4
