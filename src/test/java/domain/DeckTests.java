@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DeckTests {
 
     @Test
-    public void testPeekTop_EmptyDeck() {
+    public void peekTop_emptyDeck_throwsUnsupportedOperationException() {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards);
 
@@ -20,7 +20,7 @@ public class DeckTests {
     }
 
     @Test
-    public void testPeekTop_OneCardDeck() {
+    public void peekTop_oneCardDeck_returnsTopCard() {
         Card card1 = EasyMock.createMock(Card.class);
         EasyMock.replay(card1);
 
@@ -39,7 +39,7 @@ public class DeckTests {
     }
 
     @Test
-    public void testPeekTop_MultipleDifferentCards() {
+    public void peekTop_multipleDifferentCards_returnsTopCard() {
         Card card1 = EasyMock.createMock(Card.class);
         Card card2 = EasyMock.createMock(Card.class);
         EasyMock.replay(card1, card2);
@@ -61,7 +61,7 @@ public class DeckTests {
     }
 
     @Test
-    public void testPeekTop_MultipleDuplicateCards() {
+    public void peekTop_multipleDuplicateCards_returnsTopCard() {
         Card card1 = EasyMock.createMock(Card.class);
         EasyMock.replay(card1);
 
