@@ -118,7 +118,7 @@
   - **State of the system**: Deck has cards: [card1, card2]; n = 3
   - **Expected output**: Throws UnsupportedOperationException; deck is still [card1, card2]
 
-- **TC24: Peek top N cards with duplicate cards** ( :x: )
+- **TC24: Peek top N cards with duplicate cards** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_duplicateCards_returnsTopCardsInOrder`
   - **State of the system**: Deck has cards with duplicates: [card1, card1, card2]; n = 2
   - **Expected output**: Returns [card1, card1]; deck is still [card1, card1, card2]
