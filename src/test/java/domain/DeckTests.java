@@ -348,4 +348,25 @@ public class DeckTests {
 
         EasyMock.verify(card1, card2);
     }
+
+    @Test
+    public void peekTopNCards_zeroCount_returnsEmptyList() {
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1, card2);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+        cards.addLast(card2);
+
+        Deck deck = new Deck(cards);
+
+        List<Card> result = deck.peekTopNCards(0);
+
+        assertEquals(0, result.size());
+        assertEquals(TWO_CARDS, deck.size());
+        assertSame(card1, deck.peekTop());
+
+        EasyMock.verify(card1, card2);
+    }
 }

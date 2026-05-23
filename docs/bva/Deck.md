@@ -98,7 +98,7 @@
   - **State of the system**: Deck has cards: [card1, card2]; n = -1
   - **Expected output**: Throws IllegalArgumentException; deck is still [card1, card2]
 
-- **TC20: Peek top N cards when n is zero** ( :x: )
+- **TC20: Peek top N cards when n is zero** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_zeroCount_returnsEmptyList`
   - **State of the system**: Deck has cards: [card1, card2]; n = 0
   - **Expected output**: Returns empty list []; deck is still [card1, card2]
