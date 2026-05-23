@@ -88,7 +88,7 @@
   - **State of the system**: Deck is empty: []; n = 0
   - **Expected output**: Returns empty list []; deck is still empty: []
 
-- **TC18: Peek top N cards from empty deck when n is positive** ( :x: )
+- **TC18: Peek top N cards from empty deck when n is positive** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_emptyDeckAndPositiveCount_throwsUnsupportedOperationException`
   - **State of the system**: Deck is empty: []; n = 1
   - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []

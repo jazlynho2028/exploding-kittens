@@ -320,4 +320,13 @@ public class DeckTests {
         assertEquals(0, result.size());
         assertEquals(0, deck.size());
     }
+
+    @Test
+    public void peekTopNCards_emptyDeckAndPositiveCount_throwsUnsupportedOperationException() {
+        Deque<Card> cards = new ArrayDeque<>();
+        Deck deck = new Deck(cards);
+
+        assertThrows(UnsupportedOperationException.class, () -> deck.peekTopNCards(1));
+        assertEquals(0, deck.size());
+    }
 }
