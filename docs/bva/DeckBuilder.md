@@ -27,7 +27,7 @@
 - **TC1: Defuse count for minimum player count (2 players) ** ( :white_check_mark: )
     - **State of the system**: numPlayers = 2
     - **Expected output**: returns 4 (5 defuses - 2 players = 3 defuses left)
-- **TC2: Defuse count for maximum player count (4 players) ** ( :x: )
+- **TC2: Defuse count for maximum player count (4 players) ** ( :white_check_mark: )
   - **State of the system**: numPlayers = 4
   - **Expected output**: returns 2 (5 defuses - 4 players = 1 defuses left)
 - **TC3: Less than minimum allowed players (1 player) ** ( :white_check_mark: )

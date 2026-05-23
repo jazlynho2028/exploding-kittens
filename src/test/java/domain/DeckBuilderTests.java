@@ -69,4 +69,10 @@ public class DeckBuilderTests {
         int numDefuses = DeckBuilder.calculateDefusesToAdd(2);
         assertEquals(3, numDefuses, "2 players should leave 3 defuses in the deck (5 total - 2 dealt)");
     }
+
+    @Test
+    void calculateDefusesToAdd_MaximumPlayers_ReturnsOne() {
+        int numDefuses = DeckBuilder.calculateDefusesToAdd(4);
+        assertEquals(1, numDefuses, "4 players should leave 1 defuse in the deck (5 total - 4 dealt)");
+    }
 }
