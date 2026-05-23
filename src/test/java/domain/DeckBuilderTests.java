@@ -112,7 +112,6 @@ public class DeckBuilderTests {
     @Test
     void shuffleDeckOnce_ChangesDeckOrder() {
         List<Card> testDeck = DeckBuilder.initializeFullDeck();
-
         List<CardType> originalOrder = new ArrayList<>();
         for (Card card : testDeck) {
             originalOrder.add(card.getType());
@@ -125,5 +124,31 @@ public class DeckBuilderTests {
             shuffledOrder.add(card.getType());
         }
         assertNotEquals(originalOrder, shuffledOrder);
+    }
+
+    @Test
+    void shuffleDeckTwice_ChangesDeckOrderBothTimes() {
+        List<Card> testDeck = DeckBuilder.initializeFullDeck();
+        List<CardType> originalOrder = new ArrayList<>();
+        for (Card card : testDeck) {
+            originalOrder.add(card.getType());
+        }
+
+        DeckBuilder.shuffleDeck(testDeck);
+
+        List<CardType> shuffledOrder = new ArrayList<>();
+        for (Card card : testDeck) {
+            shuffledOrder.add(card.getType());
+        }
+        assertNotEquals(originalOrder, shuffledOrder);
+
+        DeckBuilder.shuffleDeck(testDeck);
+
+        List<CardType> secondShuffledOrder = new ArrayList<>();
+        for (Card card : testDeck) {
+            secondShuffledOrder.add(card.getType());
+        }
+        assertNotEquals(shuffledOrder, secondShuffledOrder);
+        assertNotEquals(originalOrder, secondShuffledOrder);
     }
 }

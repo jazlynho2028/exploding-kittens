@@ -49,7 +49,7 @@
 - **TC1: Shuffle once ** ( :white_check_mark: )
     - **State of the system**: input is a sequential list of cards in original starting order
     - **Expected output**: order of elements changes from initial ordering
-- **TC2: Shuffle twice ** ( :x: )
+- **TC2: Shuffle twice ** ( :white_check_mark: )
   - **State of the system**: input is a sequential list of cards in original starting order
   - **Expected output**: order of elements changes from initial ordering, to first shuffle, to second shuffle, ensuring shuffling is always random
 
