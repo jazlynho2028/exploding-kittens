@@ -19,7 +19,7 @@
 
 ### Helper functions
 ### Method under test: `initializeFullDeck()`
-- **TC1: Create deck with base game cards ** ( :x: )
+- **TC1: Create deck with base game cards ** ( :white_check_mark: )
     - **State of the system**: invoked internally after confirming numPlayers is valid
     - **Expected output**: returns list of exactly 56 base cards (excluding all Exploding Kittens and Defuse cards)
 
