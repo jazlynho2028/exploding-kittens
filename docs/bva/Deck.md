@@ -16,7 +16,7 @@
     - **Expected output**: Deck becomes [card1, card2, card1]; deck size is 3
 
 ### Method under test: `peekTop()`
-- **TC5: Peek top of empty deck** ( :x: )
+- **TC5: Peek top of empty deck** ( :white_check_mark: )
     - **State of the system**: Deck is empty: []
     - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
 
