@@ -67,7 +67,7 @@
   - **State of the system**: Deck is empty: []
   - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
 
-- **TC14: Peek bottom of deck with one card** ( :x: )
+- **TC14: Peek bottom of deck with one card** ( :white_check_mark: )
   - **Name of the test**: `peekBottom_oneCardDeck_returnsBottomCard`
   - **State of the system**: Deck has exactly one card: [card1]
   - **Expected output**: Returns card1; deck is still [card1]

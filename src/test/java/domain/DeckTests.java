@@ -246,4 +246,23 @@ public class DeckTests {
         assertThrows(UnsupportedOperationException.class, deck::peekBottom);
         assertEquals(0, deck.size());
     }
+
+    @Test
+    public void peekBottom_oneCardDeck_returnsBottomCard() {
+        Card card1 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+
+        Deck deck = new Deck(cards);
+
+        Card result = deck.peekBottom();
+
+        assertSame(card1, result);
+        assertEquals(1, deck.size());
+        assertSame(card1, deck.peekBottom());
+
+        EasyMock.verify(card1);
+    }
 }
