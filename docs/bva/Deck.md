@@ -14,7 +14,7 @@
     - **State of the system**: Deck has more than one different card: [card2, card1]; mocked random value returns 0
     - **Expected output**: Deck still contains card1 and card2; card1 is at index 0 after shuffle
 
-- **TC4: Shuffle deck with more than one duplicate card using controlled random values** ( :x: )
+- **TC4: Shuffle deck with more than one duplicate card using controlled random values** ( :white_check_mark: )
     - **Name of the test**: `shuffle_multipleDuplicateCards_controlledRandomReordersDeck`
     - **State of the system**: Deck has more than one card with duplicates: [card1, card1, card2]; mocked random values return 0 and 0
     - **Expected output**: Deck becomes [card1, card2, card1]; deck size is 3
