@@ -74,4 +74,12 @@ public class Deck {
         List<Card> cards = new ArrayList<>(this.deck);
         return new ArrayList<>(cards.subList(0, n));
     }
+
+    public Card removeBottom() {
+        if (this.deck.isEmpty()) {
+            throw new UnsupportedOperationException("Cannot remove bottom of empty deck.");
+        }
+
+        return this.deck.removeLast();
+    }
 }

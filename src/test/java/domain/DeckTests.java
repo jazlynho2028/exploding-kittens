@@ -458,4 +458,13 @@ public class DeckTests {
 
         EasyMock.verify(card1CopyOne, card1CopyTwo, card2);
     }
+
+    @Test
+    public void removeBottom_emptyDeck_throwsUnsupportedOperationException() {
+        Deque<Card> cards = new ArrayDeque<>();
+        Deck deck = new Deck(cards);
+
+        assertThrows(UnsupportedOperationException.class, deck::removeBottom);
+        assertEquals(0, deck.size());
+    }
 }

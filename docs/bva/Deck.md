@@ -124,7 +124,7 @@
   - **Expected output**: Returns [card1, card1]; deck is still [card1, card1, card2]
 
 ### Method under test: `removeBottom()`
-- **TC25: Remove bottom from empty deck** ( :x: )
+- **TC25: Remove bottom from empty deck** ( :white_check_mark: )
   - **Name of the test**: `removeBottom_emptyDeck_throwsUnsupportedOperationException`
   - **State of the system**: Deck is empty: []
   - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
