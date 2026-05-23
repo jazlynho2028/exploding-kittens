@@ -108,7 +108,7 @@
   - **State of the system**: Deck has cards: [card1, card2]; n = 1
   - **Expected output**: Returns [card1]; deck is still [card1, card2]
 
-- **TC22: Peek top N cards when n equals deck size** ( :x: )
+- **TC22: Peek top N cards when n equals deck size** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_countEqualsDeckSize_returnsAllCards`
   - **State of the system**: Deck has cards: [card1, card2]; n = 2
   - **Expected output**: Returns [card1, card2]; deck is still [card1, card2]
