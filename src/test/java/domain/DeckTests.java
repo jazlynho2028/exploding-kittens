@@ -26,6 +26,25 @@ public class DeckTests {
     }
 
     @Test
+    public void shuffle_oneCardDeck_deckOrderUnchanged() {
+        Card card1 = EasyMock.createMock(Card.class);
+        Random mockRandom = EasyMock.createMock(Random.class);
+        EasyMock.replay(card1, mockRandom);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+
+        Deck deck = new Deck(cards, mockRandom);
+
+        deck.shuffle();
+
+        assertEquals(1, deck.size());
+        assertSame(card1, deck.peekTop());
+
+        EasyMock.verify(card1, mockRandom);
+    }
+
+    @Test
     public void peekTop_emptyDeck_throwsUnsupportedOperationException() {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards);

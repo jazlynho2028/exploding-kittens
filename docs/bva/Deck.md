@@ -4,7 +4,7 @@
     - **State of the system**: Deck is empty: []
     - **Expected output**: Deck is still empty: []; deck size is 0
 
-- **TC2: Shuffle deck with one card** ( :x: )
+- **TC2: Shuffle deck with one card** ( :white_check_mark: )
     - **Name of the test**: `shuffle_oneCardDeck_deckOrderUnchanged`
     - **State of the system**: Deck has exactly one card: [card1]
     - **Expected output**: Deck is still [card1]; deck size is 1
