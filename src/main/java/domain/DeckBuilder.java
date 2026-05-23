@@ -21,35 +21,35 @@ public class DeckBuilder {
         List<Card> baseCards = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
-            baseCards.add(new Card(CardType.RAISINGHECK));
+            baseCards.add(new Card(CardType.SUPER_SKIP));
         }
 
         for (int i = 0; i < 3; i++) {
             baseCards.add(new Card(CardType.ATTACK));
             baseCards.add(new Card(CardType.SKIP));
             baseCards.add(new Card(CardType.CLONE));
-            baseCards.add(new Card(CardType.SWAPTOPANDBOTTOM));
-            baseCards.add(new Card(CardType.DRAWFROMTHEBOTTOM));
+            baseCards.add(new Card(CardType.SWAP_TOP_AND_BOTTOM));
+            baseCards.add(new Card(CardType.DRAW_FROM_THE_BOTTOM));
         }
 
         for (int i = 0; i < 4; i++) {
-            baseCards.add(new Card(CardType.NOPE));
-            baseCards.add(new Card(CardType.SEETHEFUTURE));
+            baseCards.add(new Card(CardType.FERAL_CAT));
+            baseCards.add(new Card(CardType.SEE_THE_FUTURE));
             baseCards.add(new Card(CardType.SHUFFLE));
-            baseCards.add(new Card(CardType.TARGETEDATTACK));
+            baseCards.add(new Card(CardType.TARGETED_ATTACK));
+            baseCards.add(new Card(CardType.CAT_CARD_1));
+            baseCards.add(new Card(CardType.CAT_CARD_2));
+            baseCards.add(new Card(CardType.CAT_CARD_3));
+            baseCards.add(new Card(CardType.CAT_CARD_4));
         }
 
-        for (int i = 0; i < 16; i++) {
-            baseCards.add(new Card(CardType.CATCARD));
-        }
-
-        baseCards.add(new Card(CardType.CATATOMICBOMB));
+        baseCards.add(new Card(CardType.MILD_DRAW));
         baseCards.add(new Card(CardType.GODCAT));
-        baseCards.add(new Card(CardType.WINNERWINNERCATNIPDINNER));
+        baseCards.add(new Card(CardType.WINNER_WINNER_CATNIP_DINNER));
         baseCards.add(new Card(CardType.RAGEBAIT));
         baseCards.add(new Card(CardType.RECYCLE));
-        baseCards.add(new Card(CardType.DOUBLEUP));
-        baseCards.add(new Card(CardType.CLEANUP));
+        baseCards.add(new Card(CardType.DOUBLE_UP));
+        baseCards.add(new Card(CardType.CATOMIC_BOMB));
 
         return baseCards;
     }
