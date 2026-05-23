@@ -1,6 +1,6 @@
 # BVA Analysis: Game Class
 ### Method under test: `Constructor`
-- **TC1: start game with minimum valid players** ( checkmark )
+- **TC1: start game with minimum valid players** ( :white_check_mark: )
   - **Name of the test**: testConstructor_MinValidPlayers
   - **State of the system**: Game constructed with two player names
   - **Expected output**:
@@ -12,7 +12,7 @@
     - discardPile initialized as empty collection 
     - turnManager is null
 
-- **TC2: start game with maximum valid players** ( checkmark )
+- **TC2: start game with maximum valid players** ( :white_check_mark: )
   - **Name of the test**: testConstructor_MaxValidPlayers
   - **State of the system**: Game constructed with four player names
   - **Expected output**:
@@ -24,24 +24,24 @@
     - discardPile initialized as empty collection 
     - turnManager is null
 
-- **TC3: start game with too little players** ( checkmark )
+- **TC3: start game with too little players** ( :white_check_mark: )
   - **Name of the test**: testConstructor_TooFewPlayers
   - **State of the system**: Game constructed with 1 player name
-  - **Expected output**: IllegalArgumentException
+  - **Expected output**: GameException (with key "error.invalidPlayerCount")
 
-- **TC4: start game with too many players** ( checkmark )
+- **TC4: start game with too many players** ( :white_check_mark: )
   - **Name of the test**: testConstructor_TooManyPlayers
   - **State of the system**: Game constructed with 5 player names
-  - **Expected output**: IllegalArgumentException
+  - **Expected output**: GameException (with key "error.invalidPlayerCount")
 
-- **TC5: start game with null player list** ( checkmark )
+- **TC5: start game with null player list** ( :white_check_mark: )
   - **Name of the test**: testConstructor_NullPlayerList
   - **State of the system**: null passed as the player names instead of a true collection 
-  - **Expected output**: IllegalArgumentException (Null pointer case) 
+  - **Expected output**: GameException (with key "error.invalidPlayerCount") (Null pointer case) 
 
 ### Method under test: `startGame()`
 
-- **TC6: start game with minimum valid players** ( checkmark )
+- **TC6: start game with minimum valid players** ( :white_check_mark: )
   - **Name of the test**: testStartGame_MinValidPlayersSuccess
   - **State of the system**: Game successfully constructed with 2 player names; isGameOngoing is false
   - **Expected output**: 
@@ -53,7 +53,7 @@
     - drawPile contains 6-N=4 Defuse cards
     - turnManager initialized at array index 0
 
-- **TC7:start game with maximum valid players** ( checkmark )
+- **TC7:start game with maximum valid players** ( :white_check_mark: )
   - **Name of the test**: testStartGame_MaxValidPlayersSuccess
   - **State of the system**: Game successfully constructed with 4 player names; isGameOngoing is false
   - **Expected output**: 
@@ -65,7 +65,7 @@
     - drawPile contains 6-N=2 Defuse cards
     - turnManager initialized at array index 0
 
-- **TC8: start game with more than one valid player** ( checkmark )
+- **TC8: start game with more than one valid player** ( :white_check_mark: )
   - **Name of the test**: testStartGame_MoreThanOneValidPlayersSuccess
   - **State of the system**: Game successfully constructed with 3 player names; isGameOngoing is false
   - **Expected output**:

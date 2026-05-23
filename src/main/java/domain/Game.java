@@ -18,11 +18,11 @@ public class Game {
 
     public Game(List<String> playerNames, Deck drawPile, Deck discardPile) {
         if (playerNames == null) {
-            throw new IllegalArgumentException("Player list cannot be null.");
+            throw new GameException("error.playerListNull");
         }
 
         if (playerNames.size() < MIN_PLAYERS || playerNames.size() > MAX_PLAYERS) {
-            throw new IllegalArgumentException("Invalid player count: " + playerNames.size());
+            throw new GameException("error.invalidPlayerCount");
         }
 
         this.players = new ArrayList<>();

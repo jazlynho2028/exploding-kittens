@@ -68,9 +68,11 @@ public class GameTests {
 
         EasyMock.replay(mockDrawPile, mockDiscardPile);
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        GameException exception = assertThrows(GameException.class, () -> {
             new Game(names, mockDrawPile, mockDiscardPile);
         });
+
+        assertEquals("error.invalidPlayerCount", exception.getKey());
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
@@ -84,9 +86,11 @@ public class GameTests {
 
         EasyMock.replay(mockDrawPile, mockDiscardPile);
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        GameException exception = assertThrows(GameException.class, () -> {
             new Game(names, mockDrawPile, mockDiscardPile);
         });
+
+        assertEquals("error.invalidPlayerCount", exception.getKey());
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
@@ -100,9 +104,11 @@ public class GameTests {
 
         EasyMock.replay(mockDrawPile, mockDiscardPile);
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        GameException exception = assertThrows(GameException.class, () -> {
             new Game(names, mockDrawPile, mockDiscardPile);
         });
+
+        assertEquals("error.playerListNull", exception.getKey());
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
