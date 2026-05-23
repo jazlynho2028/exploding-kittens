@@ -467,4 +467,22 @@ public class DeckTests {
         assertThrows(UnsupportedOperationException.class, deck::removeBottom);
         assertEquals(0, deck.size());
     }
+
+    @Test
+    public void removeBottom_oneCardDeck_returnsBottomCard() {
+        Card card1 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+
+        Deck deck = new Deck(cards);
+
+        Card result = deck.removeBottom();
+
+        assertSame(card1, result);
+        assertEquals(0, deck.size());
+
+        EasyMock.verify(card1);
+    }
 }

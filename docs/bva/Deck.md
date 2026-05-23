@@ -129,7 +129,7 @@
   - **State of the system**: Deck is empty: []
   - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
 
-- **TC26: Remove bottom from deck with one card** ( :x: )
+- **TC26: Remove bottom from deck with one card** ( :white_check_mark: )
   - **Name of the test**: `removeBottom_oneCardDeck_returnsBottomCard`
   - **State of the system**: Deck has exactly one card: [card1]
   - **Expected output**: Returns card1; deck becomes empty: []
