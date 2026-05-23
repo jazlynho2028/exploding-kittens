@@ -33,7 +33,7 @@
 - **TC3: Less than minimum allowed players (1 player) ** ( :white_check_mark: )
   - **State of the system**: numPlayers = 1
   - **Expected output**: returns IllegalArgumentException("Number of players must be between 2 and 4")
-- **TC4: More than minimum allowed players (5 players) ** ( :x: )
+- **TC4: More than maximum allowed players (5 players) ** ( :white_check_mark: )
   - **State of the system**: numPlayers = 5
   - **Expected output**: returns IllegalArgumentException("Number of players must be between 2 and 4")
 

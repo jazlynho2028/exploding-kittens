@@ -58,6 +58,13 @@ public class DeckBuilderTests {
     }
 
     @Test
+    void calculateDefusesToAdd_MoreThanMaximumPlayers_ThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            DeckBuilder.calculateDefusesToAdd(5);
+        });
+    }
+
+    @Test
     void calculateDefusesToAdd_MinimumPlayers_ReturnsThree() {
         int numDefuses = DeckBuilder.calculateDefusesToAdd(2);
         assertEquals(3, numDefuses, "2 players should leave 3 defuses in the deck (5 total - 2 dealt)");
