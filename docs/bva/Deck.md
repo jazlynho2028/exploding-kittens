@@ -77,7 +77,7 @@
   - **State of the system**: Deck has more than one card with different cards: [card1, card2]
   - **Expected output**: Returns card2; deck is still [card1, card2]
 
-- **TC16: Peek bottom of deck with more than one duplicate card** ( :x: )
+- **TC16: Peek bottom of deck with more than one duplicate card** ( :white_check_mark: )
   - **Name of the test**: `peekBottom_multipleDuplicateCards_returnsBottomCard`
   - **State of the system**: Deck has more than one card with duplicates: [card1, card1]
   - **Expected output**: Returns card1; deck is still [card1, card1]
