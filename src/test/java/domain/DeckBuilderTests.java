@@ -45,7 +45,7 @@ public class DeckBuilderTests {
         assertEquals(56, baseCards.size(), "The base deck should start with 56 cards");
 
         for (Card card : baseCards) {
-            assertNotEquals(CardType.EXPLODING_KITTEN, card.getType());
+            assertNotEquals(CardType.EXPLODINGKITTEN, card.getType());
             assertNotEquals(CardType.DEFUSE, card.getType());
         }
     }

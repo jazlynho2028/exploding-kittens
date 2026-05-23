@@ -17,10 +17,37 @@ public class DeckBuilder {
     static List<Card> initializeFullDeck() {
         List<Card> baseCards = new ArrayList<>();
 
-        // Temporarily fill deck with ATTACK cards until metadata parsing is added
-        for (int i = 0; i < 56; i++) {
-            baseCards.add(new Card(CardType.ATTACK));
+        for (int i = 0; i < 2; i++) {
+            baseCards.add(new Card(CardType.RAISINGHECK));
         }
+
+        for (int i = 0; i < 3; i++) {
+            baseCards.add(new Card(CardType.ATTACK));
+            baseCards.add(new Card(CardType.SKIP));
+            baseCards.add(new Card(CardType.CLONE));
+            baseCards.add(new Card(CardType.SWAPTOPANDBOTTOM));
+            baseCards.add(new Card(CardType.DRAWFROMTHEBOTTOM));
+        }
+
+        for (int i = 0; i < 4; i++) {
+            baseCards.add(new Card(CardType.NOPE));
+            baseCards.add(new Card(CardType.SEETHEFUTURE));
+            baseCards.add(new Card(CardType.SHUFFLE));
+            baseCards.add(new Card(CardType.TARGETEDATTACK));
+        }
+
+        for (int i = 0; i < 16; i++) {
+            baseCards.add(new Card(CardType.CATCARD));
+        }
+
+        baseCards.add(new Card(CardType.CATATOMICBOMB));
+        baseCards.add(new Card(CardType.GODCAT));
+        baseCards.add(new Card(CardType.WINNERWINNERCATNIPDINNER));
+        baseCards.add(new Card(CardType.RAGEBAIT));
+        baseCards.add(new Card(CardType.RECYCLE));
+        baseCards.add(new Card(CardType.DOUBLEUP));
+        baseCards.add(new Card(CardType.CLEANUP));
+
         return baseCards;
     }
 }
