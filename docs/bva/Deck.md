@@ -103,7 +103,7 @@
   - **State of the system**: Deck has cards: [card1, card2]; n = 0
   - **Expected output**: Returns empty list []; deck is still [card1, card2]
 
-- **TC21: Peek top N cards when n is one** ( :x: )
+- **TC21: Peek top N cards when n is one** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_oneCardCount_returnsTopCardOnly`
   - **State of the system**: Deck has cards: [card1, card2]; n = 1
   - **Expected output**: Returns [card1]; deck is still [card1, card2]
