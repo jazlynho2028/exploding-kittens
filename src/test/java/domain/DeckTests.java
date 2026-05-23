@@ -329,4 +329,23 @@ public class DeckTests {
         assertThrows(UnsupportedOperationException.class, () -> deck.peekTopNCards(1));
         assertEquals(0, deck.size());
     }
+
+    @Test
+    public void peekTopNCards_negativeCount_throwsIllegalArgumentException() {
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1, card2);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+        cards.addLast(card2);
+
+        Deck deck = new Deck(cards);
+
+        assertThrows(IllegalArgumentException.class, () -> deck.peekTopNCards(-1));
+        assertEquals(TWO_CARDS, deck.size());
+        assertSame(card1, deck.peekTop());
+
+        EasyMock.verify(card1, card2);
+    }
 }

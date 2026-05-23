@@ -93,7 +93,7 @@
   - **State of the system**: Deck is empty: []; n = 1
   - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
 
-- **TC19: Peek top N cards when n is negative** ( :x: )
+- **TC19: Peek top N cards when n is negative** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_negativeCount_throwsIllegalArgumentException`
   - **State of the system**: Deck has cards: [card1, card2]; n = -1
   - **Expected output**: Throws IllegalArgumentException; deck is still [card1, card2]
