@@ -139,7 +139,7 @@
   - **State of the system**: Deck has more than one card with different cards: [card1, card2]
   - **Expected output**: Returns card2; deck becomes [card1]
 
-- **TC28: Remove bottom from deck with more than one duplicate card** ( :x: )
+- **TC28: Remove bottom from deck with more than one duplicate card** ( :white_check_mark: )
   - **Name of the test**: `removeBottom_multipleDuplicateCards_returnsBottomCard`
   - **State of the system**: Deck has more than one card with duplicates: [card1, card1]
   - **Expected output**: Returns card1; deck becomes [card1]

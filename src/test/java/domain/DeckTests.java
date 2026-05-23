@@ -507,4 +507,24 @@ public class DeckTests {
 
         EasyMock.verify(card1, card2);
     }
+
+    @Test
+    public void removeBottom_multipleDuplicateCards_returnsBottomCard() {
+        Card card1 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+        cards.addLast(card1);
+
+        Deck deck = new Deck(cards);
+
+        Card result = deck.removeBottom();
+
+        assertSame(card1, result);
+        assertEquals(ONE_CARD, deck.size());
+        assertSame(card1, deck.peekTop());
+
+        EasyMock.verify(card1);
+    }
 }
