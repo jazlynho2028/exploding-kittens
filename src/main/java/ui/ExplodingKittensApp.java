@@ -31,12 +31,13 @@ public class ExplodingKittensApp extends Application {
     }
 
     private void showStartScreen(Stage stage) {
-        StartController controller = new StartController(assets);
+        StartView view = new StartView(assets);
+        StartController controller = new StartController(view);
 
         controller.setOnEnglishPlay(() -> switchLanguageAndView(stage, englishLanguage));
         controller.setOnSpanishPlay(() -> switchLanguageAndView(stage, spanishLanguage));
 
-        Scene startScene = controller.getStartScene();
+        Scene startScene = view.createStartScene();
         setScene(startScene, stage);
     }
 
