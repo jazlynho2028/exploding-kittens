@@ -37,6 +37,20 @@ public class DeckBuilderTests {
     }
 
     @Test
+    void buildDeck_MaxAllowedPlayers_ReturnsCorrect57CardDeck() {
+        Deck deck = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(4);
+        assertEquals(57, deck.size());
+
+        int defuseCount = 0;
+        for (Card card : deck.getCards()) {
+            if (card.getType() == CardType.DEFUSE) {
+                defuseCount++;
+            }
+        }
+        assertEquals(1, defuseCount, "4 players should result in 1 defuse card in the deck");
+    }
+
+    @Test
     void initializeFullDeck_ReturnsExactly56BaseCards() {
         List<Card> baseCards = DeckBuilder.initializeFullDeck();
 
