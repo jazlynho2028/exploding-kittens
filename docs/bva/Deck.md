@@ -51,7 +51,7 @@
     - **State of the system**: Deck has exactly one card: [card1]
     - **Expected output**: Returns card1; deck becomes empty: []
 
-- **TC11: Remove top from deck with more than one different card** ( :x: )
+- **TC11: Remove top from deck with more than one different card** ( :white_check_mark: )
     - **Name of the test**: `removeTop_multipleDifferentCards_returnsTopCard`
     - **State of the system**: Deck has more than one card with different cards: [card1, card2]
     - **Expected output**: Returns card1; deck becomes [card2]
