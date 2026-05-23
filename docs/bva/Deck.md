@@ -113,7 +113,7 @@
   - **State of the system**: Deck has cards: [card1, card2]; n = 2
   - **Expected output**: Returns [card1, card2]; deck is still [card1, card2]
 
-- **TC23: Peek top N cards when n is greater than deck size** ( :x: )
+- **TC23: Peek top N cards when n is greater than deck size** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_countGreaterThanDeckSize_throwsUnsupportedOperationException`
   - **State of the system**: Deck has cards: [card1, card2]; n = 3
   - **Expected output**: Throws UnsupportedOperationException; deck is still [card1, card2]
