@@ -20,7 +20,7 @@
     - **State of the system**: Deck is empty: []
     - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
 
-- **TC6: Peek top of deck with one card** ( :x: )
+- **TC6: Peek top of deck with one card** ( :white_check_mark: )
     - **State of the system**: Deck has exactly one card: [card1]
     - **Expected output**: Returns card1; deck is still [card1]
 
