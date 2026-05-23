@@ -108,4 +108,22 @@ public class DeckBuilderTests {
         }
         assertEquals(1, defuseCount, "The one added card should be of CardType.DEFUSE");
     }
+
+    @Test
+    void shuffleDeckOnce_ChangesDeckOrder() {
+        List<Card> testDeck = DeckBuilder.initializeFullDeck();
+
+        List<CardType> originalOrder = new ArrayList<>();
+        for (Card card : testDeck) {
+            originalOrder.add(card.getType());
+        }
+
+        DeckBuilder.shuffleDeck(testDeck);
+
+        List<CardType> shuffledOrder = new ArrayList<>();
+        for (Card card : testDeck) {
+            shuffledOrder.add(card.getType());
+        }
+        assertNotEquals(originalOrder, shuffledOrder);
+    }
 }

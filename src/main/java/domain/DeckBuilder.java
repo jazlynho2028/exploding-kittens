@@ -63,4 +63,8 @@ public class DeckBuilder {
             deck.add(new Card(CardType.DEFUSE));
         }
     }
+
+    static void shuffleDeck(List<Card> deck) {
+        java.util.Collections.shuffle(deck);
+    }
 }

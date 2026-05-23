@@ -46,7 +46,7 @@
   - **Expected output**: Test deck is expanded to size 1 with exactly 1 card matching CardType.DEFUSE
 
 ### Method under test: `shuffleDeck(List<Card> deck)`
-- **TC1: Shuffle once ** ( :x: )
+- **TC1: Shuffle once ** ( :white_check_mark: )
     - **State of the system**: input is a sequential list of cards in original starting order
     - **Expected output**: order of elements changes from initial ordering
 - **TC2: Shuffle twice ** ( :x: )
