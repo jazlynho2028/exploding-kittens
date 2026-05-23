@@ -30,7 +30,7 @@
 - **TC2: Defuse count for maximum player count (4 players) ** ( :x: )
   - **State of the system**: numPlayers = 4
   - **Expected output**: returns 2 (5 defuses - 4 players = 1 defuses left)
-- **TC3: Less than minimum allowed players (1 player) ** ( :x: )
+- **TC3: Less than minimum allowed players (1 player) ** ( :white_check_mark: )
   - **State of the system**: numPlayers = 1
   - **Expected output**: returns IllegalArgumentException("Number of players must be between 2 and 4")
 - **TC4: More than minimum allowed players (5 players) ** ( :x: )

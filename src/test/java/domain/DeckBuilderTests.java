@@ -49,4 +49,11 @@ public class DeckBuilderTests {
             assertNotEquals(CardType.DEFUSE, card.getType());
         }
     }
+
+    @Test
+    void calculateDefusesToAdd_LessThanMinimumPlayers_ThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            DeckBuilder.calculateDefusesToAdd(1);
+        });
+    }
 }
