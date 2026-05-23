@@ -11,31 +11,29 @@ public class DeckBuilderTests {
     @Test
     void buildDeck_LessThanMinPlayers_ThrowError() {
         assertThrows(IllegalArgumentException.class, () -> {
-            DeckBuilder.buildDeckWithoutExplodeAndDefuse(1);
+            DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(1);
         });
     }
 
     @Test
     void buildDeck_MoreThanMaxPlayers_ThrowError() {
         assertThrows(IllegalArgumentException.class, () -> {
-            DeckBuilder.buildDeckWithoutExplodeAndDefuse(5);
+            DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(5);
         });
     }
 
     @Test
-    void buildDeck_MinAllowedPlayers_ReturnsCorrect60CardDeck() {
-        Deck deck = DeckBuilder.buildDeckWithoutExplodeAndDefuse(2);
-        assertNotNull(deck, "We have a valid number of players, so deck should not be null");
+    void buildDeck_MinAllowedPlayers_ReturnsCorrect59CardDeck() {
+        Deck deck = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(2);
+        assertEquals(59, deck.size());
 
-        assertEquals(60, deck.size(), "2 players should result in a 60-card deck");
-
-        int numDefuses = 0;
+        int defuseCount = 0;
         for (Card card : deck.getCards()) {
             if (card.getType() == CardType.DEFUSE) {
-                numDefuses++;
+                defuseCount++;
             }
         }
-        assertEquals(4, numDefuses, "2 players should result in 4 defuse cards in the deck");
+        assertEquals(3, defuseCount, "2 players should result in 3 defuse cards in the deck");
     }
 
     @Test

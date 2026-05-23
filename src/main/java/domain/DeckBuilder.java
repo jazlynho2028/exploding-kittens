@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeckBuilder {
-    public static Deck buildDeckWithoutExplodeAndDefuse(int numPlayers) {
+    public static Deck buildDeckWithoutExplodeAndAddDefuse(int numPlayers) {
         if (numPlayers < 2 || numPlayers > 4) {
             throw new IllegalArgumentException("Number of players must be between 2 and 4");
         }
 
-        List<Card> cards = initializeFullDeck();
+        List<Card> deck = initializeFullDeck();
+        int defusesToAdd = calculateDefusesToAdd(numPlayers);
+        addPlayerDefuses(deck, defusesToAdd);
+        shuffleDeck(deck);
 
-        return new Deck(cards);
+        return new Deck(deck);
     }
 
     static List<Card> initializeFullDeck() {
@@ -55,6 +58,7 @@ public class DeckBuilder {
         if (numPlayers < 2 || numPlayers > 4) {
             throw new IllegalArgumentException("Number of players must be between 2 and 4");
         }
+
         return 5 - numPlayers;
     }
 
