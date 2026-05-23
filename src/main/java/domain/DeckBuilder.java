@@ -56,6 +56,6 @@ public class DeckBuilder {
             throw new IllegalArgumentException("Number of players must be between 2 and 4");
         }
 
-        return -1;
+        return 5 - numPlayers;
     }
 }

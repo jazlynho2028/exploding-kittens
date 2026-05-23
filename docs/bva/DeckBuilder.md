@@ -24,7 +24,7 @@
     - **Expected output**: returns list of exactly 48 base cards (excluding all Exploding Kittens and Defuse cards)
 
 ### Method under test: `calculateDefusesToAdd(int numPlayers)`
-- **TC1: Defuse count for minimum player count (2 players) ** ( :x: )
+- **TC1: Defuse count for minimum player count (2 players) ** ( :white_check_mark: )
     - **State of the system**: numPlayers = 2
     - **Expected output**: returns 4 (5 defuses - 2 players = 3 defuses left)
 - **TC2: Defuse count for maximum player count (4 players) ** ( :x: )
