@@ -3,6 +3,7 @@ package domain;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Random;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -307,5 +308,16 @@ public class DeckTests {
         assertSame(card1, deck.peekBottom());
 
         EasyMock.verify(card1);
+    }
+
+    @Test
+    public void peekTopNCards_emptyDeckAndZeroCards_returnsEmptyList() {
+        Deque<Card> cards = new ArrayDeque<>();
+        Deck deck = new Deck(cards);
+
+        List<Card> result = deck.peekTopNCards(0);
+
+        assertEquals(0, result.size());
+        assertEquals(0, deck.size());
     }
 }

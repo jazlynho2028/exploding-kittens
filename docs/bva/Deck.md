@@ -83,7 +83,7 @@
   - **Expected output**: Returns card1; deck is still [card1, card1]
 
 ### Method under test: `peekTopNCards(int n)`
-- **TC17: Peek top N cards from empty deck when n is zero** ( :x: )
+- **TC17: Peek top N cards from empty deck when n is zero** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_emptyDeckAndZeroCards_returnsEmptyList`
   - **State of the system**: Deck is empty: []; n = 0
   - **Expected output**: Returns empty list []; deck is still empty: []

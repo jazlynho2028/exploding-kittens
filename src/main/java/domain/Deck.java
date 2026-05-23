@@ -61,4 +61,17 @@ public class Deck {
 
         return this.deck.peekLast();
     }
+
+    public List<Card> peekTopNCards(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Cannot peek a negative number of cards.");
+        }
+
+        if (n > this.deck.size()) {
+            throw new UnsupportedOperationException("Cannot peek more cards than are in the deck.");
+        }
+
+        List<Card> cards = new ArrayList<>(this.deck);
+        return new ArrayList<>(cards.subList(0, n));
+    }
 }
