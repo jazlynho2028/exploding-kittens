@@ -17,4 +17,12 @@ public class Deck {
 
         return this.deck.peekFirst();
     }
+
+    public Card removeTop() {
+        if (this.deck.isEmpty()) {
+            throw new UnsupportedOperationException("Cannot remove top of empty deck.");
+        }
+
+        return this.deck.removeFirst();
+    }
 }

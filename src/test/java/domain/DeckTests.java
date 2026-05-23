@@ -80,4 +80,13 @@ public class DeckTests {
 
         EasyMock.verify(card1);
     }
+
+    @Test
+    public void removeTop_emptyDeck_throwsUnsupportedOperationException() {
+        Deque<Card> cards = new ArrayDeque<>();
+        Deck deck = new Deck(cards);
+
+        assertThrows(UnsupportedOperationException.class, deck::removeTop);
+        assertEquals(0, cards.size());
+    }
 }

@@ -41,7 +41,7 @@
     - **Expected output**: Returns card1; deck is still [card1, card1]
 
 ### Method under test: `removeTop()`
-- **TC9: Remove top from empty deck** ( :x: )
+- **TC9: Remove top from empty deck** ( :white_check_mark: )
     - **Name of the test**: `removeTop_emptyDeck_throwsUnsupportedOperationException`
     - **State of the system**: Deck is empty: []
     - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
