@@ -81,3 +81,44 @@
   - **Name of the test**: `peekBottom_multipleDuplicateCards_returnsBottomCard`
   - **State of the system**: Deck has more than one card with duplicates: [card1, card1]
   - **Expected output**: Returns card1; deck is still [card1, card1]
+
+### Method under test: `peekTopNCards(int n)`
+- **TC17: Peek top N cards from empty deck when n is zero** ( :x: )
+  - **Name of the test**: `peekTopNCards_emptyDeckAndZeroCards_returnsEmptyList`
+  - **State of the system**: Deck is empty: []; n = 0
+  - **Expected output**: Returns empty list []; deck is still empty: []
+
+- **TC18: Peek top N cards from empty deck when n is positive** ( :x: )
+  - **Name of the test**: `peekTopNCards_emptyDeckAndPositiveCount_throwsUnsupportedOperationException`
+  - **State of the system**: Deck is empty: []; n = 1
+  - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
+
+- **TC19: Peek top N cards when n is negative** ( :x: )
+  - **Name of the test**: `peekTopNCards_negativeCount_throwsIllegalArgumentException`
+  - **State of the system**: Deck has cards: [card1, card2]; n = -1
+  - **Expected output**: Throws IllegalArgumentException; deck is still [card1, card2]
+
+- **TC20: Peek top N cards when n is zero** ( :x: )
+  - **Name of the test**: `peekTopNCards_zeroCount_returnsEmptyList`
+  - **State of the system**: Deck has cards: [card1, card2]; n = 0
+  - **Expected output**: Returns empty list []; deck is still [card1, card2]
+
+- **TC21: Peek top N cards when n is one** ( :x: )
+  - **Name of the test**: `peekTopNCards_oneCardCount_returnsTopCardOnly`
+  - **State of the system**: Deck has cards: [card1, card2]; n = 1
+  - **Expected output**: Returns [card1]; deck is still [card1, card2]
+
+- **TC22: Peek top N cards when n equals deck size** ( :x: )
+  - **Name of the test**: `peekTopNCards_countEqualsDeckSize_returnsAllCards`
+  - **State of the system**: Deck has cards: [card1, card2]; n = 2
+  - **Expected output**: Returns [card1, card2]; deck is still [card1, card2]
+
+- **TC23: Peek top N cards when n is greater than deck size** ( :x: )
+  - **Name of the test**: `peekTopNCards_countGreaterThanDeckSize_throwsUnsupportedOperationException`
+  - **State of the system**: Deck has cards: [card1, card2]; n = 3
+  - **Expected output**: Throws UnsupportedOperationException; deck is still [card1, card2]
+
+- **TC24: Peek top N cards with duplicate cards** ( :x: )
+  - **Name of the test**: `peekTopNCards_duplicateCards_returnsTopCardsInOrder`
+  - **State of the system**: Deck has cards with duplicates: [card1, card1, card2]; n = 2
+  - **Expected output**: Returns [card1, card1]; deck is still [card1, card1, card2]
