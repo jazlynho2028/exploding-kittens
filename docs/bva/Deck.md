@@ -9,7 +9,7 @@
     - **State of the system**: Deck has exactly one card: [card1]
     - **Expected output**: Deck is still [card1]; deck size is 1
 
-- **TC3: Shuffle deck with more than one different card using controlled random value** ( :x: )
+- **TC3: Shuffle deck with more than one different card using controlled random value** ( :white_check_mark: )
     - **Name of the test**: `shuffle_multipleDifferentCards_controlledRandomReordersDeck`
     - **State of the system**: Deck has more than one different card: [card2, card1]; mocked random value returns 0
     - **Expected output**: Deck still contains card1 and card2; card1 is at index 0 after shuffle
