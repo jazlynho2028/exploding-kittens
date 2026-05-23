@@ -122,3 +122,24 @@
   - **Name of the test**: `peekTopNCards_duplicateCards_returnsTopCardsInOrder`
   - **State of the system**: Deck has cards with duplicates: [card1, card1, card2]; n = 2
   - **Expected output**: Returns [card1, card1]; deck is still [card1, card1, card2]
+
+### Method under test: `removeBottom()`
+- **TC25: Remove bottom from empty deck** ( :x: )
+  - **Name of the test**: `removeBottom_emptyDeck_throwsUnsupportedOperationException`
+  - **State of the system**: Deck is empty: []
+  - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
+
+- **TC26: Remove bottom from deck with one card** ( :x: )
+  - **Name of the test**: `removeBottom_oneCardDeck_returnsBottomCard`
+  - **State of the system**: Deck has exactly one card: [card1]
+  - **Expected output**: Returns card1; deck becomes empty: []
+
+- **TC27: Remove bottom from deck with more than one different card** ( :x: )
+  - **Name of the test**: `removeBottom_multipleDifferentCards_returnsBottomCard`
+  - **State of the system**: Deck has more than one card with different cards: [card1, card2]
+  - **Expected output**: Returns card2; deck becomes [card1]
+
+- **TC28: Remove bottom from deck with more than one duplicate card** ( :x: )
+  - **Name of the test**: `removeBottom_multipleDuplicateCards_returnsBottomCard`
+  - **State of the system**: Deck has more than one card with duplicates: [card1, card1]
+  - **Expected output**: Returns card1; deck becomes [card1]
