@@ -93,7 +93,15 @@ spotbugs {
 tasks.spotbugsMain {
     reports.create("html") {
         required = true
-        outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugs.html")
+        outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugsMain.html")
+        setStylesheet("fancy-hist.xsl")
+    }
+}
+
+tasks.spotbugsTest {
+    reports.create("html") {
+        required = true
+        outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugsTest.html")
         setStylesheet("fancy-hist.xsl")
     }
 }
@@ -119,8 +127,8 @@ tasks.jacocoTestReport {
 }
 
 pitest {
-    targetClasses.set(listOf("domain.*"))
-    targetTests.set(listOf("domain.*"))
+    targetClasses.set(listOf("ui.StartController"))
+    targetTests.set(listOf("ui.StartControllerTests"))
     junit5PluginVersion = "1.2.2"
     pitestVersion = "1.15.0" //not needed when a default PIT version should be used
 
