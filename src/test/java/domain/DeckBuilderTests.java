@@ -92,4 +92,20 @@ public class DeckBuilderTests {
         }
         assertEquals(3, defuseCount, "All 3 added cards are of CardType.DEFUSE");
     }
+
+    @Test
+    void addPlayerDefuses_AddOneDefuse_AppendsOneDefuseCards() {
+        List<Card> testDeck = new ArrayList<>();
+        DeckBuilder.addPlayerDefuses(testDeck, 1);
+
+        assertEquals(1, testDeck.size(), "Deck size should increase by 1 card");
+
+        int defuseCount = 0;
+        for (Card card : testDeck) {
+            if (card.getType() == CardType.DEFUSE) {
+                defuseCount++;
+            }
+        }
+        assertEquals(1, defuseCount, "The one added card should be of CardType.DEFUSE");
+    }
 }

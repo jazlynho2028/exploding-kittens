@@ -38,12 +38,12 @@
   - **Expected output**: returns IllegalArgumentException("Number of players must be between 2 and 4")
 
 ### Method under test: `addPlayerDefuses(List<Card> deck, int defuseCount)`
-- **TC1: Add 3 defuse cards to draw pile ** ( :x: )
+- **TC1: Add 3 defuse cards to draw pile ** ( :white_check_mark: )
     - **State of the system**: defuseCount = 3, initial 56-card base deck
-    - **Expected output**: 56-card base deck is expanded to size 59 with exactly 4 cards matching CardType.DEFUSE
-- **TC2: Add 1 defuse cards to draw pile ** ( :x: )
+    - **Expected output**: Test deck is expanded to size 3 with all 3 cards matching CardType.DEFUSE
+- **TC2: Add 1 defuse cards to draw pile ** ( :white_check_mark: )
   - **State of the system**: defuseCount = 1, initial 56-card base deck
-  - **Expected output**: 56-card base deck is expanded to size 57 with exactly 2 cards matching CardType.DEFUSE
+  - **Expected output**: Test deck is expanded to size 1 with exactly 1 card matching CardType.DEFUSE
 
 ### Method under test: `shuffleDeck(List<Card> deck)`
 - **TC1: Shuffle once ** ( :x: )
