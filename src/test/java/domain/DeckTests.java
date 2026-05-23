@@ -11,6 +11,7 @@ import java.util.Deque;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTests {
+    private static final int ONE_CARD = 1;
     private static final int TWO_CARDS = 2;
     private static final int THREE_CARDS = 3;
 
@@ -484,5 +485,26 @@ public class DeckTests {
         assertEquals(0, deck.size());
 
         EasyMock.verify(card1);
+    }
+
+    @Test
+    public void removeBottom_multipleDifferentCards_returnsBottomCard() {
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1, card2);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+        cards.addLast(card2);
+
+        Deck deck = new Deck(cards);
+
+        Card result = deck.removeBottom();
+
+        assertSame(card2, result);
+        assertEquals(ONE_CARD, deck.size());
+        assertSame(card1, deck.peekTop());
+
+        EasyMock.verify(card1, card2);
     }
 }
