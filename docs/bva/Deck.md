@@ -28,7 +28,7 @@
     - **State of the system**: Deck has more than one card with different cards: [card1, card2]
     - **Expected output**: Returns card1; deck is still [card1, card2]
 
-- **TC8: Peek top of deck with more than one duplicate card** ( :x: )
+- **TC8: Peek top of deck with more than one duplicate card** ( :white_check_mark: )
     - **State of the system**: Deck has more than one card with duplicates: [card1, card1]
     - **Expected output**: Returns card1; deck is still [card1, card1]
 
