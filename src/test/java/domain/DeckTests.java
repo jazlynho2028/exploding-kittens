@@ -16,7 +16,7 @@ public class DeckTests {
         Deck deck = new Deck(cards);
 
         assertThrows(UnsupportedOperationException.class, deck::peekTop);
-        assertEquals(0, cards.size());
+        assertEquals(0, deck.size());
     }
 
     @Test
@@ -32,8 +32,8 @@ public class DeckTests {
         Card result = deck.peekTop();
 
         assertSame(card1, result);
-        assertEquals(1, cards.size());
-        assertSame(card1, cards.peekFirst());
+        assertEquals(1, deck.size());
+        assertSame(card1, deck.peekTop());
 
         EasyMock.verify(card1);
     }
@@ -53,9 +53,8 @@ public class DeckTests {
         Card result = deck.peekTop();
 
         assertSame(card1, result);
-        assertEquals(2, cards.size());
-        assertSame(card1, cards.peekFirst());
-        assertSame(card2, cards.peekLast());
+        assertEquals(2, deck.size());
+        assertSame(card1, deck.peekTop());
 
         EasyMock.verify(card1, card2);
     }
@@ -74,9 +73,8 @@ public class DeckTests {
         Card result = deck.peekTop();
 
         assertSame(card1, result);
-        assertEquals(2, cards.size());
-        assertSame(card1, cards.peekFirst());
-        assertSame(card1, cards.peekLast());
+        assertEquals(2, deck.size());
+        assertSame(card1, deck.peekTop());
 
         EasyMock.verify(card1);
     }
@@ -87,7 +85,7 @@ public class DeckTests {
         Deck deck = new Deck(cards);
 
         assertThrows(UnsupportedOperationException.class, deck::removeTop);
-        assertEquals(0, cards.size());
+        assertEquals(0, deck.size());
     }
 
     @Test
@@ -103,7 +101,7 @@ public class DeckTests {
         Card result = deck.removeTop();
 
         assertSame(card1, result);
-        assertEquals(0, cards.size());
+        assertEquals(0, deck.size());
 
         EasyMock.verify(card1);
     }
@@ -123,8 +121,8 @@ public class DeckTests {
         Card result = deck.removeTop();
 
         assertSame(card1, result);
-        assertEquals(1, cards.size());
-        assertSame(card2, cards.peekFirst());
+        assertEquals(1, deck.size());
+        assertSame(card2, deck.peekTop());
 
         EasyMock.verify(card1, card2);
     }
@@ -143,8 +141,8 @@ public class DeckTests {
         Card result = deck.removeTop();
 
         assertSame(card1, result);
-        assertEquals(1, cards.size());
-        assertSame(card1, cards.peekFirst());
+        assertEquals(1, deck.size());
+        assertSame(card1, deck.peekTop());
 
         EasyMock.verify(card1);
     }

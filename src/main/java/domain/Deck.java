@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class Deck {
@@ -7,7 +8,7 @@ public class Deck {
     private final Deque<Card> deck;
 
     public Deck(Deque<Card> deck) {
-        this.deck = deck;
+        this.deck = new ArrayDeque<>(deck);
     }
 
     public Card peekTop() {
@@ -24,5 +25,9 @@ public class Deck {
         }
 
         return this.deck.removeFirst();
+    }
+
+    public int size() {
+        return this.deck.size();
     }
 }
