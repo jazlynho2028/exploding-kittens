@@ -3,12 +3,27 @@ package domain;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTests {
+    @Test
+    public void shuffle_emptyDeck_deckStaysEmpty() {
+        Deque<Card> cards = new ArrayDeque<>();
+        Random mockRandom = EasyMock.createMock(Random.class);
+        EasyMock.replay(mockRandom);
+
+        Deck deck = new Deck(cards, mockRandom);
+
+        deck.shuffle();
+
+        assertEquals(0, deck.size());
+
+        EasyMock.verify(mockRandom);
+    }
 
     @Test
     public void peekTop_emptyDeck_throwsUnsupportedOperationException() {

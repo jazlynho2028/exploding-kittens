@@ -1,5 +1,5 @@
 ### Method under test: `shuffle()`
-- **TC1: Shuffle empty deck** ( :x: )
+- **TC1: Shuffle empty deck** ( :white_check_mark: )
     - **Name of the test**: `shuffle_emptyDeck_deckStaysEmpty`
     - **State of the system**: Deck is empty: []
     - **Expected output**: Deck is still empty: []; deck size is 0
