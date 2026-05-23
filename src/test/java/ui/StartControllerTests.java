@@ -16,7 +16,7 @@ public class StartControllerTests {
 
 		EasyMock.replay(view);
 
-		StartController controller = new StartController(view);
+		new StartController(view);
 
 		EasyMock.verify(view);
 	}
