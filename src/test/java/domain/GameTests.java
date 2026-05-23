@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GameTests {
 
     @Test
-    public void testConstructor_MinValidPlayers() {
+    public void constructor_minimumPlayers_initializesGameCorrectly() {
         List<String> names = Arrays.asList("Alice", "Bob");
 
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
@@ -36,7 +36,7 @@ public class GameTests {
     }
 
     @Test
-    public void testConstructor_MaxValidPlayers() {
+    public void constructor_maximumPlayers_initializesGameCorrectly() {
         List<String> names = Arrays.asList("Alice", "Bob", "Snoopy", "Woodstock");
 
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
@@ -60,7 +60,7 @@ public class GameTests {
     }
 
     @Test
-    public void testConstructor_TooFewPlayers() {
+    public void constructor_tooLittlePlayers_throwsGameException() {
         List<String> names = Collections.singletonList("Alice");
 
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
@@ -78,7 +78,7 @@ public class GameTests {
     }
 
     @Test
-    public void testConstructor_TooManyPlayers() {
+    public void constructor_tooManyPlayers_throwsGameException() {
         List<String> names = Arrays.asList("Alice", "Bob", "Snoopy", "Woodstock", "Jim");
 
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
@@ -96,7 +96,7 @@ public class GameTests {
     }
 
     @Test
-    public void testConstructor_NullPlayerList() {
+    public void constructor_nullPlayerList_throwsGameException() {
         List<String> names = null;
 
         Deck mockDrawPile = EasyMock.createMock(Deck.class);

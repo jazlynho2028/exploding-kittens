@@ -1,11 +1,11 @@
 # BVA Analysis: Game Class
-### Method under test: `Constructor`
+### Method under test: `Game()`
 - **TC1: start game with minimum valid players** ( :white_check_mark: )
-  - **Name of the test**: testConstructor_MinValidPlayers
+  - **Name of the test**: constructor_minimumPlayers_initializesGameCorrectly
   - **State of the system**: Game constructed with two player names
   - **Expected output**:
     - players list has length 2
-    - isGameOngoing is true
+    - isGameOngoing is false
     - canDraw is false
     - isFaceUp is false
     - drawPile is initialized as empty collection 
@@ -13,11 +13,11 @@
     - turnManager is null
 
 - **TC2: start game with maximum valid players** ( :white_check_mark: )
-  - **Name of the test**: testConstructor_MaxValidPlayers
+  - **Name of the test**: constructor_maximumPlayers_initializesGameCorrectly
   - **State of the system**: Game constructed with four player names
   - **Expected output**:
     - players list has length 4
-    - isGameOngoing is true
+    - isGameOngoing is false
     - canDraw is false
     - isFaceUp is false
     - drawPile initialized as empty collection 
@@ -25,17 +25,17 @@
     - turnManager is null
 
 - **TC3: start game with too little players** ( :white_check_mark: )
-  - **Name of the test**: testConstructor_TooFewPlayers
+  - **Name of the test**: constructor_tooLittlePlayers_throwsGameException
   - **State of the system**: Game constructed with 1 player name
   - **Expected output**: GameException (with key "error.invalidPlayerCount")
 
 - **TC4: start game with too many players** ( :white_check_mark: )
-  - **Name of the test**: testConstructor_TooManyPlayers
+  - **Name of the test**: constructor_tooManyPlayers_throwsGameException
   - **State of the system**: Game constructed with 5 player names
   - **Expected output**: GameException (with key "error.invalidPlayerCount")
 
 - **TC5: start game with null player list** ( :white_check_mark: )
-  - **Name of the test**: testConstructor_NullPlayerList
+  - **Name of the test**: constructor_nullPlayerList_throwsGameException
   - **State of the system**: null passed as the player names instead of a true collection 
   - **Expected output**: GameException (with key "error.invalidPlayerCount") (Null pointer case) 
 
