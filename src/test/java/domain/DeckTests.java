@@ -89,4 +89,22 @@ public class DeckTests {
         assertThrows(UnsupportedOperationException.class, deck::removeTop);
         assertEquals(0, cards.size());
     }
+
+    @Test
+    public void removeTop_oneCardDeck_returnsTopCard() {
+        Card card1 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+
+        Deck deck = new Deck(cards);
+
+        Card result = deck.removeTop();
+
+        assertSame(card1, result);
+        assertEquals(0, cards.size());
+
+        EasyMock.verify(card1);
+    }
 }
