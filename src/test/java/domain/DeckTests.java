@@ -237,4 +237,13 @@ public class DeckTests {
 
         EasyMock.verify(card1);
     }
+
+    @Test
+    public void peekBottom_emptyDeck_throwsUnsupportedOperationException() {
+        Deque<Card> cards = new ArrayDeque<>();
+        Deck deck = new Deck(cards);
+
+        assertThrows(UnsupportedOperationException.class, deck::peekBottom);
+        assertEquals(0, deck.size());
+    }
 }

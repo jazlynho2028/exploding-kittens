@@ -53,4 +53,12 @@ public class Deck {
     public int size() {
         return this.deck.size();
     }
+
+    public Card peekBottom() {
+        if (this.deck.isEmpty()) {
+            throw new UnsupportedOperationException("Cannot peek bottom of empty deck.");
+        }
+
+        return this.deck.peekLast();
+    }
 }

@@ -62,7 +62,7 @@
   - **Expected output**: Returns card1; deck becomes [card1]
 
 ### Method under test: `peekBottom()`
-- **TC13: Peek bottom of empty deck** ( :x: )
+- **TC13: Peek bottom of empty deck** ( :white_check_mark: )
   - **Name of the test**: `peekBottom_emptyDeck_throwsUnsupportedOperationException`
   - **State of the system**: Deck is empty: []
   - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
