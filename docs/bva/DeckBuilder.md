@@ -37,12 +37,12 @@
   - **State of the system**: numPlayers = 5
   - **Expected output**: returns IllegalArgumentException("Number of players must be between 2 and 4")
 
-### Method under test: `addPlayerDefuses(List<Card> deck, int count)`
-- **TC1: Add 4 defuse cards to draw pile ** ( :x: )
-    - **State of the system**: numDefuses = 3, initial 56-card base deck
+### Method under test: `addPlayerDefuses(List<Card> deck, int defuseCount)`
+- **TC1: Add 3 defuse cards to draw pile ** ( :x: )
+    - **State of the system**: defuseCount = 3, initial 56-card base deck
     - **Expected output**: 56-card base deck is expanded to size 59 with exactly 4 cards matching CardType.DEFUSE
-- **TC2: Add 2 defuse cards to draw pile ** ( :x: )
-  - **State of the system**: numDefuses = 1, initial 56-card base deck
+- **TC2: Add 1 defuse cards to draw pile ** ( :x: )
+  - **State of the system**: defuseCount = 1, initial 56-card base deck
   - **Expected output**: 56-card base deck is expanded to size 57 with exactly 2 cards matching CardType.DEFUSE
 
 ### Method under test: `shuffleDeck(List<Card> deck)`

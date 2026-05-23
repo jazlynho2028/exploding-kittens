@@ -55,7 +55,12 @@ public class DeckBuilder {
         if (numPlayers < 2 || numPlayers > 4) {
             throw new IllegalArgumentException("Number of players must be between 2 and 4");
         }
-
         return 5 - numPlayers;
+    }
+
+    static void addPlayerDefuses(List<Card> deck, int defuseCount) {
+        for (int i = 0; i < defuseCount; i++) {
+            deck.add(new Card(CardType.DEFUSE));
+        }
     }
 }

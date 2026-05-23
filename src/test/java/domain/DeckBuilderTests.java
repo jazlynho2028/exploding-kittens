@@ -2,6 +2,7 @@ package domain;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -74,5 +75,21 @@ public class DeckBuilderTests {
     void calculateDefusesToAdd_MaximumPlayers_ReturnsOne() {
         int numDefuses = DeckBuilder.calculateDefusesToAdd(4);
         assertEquals(1, numDefuses, "4 players should leave 1 defuse in the deck (5 total - 4 dealt)");
+    }
+
+    @Test
+    void addPlayerDefuses_AddThreeDefuses_AppendsThreeDefuseCards() {
+        List<Card> testDeck = new ArrayList<>();
+        DeckBuilder.addPlayerDefuses(testDeck, 3);
+
+        assertEquals(3, testDeck.size(), "Deck size should increase by 3 cards");
+
+        int defuseCount = 0;
+        for (Card card : testDeck) {
+            if (card.getType() == CardType.DEFUSE) {
+                defuseCount++;
+            }
+        }
+        assertEquals(3, defuseCount, "All 3 added cards are of CardType.DEFUSE");
     }
 }
