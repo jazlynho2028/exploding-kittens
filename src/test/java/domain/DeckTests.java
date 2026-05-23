@@ -37,4 +37,26 @@ public class DeckTests {
 
         EasyMock.verify(card1);
     }
+
+    @Test
+    public void testPeekTop_MultipleDifferentCards() {
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1, card2);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+        cards.addLast(card2);
+
+        Deck deck = new Deck(cards);
+
+        Card result = deck.peekTop();
+
+        assertSame(card1, result);
+        assertEquals(2, cards.size());
+        assertSame(card1, cards.peekFirst());
+        assertSame(card2, cards.peekLast());
+
+        EasyMock.verify(card1, card2);
+    }
 }

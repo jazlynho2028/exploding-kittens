@@ -24,7 +24,7 @@
     - **State of the system**: Deck has exactly one card: [card1]
     - **Expected output**: Returns card1; deck is still [card1]
 
-- **TC7: Peek top of deck with more than one different card** ( :x: )
+- **TC7: Peek top of deck with more than one different card** ( :white_check_mark: )
     - **State of the system**: Deck has more than one card with different cards: [card1, card2]
     - **Expected output**: Returns card1; deck is still [card1, card2]
 
