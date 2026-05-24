@@ -1,5 +1,5 @@
 ### Method under test: `toggleSelected()`
-- **TC1: toggle selected while selected is false** (:x:)
+- **TC1: toggle selected while selected is false** ( :white_check_mark: )
   - **Name of the test:** toggleSelected_CurrentFalse_Success
   - **State of the system:** isSelected = false
   - **Expected output:** isSelected = true
