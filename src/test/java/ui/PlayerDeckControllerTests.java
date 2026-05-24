@@ -13,7 +13,6 @@ public class PlayerDeckControllerTests {
 	private ArrayList<String> currentPlayerHandIds;
 	private boolean isFaceUp;
 	private boolean isBeforeDraw;
-	private ArrayList<String> playerNames;
 	private int currentPlayerIndex;
 	private boolean isGameOngoing;
 
@@ -31,7 +30,7 @@ public class PlayerDeckControllerTests {
 		currentPlayerHandIds = new ArrayList<>();
 		isFaceUp = false;
 		isBeforeDraw = true;
-		playerNames = new ArrayList<>();
+		ArrayList<String> playerNames = new ArrayList<>();
 		currentPlayerIndex = 0;
 		isGameOngoing = false;
 
