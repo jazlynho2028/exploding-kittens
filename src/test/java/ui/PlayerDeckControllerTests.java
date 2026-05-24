@@ -104,7 +104,9 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
 		EasyMock.replay(model, view);
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
 				.withConstructor(model, assets, view)
 				.addMockedMethod("handleChangeCurrentPlayer")
 				.createMock();
@@ -137,7 +139,9 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.replay(model, view);
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
 				.withConstructor(model, assets, view)
 				.addMockedMethod("buildAddBindPlayerHandCards")
 				.createMock();
