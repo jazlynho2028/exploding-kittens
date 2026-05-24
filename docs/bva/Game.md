@@ -77,8 +77,8 @@
     - drawPile contains 6-N=3 Defuse cards
     - turnManager initialized at array index 0
 
-- **TC9: start game when with too little players** ( :x: )
-  - **Name of the test**: 
+- **TC9: start game when with too little players** ( :white_check_mark: )
+  - **Name of the test**: startGame_tooLittlePlayers_throwsGameException
   - **State of the system**: Game constructed with 1 player name; startGame() is called
   - **Expected output**: GameException (with key "error.invalidPlayerCount")
 

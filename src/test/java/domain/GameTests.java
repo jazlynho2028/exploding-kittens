@@ -249,4 +249,22 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void startGame_tooLittlePlayers_throwsGameException() {
+        List<String> names = Collections.singletonList("Alice");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        GameException exception = assertThrows(GameException.class, () -> {
+            Game game = new Game(names, mockDrawPile, mockDiscardPile);
+            game.startGame();
+        });
+
+        assertEquals("error.invalidPlayerCount", exception.getKey());
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
 }
