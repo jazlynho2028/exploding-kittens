@@ -8,10 +8,11 @@ public class StartControllerTests {
 	@Test
 	public void constructor_called_success() {
 		StartView view = EasyMock.createMock(StartView.class);
-		Runnable onEnglishPlay = EasyMock.anyObject(Runnable.class);
-		Runnable onSpanishPlay = EasyMock.anyObject(Runnable.class);
 
-		view.bindUI(onEnglishPlay, onSpanishPlay);
+		view.bindUI(
+				EasyMock.anyObject(Runnable.class),
+				EasyMock.anyObject(Runnable.class)
+		);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(view);
