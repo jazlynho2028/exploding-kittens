@@ -42,7 +42,7 @@
 ### Method under test: `startGame()`
 
 - **TC6: start game with minimum valid players** ( :white_check_mark: )
-  - **Name of the test**: testStartGame_MinValidPlayersSuccess
+  - **Name of the test**: startGame_minimumPlayers_initializesGameAndDecks
   - **State of the system**: Game successfully constructed with 2 player names; isGameOngoing is false
   - **Expected output**: 
     - isGameOngoing is true
@@ -54,7 +54,7 @@
     - turnManager initialized at array index 0
 
 - **TC7:start game with maximum valid players** ( :white_check_mark: )
-  - **Name of the test**: testStartGame_MaxValidPlayersSuccess
+  - **Name of the test**: startGame_maximumPlayers_initializesGameAndDecks
   - **State of the system**: Game successfully constructed with 4 player names; isGameOngoing is false
   - **Expected output**: 
     - isGameOngoing is true
@@ -66,7 +66,7 @@
     - turnManager initialized at array index 0
 
 - **TC8: start game with more than one valid player** ( :white_check_mark: )
-  - **Name of the test**: testStartGame_MoreThanOneValidPlayersSuccess
+  - **Name of the test**: startGame_moreThanOnePlayer_initializesGameAndDecks
   - **State of the system**: Game successfully constructed with 3 player names; isGameOngoing is false
   - **Expected output**:
     - isGameOngoing is true
@@ -76,3 +76,18 @@
     - drawPile contains N-1=2 Exploding Kitten card
     - drawPile contains 6-N=3 Defuse cards
     - turnManager initialized at array index 0
+
+- **TC9: start game when with too little players** ( :x: )
+  - **Name of the test**: 
+  - **State of the system**: Game constructed with 1 player name; startGame() is called
+  - **Expected output**: GameException (with key "error.invalidPlayerCount")
+
+- **TC10: start game with too many players** ( :x: )
+  - **Name of the test**: 
+  - **State of the system**: Game constructed with 5 player names; startGame() is called
+  - **Expected output**: GameException (with key "error.invalidPlayerCount")
+
+- **TC11: start game when game is already ongoing** ( :x: )
+  - **Name of the test**: 
+  - **State of the system**: isGameOngoing is true; startGame() is called
+  - **Expected output**: GameException (with key "error.gameAlreadyStarted")
