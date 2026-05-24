@@ -27,6 +27,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.junit.platform:junit-platform-suite")
     testImplementation("org.pitest:pitest-junit5-plugin:1.2.2")
+    compileOnly("com.github.spotbugs:spotbugs-annotations:4.8.3")
+    testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.8.3")
 
     // https://mvnrepository.com/artifact/org.easymock/easymock
     testImplementation("org.easymock:easymock:5.4.0")

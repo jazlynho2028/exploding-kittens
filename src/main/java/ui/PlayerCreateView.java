@@ -42,6 +42,12 @@ public class PlayerCreateView {
         buildUI();
     }
 
+    public void bindUI(Runnable onAddPlayer, Runnable onConfirmNames, Runnable onRestart) {
+        addPlayerButton.setOnMouseClicked(e -> onAddPlayer.run());
+        confirmButton.setOnMouseClicked(e -> onConfirmNames.run());
+        restartButton.setOnMouseClicked(e -> onRestart.run());
+    }
+
     public Scene createPlayerCreateScene() {
         return new Scene(root, UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
     }
@@ -87,6 +93,8 @@ public class PlayerCreateView {
     private void setupPlayerFieldsContainer() {
         playerFieldsContainer.setAlignment(Pos.CENTER);
         playerFieldsContainer.getStyleClass().add("player-fields-container");
+        addPlayerField(1);
+        addPlayerField(2);
     }
 
     private Button buildAddPlayerButton() {

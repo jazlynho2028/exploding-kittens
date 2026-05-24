@@ -42,13 +42,14 @@ public class ExplodingKittensApp extends Application {
     }
 
     private void showPlayerCreateScreen(Stage stage) {
-        PlayerCreateController controller = new PlayerCreateController(assets);
+        PlayerCreateView view = new PlayerCreateView(assets);
+        PlayerCreateController controller = new PlayerCreateController(assets, view);
 
         controller.setOnError(errorHandler);
         controller.setOnSuccess(() -> initializeGame(controller, stage));
         controller.setOnRestart(() -> showStartScreen(stage));
 
-        Scene playerCreateScene = controller.getPlayerCreateScene();
+        Scene playerCreateScene = view.createPlayerCreateScene();
         setScene(playerCreateScene, stage);
     }
 
