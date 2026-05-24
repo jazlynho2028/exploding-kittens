@@ -129,8 +129,8 @@ tasks.jacocoTestReport {
 }
 
 pitest {
-    targetClasses.set(listOf("ui.PlayerCreateController"))
-    targetTests.set(listOf("ui.PlayerCreateControllerTests"))
+    targetClasses.set(listOf("ui.PlayerDeckController"))
+    targetTests.set(listOf("ui.PlayerDeckControllerTests"))
     junit5PluginVersion = "1.2.2"
     pitestVersion = "1.15.0" //not needed when a default PIT version should be used
 
