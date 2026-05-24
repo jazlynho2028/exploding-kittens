@@ -5,7 +5,15 @@ import java.util.List;
 
 public class Deck {
 
-    private final List<Card> cards = new ArrayList<>();
+    private List<Card> cards = new ArrayList<>();
+
+    public Deck(Deck otherDeck) {
+        if (otherDeck == null) {
+            this.cards = new ArrayList<>();
+        } else {
+            this.cards = new ArrayList<>(otherDeck.cards);
+        }
+    }
 
     public int getCardCount() {
         return this.cards.size(); // Returns collection size [cite: 182]

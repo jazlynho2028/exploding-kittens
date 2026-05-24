@@ -1,9 +1,10 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Game {
+public final class Game {
 
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
@@ -71,7 +72,7 @@ public class Game {
     }
 
     public List<Player> getPlayers() {
-        return this.players;
+        return Collections.unmodifiableList(this.players);
     }
 
     public boolean getIsGameOngoing() {
@@ -87,11 +88,11 @@ public class Game {
     }
 
     public Deck getDrawPile() {
-        return this.drawPile;
+        return new Deck(this.drawPile);
     }
 
     public Deck getDiscardPile() {
-        return this.discardPile;
+        return new Deck(this.discardPile);
     }
 
     public TurnManager getTurnManager() {

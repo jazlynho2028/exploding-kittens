@@ -1,6 +1,6 @@
 package domain;
 
-public class Card {
+public final class Card {
     private final CardType type;
 
     public Card(CardType type) {
