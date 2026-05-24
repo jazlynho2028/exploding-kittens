@@ -13,7 +13,7 @@ public final class Player {
             throw new IllegalArgumentException("Player name cannot be null or empty.");
         }
         this.name = name;
-        this.hand = new ArrayList<>(); // Initialize the hand as an empty collection
+        this.hand = new ArrayList<>();
     }
 
     public List<Card> getHand() {

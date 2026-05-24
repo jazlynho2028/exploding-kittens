@@ -9,6 +9,9 @@ public final class Game {
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
 
+    private static final int STARTING_HAND_SIZE = 7;
+    private static final int BASE_DEFUSE_COUNT = 6;
+
     private final List<Player> players;
     private boolean isGameOngoing;
     private boolean canDraw;
@@ -50,12 +53,12 @@ public final class Game {
 
         for (Player p : this.players) {
             p.addCardToHand(new Card(CardType.DEFUSE));
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < STARTING_HAND_SIZE; i++) {
                 p.addCardToHand(this.drawPile.removeTop());
             }
         }
 
-        int defusesToAdd = 6 - this.players.size();
+        int defusesToAdd = BASE_DEFUSE_COUNT - this.players.size();
         for (int i = 0; i < defusesToAdd; i++) {
             this.drawPile.addCard(new Card(CardType.DEFUSE));
         }

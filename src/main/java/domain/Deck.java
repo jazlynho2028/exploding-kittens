@@ -10,13 +10,14 @@ public class Deck {
     public Deck(Deck otherDeck) {
         if (otherDeck == null) {
             this.cards = new ArrayList<>();
-        } else {
+        }
+        else {
             this.cards = new ArrayList<>(otherDeck.cards);
         }
     }
 
     public int getCardCount() {
-        return this.cards.size(); // Returns collection size [cite: 182]
+        return this.cards.size();
     }
 
     public Card removeTop() {
