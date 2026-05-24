@@ -37,8 +37,8 @@ public class ExplodingKittensApp extends Application {
     }
 
     private void showPlayerDeckScreen(PlayerCreateController createController, Stage stage) {
-        List<String> playerNames = createController.getConfirmedNames();
-        Game model = new Game(playerNames);
+        //List<String> playerNames = createController.getConfirmedNames();
+        //Game model = new Game(playerNames);
 
     }
 

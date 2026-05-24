@@ -28,7 +28,7 @@ dependencies {
     testImplementation("org.junit.platform:junit-platform-suite")
 
     // https://mvnrepository.com/artifact/org.easymock/easymock
-    testImplementation("org.easymock:easymock:3.1")
+    testImplementation("org.easymock:easymock:5.5.0")
 
     // cucumber
     testImplementation(platform("io.cucumber:cucumber-bom:7.20.1"))
@@ -118,8 +118,8 @@ tasks.jacocoTestReport {
 }
 
 pitest {
-    targetClasses.set(listOf("domain.*", "datasource.*"))
-    targetTests = setOf("Code*")
+    targetClasses.set(listOf("domain.*", "datasource.*", "ui.*"))
+    targetTests.set(listOf("domain.*", "datasource.*", "ui.*"))
     junit5PluginVersion = "1.2.1"
     pitestVersion = "1.15.0" //not needed when a default PIT version should be used
 
