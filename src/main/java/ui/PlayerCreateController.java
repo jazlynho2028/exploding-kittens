@@ -19,7 +19,11 @@ public class PlayerCreateController {
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
 
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "View is injected by for compromise between MVC pattern and testability, defensive copy is not applicable for JavaFX components")
+    @SuppressFBWarnings(
+            value = "EI_EXPOSE_REP2",
+            justification = "View is injected by for compromise between MVC pattern and " +
+                    "testability, defensive copy is not applicable for JavaFX components"
+    )
     public PlayerCreateController(AssetProvider assets, PlayerCreateView view) {
         this.view = view;
         this.assets = assets;
