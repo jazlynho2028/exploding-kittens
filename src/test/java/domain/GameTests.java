@@ -3,6 +3,7 @@ package domain;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -14,13 +15,14 @@ public class GameTests {
     @Test
     public void constructor_minimumPlayers_initializesGameCorrectly() {
         List<String> names = Arrays.asList("Alice", "Bob");
+        List<String> dummyCardIds = Arrays.asList("card-1", "card-2", "card-3");
 
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
 
         EasyMock.replay(mockDrawPile, mockDiscardPile);
 
-        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+        Game game = new Game(names, mockDrawPile, mockDiscardPile, dummyCardIds);
 
         assertEquals(2, game.getPlayers().size());
         assertFalse(game.getIsGameOngoing());
@@ -38,13 +40,14 @@ public class GameTests {
     @Test
     public void constructor_maximumPlayers_initializesGameCorrectly() {
         List<String> names = Arrays.asList("Alice", "Bob", "Snoopy", "Woodstock");
+        List<String> dummyCardIds = Arrays.asList("card-1", "card-2", "card-3");
 
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
 
         EasyMock.replay(mockDrawPile, mockDiscardPile);
 
-        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+        Game game = new Game(names, mockDrawPile, mockDiscardPile, dummyCardIds);
 
         assertEquals(names.size(), game.getPlayers().size());
         assertFalse(game.getIsGameOngoing());
@@ -62,6 +65,7 @@ public class GameTests {
     @Test
     public void constructor_tooLittlePlayers_throwsGameException() {
         List<String> names = Collections.singletonList("Alice");
+        List<String> dummyCardIds = Arrays.asList("card-1", "card-2", "card-3");
 
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
@@ -69,7 +73,7 @@ public class GameTests {
         EasyMock.replay(mockDrawPile, mockDiscardPile);
 
         GameException exception = assertThrows(GameException.class, () -> {
-            new Game(names, mockDrawPile, mockDiscardPile);
+            new Game(names, mockDrawPile, mockDiscardPile, dummyCardIds);
         });
 
         assertEquals("error.invalidPlayerCount", exception.getKey());
@@ -80,6 +84,7 @@ public class GameTests {
     @Test
     public void constructor_tooManyPlayers_throwsGameException() {
         List<String> names = Arrays.asList("Alice", "Bob", "Snoopy", "Woodstock", "Jim");
+        List<String> dummyCardIds = Arrays.asList("card-1", "card-2", "card-3");
 
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
@@ -87,7 +92,7 @@ public class GameTests {
         EasyMock.replay(mockDrawPile, mockDiscardPile);
 
         GameException exception = assertThrows(GameException.class, () -> {
-            new Game(names, mockDrawPile, mockDiscardPile);
+            new Game(names, mockDrawPile, mockDiscardPile, dummyCardIds);
         });
 
         assertEquals("error.invalidPlayerCount", exception.getKey());
@@ -98,6 +103,7 @@ public class GameTests {
     @Test
     public void constructor_nullPlayerList_throwsGameException() {
         List<String> names = null;
+        List<String> dummyCardIds = Arrays.asList("card-1", "card-2", "card-3");
 
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
@@ -105,7 +111,7 @@ public class GameTests {
         EasyMock.replay(mockDrawPile, mockDiscardPile);
 
         GameException exception = assertThrows(GameException.class, () -> {
-            new Game(names, mockDrawPile, mockDiscardPile);
+            new Game(names, mockDrawPile, mockDiscardPile, dummyCardIds);
         });
 
         assertEquals("error.playerListNull", exception.getKey());
@@ -123,10 +129,11 @@ public class GameTests {
         final int drawPileExp = 1;
 
         List<String> names = Arrays.asList("Alice", "Bob");
+        List<String> dummyCardIds = Arrays.asList("card-1", "card-2", "card-3");
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
 
-        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+        Game game = new Game(names, mockDrawPile, mockDiscardPile, dummyCardIds);
 
         Card genericCard = new Card(CardType.FERAL_CAT);
         EasyMock.expect(mockDrawPile.removeTop()).andReturn(genericCard).times(totalDraws);
@@ -176,10 +183,11 @@ public class GameTests {
         final int expectedDrawDefuse = 2;
 
         List<String> names = Arrays.asList("Alice", "Bob", "Snoopy", "Jim");
+        List<String> dummyCardIds = Arrays.asList("card-1", "card-2", "card-3");
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
 
-        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+        Game game = new Game(names, mockDrawPile, mockDiscardPile, dummyCardIds);
 
         Card genericCard = new Card(CardType.FERAL_CAT);
 
@@ -236,10 +244,11 @@ public class GameTests {
         final int expectedDrawPileDefuse = 3;
 
         List<String> names = Arrays.asList("Alice", "Bob", "Jim");
+        List<String> dummyCardIds = Arrays.asList("card-1", "card-2", "card-3");
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
 
-        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+        Game game = new Game(names, mockDrawPile, mockDiscardPile, dummyCardIds);
 
         Card genericCard = new Card(CardType.FERAL_CAT);
 
@@ -287,13 +296,14 @@ public class GameTests {
     @Test
     public void startGame_tooLittlePlayers_throwsGameException() {
         List<String> names = Collections.singletonList("Alice");
+        List<String> dummyCardIds = Arrays.asList("card-1", "card-2", "card-3");
 
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
         EasyMock.replay(mockDrawPile, mockDiscardPile);
 
         GameException exception = assertThrows(GameException.class, () -> {
-            Game game = new Game(names, mockDrawPile, mockDiscardPile);
+            Game game = new Game(names, mockDrawPile, mockDiscardPile, dummyCardIds);
             game.startGame();
         });
 
@@ -305,13 +315,14 @@ public class GameTests {
     @Test
     public void startGame_tooManyPlayers_throwsGameException() {
         List<String> names = Arrays.asList("Alice", "Bob", "Snoopy", "Jim", "Wood");
+        List<String> dummyCardIds = Arrays.asList("card-1", "card-2", "card-3");
 
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
         EasyMock.replay(mockDrawPile, mockDiscardPile);
 
         GameException exception = assertThrows(GameException.class, () -> {
-            Game game = new Game(names, mockDrawPile, mockDiscardPile);
+            Game game = new Game(names, mockDrawPile, mockDiscardPile, dummyCardIds);
             game.startGame();
         });
 
@@ -326,6 +337,7 @@ public class GameTests {
         final int totalAdds = 4;
 
         List<String> names = Arrays.asList("Alice", "Bob");
+        List<String> dummyCardIds = Arrays.asList("card-1", "card-2", "card-3");
         Deck mockDrawPile = EasyMock.createMock(Deck.class);
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
         Card mockCard = EasyMock.createMock(Card.class);
@@ -343,7 +355,7 @@ public class GameTests {
 
         EasyMock.replay(mockDrawPile, mockDiscardPile, mockCard);
 
-        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+        Game game = new Game(names, mockDrawPile, mockDiscardPile, dummyCardIds);
         game.startGame();
 
         GameException exception = assertThrows(GameException.class, () -> {

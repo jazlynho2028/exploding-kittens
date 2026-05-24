@@ -20,13 +20,17 @@ public final class Game {
     private final Deck discardPile;
     private TurnManager turnManager;
 
-    public Game(List<String> playerNames, Deck drawPile, Deck discardPile) {
+    public Game(List<String> playerNames, Deck drawPile, Deck discardPile, List<String> cardIds) {
         if (playerNames == null) {
             throw new GameException("error.playerListNull");
         }
 
         if (playerNames.size() < MIN_PLAYERS || playerNames.size() > MAX_PLAYERS) {
             throw new GameException("error.invalidPlayerCount");
+        }
+
+        if (cardIds == null || cardIds.isEmpty()) {
+            throw new GameException("error.cardIdsNullOrEmpty");
         }
 
         this.players = new ArrayList<>();
