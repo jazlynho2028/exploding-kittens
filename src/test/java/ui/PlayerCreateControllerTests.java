@@ -1,6 +1,7 @@
 package ui;
 
 import org.easymock.EasyMock;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,11 +17,24 @@ public class PlayerCreateControllerTests {
     private static final int PLAYER_COUNT_THREE = 3;
     private static final int PLAYER_COUNT_FOUR = 4;
 
+    private AssetProvider assets;
+    private PlayerCreateView view;
+
+    @BeforeEach
+    public void setUpExpectations() {
+        assets = EasyMock.createMock(AssetProvider.class);
+        view = EasyMock.createMock(PlayerCreateView.class);
+
+        view.bindUI(
+                EasyMock.anyObject(Runnable.class),
+                EasyMock.anyObject(Runnable.class),
+                EasyMock.anyObject(Runnable.class)
+        );
+        EasyMock.expectLastCall();
+    }
+
     @Test
     public void constructor_called_success() {
-        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
-        PlayerCreateView view = setUpViewExpectations();
-
         String expectedMsg = "You need at least 2 players.";
         EasyMock.expect(assets.getString("error.minPlayers")).andReturn(expectedMsg);
         EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(new ArrayList<>());
@@ -38,9 +52,6 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void onAddPlayer_CurrentTwo_Success() {
-        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
-        PlayerCreateView view = setUpViewExpectations();
-
         view.addPlayerField(PLAYER_COUNT_THREE);
         EasyMock.expectLastCall();
         view.setAddPlayerButtonDisabled(false);
@@ -58,9 +69,6 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void onAddPlayer_CurrentThree_Success() {
-        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
-        PlayerCreateView view = setUpViewExpectations();
-
         view.addPlayerField(PLAYER_COUNT_THREE);
         EasyMock.expectLastCall();
         view.setAddPlayerButtonDisabled(false);
@@ -84,8 +92,6 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void onAddPlayer_CurrentFour_Failed() {
-        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
-        PlayerCreateView view = setUpViewExpectations();
         Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
         view.addPlayerField(PLAYER_COUNT_THREE);
@@ -121,8 +127,6 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void onConfirmNames_OnePlayer_Failed() {
-        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
-        PlayerCreateView view = setUpViewExpectations();
         Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
         List<String> mockInputs = List.of("");
@@ -148,8 +152,6 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void onConfirmNames_TwoPlayers_Success() {
-        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
-        PlayerCreateView view = setUpViewExpectations();
         Runnable onSuccess = EasyMock.createMock(Runnable.class);
 
         List<String> mockInputs = List.of("Alice", "Bob");
@@ -175,8 +177,6 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void onConfirmNames_onSuccess_Error() {
-        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
-        PlayerCreateView view = setUpViewExpectations();
         Runnable onSuccess = EasyMock.createMock(Runnable.class);
         Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
@@ -203,8 +203,6 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void onRestartButton_buttonPressed_success() {
-        AssetProvider assets = EasyMock.createMock(AssetProvider.class);
-        PlayerCreateView view = setUpViewExpectations();
         Runnable onRestart = EasyMock.createMock(Runnable.class);
 
         onRestart.run();
@@ -218,19 +216,6 @@ public class PlayerCreateControllerTests {
         controller.onRestartButton();
 
         EasyMock.verify(onRestart);
-    }
-
-    private PlayerCreateView setUpViewExpectations() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-
-        view.bindUI(
-                EasyMock.anyObject(Runnable.class),
-                EasyMock.anyObject(Runnable.class),
-                EasyMock.anyObject(Runnable.class)
-        );
-        EasyMock.expectLastCall();
-
-        return view;
     }
 
 }
