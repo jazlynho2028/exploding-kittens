@@ -41,6 +41,10 @@ public class Game {
     }
 
     public void startGame() {
+        if (this.isGameOngoing) {
+            throw new GameException("error.gameAlreadyStarted");
+        }
+
         this.turnManager = new TurnManager(this.players);
 
         for (Player p : this.players) {

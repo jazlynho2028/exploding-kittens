@@ -88,6 +88,6 @@
   - **Expected output**: GameException (with key "error.invalidPlayerCount")
 
 - **TC11: start game when game is already ongoing** ( :x: )
-  - **Name of the test**: 
+  - **Name of the test**: startGame_gameIsAlreadyOngoing_throwsGameException
   - **State of the system**: isGameOngoing is true; startGame() is called
   - **Expected output**: GameException (with key "error.gameAlreadyStarted")

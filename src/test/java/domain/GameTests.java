@@ -285,4 +285,36 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void startGame_gameIsAlreadyOngoing_throwsGameException() {
+        List<String> names = Arrays.asList("Alice", "Bob");
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+        Card mockCard = EasyMock.createMock(Card.class);
+
+        EasyMock.expect(mockDrawPile.removeTop()).andReturn(mockCard).times(14);
+
+        mockDrawPile.addCard(EasyMock.anyObject(Card.class));
+        EasyMock.expectLastCall().times(4);
+
+        mockDrawPile.addCard(EasyMock.anyObject(Card.class));
+        EasyMock.expectLastCall().times(1);
+
+        mockDrawPile.shuffle();
+        EasyMock.expectLastCall().once();
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile, mockCard);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+        game.startGame();
+
+        GameException exception = assertThrows(GameException.class, () -> {
+            game.startGame();
+        });
+
+        assertEquals("error.gameAlreadyStarted", exception.getKey());
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile, mockCard);
+    }
 }
