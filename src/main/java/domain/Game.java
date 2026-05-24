@@ -91,11 +91,11 @@ public final class Game {
     }
 
     public Deck getDrawPile() {
-        return new Deck(this.drawPile);
+        return this.drawPile;
     }
 
     public Deck getDiscardPile() {
-        return new Deck(this.discardPile);
+        return this.discardPile;
     }
 
     public TurnManager getTurnManager() {
