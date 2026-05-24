@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public final class Player {
@@ -16,7 +17,7 @@ public final class Player {
     }
 
     public List<Card> getHand() {
-        return this.hand;
+        return Collections.unmodifiableList(this.hand);
     }
 
     public String getName() {
