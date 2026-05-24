@@ -61,10 +61,6 @@ tasks.compileJava {
     options.release = 11
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 tasks.withType<Checkstyle>().configureEach {
     reports {
         xml.required = false
@@ -121,6 +117,7 @@ tasks.build {
 }
 
 tasks.test {
+    useJUnitPlatform()
     finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
     finalizedBy(tasks.pitest)
 }

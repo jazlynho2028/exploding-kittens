@@ -94,7 +94,7 @@ public class Game implements GameData {
     }
 
     public boolean getIsFaceUp() {
-        return true;
+        return false;
     }
 
     public boolean isGameOngoing() {

@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import static ui.PlayerCreateView.buildBackgroundImage;
 import static ui.PlayerCreateView.buildIcon;
@@ -49,6 +50,36 @@ public class PlayerDeckView {
         turnControlSection = new HBox();
 
         buildUI();
+    }
+
+    public void bindActionButtons(Runnable onDrawPile,
+                                  Runnable onHandVisibilityButton,
+                                  Runnable onStartGameButton) {
+        drawPileButton.setOnMouseClicked(e -> onDrawPile.run());
+        handVisibilityButton.setOnMouseClicked(e -> onHandVisibilityButton.run());
+        startGameButton.setOnMouseClicked(e -> onStartGameButton.run());
+    }
+
+    public void bindNameTags(Consumer<Integer> handler) {
+        ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
+
+        for (int i = 0; i < nameTagButtons.size(); i++) {
+            int index = i;
+            nameTagButtons.get(i).setOnMouseClicked((e ->
+                    handler.accept(index)
+            ));
+        }
+    }
+
+    public void bindPlayerHandCardButtons(Consumer<Integer> handler) {
+        ObservableList<Node> handCards = handCardsContainer.getChildren();
+
+        for (int i = 0; i < handCards.size(); i++) {
+            int index = i;
+            handCards.get(i).setOnMouseClicked((e ->
+                    handler.accept(index)
+            ));
+        }
     }
 
     public Scene createPlayerDeckScene() {
@@ -144,13 +175,6 @@ public class PlayerDeckView {
     public void renderTurnControlSection(boolean canPlaySelected, boolean canEndTurn) {
         playCardsButton.setDisable(!canPlaySelected);
         endTurnButton.setDisable(!canEndTurn);
-    }
-
-    public boolean isSelectedHandCard(int handCardIndex) {
-        ObservableList<Node> handCardButtons = handCardsContainer.getChildren();
-        ToggleButton handCardButton = (ToggleButton) handCardButtons.get(handCardIndex);
-
-        return handCardButton.isSelected();
     }
 
     private void buildUI() {

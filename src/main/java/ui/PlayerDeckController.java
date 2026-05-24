@@ -2,9 +2,7 @@ package ui;
 
 import domain.Game;
 import domain.GameData;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.Scene;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.function.Consumer;
 
@@ -16,27 +14,30 @@ public class PlayerDeckController {
 
     private Consumer<String> onError;
 
-    public PlayerDeckController(Game model, AssetProvider assets) {
-        this.model = model;
-        this.assets = assets;
-        this.view = new PlayerDeckView(assets);
-        this.onError = message -> { };
-
-        buildAndBindUI();
-    }
-
-    // Fake constructor for tests to exclude UI view implementation
-    PlayerDeckController(Game model, AssetProvider assets, PlayerDeckView view) {
+    @SuppressFBWarnings(
+            value = "EI_EXPOSE_REP2",
+            justification = "View is injected by for compromise between MVC pattern and " +
+                    "testability, defensive copy is not applicable for JavaFX components"
+    )
+    public PlayerDeckController(Game model, AssetProvider assets, PlayerDeckView view) {
         this.model = model;
         this.assets = assets;
         this.view = view;
+        this.onError = message -> { };
+
+        buildAndBindUI();
     }
 
     public void setOnError(Consumer<String> onError) {
         this.onError = onError;
     }
 
-    void buildAndBindUI() {
+    private void buildAndBindUI() {
+        buildDependentUI();
+        bindUI();
+    }
+
+    private void buildDependentUI() {
         view.buildAndAddPlayerHandCards(
                 this.model.getCurrentPlayerHandIds(),
                 this.model.getIsFaceUp(),
@@ -47,38 +48,16 @@ public class PlayerDeckController {
                 this.model.getCurrentPlayerIndex(),
                 this.model.isGameOngoing()
         );
-
-        bindUI();
     }
 
-    void bindUI() {
-        bindNameTags(this::onNameTag);
-        view.drawPileButton.setOnMouseClicked(e -> onDrawPile());
-        view.handVisibilityButton.setOnMouseClicked(e -> onHandVisibilityButton());
-        bindPlayerHandCardButtons(this::onPlayerHandCardButton);
-        view.startGameButton.setOnMouseClicked(e -> onStartGameButton());
-    }
-
-    private void bindNameTags(Consumer<Integer> handler) {
-        ObservableList<Node> nameTagButtons = view.playerNamesContainer.getChildren();
-
-        for (int i = 0; i < nameTagButtons.size(); i++) {
-            int index = i;
-            nameTagButtons.get(i).setOnMouseClicked((e ->
-                    handler.accept(index)
-            ));
-        }
-    }
-
-    void bindPlayerHandCardButtons(Consumer<Integer> handler) {
-        ObservableList<Node> handCards = view.handCardsContainer.getChildren();
-
-        for (int i = 0; i < handCards.size(); i++) {
-            int index = i;
-            handCards.get(i).setOnMouseClicked((e ->
-                    handler.accept(index)
-            ));
-        }
+    private void bindUI() {
+        view.bindActionButtons(
+                this::onDrawPile,
+                this::onHandVisibilityButton,
+                this::onStartGameButton
+        );
+        view.bindNameTags(this::onNameTag);
+        view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
     }
 
     void onNameTag(int playerIndex) {
@@ -109,7 +88,7 @@ public class PlayerDeckController {
                 model.getIsFaceUp(),
                 model.getIsBeforeDraw()
         );
-        bindPlayerHandCardButtons(this::onPlayerHandCardButton);
+        view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
     }
 
     void onDrawPile() {
@@ -171,10 +150,6 @@ public class PlayerDeckController {
         catch (Exception e) {
             onError.accept(assets.getString("error.startGame"));
         }
-    }
-
-    public Scene getPlayerDeckScene() {
-        return view.createPlayerDeckScene();
     }
 
 }
