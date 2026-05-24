@@ -74,4 +74,4 @@
 5. [95% Done] DJ: TurnManager.java
 6. [95% Done] DJ: Player.java
 7. [not started] Luke: Card.java
-8. [50% Done] Irene: Deck.java
+8. [Done] Irene: Deck.java
