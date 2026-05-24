@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 public class PlayerDeckControllerTests {
 
 	private ArrayList<String> currentPlayerHandIds;
@@ -64,9 +66,19 @@ public class PlayerDeckControllerTests {
 	@Test
 	public void constructor_called_success() {
 		setUp();
-		EasyMock.replay(model, view);
 
-		new PlayerDeckController(model, assets, view);
+		String expectedMsg = "Failed to change current player.";
+		EasyMock.expect(assets.getString("error.changePlayer")).andReturn(expectedMsg);
+
+		int playerIndex = 0;
+		model.changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
+		EasyMock.expectLastCall().andThrow(new GameException(expectedMsg));
+
+		EasyMock.replay(model, assets, view);
+
+		PlayerDeckController controller = new PlayerDeckController(model, assets, view);
+
+		assertDoesNotThrow(() -> controller.handleChangeCurrentPlayer(playerIndex));
 
 		EasyMock.verify(model, view);
 	}

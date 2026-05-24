@@ -2,7 +2,7 @@
 - **TC1: this method is called** ( :white_check_mark: )
   - **Name of the test**: constructor_called_success
   - **State of the system**: N/A
-  - **Expected output**: called view.buildAndAddPlayerHandCards, view.buildAddRenderPlayerNameTags, view.bindActionButtons, view.bindNameTags, view.bindPlayerHandCardButtons
+  - **Expected output**: onError has default empty handling, called view.buildAndAddPlayerHandCards, view.buildAddRenderPlayerNameTags, view.bindActionButtons, view.bindNameTags, view.bindPlayerHandCardButtons
 
 ### Method under test: `onNameTag(int playerIndex)`
 - **TC2: player index is the same as current player index** ( :white_check_mark: )
