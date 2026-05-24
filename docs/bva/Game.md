@@ -82,8 +82,8 @@
   - **State of the system**: Game constructed with 1 player name; startGame() is called
   - **Expected output**: GameException (with key "error.invalidPlayerCount")
 
-- **TC10: start game with too many players** ( :x: )
-  - **Name of the test**: 
+- **TC10: start game with too many players** ( :white_check_mark: )
+  - **Name of the test**: startGame_tooManyPlayers_throwsGameException
   - **State of the system**: Game constructed with 5 player names; startGame() is called
   - **Expected output**: GameException (with key "error.invalidPlayerCount")
 
