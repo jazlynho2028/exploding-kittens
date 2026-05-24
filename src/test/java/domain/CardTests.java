@@ -1,6 +1,5 @@
 package domain;
 
-import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,4 +17,15 @@ public class CardTests {
         assertTrue(card.getIsSelected());
     }
 
+    @Test
+    public void toggleSelected_CurrentTrue_Success() {
+        String id = "EXPLODING_KITTEN_1";
+        CardType type = CardType.CAT_CARD_1;
+        Card card = new Card(id, type);
+
+        card.toggleSelected();
+        card.toggleSelected();
+
+        assertFalse(card.getIsSelected());
+    }
 }
