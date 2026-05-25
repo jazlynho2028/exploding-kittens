@@ -1,8 +1,8 @@
-### Method under test: `buildAndBindUI()`
+## Method under test: `PlayerDeckController()`
 - **TC1: this method is called** ( :white_check_mark: )
-  - **Name of the test**: buildAndBindUI_called_success
+  - **Name of the test**: constructor_called_success
   - **State of the system**: N/A
-  - **Expected output**: called view.buildAndAddPlayerHandCards, view.buildAddRenderPlayerNameTags, and bindUI
+  - **Expected output**: onError has default empty handling, called view.buildAndAddPlayerHandCards, view.buildAddRenderPlayerNameTags, view.bindActionButtons, view.bindNameTags, view.bindPlayerHandCardButtons
 
 ### Method under test: `onNameTag(int playerIndex)`
 - **TC2: player index is the same as current player index** ( :white_check_mark: )
@@ -12,7 +12,7 @@
 
 - **TC3: player index is different from current player index** ( :white_check_mark: )
     - **Name of the test**: onNameTag_playerChanges_success
-    - **State of the system**: playerIndex = 0, currentPlayerIndex = 1
+    - **State of the system**: playerIndex = 1, currentPlayerIndex = 0
     - **Expected output**: called handleChangeCurrentPlayer(playerIndex)
 
 ### Method under test: `handleChangeCurrentPlayer(int playerIndex)`
@@ -70,9 +70,3 @@
     - **Name of the test**: onStartGameButton_called_fail
     - **State of the system**: N/A
     - **Expected output**: caught exception from model.startGame(), called onError.accept("Failed to start game.")
-
-### Method under test: `getPlayerDeckScene()`
-- **TC14: this method is called ** ( :white_check_mark: )
-  - **Name of the test**: getPlayerDeckScene_called_success
-  - **State of the system**: N/A
-  - **Expected output**: called view.createPlayerDeckScene()

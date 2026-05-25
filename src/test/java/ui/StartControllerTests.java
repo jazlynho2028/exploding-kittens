@@ -1,12 +1,26 @@
 package ui;
 
-import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
-
 public class StartControllerTests {
+
+	@Test
+	public void constructor_called_success() {
+		StartView view = EasyMock.createMock(StartView.class);
+
+		view.bindUI(
+				EasyMock.anyObject(Runnable.class),
+				EasyMock.anyObject(Runnable.class)
+		);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(view);
+
+		new StartController(view);
+
+		EasyMock.verify(view);
+	}
 
 	@Test
 	public void onEnglishPlayButton_buttonPressed_success() {
@@ -19,11 +33,11 @@ public class StartControllerTests {
 		StartController controller = new StartController(view);
 		controller.setOnEnglishPlay(onEnglishPlay);
 
-		EasyMock.replay(view, onEnglishPlay);
+		EasyMock.replay(onEnglishPlay);
 
 		controller.onEnglishPlayButton();
 
-		EasyMock.verify(view, onEnglishPlay);
+		EasyMock.verify(onEnglishPlay);
 	}
 
 	@Test
@@ -37,30 +51,11 @@ public class StartControllerTests {
 		StartController controller = new StartController(view);
 		controller.setOnSpanishPlay(onSpanishPlay);
 
-		EasyMock.replay(view, onSpanishPlay);
+		EasyMock.replay(onSpanishPlay);
 
 		controller.onSpanishPlayButton();
 
-		EasyMock.verify(view, onSpanishPlay);
-	}
-
-	@Test
-	public void getStartScene_called_success() {
-		StartView view = EasyMock.createMock(StartView.class);
-		Scene expectedScene = EasyMock.createMock(Scene.class);
-
-		EasyMock.expect(view.createStartScene()).andReturn(
-				expectedScene
-		);
-
-		StartController controller = new StartController(view);
-
-		EasyMock.replay(view);
-
-		Scene actualScene = controller.getStartScene();
-		assertSame(expectedScene, actualScene);
-
-		EasyMock.verify(view);
+		EasyMock.verify(onSpanishPlay);
 	}
 
 }

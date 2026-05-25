@@ -1,17 +1,19 @@
 package ui;
 
-import javafx.scene.Scene;
-
 public class ErrorController {
 
-	private final ErrorView view;
+	private Runnable onRestart;
 
-	public ErrorController(AssetProvider assetProvider, String message) {
-		this.view = new ErrorView(assetProvider, message);
+	public ErrorController(ErrorView view) {
+		view.bindUI(this::onRestartButton);
 	}
 
-	public Scene getErrorScene() {
-		return view.createErrorScene();
+	void onRestartButton() {
+		onRestart.run();
+	}
+
+	public void setOnRestart(Runnable onRestart) {
+		this.onRestart = onRestart;
 	}
 
 }

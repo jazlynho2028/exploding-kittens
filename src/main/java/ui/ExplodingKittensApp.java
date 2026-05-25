@@ -31,30 +31,35 @@ public class ExplodingKittensApp extends Application {
     }
 
     private void showStartScreen(Stage stage) {
-        StartController controller = new StartController(assets);
+        StartView view = new StartView(assets);
+        StartController controller = new StartController(view);
 
         controller.setOnEnglishPlay(() -> switchLanguageAndView(stage, englishLanguage));
         controller.setOnSpanishPlay(() -> switchLanguageAndView(stage, spanishLanguage));
 
-        Scene startScene = controller.getStartScene();
+        Scene startScene = view.createStartScene();
         setScene(startScene, stage);
     }
 
     private void showPlayerCreateScreen(Stage stage) {
-        PlayerCreateController controller = new PlayerCreateController(assets);
+        PlayerCreateView view = new PlayerCreateView(assets);
+        PlayerCreateController controller = new PlayerCreateController(assets, view);
 
         controller.setOnError(errorHandler);
         controller.setOnSuccess(() -> initializeGame(controller, stage));
         controller.setOnRestart(() -> showStartScreen(stage));
 
-        Scene playerCreateScene = controller.getPlayerCreateScene();
+        Scene playerCreateScene = view.createPlayerCreateScene();
         setScene(playerCreateScene, stage);
     }
 
     private void showErrorScreen(String message, Stage stage) {
-        ErrorController controller = new ErrorController(assets, message);
+        ErrorView view = new ErrorView(assets, message);
+        ErrorController controller = new ErrorController(view);
 
-        Scene errorScene = controller.getErrorScene();
+        controller.setOnRestart(() -> showStartScreen(stage));
+
+        Scene errorScene = view.createErrorScene();
         setScene(errorScene, stage);
     }
 
@@ -66,11 +71,12 @@ public class ExplodingKittensApp extends Application {
     }
 
     private void showPlayerDeckScreen(Game model, Stage stage) {
-        PlayerDeckController controller = new PlayerDeckController(model, assets);
+        PlayerDeckView view = new PlayerDeckView(assets);
+        PlayerDeckController controller = new PlayerDeckController(model, assets, view);
 
         controller.setOnError(errorHandler);
 
-        Scene playerDeckScene = controller.getPlayerDeckScene();
+        Scene playerDeckScene = view.createPlayerDeckScene();
         setScene(playerDeckScene, stage);
     }
 

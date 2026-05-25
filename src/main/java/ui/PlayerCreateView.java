@@ -42,6 +42,12 @@ public class PlayerCreateView {
         buildUI();
     }
 
+    public void bindUI(Runnable onAddPlayer, Runnable onConfirmNames, Runnable onRestart) {
+        addPlayerButton.setOnMouseClicked(e -> onAddPlayer.run());
+        confirmButton.setOnMouseClicked(e -> onConfirmNames.run());
+        restartButton.setOnMouseClicked(e -> onRestart.run());
+    }
+
     public Scene createPlayerCreateScene() {
         return new Scene(root, UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
     }
@@ -52,7 +58,7 @@ public class PlayerCreateView {
         ImageView backgroundImage = buildBackgroundImage(assetProvider);
 
         StackPane createScreen = buildCreateScreen();
-        StackPane overlayLayer = buildOverlayLayer();
+        StackPane overlayLayer = buildOverlayLayer(assetProvider, restartButton);
 
         root.getChildren().addAll(backgroundImage, createScreen, overlayLayer);
     }
@@ -87,6 +93,8 @@ public class PlayerCreateView {
     private void setupPlayerFieldsContainer() {
         playerFieldsContainer.setAlignment(Pos.CENTER);
         playerFieldsContainer.getStyleClass().add("player-fields-container");
+        addPlayerField(1);
+        addPlayerField(2);
     }
 
     private Button buildAddPlayerButton() {
@@ -99,7 +107,7 @@ public class PlayerCreateView {
         return confirmButton;
     }
 
-    private StackPane buildOverlayLayer() {
+    static StackPane buildOverlayLayer(AssetProvider assetProvider, Button restartButton) {
         StackPane overlayLayer = new StackPane();
         overlayLayer.setPickOnBounds(false);
 
@@ -112,7 +120,7 @@ public class PlayerCreateView {
         return overlayLayer;
     }
 
-    private void buildRestartButton(AssetProvider assetProvider, Button restartButton) {
+    static void buildRestartButton(AssetProvider assetProvider, Button restartButton) {
         restartButton.getStyleClass().add("icon-button");
 
         SVGPath restartIcon = buildIcon(assetProvider, "restart");
