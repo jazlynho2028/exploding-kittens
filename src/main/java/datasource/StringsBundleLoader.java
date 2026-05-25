@@ -23,7 +23,7 @@ public class StringsBundleLoader {
 		}
 	}
 
-	public ResourceBundle getBundle() {
+	public ResourceBundle getCurrentBundle() {
 		return ResourceBundle.getBundle(bundleName, currentLocale);
 	}
 

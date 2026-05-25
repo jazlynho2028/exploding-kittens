@@ -1,37 +1,31 @@
 package ui;
 
-import javafx.scene.Scene;
-
 public class StartController {
 
-    private final StartView view;
-    private Runnable onPlay;
+	private Runnable onEnglishPlay;
+    private Runnable onSpanishPlay;
 
-    public StartController(AssetProvider assetProvider) {
-        this.view = new StartView(assetProvider);
-        this.onPlay = () -> { };
-
-        buildAndBindUI();
+    public StartController(StartView view) {
+		view.bindUI(
+                this::onEnglishPlayButton,
+                this::onSpanishPlayButton
+        );
     }
 
-    public void setOnPlay(Runnable onPlay) {
-        this.onPlay = onPlay;
+    public void setOnEnglishPlay(Runnable onEnglishPlay) {
+        this.onEnglishPlay = onEnglishPlay;
     }
 
-    private void buildAndBindUI() {
-        bindUI();
+    public void setOnSpanishPlay(Runnable onSpanishPlay) {
+        this.onSpanishPlay = onSpanishPlay;
     }
 
-    private void bindUI() {
-        view.playButton.setOnMouseClicked(e -> onPlayButton());
+    void onEnglishPlayButton() {
+        onEnglishPlay.run();
     }
 
-    private void onPlayButton() {
-        System.out.println("START GAME BUTTON CLICKED");
-        onPlay.run();
+    void onSpanishPlayButton() {
+        onSpanishPlay.run();
     }
 
-    public Scene getStartScene() {
-        return view.createStartScene();
-    }
 }

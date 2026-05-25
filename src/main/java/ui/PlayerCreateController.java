@@ -1,30 +1,35 @@
 package ui;
 
-import javafx.scene.Scene;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class PlayerCreateController {
     private final PlayerCreateView view;
+    private final AssetProvider assets;
     private final List<String> playerFields = new ArrayList<>();
 
     private List<String> confirmedNames;
     private Consumer<String> onError;
     private Runnable onSuccess;
-    private Runnable onBack;
+    private Runnable onRestart;
 
+    private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
 
-    public PlayerCreateController(AssetProvider assets) {
-        this.view = new PlayerCreateView(assets);
+    @SuppressFBWarnings(
+            value = "EI_EXPOSE_REP2",
+            justification = "View is injected by for compromise between MVC pattern and " +
+                    "testability, defensive copy is not applicable for JavaFX components"
+    )
+    public PlayerCreateController(AssetProvider assets, PlayerCreateView view) {
+        this.view = view;
+        this.assets = assets;
         this.onError = message -> { };
 
         buildAndBindUI();
-    }
-
-    PlayerCreateController(PlayerCreateView view) {
-        this.view = view;
     }
 
     public void setOnError(Consumer<String> onError) {
@@ -35,28 +40,26 @@ public class PlayerCreateController {
         this.onSuccess = onSuccess;
     }
 
-    public void setOnBack(Runnable onBack) {
-        this.onBack = onBack;
+    public void setOnRestart(Runnable onRestart) {
+        this.onRestart = onRestart;
     }
 
-    private void buildAndBindUI() {
-        onAddPlayer();
-        onAddPlayer();
-        bindUI();
-    }
-
-    private void bindUI() {
-        view.addPlayerButton.setOnMouseClicked(e -> onAddPlayer());
-        view.confirmButton.setOnMouseClicked(e -> onConfirmNames());
-        view.restartButton.setOnMouseClicked(e -> onBack.run());
+    void buildAndBindUI() {
+        for (int i = 0; i < MIN_PLAYERS; i++) {
+            playerFields.add("");
+        }
+        view.bindUI(
+                this::onAddPlayer,
+                this::onConfirmNames,
+                this::onRestartButton
+        );
     }
 
     void onAddPlayer() {
-
         int visualIndex = playerFields.size() + 1;
 
         if (visualIndex > MAX_PLAYERS) {
-            onError.accept("You cannot have more than 4 players");
+            onError.accept(assets.getString("error.maxPlayers"));
             return;
         }
 
@@ -75,26 +78,28 @@ public class PlayerCreateController {
         List<String> inputsFromView = view.getPlayerNamesFromFields();
 
         for (String input : inputsFromView) {
-            if (input != null && !input.isBlank()) {
+            if (!input.isBlank()) {
                 names.add(input.trim());
             }
         }
 
-        if (names.size() < 2) {
-            onError.accept("You need at least 2 players");
+        if (names.size() < MIN_PLAYERS) {
+            onError.accept(assets.getString("error.minPlayers"));
             return;
         }
 
         this.confirmedNames = names;
 
         try {
-            if (onSuccess != null) {
-                onSuccess.run();
-            }
+            onSuccess.run();
         }
         catch (Exception e) {
-            onError.accept("Error initializing game: " + e.getMessage());
+            onError.accept(e.getMessage());
         }
+    }
+
+    void onRestartButton() {
+        onRestart.run();
     }
 
     public List<String> getConfirmedNames() {
@@ -105,7 +110,4 @@ public class PlayerCreateController {
         return playerFields.size();
     }
 
-    public Scene getPlayerCreateScene() {
-        return view.createPlayerCreateScene();
-    }
 }
