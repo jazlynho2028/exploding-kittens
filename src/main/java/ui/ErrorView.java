@@ -37,7 +37,9 @@ public class ErrorView {
 
 	private void buildUI() {
 		StackPane errorScreen = buildErrorScreen();
-		StackPane overlayLayer = PlayerCreateView.buildOverlayLayer(assetProvider, restartButton);
+		StackPane overlayLayer = PlayerCreateView.buildOverlayLayer(
+				assetProvider, restartButton
+		);
 
 		root.getChildren().addAll(errorScreen, overlayLayer);
 	}
