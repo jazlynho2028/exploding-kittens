@@ -35,4 +35,5 @@ public class FontLoader implements FileLoader {
     public URL getFileUrl() {
         return this.fontFile;
     }
+
 }

@@ -5,19 +5,31 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.util.Objects;
+
 public class StartView {
     private final AssetProvider assetProvider;
     private final StackPane root;
+    private final Button playButtonEnglish;
+    private final Button playButtonSpanish;
 
     public StartView(AssetProvider assetProvider) {
         this.assetProvider = assetProvider;
-        root = new StackPane();
+        this.root = new StackPane();
+        this.playButtonEnglish = new Button();
+        this.playButtonSpanish = new Button();
 
         buildUI();
+    }
+
+    public void bindUI(Runnable onEnglishPlayButton, Runnable onSpanishPlayButton) {
+        playButtonEnglish.setOnMouseClicked(e -> onEnglishPlayButton.run());
+        playButtonSpanish.setOnMouseClicked(e -> onSpanishPlayButton.run());
     }
 
     public Scene createStartScene () {
@@ -32,7 +44,7 @@ public class StartView {
     private StackPane buildStartScreen() {
         StackPane startScreen = new StackPane();
 
-        ImageView explosionCatImage = buildExplosionImage();
+        ImageView explosionCatImage = buildExplosionImage(assetProvider);
         VBox contentSection = buildContentSection();
 
         startScreen.getChildren().addAll(explosionCatImage, contentSection);
@@ -45,16 +57,32 @@ public class StartView {
         contentSection.getStyleClass().add("start-content-section");
         contentSection.setAlignment(Pos.CENTER);
 
-        Text titleText = buildTitleText();
-        Button playButton = buildPlayButton();
+        Text titleText = buildTitleText(assetProvider);
 
-        contentSection.getChildren().addAll(titleText, playButton);
+        HBox playButtonsContainer = buildPlayButtonsContainer();
+
+        contentSection.getChildren().addAll(
+                titleText, playButtonsContainer
+        );
 
         return contentSection;
     }
 
-    private ImageView buildExplosionImage() {
-        Image image = assetProvider.getImage("placeholder");
+    private HBox buildPlayButtonsContainer() {
+        HBox playButtonsContainer = new HBox();
+        playButtonsContainer.getStyleClass().add("play-buttons-container");
+        playButtonsContainer.setAlignment(Pos.CENTER);
+
+        renderPlayButton(playButtonEnglish, "English");
+        renderPlayButton(playButtonSpanish, "Spanish");
+
+        playButtonsContainer.getChildren().addAll(playButtonEnglish, playButtonSpanish);
+
+        return playButtonsContainer;
+    }
+
+    static ImageView buildExplosionImage(AssetProvider assetProvider) {
+        Image image = assetProvider.getImage("explosion");
         ImageView imageView = new ImageView(image);
 
         imageView.setFitWidth(UIConstants.BACKGROUND_IMAGE_WIDTH);
@@ -63,20 +91,27 @@ public class StartView {
         return imageView;
     }
 
-    private Text buildTitleText() {
-        Text titleText = new Text(UIConstants.TITLE);
+    static Text buildTitleText(AssetProvider assetProvider) {
+        Text titleText = new Text(assetProvider.getString("global.title"));
         titleText.getStyleClass().addAll("h1", "title");
 
         return titleText;
     }
 
-    private Button buildPlayButton() {
-        Button playButton = new Button();
+    private void renderPlayButton(Button playButton, String languageName) {
         playButton.getStyleClass().addAll("play-button", "h2");
 
-        playButton.setText(UIConstants.PLAY_BUTTON_LABEL);
+        setPlayButtonText(playButton, languageName);
+    }
 
-        return playButton;
+    private void setPlayButtonText(Button playButton, String languageName) {
+        if (Objects.equals(languageName, "English")) {
+            playButton.setText(assetProvider.getString("startScreen.English"));
+        }
+        else {
+            playButton.setText(assetProvider.getString("startScreen.Spanish"));
+        }
     }
 
 }
+
