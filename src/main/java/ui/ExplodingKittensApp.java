@@ -54,9 +54,12 @@ public class ExplodingKittensApp extends Application {
     }
 
     private void showErrorScreen(String message, Stage stage) {
-        ErrorController controller = new ErrorController(assets, message);
+        ErrorView view = new ErrorView(assets, message);
+        ErrorController controller = new ErrorController(view);
 
-        Scene errorScene = controller.getErrorScene();
+        controller.setOnRestart(() -> showStartScreen(stage));
+
+        Scene errorScene = view.createErrorScene();
         setScene(errorScene, stage);
     }
 
