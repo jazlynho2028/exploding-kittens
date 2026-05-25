@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CardTests {
     @Test
     public void toggleSelected_CurrentFalse_Success() {
-        String id = "EXPLODING_KITTEN_1";
+        String id = "EXPLODINGKITTEN_1";
         CardType type = CardType.CAT_CARD_1;
         Card card = new Card(id, type);
 
@@ -19,7 +19,7 @@ public class CardTests {
 
     @Test
     public void toggleSelected_CurrentTrue_Success() {
-        String id = "EXPLODING_KITTEN_1";
+        String id = "EXPLODINGKITTEN_1";
         CardType type = CardType.CAT_CARD_1;
         Card card = new Card(id, type);
 
