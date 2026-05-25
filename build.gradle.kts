@@ -126,8 +126,8 @@ tasks.jacocoTestReport {
 }
 
 pitest {
-    targetClasses.set(listOf("ui.ErrorController"))
-    targetTests.set(listOf("ui.ErrorControllerTests"))
+    targetClasses.set(listOf("domain.*, ui.*Controller"))
+    targetTests.set(listOf("domain.*, ui.*ControllerTests"))
     junit5PluginVersion = "1.2.2"
     pitestVersion = "1.15.0" //not needed when a default PIT version should be used
 
