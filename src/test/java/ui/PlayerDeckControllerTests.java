@@ -16,6 +16,7 @@ public class PlayerDeckControllerTests {
 	private ArrayList<String> currentPlayerHandIds;
 	private boolean isFaceUp;
 	private boolean isBeforeDraw;
+	private ArrayList<String> playerNames;
 	private int currentPlayerIndex;
 	private boolean isGameOngoing;
 
@@ -34,7 +35,7 @@ public class PlayerDeckControllerTests {
 		currentPlayerHandIds = new ArrayList<>();
 		isFaceUp = false;
 		isBeforeDraw = true;
-		ArrayList<String> playerNames = new ArrayList<>();
+		playerNames = new ArrayList<>();
 		currentPlayerIndex = 0;
 		isGameOngoing = false;
 
@@ -42,25 +43,39 @@ public class PlayerDeckControllerTests {
 		assets = EasyMock.createMock(AssetProvider.class);
 		view = EasyMock.createMock(PlayerDeckView.class);
 
+		setModelExpectations();
+
+		setViewExpectations();
+	}
+
+	private void setModelExpectations() {
 		EasyMock.expect(model.getCurrentPlayerHandIds()).andReturn(currentPlayerHandIds);
 		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
 		EasyMock.expect(model.getIsBeforeDraw()).andReturn(isBeforeDraw);
 		EasyMock.expect(model.getPlayerNames()).andReturn(playerNames);
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
 		EasyMock.expect(model.isGameOngoing()).andReturn(isGameOngoing);
+	}
 
+	private void setViewExpectations() {
 		view.buildAndAddPlayerHandCards(currentPlayerHandIds, isFaceUp, isBeforeDraw);
 		EasyMock.expectLastCall();
+
 		view.buildAddRenderPlayerNameTags(playerNames, currentPlayerIndex, isGameOngoing);
 		EasyMock.expectLastCall();
-		view.bindActionButtons(
-				EasyMock.anyObject(Runnable.class),
-				EasyMock.anyObject(Runnable.class),
-				EasyMock.anyObject(Runnable.class)
-		);
+
+		view.bindDrawPileButton(EasyMock.anyObject(Runnable.class));
 		EasyMock.expectLastCall();
+
+		view.bindHandVisibilityButton(EasyMock.anyObject(Runnable.class));
+		EasyMock.expectLastCall();
+
+		view.bindStartGameButton(EasyMock.anyObject(Runnable.class));
+		EasyMock.expectLastCall();
+
 		view.bindNameTags(EasyMock.anyObject(Consumer.class));
 		EasyMock.expectLastCall();
+
 		view.bindPlayerHandCardButtons(EasyMock.anyObject(Consumer.class));
 		EasyMock.expectLastCall();
 	}

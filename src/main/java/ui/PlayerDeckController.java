@@ -51,11 +51,9 @@ public class PlayerDeckController {
     }
 
     private void bindUI() {
-        view.bindActionButtons(
-                this::onDrawPile,
-                this::onHandVisibilityButton,
-                this::onStartGameButton
-        );
+        view.bindDrawPileButton(this::onDrawPile);
+        view.bindHandVisibilityButton(this::onHandVisibilityButton);
+        view.bindStartGameButton(this::onStartGameButton);
         view.bindNameTags(this::onNameTag);
         view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
     }

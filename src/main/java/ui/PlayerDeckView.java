@@ -52,12 +52,16 @@ public class PlayerDeckView {
         buildUI();
     }
 
-    public void bindActionButtons(Runnable onDrawPile,
-                                  Runnable onHandVisibilityButton,
-                                  Runnable onStartGameButton) {
-        drawPileButton.setOnMouseClicked(e -> onDrawPile.run());
-        handVisibilityButton.setOnMouseClicked(e -> onHandVisibilityButton.run());
-        startGameButton.setOnMouseClicked(e -> onStartGameButton.run());
+    public void bindDrawPileButton(Runnable handler) {
+        drawPileButton.setOnMouseClicked(e -> handler.run());
+    }
+
+    public void bindHandVisibilityButton(Runnable handler) {
+        handVisibilityButton.setOnMouseClicked(e -> handler.run());
+    }
+
+    public void bindStartGameButton(Runnable handler) {
+        startGameButton.setOnMouseClicked(e -> handler.run());
     }
 
     public void bindNameTags(Consumer<Integer> handler) {
