@@ -5,7 +5,7 @@
     - **Expected output**: called view.bindUI()
 
 ### Method under test: `onRestartButton()`
-- **TC2: This method is called** ( :x: )
+- **TC2: This method is called** ( :white_check_mark: )
     - **Name of the test:** onRestartButton_buttonPressed_success
     - **State of the System:** N/A
     - **Expected output:** called onRestart.run()
