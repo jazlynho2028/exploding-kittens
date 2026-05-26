@@ -10,7 +10,6 @@ public class PlayerDeckController {
 
     private final PlayerDeckView view;
     private final GameData model;
-    private final AssetProvider assets;
 
     private Consumer<String> onError;
 
@@ -19,9 +18,8 @@ public class PlayerDeckController {
             justification = "View is injected by for compromise between MVC pattern and " +
                     "testability, defensive copy is not applicable for JavaFX components"
     )
-    public PlayerDeckController(Game model, AssetProvider assets, PlayerDeckView view) {
+    public PlayerDeckController(Game model, PlayerDeckView view) {
         this.model = model;
-        this.assets = assets;
         this.view = view;
         this.onError = message -> { };
     }
@@ -49,7 +47,7 @@ public class PlayerDeckController {
             );
         }
         catch (Exception e) {
-            onError.accept(assets.getString(e.getMessage()));
+            onError.accept(e.getMessage());
         }
     }
 
@@ -80,7 +78,7 @@ public class PlayerDeckController {
             buildAddBindPlayerHandCards();
         }
         catch (Exception e) {
-            onError.accept(assets.getString(e.getMessage()));
+            onError.accept(e.getMessage());
         }
     }
 
@@ -94,7 +92,7 @@ public class PlayerDeckController {
             view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
         }
         catch (Exception e) {
-            onError.accept(assets.getString(e.getMessage()));
+            onError.accept(e.getMessage());
         }
     }
 
@@ -113,7 +111,7 @@ public class PlayerDeckController {
             );
         }
         catch (Exception e) {
-            onError.accept(assets.getString(e.getMessage()));
+            onError.accept(e.getMessage());
         }
     }
 
@@ -125,7 +123,7 @@ public class PlayerDeckController {
             buildAddBindPlayerHandCards();
         }
         catch (Exception e) {
-            onError.accept(assets.getString(e.getMessage()));
+            onError.accept(e.getMessage());
         }
     }
 
@@ -144,7 +142,7 @@ public class PlayerDeckController {
             }
         }
         catch (Exception e) {
-            onError.accept(assets.getString(e.getMessage()));
+            onError.accept(e.getMessage());
         }
     }
 
@@ -165,7 +163,7 @@ public class PlayerDeckController {
             );
         }
         catch (Exception e) {
-            onError.accept(assets.getString(e.getMessage()));
+            onError.accept(e.getMessage());
         }
     }
 

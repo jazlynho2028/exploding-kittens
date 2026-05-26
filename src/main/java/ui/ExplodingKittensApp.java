@@ -18,8 +18,9 @@ public class ExplodingKittensApp extends Application {
 	@Override
     public void start(Stage stage) {
 		this.assets.loadGlobalFiles(englishLanguage);
-        this.errorHandler = message -> {
-            showErrorScreen(message, stage);
+        this.errorHandler = key -> {
+            String errorMsg = assets.getString(key);
+            showErrorScreen(errorMsg, stage);
         };
 
         showStartScreen(stage);
@@ -43,7 +44,7 @@ public class ExplodingKittensApp extends Application {
 
     private void showPlayerCreateScreen(Stage stage) {
         PlayerCreateView view = new PlayerCreateView(assets);
-        PlayerCreateController controller = new PlayerCreateController(assets, view);
+        PlayerCreateController controller = new PlayerCreateController(view);
 
         controller.setOnError(errorHandler);
         controller.setOnSuccess(() -> initializeGame(controller, stage));
@@ -72,7 +73,7 @@ public class ExplodingKittensApp extends Application {
 
     private void showPlayerDeckScreen(Game model, Stage stage) {
         PlayerDeckView view = new PlayerDeckView(assets);
-        PlayerDeckController controller = new PlayerDeckController(model, assets, view);
+        PlayerDeckController controller = new PlayerDeckController(model, view);
 
         controller.setOnError(errorHandler);
         controller.buildAndBindUI();
