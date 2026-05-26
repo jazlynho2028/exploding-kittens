@@ -14,10 +14,8 @@ public class StartController {
     }
 
     public Scene buildStartScene() {
-        view.bindUI(
-                this::onEnglishPlayButton,
-                this::onSpanishPlayButton
-        );
+        view.bindEnglishPlayButton(this::onEnglishPlayButton);
+        view.bindSpanishPlayButton(this::onSpanishPlayButton);
 
         return view.createStartScene();
     }
