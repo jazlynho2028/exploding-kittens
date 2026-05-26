@@ -1,225 +1,137 @@
 package domain;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import static domain.DeckBuilder.createCardId;
+public class Game implements GameData {
 
-public final class Game {
+    public Game(List<String> playerNames) { }
 
-    private static final int MIN_PLAYERS = 2;
-    private static final int MAX_PLAYERS = 4;
-
-    private static final int STARTING_HAND_SIZE = 6;
-
-    private final List<Player> players;
-    private final List<String> playerNames;
-
-    private boolean isGameOngoing;
-    private boolean isFaceUp;
-    private final Deck drawPile;
-    private final Deck discardPile;
-    private final TurnManager turnManager;
-
-    public Game(List<String> playerNames, Deck drawPile, Deck discardPile) {
-        if (playerNames.size() < MIN_PLAYERS || playerNames.size() > MAX_PLAYERS) {
-            throw new IllegalArgumentException("error.invalidPlayerCount");
-        }
-
-        this.playerNames = List.copyOf(playerNames);
-        this.drawPile = new Deck(new ArrayDeque<>(drawPile.getCards()));
-        this.discardPile = new Deck(new ArrayDeque<>(discardPile.getCards()));
-
-        this.players = new ArrayList<>();
-        for (String name : playerNames) {
-            this.players.add(new Player(name));
-        }
-
-        this.isGameOngoing = false;
-        this.isFaceUp = false;
-
-        this.turnManager = new TurnManager(this.players);
-
-        populatePlayerHands();
-    }
-
-    private void populatePlayerHands() {
-        final int normalCardCount = 5;
-        for (int i = 0; i < players.size(); i++) {
-            Player player = players.get(i);
-
-            int defuseId = normalCardCount - i;
-            String cardId = createCardId(CardType.DEFUSE, defuseId);
-
-            player.addCardToHand(new Card(cardId, CardType.DEFUSE));
-            for (int j = 0; j < STARTING_HAND_SIZE - 1; j++) {
-                player.addCardToHand(drawPile.removeTop());
-            }
-        }
-    }
-
-    public void startGame() {
-        if (isGameOngoing) {
-            throw new IllegalStateException("error.gameAlreadyStarted");
-        }
-
-        addExplodingKittensToDrawPile();
-
-        drawPile.shuffle();
-
-        isGameOngoing = true;
-        turnManager.incrementRound();
-        turnManager.incrementDrawCount();
-    }
-
-    void addExplodingKittensToDrawPile() {
-        int kittensToAdd = players.size() - 1;
-
-        for (int i = 1; i <= kittensToAdd; i++) {
-            String cardId = createCardId(CardType.EXPLODING_KITTEN, i);
-            Card explodingKitten = new Card(cardId, CardType.EXPLODING_KITTEN);
-            drawPile.addCard(explodingKitten);
-        }
-    }
-
-    List<Player> getPlayers() {
-        return List.copyOf(players);
+    // GameData methods
+    public List<String> getPlayerNames() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("player1");
+        list.add("player2");
+        list.add("player3");
+        return list;
     }
 
     public int getCurrentPlayerIndex() {
-        return turnManager.getCurrentPlayerIndex();
+        return 0;
     }
 
     public int getStartingPlayerIndex() {
-        return -1;
+        return 0;
     }
 
     public List<String> getCurrentPlayerHandIds() {
-        Player currentPlayer = players.get(getCurrentPlayerIndex());
-
-        List<String> ids = new ArrayList<>();
-        for (Card card : currentPlayer.getHand()) {
-            ids.add(card.getId());
-        }
-
-        return ids;
-    }
-
-    public boolean canPlaySelected() {
-        List<Card> selectedCards = getSelectedCards();
-
-        return isValidOneCard(selectedCards) ||
-                isValidTwoCards(selectedCards) ||
-                isValidThreeCards(selectedCards);
-    }
-
-     private boolean isValidOneCard(List<Card> selectedCards) {
-        if (selectedCards.size() == 1) {
-            Card first = selectedCards.get(0);
-
-            return cardIsNotType(first, CardType.EXPLODING_KITTEN) &&
-                    cardIsNotType(first, CardType.DEFUSE) &&
-                    !isCatCard(first);
-        }
-        return false;
-    }
-
-    private boolean isCatCard(Card card) {
-        return card.getType().name().contains("CAT_CARD");
-    }
-
-    private boolean isValidTwoCards(List<Card> selectedCards) {
-        if (selectedCards.size() == 2) {
-            Card first = selectedCards.get(0);
-            Card second = selectedCards.get(1);
-
-            return first.getType() == second.getType();
-        }
-        return false;
-    }
-
-    private boolean isValidThreeCards(List<Card> selectedCards) {
-        final int targetNum = 3;
-
-        if (selectedCards.size() == targetNum) {
-            Card first = selectedCards.get(0);
-            Card second = selectedCards.get(1);
-            Card third = selectedCards.get(2);
-
-            return first.getType() == second.getType() &&
-                    second.getType() == third.getType();
-        }
-        return false;
-    }
-
-    private boolean cardIsNotType(Card card, CardType type) {
-        return card.getType() != type;
-    }
-
-    private List<Card> getSelectedCards() {
-        List<Card> currentPlayerHand = players.get(getCurrentPlayerIndex()).getHand();
-        List<Card> selectedCards = new ArrayList<>();
-
-        for (Card card : currentPlayerHand) {
-            if (card.getIsSelected()) {
-                selectedCards.add(card);
-            }
-        }
-
-        return selectedCards;
-    }
-
-    public boolean canEndTurn() {
-        return turnManager.getCurrentDrawCount() == 0;
-    }
-
-    public boolean isDrawPileEmpty() {
-        return false;
-    }
-
-    public boolean getIsGameOngoing() {
-        return this.isGameOngoing;
-    }
-
-    public boolean getCanDraw() {
-        return false;
+        ArrayList<String> list = new ArrayList<>();
+        list.add("EXPLODINGKITTEN_1");
+        list.add("EXPLODINGKITTEN_2");
+        list.add("EXPLODINGKITTEN_3");
+        list.add("DEFUSE_1");
+        list.add("DEFUSE_2");
+        list.add("DEFUSE_3");
+        list.add("DEFUSE_4");
+        list.add("DEFUSE_5");
+        list.add("ATTACK_1");
+        list.add("ATTACK_2");
+        list.add("ATTACK_3");
+        list.add("SHUFFLE_1");
+        list.add("SHUFFLE_2");
+        list.add("SHUFFLE_3");
+        list.add("SHUFFLE_4");
+        list.add("SKIP_1");
+        list.add("SKIP_2");
+        list.add("SKIP_3");
+        list.add("SEETHEFUTURE_1");
+        list.add("SEETHEFUTURE_2");
+        list.add("SEETHEFUTURE_3");
+        list.add("SEETHEFUTURE_4");
+        list.add("FERALCAT_1");
+        list.add("FERALCAT_2");
+        list.add("FERALCAT_3");
+        list.add("FERALCAT_4");
+        list.add("CATCARD_11");
+        list.add("CATCARD_12");
+        list.add("CATCARD_13");
+        list.add("CATCARD_14");
+        list.add("CATCARD_21");
+        list.add("CATCARD_22");
+        list.add("CATCARD_23");
+        list.add("CATCARD_24");
+        list.add("CATCARD_31");
+        list.add("CATCARD_32");
+        list.add("CATCARD_33");
+        list.add("CATCARD_34");
+        list.add("CATCARD_41");
+        list.add("CATCARD_42");
+        list.add("CATCARD_43");
+        list.add("CATCARD_44");
+        list.add("CATOMICBOMB_1");
+        list.add("SUPERSKIP_1");
+        list.add("SUPERSKIP_2");
+        list.add("GODCAT_1");
+        list.add("CLONE_1");
+        list.add("CLONE_2");
+        list.add("CLONE_3");
+        list.add("SWAPTOPANDBOTTOM_1");
+        list.add("SWAPTOPANDBOTTOM_2");
+        list.add("SWAPTOPANDBOTTOM_3");
+        list.add("DRAWFROMTHEBOTTOM_1");
+        list.add("DRAWFROMTHEBOTTOM_2");
+        list.add("DRAWFROMTHEBOTTOM_3");
+        list.add("TARGETEDATTACK_1");
+        list.add("TARGETEDATTACK_2");
+        list.add("TARGETEDATTACK_3");
+        list.add("TARGETEDATTACK_4");
+        list.add("WINNERWINNERCATNIPDINNER_1");
+        list.add("RAGEBAIT_1");
+        list.add("RECYCLE_1");
+        list.add("DOUBLEUP_1");
+        list.add("MILDDRAW_1");
+        return list;
     }
 
     public boolean getIsFaceUp() {
         return false;
     }
 
-    Deck getDrawPile() {
-        return drawPile;
+    public boolean getIsGameOngoing() {
+        return false;
     }
 
-    Deck getDiscardPile() {
-        return null;
+    public boolean getIsBeforeDraw() {
+        return true;
     }
 
-    TurnManager getTurnManager() {
-        return this.turnManager;
+    public boolean canPlaySelected() {
+        return true;
     }
 
-    public void changeCurrentPlayerIndex(int newPlayerIndex) {
-
+    public boolean canEndTurn() {
+        return false;
     }
 
-    public void setFaceUpToFalse() {
-
+    public boolean getCanDraw() {
+        return false;
     }
 
-    public void drawFromPile() {
-
+    public boolean isDrawPileEmpty() {
+        return false;
     }
 
-    public void setIsFaceUpToOpposite() {
+    // Mutable Game methods
+    public void changeCurrentPlayerIndex(int playerIndex) { }
 
-    }
+    public void setFaceUpToFalse() { }
 
-    public void setIsSelectedOfPlayerCardAtIndexToOpposite(int handCardIndex) {
+    public void drawFromPile() { }
 
-    }
+    public void setIsFaceUpToOpposite() { }
+
+    public void setIsSelectedOfPlayerCardAtIndexToOpposite(int cardIndex) { }
+
+    public void startGame() { }
+
 }
