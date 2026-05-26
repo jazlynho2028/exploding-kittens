@@ -1,7 +1,6 @@
 package ui;
 
 import domain.Game;
-import domain.GameException;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +30,7 @@ public class PlayerDeckControllerTests {
 	private PlayerDeckView view;
 
 	@BeforeEach
-	public void setUpExpectations() {
+	public void setUp() {
 		currentPlayerHandIds = new ArrayList<>();
 		isFaceUp = false;
 		isBeforeDraw = true;
@@ -42,9 +41,10 @@ public class PlayerDeckControllerTests {
 		model = EasyMock.createMock(Game.class);
 		assets = EasyMock.createMock(AssetProvider.class);
 		view = EasyMock.createMock(PlayerDeckView.class);
+	}
 
+	private void expectConstructor() {
 		setModelExpectations();
-
 		setViewExpectations();
 	}
 
@@ -54,7 +54,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getIsBeforeDraw()).andReturn(isBeforeDraw);
 		EasyMock.expect(model.getPlayerNames()).andReturn(playerNames);
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
-		EasyMock.expect(model.isGameOngoing()).andReturn(isGameOngoing);
+		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
 	}
 
 	private void setViewExpectations() {
@@ -82,14 +82,16 @@ public class PlayerDeckControllerTests {
 
 	@Test
 	public void constructor_called_success() {
-		String expectedMsg = "Failed to change current player.";
-		EasyMock.expect(assets.getString("error.changePlayer")).andReturn(expectedMsg);
+		String expectedMsg = "error.test";
 
 		int playerIndex = 0;
-		model.changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
-		EasyMock.expectLastCall().andThrow(new GameException(expectedMsg));
+		model.changeCurrentPlayerIndex(playerIndex);
+		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets, view);
+		model.setFaceUpToFalse();
+		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
+
+		EasyMock.replay(model, view);
 
 		PlayerDeckController controller = new PlayerDeckController(model, assets, view);
 
@@ -135,10 +137,12 @@ public class PlayerDeckControllerTests {
 	@Test
 	public void handleChangeCurrentPlayer_playerChanges_success() {
 		int playerIndex = 0;
-		model.changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
+		model.changeCurrentPlayerIndex(playerIndex);
+		EasyMock.expectLastCall();
+		model.setFaceUpToFalse();
 		EasyMock.expectLastCall();
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
-		EasyMock.expect(model.isGameOngoing()).andReturn(isGameOngoing);
+		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
 		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
 
 		view.renderPlayerNameTags(currentPlayerIndex, isGameOngoing);
@@ -169,13 +173,13 @@ public class PlayerDeckControllerTests {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 		int playerIndex = 0;
 
-		String expectedMsg = "Failed to change current player.";
-		EasyMock.expect(assets.getString("error.changePlayer")).andReturn(
-				expectedMsg
-		);
+		String expectedMsg = "An error test.";
+		EasyMock.expect(assets.getString("error.test")).andReturn(expectedMsg);
 
-		model.changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
-		EasyMock.expectLastCall().andThrow(new GameException(expectedMsg));
+		model.changeCurrentPlayerIndex(playerIndex);
+		EasyMock.expectLastCall();
+		model.setFaceUpToFalse();
+		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
 
 		onError.accept(expectedMsg);
 		EasyMock.expectLastCall();
@@ -217,7 +221,7 @@ public class PlayerDeckControllerTests {
 		canPlaySelected = true;
 		canEndTurn = true;
 
-		EasyMock.expect(model.canDraw()).andReturn(canDraw);
+		EasyMock.expect(model.getCanDraw()).andReturn(canDraw);
 		EasyMock.expect(model.isDrawPileEmpty()).andReturn(isDrawPileEmpty);
 		EasyMock.expect(model.canPlaySelected()).andReturn(canPlaySelected);
 		EasyMock.expect(model.canEndTurn()).andReturn(canEndTurn);
@@ -253,13 +257,11 @@ public class PlayerDeckControllerTests {
 	public void onDrawPile_drawsCard_fail() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
-		String expectedMsg = "Failed to draw from pile.";
-		EasyMock.expect(assets.getString("error.drawFromPile")).andReturn(
-				expectedMsg
-		);
+		String expectedMsg = "An error test.";
+		EasyMock.expect(assets.getString("error.test")).andReturn(expectedMsg);
 
 		model.drawFromPile();
-		EasyMock.expectLastCall().andThrow(new GameException(expectedMsg));
+		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
 		onError.accept(expectedMsg);
 		EasyMock.expectLastCall();
 
@@ -358,9 +360,9 @@ public class PlayerDeckControllerTests {
 		EasyMock.expectLastCall();
 
 		EasyMock.expect(model.getStartingPlayerIndex()).andReturn(startingPlayerIndex);
-		EasyMock.expect(model.canDraw()).andReturn(canDraw);
+		EasyMock.expect(model.getCanDraw()).andReturn(canDraw);
 		EasyMock.expect(model.isDrawPileEmpty()).andReturn(isDrawPileEmpty);
-		EasyMock.expect(model.isGameOngoing()).andReturn(isGameOngoing);
+		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
 		EasyMock.expect(model.canPlaySelected()).andReturn(canPlaySelected);
 		EasyMock.expect(model.canEndTurn()).andReturn(canEndTurn);
 
@@ -393,13 +395,11 @@ public class PlayerDeckControllerTests {
 	public void onStartGameButton_called_fail() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
-		String expectedMsg = "Failed to start game.";
-		EasyMock.expect(assets.getString("error.startGame")).andReturn(
-				expectedMsg
-		);
+		String expectedMsg = "An error test.";
+		EasyMock.expect(assets.getString("error.test")).andReturn(expectedMsg);
 
 		model.startGame();
-		EasyMock.expectLastCall().andThrow(new GameException(expectedMsg));
+		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
 
 		onError.accept(expectedMsg);
 		EasyMock.expectLastCall();

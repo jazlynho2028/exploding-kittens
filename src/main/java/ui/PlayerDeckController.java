@@ -33,20 +33,25 @@ public class PlayerDeckController {
     }
 
     private void buildAndBindUI() {
-        buildDependentUI();
-        bindUI();
+        try {
+            buildDependentUI();
+            bindUI();
+        }
+        catch (Exception e) {
+            onError.accept(assets.getString(e.getMessage()));
+        }
     }
 
     private void buildDependentUI() {
         view.buildAndAddPlayerHandCards(
                 this.model.getCurrentPlayerHandIds(),
                 this.model.getIsFaceUp(),
-                this.model.getIsBeforeDraw()
+                this.model.getCanDraw()
         );
         view.buildAddRenderPlayerNameTags(
                 this.model.getPlayerNames(),
                 this.model.getCurrentPlayerIndex(),
-                this.model.isGameOngoing()
+                this.model.getIsGameOngoing()
         );
     }
 
@@ -66,17 +71,18 @@ public class PlayerDeckController {
 
     void handleChangeCurrentPlayer(int playerIndex) {
         try {
-            ((Game) model).changeCurrentPlayerIndexAndSetIsFaceUpToFalse(playerIndex);
+            ((Game) model).changeCurrentPlayerIndex(playerIndex);
+            ((Game) model).setFaceUpToFalse();
 
             view.renderPlayerNameTags(
                     model.getCurrentPlayerIndex(),
-                    model.isGameOngoing()
+                    model.getIsGameOngoing()
             );
             view.renderHandVisibilityButton(model.getIsFaceUp());
             buildAddBindPlayerHandCards();
         }
         catch (Exception e) {
-            onError.accept(assets.getString("error.changePlayer"));
+            onError.accept(assets.getString(e.getMessage()));
         }
     }
 
@@ -84,7 +90,7 @@ public class PlayerDeckController {
         view.buildAndAddPlayerHandCards(
                 model.getCurrentPlayerHandIds(),
                 model.getIsFaceUp(),
-                model.getIsBeforeDraw()
+                model.getCanDraw()
         );
         view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
     }
@@ -94,7 +100,7 @@ public class PlayerDeckController {
             ((Game) model).drawFromPile();
 
             view.renderDrawPile(
-                    model.canDraw(),
+                    model.getCanDraw(),
                     model.isDrawPileEmpty()
             );
             buildAddBindPlayerHandCards();
@@ -104,28 +110,38 @@ public class PlayerDeckController {
             );
         }
         catch (Exception e) {
-            onError.accept(assets.getString("error.drawFromPile"));
+            onError.accept(assets.getString(e.getMessage()));
         }
     }
 
     void onHandVisibilityButton() {
-        ((Game) model).setIsFaceUpToOpposite();
+        try {
+            ((Game) model).setIsFaceUpToOpposite();
 
-        view.renderHandVisibilityButton(model.getIsFaceUp());
-        buildAddBindPlayerHandCards();
+            view.renderHandVisibilityButton(model.getIsFaceUp());
+            buildAddBindPlayerHandCards();
+        }
+        catch (Exception e) {
+            onError.accept(assets.getString(e.getMessage()));
+        }
     }
 
     void onPlayerHandCardButton(int handCardIndex) {
-        if (!model.getIsFaceUp()) {
-            onHandVisibilityButton();
-        }
-        else {
-            ((Game) model).setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
+        try {
+            if (!model.getIsFaceUp()) {
+                onHandVisibilityButton();
+            }
+            else {
+                ((Game) model).setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
 
-            view.renderTurnControlSection(
-                    model.canPlaySelected(),
-                    model.canEndTurn()
-            );
+                view.renderTurnControlSection(
+                        model.canPlaySelected(),
+                        model.canEndTurn()
+                );
+            }
+        }
+        catch (Exception e) {
+            onError.accept(assets.getString(e.getMessage()));
         }
     }
 
@@ -136,17 +152,17 @@ public class PlayerDeckController {
             handleChangeCurrentPlayer(model.getStartingPlayerIndex());
 
             view.renderDrawPile(
-                    model.canDraw(),
+                    model.getCanDraw(),
                     model.isDrawPileEmpty()
             );
             view.buildAndRenderTurnControlSection(
-                    model.isGameOngoing(),
+                    model.getIsGameOngoing(),
                     model.canPlaySelected(),
                     model.canEndTurn()
             );
         }
         catch (Exception e) {
-            onError.accept(assets.getString("error.startGame"));
+            onError.accept(assets.getString(e.getMessage()));
         }
     }
 

@@ -97,7 +97,7 @@ public class Game implements GameData {
         return false;
     }
 
-    public boolean isGameOngoing() {
+    public boolean getIsGameOngoing() {
         return false;
     }
 
@@ -113,7 +113,7 @@ public class Game implements GameData {
         return false;
     }
 
-    public boolean canDraw() {
+    public boolean getCanDraw() {
         return false;
     }
 
@@ -122,7 +122,9 @@ public class Game implements GameData {
     }
 
     // Mutable Game methods
-    public void changeCurrentPlayerIndexAndSetIsFaceUpToFalse(int playerIndex) { }
+    public void changeCurrentPlayerIndex(int playerIndex) { }
+
+    public void setFaceUpToFalse() { }
 
     public void drawFromPile() { }
 
