@@ -1,6 +1,7 @@
 package ui;
 
 import domain.Game;
+import domain.GameConstants;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,10 +24,8 @@ public class PlayerDeckControllerTests {
 	boolean isDrawPileEmpty;
 	boolean canPlaySelected;
 	boolean canEndTurn;
-	int startingPlayerIndex;
 
 	private Game model;
-	private AssetProvider assets;
 	private PlayerDeckView view;
 
 	@BeforeEach
@@ -39,7 +38,6 @@ public class PlayerDeckControllerTests {
 		isGameOngoing = false;
 
 		model = EasyMock.createMock(Game.class);
-		assets = EasyMock.createMock(AssetProvider.class);
 		view = EasyMock.createMock(PlayerDeckView.class);
 	}
 
@@ -93,7 +91,7 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.replay(model, view);
 
-		PlayerDeckController controller = new PlayerDeckController(model, assets, view);
+		PlayerDeckController controller = new PlayerDeckController(model, view);
 
 		assertDoesNotThrow(() -> controller.handleChangeCurrentPlayer(playerIndex));
 
@@ -105,7 +103,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
 		EasyMock.replay(model, view);
 
-		PlayerDeckController controller = new PlayerDeckController(model, assets, view);
+		PlayerDeckController controller = new PlayerDeckController(model, view);
 		int playerIndex = 0;
 		controller.onNameTag(playerIndex);
 
@@ -120,7 +118,7 @@ public class PlayerDeckControllerTests {
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 				PlayerDeckController.class
 				)
-				.withConstructor(model, assets, view)
+				.withConstructor(model, view)
 				.addMockedMethod("handleChangeCurrentPlayer")
 				.createMock();
 		int playerIndex = 1;
@@ -155,7 +153,7 @@ public class PlayerDeckControllerTests {
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 				PlayerDeckController.class
 				)
-				.withConstructor(model, assets, view)
+				.withConstructor(model, view)
 				.addMockedMethod("buildAddBindPlayerHandCards")
 				.createMock();
 
@@ -173,8 +171,7 @@ public class PlayerDeckControllerTests {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 		int playerIndex = 0;
 
-		String expectedMsg = "An error test.";
-		EasyMock.expect(assets.getString("error.test")).andReturn(expectedMsg);
+		String expectedMsg = "error.test";
 
 		model.changeCurrentPlayerIndex(playerIndex);
 		EasyMock.expectLastCall();
@@ -184,14 +181,14 @@ public class PlayerDeckControllerTests {
 		onError.accept(expectedMsg);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets, view, onError);
+		EasyMock.replay(model, view, onError);
 
-		PlayerDeckController controller = new PlayerDeckController(model, assets, view);
+		PlayerDeckController controller = new PlayerDeckController(model, view);
 		controller.setOnError(onError);
 
 		controller.handleChangeCurrentPlayer(playerIndex);
 
-		EasyMock.verify(model, assets, view, onError);
+		EasyMock.verify(model, view, onError);
 	}
 
 	@Test
@@ -207,7 +204,7 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.replay(model, view);
 
-		PlayerDeckController controller = new PlayerDeckController(model, assets, view);
+		PlayerDeckController controller = new PlayerDeckController(model, view);
 
 		controller.buildAddBindPlayerHandCards();
 
@@ -239,7 +236,7 @@ public class PlayerDeckControllerTests {
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class
 				)
-				.withConstructor(model, assets, view)
+				.withConstructor(model, view)
 				.addMockedMethod("buildAddBindPlayerHandCards")
 				.createMock();
 
@@ -257,22 +254,21 @@ public class PlayerDeckControllerTests {
 	public void onDrawPile_drawsCard_fail() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
-		String expectedMsg = "An error test.";
-		EasyMock.expect(assets.getString("error.test")).andReturn(expectedMsg);
+		String expectedMsg = "error.test";
 
 		model.drawFromPile();
 		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
 		onError.accept(expectedMsg);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets, view, onError);
+		EasyMock.replay(model, view, onError);
 
-		PlayerDeckController controller = new PlayerDeckController(model, assets, view);
+		PlayerDeckController controller = new PlayerDeckController(model, view);
 		controller.setOnError(onError);
 
 		controller.onDrawPile();
 
-		EasyMock.verify(model, assets, view, onError);
+		EasyMock.verify(model, view, onError);
 	}
 
 	@Test
@@ -289,7 +285,7 @@ public class PlayerDeckControllerTests {
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class
 				)
-				.withConstructor(model, assets, view)
+				.withConstructor(model, view)
 				.addMockedMethod("buildAddBindPlayerHandCards")
 				.createMock();
 
@@ -313,7 +309,7 @@ public class PlayerDeckControllerTests {
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class
 				)
-				.withConstructor(model, assets, view)
+				.withConstructor(model, view)
 				.addMockedMethod("onHandVisibilityButton")
 				.createMock();
 		int handCardIndex = 0;
@@ -347,7 +343,7 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.replay(model, view);
 
-		PlayerDeckController controller = new PlayerDeckController(model, assets, view);
+		PlayerDeckController controller = new PlayerDeckController(model, view);
 
 		controller.onPlayerHandCardButton(handCardIndex);
 
@@ -359,7 +355,9 @@ public class PlayerDeckControllerTests {
 		model.startGame();
 		EasyMock.expectLastCall();
 
-		EasyMock.expect(model.getStartingPlayerIndex()).andReturn(startingPlayerIndex);
+		EasyMock.expect(model.getStartingPlayerIndex()).andReturn(
+				GameConstants.STARTING_PLAYER_INDEX
+		);
 		EasyMock.expect(model.getCanDraw()).andReturn(canDraw);
 		EasyMock.expect(model.isDrawPileEmpty()).andReturn(isDrawPileEmpty);
 		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
@@ -377,11 +375,11 @@ public class PlayerDeckControllerTests {
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class
 				)
-				.withConstructor(model, assets, view)
+				.withConstructor(model, view)
 				.addMockedMethod("handleChangeCurrentPlayer")
 				.createMock();
 
-		controller.handleChangeCurrentPlayer(startingPlayerIndex);
+		controller.handleChangeCurrentPlayer(GameConstants.STARTING_PLAYER_INDEX);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(controller);
@@ -395,8 +393,7 @@ public class PlayerDeckControllerTests {
 	public void onStartGameButton_called_fail() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
-		String expectedMsg = "An error test.";
-		EasyMock.expect(assets.getString("error.test")).andReturn(expectedMsg);
+		String expectedMsg = "error.test";
 
 		model.startGame();
 		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
@@ -404,13 +401,13 @@ public class PlayerDeckControllerTests {
 		onError.accept(expectedMsg);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, assets, onError);
+		EasyMock.replay(model, onError);
 
-		PlayerDeckController controller = new PlayerDeckController(model, assets, view);
+		PlayerDeckController controller = new PlayerDeckController(model, view);
 		controller.setOnError(onError);
 
 		controller.onStartGameButton();
 
-		EasyMock.verify(model, assets, onError);
+		EasyMock.verify(model, onError);
 	}
 }

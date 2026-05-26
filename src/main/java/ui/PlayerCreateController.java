@@ -1,5 +1,6 @@
 package ui;
 
+import domain.GameConstants;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.ArrayList;
@@ -15,9 +16,6 @@ public class PlayerCreateController {
     private Runnable onSuccess;
     private Runnable onRestart;
 
-    private static final int MIN_PLAYERS = 2;
-    private static final int MAX_PLAYERS = 4;
-
     @SuppressFBWarnings(
             value = "EI_EXPOSE_REP2",
             justification = "View is injected by for compromise between MVC pattern and " +
@@ -26,8 +24,6 @@ public class PlayerCreateController {
     public PlayerCreateController(PlayerCreateView view) {
         this.view = view;
         this.onError = message -> { };
-
-        buildAndBindUI();
     }
 
     public void setOnError(Consumer<String> onError) {
@@ -42,8 +38,8 @@ public class PlayerCreateController {
         this.onRestart = onRestart;
     }
 
-    void buildAndBindUI() {
-        for (int i = 0; i < MIN_PLAYERS; i++) {
+    public void buildAndBindDependentUI() {
+        for (int i = 0; i < GameConstants.MIN_PLAYERS; i++) {
             playerFields.add("");
         }
         view.bindUI(
@@ -56,17 +52,12 @@ public class PlayerCreateController {
     void onAddPlayer() {
         int visualIndex = playerFields.size() + 1;
 
-        if (visualIndex > MAX_PLAYERS) {
-            onError.accept("error.maxPlayers");
-            return;
-        }
-
         playerFields.add("");
 
         view.addPlayerField(visualIndex);
 
         view.setAddPlayerButtonDisabled(
-                playerFields.size() >= MAX_PLAYERS
+                playerFields.size() >= GameConstants.MAX_PLAYERS
         );
     }
 
@@ -79,11 +70,6 @@ public class PlayerCreateController {
             if (!input.isBlank()) {
                 names.add(input.trim());
             }
-        }
-
-        if (names.size() < MIN_PLAYERS) {
-            onError.accept("error.minPlayers");
-            return;
         }
 
         this.confirmedNames = names;
