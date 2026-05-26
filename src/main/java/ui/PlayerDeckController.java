@@ -24,35 +24,33 @@ public class PlayerDeckController {
         this.assets = assets;
         this.view = view;
         this.onError = message -> { };
-
-        buildAndBindUI();
     }
 
     public void setOnError(Consumer<String> onError) {
         this.onError = onError;
     }
 
-    private void buildAndBindUI() {
+    public void buildAndBindUI() {
+        buildDependentUI();
+        bindUI();
+    }
+
+    private void buildDependentUI() {
         try {
-            buildDependentUI();
-            bindUI();
+            view.buildAndAddPlayerHandCards(
+                    this.model.getCurrentPlayerHandIds(),
+                    this.model.getIsFaceUp(),
+                    this.model.getCanDraw()
+            );
+            view.buildAddRenderPlayerNameTags(
+                    this.model.getPlayerNames(),
+                    this.model.getCurrentPlayerIndex(),
+                    this.model.getIsGameOngoing()
+            );
         }
         catch (Exception e) {
             onError.accept(assets.getString(e.getMessage()));
         }
-    }
-
-    private void buildDependentUI() {
-        view.buildAndAddPlayerHandCards(
-                this.model.getCurrentPlayerHandIds(),
-                this.model.getIsFaceUp(),
-                this.model.getCanDraw()
-        );
-        view.buildAddRenderPlayerNameTags(
-                this.model.getPlayerNames(),
-                this.model.getCurrentPlayerIndex(),
-                this.model.getIsGameOngoing()
-        );
     }
 
     private void bindUI() {
@@ -87,12 +85,17 @@ public class PlayerDeckController {
     }
 
     void buildAddBindPlayerHandCards() {
-        view.buildAndAddPlayerHandCards(
-                model.getCurrentPlayerHandIds(),
-                model.getIsFaceUp(),
-                model.getCanDraw()
-        );
-        view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
+        try {
+            view.buildAndAddPlayerHandCards(
+                    model.getCurrentPlayerHandIds(),
+                    model.getIsFaceUp(),
+                    model.getCanDraw()
+            );
+            view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
+        }
+        catch (Exception e) {
+            onError.accept(assets.getString(e.getMessage()));
+        }
     }
 
     void onDrawPile() {

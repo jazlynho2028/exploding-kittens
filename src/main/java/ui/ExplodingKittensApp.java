@@ -75,6 +75,7 @@ public class ExplodingKittensApp extends Application {
         PlayerDeckController controller = new PlayerDeckController(model, assets, view);
 
         controller.setOnError(errorHandler);
+        controller.buildAndBindUI();
 
         Scene playerDeckScene = view.createPlayerDeckScene();
         setScene(playerDeckScene, stage);
