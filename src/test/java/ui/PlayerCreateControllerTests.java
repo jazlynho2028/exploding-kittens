@@ -39,7 +39,7 @@ public class PlayerCreateControllerTests {
         EasyMock.replay(view);
 
         PlayerCreateController controller = new PlayerCreateController(view);
-        int playerNumbers = controller.getPlayerNumbers();
+        int playerNumbers = controller.getPlayerFieldsCount();
 
         assertDoesNotThrow(controller::onConfirmNames);
         assertEquals(PLAYER_COUNT_ONE, playerNumbers);
@@ -59,7 +59,7 @@ public class PlayerCreateControllerTests {
         PlayerCreateController controller = new PlayerCreateController(view);
         controller.onAddPlayer();
 
-        assertEquals(PLAYER_COUNT_THREE, controller.getPlayerNumbers());
+        assertEquals(PLAYER_COUNT_THREE, controller.getPlayerFieldsCount());
 
         EasyMock.verify(view);
     }
@@ -82,7 +82,7 @@ public class PlayerCreateControllerTests {
         controller.onAddPlayer();
         controller.onAddPlayer();
 
-        assertEquals(PLAYER_COUNT_FOUR, controller.getPlayerNumbers());
+        assertEquals(PLAYER_COUNT_FOUR, controller.getPlayerFieldsCount());
 
         EasyMock.verify(view);
     }
@@ -114,7 +114,7 @@ public class PlayerCreateControllerTests {
         controller.onAddPlayer();
         controller.onAddPlayer();
 
-        assertEquals(PLAYER_COUNT_FOUR, controller.getPlayerNumbers());
+        assertEquals(PLAYER_COUNT_FOUR, controller.getPlayerFieldsCount());
 
         EasyMock.verify(view, onError);
     }

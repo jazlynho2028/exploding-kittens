@@ -1,15 +1,16 @@
 package ui;
 
+import javafx.scene.Scene;
+
 public class StartController {
+
+    private final StartView view;
 
 	private Runnable onEnglishPlay;
     private Runnable onSpanishPlay;
 
     public StartController(StartView view) {
-		view.bindUI(
-                this::onEnglishPlayButton,
-                this::onSpanishPlayButton
-        );
+        this.view = view;
     }
 
     public void setOnEnglishPlay(Runnable onEnglishPlay) {
@@ -26,6 +27,15 @@ public class StartController {
 
     void onSpanishPlayButton() {
         onSpanishPlay.run();
+    }
+
+    public Scene buildStartScene() {
+        view.bindUI(
+                this::onEnglishPlayButton,
+                this::onSpanishPlayButton
+        );
+
+        return view.createStartScene();
     }
 
 }
