@@ -27,9 +27,12 @@ public class StartView {
         buildUI();
     }
 
-    public void bindUI(Runnable onEnglishPlayButton, Runnable onSpanishPlayButton) {
-        playButtonEnglish.setOnMouseClicked(e -> onEnglishPlayButton.run());
-        playButtonSpanish.setOnMouseClicked(e -> onSpanishPlayButton.run());
+    public void bindEnglishPlayButton(Runnable handler) {
+        playButtonEnglish.setOnMouseClicked(e -> handler.run());
+    }
+
+    public void bindSpanishPlayButton(Runnable handler) {
+        playButtonSpanish.setOnMouseClicked(e -> handler.run());
     }
 
     public Scene createStartScene () {
