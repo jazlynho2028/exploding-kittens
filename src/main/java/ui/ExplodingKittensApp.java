@@ -49,6 +49,7 @@ public class ExplodingKittensApp extends Application {
         controller.setOnError(errorHandler);
         controller.setOnSuccess(() -> initializeGame(controller, stage));
         controller.setOnRestart(() -> showStartScreen(stage));
+        controller.buildAndBindDependentUI();
 
         Scene playerCreateScene = view.createPlayerCreateScene();
         setScene(playerCreateScene, stage);
@@ -76,7 +77,7 @@ public class ExplodingKittensApp extends Application {
         PlayerDeckController controller = new PlayerDeckController(model, view);
 
         controller.setOnError(errorHandler);
-        controller.buildAndBindUI();
+        controller.buildAndBindDependentUI();
 
         Scene playerDeckScene = view.createPlayerDeckScene();
         setScene(playerDeckScene, stage);

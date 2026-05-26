@@ -28,7 +28,7 @@ public class PlayerDeckController {
         this.onError = onError;
     }
 
-    public void buildAndBindUI() {
+    public void buildAndBindDependentUI() {
         buildDependentUI();
         bindUI();
     }
