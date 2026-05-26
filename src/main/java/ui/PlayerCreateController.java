@@ -8,7 +8,6 @@ import java.util.function.Consumer;
 
 public class PlayerCreateController {
     private final PlayerCreateView view;
-    private final AssetProvider assets;
     private final List<String> playerFields = new ArrayList<>();
 
     private List<String> confirmedNames;
@@ -24,9 +23,8 @@ public class PlayerCreateController {
             justification = "View is injected by for compromise between MVC pattern and " +
                     "testability, defensive copy is not applicable for JavaFX components"
     )
-    public PlayerCreateController(AssetProvider assets, PlayerCreateView view) {
+    public PlayerCreateController(PlayerCreateView view) {
         this.view = view;
-        this.assets = assets;
         this.onError = message -> { };
 
         buildAndBindUI();
@@ -59,7 +57,7 @@ public class PlayerCreateController {
         int visualIndex = playerFields.size() + 1;
 
         if (visualIndex > MAX_PLAYERS) {
-            onError.accept(assets.getString("error.maxPlayers"));
+            onError.accept("error.maxPlayers");
             return;
         }
 
@@ -84,7 +82,7 @@ public class PlayerCreateController {
         }
 
         if (names.size() < MIN_PLAYERS) {
-            onError.accept(assets.getString("error.minPlayers"));
+            onError.accept("error.minPlayers");
             return;
         }
 
