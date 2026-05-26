@@ -2,6 +2,7 @@ package ui;
 
 import domain.GameConstants;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import javafx.scene.Scene;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +10,8 @@ import java.util.function.Consumer;
 
 public class PlayerCreateController {
     private final PlayerCreateView view;
-    private final List<String> playerFields = new ArrayList<>();
 
+    private int playerFieldsCount;
     private List<String> confirmedNames;
     private Consumer<String> onError;
     private Runnable onSuccess;
@@ -23,7 +24,28 @@ public class PlayerCreateController {
     )
     public PlayerCreateController(PlayerCreateView view) {
         this.view = view;
+        this.playerFieldsCount = 0;
+        this.confirmedNames = new ArrayList<>();
         this.onError = message -> { };
+    }
+
+    public Scene buildPlayerCreateScene() {
+        buildDependentUI();
+        bindUI();
+
+        return view.createPlayerCreateScene();
+    }
+
+    private void buildDependentUI() {
+        for (int i = 0; i < GameConstants.MIN_PLAYERS; i++) {
+            onAddPlayer();
+        }
+    }
+
+    private void bindUI() {
+        view.bindAddPlayerButton(this::onAddPlayer);
+        view.bindConfirmButton(this::onConfirmNames);
+        view.bindRestartButton(this::onRestartButton);
     }
 
     public void setOnError(Consumer<String> onError) {
@@ -38,41 +60,17 @@ public class PlayerCreateController {
         this.onRestart = onRestart;
     }
 
-    public void buildAndBindDependentUI() {
-        for (int i = 0; i < GameConstants.MIN_PLAYERS; i++) {
-            playerFields.add("");
-        }
-        view.bindUI(
-                this::onAddPlayer,
-                this::onConfirmNames,
-                this::onRestartButton
-        );
-    }
-
     void onAddPlayer() {
-        int visualIndex = playerFields.size() + 1;
-
-        playerFields.add("");
-
-        view.addPlayerField(visualIndex);
+        playerFieldsCount++;
+        view.addPlayerField(playerFieldsCount);
 
         view.setAddPlayerButtonDisabled(
-                playerFields.size() >= GameConstants.MAX_PLAYERS
+                playerFieldsCount >= GameConstants.MAX_PLAYERS
         );
     }
 
     void onConfirmNames() {
-        List<String> names = new ArrayList<>();
-
-        List<String> inputsFromView = view.getPlayerNamesFromFields();
-
-        for (String input : inputsFromView) {
-            if (!input.isBlank()) {
-                names.add(input.trim());
-            }
-        }
-
-        this.confirmedNames = names;
+        populateConfirmedNames();
 
         try {
             onSuccess.run();
@@ -82,16 +80,26 @@ public class PlayerCreateController {
         }
     }
 
+    void populateConfirmedNames() {
+        List<String> inputsFromView = view.getPlayerNamesFromFields();
+
+        for (String input : inputsFromView) {
+            if (!input.isBlank()) {
+                confirmedNames.add(input.trim());
+            }
+        }
+    }
+
     void onRestartButton() {
         onRestart.run();
     }
 
     public List<String> getConfirmedNames() {
-        return new ArrayList<>(confirmedNames);
+        return List.copyOf(confirmedNames);
     }
 
-    public int getPlayerNumbers() {
-        return playerFields.size();
+    int getPlayerFieldsCount() {
+        return playerFieldsCount;
     }
 
 }

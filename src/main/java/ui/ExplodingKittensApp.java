@@ -38,7 +38,7 @@ public class ExplodingKittensApp extends Application {
         controller.setOnEnglishPlay(() -> switchLanguageAndView(stage, englishLanguage));
         controller.setOnSpanishPlay(() -> switchLanguageAndView(stage, spanishLanguage));
 
-        Scene startScene = view.createStartScene();
+        Scene startScene = controller.buildStartScene();
         setScene(startScene, stage);
     }
 
@@ -49,9 +49,8 @@ public class ExplodingKittensApp extends Application {
         controller.setOnError(errorHandler);
         controller.setOnSuccess(() -> initializeGame(controller, stage));
         controller.setOnRestart(() -> showStartScreen(stage));
-        controller.buildAndBindDependentUI();
 
-        Scene playerCreateScene = view.createPlayerCreateScene();
+        Scene playerCreateScene = controller.buildPlayerCreateScene();
         setScene(playerCreateScene, stage);
     }
 
@@ -61,7 +60,7 @@ public class ExplodingKittensApp extends Application {
 
         controller.setOnRestart(() -> showStartScreen(stage));
 
-        Scene errorScene = view.createErrorScene();
+        Scene errorScene = controller.buildErrorScene();
         setScene(errorScene, stage);
     }
 
@@ -77,9 +76,8 @@ public class ExplodingKittensApp extends Application {
         PlayerDeckController controller = new PlayerDeckController(model, view);
 
         controller.setOnError(errorHandler);
-        controller.buildAndBindDependentUI();
 
-        Scene playerDeckScene = view.createPlayerDeckScene();
+        Scene playerDeckScene = controller.buildPlayerDeckScene();
         setScene(playerDeckScene, stage);
     }
 

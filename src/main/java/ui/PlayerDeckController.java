@@ -3,6 +3,7 @@ package ui;
 import domain.Game;
 import domain.GameData;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import javafx.scene.Scene;
 
 import java.util.function.Consumer;
 
@@ -24,13 +25,11 @@ public class PlayerDeckController {
         this.onError = message -> { };
     }
 
-    public void setOnError(Consumer<String> onError) {
-        this.onError = onError;
-    }
-
-    public void buildAndBindDependentUI() {
+    public Scene buildPlayerDeckScene() {
         buildDependentUI();
         bindUI();
+
+        return view.createPlayerDeckScene();
     }
 
     private void buildDependentUI() {
@@ -57,6 +56,10 @@ public class PlayerDeckController {
         view.bindStartGameButton(this::onStartGameButton);
         view.bindNameTags(this::onNameTag);
         view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
+    }
+
+    public void setOnError(Consumer<String> onError) {
+        this.onError = onError;
     }
 
     void onNameTag(int playerIndex) {
