@@ -140,3 +140,36 @@
     - Game is forced to be initialized with 5 players
     - drawPile is completely empty before calling method
   - **Expected output**: Game constructor throws IllegalArgumentException immediately with the message "error.invalidPlayerCount" 
+
+### Method under test: `getCurrentPlayerIds()`
+
+- **TC16: get IDs when current player's hand is completely empty** ( :white_check_mark: )
+  - **Name of the test**: getCurrentPlayerHandIds_emptyHand_returnsEmptyList
+  - **State of the system**:
+    - Game is initialized
+    - current active player has 0 cards in their hand
+  - **Expected output**: 
+    - method returns valid, non-null List<String> instance
+    - returned list size is 0
+
+- **TC17: get IDs when current player's hand has exactly one card** ( :x: )
+  - **Name of the test**: getCurrentPlayerHandIds_singleCardInHand_returnsListWithOneId
+  - **State of the system**:
+    - Game is initialized
+    - current active player has 1 card in their hand
+    - card in hand has ID "defuse-5"
+  - **Expected output**:
+    - method returns List<String> instance with 1 element
+    - returned list size is 1 
+    - element in list has value "defuse-5"
+
+- **TC18: get IDs when current player's hand has more than one card** ( :x: )
+  - **Name of the test**: getCurrentPlayerHandIds_normalHandSize_returnsAllCardIds
+  - **State of the system**:
+    - Game is initialized
+    - current active player has 6 cards in their hand
+    - cards in hand have IDs "exploding_kitten-1", "defuse-1", "defuse-2", "defuse-3", "feral_cat-1", "feral_cat-2"
+  - **Expected output**:
+    - method returns List<String> instance with 6 elements
+    - returned list size is 6
+    - element in list have values: "exploding_kitten-1", "defuse-1", "defuse-2", "defuse-3", "feral_cat-1", "feral_cat-2" in the same order 

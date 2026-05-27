@@ -89,7 +89,7 @@ public final class Game {
     }
 
     public int getCurrentPlayerIndex() {
-        return -1;
+        return turnManager.getCurrentPlayerIndex();
     }
 
     public int getStartingPlayerIndex() {
@@ -97,7 +97,14 @@ public final class Game {
     }
 
     public List<String> getCurrentPlayerHandIds() {
-        return null;
+        Player currentPlayer = players.get(getCurrentPlayerIndex());
+
+        List<String> ids = new ArrayList<>();
+        for (Card card : currentPlayer.getHand()) {
+            ids.add(card.getId());
+        }
+
+        return ids;
     }
 
     public boolean canPlaySelected() {

@@ -1,7 +1,6 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public final class Player {
@@ -9,23 +8,35 @@ public final class Player {
     private final List<Card> hand;
 
     public Player(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Player name cannot be null or empty.");
-        }
         this.name = name;
         this.hand = new ArrayList<>();
     }
 
     public List<Card> getHand() {
-        return Collections.unmodifiableList(this.hand);
-    }
-
-    public void addCardToHand(Card card) {
-        this.hand.add(card);
+        return List.copyOf(hand);
     }
 
     public String getName() {
         return this.name;
     }
 
+    public void addCardToHand(Card card) {
+        hand.add(card);
+    }
+
+//    public void setIsSelectedOfHandCardToOpposite(int handCardIndex) {
+//        hand.get(handCardIndex).toggleSelected();
+//    }
+//
+//    public void removeCardFromHand(Card card) {
+//        if (!this.hand.contains(card)) {
+//            throw new IllegalStateException("error.cardNotInHand");
+//        }
+//        hand.remove(card);
+//    }
+
+    void clearHand() {
+        this.hand.clear();
+    }
 }
+

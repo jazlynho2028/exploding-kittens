@@ -392,7 +392,7 @@ public class GameTests {
         assertTrue(game.getIsGameOngoing());
 
         int expectedDeckSizeBeforeFailure = game.getDrawPile().getCards().size();
-        int expectedRoundCountBeforeFailure = game.getTurnManager().getCurrentRound();
+        int expectedRoundCountBeforeFailure = game.getTurnManager().getRoundCounter();
         int expectedDrawCountBeforeFailure = game.getTurnManager().getCurrentDrawCount();
 
         IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
@@ -403,7 +403,7 @@ public class GameTests {
         Deck finalDrawPile = game.getDrawPile();
         assertEquals(expectedDeckSizeBeforeFailure, finalDrawPile.getCards().size());
 
-        assertEquals(expectedRoundCountBeforeFailure, game.getTurnManager().getCurrentRound());
+        assertEquals(expectedRoundCountBeforeFailure, game.getTurnManager().getRoundCounter());
         assertEquals(expectedDrawCountBeforeFailure, game.getTurnManager().getCurrentDrawCount());
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
@@ -568,6 +568,44 @@ public class GameTests {
         });
 
         assertEquals("error.invalidPlayerCount", exception.getMessage());
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
+
+    @Test
+    public void getCurrentPlayerHandIds_emptyHand_returnsEmptyList() {
+        final int numTotalCards = 10;
+
+        List<String> names = Arrays.asList("Alice", "Bob");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        List<Card> initialCards = new ArrayList<>();
+        for (int i = 0; i < numTotalCards; i++) {
+            Card mockCard = EasyMock.createMock(Card.class);
+            EasyMock.replay(mockCard);
+            initialCards.add(mockCard);
+        }
+
+        EasyMock.expect(mockDrawPile.getCards()).andReturn(initialCards);
+        EasyMock.expect(mockDiscardPile.getCards()).andReturn(new ArrayList<>());
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+
+        int activePlayerIndex = game.getCurrentPlayerIndex();
+        Player currentPlayer = game.getPlayers().get(activePlayerIndex);
+
+        currentPlayer.clearHand();
+
+        assertEquals(0, currentPlayer.getHand().size());
+
+        List<String> resultIds = game.getCurrentPlayerHandIds();
+
+        assertNotNull(resultIds);
+        assertEquals(0, resultIds.size());
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
