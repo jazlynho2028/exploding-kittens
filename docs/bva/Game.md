@@ -192,8 +192,8 @@
   - **Expected output**:
     - return true (assuming card matches single-card rules like Attack or Skip)
 
-- **TC21: player selected exactly two cards** ( :x: )
-  - **Name of the test**: canPlaySelected_twoCardsSelected_delegatesToValidTwoCards
+- **TC21: player selected exactly two cards** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_twoCardsSelected_returnsTrue
   - **State of the system**:
     - Game is initialized
     - current active player has marked 2 cards as selected in their hand
