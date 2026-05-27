@@ -77,7 +77,7 @@
   - **State of the system**: handCardIndex = 0, isFaceUp = true, canPlaySelected = true, canEndTurn = false
   - **Expected output**: called model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite and view.renderTurnControlSection
 
-- **TC15: Cards are face down** ( :x: )
+- **TC15: Cards are face down** ( :white_check_mark: )
     - **Name of the test**: onPlayerHandCardButton_cardsFaceDown_callsOnHandVisibility
     - **State of the system**: handCardIndex = 0, isFaceUp = false
     - **Expected output**: called onHandVisibilityButton

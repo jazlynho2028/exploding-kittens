@@ -405,6 +405,29 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, view);
 	}
 
+	@Test
+	public void onPlayerHandCardButton_cardsFaceDown_callsOnHandVisibility() {
+		int handCardIndex = 0;
+		boolean isFaceUp = false;
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("onHandVisibilityButton")
+				.createMock();
+
+		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
+
+		controller.onHandVisibilityButton();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(controller);
+
+		controller.onPlayerHandCardButton(handCardIndex);
+
+		EasyMock.verify(controller);
+	}
+
 //
 //	@Test
 //	public void constructor_called_success() {
