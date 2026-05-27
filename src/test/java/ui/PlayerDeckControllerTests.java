@@ -380,6 +380,31 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, onError);
 	}
 
+	@Test
+	public void onPlayerHandCardButton_cardsFaceUp_success() {
+		int handCardIndex = 0;
+		boolean isFaceUp = true;
+		boolean canEndTurn = false;
+
+		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
+		setUpRenderTurnControlSectionExpectations(canEndTurn);
+
+		model.setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model);
+
+		view.renderTurnControlSection(canPlaySelected, canEndTurn);
+
+		EasyMock.replay(view);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+
+		controller.onPlayerHandCardButton(handCardIndex);
+
+		EasyMock.verify(model, view);
+	}
+
 //
 //	@Test
 //	public void constructor_called_success() {

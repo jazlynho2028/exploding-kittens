@@ -72,7 +72,7 @@
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onPlayerHandCardButton(int handCardIndex)`
-- **TC14: Cards are face up** ( :x: )
+- **TC14: Cards are face up** ( :white_check_mark: )
   - **Name of the test**: onPlayerHandCardButton_cardsFaceUp_success
   - **State of the system**: handCardIndex = 0, isFaceUp = true, canPlaySelected = true, canEndTurn = false
   - **Expected output**: called model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite and view.renderTurnControlSection
