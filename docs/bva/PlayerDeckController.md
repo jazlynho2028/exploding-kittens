@@ -82,7 +82,7 @@
     - **State of the system**: handCardIndex = 0, isFaceUp = false
     - **Expected output**: called onHandVisibilityButton
 
-- **TC16: Caught exception from model** ( :x: )
+- **TC16: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayerHandCardButton_called_failed
   - **State of the system**: model.getIsFaceUp throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception

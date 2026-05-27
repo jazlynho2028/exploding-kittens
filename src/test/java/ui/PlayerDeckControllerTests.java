@@ -428,6 +428,28 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(controller);
 	}
 
+	@Test
+	public void onPlayerHandCardButton_called_failed() {
+		int handCardsIndex = 0;
+		Consumer<String> onError = EasyMock.createMock(Consumer.class);
+
+		EasyMock.expect(model.getIsFaceUp()).andThrow(
+				new RuntimeException(expectedMsg)
+		);
+
+		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, onError);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.setOnError(onError);
+
+		controller.onPlayerHandCardButton(handCardsIndex);
+
+		EasyMock.verify(model, onError);
+	}
+
 //
 //	@Test
 //	public void constructor_called_success() {
