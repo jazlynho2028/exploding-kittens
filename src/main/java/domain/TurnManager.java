@@ -4,7 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 public final class TurnManager {
-    //    private int startingPlayerIndex;
+    private static final int STARTING_PLAYER_INDEX = 0;
+
     private int currentPlayerIndex;
     private final List<Player> players;
     private int roundCounter;
@@ -14,40 +15,39 @@ public final class TurnManager {
         if (players == null) {
             throw new GameException("error.playerListNull");
         }
-        this.players = Collections.unmodifiableList(players);;
-        this.currentPlayerIndex = 0;
-    }
-
-    public List<Player> getPlayers()
-    {
-        return this.players;
+        this.players = List.copyOf(players);
+        currentPlayerIndex = 0;
+        currentDrawCount = 0;
+        roundCounter = 0;
     }
 
     public int getCurrentPlayerIndex()
     {
-        return this.currentPlayerIndex;
+        return currentPlayerIndex;
+    }
+
+    public Player getCurrentPlayer()
+    {
+        return players.get(currentPlayerIndex);
     }
 
     public int getCurrentDrawCount()
     {
-        return this.currentDrawCount;
+        return currentDrawCount;
+    }
+
+    public int getStartingPlayerIndex()
+    {
+        return STARTING_PLAYER_INDEX;
     }
 
     public int getRoundCounter()
     {
-        return this.roundCounter;
+        return roundCounter;
     }
 
-    public void endTurn() {
-
-    }
-
-    public void advanceTurn() {
-
-    }
-
-    public void skipTurn() {
-
+    public void setCurrentPlayerIndex(int newPlayerIndex) {
+        currentPlayerIndex = newPlayerIndex;
     }
 
     public void incrementDrawCount() {
