@@ -127,19 +127,16 @@
     - 3 (4 - 1) Exploding Kitten cards are added to the drawPile
     - the added cards have ID "exploding_kitten-1", "exploding_kitten-2", and "exploding_kitten-3" and have CardType.EXPLODING_KITTEN
 
-- **TC14: add exploding kitten cards to game with insufficient players** ( :x: )
-  - **Name of the test**: addExplodingKittensToDrawPile_onePlayer_addsZeroKittens
+- **TC14: add exploding kitten cards to game with insufficient players** ( :white_check_mark: )
+  - **Name of the test**: addExplodingKittensToDrawPile_onePlayer_gameThrowsException
   - **State of the system**:
     - Game is forced to be initialized with 1 player
     - drawPile is completely empty before calling method
-  - **Expected output**:
-    - 0 (1 - 1) Exploding Kitten cards are added to the drawPile
-    - drawPile size remains 0
+  - **Expected output**: Game constructor throws IllegalArgumentException immediately with the message "error.invalidPlayerCount"
 
 - **TC15: add exploding kitten cards to game with too many players** ( :x: )
-  - **Name of the test**: addExplodingKittensToDrawPile_fivePlayers_addsFourKittens
+  - **Name of the test**: addExplodingKittensToDrawPile_fivePlayers_gameThrowsException
   - **State of the system**:
     - Game is forced to be initialized with 5 players
     - drawPile is completely empty before calling method
-  - **Expected output**:
-    - 4 (5 - 1) Exploding Kitten cards are added to the drawPile
+  - **Expected output**: Game constructor throws IllegalArgumentException immediately with the message "error.invalidPlayerCount" 
