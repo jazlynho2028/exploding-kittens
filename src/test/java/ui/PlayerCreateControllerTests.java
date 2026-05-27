@@ -3,13 +3,19 @@ package ui;
 import domain.GameConstants;
 import io.cucumber.java.an.E;
 import javafx.scene.Scene;
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethodsOnException;
+import org.codehaus.plexus.util.cli.Arg;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,20 +26,6 @@ public class PlayerCreateControllerTests {
     private static final int PLAYER_COUNT_THREE = 3;
     private static final int PLAYER_COUNT_FOUR = 4;
 
-    private PlayerCreateView view;
-
-//    @BeforeEach
-//    public void setUpExpectations() {
-//        view = EasyMock.createMock(PlayerCreateView.class);
-//
-//        view.bindUI(
-//                EasyMock.anyObject(Runnable.class),
-//                EasyMock.anyObject(Runnable.class),
-//                EasyMock.anyObject(Runnable.class)
-//        );
-//        EasyMock.expectLastCall();
-//    }
-//
     @Test
     public void buildPlayerCreateScene_called_success() {
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
@@ -284,68 +276,22 @@ public class PlayerCreateControllerTests {
         EasyMock.verify(onSuccess, onError, controller);
     }
 
-    @Test
-    public void populateConfirmedNames_empty_empty() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-        List<String> inputsFromView = new ArrayList<>();
-        List<String> expectedNames = new ArrayList<>();
-
-        EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(inputsFromView);
-
-        EasyMock.replay(view);
-
-        PlayerCreateController controller = new PlayerCreateController(view);
-        controller.populateConfirmedNames();
-
-        List<String> actualNames = controller.getConfirmedNames();
-        assertEquals(expectedNames, actualNames);
-
-        EasyMock.verify(view);
+    private static Stream<Arguments> confirmedNamesArguments() {
+        return Stream.of(
+                Arguments.of(List.of(), List.of()),
+                Arguments.of(List.of("Steve"), List.of("Steve")),
+                Arguments.of(List.of("Steve ", "Steve"), List.of("Steve", "Steve")),
+                Arguments.of(List.of(" Steve ", " Steve "), List.of("Steve", "Steve"))
+        );
     }
 
-    @Test
-    public void populateConfirmedNames_oneName_oneName() {
+    @ParameterizedTest
+    @MethodSource("confirmedNamesArguments")
+    public void populateConfirmedNames_givenInputsFromView_populatedAndTrimmed(
+            List<String> inputsFromView,
+            List<String> expectedNames
+    ) {
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-        List<String> inputsFromView = List.of("Steve");
-        List<String> expectedNames = List.of("Steve");
-
-        EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(inputsFromView);
-
-        EasyMock.replay(view);
-
-        PlayerCreateController controller = new PlayerCreateController(view);
-        controller.populateConfirmedNames();
-
-        List<String> actualNames = controller.getConfirmedNames();
-        assertEquals(expectedNames, actualNames);
-
-        EasyMock.verify(view);
-    }
-
-    @Test
-    public void populateConfirmedNames_twoDifferentNames_twoNamesWithoutEndSpaces() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-        List<String> inputsFromView = List.of("Steve ", "Steve");
-        List<String> expectedNames = List.of("Steve", "Steve");
-
-        EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(inputsFromView);
-
-        EasyMock.replay(view);
-
-        PlayerCreateController controller = new PlayerCreateController(view);
-        controller.populateConfirmedNames();
-
-        List<String> actualNames = controller.getConfirmedNames();
-        assertEquals(expectedNames, actualNames);
-
-        EasyMock.verify(view);
-    }
-
-    @Test
-    public void populateConfirmedNames_twoEqualNames_twoEqualNamesWithoutEndSpaces() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-        List<String> inputsFromView = List.of(" Steve ", " Steve ");
-        List<String> expectedNames = List.of("Steve", "Steve");
 
         EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(inputsFromView);
 
