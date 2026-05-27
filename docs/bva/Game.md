@@ -1,47 +1,44 @@
 # BVA Analysis: Game Class
 ### Method under test: `Game()`
-- **TC1: start game with minimum valid players** ( :white_check_mark: )
+- **TC1: construct game with minimum valid players** ( :white_check_mark: )
   - **Name of the test**: constructor_minimumPlayers_initializesGameCorrectly
-  - **State of the system**: Game constructed with two player names
+  - **State of the system**: Game constructed with two player names, a valid drawPile, and a valid discardPile
   - **Expected output**:
-    - players list has length 2
+    - players list has length 2 (with matching names) 
     - isGameOngoing is false
-    - canDraw is false
     - isFaceUp is false
-    - drawPile is initialized as empty collection 
-    - discardPile initialized as empty collection 
-    - turnManager is null
+    - drawPile is initialized with a copy of the passed drawPile's cards
+    - discardPile initialized with a copy of the passed discardPile's cards
+    - turnManager is initialized using the players list
+    - each player's hand contains exactly 6 cards
+    - each player's first card is a defuse card 
 
-- **TC2: start game with maximum valid players** ( :white_check_mark: )
+- **TC2: construct game with maximum valid players** ( :x: )
   - **Name of the test**: constructor_maximumPlayers_initializesGameCorrectly
-  - **State of the system**: Game constructed with four player names
+  - **State of the system**: Game constructed with four player names, a valid drawPile, and a valid discardPile
   - **Expected output**:
-    - players list has length 4
+    - players list has length 4 (with matching names) 
     - isGameOngoing is false
-    - canDraw is false
     - isFaceUp is false
-    - drawPile initialized as empty collection 
-    - discardPile initialized as empty collection 
-    - turnManager is null
+    - drawPile initialized with a copy of the passed drawPile's cards
+    - discardPile initialized with a copy of the passed discardPile's cards
+    - turnManager is initialized using the players list
+    - each player's hand contains exactly 6 cards 
+    - each player's first card is a defuse card
 
-- **TC3: start game with too little players** ( :white_check_mark: )
-  - **Name of the test**: constructor_tooLittlePlayers_throwsGameException
+- **TC3: construct game with too little players** ( :x: )
+  - **Name of the test**: constructor_tooLittlePlayers_throwsIllegalArgumentException
   - **State of the system**: Game constructed with 1 player name
-  - **Expected output**: GameException (with key "error.invalidPlayerCount")
+  - **Expected output**: IllegalArgumentException with message "error.invalidPlayerCount"
 
-- **TC4: start game with too many players** ( :white_check_mark: )
-  - **Name of the test**: constructor_tooManyPlayers_throwsGameException
+- **TC4: construct game with too many players** ( :x: )
+  - **Name of the test**: constructor_tooManyPlayers_throwsIllegalArgumentException
   - **State of the system**: Game constructed with 5 player names
-  - **Expected output**: GameException (with key "error.invalidPlayerCount")
-
-- **TC5: start game with null player list** ( :white_check_mark: )
-  - **Name of the test**: constructor_nullPlayerList_throwsGameException
-  - **State of the system**: null passed as the player names instead of a true collection 
-  - **Expected output**: GameException (with key "error.invalidPlayerCount") (Null pointer case) 
+  - **Expected output**: IllegalArgumentException with message "error.invalidPlayerCount"
 
 ### Method under test: `startGame()`
 
-- **TC6: start game with minimum valid players** ( :white_check_mark: )
+- **TC6: start game with minimum valid players** ( :x: )
   - **Name of the test**: startGame_minimumPlayers_initializesGameAndDecks
   - **State of the system**: Game successfully constructed with 2 player names; isGameOngoing is false
   - **Expected output**: 
@@ -53,7 +50,7 @@
     - drawPile contains 6-N=4 Defuse cards
     - turnManager initialized at array index 0
 
-- **TC7:start game with maximum valid players** ( :white_check_mark: )
+- **TC7:start game with maximum valid players** ( :x: )
   - **Name of the test**: startGame_maximumPlayers_initializesGameAndDecks
   - **State of the system**: Game successfully constructed with 4 player names; isGameOngoing is false
   - **Expected output**: 
@@ -65,7 +62,7 @@
     - drawPile contains 6-N=2 Defuse cards
     - turnManager initialized at array index 0
 
-- **TC8: start game with more than one valid player** ( :white_check_mark: )
+- **TC8: start game with more than one valid player** ( :x: )
   - **Name of the test**: startGame_moreThanOnePlayer_initializesGameAndDecks
   - **State of the system**: Game successfully constructed with 3 player names; isGameOngoing is false
   - **Expected output**:
@@ -77,12 +74,12 @@
     - drawPile contains 6-N=3 Defuse cards
     - turnManager initialized at array index 0
 
-- **TC9: start game when with too little players** ( :white_check_mark: )
+- **TC9: start game when with too little players** ( :x: )
   - **Name of the test**: startGame_tooLittlePlayers_throwsGameException
   - **State of the system**: Game constructed with 1 player name; startGame() is called
   - **Expected output**: GameException (with key "error.invalidPlayerCount")
 
-- **TC10: start game with too many players** ( :white_check_mark: )
+- **TC10: start game with too many players** ( :x: )
   - **Name of the test**: startGame_tooManyPlayers_throwsGameException
   - **State of the system**: Game constructed with 5 player names; startGame() is called
   - **Expected output**: GameException (with key "error.invalidPlayerCount")

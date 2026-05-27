@@ -14,16 +14,4 @@ public final class TurnManager {
         this.players = new ArrayList<>(players);
         this.currentPlayerIndex = 0;
     }
-
-    public int getCurrentPlayerIndex() {
-        return this.currentPlayerIndex;
-    }
-
-    public Player getCurrentPlayer() {
-        return this.players.get(this.currentPlayerIndex);
-    }
-
-    public void advanceTurn() {
-        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
-    }
 }

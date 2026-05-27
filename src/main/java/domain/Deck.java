@@ -1,38 +1,26 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Deck {
 
-    private List<Card> cards = new ArrayList<>();
+    private final Queue<Card> cards;
 
-    public Deck(Deck otherDeck) {
-        if (otherDeck == null) {
-            this.cards = new ArrayList<>();
+    public Deck(Collection<Card> cards) {
+        if (cards == null) {
+            this.cards = new ArrayDeque<>();
         }
         else {
-            this.cards = new ArrayList<>(otherDeck.cards);
+            this.cards = new ArrayDeque<>(cards);
         }
     }
 
-    public int getCardCount() {
-        return this.cards.size();
+    public Collection<Card> getCards() {
+        return this.cards;
     }
 
     public Card removeTop() {
-        return null;
-    }
 
-    public void addCard(Card card) {
-
-    }
-
-    public void shuffle() {
-
-    }
-
-    public int getCountOfCardType(CardType type) {
-        return 0;
+        return this.cards.poll();
     }
 }

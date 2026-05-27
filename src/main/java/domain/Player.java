@@ -20,14 +20,7 @@ public final class Player {
         return Collections.unmodifiableList(this.hand);
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     public void addCardToHand(Card card) {
-        if (card == null) {
-            throw new IllegalArgumentException("Cannot add a null card to hand.");
-        }
         this.hand.add(card);
     }
 
