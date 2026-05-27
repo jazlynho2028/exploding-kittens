@@ -14,8 +14,8 @@ public class StartController {
     }
 
     public Scene buildStartScene() {
-        view.bindEnglishPlayButton(this::onEnglishPlayButton);
-        view.bindSpanishPlayButton(this::onSpanishPlayButton);
+        view.bindEnglishPlayButton(onEnglishPlay);
+        view.bindSpanishPlayButton(onSpanishPlay);
 
         return view.createStartScene();
     }
@@ -27,13 +27,4 @@ public class StartController {
     public void setOnSpanishPlay(Runnable onSpanishPlay) {
         this.onSpanishPlay = onSpanishPlay;
     }
-
-    void onEnglishPlayButton() {
-        onEnglishPlay.run();
-    }
-
-    void onSpanishPlayButton() {
-        onSpanishPlay.run();
-    }
-
 }
