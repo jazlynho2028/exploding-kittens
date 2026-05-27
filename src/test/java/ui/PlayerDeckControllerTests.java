@@ -146,6 +146,20 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(view);
 	}
 
+	@Test
+	public void onNameTag_playerStaysTheSame_noChange() {
+		int playerIndex = 0;
+
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+
+		EasyMock.replay(model);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.onNameTag(playerIndex);
+
+		EasyMock.verify(model);
+	}
+
 //
 //	@Test
 //	public void constructor_called_success() {
