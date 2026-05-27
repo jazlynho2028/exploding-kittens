@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
@@ -20,11 +21,6 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerCreateControllerTests {
-
-    private static final int PLAYER_COUNT_ONE = 1;
-    private static final int PLAYER_COUNT_TWO = 2;
-    private static final int PLAYER_COUNT_THREE = 3;
-    private static final int PLAYER_COUNT_FOUR = 4;
 
     @Test
     public void buildPlayerCreateScene_called_success() {
@@ -98,33 +94,23 @@ public class PlayerCreateControllerTests {
         EasyMock.verify(view);
     }
 
-    @Test
-    public void onAddPlayer_currentZero_success() {
+    @ParameterizedTest
+    @CsvSource({
+            "1",
+            "2",
+            "3",
+            "4"
+    })
+    public void onAddPlayer_add1To4_success(int expectedCount) {
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-        int expectedCount = PLAYER_COUNT_ONE;
-
-        view.addPlayerField(expectedCount);
-        EasyMock.expectLastCall();
-
-        EasyMock.replay(view);
-
-        PlayerCreateController controller = new PlayerCreateController(view);
-
-        controller.onAddPlayer();
-
-        int actualCount = controller.getPlayerFieldsCount();
-        assertEquals(expectedCount, actualCount);
-
-        EasyMock.verify(view);
-    }
-
-    @Test
-    public void onAddPlayer_currentOne_success() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-        int expectedCount = PLAYER_COUNT_TWO;
 
         for (int i = 0; i < expectedCount; i++) {
             view.addPlayerField(i + 1);
+            EasyMock.expectLastCall();
+        }
+
+        if (expectedCount == GameConstants.MAX_PLAYERS) {
+            view.setAddPlayerButtonDisabled(true);
             EasyMock.expectLastCall();
         }
 
@@ -143,60 +129,9 @@ public class PlayerCreateControllerTests {
     }
 
     @Test
-    public void onAddPlayer_currentTwo_Success() {
+    public void onAddPlayer_currentFour_noChange() {
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-        int expectedCount = PLAYER_COUNT_THREE;
-
-        for (int i = 0; i < expectedCount; i++) {
-            view.addPlayerField(i + 1);
-            EasyMock.expectLastCall();
-        }
-
-        EasyMock.replay(view);
-
-        PlayerCreateController controller = new PlayerCreateController(view);
-
-        for (int i = 0; i < expectedCount; i++) {
-            controller.onAddPlayer();
-        }
-
-        int actualCount = controller.getPlayerFieldsCount();
-        assertEquals(expectedCount, actualCount);
-
-        EasyMock.verify(view);
-    }
-
-    @Test
-    public void onAddPlayer_currentThree_success() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-        int expectedCount = PLAYER_COUNT_FOUR;
-
-        for (int i = 0; i < expectedCount; i++) {
-            view.addPlayerField(i + 1);
-            EasyMock.expectLastCall();
-        }
-
-        view.setAddPlayerButtonDisabled(true);
-        EasyMock.expectLastCall();
-
-        EasyMock.replay(view);
-
-        PlayerCreateController controller = new PlayerCreateController(view);
-
-        for (int i = 0; i < expectedCount; i++) {
-            controller.onAddPlayer();
-        }
-
-        int actualCount = controller.getPlayerFieldsCount();
-        assertEquals(expectedCount, actualCount);
-
-        EasyMock.verify(view);
-    }
-
-    @Test
-    public void onAddPlayer_currentFour_success() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-        int expectedCount = PLAYER_COUNT_FOUR;
+        int expectedCount = GameConstants.MAX_PLAYERS;
 
         for (int i = 0; i < expectedCount; i++) {
             view.addPlayerField(i + 1);
