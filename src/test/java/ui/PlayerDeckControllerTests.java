@@ -310,7 +310,24 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.canEndTurn()).andReturn(canEndTurn);
 	}
 
+	public void onDrawPile_drawsCard_failed() {
+		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
+		model.drawFromPile();
+		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
+
+		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, onError);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.setOnError(onError);
+
+		controller.onDrawPile();
+
+		EasyMock.verify(model, onError);
+	}
 
 //
 //	@Test
