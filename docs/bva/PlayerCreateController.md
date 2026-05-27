@@ -5,8 +5,8 @@
   - **Expected output:** called buildDependentUI, bindUI, returns view.createPlayerCreateScene
 
 ### Method under test: `buildDependentUI()`
-- **TC2: This method is called** ( :x: )
-  - **Name of the test:**
+- **TC2: This method is called** ( :white_check_mark: )
+  - **Name of the test:** buildDependentUI_called_success
   - **State of the system:** GameConstants.MIN_PLAYERS = 2
   - **Expected output:** called onAddPlayer twice
 
