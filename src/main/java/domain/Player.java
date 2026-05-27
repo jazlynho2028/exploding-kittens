@@ -24,16 +24,16 @@ public final class Player {
         hand.add(card);
     }
 
-//    public void setIsSelectedOfHandCardToOpposite(int handCardIndex) {
-//        hand.get(handCardIndex).toggleSelected();
-//    }
-//
-//    public void removeCardFromHand(Card card) {
-//        if (!this.hand.contains(card)) {
-//            throw new IllegalStateException("error.cardNotInHand");
-//        }
-//        hand.remove(card);
-//    }
+    //    public void setIsSelectedOfHandCardToOpposite(int handCardIndex) {
+    //        hand.get(handCardIndex).toggleSelected();
+    //    }
+    //
+    //    public void removeCardFromHand(Card card) {
+    //        if (!this.hand.contains(card)) {
+    //            throw new IllegalStateException("error.cardNotInHand");
+    //        }
+    //        hand.remove(card);
+    //    }
 
     void clearHand() {
         this.hand.clear();

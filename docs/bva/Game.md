@@ -174,3 +174,44 @@
     - returned list size is 6
     - element in list have values: "exploding_kitten-1", "defuse-1", "defuse-2", "defuse-3", "feral_cat-1", "feral_cat-2" in the same order
 
+### Method under test: ` canPlaySelected()`
+
+- **TC19: player selected zero cards** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_zeroCardsSelected_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - current active player has marked 0 cards as selected in their hand 
+  - **Expected output**:
+    - return false
+
+- **TC20: player selected exactly one card** ( :x: )
+  - **Name of the test**: canPlaySelected_oneCardSelected_delegatesToValidOneCard
+  - **State of the system**:
+    - Game is initialized
+    - current active player has marked 1 card as selected in their hand
+  - **Expected output**:
+    - return true (assuming card matches single-card rules like Attack or Skip)
+
+- **TC21: player selected exactly two cards** ( :x: )
+  - **Name of the test**: canPlaySelected_twoCardsSelected_delegatesToValidTwoCards
+  - **State of the system**:
+    - Game is initialized
+    - current active player has marked 2 cards as selected in their hand
+  - **Expected output**:
+    - return true (assuming card matches double-card rules like pair of cat cards)
+
+- **TC22: player selected exactly three cards** ( :x: )
+  - **Name of the test**: canPlaySelected_threeCardsSelected_delegatesToValidThreeCards
+  - **State of the system**:
+    - Game is initialized
+    - current active player has marked 3 cards as selected in their hand
+  - **Expected output**:
+    - return true (assuming card matches triple-card rules like three-of-a-kind cards)
+
+- **TC23: player selected exactly four cards** ( :x: )
+  - **Name of the test**: canPlaySelected_fourCardsSelected_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - current active player has marked 4 cards as selected in their hand
+  - **Expected output**:
+    - return false 

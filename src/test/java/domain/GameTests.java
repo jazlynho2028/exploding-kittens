@@ -654,6 +654,15 @@ public class GameTests {
     @Test
     public void getCurrentPlayerHandIds_normalHandSize_returnsAllCardIds() {
         final int numTotalCards = 10;
+        final int playerHandSize = 6;
+        final int numIds = 6;
+        final int cardIndex1 = 0;
+        final int cardIndex2 = 1;
+        final int cardIndex3 = 2;
+        final int cardIndex4 = 3;
+        final int cardIndex5 = 4;
+        final int cardIndex6 = 5;
+
 
         List<String> names = Arrays.asList("Alice", "Bob");
 
@@ -691,18 +700,47 @@ public class GameTests {
             currentPlayer.addCardToHand(card);
         }
 
-        assertEquals(6, currentPlayer.getHand().size());
+        assertEquals(playerHandSize, currentPlayer.getHand().size());
 
         List<String> resultIds = game.getCurrentPlayerHandIds();
 
         assertNotNull(resultIds);
-        assertEquals(6, resultIds.size());
-        assertEquals("exploding_kitten-1", resultIds.get(0));
-        assertEquals("defuse-1", resultIds.get(1));
-        assertEquals("defuse-2", resultIds.get(2));
-        assertEquals("defuse-3", resultIds.get(3));
-        assertEquals("feral_cat-1", resultIds.get(4));
-        assertEquals("feral_cat-2", resultIds.get(5));
+        assertEquals(numIds, resultIds.size());
+        assertEquals("exploding_kitten-1", resultIds.get(cardIndex1));
+        assertEquals("defuse-1", resultIds.get(cardIndex2));
+        assertEquals("defuse-2", resultIds.get(cardIndex3));
+        assertEquals("defuse-3", resultIds.get(cardIndex4));
+        assertEquals("feral_cat-1", resultIds.get(cardIndex5));
+        assertEquals("feral_cat-2", resultIds.get(cardIndex6));
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
+
+    @Test
+    public void canPlaySelected_zeroCardsSelected_returnsFalse() {
+        final int numTotalCards = 10;
+
+        List<String> names = Arrays.asList("Alice", "Bob");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        List<Card> initialCards = new ArrayList<>();
+        for (int i = 0; i < numTotalCards; i++) {
+            Card mockCard = EasyMock.createMock(Card.class);
+            EasyMock.replay(mockCard);
+            initialCards.add(mockCard);
+        }
+
+        EasyMock.expect(mockDrawPile.getCards()).andReturn(initialCards);
+        EasyMock.expect(mockDiscardPile.getCards()).andReturn(new ArrayList<>());
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+        boolean result = game.canPlaySelected();
+
+        assertFalse(result);
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }

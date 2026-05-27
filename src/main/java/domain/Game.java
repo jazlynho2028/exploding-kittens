@@ -108,7 +108,11 @@ public final class Game {
     }
 
     public boolean canPlaySelected() {
-        return false;
+        List<Card> selectedCards = getSelectedCards();
+
+        return isValidOneCard(selectedCards) ||
+                isValidTwoCards(selectedCards) ||
+                isValidThreeCards(selectedCards);
     }
 
     private boolean isValidOneCard(List<Card> selectedCards) {
