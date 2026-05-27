@@ -323,9 +323,28 @@ public class PlayerCreateControllerTests {
     }
 
     @Test
-    public void populateConfirmedNames_twoDifferentNames_twoNamesWithEndSpaceTrimmed() {
+    public void populateConfirmedNames_twoDifferentNames_twoNamesWithoutEndSpaces() {
         PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         List<String> inputsFromView = List.of("Steve ", "Steve");
+        List<String> expectedNames = List.of("Steve", "Steve");
+
+        EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(inputsFromView);
+
+        EasyMock.replay(view);
+
+        PlayerCreateController controller = new PlayerCreateController(view);
+        controller.populateConfirmedNames();
+
+        List<String> actualNames = controller.getConfirmedNames();
+        assertEquals(expectedNames, actualNames);
+
+        EasyMock.verify(view);
+    }
+
+    @Test
+    public void populateConfirmedNames_twoEqualNames_twoEqualNamesWithoutEndSpaces() {
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        List<String> inputsFromView = List.of(" Steve ", " Steve ");
         List<String> expectedNames = List.of("Steve", "Steve");
 
         EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(inputsFromView);
