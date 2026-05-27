@@ -11,8 +11,8 @@
   - **Expected output:** called onAddPlayer twice
 
 ### Method under test: `bindUI()`
-- **TC3: This method is called** ( :x: )
-  - **Name of the test:**
+- **TC3: This method is called** ( :white_check_mark: )
+  - **Name of the test:** bindUI_called_success
   - **State of the system:** N/A
   - **Expected output:** called view.bindAddPlayerButton, view.bindConfirmButton, view.bindRestartButton
 
