@@ -43,63 +43,58 @@
     - **State of the system**: playerIndex = 0, currentPlayerIndex = 0, isGameOngoing = true, isFaceUp = true
     - **Expected output**: called model.changeCurrentPlayerIndex, model.setIsFaceUpToFalse, view.renderPlayerNameTags, view.renderHandVisibilityButton, and buildAddBindPlayerHandCards
 
-- **TC9: Caught exception from model** ( :x: )
-  - **Name of the test**: handleChangeCurrentPlayer_playerChanges_failed
-  - **State of the system**: playerIndex = 0, model.changeCurrentPlayer throws RuntimeException "An error occurred."
-  - **Expected output**: onError accepts exception
-
 ### Method under test: `buildAddBindPlayerHandCards()`
-- **TC10: This method is called** ( :x: )
+- **TC9: This method is called** ( :x: )
   - **Name of the test**: buildAddBindPlayerHandCards_called_success
   - **State of the system**: currentPlayerHandIds = [], isFaceUp = true, canDraw = true
   - **Expected output**: called view.buildAndAddPlayerHandCards and bindPlayerHandCardButtons
 
 ### Method under test: `onDrawPile()`
-- **TC11: This method is executed successfully** ( :x: )
+- **TC10: This method is executed successfully** ( :x: )
     - **Name of the test**: onDrawPile_drawsCard_success
     - **State of the system**: canDraw = true, isDrawPileEmpty = true, canPlaySelected = true, canEndTurn = true
     - **Expected output**: called model.drawFromPile, view.renderDrawPile, buildAddBindPlayerHandCards, and view.renderTurnControlSection
 
-- **TC12: Caught exception from model** ( :x: )
+- **TC11: Caught exception from model** ( :x: )
   - **Name of the test**: onDrawPile_drawsCard_failed
   - **State of the system**: model.drawFromPile throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onHandVisibilityButton()`
-- **TC13: This method is executed successfully** ( :white_check_mark: )
+- **TC12: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: onHandVisibilityButton_called_success
     - **State of the system**: isFaceUp = true
     - **Expected output**: called model.setIsFaceUpToOpposite, view.renderHandVisibilityButton, and buildAddBindPlayerHandCards
 
-- **TC14: Caught exception from model** ( :x: )
+- **TC13: Caught exception from model** ( :x: )
   - **Name of the test**: onHandVisibilityButton_called_failed
   - **State of the system**: model.setIsFaceUpToOpposite throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onPlayerHandCardButton(int handCardIndex)`
-- **TC15: Cards are face up** ( :x: )
+- **TC14: Cards are face up** ( :x: )
   - **Name of the test**: onPlayerHandCardButton_cardsFaceUp_success
   - **State of the system**: handCardIndex = 0, isFaceUp = true, canPlaySelected = true, canEndTurn = false
   - **Expected output**: called model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite and view.renderTurnControlSection
 
-- **TC16: Cards are face down** ( :x: )
+- **TC15: Cards are face down** ( :x: )
     - **Name of the test**: onPlayerHandCardButton_cardsFaceDown_callsOnHandVisibility
     - **State of the system**: handCardIndex = 0, isFaceUp = false
     - **Expected output**: called onHandVisibilityButton
 
-- **TC17: Caught exception from model** ( :x: )
+- **TC16: Caught exception from model** ( :x: )
   - **Name of the test**: onPlayerHandCardButton_called_failed
   - **State of the system**: model.getIsFaceUp throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 
 ### Method under test: `onStartGameButton()`
-- **TC18: game starts successfully** ( :x: )
+- **TC17: game starts successfully** ( :x: )
   - **Name of the test**: onStartGameButton_called_success
   - **State of the system**: startingPlayerIndex = 0, canDraw = true, isDrawPileEmpty = true, isGameOngoing = true, canPlaySelected = true, canEndTurn = true
   - **Expected output**: called model.startGame, handleChangeCurrentPlayer, view.renderDrawPile, and view.buildAndRenderTurnControlSection
 
-- **TC19: Caught exception from model** ( :x: )
+- **TC18: Caught exception from model** ( :x: )
   - **Name of the test**: onStartGameButton_called_failed
   - **State of the system**: model.startGame throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
