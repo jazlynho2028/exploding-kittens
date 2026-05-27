@@ -98,3 +98,48 @@
     - no modifications made to drawPile
     - turnManager states are untouched
 
+### Method under test: `addExplodingKittensToDrawPile()`
+
+- **TC11: add exploding kitten cards to the lower valid player boundary** ( :white_check_mark: )
+  - **Name of the test**: addExplodingKittensToDrawPile_twoPlayers_addsOneKitten
+  - **State of the system**:
+    - Game is initialized with 2 players 
+    - drawPile is completely empty before calling method 
+  - **Expected output**:
+    - 1 (2 - 1) Exploding Kitten card is added to the drawPile 
+    - the added card has ID "exploding_kitten-1" and has CardType.EXPLODING_KITTEN
+
+- **TC12: add exploding kitten cards to game with more than one valid player** ( :x: )
+  - **Name of the test**: addExplodingKittensToDrawPile_threePlayers_addsTwoKittens
+  - **State of the system**:
+    - Game is initialized with 3 players
+    - drawPile is completely empty before calling method
+  - **Expected output**:
+    - 2 (3 - 1) Exploding Kitten cards are added to the drawPile
+    - the added cards have ID "exploding_kitten-1" and "exploding_kitten-2" and have CardType.EXPLODING_KITTEN
+
+- **TC13: add exploding kitten cards to game with upper valid player boundary** ( :x: )
+  - **Name of the test**: addExplodingKittensToDrawPile_fourPlayers_addsThreeKittens
+  - **State of the system**:
+    - Game is initialized with 4 players
+    - drawPile is completely empty before calling method
+  - **Expected output**:
+    - 3 (4 - 1) Exploding Kitten cards are added to the drawPile
+    - the added cards have ID "exploding_kitten-1", "exploding_kitten-2", and "exploding_kitten-3" and have CardType.EXPLODING_KITTEN
+
+- **TC14: add exploding kitten cards to game with insufficient players** ( :x: )
+  - **Name of the test**: addExplodingKittensToDrawPile_onePlayer_addsZeroKittens
+  - **State of the system**:
+    - Game is forced to be initialized with 1 player
+    - drawPile is completely empty before calling method
+  - **Expected output**:
+    - 0 (1 - 1) Exploding Kitten cards are added to the drawPile
+    - drawPile size remains 0
+
+- **TC15: add exploding kitten cards to game with too many players** ( :x: )
+  - **Name of the test**: addExplodingKittensToDrawPile_fivePlayers_addsFourKittens
+  - **State of the system**:
+    - Game is forced to be initialized with 5 players
+    - drawPile is completely empty before calling method
+  - **Expected output**:
+    - 4 (5 - 1) Exploding Kitten cards are added to the drawPile
