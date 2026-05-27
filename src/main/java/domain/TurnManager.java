@@ -7,7 +7,7 @@ public final class TurnManager {
     //    private int startingPlayerIndex;
     private int currentPlayerIndex;
     private final List<Player> players;
-    //    private int roundCounter;
+    private int roundCounter;
     private int currentDrawCount;
 
     public TurnManager(final List<Player> players) {
@@ -33,6 +33,10 @@ public final class TurnManager {
         return this.currentDrawCount;
     }
 
+    public int getRoundCounter()
+    {
+        return this.roundCounter;
+    }
 
     public void endTurn() {
 
@@ -47,10 +51,15 @@ public final class TurnManager {
     }
 
     public void incrementDrawCount() {
-        currentDrawCount++;
+        this.currentDrawCount++;
     }
 
     public void decrementDrawCount() {
-        currentDrawCount--;
+        this.currentDrawCount--;
+    }
+
+    public void incrementRound()
+    {
+        this.roundCounter++;
     }
 }
