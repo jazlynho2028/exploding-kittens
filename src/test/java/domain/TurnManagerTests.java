@@ -136,11 +136,11 @@ public class TurnManagerTests {
 
         TurnManager turnManager = new TurnManager(players);
 
-        turnManager.decrementCurrentDrawCount();
+        turnManager.decrementDrawCount();
 
         int actual = turnManager.getCurrentDrawCount();
 
-        assertEquals(initialDrawCount + 2, actual);
+        assertEquals(initialDrawCount - 1, actual);
 
         EasyMock.verify(mockPlayer1);
     }
