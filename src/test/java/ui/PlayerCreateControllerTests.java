@@ -215,7 +215,8 @@ public class PlayerCreateControllerTests {
                 Arguments.of(List.of(), List.of()),
                 Arguments.of(List.of("Steve"), List.of("Steve")),
                 Arguments.of(List.of("Steve ", "Steve"), List.of("Steve", "Steve")),
-                Arguments.of(List.of(" Steve ", " Steve "), List.of("Steve", "Steve"))
+                Arguments.of(List.of(" Steve ", " Steve "), List.of("Steve", "Steve")),
+                Arguments.of(List.of("", " Steve"), List.of("Steve"))
         );
     }
 
