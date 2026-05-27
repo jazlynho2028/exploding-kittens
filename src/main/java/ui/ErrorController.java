@@ -15,6 +15,7 @@ public class ErrorController {
 	)
 	public ErrorController(ErrorView view) {
 		this.view = view;
+		this.onRestart = () -> { };
 	}
 
 	public Scene buildErrorScene() {

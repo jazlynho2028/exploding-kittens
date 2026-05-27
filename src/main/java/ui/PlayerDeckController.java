@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 
 import java.util.function.Consumer;
 
+import static ui.ErrorHandler.attempt;
+
 public class PlayerDeckController {
 
     private final PlayerDeckView view;
@@ -26,28 +28,25 @@ public class PlayerDeckController {
     }
 
     public Scene buildPlayerDeckScene() {
-        buildDependentUI();
-        bindUI();
+        attempt(onError, () -> {
+            buildDependentUI();
+            bindUI();
+        });
 
         return view.createPlayerDeckScene();
     }
 
     private void buildDependentUI() {
-        try {
-            view.buildAndAddPlayerHandCards(
-                    this.model.getCurrentPlayerHandIds(),
-                    this.model.getIsFaceUp(),
-                    this.model.getCanDraw()
-            );
-            view.buildAddRenderPlayerNameTags(
-                    this.model.getPlayerNames(),
-                    this.model.getCurrentPlayerIndex(),
-                    this.model.getIsGameOngoing()
-            );
-        }
-        catch (Exception e) {
-            onError.accept(e.getMessage());
-        }
+        view.buildAndAddPlayerHandCards(
+                model.getCurrentPlayerHandIds(),
+                model.getIsFaceUp(),
+                model.getCanDraw()
+        );
+        view.buildAddRenderPlayerNameTags(
+                model.getPlayerNames(),
+                model.getCurrentPlayerIndex(),
+                model.getIsGameOngoing()
+        );
     }
 
     private void bindUI() {
@@ -63,44 +62,36 @@ public class PlayerDeckController {
     }
 
     void onNameTag(int playerIndex) {
-        if (model.getCurrentPlayerIndex() != playerIndex) {
-            handleChangeCurrentPlayer(playerIndex);
-        }
+        attempt(onError, () -> {
+            if (model.getCurrentPlayerIndex() != playerIndex) {
+                handleChangeCurrentPlayer(playerIndex);
+            }
+        });
     }
 
     void handleChangeCurrentPlayer(int playerIndex) {
-        try {
-            ((Game) model).changeCurrentPlayerIndex(playerIndex);
-            ((Game) model).setFaceUpToFalse();
+        ((Game) model).changeCurrentPlayerIndex(playerIndex);
+        ((Game) model).setFaceUpToFalse();
 
-            view.renderPlayerNameTags(
-                    model.getCurrentPlayerIndex(),
-                    model.getIsGameOngoing()
-            );
-            view.renderHandVisibilityButton(model.getIsFaceUp());
-            buildAddBindPlayerHandCards();
-        }
-        catch (Exception e) {
-            onError.accept(e.getMessage());
-        }
+        view.renderPlayerNameTags(
+                model.getCurrentPlayerIndex(),
+                model.getIsGameOngoing()
+        );
+        view.renderHandVisibilityButton(model.getIsFaceUp());
+        buildAddBindPlayerHandCards();
     }
 
     void buildAddBindPlayerHandCards() {
-        try {
-            view.buildAndAddPlayerHandCards(
-                    model.getCurrentPlayerHandIds(),
-                    model.getIsFaceUp(),
-                    model.getCanDraw()
-            );
-            view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
-        }
-        catch (Exception e) {
-            onError.accept(e.getMessage());
-        }
+        view.buildAndAddPlayerHandCards(
+                model.getCurrentPlayerHandIds(),
+                model.getIsFaceUp(),
+                model.getCanDraw()
+        );
+        view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
     }
 
     void onDrawPile() {
-        try {
+        attempt(onError, () -> {
             ((Game) model).drawFromPile();
 
             view.renderDrawPile(
@@ -112,26 +103,20 @@ public class PlayerDeckController {
                     model.canPlaySelected(),
                     model.canEndTurn()
             );
-        }
-        catch (Exception e) {
-            onError.accept(e.getMessage());
-        }
+        });
     }
 
     void onHandVisibilityButton() {
-        try {
+        attempt(onError, () -> {
             ((Game) model).setIsFaceUpToOpposite();
 
             view.renderHandVisibilityButton(model.getIsFaceUp());
             buildAddBindPlayerHandCards();
-        }
-        catch (Exception e) {
-            onError.accept(e.getMessage());
-        }
+        });
     }
 
     void onPlayerHandCardButton(int handCardIndex) {
-        try {
+        attempt(onError, () -> {
             if (!model.getIsFaceUp()) {
                 onHandVisibilityButton();
             }
@@ -143,14 +128,11 @@ public class PlayerDeckController {
                         model.canEndTurn()
                 );
             }
-        }
-        catch (Exception e) {
-            onError.accept(e.getMessage());
-        }
+        });
     }
 
     void onStartGameButton() {
-        try {
+        attempt(onError, () -> {
             ((Game) model).startGame();
 
             handleChangeCurrentPlayer(model.getStartingPlayerIndex());
@@ -164,10 +146,7 @@ public class PlayerDeckController {
                     model.canPlaySelected(),
                     model.canEndTurn()
             );
-        }
-        catch (Exception e) {
-            onError.accept(e.getMessage());
-        }
+        });
     }
 
 }
