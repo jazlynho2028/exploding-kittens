@@ -22,7 +22,7 @@
   - **Expected output**: called view.bindDrawPileButton, view.bindHandVisibilityButton, view.bindStartGameButton, view.bindNameTags, view.bindPlayerHandCardButtons
 
 ### Method under test: `onNameTag(int playerIndex)`
-- **TC5: Player index is the same as current player index** ( :x: )
+- **TC5: Player index is the same as current player index** ( :white_check_mark: )
     - **Name of the test**: onNameTag_playerStaysTheSame_noChange
     - **State of the system**: playerIndex = 0, currentPlayerIndex = 0
     - **Expected output**: no model method is called
