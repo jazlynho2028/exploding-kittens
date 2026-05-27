@@ -27,7 +27,7 @@
   - **State of the system:** playerFieldsCount = 1
   - **Expected output:** playerFieldsCount = 2, called view.addPlayerField(2), view.setAddPlayerButtonDisabled gets called with false
 
-- **TC6: Add a third player** ( :x: )
+- **TC6: Add a third player** ( :white_check_mark: )
   - **Name of the test:** onAddPlayer_currentTwo_success
   - **State of the system:** playerFieldsCount = 2
   - **Expected output:** playerFieldsCount = 3, called view.addPlayerField(3), view.setAddPlayerButtonDisabled gets called with false
