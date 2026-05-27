@@ -66,7 +66,7 @@
     - **State of the system**: isFaceUp = true
     - **Expected output**: called model.setIsFaceUpToOpposite, view.renderHandVisibilityButton, and buildAddBindPlayerHandCards
 
-- **TC13: Caught exception from model** ( :x: )
+- **TC13: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onHandVisibilityButton_called_failed
   - **State of the system**: model.setIsFaceUpToOpposite throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
