@@ -24,6 +24,7 @@ public class PlayerDeckControllerTests {
 	private final boolean isGameOngoing = true;
 	private final boolean isDrawPileEmpty = true;
 	private final boolean canPlaySelected = true;
+	private final String expectedMsg = "An error occurred.";
 
 	private Game model;
 	private PlayerDeckView view;
@@ -60,6 +61,30 @@ public class PlayerDeckControllerTests {
 		assertEquals(expectedScene, actualScene);
 
 		EasyMock.verify(view, controller);
+	}
+
+	@Test
+	public void buildPlayerDeckScene_called_failed() {
+		Consumer<String> onError = EasyMock.createMock(Consumer.class);
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("buildDependentUI")
+				.createMock();
+
+		controller.buildDependentUI();
+		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
+
+		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(onError, controller);
+
+		controller.setOnError(onError);
+		controller.buildPlayerDeckScene();
+
+		EasyMock.verify(onError, controller);
 	}
 
 //
