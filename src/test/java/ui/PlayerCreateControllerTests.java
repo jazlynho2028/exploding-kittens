@@ -1,5 +1,6 @@
 package ui;
 
+import domain.GameConstants;
 import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,6 +59,26 @@ public class PlayerCreateControllerTests {
         assertSame(expectedScene, actualScene);
 
         EasyMock.verify(view, controller);
+    }
+
+    @Test
+    public void buildDependentUI_called_success() {
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        PlayerCreateController controller = EasyMock.createMockBuilder(
+                        PlayerCreateController.class
+                )
+                .withConstructor(view)
+                .addMockedMethod("onAddPlayer")
+                .createMock();
+
+        controller.onAddPlayer();
+        EasyMock.expectLastCall().times(GameConstants.MIN_PLAYERS);
+
+        EasyMock.replay(controller);
+
+        controller.buildDependentUI();
+
+        EasyMock.verify(controller);
     }
 
 //    @Test
