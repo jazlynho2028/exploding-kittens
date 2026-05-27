@@ -28,9 +28,17 @@
   - **Name of the test**: decrementDrawCount_initialZero_success
   - **State of the system**: currentDrawCount = 0
   - **Expected output**: getCurrentDrawCount() = -1
-- **T75: Draw count incremented on nonzero draw count** ( :white_check_mark: )
+- **TC7: Draw count incremented on nonzero draw count** ( :white_check_mark: )
   - **Name of the test**: decrementDrawCount_fromNonZero_success
   - **State of the system**: currentDrawCount = -1
   - **Expected output**: getCurrentDrawCount() = -2
 ### Method under test: `incrementRound()`
+- **TC8: Round incremented from its minimum baseline** ( :x: )
+  - **Name of the test**: incrementRound_initialZero_success
+  - **State of the system**: roundCounter = 0
+  - **Expected output**: getRoundCounter() = 1
+- **TC9: Draw count incremented on nonzero draw count** ( :x: )
+  - **Name of the test**: incrementRound_fromNonZero_success
+  - **State of the system**: roundCounter = 1
+  - **Expected output**: getRoundCounter() = 2
 ### Method under test: `advanceTurn()`

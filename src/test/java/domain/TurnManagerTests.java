@@ -167,4 +167,26 @@ public class TurnManagerTests {
 
         EasyMock.verify(mockPlayer1);
     }
+
+    @Test
+    public void incrementRound_initialZero_success() {
+        final int initialRoundCounter = 0;
+        List<Player> players = new ArrayList<>();
+
+        Player mockPlayer1 = EasyMock.createMock(Player.class);
+
+        players.add(mockPlayer1);
+
+        EasyMock.replay(mockPlayer1);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        turnManager.incrementRound();
+
+        int actual = turnManager.getRoundCounter();
+
+        assertEquals(initialRoundCounter + 1, actual);
+
+        EasyMock.verify(mockPlayer1);
+    }
 }
