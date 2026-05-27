@@ -8,10 +8,6 @@ public final class TurnManager {
     private int currentPlayerIndex;
 
     public TurnManager(List<Player> players) {
-        if (players == null || players.isEmpty()) {
-            throw new IllegalArgumentException("Player collection cannot be null or empty.");
-        }
-        this.players = new ArrayList<>(players);
-        this.currentPlayerIndex = 0;
+        this.players = players;
     }
 }

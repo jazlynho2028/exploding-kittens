@@ -64,27 +64,103 @@ public final class Game {
 
     }
 
-    public List<Player> getPlayers() {
-        return Collections.unmodifiableList(this.players);
+    void addExplodingKittensToDrawPile() {
+
+    }
+
+    List<Player> getPlayers() {
+        return List.copyOf(players);
+    }
+
+    public int getCurrentPlayerIndex() {
+        return -1;
+    }
+
+    public int getStartingPlayerIndex() {
+        return -1;
+    }
+
+    public List<String> getCurrentPlayerHandIds() {
+        return null;
+    }
+
+    public boolean canPlaySelected() {
+        return false;
+    }
+
+    private boolean isValidOneCard(List<Card> selectedCards) {
+        return false;
+    }
+
+    private boolean isCatCard(Card card) {
+        return false;
+    }
+
+    private boolean isValidTwoCards(List<Card> selectedCards) {
+        return false;
+    }
+
+    private boolean isValidThreeCards(List<Card> selectedCards) {
+        return false;
+    }
+
+    private boolean cardIsNotType(Card card, CardType type) {
+        return false;
+    }
+
+    private List<Card> getSelectedCards() {
+        return null;
+    }
+
+    public boolean canEndTurn() {
+        return false;
+    }
+
+    public boolean isDrawPileEmpty() {
+        return false;
     }
 
     public boolean getIsGameOngoing() {
-        return this.isGameOngoing;
+        return false;
+    }
+
+    public boolean getCanDraw() {
+        return false;
     }
 
     public boolean getIsFaceUp() {
-        return this.isFaceUp;
+        return false;
     }
 
-    public Deck getDrawPile() {
-        return this.drawPile;
+    Deck getDrawPile() {
+        return null;
     }
 
-    public Deck getDiscardPile() {
-        return this.discardPile;
+    Deck getDiscardPile() {
+        return null;
     }
 
-    public TurnManager getTurnManager() {
+    TurnManager getTurnManager() {
         return this.turnManager;
+    }
+
+    public void changeCurrentPlayerIndex(int newPlayerIndex) {
+
+    }
+
+    public void setFaceUpToFalse() {
+
+    }
+
+    public void drawFromPile() {
+
+    }
+
+    public void setIsFaceUpToOpposite() {
+
+    }
+
+    public void setIsSelectedOfPlayerCardAtIndexToOpposite(int handCardIndex) {
+
     }
 }
