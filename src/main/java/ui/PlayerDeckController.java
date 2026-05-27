@@ -28,15 +28,13 @@ public class PlayerDeckController {
     }
 
     public Scene buildPlayerDeckScene() {
-        attempt(onError, () -> {
-            buildDependentUI();
-            bindUI();
-        });
+        attempt(onError, this::buildDependentUI);
+        bindUI();
 
         return view.createPlayerDeckScene();
     }
 
-    private void buildDependentUI() {
+    void buildDependentUI() {
         view.buildAndAddPlayerHandCards(
                 model.getCurrentPlayerHandIds(),
                 model.getIsFaceUp(),
@@ -49,7 +47,7 @@ public class PlayerDeckController {
         );
     }
 
-    private void bindUI() {
+    void bindUI() {
         view.bindDrawPileButton(this::onDrawPile);
         view.bindHandVisibilityButton(this::onHandVisibilityButton);
         view.bindStartGameButton(this::onStartGameButton);
@@ -117,16 +115,16 @@ public class PlayerDeckController {
 
     void onPlayerHandCardButton(int handCardIndex) {
         attempt(onError, () -> {
-            if (!model.getIsFaceUp()) {
-                onHandVisibilityButton();
-            }
-            else {
+            if (model.getIsFaceUp()) {
                 ((Game) model).setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
 
                 view.renderTurnControlSection(
                         model.canPlaySelected(),
                         model.canEndTurn()
                 );
+            }
+            else {
+                onHandVisibilityButton();
             }
         });
     }
