@@ -18,27 +18,27 @@
 
 ### Method under test: `onAddPlayer()`
 - **TC4: Add a first player** ( :white_check_mark: )
-  - **Name of the test:** onAddPlayer_currentZero_success
+  - **Name of the test:** onAddPlayer_add1To4_success
   - **State of the system:** playerFieldsCount = 0
   - **Expected output:** playerFieldsCount = 1, called view.addPlayerField(1), view.setAddPlayerButtonDisabled gets called with false
 
 - **TC5: Add a second player** ( :white_check_mark: )
-  - **Name of the test:** onAddPlayer_currentOne_success
+  - **Name of the test:** onAddPlayer_add1To4_success
   - **State of the system:** playerFieldsCount = 1
   - **Expected output:** playerFieldsCount = 2, called view.addPlayerField(2)
 
 - **TC6: Add a third player** ( :white_check_mark: )
-  - **Name of the test:** onAddPlayer_currentTwo_success
+  - **Name of the test:** onAddPlayer_add1To4_success
   - **State of the system:** playerFieldsCount = 2
   - **Expected output:** playerFieldsCount = 3, called view.addPlayerField(3)
 
 - **TC7: Add a fourth player** ( :white_check_mark: )
-  - **Name of the test:** onAddPlayer_currentThree_success
+  - **Name of the test:** onAddPlayer_add1To4_success
   - **State of the System:** playerFieldsCount = 3
   - **Expected output:** playerFieldsCount = 4, called view.addPlayerField(4), view.setAddPlayerButtonDisabled gets called with true
 
 - **TC8: Add a fifth player that's above the maximum** ( :white_check_mark: )
-  - **Name of the test:** onAddPlayer_currentFour_failed
+  - **Name of the test:** onAddPlayer_currentFour_noChange
   - **State of the System:** playerFieldsCount = 4
   - **Expected output:** playerFieldsCount = 4
 
