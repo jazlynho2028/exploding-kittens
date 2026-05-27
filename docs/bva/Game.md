@@ -58,8 +58,8 @@
     - Each player receives 5 cards drawn from the top of drawPile
     - total cards remaining in drawPile decreases by (5 x 4)
 
-- **TC7: populate hands when drawPile has exactly the minimum required cards** ( :x: )
-  - **Name of the test**: populatePlayerHands_insufficientCards_throwsException
+- **TC7: populate hands when drawPile has exactly the minimum required cards** ( :white_check_mark: )
+  - **Name of the test**: populatePlayerHands_exactCards_emptiesDeck
   - **State of the system**: Game has 3 players; drawPile contains exactly sufficient amount of cards (5 x 3)
   - **Expected output**:
     - Player 1 gets a DEFUSE card with ID "defuse-5"
@@ -70,7 +70,7 @@
     - drawPile has 0 cards remaining
 
 - **TC8: populate hands when drawPile is short by one card** ( :x: )
-  - **Name of the test**: populatePlayerHands_shortDeck_throwsException
+  - **Name of the test**: populatePlayerHands_insufficientCards_throwsException
   - **State of the system**: Game has 3 players; drawPile contains 1 card fewer than the sufficient amount of cards (5 x 3)
   - **Expected output**:
     - IllegalArgumentException with message "Cannot add a null card to hand."
