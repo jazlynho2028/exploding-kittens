@@ -3,6 +3,7 @@ package ui;
 import domain.Game;
 import domain.GameConstants;
 import io.cucumber.java.an.E;
+import io.cucumber.java.ca.Atesa;
 import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
@@ -244,6 +245,26 @@ public class PlayerDeckControllerTests {
 	private void setUpRenderPlayerNameTagsExpectations() {
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
 		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
+	}
+
+	@Test
+	public void buildAddBindPlayerHandCards_called_success() {
+		boolean isFaceUp = true;
+
+		setUpBuildAndAddPlayerHandCardsExpectations(isFaceUp);
+
+		view.buildAndAddPlayerHandCards(currentPlayerHandIds, isFaceUp, canDraw);
+		EasyMock.expectLastCall();
+
+		view.bindPlayerHandCardButtons(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view);
+
+		PlayerDeckController controller= new PlayerDeckController(model, view);
+		controller.buildAddBindPlayerHandCards();
+
+		EasyMock.verify(model, view);
 	}
 
 //
