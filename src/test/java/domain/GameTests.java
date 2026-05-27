@@ -650,4 +650,60 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void getCurrentPlayerHandIds_normalHandSize_returnsAllCardIds() {
+        final int numTotalCards = 10;
+
+        List<String> names = Arrays.asList("Alice", "Bob");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        List<Card> initialCards = new ArrayList<>();
+        for (int i = 0; i < numTotalCards; i++) {
+            Card mockCard = EasyMock.createMock(Card.class);
+            EasyMock.replay(mockCard);
+            initialCards.add(mockCard);
+        }
+
+        EasyMock.expect(mockDrawPile.getCards()).andReturn(initialCards);
+        EasyMock.expect(mockDiscardPile.getCards()).andReturn(new ArrayList<>());
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+
+        int activePlayerIndex = game.getCurrentPlayerIndex();
+        Player currentPlayer = game.getPlayers().get(activePlayerIndex);
+        currentPlayer.clearHand();
+
+        List<Card> expectedCards = Arrays.asList(
+                new Card("exploding_kitten-1", CardType.EXPLODING_KITTEN),
+                new Card("defuse-1", CardType.DEFUSE),
+                new Card("defuse-2", CardType.DEFUSE),
+                new Card("defuse-3", CardType.DEFUSE),
+                new Card("feral_cat-1", CardType.FERAL_CAT),
+                new Card("feral_cat-2", CardType.FERAL_CAT)
+        );
+
+        for (Card card : expectedCards) {
+            currentPlayer.addCardToHand(card);
+        }
+
+        assertEquals(6, currentPlayer.getHand().size());
+
+        List<String> resultIds = game.getCurrentPlayerHandIds();
+
+        assertNotNull(resultIds);
+        assertEquals(6, resultIds.size());
+        assertEquals("exploding_kitten-1", resultIds.get(0));
+        assertEquals("defuse-1", resultIds.get(1));
+        assertEquals("defuse-2", resultIds.get(2));
+        assertEquals("defuse-3", resultIds.get(3));
+        assertEquals("feral_cat-1", resultIds.get(4));
+        assertEquals("feral_cat-2", resultIds.get(5));
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
 }

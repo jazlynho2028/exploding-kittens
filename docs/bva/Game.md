@@ -163,7 +163,7 @@
     - returned list size is 1 
     - element in list has value "defuse-5"
 
-- **TC18: get IDs when current player's hand has more than one card** ( :x: )
+- **TC18: get IDs when current player's hand has more than one card** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_normalHandSize_returnsAllCardIds
   - **State of the system**:
     - Game is initialized
@@ -172,4 +172,5 @@
   - **Expected output**:
     - method returns List<String> instance with 6 elements
     - returned list size is 6
-    - element in list have values: "exploding_kitten-1", "defuse-1", "defuse-2", "defuse-3", "feral_cat-1", "feral_cat-2" in the same order 
+    - element in list have values: "exploding_kitten-1", "defuse-1", "defuse-2", "defuse-3", "feral_cat-1", "feral_cat-2" in the same order
+
