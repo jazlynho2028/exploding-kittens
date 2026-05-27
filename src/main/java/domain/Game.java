@@ -61,11 +61,27 @@ public final class Game {
     }
 
     public void startGame() {
+        if (isGameOngoing) {
+            throw new IllegalStateException("error.gameAlreadyStarted");
+        }
 
+        addExplodingKittensToDrawPile();
+
+        drawPile.shuffle();
+
+        isGameOngoing = true;
+        turnManager.incrementRound();
+        turnManager.incrementDrawCount();
     }
 
     void addExplodingKittensToDrawPile() {
+        int kittensToAdd = players.size() - 1;
 
+        for (int i = 1; i <= kittensToAdd; i++) {
+            String cardId = createCardId(CardType.EXPLODING_KITTEN, i);
+            Card explodingKitten = new Card(cardId, CardType.EXPLODING_KITTEN);
+            drawPile.addCard(explodingKitten);
+        }
     }
 
     List<Player> getPlayers() {
@@ -113,7 +129,7 @@ public final class Game {
     }
 
     public boolean canEndTurn() {
-        return false;
+        return turnManager.getCurrentDrawCount() == 0;
     }
 
     public boolean isDrawPileEmpty() {
@@ -121,7 +137,7 @@ public final class Game {
     }
 
     public boolean getIsGameOngoing() {
-        return false;
+        return this.isGameOngoing;
     }
 
     public boolean getCanDraw() {

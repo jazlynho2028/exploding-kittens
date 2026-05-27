@@ -26,4 +26,13 @@ public class Deck {
 
         return this.cards.poll();
     }
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+    }
+
+    public void shuffle() {
+    }
+
+
 }

@@ -74,3 +74,27 @@
   - **State of the system**: Game has 3 players; drawPile contains 1 card fewer than the sufficient amount of cards (5 x 3)
   - **Expected output**:
     - IllegalArgumentException with message "error.emptyDrawPile"
+
+### Method under test: `startGame()`
+
+- **TC9: call startGame() when game has not started yet** ( :white_check_mark: )
+  - **Name of the test**: startGame_gameNotStarted_initializesGameSuccessfully
+  - **State of the system**: 
+    - isGameOngoing is false 
+    - draw pile is initialized with standard player starting hands already dealt out
+    - turnManager is at its initial state (round 0, draw count 0)
+  - **Expected output**:
+    - isGameOngoing is true
+    - Exploding Kittens are successfully inserted into the draw pile
+    - drawPile.shuffle() is called exactly once
+    - turnManger.incrementRount() and incrementDrawCount() are executed successfully
+
+- **TC10: call startGame() when game is already in progress** ( :x: )
+  - **Name of the test**: startGame_gameAlreadyStarted_throwsIllegalStateException
+  - **State of the system**:
+    - isGameOngoing is true
+  - **Expected output**:
+    - IllegalStateException with message "error.gameAlreadyStarted"
+    - no modifications made to drawPile
+    - turnManager states are untouched
+
