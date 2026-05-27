@@ -32,7 +32,7 @@
     - **State of the system**: playerIndex = 1, currentPlayerIndex = 0
     - **Expected output**: called handleChangeCurrentPlayer(playerIndex)
 
-- **TC7: Caught exception from model** ( :x: )
+- **TC7: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onNameTag_called_failed
   - **State of the system**: playerIndex = 0, currentPlayerIndex = 0, model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
