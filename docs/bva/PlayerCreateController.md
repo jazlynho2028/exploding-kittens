@@ -74,3 +74,8 @@
   - **State of the System:** inputsFromView = [" Steve ", " Steve "]
   - **Expected output:** confirmedNames = ["Steve", "Steve"]
 
+- **TC15: Two names with one empty** ( :white_check_mark: )
+  - **Name of the test:** populateConfirmedNames_givenInputsFromView_populatedAndTrimmed
+  - **State of the System:** inputsFromView = ["", " Steve"]
+  - **Expected output:** confirmedNames = ["Steve"]
+
