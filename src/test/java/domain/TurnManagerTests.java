@@ -189,4 +189,5 @@ public class TurnManagerTests {
 
         EasyMock.verify(mockPlayer1);
     }
+
 }
