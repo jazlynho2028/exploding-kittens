@@ -89,7 +89,7 @@
 
 
 ### Method under test: `onStartGameButton()`
-- **TC17: game starts successfully** ( :x: )
+- **TC17: game starts successfully** ( :white_check_mark: )
   - **Name of the test**: onStartGameButton_called_success
   - **State of the system**: startingPlayerIndex = 0, canDraw = true, isDrawPileEmpty = true, isGameOngoing = true, canPlaySelected = true, canEndTurn = true
   - **Expected output**: called model.startGame, handleChangeCurrentPlayer, view.renderDrawPile, and view.buildAndRenderTurnControlSection
