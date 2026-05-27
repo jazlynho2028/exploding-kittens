@@ -412,6 +412,7 @@ public class GameTests {
     @Test
     public void addExplodingKittensToDrawPile_twoPlayers_addsOneKitten() {
         final int numTotalCards = 10;
+        final int totalKittenCards = 1;
 
         List<String> names = Arrays.asList("Alice", "Bob");
 
@@ -437,7 +438,7 @@ public class GameTests {
 
         game.addExplodingKittensToDrawPile();
 
-        assertEquals(1, finalDrawPile.getCards().size());
+        assertEquals(totalKittenCards, finalDrawPile.getCards().size());
 
         Card addedCard = finalDrawPile.removeTop();
 
@@ -450,6 +451,7 @@ public class GameTests {
     @Test
     public void addExplodingKittensToDrawPile_threePlayers_addsTwoKittens() {
         final int numTotalCards = 15;
+        final int totalKittenCards = 2;
 
         List<String> names = Arrays.asList("Alice", "Bob", "Snoopy");
 
@@ -475,7 +477,7 @@ public class GameTests {
 
         game.addExplodingKittensToDrawPile();
 
-        assertEquals(2, finalDrawPile.getCards().size());
+        assertEquals(totalKittenCards, finalDrawPile.getCards().size());
 
         Card kitten1 = finalDrawPile.removeTop();
         assertEquals("exploding_kitten-1", kitten1.getId());
@@ -484,6 +486,52 @@ public class GameTests {
         Card kitten2 = finalDrawPile.removeTop();
         assertEquals("exploding_kitten-2", kitten2.getId());
         assertEquals(CardType.EXPLODING_KITTEN, kitten2.getType());
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
+
+    @Test
+    public void addExplodingKittensToDrawPile_fourPlayers_addsThreeKittens() {
+        final int numTotalCards = 20;
+        final int totalKittenCards = 3;
+
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        List<Card> initialCards = new ArrayList<>();
+        for (int i = 0; i < numTotalCards; i++) {
+            Card mockCard = EasyMock.createMock(Card.class);
+            EasyMock.replay(mockCard);
+            initialCards.add(mockCard);
+        }
+
+        EasyMock.expect(mockDrawPile.getCards()).andReturn(initialCards);
+        EasyMock.expect(mockDiscardPile.getCards()).andReturn(new ArrayList<>());
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+
+        Deck finalDrawPile = game.getDrawPile();
+        assertEquals(0, finalDrawPile.getCards().size());
+
+        game.addExplodingKittensToDrawPile();
+
+        assertEquals(totalKittenCards, finalDrawPile.getCards().size());
+
+        Card kitten1 = finalDrawPile.removeTop();
+        assertEquals("exploding_kitten-1", kitten1.getId());
+        assertEquals(CardType.EXPLODING_KITTEN, kitten1.getType());
+
+        Card kitten2 = finalDrawPile.removeTop();
+        assertEquals("exploding_kitten-2", kitten2.getId());
+        assertEquals(CardType.EXPLODING_KITTEN, kitten2.getType());
+
+        Card kitten3 = finalDrawPile.removeTop();
+        assertEquals("exploding_kitten-3", kitten3.getId());
+        assertEquals(CardType.EXPLODING_KITTEN, kitten3.getType());
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }

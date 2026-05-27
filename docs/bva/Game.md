@@ -118,7 +118,7 @@
     - 2 (3 - 1) Exploding Kitten cards are added to the drawPile
     - the added cards have ID "exploding_kitten-1" and "exploding_kitten-2" and have CardType.EXPLODING_KITTEN
 
-- **TC13: add exploding kitten cards to game with upper valid player boundary** ( :x: )
+- **TC13: add exploding kitten cards to game with upper valid player boundary** ( :white_check_mark: )
   - **Name of the test**: addExplodingKittensToDrawPile_fourPlayers_addsThreeKittens
   - **State of the system**:
     - Game is initialized with 4 players
