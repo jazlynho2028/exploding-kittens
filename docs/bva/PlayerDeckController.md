@@ -44,10 +44,10 @@
     - **Expected output**: called model.changeCurrentPlayerIndex, model.setIsFaceUpToFalse, view.renderPlayerNameTags, view.renderHandVisibilityButton, and buildAddBindPlayerHandCards
 
 ### Method under test: `buildAddBindPlayerHandCards()`
-- **TC9: This method is called** ( :x: )
+- **TC9: This method is called** ( :white_check_mark: )
   - **Name of the test**: buildAddBindPlayerHandCards_called_success
   - **State of the system**: currentPlayerHandIds = [], isFaceUp = true, canDraw = true
-  - **Expected output**: called view.buildAndAddPlayerHandCards and bindPlayerHandCardButtons
+  - **Expected output**: called view.buildAndAddPlayerHandCards and view.bindPlayerHandCardButtons
 
 ### Method under test: `onDrawPile()`
 - **TC10: This method is executed successfully** ( :x: )
