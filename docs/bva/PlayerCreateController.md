@@ -50,8 +50,8 @@
 
 - **TC10: Confirm names failed** ( :white_check_mark: )
   - **Name of the test:** onConfirmNames_called_failed
-  - **State of the System:** N/A
-  - **Expected output:** called populateConfirmedNames, onSuccess.run throws Exception "An error occurred." and onError accepts it
+  - **State of the System:** onSuccess.run throws RuntimeException "An error occurred."
+  - **Expected output:** called populateConfirmedNames, onError accepts exception
 
 ### Method under test: `populateConfirmedNames()`
 - **TC11: Empty names** ( :white_check_mark: )
