@@ -134,7 +134,7 @@
     - drawPile is completely empty before calling method
   - **Expected output**: Game constructor throws IllegalArgumentException immediately with the message "error.invalidPlayerCount"
 
-- **TC15: add exploding kitten cards to game with too many players** ( :x: )
+- **TC15: add exploding kitten cards to game with too many players** ( :white_check_mark: )
   - **Name of the test**: addExplodingKittensToDrawPile_fivePlayers_gameThrowsException
   - **State of the system**:
     - Game is forced to be initialized with 5 players

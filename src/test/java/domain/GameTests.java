@@ -553,4 +553,22 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void addExplodingKittensToDrawPile_fivePlayers_gameThrowsException() {
+        List<String> names = Arrays.asList("Alice", "Bob", "Snoopy", "Woodstock", "John");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Game(names, mockDrawPile, mockDiscardPile);
+        });
+
+        assertEquals("error.invalidPlayerCount", exception.getMessage());
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
 }
