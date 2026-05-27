@@ -7,7 +7,7 @@
 ## Method under test: `buildDependentUI()`
 - **TC2: This method is executed successfully** ( :x: )
   - **Name of the test**: buildDependentUI_called_success
-  - **State of the system**: currentPlayerHandIds = [], isFaceUp = true, canDraw = true
+  - **State of the system**: currentPlayerHandIds = [], isFaceUp = true, canDraw = true, playerNames = [], currentPlayerIndex = 0, isGameOngoing = true
   - **Expected output**: called view.buildAndAddPlayerHandCards and view.buildAddRenderPlayerNameTags
 
 - **TC3: Caught exception from model** ( :x: )
