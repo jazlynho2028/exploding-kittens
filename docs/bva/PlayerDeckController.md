@@ -55,7 +55,7 @@
     - **State of the system**: canDraw = true, isDrawPileEmpty = true, canPlaySelected = true, canEndTurn = true
     - **Expected output**: called model.drawFromPile, view.renderDrawPile, buildAddBindPlayerHandCards, and view.renderTurnControlSection
 
-- **TC11: Caught exception from model** ( :x: )
+- **TC11: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDrawPile_drawsCard_failed
   - **State of the system**: model.drawFromPile throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
