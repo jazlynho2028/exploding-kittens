@@ -160,6 +160,28 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model);
 	}
 
+	@Test
+	public void onNameTag_playerChanges_success() {
+		int playerIndex = 1;
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("handleChangeCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+
+		controller.handleChangeCurrentPlayer(playerIndex);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, controller);
+
+		controller.onNameTag(playerIndex);
+
+		EasyMock.verify(model, controller);
+	}
+
 //
 //	@Test
 //	public void constructor_called_success() {
