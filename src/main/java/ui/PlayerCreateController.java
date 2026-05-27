@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static ui.ErrorHandler.attempt;
+
 public class PlayerCreateController {
     private final PlayerCreateView view;
+    private final List<String> confirmedNames;
 
     private int playerFieldsCount;
-    private List<String> confirmedNames;
     private Consumer<String> onError;
     private Runnable onSuccess;
     private Runnable onRestart;
@@ -24,7 +26,6 @@ public class PlayerCreateController {
     )
     public PlayerCreateController(PlayerCreateView view) {
         this.view = view;
-        this.playerFieldsCount = 0;
         this.confirmedNames = new ArrayList<>();
         this.onError = message -> { };
     }
@@ -45,7 +46,7 @@ public class PlayerCreateController {
     private void bindUI() {
         view.bindAddPlayerButton(this::onAddPlayer);
         view.bindConfirmButton(this::onConfirmNames);
-        view.bindRestartButton(this::onRestartButton);
+        view.bindRestartButton(onRestart);
     }
 
     public void setOnError(Consumer<String> onError) {
@@ -60,6 +61,10 @@ public class PlayerCreateController {
         this.onRestart = onRestart;
     }
 
+    public List<String> getConfirmedNames() {
+        return List.copyOf(confirmedNames);
+    }
+
     void onAddPlayer() {
         playerFieldsCount++;
         view.addPlayerField(playerFieldsCount);
@@ -72,12 +77,7 @@ public class PlayerCreateController {
     void onConfirmNames() {
         populateConfirmedNames();
 
-        try {
-            onSuccess.run();
-        }
-        catch (Exception e) {
-            onError.accept(e.getMessage());
-        }
+        attempt(onError, () -> onSuccess.run());
     }
 
     void populateConfirmedNames() {
@@ -88,14 +88,6 @@ public class PlayerCreateController {
                 confirmedNames.add(input.trim());
             }
         }
-    }
-
-    void onRestartButton() {
-        onRestart.run();
-    }
-
-    public List<String> getConfirmedNames() {
-        return List.copyOf(confirmedNames);
     }
 
     int getPlayerFieldsCount() {

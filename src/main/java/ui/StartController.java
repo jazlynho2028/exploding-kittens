@@ -17,6 +17,8 @@ public class StartController {
     )
     public StartController(StartView view) {
         this.view = view;
+        this.onEnglishPlay = () -> { };
+        this.onSpanishPlay = () -> { };
     }
 
     public Scene buildStartScene() {
