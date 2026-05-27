@@ -43,7 +43,7 @@
   - **Expected output:** playerFieldsCount = 4
 
 ### Method under test: `onConfirmNames()`
-- **TC9: Confirm names success** ( :x: )
+- **TC9: Confirm names success** ( :white_check_mark: )
   - **Name of the test:** onConfirmNames_called_success
   - **State of the System:** N/A
   - **Expected output:** called populateConfirmedNames, onSuccess.run

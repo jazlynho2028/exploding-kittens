@@ -1,6 +1,7 @@
 package ui;
 
 import domain.GameConstants;
+import io.cucumber.java.an.E;
 import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
@@ -225,6 +226,31 @@ public class PlayerCreateControllerTests {
         assertEquals(expectedCount, actualCount);
 
         EasyMock.verify(view);
+    }
+
+    @Test
+    public void onConfirmNames_called_success() {
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        Runnable onSuccess = EasyMock.createMock(Runnable.class);
+        PlayerCreateController controller = EasyMock.createMockBuilder(
+                PlayerCreateController.class
+                )
+                .withConstructor(view)
+                .addMockedMethod("populateConfirmedNames")
+                .createMock();
+
+        controller.populateConfirmedNames();
+        EasyMock.expectLastCall();
+
+        onSuccess.run();
+        EasyMock.expectLastCall();
+
+        EasyMock.replay(onSuccess, controller);
+
+        controller.setOnSuccess(onSuccess);
+        controller.onConfirmNames();
+
+        EasyMock.verify(onSuccess, controller);
     }
 
 
