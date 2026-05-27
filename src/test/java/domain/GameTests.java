@@ -118,4 +118,21 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void constructor_tooManyPlayers_throwsIllegalArgumentException() {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "Dave", "Eve");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Game(names, mockDrawPile, mockDiscardPile);
+        });
+        assertEquals("error.invalidPlayerCount", exception.getMessage());
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
 }

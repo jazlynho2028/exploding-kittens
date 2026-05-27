@@ -31,7 +31,7 @@
   - **State of the system**: Game constructed with 1 player name
   - **Expected output**: IllegalArgumentException with message "error.invalidPlayerCount"
 
-- **TC4: construct game with too many players** ( :x: )
+- **TC4: construct game with too many players** ( :white_check_mark: )
   - **Name of the test**: constructor_tooManyPlayers_throwsIllegalArgumentException
   - **State of the system**: Game constructed with 5 player names
   - **Expected output**: IllegalArgumentException with message "error.invalidPlayerCount"
