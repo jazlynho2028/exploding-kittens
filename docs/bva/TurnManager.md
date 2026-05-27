@@ -19,8 +19,8 @@
   - **Name of the test**: incrementDrawCount_initialZero_success
   - **State of the system**: currentDrawCount = 0
   - **Expected output**: getCurrentDrawCount() = 1
-- **TC5: Draw count incremented on positive draw count** ( :x: )
-  - **Name of the test**: incrementDrawCount_initialOne_success
+- **TC5: Draw count incremented on positive draw count** ( :white_check_mark: )
+  - **Name of the test**: incrementDrawCount_fromOne_success
   - **State of the system**: currentDrawCount = 1
   - **Expected output**: getCurrentDrawCount() = 2
 ### Method under test: `decrementDrawCount()`
