@@ -152,7 +152,7 @@
     - method returns valid, non-null List<String> instance
     - returned list size is 0
 
-- **TC17: get IDs when current player's hand has exactly one card** ( :x: )
+- **TC17: get IDs when current player's hand has exactly one card** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_singleCardInHand_returnsListWithOneId
   - **State of the system**:
     - Game is initialized

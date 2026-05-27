@@ -609,4 +609,45 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void getCurrentPlayerHandIds_singleCardInHand_returnsListWithOneId() {
+        final int numTotalCards = 10;
+
+        List<String> names = Arrays.asList("Alice", "Bob");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        List<Card> initialCards = new ArrayList<>();
+        for (int i = 0; i < numTotalCards; i++) {
+            Card mockCard = EasyMock.createMock(Card.class);
+            EasyMock.replay(mockCard);
+            initialCards.add(mockCard);
+        }
+
+        EasyMock.expect(mockDrawPile.getCards()).andReturn(initialCards);
+        EasyMock.expect(mockDiscardPile.getCards()).andReturn(new ArrayList<>());
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+
+        int activePlayerIndex = game.getCurrentPlayerIndex();
+        Player currentPlayer = game.getPlayers().get(activePlayerIndex);
+        currentPlayer.clearHand();
+
+        Card targetCard = new Card("defuse-5", CardType.DEFUSE);
+        currentPlayer.addCardToHand(targetCard);
+
+        assertEquals(1, currentPlayer.getHand().size());
+
+        List<String> resultIds = game.getCurrentPlayerHandIds();
+
+        assertNotNull(resultIds);
+        assertEquals(1, resultIds.size());
+        assertEquals("defuse-5", resultIds.get(0));
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
 }
