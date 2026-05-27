@@ -54,7 +54,7 @@
   - **Expected output:** called populateConfirmedNames, onSuccess.run throws Exception "An error occurred." and onError accepts it
 
 ### Method under test: `populateConfirmedNames()`
-- **TC11: Empty names** ( :x: )
+- **TC11: Empty names** ( :white_check_mark: )
   - **Name of the test:** populateConfirmedNames_empty_empty
   - **State of the System:** inputsFromView = []
   - **Expected output:** confirmedNames = []

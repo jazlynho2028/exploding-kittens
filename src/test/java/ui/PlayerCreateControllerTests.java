@@ -284,95 +284,25 @@ public class PlayerCreateControllerTests {
         EasyMock.verify(onSuccess, onError, controller);
     }
 
-//
-//    @Test
-//    public void onConfirmNames_OnePlayer_Failed() {
-//        Consumer<String> onError = EasyMock.createMock(Consumer.class);
-//
-//        List<String> mockInputs = List.of("");
-//        EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(mockInputs);
-//
-//        String expectedMsg = "error.minPlayers";
-//
-//        onError.accept(expectedMsg);
-//        EasyMock.expectLastCall();
-//
-//        EasyMock.replay(view, onError);
-//
-//        PlayerCreateController controller = new PlayerCreateController(view);
-//        controller.setOnError(onError);
-//
-//        controller.onConfirmNames();
-//
-//        EasyMock.verify(view, onError);
-//    }
-//
-//    @Test
-//    public void onConfirmNames_TwoPlayers_Success() {
-//        Runnable onSuccess = EasyMock.createMock(Runnable.class);
-//
-//        List<String> mockInputs = List.of("Alice", "Bob");
-//        EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(mockInputs);
-//
-//        onSuccess.run();
-//        EasyMock.expectLastCall();
-//
-//        EasyMock.replay(view, onSuccess);
-//
-//        PlayerCreateController controller = new PlayerCreateController(view);
-//        controller.setOnSuccess(onSuccess);
-//
-//        controller.onConfirmNames();
-//
-//        EasyMock.verify(view, onSuccess);
-//
-//        List<String> confirmed = controller.getConfirmedNames();
-//        assertEquals(PLAYER_COUNT_TWO, confirmed.size());
-//        assertEquals("Alice", confirmed.get(0));
-//        assertEquals("Bob", confirmed.get(1));
-//    }
-//
-//    @Test
-//    public void onConfirmNames_onSuccess_Error() {
-//        Runnable onSuccess = EasyMock.createMock(Runnable.class);
-//        Consumer<String> onError = EasyMock.createMock(Consumer.class);
-//
-//        List<String> mockInputs = List.of("Alice", "Bob", "Dave");
-//        EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(mockInputs);
-//
-//        String expectedMsg = "Deck creation failed";
-//        onSuccess.run();
-//        EasyMock.expectLastCall().andThrow(new IllegalStateException(expectedMsg));
-//
-//        onError.accept(expectedMsg);
-//        EasyMock.expectLastCall();
-//
-//        EasyMock.replay(view, onSuccess, onError);
-//
-//        PlayerCreateController controller = new PlayerCreateController(view);
-//        controller.setOnSuccess(onSuccess);
-//        controller.setOnError(onError);
-//
-//        controller.onConfirmNames();
-//
-//        EasyMock.verify(view, onSuccess, onError);
-//    }
-//
-//    @Test
-//    public void onRestartButton_buttonPressed_success() {
-//        Runnable onRestart = EasyMock.createMock(Runnable.class);
-//
-//        onRestart.run();
-//        EasyMock.expectLastCall();
-//
-//        EasyMock.replay(onRestart);
-//
-//        PlayerCreateController controller = new PlayerCreateController(view);
-//        controller.setOnRestart(onRestart);
-//
-//        controller.onRestartButton();
-//
-//        EasyMock.verify(onRestart);
-//    }
+    @Test
+    public void populateConfirmedNames_empty_empty() {
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        List<String> inputsFromView = new ArrayList<>();
+        List<String> expectedNames = new ArrayList<>();
+
+        EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(inputsFromView);
+
+        EasyMock.replay(view);
+
+        PlayerCreateController controller = new PlayerCreateController(view);
+        controller.populateConfirmedNames();
+
+        List<String> actualNames = controller.getConfirmedNames();
+        assertEquals(expectedNames, actualNames);
+
+        EasyMock.verify(view);
+    }
+
+
 
 }
