@@ -1,5 +1,6 @@
 package ui;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
 
 public class StartController {
@@ -9,6 +10,11 @@ public class StartController {
 	private Runnable onEnglishPlay;
     private Runnable onSpanishPlay;
 
+    @SuppressFBWarnings(
+            value = "EI_EXPOSE_REP2",
+            justification = "View is injected by for compromise between MVC pattern and " +
+                    "testability, defensive copy is not applicable for JavaFX components"
+    )
     public StartController(StartView view) {
         this.view = view;
     }
