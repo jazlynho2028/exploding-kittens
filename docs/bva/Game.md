@@ -47,7 +47,7 @@
     - Each player receives 5 cards drawn from the top of drawPile
     - total cards remaining in drawPile decreases by (5 x 2) 
 
-- **TC6: populate hands with maximum valid players** ( :x: )
+- **TC6: populate hands with maximum valid players** ( :white_check_mark: )
   - **Name of the test**: populatePlayerHands_maximumPlayers_allocatesCorrectCards
   - **State of the system**: Game has exactly 4 players; drawPile contains a sufficient amount of cards (5 x 4)
   - **Expected output**:
