@@ -20,7 +20,6 @@ public class Deck {
     }
 
     public Card removeTop() {
-
         return this.cards.poll();
     }
 }

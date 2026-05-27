@@ -7,6 +7,10 @@ public class Card {
         this.type = type;
     }
 
+    public String getId() {
+        return this.cardId;
+    }
+
     public CardType getType() {
         return this.type;
     }

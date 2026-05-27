@@ -133,7 +133,7 @@ public final class Game {
     }
 
     Deck getDrawPile() {
-        return null;
+        return drawPile;
     }
 
     Deck getDiscardPile() {

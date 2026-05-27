@@ -36,55 +36,41 @@
   - **State of the system**: Game constructed with 5 player names
   - **Expected output**: IllegalArgumentException with message "error.invalidPlayerCount"
 
-### Method under test: `startGame()`
+### Method under test: `popularPlayerHand()`
 
-- **TC6: start game with minimum valid players** ( :x: )
-  - **Name of the test**: startGame_minimumPlayers_initializesGameAndDecks
-  - **State of the system**: Game successfully constructed with 2 player names; isGameOngoing is false
+- **TC5: populate hands with minimum valid players** ( :white_check_mark: )
+  - **Name of the test**: populatePlayerHands_minimumPlayers_allocatesCorrectCards
+  - **State of the system**: Game has exactly 2 players; drawPile contains a sufficient amount of cards (5 x 2)
   - **Expected output**: 
-    - isGameOngoing is true
-    - canDraw is true
-    - players list has length 2
-    - each player hand has 8 cards (1 Defuse, 7 other) 
-    - drawPile contains N-1=1 Exploding Kitten card
-    - drawPile contains 6-N=4 Defuse cards
-    - turnManager initialized at array index 0
+    - Player 1 gets a DEFUSE card with ID "defuse-5"
+    - Player 2 gets a DEFUSE card with ID "defuse-4"
+    - Each player receives 5 cards drawn from the top of drawPile
+    - total cards remaining in drawPile decreases by (5 x 2) 
 
-- **TC7:start game with maximum valid players** ( :x: )
-  - **Name of the test**: startGame_maximumPlayers_initializesGameAndDecks
-  - **State of the system**: Game successfully constructed with 4 player names; isGameOngoing is false
-  - **Expected output**: 
-    - isGameOngoing is true
-    - canDraw is true
-    - players list has length 4
-    - each player hand as 8 cards (1 Defuse, 7 other) 
-    - drawPile contains N-1=3 Exploding Kitten card
-    - drawPile contains 6-N=2 Defuse cards
-    - turnManager initialized at array index 0
-
-- **TC8: start game with more than one valid player** ( :x: )
-  - **Name of the test**: startGame_moreThanOnePlayer_initializesGameAndDecks
-  - **State of the system**: Game successfully constructed with 3 player names; isGameOngoing is false
+- **TC6: populate hands with maximum valid players** ( :x: )
+  - **Name of the test**: populatePlayerHands_maximumPlayers_allocatesCorrectCards
+  - **State of the system**: Game has exactly 4 players; drawPile contains a sufficient amount of cards (5 x 4)
   - **Expected output**:
-    - isGameOngoing is true
-    - canDraw is true
-    - players list has length 3
-    - each player hand has 8 cards (1 Defuse, 7 other)
-    - drawPile contains N-1=2 Exploding Kitten card
-    - drawPile contains 6-N=3 Defuse cards
-    - turnManager initialized at array index 0
+    - Player 1 gets a DEFUSE card with ID "defuse-5"
+    - Player 2 gets a DEFUSE card with ID "defuse-4"
+    - Player 3 gets a DEFUSE card with ID "defuse-3"
+    - Player 4 gets a DEFUSE card with ID "defuse-2"
+    - Each player receives 5 cards drawn from the top of drawPile
+    - total cards remaining in drawPile decreases by (5 x 4)
 
-- **TC9: start game when with too little players** ( :x: )
-  - **Name of the test**: startGame_tooLittlePlayers_throwsGameException
-  - **State of the system**: Game constructed with 1 player name; startGame() is called
-  - **Expected output**: GameException (with key "error.invalidPlayerCount")
+- **TC7: populate hands when drawPile has exactly the minimum required cards** ( :x: )
+  - **Name of the test**: populatePlayerHands_insufficientCards_throwsException
+  - **State of the system**: Game has 3 players; drawPile contains exactly sufficient amount of cards (5 x 3)
+  - **Expected output**:
+    - Player 1 gets a DEFUSE card with ID "defuse-5"
+    - Player 2 gets a DEFUSE card with ID "defuse-4"
+    - Player 3 gets a DEFUSE card with ID "defuse-3"
+    - Each player receives 5 cards drawn from the top of drawPile
+    - the last remaining card is removed from drawPile without error/exception
+    - drawPile has 0 cards remaining
 
-- **TC10: start game with too many players** ( :x: )
-  - **Name of the test**: startGame_tooManyPlayers_throwsGameException
-  - **State of the system**: Game constructed with 5 player names; startGame() is called
-  - **Expected output**: GameException (with key "error.invalidPlayerCount")
-
-- **TC11: start game when game is already ongoing** ( :x: )
-  - **Name of the test**: startGame_gameIsAlreadyOngoing_throwsGameException
-  - **State of the system**: isGameOngoing is true; startGame() is called
-  - **Expected output**: GameException (with key "error.gameAlreadyStarted")
+- **TC8: populate hands when drawPile is short by one card** ( :x: )
+  - **Name of the test**: populatePlayerHands_shortDeck_throwsException
+  - **State of the system**: Game has 3 players; drawPile contains 1 card fewer than the sufficient amount of cards (5 x 3)
+  - **Expected output**:
+    - IllegalArgumentException with message "Cannot add a null card to hand."
