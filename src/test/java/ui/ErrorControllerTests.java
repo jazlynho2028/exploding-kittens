@@ -1,40 +1,33 @@
 package ui;
 
+import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class ErrorControllerTests {
 
 	@Test
-	public void constructor_called_success() {
+	public void buildErrorScene_called_success() {
 		ErrorView view = EasyMock.createMock(ErrorView.class);
-
-		view.bindUI(EasyMock.anyObject(Runnable.class));
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(view);
-
-		new ErrorController(view);
-
-		EasyMock.verify(view);
-	}
-
-	@Test
-	public void onRestartButton_buttonPressed_success() {
-		ErrorView view = EasyMock.createMock(ErrorView.class);
+		Scene expectedScene = EasyMock.createMock(Scene.class);
 		Runnable onRestart = EasyMock.createMock(Runnable.class);
 
-		onRestart.run();
+		view.bindRestartButton(onRestart);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(onRestart);
+		EasyMock.expect(view.createErrorScene()).andReturn(expectedScene);
+
+		EasyMock.replay(view);
 
 		ErrorController controller = new ErrorController(view);
 		controller.setOnRestart(onRestart);
 
-		controller.onRestartButton();
+		Scene actualScene = controller.buildErrorScene();
+		assertSame(expectedScene, actualScene);
 
-		EasyMock.verify(onRestart);
+		EasyMock.verify(view);
 	}
 
 }
