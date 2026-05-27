@@ -203,6 +203,49 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, onError);
 	}
 
+	@Test
+	public void handleChangeCurrentPlayer_playerChanges_success() {
+		int playerIndex = 0;
+		boolean isFaceUp = true;
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("buildAddBindPlayerHandCards")
+				.createMock();
+
+		setUpRenderPlayerNameTagsExpectations();
+		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
+
+		model.changeCurrentPlayerIndex(playerIndex);
+		EasyMock.expectLastCall();
+
+		model.setFaceUpToFalse();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model);
+
+		view.renderPlayerNameTags(currentPlayerIndex, isGameOngoing);
+		EasyMock.expectLastCall();
+
+		view.renderHandVisibilityButton(isFaceUp);
+		EasyMock.expectLastCall();
+
+		controller.buildAddBindPlayerHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(view, controller);
+
+		controller.handleChangeCurrentPlayer(playerIndex);
+
+		EasyMock.verify(view, controller);
+	}
+
+	private void setUpRenderPlayerNameTagsExpectations() {
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
+	}
+
 //
 //	@Test
 //	public void constructor_called_success() {

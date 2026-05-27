@@ -30,7 +30,7 @@
 - **TC6: Player index is different from current player index** ( :white_check_mark: )
     - **Name of the test**: onNameTag_playerChanges_success
     - **State of the system**: playerIndex = 1, currentPlayerIndex = 0
-    - **Expected output**: called handleChangeCurrentPlayer(playerIndex)
+    - **Expected output**: called handleChangeCurrentPlayer
 
 - **TC7: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onNameTag_called_failed
@@ -38,10 +38,10 @@
   - **Expected output**: onError accepts exception
 
 ### Method under test: `handleChangeCurrentPlayer(int playerIndex)`
-- **TC8: This method is executed successfully** ( :x: )
+- **TC8: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: handleChangeCurrentPlayer_playerChanges_success
     - **State of the system**: playerIndex = 0, currentPlayerIndex = 0, isGameOngoing = true, isFaceUp = true
-    - **Expected output**: called model.changeCurrentPlayerIndexAndSetFaceUpToFalse(playerIndex), view.renderPlayerNameTags, view.renderHandVisibilityButton, and buildAddBindPlayerHandCards
+    - **Expected output**: called model.changeCurrentPlayerIndex, model.setIsFaceUpToFalse, view.renderPlayerNameTags, view.renderHandVisibilityButton, and buildAddBindPlayerHandCards
 
 - **TC9: Caught exception from model** ( :x: )
   - **Name of the test**: handleChangeCurrentPlayer_playerChanges_failed
