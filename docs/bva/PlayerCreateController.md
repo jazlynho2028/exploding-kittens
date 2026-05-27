@@ -37,7 +37,7 @@
   - **State of the System:** playerFieldsCount = 3
   - **Expected output:** playerFieldsCount = 4, called view.addPlayerField(4), view.setAddPlayerButtonDisabled gets called with true
 
-- **TC8: Add a fifth player that's above the maximum** ( :x: )
+- **TC8: Add a fifth player that's above the maximum** ( :white_check_mark: )
   - **Name of the test:** onAddPlayer_currentFour_failed
   - **State of the System:** playerFieldsCount = 4
   - **Expected output:** playerFieldsCount = 4
