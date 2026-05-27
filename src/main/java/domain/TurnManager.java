@@ -46,7 +46,11 @@ public final class TurnManager {
 
     }
 
-    public void incrementCurrentDrawCount() {
+    public void incrementDrawCount() {
         currentDrawCount++;
+    }
+
+    public void decrementDrawCount() {
+        currentDrawCount--;
     }
 }
