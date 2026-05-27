@@ -26,7 +26,7 @@
     - each player's hand contains exactly 6 cards 
     - each player's first card is a defuse card
 
-- **TC3: construct game with too little players** ( :x: )
+- **TC3: construct game with too little players** ( :white_check_mark: )
   - **Name of the test**: constructor_tooLittlePlayers_throwsIllegalArgumentException
   - **State of the system**: Game constructed with 1 player name
   - **Expected output**: IllegalArgumentException with message "error.invalidPlayerCount"
