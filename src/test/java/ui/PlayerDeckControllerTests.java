@@ -257,7 +257,7 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.replay(model, view);
 
-		PlayerDeckController controller= new PlayerDeckController(model, view);
+		PlayerDeckController controller = new PlayerDeckController(model, view);
 		controller.buildAddBindPlayerHandCards();
 
 		EasyMock.verify(model, view);
