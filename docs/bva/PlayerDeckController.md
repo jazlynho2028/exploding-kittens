@@ -16,7 +16,7 @@
   - **Expected output**: called view.buildAndAddPlayerHandCards and view.buildAddRenderPlayerNameTags
 
 ## Method under test: `bindUI()`
-- **TC4: This method is called** ( :x: )
+- **TC4: This method is called** ( :white_check_mark: )
   - **Name of the test**: bindUI_called_success
   - **State of the system**: N/A
   - **Expected output**: called view.bindDrawPileButton, view.bindHandVisibilityButton, view.bindStartGameButton, view.bindNameTags, view.bindPlayerHandCardButtons
