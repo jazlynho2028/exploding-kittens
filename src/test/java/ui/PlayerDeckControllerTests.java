@@ -182,6 +182,27 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, controller);
 	}
 
+	@Test
+	public void onNameTag_called_failed() {
+		int playerIndex = 0;
+		Consumer<String> onError = EasyMock.createMock(Consumer.class);
+
+		model.getCurrentPlayerIndex();
+		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
+
+		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, onError);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.setOnError(onError);
+
+		controller.onNameTag(playerIndex);
+
+		EasyMock.verify(model, onError);
+	}
+
 //
 //	@Test
 //	public void constructor_called_success() {
