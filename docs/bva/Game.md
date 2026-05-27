@@ -208,7 +208,7 @@
   - **Expected output**:
     - return true (assuming card matches triple-card rules like three-of-a-kind cards)
 
-- **TC23: player selected exactly four cards** ( :x: )
+- **TC23: player selected exactly four cards** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_fourCardsSelected_returnsFalse
   - **State of the system**:
     - Game is initialized

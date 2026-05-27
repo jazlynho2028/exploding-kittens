@@ -898,4 +898,66 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void canPlaySelected_fourCardsSelected_returnsFalse() {
+        final int numTotalCards = 10;
+        final int cardIndex1 = 0;
+        final int cardIndex2 = 1;
+        final int cardIndex3 = 2;
+        final int cardIndex4 = 3;
+        final int totalCardCount = 4;
+
+        List<String> names = Arrays.asList("Alice", "Bob");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        List<Card> initialCards = new ArrayList<>();
+        for (int i = 0; i < numTotalCards; i++) {
+            Card mockCard = EasyMock.createMock(Card.class);
+            EasyMock.replay(mockCard);
+            initialCards.add(mockCard);
+        }
+
+        EasyMock.expect(mockDrawPile.getCards()).andReturn(initialCards);
+        EasyMock.expect(mockDiscardPile.getCards()).andReturn(new ArrayList<>());
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+
+        game.getTurnManager().setCurrentPlayerIndex(0);
+
+        int activePlayerIndex = game.getCurrentPlayerIndex();
+        Player currentPlayer = game.getPlayers().get(activePlayerIndex);
+        currentPlayer.clearHand();
+
+        Card card1 = new Card("cat_card-1", CardType.CAT_CARD);
+        Card card2 = new Card("cat_card-2", CardType.CAT_CARD);
+        Card card3 = new Card("cat_card-3", CardType.CAT_CARD);
+        Card card4 = new Card("attack-1", CardType.ATTACK);
+
+        card1.setIsSelected(true);
+        card2.setIsSelected(true);
+        card3.setIsSelected(true);
+        card4.setIsSelected(true);
+
+        currentPlayer.addCardToHand(card1);
+        currentPlayer.addCardToHand(card2);
+        currentPlayer.addCardToHand(card3);
+        currentPlayer.addCardToHand(card4);
+
+        assertEquals(totalCardCount, currentPlayer.getHand().size());
+        assertTrue(currentPlayer.getHand().get(cardIndex1).getIsSelected());
+        assertTrue(currentPlayer.getHand().get(cardIndex2).getIsSelected());
+        assertTrue(currentPlayer.getHand().get(cardIndex3).getIsSelected());
+        assertTrue(currentPlayer.getHand().get(cardIndex4).getIsSelected());
+
+        boolean result = game.canPlaySelected();
+
+        assertFalse(result);
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
 }
