@@ -28,8 +28,8 @@
   - **Name of the test**: decrementDrawCount_initialZero_success
   - **State of the system**: currentDrawCount = 0
   - **Expected output**: getCurrentDrawCount() = -1
-- **T75: Draw count incremented on nonzero draw count** ( :x: )
-  - **Name of the test**: decrementDrawCount_fromNonzero_success
+- **T75: Draw count incremented on nonzero draw count** ( :white_check_mark: )
+  - **Name of the test**: decrementDrawCount_fromNonZero_success
   - **State of the system**: currentDrawCount = -1
   - **Expected output**: getCurrentDrawCount() = -2
 ### Method under test: `incrementRound()`
