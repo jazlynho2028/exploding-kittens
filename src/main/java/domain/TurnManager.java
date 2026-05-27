@@ -26,4 +26,8 @@ public final class TurnManager {
     public void incrementDrawCount() {
         this.currentDrawCount++;
     }
+
+    public int getCurrentRound() {
+        return this.currentRound;
+    }
 }

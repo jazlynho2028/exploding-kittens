@@ -69,7 +69,7 @@
     - the last remaining card is removed from drawPile without error/exception
     - drawPile has 0 cards remaining
 
-- **TC8: populate hands when drawPile is short by one card** ( :x: )
+- **TC8: populate hands when drawPile is short by one card** ( :white_check_mark: )
   - **Name of the test**: populatePlayerHands_insufficientCards_throwsException
   - **State of the system**: Game has 3 players; drawPile contains 1 card fewer than the sufficient amount of cards (5 x 3)
   - **Expected output**:
@@ -89,7 +89,7 @@
     - drawPile.shuffle() is called exactly once
     - turnManger.incrementRount() and incrementDrawCount() are executed successfully
 
-- **TC10: call startGame() when game is already in progress** ( :x: )
+- **TC10: call startGame() when game is already in progress** ( :white_check_mark: )
   - **Name of the test**: startGame_gameAlreadyStarted_throwsIllegalStateException
   - **State of the system**:
     - isGameOngoing is true
