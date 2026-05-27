@@ -121,6 +121,31 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
 	}
 
+	@Test
+	public void bindUI_called_success() {
+		view.bindDrawPileButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		view.bindHandVisibilityButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		view.bindStartGameButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		view.bindNameTags(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		view.bindPlayerHandCardButtons(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(view);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.bindUI();
+
+		EasyMock.verify(view);
+	}
+
 //
 //	@Test
 //	public void constructor_called_success() {
