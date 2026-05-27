@@ -11,9 +11,9 @@ public class StartController {
     private Runnable onSpanishPlay;
 
     @SuppressFBWarnings(
-            value = "EI_EXPOSE_REP2",
-            justification = "View is injected by for compromise between MVC pattern and " +
-                    "testability, defensive copy is not applicable for JavaFX components"
+        value = "EI_EXPOSE_REP2",
+        justification = "View is injected by for compromise between MVC pattern and " +
+                "testability, defensive copy is not applicable for JavaFX components"
     )
     public StartController(StartView view) {
         this.view = view;
