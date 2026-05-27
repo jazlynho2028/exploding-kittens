@@ -1,59 +1,71 @@
-### Method under test: `PlayerCreateController(AssetProvider assets, PlayerCreateView view)`
-- **TC1: This method is called** ( :white_check_mark: )
-  - **Name of the test:** constuctor_called_success
+### Method under test: `buildPlayerCreateScene()`
+- **TC1: This method is called** ( :x: )
+  - **Name of the test:** 
   - **State of the system:** N/A
-  - **Expected output:** onError has default empty handling, playerFields is size 2, called bindUI()
+  - **Expected output:** called buildDependentUI, bindUI, returns view.createPlayerCreateScene
+
+### Method under test: `buildDependentUI()`
+- **TC2: This method is called** ( :x: )
+  - **Name of the test:**
+  - **State of the system:** GameConstants.MIN_PLAYERS = 2
+  - **Expected output:** called onAddPlayer twice
+
+### Method under test: `bindUI()`
+- **TC3: This method is called** ( :x: )
+  - **Name of the test:**
+  - **State of the system:** N/A
+  - **Expected output:** called view.bindAddPlayerButton, view.bindConfirmButton, view.bindRestartButton
 
 ### Method under test: `onAddPlayer()`
-- **TC2: Adding a field with minimum players** ( :white_check_mark: )
-  - **Name of the test:** onAddPlayer_CurrentTwo_Success
-  - **State of the system:** playerFields = [TextField, TextField]
-  - **Expected output:** playerFields now holds three TextFields, setAddPlayerButtonDisabled gets called with false
+- **TC4: Add a first player** ( :x: )
+  - **Name of the test:** onAddPlayer_CurrentZero_Success
+  - **State of the system:** playerFieldsCount = 0
+  - **Expected output:** playerFieldsCount = 1, called view.addPlayerField(1), setAddPlayerButtonDisabled gets called with false
 
-- **TC3: Adding the last field allowed, the fourth player** ( :white_check_mark: )
+- **TC5: Add a second player** ( :x: )
+  - **Name of the test:** onAddPlayer_CurrentOne_Success
+  - **State of the system:** playerFieldsCount = 1
+  - **Expected output:** playerFieldsCount = 2, called view.addPlayerField(2), setAddPlayerButtonDisabled gets called with false
+
+- **TC6: Add a fourth player** ( :x: )
   - **Name of the test:** onAddPlayer_CurrentThree_Success
-  - **State of the System:** playerFields = [TextField, TextField, TextField]
-  - **Expected output:** playerFields now holds four TextFields, setAddPlayerButtonDisabled gets called with true
+  - **State of the System:** playerFieldsCount = 3
+  - **Expected output:** playerFieldsCount = 4, called view.addPlayerField(4), setAddPlayerButtonDisabled gets called with true
 
-- **TC4: Adding a fifth player that's above the maximum** ( :white_check_mark: )
+- **TC7: Add a fifth player that's above the maximum** ( :x: )
   - **Name of the test:** onAddPlayer_CurrentFour_Failed
-  - **State of the System:** PlayerFields = [TextField, TextField, TextField]
-  - **Expected output:** calls onError.accept("You cannot have more than 4 players.")
+  - **State of the System:** playerFieldsCount = 4
+  - **Expected output:** playerFieldsCount = 4
 
 ### Method under test: `onConfirmNames()`
-- **TC5: Confirming exactly below the minimum limit, 1 blank name player** ( :white_check_mark: )
-  - **Name of the test:** onConfirmNames_OnePlayer_Failed
-  - **State of the System:** view.getPlayerNamesFromFields() = [""]
-  - **Expected output:** calls onError.accept("you need at least 2 players.")
-
-- **TC6: Confirming at the minimum number of players** ( :white_check_mark: )
-  - **Name of the test:** onConfirmNames_TwoPlayers_Success
-  - **State of the System:** view.getPlayerNamesFromFields() = ["Alice", "Bob"]
-  - **Expected output:** onSuccess.run() executes, list of confirmedNames becomes size 2
-
-- **TC7: Confirming correct amount but onSuccess exception gets thrown** ( :white_check_mark: )
-  - **Name of the test:** onConfirmNames_onSuccess_Error
-  - **State of the System:** view.getPlayerNamesFromFields() = ["Alice", "Bob", "Dave"] onSuccess = error
-  - **Expected output:** onSuccess.run() fails, onError.accept(<exception message>) runs
-
-### Method under test: `getPlayerNumbers()`
-- **TC8: Player fields has two fields** ( implemented in TC1 )
-  - **Name of the test:** buildAndBindUI_called_success
-  - **State of the System:** playerFields = [TextField, TextField]
-  - **Expected output:** return 2
-
-- **TC9: Player fields has three fields** ( implemented in TC2 )
-  - **Name of the test:** onAddPlayer_CurrentTwo_Success
-  - **State of the System:** playerFields = [TextField, TextField, TextField]
-  - **Expected output:** return 3
-
-- **TC10: Player fields has four fields** ( implemented in TC3 )
-  - **Name of the test:** onAddPlayer_CurrentThree_Success
-  - **State of the System:** playerFields = [TextField, TextField, TextField, Textfield]
-  - **Expected output:** return 4
-
-### Method under test: `onRestartButton()`
-- **TC11: This method is called** ( :white_check_mark: )
-  - **Name of the test:** onRestartButton_buttonPressed_success
+- **TC8: Confirm names success** ( :x: )
+  - **Name of the test:** onConfirmNames_called_success
   - **State of the System:** N/A
-  - **Expected output:** called onRestart.run()
+  - **Expected output:** called populateConfirmedNames, onSuccess.run
+
+- **TC9: Confirm names failed** ( :x: )
+  - **Name of the test:** onConfirmNames_called_failed
+  - **State of the System:** N/A
+  - **Expected output:** called populateConfirmedNames, onSuccess.run throws Exception "An error occurred." and onError accepts it
+
+### Method under test: `populateConfirmedNames()`
+- **TC10: Empty names** ( :x: )
+  - **Name of the test:** populateConfirmedNames_empty_empty
+  - **State of the System:** inputsFromView = []
+  - **Expected output:** confirmedNames = []
+
+- **TC11: One name** ( :x: )
+  - **Name of the test:** populateConfirmedNames_oneName_oneName
+  - **State of the System:** inputsFromView = ["Steve"]
+  - **Expected output:** confirmedNames = ["Steve"]
+
+- **TC12: Two different names, one with space at end** ( :x: )
+  - **Name of the test:** populateConfirmedNames_twoDifferentNames_twoNamesWithSpaceTrimmed
+  - **State of the System:** inputsFromView = ["Steve ", "Steve"]
+  - **Expected output:** confirmedNames = ["Steve", "Steve"]
+
+- **TC13: Two duplicate names** ( :x: )
+  - **Name of the test:** populateConfirmedNames_twoEqualNames_twoEqualNames
+  - **State of the System:** inputsFromView = ["Steve", "Steve"]
+  - **Expected output:** confirmedNames = ["Steve", "Steve"]
+
