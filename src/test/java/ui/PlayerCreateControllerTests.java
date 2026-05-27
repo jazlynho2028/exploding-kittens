@@ -105,6 +105,55 @@ public class PlayerCreateControllerTests {
         EasyMock.verify(view);
     }
 
+    @Test
+    public void onAddPlayer_currentZero_success() {
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        int expectedCount = PLAYER_COUNT_ONE;
+
+        view.addPlayerField(expectedCount);
+        EasyMock.expectLastCall();
+
+        view.setAddPlayerButtonDisabled(false);
+
+        EasyMock.replay(view);
+
+        PlayerCreateController controller = new PlayerCreateController(view);
+
+        controller.onAddPlayer();
+
+        int actualCount = controller.getPlayerFieldsCount();
+        assertEquals(expectedCount, actualCount);
+
+        EasyMock.verify(view);
+    }
+
+    @Test
+    public void onAddPlayer_currentOne_success() {
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        int expectedCount = PLAYER_COUNT_TWO;
+
+        for (int i = 0; i < expectedCount; i++) {
+            view.addPlayerField(i + 1);
+            EasyMock.expectLastCall();
+        }
+
+        view.setAddPlayerButtonDisabled(false);
+        EasyMock.expectLastCall().times(expectedCount);
+
+        EasyMock.replay(view);
+
+        PlayerCreateController controller = new PlayerCreateController(view);
+
+        for (int i = 0; i < expectedCount; i++) {
+            controller.onAddPlayer();
+        }
+
+        int actualCount = controller.getPlayerFieldsCount();
+        assertEquals(expectedCount, actualCount);
+
+        EasyMock.verify(view);
+    }
+
 //    @Test
 //    public void onAddPlayer_CurrentTwo_Success() {
 //        view.addPlayerField(PLAYER_COUNT_THREE);
