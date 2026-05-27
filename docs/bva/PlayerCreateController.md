@@ -64,13 +64,13 @@
   - **State of the System:** inputsFromView = ["Steve"]
   - **Expected output:** confirmedNames = ["Steve"]
 
-- **TC13: Two different names, one with space at end** ( :x: )
+- **TC13: Two different names, one with space at end** ( :white_check_mark: )
   - **Name of the test:** populateConfirmedNames_twoDifferentNames_twoNamesWithSpaceTrimmed
   - **State of the System:** inputsFromView = ["Steve ", "Steve"]
   - **Expected output:** confirmedNames = ["Steve", "Steve"]
 
 - **TC14: Two duplicate names** ( :x: )
   - **Name of the test:** populateConfirmedNames_twoEqualNames_twoEqualNames
-  - **State of the System:** inputsFromView = ["Steve", "Steve"]
+  - **State of the System:** inputsFromView = [" Steve ", " Steve "]
   - **Expected output:** confirmedNames = ["Steve", "Steve"]
 
