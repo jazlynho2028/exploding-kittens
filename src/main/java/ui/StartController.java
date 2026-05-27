@@ -28,11 +28,11 @@ public class StartController {
         return view.createStartScene();
     }
 
-    public void setOnEnglishPlay(Runnable onEnglishPlay) {
-        this.onEnglishPlay = onEnglishPlay;
+    public void setOnEnglishPlay(Runnable handler) {
+        onEnglishPlay = handler;
     }
 
-    public void setOnSpanishPlay(Runnable onSpanishPlay) {
-        this.onSpanishPlay = onSpanishPlay;
+    public void setOnSpanishPlay(Runnable handler) {
+        onSpanishPlay = handler;
     }
 }

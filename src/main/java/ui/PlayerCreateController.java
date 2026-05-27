@@ -49,16 +49,16 @@ public class PlayerCreateController {
         view.bindRestartButton(onRestart);
     }
 
-    public void setOnError(Consumer<String> onError) {
-        this.onError = onError;
+    public void setOnError(Consumer<String> handler) {
+        onError = handler;
     }
 
-    public void setOnSuccess(Runnable onSuccess) {
-        this.onSuccess = onSuccess;
+    public void setOnSuccess(Runnable handler) {
+        onSuccess = handler;
     }
 
-    public void setOnRestart(Runnable onRestart) {
-        this.onRestart = onRestart;
+    public void setOnRestart(Runnable handler) {
+        onRestart = handler;
     }
 
     public List<String> getConfirmedNames() {
