@@ -37,10 +37,10 @@ public final class TurnManager {
     //    public Player getCurrentPlayer() {
     //        return players.get(currentPlayerIndex);
     //    }
-    //
-    //    public void setCurrentPlayerIndex(int newPlayerIndex) {
-    //        currentPlayerIndex = newPlayerIndex;
-    //    }
+
+    public void setCurrentPlayerIndex(int newPlayerIndex) {
+        currentPlayerIndex = newPlayerIndex;
+    }
 
     public void incrementDrawCount() {
         currentDrawCount++;

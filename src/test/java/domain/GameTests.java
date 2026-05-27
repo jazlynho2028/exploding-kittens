@@ -738,9 +738,60 @@ public class GameTests {
         EasyMock.replay(mockDrawPile, mockDiscardPile);
 
         Game game = new Game(names, mockDrawPile, mockDiscardPile);
+
+        game.getTurnManager().setCurrentPlayerIndex(0);
+        int activePlayerIndex = game.getCurrentPlayerIndex();
+        Player currentPlayer = game.getPlayers().get(activePlayerIndex);
+        currentPlayer.clearHand();
+
         boolean result = game.canPlaySelected();
 
         assertFalse(result);
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
+
+    @Test
+    public void canPlaySelected_oneCardSelected_returnsTrue() {
+        final int numTotalCards = 10;
+
+        List<String> names = Arrays.asList("Alice", "Bob");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        List<Card> initialCards = new ArrayList<>();
+        for (int i = 0; i < numTotalCards; i++) {
+            Card mockCard = EasyMock.createMock(Card.class);
+            EasyMock.replay(mockCard);
+            initialCards.add(mockCard);
+        }
+
+        EasyMock.expect(mockDrawPile.getCards()).andReturn(initialCards);
+        EasyMock.expect(mockDiscardPile.getCards()).andReturn(new ArrayList<>());
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+
+        game.getTurnManager().setCurrentPlayerIndex(0);
+
+        int activePlayerIndex = game.getCurrentPlayerIndex();
+        Player currentPlayer = game.getPlayers().get(activePlayerIndex);
+        currentPlayer.clearHand();
+
+        Card actionCard = new Card("skip-1", CardType.ATTACK);
+
+        actionCard.setIsSelected(true);
+
+        currentPlayer.addCardToHand(actionCard);
+
+        assertEquals(1, currentPlayer.getHand().size());
+        assertTrue(currentPlayer.getHand().get(0).getIsSelected());
+
+        boolean result = game.canPlaySelected();
+
+        assertTrue(result);
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }

@@ -116,27 +116,59 @@ public final class Game {
     }
 
     private boolean isValidOneCard(List<Card> selectedCards) {
+        if (selectedCards.size() == 1) {
+            Card first = selectedCards.get(0);
+
+            return cardIsNotType(first, CardType.EXPLODING_KITTEN) &&
+                    cardIsNotType(first, CardType.DEFUSE) &&
+                    !isCatCard(first);
+        }
         return false;
     }
 
     private boolean isCatCard(Card card) {
-        return false;
+        return card.getType().name().contains("CAT_CARD");
     }
 
     private boolean isValidTwoCards(List<Card> selectedCards) {
+        if (selectedCards.size() == 2) {
+            Card first = selectedCards.get(0);
+            Card second = selectedCards.get(1);
+
+            return first.getType() == second.getType();
+        }
         return false;
     }
 
     private boolean isValidThreeCards(List<Card> selectedCards) {
+        final int targetNum = 3;
+
+        if (selectedCards.size() == targetNum) {
+            Card first = selectedCards.get(0);
+            Card second = selectedCards.get(1);
+            Card third = selectedCards.get(2);
+
+            return first.getType() == second.getType() &&
+                    second.getType() == third.getType();
+        }
         return false;
     }
 
     private boolean cardIsNotType(Card card, CardType type) {
-        return false;
+        return card.getType() != type;
     }
 
     private List<Card> getSelectedCards() {
-        return null;
+        List<Card> currentPlayerHand = players.get(getCurrentPlayerIndex()).getHand();
+        List<Card> selectedCards = new ArrayList<>();
+
+        for (Card card : currentPlayerHand) {
+            if (card.getIsSelected()) {
+                selectedCards.add(card);
+            }
+        }
+
+        return selectedCards;
     }
 
     public boolean canEndTurn() {

@@ -184,8 +184,8 @@
   - **Expected output**:
     - return false
 
-- **TC20: player selected exactly one card** ( :x: )
-  - **Name of the test**: canPlaySelected_oneCardSelected_delegatesToValidOneCard
+- **TC20: player selected exactly one card** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_oneCardSelected_returnsTrue
   - **State of the system**:
     - Game is initialized
     - current active player has marked 1 card as selected in their hand
