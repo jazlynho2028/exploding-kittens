@@ -22,9 +22,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerCreateControllerTests {
 
+    private PlayerCreateView view;
+
+    @BeforeEach
+    public void setUp() {
+        view = EasyMock.createMock(PlayerCreateView.class);
+    }
+
     @Test
     public void buildPlayerCreateScene_called_success() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         Scene expectedScene = EasyMock.createMock(Scene.class);
         PlayerCreateController controller = EasyMock.createMockBuilder(
                 PlayerCreateController.class
@@ -52,7 +58,6 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void buildDependentUI_called_success() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         PlayerCreateController controller = EasyMock.createMockBuilder(
                         PlayerCreateController.class
                 )
@@ -72,7 +77,6 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void bindUI_called_success() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         Runnable onRestart = EasyMock.createMock(Runnable.class);
 
         view.bindAddPlayerButton(EasyMock.anyObject());
@@ -102,8 +106,6 @@ public class PlayerCreateControllerTests {
             "4"
     })
     public void onAddPlayer_add1To4_success(int expectedCount) {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-
         for (int i = 0; i < expectedCount; i++) {
             view.addPlayerField(i + 1);
             EasyMock.expectLastCall();
@@ -130,7 +132,6 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void onAddPlayer_currentFour_noChange() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         int expectedCount = GameConstants.MAX_PLAYERS;
 
         for (int i = 0; i < expectedCount; i++) {
@@ -157,7 +158,6 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void onConfirmNames_called_success() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         Runnable onSuccess = EasyMock.createMock(Runnable.class);
         PlayerCreateController controller = EasyMock.createMockBuilder(
                 PlayerCreateController.class
@@ -182,7 +182,6 @@ public class PlayerCreateControllerTests {
 
     @Test
     public void onConfirmNames_called_failed() {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
         Runnable onSuccess = EasyMock.createMock(Runnable.class);
         Consumer<String> onError = EasyMock.createMock(Consumer.class);
         String expectedMsg = "An error occurred.";
@@ -226,8 +225,6 @@ public class PlayerCreateControllerTests {
             List<String> inputsFromView,
             List<String> expectedNames
     ) {
-        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
-
         EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(inputsFromView);
 
         EasyMock.replay(view);
