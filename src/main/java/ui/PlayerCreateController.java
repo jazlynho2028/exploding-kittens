@@ -72,9 +72,11 @@ public class PlayerCreateController {
             playerFieldsCount++;
             view.addPlayerField(playerFieldsCount);
 
-            view.setAddPlayerButtonDisabled(
-                    playerFieldsCount >= GameConstants.MAX_PLAYERS
-            );
+            boolean isAtMaxPlayers = playerFieldsCount == GameConstants.MAX_PLAYERS;
+
+            if (isAtMaxPlayers) {
+                view.setAddPlayerButtonDisabled(true);
+            }
         }
     }
 
