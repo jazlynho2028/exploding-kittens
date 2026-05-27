@@ -310,6 +310,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.canEndTurn()).andReturn(canEndTurn);
 	}
 
+	@Test
 	public void onDrawPile_drawsCard_failed() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
@@ -328,6 +329,8 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.verify(model, onError);
 	}
+
+
 
 //
 //	@Test
