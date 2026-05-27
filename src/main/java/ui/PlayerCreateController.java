@@ -37,13 +37,13 @@ public class PlayerCreateController {
         return view.createPlayerCreateScene();
     }
 
-    private void buildDependentUI() {
+    void buildDependentUI() {
         for (int i = 0; i < GameConstants.MIN_PLAYERS; i++) {
             onAddPlayer();
         }
     }
 
-    private void bindUI() {
+    void bindUI() {
         view.bindAddPlayerButton(this::onAddPlayer);
         view.bindConfirmButton(this::onConfirmNames);
         view.bindRestartButton(onRestart);
@@ -66,12 +66,16 @@ public class PlayerCreateController {
     }
 
     void onAddPlayer() {
-        playerFieldsCount++;
-        view.addPlayerField(playerFieldsCount);
+        boolean isBelowMaxPlayers = playerFieldsCount < GameConstants.MAX_PLAYERS;
 
-        view.setAddPlayerButtonDisabled(
-                playerFieldsCount >= GameConstants.MAX_PLAYERS
-        );
+        if (isBelowMaxPlayers) {
+            playerFieldsCount++;
+            view.addPlayerField(playerFieldsCount);
+
+            view.setAddPlayerButtonDisabled(
+                    playerFieldsCount >= GameConstants.MAX_PLAYERS
+            );
+        }
     }
 
     void onConfirmNames() {

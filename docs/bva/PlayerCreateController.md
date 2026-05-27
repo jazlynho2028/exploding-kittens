@@ -1,6 +1,6 @@
 ### Method under test: `buildPlayerCreateScene()`
-- **TC1: This method is called** ( :x: )
-  - **Name of the test:** 
+- **TC1: This method is called** ( :white_check_mark: )
+  - **Name of the test:** buildPlayerCreateScene_called_success
   - **State of the system:** N/A
   - **Expected output:** called buildDependentUI, bindUI, returns view.createPlayerCreateScene
 
@@ -18,22 +18,22 @@
 
 ### Method under test: `onAddPlayer()`
 - **TC4: Add a first player** ( :x: )
-  - **Name of the test:** onAddPlayer_CurrentZero_Success
+  - **Name of the test:** onAddPlayer_currentZero_success
   - **State of the system:** playerFieldsCount = 0
   - **Expected output:** playerFieldsCount = 1, called view.addPlayerField(1), setAddPlayerButtonDisabled gets called with false
 
 - **TC5: Add a second player** ( :x: )
-  - **Name of the test:** onAddPlayer_CurrentOne_Success
+  - **Name of the test:** onAddPlayer_currentOne_success
   - **State of the system:** playerFieldsCount = 1
   - **Expected output:** playerFieldsCount = 2, called view.addPlayerField(2), setAddPlayerButtonDisabled gets called with false
 
 - **TC6: Add a fourth player** ( :x: )
-  - **Name of the test:** onAddPlayer_CurrentThree_Success
+  - **Name of the test:** onAddPlayer_currentThree_success
   - **State of the System:** playerFieldsCount = 3
   - **Expected output:** playerFieldsCount = 4, called view.addPlayerField(4), setAddPlayerButtonDisabled gets called with true
 
 - **TC7: Add a fifth player that's above the maximum** ( :x: )
-  - **Name of the test:** onAddPlayer_CurrentFour_Failed
+  - **Name of the test:** onAddPlayer_currentFour_failed
   - **State of the System:** playerFieldsCount = 4
   - **Expected output:** playerFieldsCount = 4
 
