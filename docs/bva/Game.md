@@ -13,7 +13,7 @@
     - each player's hand contains exactly 6 cards
     - each player's first card is a defuse card 
 
-- **TC2: construct game with maximum valid players** ( :x: )
+- **TC2: construct game with maximum valid players** ( :white_check_mark: )
   - **Name of the test**: constructor_maximumPlayers_initializesGameCorrectly
   - **State of the system**: Game constructed with four player names, a valid drawPile, and a valid discardPile
   - **Expected output**:
