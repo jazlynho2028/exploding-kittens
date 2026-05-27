@@ -7,8 +7,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import java.util.Stack;
-
 public class ErrorView {
 
 	private final AssetProvider assetProvider;
@@ -27,8 +25,8 @@ public class ErrorView {
 		buildUI();
 	}
 
-	public void bindUI(Runnable onRestart) {
-		restartButton.setOnMouseClicked(e -> onRestart.run());
+	public void bindRestartButton(Runnable handler) {
+		restartButton.setOnMouseClicked(e -> handler.run());
 	}
 
 	public Scene createErrorScene() {

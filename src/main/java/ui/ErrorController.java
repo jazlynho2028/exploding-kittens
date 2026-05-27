@@ -12,13 +12,9 @@ public class ErrorController {
 	}
 
 	public Scene buildErrorScene() {
-		view.bindUI(this::onRestartButton);
+		view.bindRestartButton(onRestart);
 
 		return view.createErrorScene();
-	}
-
-	void onRestartButton() {
-		onRestart.run();
 	}
 
 	public void setOnRestart(Runnable onRestart) {
