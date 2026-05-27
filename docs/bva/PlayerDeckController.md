@@ -10,7 +10,7 @@
   - **Expected output**: onError accepts exception
 
 ## Method under test: `buildDependentUI()`
-- **TC3: This method is executed successfully** ( :x: )
+- **TC3: This method is executed successfully** ( :white_check_mark: )
   - **Name of the test**: buildDependentUI_called_success
   - **State of the system**: currentPlayerHandIds = [], isFaceUp = true, canDraw = true, playerNames = [], currentPlayerIndex = 0, isGameOngoing = true
   - **Expected output**: called view.buildAndAddPlayerHandCards and view.buildAddRenderPlayerNameTags

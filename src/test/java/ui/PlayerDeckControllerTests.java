@@ -87,6 +87,40 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(onError, controller);
 	}
 
+	@Test
+	public void buildDependentUI_called_success() {
+		boolean isFaceUp = true;
+		setUpBuildAndAddPlayerHandCardsExpectations(isFaceUp);
+		setUpBuildAddRenderPlayerNameTagsExpectations();
+
+		EasyMock.replay(model);
+
+		view.buildAndAddPlayerHandCards(currentPlayerHandIds, isFaceUp, canDraw);
+		EasyMock.expectLastCall();
+
+		view.buildAddRenderPlayerNameTags(playerNames, currentPlayerIndex, isGameOngoing);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(view);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.buildDependentUI();
+
+		EasyMock.verify(view, model);
+	}
+
+	private void setUpBuildAndAddPlayerHandCardsExpectations(boolean isFaceUp) {
+		EasyMock.expect(model.getCurrentPlayerHandIds()).andReturn(currentPlayerHandIds);
+		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
+		EasyMock.expect(model.getCanDraw()).andReturn(canDraw);
+	}
+
+	private void setUpBuildAddRenderPlayerNameTagsExpectations() {
+		EasyMock.expect(model.getPlayerNames()).andReturn(playerNames);
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
+	}
+
 //
 //	@Test
 //	public void constructor_called_success() {
