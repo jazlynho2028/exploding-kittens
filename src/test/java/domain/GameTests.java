@@ -292,4 +292,37 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void populatePlayerHands_insufficientCards_throwsException() {
+        final int normalCardsPerPlayer = 5;
+
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        List<Card> drawPileCards = new ArrayList<>();
+        int insufficientCardsCount = (normalCardsPerPlayer * names.size()) - 1;
+
+        for (int i = 0; i < insufficientCardsCount; i++) {
+            Card mockCard = EasyMock.createMock(Card.class);
+            EasyMock.replay(mockCard);
+            drawPileCards.add(mockCard);
+        }
+
+        List<Card> dummyCards2 = Arrays.asList(EasyMock.createMock(Card.class));
+
+        EasyMock.expect(mockDrawPile.getCards()).andReturn(drawPileCards);
+        EasyMock.expect(mockDiscardPile.getCards()).andReturn(dummyCards2);
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Game(names, mockDrawPile, mockDiscardPile);
+        });
+        assertEquals("error.emptyDrawPile", exception.getMessage());
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
 }

@@ -73,4 +73,4 @@
   - **Name of the test**: populatePlayerHands_insufficientCards_throwsException
   - **State of the system**: Game has 3 players; drawPile contains 1 card fewer than the sufficient amount of cards (5 x 3)
   - **Expected output**:
-    - IllegalArgumentException with message "Cannot add a null card to hand."
+    - IllegalArgumentException with message "error.emptyDrawPile"

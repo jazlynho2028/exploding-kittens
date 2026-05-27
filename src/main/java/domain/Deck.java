@@ -20,6 +20,10 @@ public class Deck {
     }
 
     public Card removeTop() {
+        if (this.cards.isEmpty()) {
+            throw new IllegalArgumentException("error.emptyDrawPile");
+        }
+
         return this.cards.poll();
     }
 }
