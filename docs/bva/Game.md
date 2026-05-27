@@ -200,8 +200,8 @@
   - **Expected output**:
     - return true (assuming card matches double-card rules like pair of cat cards)
 
-- **TC22: player selected exactly three cards** ( :x: )
-  - **Name of the test**: canPlaySelected_threeCardsSelected_delegatesToValidThreeCards
+- **TC22: player selected exactly three cards** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_threeCardsSelected_returnsTrue
   - **State of the system**:
     - Game is initialized
     - current active player has marked 3 cards as selected in their hand
