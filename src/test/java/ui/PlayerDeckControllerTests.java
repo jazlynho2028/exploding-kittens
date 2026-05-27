@@ -18,14 +18,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PlayerDeckControllerTests {
 
-	private final List<String> currentPlayerHandIds = List.of();
-	private final List<String> playerNames = List.of();
-	private final boolean canDraw = true;
-	private final int currentPlayerIndex = 0;
-	private final boolean isGameOngoing = true;
-	private final boolean isDrawPileEmpty = true;
-	private final boolean canPlaySelected = true;
-	private final String expectedMsg = "An error occurred.";
+	private static final List<String> currentPlayerHandIds = List.of();
+	private static final List<String> playerNames = List.of();
+	private static final boolean canDraw = true;
+	private static final int currentPlayerIndex = 0;
+	private static final boolean isGameOngoing = true;
+	private static final boolean isDrawPileEmpty = true;
+	private static final boolean canPlaySelected = true;
+	private static final String expectedMsg = "An error occurred.";
 
 	private Game model;
 	private PlayerDeckView view;
