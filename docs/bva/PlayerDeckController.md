@@ -1,10 +1,10 @@
 ## Method under test: `buildPlayerDeckScene()`
-- **TC1: This method is called** ( :x: )
+- **TC1: This method is called** ( :white_check_mark: )
   - **Name of the test**: buildPlayerDeckScene_called_success
   - **State of the system**: N/A
   - **Expected output**: called buildDependenUI, bindUI, returns view.createPlayerDeckScene
 
-- **TC2: Caught exception** ( :x: )
+- **TC2: Caught exception** ( :white_check_mark: )
   - **Name of the test**: buildPlayerDeckScene_called_failed
   - **State of the system**: buildDependentUI throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
