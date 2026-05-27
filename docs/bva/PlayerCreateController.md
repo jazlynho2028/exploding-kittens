@@ -48,7 +48,7 @@
   - **State of the System:** N/A
   - **Expected output:** called populateConfirmedNames, onSuccess.run
 
-- **TC10: Confirm names failed** ( :x: )
+- **TC10: Confirm names failed** ( :white_check_mark: )
   - **Name of the test:** onConfirmNames_called_failed
   - **State of the System:** N/A
   - **Expected output:** called populateConfirmedNames, onSuccess.run throws Exception "An error occurred." and onError accepts it

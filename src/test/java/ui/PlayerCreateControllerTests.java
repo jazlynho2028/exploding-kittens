@@ -253,7 +253,36 @@ public class PlayerCreateControllerTests {
         EasyMock.verify(onSuccess, controller);
     }
 
+    @Test
+    public void onConfirmNames_called_failed() {
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        Runnable onSuccess = EasyMock.createMock(Runnable.class);
+        Consumer<String> onError = EasyMock.createMock(Consumer.class);
+        String expectedMsg = "An error occurred.";
+        PlayerCreateController controller = EasyMock.createMockBuilder(
+                        PlayerCreateController.class
+                )
+                .withConstructor(view)
+                .addMockedMethod("populateConfirmedNames")
+                .createMock();
 
+        controller.populateConfirmedNames();
+        EasyMock.expectLastCall();
+
+        onSuccess.run();
+        EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
+
+        onError.accept(expectedMsg);
+        EasyMock.expectLastCall();
+
+        EasyMock.replay(onSuccess, onError, controller);
+
+        controller.setOnError(onError);
+        controller.setOnSuccess(onSuccess);
+        controller.onConfirmNames();
+
+        EasyMock.verify(onSuccess, onError, controller);
+    }
 
 //
 //    @Test
