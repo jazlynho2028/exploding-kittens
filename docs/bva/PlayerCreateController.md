@@ -55,22 +55,22 @@
 
 ### Method under test: `populateConfirmedNames()`
 - **TC11: Empty names** ( :white_check_mark: )
-  - **Name of the test:** populateConfirmedNames_empty_empty
+  - **Name of the test:** populateConfirmedNames_givenInputsFromView_populatedAndTrimmed
   - **State of the System:** inputsFromView = []
   - **Expected output:** confirmedNames = []
 
 - **TC12: One name** ( :white_check_mark: )
-  - **Name of the test:** populateConfirmedNames_oneName_oneName
+  - **Name of the test:** populateConfirmedNames_givenInputsFromView_populatedAndTrimmed
   - **State of the System:** inputsFromView = ["Steve"]
   - **Expected output:** confirmedNames = ["Steve"]
 
 - **TC13: Two different names, one with space at end** ( :white_check_mark: )
-  - **Name of the test:** populateConfirmedNames_twoDifferentNames_twoNamesWithoutEndSpaces
+  - **Name of the test:** populateConfirmedNames_givenInputsFromView_populatedAndTrimmed
   - **State of the System:** inputsFromView = ["Steve ", "Steve"]
   - **Expected output:** confirmedNames = ["Steve", "Steve"]
 
-- **TC14: Two duplicate names** ( :x: )
-  - **Name of the test:** populateConfirmedNames_twoEqualNames_twoEqualNamesWithoutEndSpaces
+- **TC14: Two duplicate names** ( :white_check_mark: )
+  - **Name of the test:** populateConfirmedNames_givenInputsFromView_populatedAndTrimmed
   - **State of the System:** inputsFromView = [" Steve ", " Steve "]
   - **Expected output:** confirmedNames = ["Steve", "Steve"]
 
