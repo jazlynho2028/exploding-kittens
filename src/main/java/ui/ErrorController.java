@@ -24,8 +24,8 @@ public class ErrorController {
 		return view.createErrorScene();
 	}
 
-	public void setOnRestart(Runnable onRestart) {
-		this.onRestart = onRestart;
+	public void setOnRestart(Runnable handler) {
+		onRestart = handler;
 	}
 
 }

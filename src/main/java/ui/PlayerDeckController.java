@@ -57,8 +57,8 @@ public class PlayerDeckController {
         view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
     }
 
-    public void setOnError(Consumer<String> onError) {
-        this.onError = onError;
+    public void setOnError(Consumer<String> handler) {
+        onError = handler;
     }
 
     void onNameTag(int playerIndex) {
