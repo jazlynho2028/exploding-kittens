@@ -303,6 +303,23 @@ public class PlayerCreateControllerTests {
         EasyMock.verify(view);
     }
 
+    @Test
+    public void populateConfirmedNames_oneName_oneName() {
+        PlayerCreateView view = EasyMock.createMock(PlayerCreateView.class);
+        List<String> inputsFromView = List.of("Steve");
+        List<String> expectedNames = List.of("Steve");
 
+        EasyMock.expect(view.getPlayerNamesFromFields()).andReturn(inputsFromView);
+
+        EasyMock.replay(view);
+
+        PlayerCreateController controller = new PlayerCreateController(view);
+        controller.populateConfirmedNames();
+
+        List<String> actualNames = controller.getConfirmedNames();
+        assertEquals(expectedNames, actualNames);
+
+        EasyMock.verify(view);
+    }
 
 }

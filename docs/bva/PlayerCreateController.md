@@ -59,7 +59,7 @@
   - **State of the System:** inputsFromView = []
   - **Expected output:** confirmedNames = []
 
-- **TC12: One name** ( :x: )
+- **TC12: One name** ( :white_check_mark: )
   - **Name of the test:** populateConfirmedNames_oneName_oneName
   - **State of the System:** inputsFromView = ["Steve"]
   - **Expected output:** confirmedNames = ["Steve"]
