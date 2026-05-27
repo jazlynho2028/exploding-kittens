@@ -479,4 +479,24 @@ public class PlayerDeckControllerTests {
 		setUpRenderTurnControlSectionExpectations(canEndTurn);
 	}
 
+	@Test
+	public void onStartGameButton_called_failed() {
+		Consumer<String> onError = EasyMock.createMock(Consumer.class);
+
+		model.startGame();
+		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
+
+		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, onError);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.setOnError(onError);
+
+		controller.onStartGameButton();
+
+		EasyMock.verify(model, onError);
+	}
+
 }

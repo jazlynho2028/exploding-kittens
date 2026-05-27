@@ -94,7 +94,7 @@
   - **State of the system**: startingPlayerIndex = 0, canDraw = true, isDrawPileEmpty = true, isGameOngoing = true, canPlaySelected = true, canEndTurn = true
   - **Expected output**: called model.startGame, handleChangeCurrentPlayer, view.renderDrawPile, and view.buildAndRenderTurnControlSection
 
-- **TC18: Caught exception from model** ( :x: )
+- **TC18: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onStartGameButton_called_failed
   - **State of the system**: model.startGame throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
