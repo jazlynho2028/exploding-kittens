@@ -18,7 +18,10 @@ public class IconLoader implements PathLoader {
         checkStreamExistence(stream);
 
         try (stream) {
-            return new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+            return new String(
+                    stream.readAllBytes(),
+                    StandardCharsets.UTF_8
+            );
         }
         catch (Exception e) {
             throw new RuntimeException("Failed to load file");
@@ -35,4 +38,5 @@ public class IconLoader implements PathLoader {
     public String getPathData() {
         return iconData;
     }
+
 }

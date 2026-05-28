@@ -1,0 +1,27 @@
+package domain;
+
+public enum CardType {
+    EXPLODING_KITTEN,
+    DEFUSE,
+    ATTACK,
+    SHUFFLE,
+    SKIP,
+    SEE_THE_FUTURE,
+    FERAL_CAT,
+    CAT_CARD_1,
+    CAT_CARD_2,
+    CAT_CARD_3,
+    CAT_CARD_4,
+    CATOMIC_BOMB,
+    SUPER_SKIP,
+    GODCAT,
+    CLONE,
+    SWAP_TOP_AND_BOTTOM,
+    DRAW_FROM_THE_BOTTOM,
+    TARGETED_ATTACK,
+    WINNER_WINNER_CATNIP_DINNER,
+    RAGEBAIT,
+    RECYCLE,
+    DOUBLE_UP,
+    MILD_DRAW
+}

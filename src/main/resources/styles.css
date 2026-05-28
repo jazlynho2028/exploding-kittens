@@ -9,8 +9,6 @@
     beige-2: #D2C3AA;
     beige-3: #A7987E;
 
-    green-4: #8BA00A;
-
     yellow-0-tr-1: #FFFAF228;
     yellow-0-tr-2: #FFFAF250;
     yellow-0: #FFFAF2;
@@ -33,6 +31,27 @@
     magenta-6: #3B081D;
     magenta-7-tr: #14020850;
     magenta-7: #140208;
+
+    exploding-kitten: #282922;
+    defuse: #8BA00A;
+    attack: #DEAD02;
+    shuffle: #4C341F;
+    skip: #5A87C9;
+    see-the-future: #EB6396;
+    feral-cat: #E6094D;
+    cat-card: #4E4E4E;
+    catomic-bomb: #303431;
+    super-skip: #3B94E7;
+    godcat: #F26223;
+    clone: #30C1D9;
+    swap-top-and-bottom: #BA6A4E;
+    draw-from-the-bottom: #8C867C;
+    targeted-attack: #F6B62D;
+    winner-winner-catnip-dinner: #7840E6;
+    ragebait: #C82014;
+    recycle: #2EC7A1;
+    double-up: #A05FAA;
+    mild-draw: #F97371;
 
     -fx-background-color: magenta-6;
 }
@@ -92,21 +111,527 @@
     -fx-fill: yellow-0-tr-2;
 }
 
+.title {
+    -fx-fill: linear-gradient(to bottom, yellow-3, orange-3, red-3);
+}
+
+.subtitle {
+    -fx-fill: yellow-0;
+}
+
 .start-content-section {
     -fx-padding: 36px 16px 64px 16px;
     -fx-spacing: 480px;
+}
+
+.play-buttons-container {
+    -fx-spacing: 16px;
 }
 
 .play-button {
     -fx-background-color: linear-gradient(to bottom, magenta-3, magenta-5);
     -fx-background-radius: 16;
     -fx-text-fill: linear-gradient(to bottom, yellow-1, yellow-4);
-    -fx-border-width: 4;
     -fx-border-color: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-border-width: 4;
     -fx-border-radius: 16;
-    -fx-padding: 0px 128px;
+    -fx-pref-width: 316px;
+    -fx-padding: -2 0 -2 0;
 }
 
-.title {
+.content-section {
+    -fx-padding: 16px;
+    -fx-spacing: 24px;
+}
+
+.content-section > * {
+    -fx-pref-width: 600px;
+}
+
+.player-fields-container {
+    -fx-spacing: inherit;
+}
+
+.game-board-section {
+    -fx-spacing: 64px;
+}
+
+.player-header-section {
+    -fx-spacing: 12px;
+}
+
+.player-names-container {
+    -fx-padding: 4px;
+    -fx-spacing: 8px;
+}
+
+.name-enter {
+    -fx-background-color: yellow-1;
+    -fx-max-width: 600px;
+    -fx-prompt-text-fill: beige-2;
+    -fx-text-fill: magenta-6;
+
+    -fx-border-width: 2;
+    -fx-border-color: yellow-2;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+
+    -fx-padding: 8px 16px;
+    -fx-font-family: "Koulen";
+    -fx-font-size: 21px;
+}
+
+.name-enter:focused {
+    -fx-background-color: yellow-0;
+}
+
+.add-player-button {
+    -fx-background-color: yellow-0-tr-1;
+    -fx-text-fill: yellow-0;
+
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-width: 0;
+
+    -fx-font-family: "Koulen";
+    -fx-font-size: 24px;
+
+    -fx-cursor: hand;
+}
+
+.add-player-button:hover {
+    -fx-background-color: yellow-0-tr-2;
+}
+
+.name-tag {
+    -fx-background-color: magenta-5;
+    -fx-border-width: 2;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 0px 16px;
+    -fx-pref-width: 300px;
+
+    -fx-border-color: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-text-fill: linear-gradient(to bottom, yellow-1, yellow-4);
+}
+
+.name-tag:hover {
+    -fx-background-color: magenta-4;
+}
+
+.name-tag:selected,
+.name-tag:selected:disabled {
+    -fx-opacity: 1.0;
+    -fx-border-width: 2;
+    -fx-border-color: linear-gradient(to bottom, yellow-3, orange-3, red-3);
+    -fx-text-fill: linear-gradient(to bottom, yellow-3, orange-3, red-3);
+}
+
+.name-tag:disabled {
+    -fx-opacity: 1.0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-text-fill: yellow-0-tr-2;
+}
+
+.card-piles-section {
+    -fx-spacing: 164px;
+}
+
+.card-pile-section {
+    -fx-spacing: 12px;
+}
+
+.card {
+    -fx-pref-width: 176px;
+    -fx-pref-height: 230px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 4;
+    -fx-border-color: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-border-width: 2;
+}
+
+.card.empty {
+    -fx-border-color: yellow-0-tr-2;
+    -fx-border-width: 2;
+    -fx-border-style: dashed;
+    -fx-background-color: transparent;
+}
+
+.card.back {
+    -fx-background-color: red-4;
+}
+
+.card.front {
+    -fx-background-color: gray-0;
+    -fx-padding: 8px;
+}
+
+.card:disabled {
+    -fx-border-color: transparent;
+    -fx-opacity: 0.9;
+    -fx-border-width: 0;
+}
+
+.card:selected {
+    -fx-border-width: 4;
+    -fx-border-color: linear-gradient(to bottom, yellow-3, orange-3, red-3);
+}
+
+.card.back:hover {
+    -fx-background-color: red-5;
+}
+
+.card.front:hover {
+    -fx-background-color: gray-1;
+}
+
+.card-front-content {
+    -fx-padding: 2px 6px 6px 6px;
+    -fx-border-radius: 4;
+    -fx-border-width: 2;
+}
+
+.card-front-content.explodingkitten {
+    -fx-border-color: exploding-kitten;
+}
+
+.card-front-content.defuse {
+    -fx-border-color: defuse;
+}
+
+.card-front-content.attack {
+    -fx-border-color: attack;
+}
+
+.card-front-content.shuffle {
+    -fx-border-color: shuffle;
+}
+
+.card-front-content.skip {
+    -fx-border-color: skip;
+}
+
+.card-front-content.seethefuture {
+    -fx-border-color: see-the-future;
+}
+
+.card-front-content.feralcat {
+    -fx-border-color: feral-cat;
+}
+
+.card-front-content.catcard {
+    -fx-border-color: cat-card;
+}
+
+.card-front-content.catomicbomb {
+    -fx-border-color: catomic-bomb;
+}
+
+.card-front-content.superskip {
+    -fx-border-color: super-skip;
+}
+
+.card-front-content.godcat {
+    -fx-border-color: godcat;
+}
+
+.card-front-content.clone {
+    -fx-border-color: clone;
+}
+
+.card-front-content.swaptopandbottom {
+    -fx-border-color: swap-top-and-bottom;
+}
+
+.card-front-content.drawfromthebottom {
+    -fx-border-color: draw-from-the-bottom;
+}
+
+.card-front-content.targetedattack {
+    -fx-border-color: targeted-attack;
+}
+
+.card-front-content.winnerwinnercatnipdinner {
+    -fx-border-color: winner-winner-catnip-dinner;
+}
+
+.card-front-content.ragebait {
+    -fx-border-color: ragebait;
+}
+
+.card-front-content.recycle {
+    -fx-border-color: recycle;
+}
+
+.card-front-content.doubleup {
+    -fx-border-color: double-up;
+}
+
+.card-front-content.milddraw {
+    -fx-border-color: mild-draw;
+}
+
+.card-header {
+    -fx-spacing: 4px;
+    -fx-pref-height: 28px;
+}
+
+.card-circle {
+    -fx-min-width: 24px;
+    -fx-min-height: 24px;
+    -fx-max-width: 24px;
+    -fx-max-height: 24px;
+    -fx-background-radius: 12px;
+}
+
+.card-circle.explodingkitten {
+    -fx-background-color: linear-gradient(to bottom, yellow-3, orange-3, red-3);;
+}
+
+.card-circle.defuse {
+    -fx-background-color: defuse;
+}
+
+.card-circle.attack {
+    -fx-background-color: attack;
+}
+
+.card-circle.shuffle {
+    -fx-background-color: shuffle;
+}
+
+.card-circle.skip {
+    -fx-background-color: skip;
+}
+
+.card-circle.seethefuture {
+    -fx-background-color: see-the-future;
+}
+
+.card-circle.feralcat {
+    -fx-background-color: feral-cat;
+}
+
+.card-circle.catcard {
+    -fx-background-color: cat-card;
+}
+
+.card-circle.catomicbomb {
+    -fx-background-color: catomic-bomb;
+}
+
+.card-circle.superskip {
+    -fx-background-color: super-skip;
+}
+
+.card-circle.godcat {
+    -fx-background-color: godcat;
+}
+
+.card-circle.clone {
+    -fx-background-color: clone;
+}
+
+.card-circle.swaptopandbottom {
+    -fx-background-color: swap-top-and-bottom;
+}
+
+.card-circle.drawfromthebottom {
+    -fx-background-color: draw-from-the-bottom;
+}
+
+.card-circle.targetedattack {
+    -fx-background-color: targeted-attack;
+}
+
+.card-circle.winnerwinnercatnipdinner {
+    -fx-background-color: winner-winner-catnip-dinner;
+}
+
+.card-circle.ragebait {
+    -fx-background-color: ragebait;
+}
+
+.card-circle.recycle {
+    -fx-background-color: recycle;
+}
+
+.card-circle.doubleup {
+    -fx-background-color: double-up;
+}
+
+.card-circle.milddraw {
+    -fx-background-color: mild-draw;
+}
+
+.card-title-section {
+    -fx-spacing: -8px;
+}
+
+.card-title {
+    -fx-fill: gray-6;
+    -fx-line-spacing: -8px;
+}
+
+.card-subtitle {
+    -fx-fill: gray-2;
+    -fx-line-spacing: -8px;
+}
+
+.card-description {
+    -fx-fill: gray-0;
+    -fx-text-alignment: center;
+    -fx-line-spacing: -6;
+}
+
+.bracket-icon {
+    -fx-fill: transparent;
+    -fx-stroke: gray-0;
+    -fx-stroke-width: 1.5;
+}
+
+.exploding-kittens-text {
+    -fx-spacing: -20px;
+}
+
+.exploding-text {
     -fx-fill: linear-gradient(to bottom, yellow-3, orange-3, red-3);
+}
+
+.kittens-text {
+    -fx-fill: gray-0;
+}
+
+.player-hand-section {
+    -fx-spacing: 12;
+}
+
+.hand-visibility-toggle {
+    -fx-text-fill: gray-0;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 4;
+}
+
+.hand-visibility-toggle:hover {
+    -fx-underline: true;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar {
+    -fx-opacity: 0;
+}
+
+.hand-cards-container {
+    -fx-spacing: 8px;
+}
+
+.turn-control-section {
+    -fx-spacing: 8;
+}
+
+.turn-control-button {
+    -fx-border-radius: 8;
+    -fx-padding: 0px 16px;
+    -fx-effect: dropshadow(gaussian, magenta-5-tr, 2, 0, 0, 2);
+}
+
+.turn-control-button {
+    -fx-background-color: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-text-fill: magenta-6;
+}
+
+.turn-control-button:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: beige-2;
+    -fx-text-fill: beige-3;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-effect: none;
+}
+
+.restart-icon {
+    -fx-fill: yellow-1;
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
+
+
+.kittens-text {
+    -fx-fill: gray-0;
+}
+
+.player-hand-section {
+    -fx-spacing: 12;
+}
+
+.hand-visibility-toggle {
+    -fx-text-fill: gray-0;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 4;
+}
+
+.hand-visibility-toggle:hover {
+    -fx-underline: true;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar {
+    -fx-opacity: 0;
+}
+
+.hand-cards-container {
+    -fx-spacing: 8px;
+}
+
+.turn-control-section {
+    -fx-spacing: 8;
+}
+
+.turn-control-button {
+    -fx-border-radius: 8;
+    -fx-padding: 0px 16px;
+    -fx-effect: dropshadow(gaussian, magenta-5-tr, 2, 0, 0, 2);
+}
+
+.turn-control-button {
+    -fx-background-color: linear-gradient(to bottom, yellow-1, yellow-4);
+    -fx-text-fill: magenta-6;
+}
+
+.turn-control-button:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: beige-2;
+    -fx-text-fill: beige-3;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-effect: none;
+}
+
+.restart-icon {
+    -fx-fill: yellow-1;
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
 }

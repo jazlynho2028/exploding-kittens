@@ -7,6 +7,7 @@ import javafx.scene.text.Font;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class AssetManager implements AssetProvider {
 
@@ -14,17 +15,36 @@ public class AssetManager implements AssetProvider {
 
     private final Map<String, Image> images = new HashMap<>();
     private final Map<String, String> svgPaths = new HashMap<>();
+    private final Map<String, CardMetadata> cardMetadata = new HashMap<>();
+    private ResourceBundle languageBundle;
 
     private String cssUrl;
 
-    public void loadGlobalFiles() {
+    public void loadGlobalFiles(String language) {
         loadCSS();
-        loadImages();
-        loadIcon("restart", "/icons/restart.txt");
-        loadIcon("left-bracket", "/icons/left-bracket.txt");
+
+        loadIcon("restart",
+                "/icons/restart.txt"
+        );
+        loadIcon("left-bracket",
+                "/icons/left-bracket.txt"
+        );
 
         loadFont("/fonts/koulen-regular.ttf");
         loadFont("/fonts/national-park.ttf");
+
+        loadLanguageAndCardMetadata(language);
+
+        loadImage("placeholder", "/images/placeholder.png");
+        loadImage("explosion", "/images/explosion.png");
+        loadImage("card_back_cat", "/images/card_back_cat.png");
+
+        for (Map.Entry<String, CardMetadata> entry : cardMetadata.entrySet()) {
+            String id = entry.getKey();
+            String imageUrl = "/images/" + entry.getValue().getImageUrl();
+            loadImage(id, imageUrl);
+        }
+
     }
 
     private void loadCSS() {
@@ -34,11 +54,11 @@ public class AssetManager implements AssetProvider {
         setStylesheet(cssUrl);
     }
 
-    private void loadImages() {
+    private void loadImage(String key, String fileName) {
         FileLoader loader = new ImageLoader();
-        loader.open("/images/placeholder.png");
+        loader.open(fileName);
         String imageUrl = loader.getFileUrl().toExternalForm();
-        addImage("placeholder", imageUrl);
+        addImage(key, imageUrl);
     }
 
     private void loadIcon(String key, String fileName) {
@@ -53,6 +73,34 @@ public class AssetManager implements AssetProvider {
         loader.open(fileName);
         InputStream fontStream = getClass().getResourceAsStream(fileName);
         Font.loadFont(fontStream, UIConstants.LOADED_FONT_SIZE);
+    }
+
+    public void loadLanguageAndCardMetadata(String language) {
+        loadLanguage(language);
+        loadCardMetadata();
+    }
+
+    private void loadLanguage(String language) {
+        StringsBundleLoader loader = new StringsBundleLoader();
+        loader.open(language);
+        languageBundle = loader.getCurrentBundle();
+    }
+
+    private void loadCardMetadata() {
+        CardMetadataLoader loader = new CardMetadataLoader();
+        loader.open("/card-metadata.json");
+
+        cardMetadata.putAll(loader.getMetadata());
+        convertPropertiesToString();
+    }
+
+    private void convertPropertiesToString() {
+        cardMetadata.replaceAll((id, metadata) -> new CardMetadata(
+                getString(metadata.getTitle()),
+                getString(metadata.getSubtitle()),
+                getString(metadata.getDescription()),
+                metadata.getImageUrl()
+        ));
     }
 
     public void addImage(String key, String imageUrl) {
@@ -78,6 +126,14 @@ public class AssetManager implements AssetProvider {
 
     public String getStylesheet() {
         return cssUrl;
+    }
+
+    public String getString(String key) {
+        return languageBundle.getString(key);
+    }
+
+    public CardMetadata getCardMetadata(String key) {
+        return cardMetadata.get(key);
     }
 
 }
