@@ -237,4 +237,29 @@ public class TurnManagerTests {
         EasyMock.verify(mockPlayer1, mockPlayer2, mockPlayer3);
     }
 
+    @Test
+    public void advanceTurn_fromSecondToLastPlayer_currentIndexReachMax() {
+        List<Player> players = new ArrayList<>();
+        Player mockPlayer1 = EasyMock.createMock(Player.class);
+        Player mockPlayer2 = EasyMock.createMock(Player.class);
+        Player mockPlayer3 = EasyMock.createMock(Player.class);
+
+        players.add(mockPlayer1);
+        players.add(mockPlayer2);
+        players.add(mockPlayer3);
+
+        EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3);
+
+        TurnManager turnManager = new TurnManager(players);
+        turnManager.setCurrentPlayerIndex(1);
+
+        turnManager.advanceTurn();
+
+        final int expectedIndex = 2;
+
+        assertEquals(expectedIndex, turnManager.getCurrentPlayerIndex());
+
+        EasyMock.verify(mockPlayer1, mockPlayer2, mockPlayer3);
+    }
+
 }
