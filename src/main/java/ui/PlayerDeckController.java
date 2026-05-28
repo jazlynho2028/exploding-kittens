@@ -17,9 +17,9 @@ public class PlayerDeckController {
     private Consumer<String> onError;
 
     @SuppressFBWarnings(
-        value = "EI_EXPOSE_REP2",
-        justification = "View is injected by for compromise between MVC pattern and " +
-                "testability, defensive copy is not applicable for JavaFX components"
+            value = "EI_EXPOSE_REP2",
+            justification = "View is injected by for compromise between MVC pattern and " +
+                    "testability, defensive copy is not applicable for JavaFX components"
     )
     public PlayerDeckController(Game model, PlayerDeckView view) {
         this.model = model;
@@ -106,9 +106,7 @@ public class PlayerDeckController {
 
     void onDrawPile() {
         attempt(onError, () -> {
-            ((Game) model).drawFromPile(
-                    model.getCurrentPlayerIndex()
-            );
+            ((Game) model).drawFromPile(model.getCurrentPlayerIndex());
 
             updateDrawPile();
             rebindHandCards();
