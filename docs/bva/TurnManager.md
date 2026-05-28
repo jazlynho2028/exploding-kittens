@@ -54,7 +54,7 @@
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = 0
   - **Expected output**: getCurrentPlayerIndex() = 1
 
-- **TC11: Advance turn on boundary just before list wraps around** ( :x: )
+- **TC11: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_fromSecondToLastPlayer_currentIndexReachesMaxValidIndex
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = N - 2
   - **Expected output**: getCurrentPlayerIndex() = N - 1

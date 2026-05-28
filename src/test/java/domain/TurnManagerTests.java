@@ -231,6 +231,31 @@ public class TurnManagerTests {
         EasyMock.verify((Object[]) mockPlayers);
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "2, 0, 1",
+            "3, 1, 2",
+            "4, 2, 3"
+    })
+    public void advanceTurn_fromSecondToLastPlayer_currentIndexReachesMaxValidIndex(int totalPlayers, int initialIndex, int expectedIndex) {
+        List<Player> players = new ArrayList<>();
+        Player[] mockPlayers = new Player[totalPlayers];
+        for (int i = 0; i < totalPlayers; i++) {
+            mockPlayers[i] = EasyMock.createMock(Player.class);
+            players.add(mockPlayers[i]);
+        }
+        EasyMock.replay((Object[]) mockPlayers);
+
+        TurnManager turnManager = new TurnManager(players);
+        turnManager.setCurrentPlayerIndex(initialIndex);
+
+        turnManager.advanceTurn();
+
+        assertEquals(expectedIndex, turnManager.getCurrentPlayerIndex());
+
+        EasyMock.verify((Object[]) mockPlayers);
+    }
+
     @Test
     public void constructor_emptyPlayerList_throwsException() {
         List<Player> emptyPlayersList = new ArrayList<>();
