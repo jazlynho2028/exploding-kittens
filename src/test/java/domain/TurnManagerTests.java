@@ -279,5 +279,18 @@ public class TurnManagerTests {
         EasyMock.verify(mockPlayer1, mockPlayer2, mockPlayer3);
     }
 
+    @Test
+    public void constructor_emptyPlayerList_throwsException() {
+        List<Player> emptyPlayersList = new ArrayList<>();
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    new TurnManager(emptyPlayersList);
+                }
+        );
+
+        assertEquals("error.emptyPlayerList", exception.getMessage());
+    }
 
 }
