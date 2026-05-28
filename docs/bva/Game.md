@@ -242,7 +242,7 @@
   - **Expected output**:
     - return false 
 
-- **TC27: single defuse card is provided** ( :x: )
+- **TC27: single defuse card is provided** ( :white_check_mark: )
   - **Name of the test**: isValidOneCard_singleDefuseCard_returnsFalse
   - **State of the system**:
     - Game is initialized
