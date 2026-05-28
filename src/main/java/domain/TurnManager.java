@@ -3,27 +3,69 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TurnManager {
+public final class TurnManager {
+
+    private static final int STARTING_PLAYER_INDEX = 0;
+
     private final List<Player> players;
     private int currentPlayerIndex;
+    private int currentDrawCount;
+    private int roundCounter;
 
     public TurnManager(List<Player> players) {
-        if (players == null || players.isEmpty()) {
-            throw new IllegalArgumentException("Player collection cannot be null or empty.");
+        if (players.isEmpty()) {
+            throw new IllegalArgumentException("Players list cannot be empty.");
         }
-        this.players = new ArrayList<>(players);
-        this.currentPlayerIndex = 0;
+        this.players = List.copyOf(players);
+        currentPlayerIndex = 0;
+        currentDrawCount = 0;
+        roundCounter = 0;
     }
 
     public int getCurrentPlayerIndex() {
-        return this.currentPlayerIndex;
+        return currentPlayerIndex;
     }
 
-    public Player getCurrentPlayer() {
-        return this.players.get(this.currentPlayerIndex);
+    public int getCurrentDrawCount() {
+        return currentDrawCount;
     }
 
-    public void advanceTurn() {
-        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
+    //    public int getStartingPlayerIndex() {
+    //        return STARTING_PLAYER_INDEX;
+    //    }
+
+    //    public Player getCurrentPlayer() {
+    //        return players.get(currentPlayerIndex);
+    //    }
+
+    public void setCurrentPlayerIndex(int newPlayerIndex) {
+        currentPlayerIndex = newPlayerIndex;
     }
+
+    public void incrementDrawCount() {
+        currentDrawCount++;
+    }
+
+    public void decrementDrawCount() {
+        currentDrawCount--;
+    }
+
+    public void incrementRound() {
+        roundCounter++;
+    }
+
+        public void advanceTurn() {
+            this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
+
+            if (currentPlayerIndex == STARTING_PLAYER_INDEX) {
+                incrementRound();
+            }
+
+            incrementDrawCount();
+        }
+
+    public int getRoundCounter() {
+        return this.roundCounter;
+    }
+
 }
