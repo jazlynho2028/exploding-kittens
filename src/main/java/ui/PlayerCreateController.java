@@ -66,18 +66,26 @@ public class PlayerCreateController {
     }
 
     void onAddPlayer() {
-        boolean isBelowMaxPlayers = (playerFieldsCount < GameConstants.MAX_PLAYERS);
-
-        if (isBelowMaxPlayers) {
+        if (isBelowMaxPlayers()) {
             playerFieldsCount++;
             view.addPlayerField(playerFieldsCount);
 
-            boolean isAtMaxPlayers = (playerFieldsCount == GameConstants.MAX_PLAYERS);
-
-            if (isAtMaxPlayers) {
-                view.setAddPlayerButtonDisabled(true);
-            }
+            updateAddPlayerButtonState();
         }
+    }
+
+    private boolean isBelowMaxPlayers() {
+        return playerFieldsCount < GameConstants.MAX_PLAYERS;
+    }
+
+    private void updateAddPlayerButtonState() {
+        if (isAtMaxPlayers()) {
+            view.setAddPlayerButtonDisabled(true);
+        }
+    }
+
+    private boolean isAtMaxPlayers() {
+        return playerFieldsCount == GameConstants.MAX_PLAYERS;
     }
 
     void onConfirmNames() {
@@ -87,12 +95,14 @@ public class PlayerCreateController {
     }
 
     void populateConfirmedNames() {
-        List<String> inputsFromView = view.getPlayerNamesFromFields();
+        for (String input : view.getPlayerNamesFromFields()) {
+            addToConfirmedNames(input);
+        }
+    }
 
-        for (String input : inputsFromView) {
-            if (!input.isBlank()) {
-                confirmedNames.add(input.trim());
-            }
+    private void addToConfirmedNames(String name) {
+        if (!name.isBlank()) {
+            confirmedNames.add(name.trim());
         }
     }
 
