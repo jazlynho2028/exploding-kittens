@@ -1309,4 +1309,39 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void isValidTwoCards_oneCardProvided_returnsFalse() throws Exception {
+        final int numTotalCards = 10;
+
+        List<String> names = Arrays.asList("Alice", "Bob");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        List<Card> initialCards = new ArrayList<>();
+        for (int i = 0; i < numTotalCards; i++) {
+            Card mockCard = EasyMock.createMock(Card.class);
+            EasyMock.replay(mockCard);
+            initialCards.add(mockCard);
+        }
+
+        EasyMock.expect(mockDrawPile.getCards()).andReturn(initialCards);
+        EasyMock.expect(mockDiscardPile.getCards()).andReturn(new ArrayList<>());
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+
+        Card singleCard = new Card("test-id", CardType.CAT_CARD_1);
+        List<Card> insufficientList = Arrays.asList(singleCard);
+
+        Method targetMethod = Game.class.getDeclaredMethod("isValidTwoCards", List.class);
+        targetMethod.setAccessible(true);
+        boolean result = (boolean) targetMethod.invoke(game, insufficientList);
+
+        assertFalse(result);
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
 }

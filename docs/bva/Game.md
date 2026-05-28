@@ -299,3 +299,45 @@
     - Card object whose CardType is "ATTACK" is passed into method
   - **Expected output**:
     - return false 
+
+### Method under test: `isValidTwoCards()`
+
+- **TC34: insufficient cards are provided** ( :white_check_mark: )
+  - **Name of the test**: isValidTwoCards_oneCardProvided_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - list containing 1 card is passed into method 
+  - **Expected output**:
+    - return false 
+
+- **TC35: exactly two cards are provided** ( :x: )
+  - **Name of the test**: isValidTwoCards_twoMatchingCardsProvided_returnsTrue
+  - **State of the system**:
+    - Game is initialized
+    - list containing 2 cards of the same type are passed into method
+  - **Expected output**:
+    - return true
+
+- **TC36: too many cards are provided** ( :x: )
+  - **Name of the test**: isValidTwoCards_threeMatchingCardsProvided_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - list containing 3 cards of the same type are passed into method
+  - **Expected output**:
+    - return false
+
+- **TC37: empty list of cards** ( :x: )
+  - **Name of the test**: isValidTwoCards_emptyListProvided_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - empty list is passed into method
+  - **Expected output**:
+    - return false
+
+- **TC38: two cards of different types** ( :x: )
+  - **Name of the test**: isValidTwoCards_twoDifferentCardsProvided_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - list containing 2 cards of different types is passed into method
+  - **Expected output**:
+    - return false
