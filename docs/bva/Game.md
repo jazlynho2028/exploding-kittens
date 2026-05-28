@@ -292,7 +292,7 @@
   - **Expected output**:
     - return false 
 
-- **TC33: card type contains no overlap with "cat" or "card"** ( :x: )
+- **TC33: card type contains no overlap with "cat" or "card"** ( :white_check_mark: )
   - **Name of the test**: isCatCard_noOverlap_returnsFalse
   - **State of the system**:
     - Game is initialized
