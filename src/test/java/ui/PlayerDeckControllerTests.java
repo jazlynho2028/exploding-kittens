@@ -1,19 +1,14 @@
 package ui;
 
 import domain.Game;
-import domain.GameConstants;
-import io.cucumber.java.an.E;
-import io.cucumber.java.ca.Atesa;
 import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PlayerDeckControllerTests {
@@ -210,7 +205,7 @@ public class PlayerDeckControllerTests {
 				PlayerDeckController.class
 				)
 				.withConstructor(model, view)
-				.addMockedMethod("buildAddBindPlayerHandCards")
+				.addMockedMethod("rebindHandCards")
 				.createMock();
 
 		setUpRenderPlayerNameTagsExpectations();
@@ -228,7 +223,7 @@ public class PlayerDeckControllerTests {
 		view.renderHandVisibilityButton(isFaceUp);
 		EasyMock.expectLastCall();
 
-		controller.buildAddBindPlayerHandCards();
+		controller.rebindHandCards();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view, controller);
@@ -244,7 +239,7 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
-	public void buildAddBindPlayerHandCards_called_success() {
+	public void rebindHandCards_called_success() {
 		boolean isFaceUp = true;
 
 		setUpBuildAndAddPlayerHandCardsExpectations(isFaceUp);
@@ -258,7 +253,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.replay(model, view);
 
 		PlayerDeckController controller = new PlayerDeckController(model, view);
-		controller.buildAddBindPlayerHandCards();
+		controller.rebindHandCards();
 
 		EasyMock.verify(model, view);
 	}
@@ -270,7 +265,7 @@ public class PlayerDeckControllerTests {
 				PlayerDeckController.class
 				)
 				.withConstructor(model, view)
-				.addMockedMethod("buildAddBindPlayerHandCards")
+				.addMockedMethod("rebindHandCards")
 				.createMock();
 
 		model.drawFromPile();
@@ -282,7 +277,7 @@ public class PlayerDeckControllerTests {
 		view.renderDrawPile(canDraw, isDrawPileEmpty);
 		EasyMock.expectLastCall();
 
-		controller.buildAddBindPlayerHandCards();
+		controller.rebindHandCards();
 		EasyMock.expectLastCall();
 
 		view.renderTurnControlSection(canPlaySelected, canEndTurn);
@@ -331,7 +326,7 @@ public class PlayerDeckControllerTests {
 						PlayerDeckController.class
 				)
 				.withConstructor(model, view)
-				.addMockedMethod("buildAddBindPlayerHandCards")
+				.addMockedMethod("rebindHandCards")
 				.createMock();
 
 		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
@@ -342,7 +337,7 @@ public class PlayerDeckControllerTests {
 		view.renderHandVisibilityButton(isFaceUp);
 		EasyMock.expectLastCall();
 
-		controller.buildAddBindPlayerHandCards();
+		controller.rebindHandCards();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view, controller);

@@ -41,11 +41,11 @@
 - **TC8: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: handleChangeCurrentPlayer_playerChanges_success
     - **State of the system**: playerIndex = 0, currentPlayerIndex = 0, isGameOngoing = true, isFaceUp = true
-    - **Expected output**: called model.changeCurrentPlayerIndex, model.setIsFaceUpToFalse, view.renderPlayerNameTags, view.renderHandVisibilityButton, and buildAddBindPlayerHandCards
+    - **Expected output**: called model.changeCurrentPlayerIndex, model.setIsFaceUpToFalse, view.renderPlayerNameTags, view.renderHandVisibilityButton, and rebuildHandCards
 
-### Method under test: `buildAddBindPlayerHandCards()`
+### Method under test: `rebuildHandCards()`
 - **TC9: This method is called** ( :white_check_mark: )
-  - **Name of the test**: buildAddBindPlayerHandCards_called_success
+  - **Name of the test**: rebuildHandCards_called_success
   - **State of the system**: currentPlayerHandIds = [], isFaceUp = true, canDraw = true
   - **Expected output**: called view.buildAndAddPlayerHandCards and view.bindPlayerHandCardButtons
 
@@ -53,7 +53,7 @@
 - **TC10: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: onDrawPile_drawsCard_success
     - **State of the system**: canDraw = true, isDrawPileEmpty = true, canPlaySelected = true, canEndTurn = true
-    - **Expected output**: called model.drawFromPile, view.renderDrawPile, buildAddBindPlayerHandCards, and view.renderTurnControlSection
+    - **Expected output**: called model.drawFromPile, view.renderDrawPile, rebuildHandCards, and view.renderTurnControlSection
 
 - **TC11: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDrawPile_drawsCard_failed
@@ -64,7 +64,7 @@
 - **TC12: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: onHandVisibilityButton_called_success
     - **State of the system**: isFaceUp = true
-    - **Expected output**: called model.setIsFaceUpToOpposite, view.renderHandVisibilityButton, and buildAddBindPlayerHandCards
+    - **Expected output**: called model.setIsFaceUpToOpposite, view.renderHandVisibilityButton, and rebuildHandCards
 
 - **TC13: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onHandVisibilityButton_called_failed

@@ -35,11 +35,28 @@ public class PlayerDeckController {
     }
 
     void buildDependentUI() {
+        rebuildHandCards();
+        rebuildNameTags();
+    }
+
+    void rebuildHandCards() {
         view.buildAndAddPlayerHandCards(
                 model.getCurrentPlayerHandIds(),
                 model.getIsFaceUp(),
                 model.getCanDraw()
         );
+    }
+
+    void rebindHandCards() {
+        rebuildHandCards();
+        bindHandCards();
+    }
+
+    private void bindHandCards() {
+        view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
+    }
+
+    private void rebuildNameTags() {
         view.buildAddRenderPlayerNameTags(
                 model.getPlayerNames(),
                 model.getCurrentPlayerIndex(),
@@ -52,7 +69,7 @@ public class PlayerDeckController {
         view.bindHandVisibilityButton(this::onHandVisibilityButton);
         view.bindStartGameButton(this::onStartGameButton);
         view.bindNameTags(this::onNameTag);
-        view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
+        bindHandCards();
     }
 
     public void setOnError(Consumer<String> handler) {
@@ -71,21 +88,20 @@ public class PlayerDeckController {
         ((Game) model).changeCurrentPlayerIndex(playerIndex);
         ((Game) model).setFaceUpToFalse();
 
+        updateNameTags();
+        updateHandVisibilityButton();
+        rebindHandCards();
+    }
+
+    private void updateNameTags() {
         view.renderPlayerNameTags(
                 model.getCurrentPlayerIndex(),
                 model.getIsGameOngoing()
         );
-        view.renderHandVisibilityButton(model.getIsFaceUp());
-        buildAddBindPlayerHandCards();
     }
 
-    void buildAddBindPlayerHandCards() {
-        view.buildAndAddPlayerHandCards(
-                model.getCurrentPlayerHandIds(),
-                model.getIsFaceUp(),
-                model.getCanDraw()
-        );
-        view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
+    private void updateHandVisibilityButton() {
+        view.renderHandVisibilityButton(model.getIsFaceUp());
     }
 
     void onDrawPile() {
@@ -96,7 +112,7 @@ public class PlayerDeckController {
                     model.getCanDraw(),
                     model.isDrawPileEmpty()
             );
-            buildAddBindPlayerHandCards();
+            rebindHandCards();
             view.renderTurnControlSection(
                     model.canPlaySelected(),
                     model.canEndTurn()
@@ -108,8 +124,8 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             ((Game) model).setIsFaceUpToOpposite();
 
-            view.renderHandVisibilityButton(model.getIsFaceUp());
-            buildAddBindPlayerHandCards();
+            updateHandVisibilityButton();
+            rebindHandCards();
         });
     }
 
@@ -118,15 +134,19 @@ public class PlayerDeckController {
             if (model.getIsFaceUp()) {
                 ((Game) model).setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
 
-                view.renderTurnControlSection(
-                        model.canPlaySelected(),
-                        model.canEndTurn()
-                );
+                updateTurnControls();
             }
             else {
                 onHandVisibilityButton();
             }
         });
+    }
+
+    private void updateTurnControls() {
+        view.renderTurnControlSection(
+                model.canPlaySelected(),
+                model.canEndTurn()
+        );
     }
 
     void onStartGameButton() {
@@ -135,16 +155,24 @@ public class PlayerDeckController {
 
             handleChangeCurrentPlayer(model.getStartingPlayerIndex());
 
-            view.renderDrawPile(
-                    model.getCanDraw(),
-                    model.isDrawPileEmpty()
-            );
-            view.buildAndRenderTurnControlSection(
-                    model.getIsGameOngoing(),
-                    model.canPlaySelected(),
-                    model.canEndTurn()
-            );
+            updateDrawPile();
+            rebuildTurnControl();
         });
+    }
+
+    private void updateDrawPile() {
+        view.renderDrawPile(
+                model.getCanDraw(),
+                model.isDrawPileEmpty()
+        );
+    }
+
+    private void rebuildTurnControl() {
+        view.buildAndRenderTurnControlSection(
+                model.getIsGameOngoing(),
+                model.canPlaySelected(),
+                model.canEndTurn()
+        );
     }
 
 }
