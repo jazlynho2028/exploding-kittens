@@ -221,7 +221,9 @@ public class TurnManagerTests {
             "3, 2, 0",
             "4, 3, 0"
     })
-    public void advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly(int totalPlayers, int initialIndex, int expectedIndex) {
+    public void advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly(int totalPlayers,
+                                                                          int initialIndex,
+                                                                          int expectedIndex) {
         List<Player> players = new ArrayList<>();
         Player[] mockPlayers = new Player[totalPlayers];
         for (int i = 0; i < totalPlayers; i++) {
