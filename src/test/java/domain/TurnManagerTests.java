@@ -209,35 +209,19 @@ public class TurnManagerTests {
 
     @ParameterizedTest
     @CsvSource({
-            "2",
-            "3",
-            "4"
-    })
-    public void advanceTurn_fromIndexZero_currentPlayerIndexIncrements(int totalPlayers) {
-        List<Player> players = new ArrayList<>();
-        Player[] mockPlayers = new Player[totalPlayers];
-        for (int i = 0; i < totalPlayers; i++) {
-            mockPlayers[i] = EasyMock.createMock(Player.class);
-            players.add(mockPlayers[i]);
-        }
-        EasyMock.replay((Object[]) mockPlayers);
+            "2, 0, 1",
+            "3, 0, 1",
+            "4, 0, 1",
 
-        TurnManager turnManager = new TurnManager(players);
-
-        turnManager.advanceTurn();
-
-        assertEquals(1, turnManager.getCurrentPlayerIndex());
-
-        EasyMock.verify((Object[]) mockPlayers);
-    }
-
-    @ParameterizedTest
-    @CsvSource({
             "2, 0, 1",
             "3, 1, 2",
-            "4, 2, 3"
+            "4, 2, 3",
+
+            "2, 1, 0",
+            "3, 2, 0",
+            "4, 3, 0"
     })
-    public void advanceTurn_fromSecondToLastPlayer_currentIndexReachesMaxValidIndex(int totalPlayers, int initialIndex, int expectedIndex) {
+    public void advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly(int totalPlayers, int initialIndex, int expectedIndex) {
         List<Player> players = new ArrayList<>();
         Player[] mockPlayers = new Player[totalPlayers];
         for (int i = 0; i < totalPlayers; i++) {
@@ -252,31 +236,6 @@ public class TurnManagerTests {
         turnManager.advanceTurn();
 
         assertEquals(expectedIndex, turnManager.getCurrentPlayerIndex());
-
-        EasyMock.verify((Object[]) mockPlayers);
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "2, 1",
-            "3, 2",
-            "4, 3"
-    })
-    public void advanceTurn_fromMaxValidIndex_wrapsIndexToZero(int totalPlayers, int lastIndex) {
-        List<Player> players = new ArrayList<>();
-        Player[] mockPlayers = new Player[totalPlayers];
-        for (int i = 0; i < totalPlayers; i++) {
-            mockPlayers[i] = EasyMock.createMock(Player.class);
-            players.add(mockPlayers[i]);
-        }
-        EasyMock.replay((Object[]) mockPlayers);
-
-        TurnManager turnManager = new TurnManager(players);
-        turnManager.setCurrentPlayerIndex(lastIndex);
-
-        turnManager.advanceTurn();
-
-        assertEquals(0, turnManager.getCurrentPlayerIndex());
 
         EasyMock.verify((Object[]) mockPlayers);
     }
