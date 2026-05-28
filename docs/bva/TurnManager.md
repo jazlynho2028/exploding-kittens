@@ -32,7 +32,7 @@
   - **State of the system**: currentDrawCount = 0
   - **Expected output**: getCurrentDrawCount() = -1
 
-- **TC7: Decrementing from a positive value successfully reduces count** ( :x: )
+- **TC7: Decrementing from a positive value successfully reduces count** ( :white_check_mark: )
   - **Name of the test**: decrementDrawCount_fromPositiveValue_decrementsCount
   - **State of the system**: currentDrawCount = 1
   - **Expected output**: getCurrentDrawCount() = 0
