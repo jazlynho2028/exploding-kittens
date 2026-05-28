@@ -250,7 +250,7 @@
   - **Expected output**:
     - return false 
 
-- **TC28: single cat card is provided** ( :x: )
+- **TC28: single cat card is provided** ( :white_check_mark: )
   - **Name of the test**: isValidOneCard_singleCatCard_returnsFalse
   - **State of the system**:
     - Game is initialized
