@@ -59,7 +59,7 @@
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = N - 2
   - **Expected output**: getCurrentPlayerIndex() = N - 1
 
-- **TC12: Advance that hits upper boundary, wrapping index back to zero** ( :x: )
+- **TC12: Advance that hits upper boundary, wrapping index back to zero** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_fromMaxValidIndex_wrapsIndexToZero
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = N - 1
   - **Expected output**: getCurrentPlayerIndex() = 0
