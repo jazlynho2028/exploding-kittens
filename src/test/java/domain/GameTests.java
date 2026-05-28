@@ -876,9 +876,9 @@ public class GameTests {
         Player currentPlayer = game.getPlayers().get(activePlayerIndex);
         currentPlayer.clearHand();
 
-        Card catCard1 = new Card("cat_card-1", CardType.CAT_CARD);
-        Card catCard2 = new Card("cat_card-2", CardType.CAT_CARD);
-        Card catCard3 = new Card("cat_card-3", CardType.CAT_CARD);
+        Card catCard1 = new Card("cat_card-1", CardType.CAT_CARD_1);
+        Card catCard2 = new Card("cat_card-2", CardType.CAT_CARD_1);
+        Card catCard3 = new Card("cat_card-3", CardType.CAT_CARD_1);
 
         catCard1.setIsSelected(true);
         catCard2.setIsSelected(true);
@@ -934,9 +934,9 @@ public class GameTests {
         Player currentPlayer = game.getPlayers().get(activePlayerIndex);
         currentPlayer.clearHand();
 
-        Card card1 = new Card("cat_card-1", CardType.CAT_CARD);
-        Card card2 = new Card("cat_card-2", CardType.CAT_CARD);
-        Card card3 = new Card("cat_card-3", CardType.CAT_CARD);
+        Card card1 = new Card("cat_card-1", CardType.CAT_CARD_1);
+        Card card2 = new Card("cat_card-2", CardType.CAT_CARD_1);
+        Card card3 = new Card("cat_card-3", CardType.CAT_CARD_1);
         Card card4 = new Card("attack-1", CardType.ATTACK);
 
         card1.setIsSelected(true);
@@ -1126,7 +1126,7 @@ public class GameTests {
 
         Game game = new Game(names, mockDrawPile, mockDiscardPile);
 
-        Card catCard = new Card("cat_card-1", CardType.CAT_CARD);
+        Card catCard = new Card("cat_card-1", CardType.CAT_CARD_1);
         List<Card> singleCatList = Arrays.asList(catCard);
 
         Method targetMethod = Game.class.getDeclaredMethod("isValidOneCard", List.class);
@@ -1197,7 +1197,7 @@ public class GameTests {
 
         Game game = new Game(names, mockDrawPile, mockDiscardPile);
 
-        Card exactCatCard = new Card("cat_card-1", CardType.CAT_CARD);
+        Card exactCatCard = new Card("temp-id", CardType.CAT_CARD_1);
 
         Method targetMethod = Game.class.getDeclaredMethod("isCatCard", Card.class);
         targetMethod.setAccessible(true);

@@ -272,22 +272,30 @@
   - **Name of the test**: isCatCard_exactMatchCatCard_returnsTrue
   - **State of the system**:
     - Game is initialized
-    - Card object whose CardType is "CAT CARD" is passed into method
+    - Card object whose CardType is "CAT_CARD_1" is passed into method
   - **Expected output**:
     - return true 
 
-- **TC31: card type contains cat card keyword** ( :x: )
+- **TC31: card type contains "cat" but not "card" keyword** ( :x: )
   - **Name of the test**: isCatCard_nameContainsCatCard_returnsTrue
   - **State of the system**:
     - Game is initialized
-    - Card object whose CardType contains "CAT CARD" is passed into method
+    - Card object whose CardType contains "FERAL_CAT" is passed into method
   - **Expected output**:
-    - return true 
+    - return false 
 
-- **TC32: card type is not cat card** ( :x: )
-  - **Name of the test**: isCatCard_standardActionCard_returnsFalse
+- **TC32: card type contains substring "cat"** ( :x: )
+  - **Name of the test**: isCatCard_nameHasSusbtring_returnsFalse
   - **State of the system**:
     - Game is initialized
-    - Card object whose CardType is not cat card
+    - Card object whose CardType is "CATOMIC_BOMB" is passed into method
+  - **Expected output**:
+    - return false 
+
+- **TC33: card type contains no overlap with "cat" or "card"** ( :x: )
+  - **Name of the test**: isCatCard_noOverlap_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - Card object whose CardType is "ATTACK" is passed into method
   - **Expected output**:
     - return false 
