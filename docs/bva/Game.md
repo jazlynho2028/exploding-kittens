@@ -234,7 +234,7 @@
   - **Expected output**:
     - return false 
 
-- **TC26: single exploding kitten card is provided** ( :x: )
+- **TC26: single exploding kitten card is provided** ( :white_check_mark: )
   - **Name of the test**: isValidOneCard_singleExplodingKitten_returnsFalse
   - **State of the system**:
     - Game is initialized
