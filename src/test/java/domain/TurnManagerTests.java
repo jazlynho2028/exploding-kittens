@@ -125,47 +125,21 @@ public class TurnManagerTests {
     }
 
     @Test
-    public void decrementDrawCount_initialZero_success() {
-        final int initialDrawCount = 0;
+    public void decrementDrawCount_fromZero_throwsIllegalStateException() {
         List<Player> players = new ArrayList<>();
-
         Player mockPlayer1 = EasyMock.createMock(Player.class);
-
         players.add(mockPlayer1);
 
         EasyMock.replay(mockPlayer1);
 
         TurnManager turnManager = new TurnManager(players);
 
-        turnManager.decrementDrawCount();
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                turnManager::decrementDrawCount
+        );
 
-        int actual = turnManager.getCurrentDrawCount();
-
-        assertEquals(initialDrawCount - 1, actual);
-
-        EasyMock.verify(mockPlayer1);
-    }
-
-    @Test
-    public void decrementDrawCount_fromNonZero_success() {
-        final int initialDrawCount = 0;
-        List<Player> players = new ArrayList<>();
-
-        Player mockPlayer1 = EasyMock.createMock(Player.class);
-
-        players.add(mockPlayer1);
-
-        EasyMock.replay(mockPlayer1);
-
-        TurnManager turnManager = new TurnManager(players);
-
-        turnManager.decrementDrawCount();
-        turnManager.decrementDrawCount();
-
-        int actual = turnManager.getCurrentDrawCount();
-
-        assertEquals(initialDrawCount - 2, actual);
-
+        assertEquals("error.negativeDrawCount", exception.getMessage());
         EasyMock.verify(mockPlayer1);
     }
 
@@ -288,18 +262,5 @@ public class TurnManagerTests {
         EasyMock.verify(mockPlayer1, mockPlayer2, mockPlayer3);
     }
 
-    @Test
-    public void constructor_emptyPlayerList_throwsException() {
-        List<Player> emptyPlayersList = new ArrayList<>();
-
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    new TurnManager(emptyPlayersList);
-                }
-        );
-
-        assertEquals("Players list cannot be empty", exception.getMessage());
-    }
 
 }

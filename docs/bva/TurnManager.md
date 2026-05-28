@@ -27,7 +27,7 @@
   - **Expected output**: getCurrentDrawCount() = 2
 
 ### Method under test: `decrementDrawCount()`
-- **TC6: Decrementing from zero throws state exception*** ( :x: )
+- **TC6: Decrementing from zero throws state exception*** ( :white_check_mark: )
   - **Name of the test**: decrementDrawCount_fromZero_throwsIllegalStateException
   - **State of the system**: currentDrawCount = 0
   - **Expected output**: getCurrentDrawCount() = -1
