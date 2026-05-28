@@ -2,9 +2,9 @@ package domain;
 
 import java.util.List;
 
-public final class TurnManager {
+import static domain.GameConstants.STARTING_PLAYER_INDEX;
 
-    private static final int STARTING_PLAYER_INDEX = 0;
+public final class TurnManager {
 
     private final List<Player> players;
 	private int currentPlayerIndex;

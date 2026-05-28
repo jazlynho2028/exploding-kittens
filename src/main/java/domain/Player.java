@@ -2,7 +2,7 @@ package domain;
 
 import java.util.List;
 
-public final class Player {
+public class Player {
 
     public Player(String name) { }
 

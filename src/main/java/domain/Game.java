@@ -2,7 +2,6 @@ package domain;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static domain.DeckBuilder.createCardId;
@@ -10,7 +9,7 @@ import static domain.GameConstants.MIN_PLAYERS;
 import static domain.GameConstants.MAX_PLAYERS;
 import static domain.GameConstants.STARTING_HAND_SIZE;
 
-public final class Game implements GameData {
+public class Game implements GameData {
 
     private final List<Player> players;
     private final List<String> playerNames;
