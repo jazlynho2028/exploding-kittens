@@ -284,8 +284,8 @@
   - **Expected output**:
     - return false 
 
-- **TC32: card type contains substring "cat"** ( :x: )
-  - **Name of the test**: isCatCard_nameHasSusbtring_returnsFalse
+- **TC32: card type contains substring "cat"** ( :white_check_mark: )
+  - **Name of the test**: isCatCard_nameHasSubstring_returnsFalse
   - **State of the system**:
     - Game is initialized
     - Card object whose CardType is "CATOMIC_BOMB" is passed into method
