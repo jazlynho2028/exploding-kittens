@@ -65,7 +65,7 @@
   - **Expected output**: getCurrentPlayerIndex() = 0 getRoundCounter() = 1 getCurrentDrawCount() = 1
 
 ### Method under test: `TurnManager(List<Player> players)`
-- **TC13: Empty players list throws exception** ( :x: )
+- **TC13: Empty players list throws exception** ( :white_check_mark: )
   - **Name of the test**: constructor_emptyPlayerList_throwsException
   - **State of the system**: TurnManager constructed with 0 players
   - **Expected output**: IllegalArgumentException with the message "Players list cannot be empty"
