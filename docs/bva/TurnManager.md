@@ -42,3 +42,15 @@
   - **State of the system**: roundCounter = 1
   - **Expected output**: getRoundCounter() = 2
 ### Method under test: `advanceTurn()`
+- **TC10: Advance turn away from starting baseline** ( :white_check_mark: )
+  - **Name of the test**: advanceTurn_fromIndexZero_currentPlayerIndexBecomesOne
+  - **State of the system**: TurnManager constructed with 3 players, currentPlayerIndex = 0
+  - **Expected output**: getCurrentPlayerIndex() = 1 getRoundCounter() = 0, getCurrentDrawCount = 1
+- **TC11: Advance turn on boundary just before list wraps around** ( :x: )
+  - **Name of the test**: advanceTurn_fromSecondToLastPlayer_currentIndexReachMax
+  - **State of the system**: TurnManager initialized with 3 players currentPlayerIndex = 1
+  - **Expected output**: getCurrentPlayerIndex() = 2 getRoundCounter() = 0 getCurrentDrawCount() = 1
+- **TC12: Advance that resets index and increments the round** ( :x: )
+  - **Name of the test**: advanceTurn_fromMaxValidIndex_incrementsRound
+  - **State of the system**: TurnManager initialized with 3 players currentPlayerIndex = 2
+  - **Expected output**: getCurrentPlayerIndex() = 0 getRoundCounter() = 1 getCurrentDrawCount() = 1

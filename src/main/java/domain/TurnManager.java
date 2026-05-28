@@ -21,28 +21,23 @@ public final class TurnManager {
         roundCounter = 0;
     }
 
-    public int getCurrentPlayerIndex()
-    {
+    public int getCurrentPlayerIndex() {
         return currentPlayerIndex;
     }
 
-    public Player getCurrentPlayer()
-    {
+    public Player getCurrentPlayer() {
         return players.get(currentPlayerIndex);
     }
 
-    public int getCurrentDrawCount()
-    {
+    public int getCurrentDrawCount() {
         return currentDrawCount;
     }
 
-    public int getStartingPlayerIndex()
-    {
+    public int getStartingPlayerIndex() {
         return STARTING_PLAYER_INDEX;
     }
 
-    public int getRoundCounter()
-    {
+    public int getRoundCounter() {
         return roundCounter;
     }
 
@@ -58,9 +53,18 @@ public final class TurnManager {
         this.currentDrawCount--;
     }
 
-    public void incrementRound()
-    {
+    public void incrementRound() {
         this.roundCounter++;
+    }
+
+    public void advanceTurn() {
+        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
+
+        if (currentPlayerIndex == STARTING_PLAYER_INDEX) {
+            incrementRound();
+        }
+
+        incrementDrawCount();
     }
 
 }
