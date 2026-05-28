@@ -46,7 +46,7 @@
   - **Name of the test**: advanceTurn_fromIndexZero_currentPlayerIndexBecomesOne
   - **State of the system**: TurnManager constructed with 3 players, currentPlayerIndex = 0
   - **Expected output**: getCurrentPlayerIndex() = 1 getRoundCounter() = 0, getCurrentDrawCount = 1
-- **TC11: Advance turn on boundary just before list wraps around** ( :x: )
+- **TC11: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_fromSecondToLastPlayer_currentIndexReachMax
   - **State of the system**: TurnManager initialized with 3 players currentPlayerIndex = 1
   - **Expected output**: getCurrentPlayerIndex() = 2 getRoundCounter() = 0 getCurrentDrawCount() = 1
