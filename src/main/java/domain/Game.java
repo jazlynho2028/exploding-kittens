@@ -213,7 +213,7 @@ public final class Game implements GameData {
 
     }
 
-    public void drawFromPile() {
+    public void drawFromPile(int playerIndex) {
 
     }
 

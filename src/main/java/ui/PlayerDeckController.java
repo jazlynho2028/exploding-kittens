@@ -106,7 +106,9 @@ public class PlayerDeckController {
 
     void onDrawPile() {
         attempt(onError, () -> {
-            ((Game) model).drawFromPile();
+            ((Game) model).drawFromPile(
+                    model.getCurrentPlayerIndex()
+            );
 
             updateDrawPile();
             rebindHandCards();

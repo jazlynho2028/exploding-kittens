@@ -268,7 +268,9 @@ public class PlayerDeckControllerTests {
 				.addMockedMethod("rebindHandCards")
 				.createMock();
 
-		model.drawFromPile();
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+
+		model.drawFromPile(currentPlayerIndex);
 		EasyMock.expectLastCall();
 
 		setUpRenderDrawPileExpectations();
@@ -303,7 +305,9 @@ public class PlayerDeckControllerTests {
 	public void onDrawPile_drawsCard_failed() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
-		model.drawFromPile();
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+
+		model.drawFromPile(currentPlayerIndex);
 		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
 
 		onError.accept(expectedMsg);
