@@ -1173,4 +1173,38 @@ public class GameTests {
 
         EasyMock.verify(mockDrawPile, mockDiscardPile);
     }
+
+    @Test
+    public void isCatCard_exactMatchCatCard_returnsTrue() throws Exception {
+        final int numTotalCards = 10;
+
+        List<String> names = Arrays.asList("Alice", "Bob");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        List<Card> initialCards = new ArrayList<>();
+        for (int i = 0; i < numTotalCards; i++) {
+            Card mockCard = EasyMock.createMock(Card.class);
+            EasyMock.replay(mockCard);
+            initialCards.add(mockCard);
+        }
+
+        EasyMock.expect(mockDrawPile.getCards()).andReturn(initialCards);
+        EasyMock.expect(mockDiscardPile.getCards()).andReturn(new ArrayList<>());
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+
+        Card exactCatCard = new Card("cat_card-1", CardType.CAT_CARD);
+
+        Method targetMethod = Game.class.getDeclaredMethod("isCatCard", Card.class);
+        targetMethod.setAccessible(true);
+        boolean result = (boolean) targetMethod.invoke(game, exactCatCard);
+
+        assertTrue(result);
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
 }

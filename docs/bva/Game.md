@@ -265,3 +265,29 @@
     - list containing 1 valid card (FERAL_CAT) is passed into method
   - **Expected output**:
     - return true 
+
+### Method under test: `isCatCard()`
+
+- **TC30: card type is exact match** ( :white_check_mark: )
+  - **Name of the test**: isCatCard_exactMatchCatCard_returnsTrue
+  - **State of the system**:
+    - Game is initialized
+    - Card object whose CardType is "CAT CARD" is passed into method
+  - **Expected output**:
+    - return true 
+
+- **TC31: card type contains cat card keyword** ( :x: )
+  - **Name of the test**: isCatCard_nameContainsCatCard_returnsTrue
+  - **State of the system**:
+    - Game is initialized
+    - Card object whose CardType contains "CAT CARD" is passed into method
+  - **Expected output**:
+    - return true 
+
+- **TC32: card type is not cat card** ( :x: )
+  - **Name of the test**: isCatCard_standardActionCard_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - Card object whose CardType is not cat card
+  - **Expected output**:
+    - return false 
