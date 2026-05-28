@@ -49,7 +49,7 @@
   - **Expected output**: getRoundCounter() = 2
 
 ### Method under test: `advanceTurn()`
-- **TC10: Advance turn away from starting baseline across varying player sizes** ( :x: )
+- **TC10: Advance turn away from starting baseline across varying player sizes** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_fromIndexZero_currentPlayerIndexIncrements
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = 0
   - **Expected output**: getCurrentPlayerIndex() = 1
