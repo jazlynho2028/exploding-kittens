@@ -96,7 +96,7 @@ public class TurnManagerTests {
 
         turnManager.incrementDrawCount();
 
-        int actual = turnManager.getCurrentDrawCount();
+        int actual = turnManager.getDrawCount();
 
         assertEquals(initialDrawCount + 1, actual);
 
@@ -119,7 +119,7 @@ public class TurnManagerTests {
         turnManager.incrementDrawCount();
         turnManager.incrementDrawCount();
 
-        int actual = turnManager.getCurrentDrawCount();
+        int actual = turnManager.getDrawCount();
 
         assertEquals(initialDrawCount + 2, actual);
 
@@ -158,7 +158,7 @@ public class TurnManagerTests {
 
         turnManager.decrementDrawCount();
 
-        assertEquals(0, turnManager.getCurrentDrawCount());
+        assertEquals(0, turnManager.getDrawCount());
         EasyMock.verify(mockPlayer1);
     }
 

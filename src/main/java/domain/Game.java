@@ -6,13 +6,11 @@ import java.util.Collections;
 import java.util.List;
 
 import static domain.DeckBuilder.createCardId;
+import static domain.GameConstants.MIN_PLAYERS;
+import static domain.GameConstants.MAX_PLAYERS;
+import static domain.GameConstants.STARTING_HAND_SIZE;
 
 public final class Game implements GameData {
-
-    private static final int MIN_PLAYERS = 2;
-    private static final int MAX_PLAYERS = 4;
-
-    private static final int STARTING_HAND_SIZE = 6;
 
     private final List<Player> players;
     private final List<String> playerNames;
@@ -23,18 +21,18 @@ public final class Game implements GameData {
     private final Deck discardPile;
     private final TurnManager turnManager;
 
-    public Game(List<String> playerNames, Deck drawPile, Deck discardPile) {
-        if (playerNames.size() < MIN_PLAYERS || playerNames.size() > MAX_PLAYERS) {
+    public Game(List<Player> players, Deck drawPile, Deck discardPile) {
+        if (players.size() < MIN_PLAYERS || players.size() > MAX_PLAYERS) {
             throw new IllegalArgumentException("error.invalidPlayerCount");
         }
 
-        this.playerNames = List.copyOf(playerNames);
+        this.players = List.copyOf(players);
         this.drawPile = new Deck(new ArrayDeque<>(drawPile.getCards()));
         this.discardPile = new Deck(new ArrayDeque<>(discardPile.getCards()));
 
-        this.players = new ArrayList<>();
-        for (String name : playerNames) {
-            this.players.add(new Player(name));
+        this.playerNames = new ArrayList<>();
+        for (Player player : players) {
+            this.playerNames.add(player.getName());
         }
 
         this.isGameOngoing = false;
@@ -176,7 +174,7 @@ public final class Game implements GameData {
     }
 
     public boolean canEndTurn() {
-        return turnManager.getCurrentDrawCount() == 0;
+        return turnManager.getDrawCount() == 0;
     }
 
     public boolean isDrawPileEmpty() {

@@ -9,8 +9,8 @@ public final class TurnManager {
 
     private final List<Player> players;
     private int currentPlayerIndex;
-    private int currentDrawCount;
-    private int roundCounter;
+    private int drawCount;
+    private int roundCount;
 
     public TurnManager(List<Player> players) {
         if (players.isEmpty()) {
@@ -18,16 +18,16 @@ public final class TurnManager {
         }
         this.players = List.copyOf(players);
         currentPlayerIndex = 0;
-        currentDrawCount = 0;
-        roundCounter = 0;
+        drawCount = 0;
+        roundCount = 0;
     }
 
     public int getCurrentPlayerIndex() {
         return currentPlayerIndex;
     }
 
-    public int getCurrentDrawCount() {
-        return currentDrawCount;
+    public int getDrawCount() {
+        return drawCount;
     }
 
     //    public int getStartingPlayerIndex() {
@@ -43,15 +43,15 @@ public final class TurnManager {
     }
 
     public void incrementDrawCount() {
-        currentDrawCount++;
+        drawCount++;
     }
 
     public void decrementDrawCount() {
-        currentDrawCount--;
+        drawCount--;
     }
 
     public void incrementRound() {
-        roundCounter++;
+        roundCount++;
     }
 
         public void advanceTurn() {
@@ -65,7 +65,7 @@ public final class TurnManager {
         }
 
     public int getRoundCounter() {
-        return this.roundCounter;
+        return this.roundCount;
     }
 
 }

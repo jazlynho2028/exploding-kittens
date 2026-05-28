@@ -3,11 +3,13 @@ package ui;
 import domain.Deck;
 import domain.DeckBuilder;
 import domain.Game;
+import domain.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -68,13 +70,23 @@ public class ExplodingKittensApp extends Application {
     }
 
     private void initializeGame(PlayerCreateController createController, Stage stage) {
-        List<String> playerNames = createController.getConfirmedNames();
-        Deck drawPile = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(playerNames.size());
+        List<Player> players = createPlayers(createController.getConfirmedNames());
+        Deck drawPile = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(players.size());
         Deck discardPile = new Deck(new ArrayDeque<>());
 
-        Game model = new Game(playerNames, drawPile, discardPile);
+        Game model = new Game(players, drawPile, discardPile);
 
         showPlayerDeckScreen(model, stage);
+    }
+
+    private List<Player> createPlayers(List<String> names) {
+        List<Player> players = new ArrayList<>();
+
+        for (String name : names) {
+            players.add(new Player(name));
+        }
+
+        return players;
     }
 
     private void showPlayerDeckScreen(Game model, Stage stage) {
