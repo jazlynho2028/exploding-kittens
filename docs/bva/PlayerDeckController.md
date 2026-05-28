@@ -1,72 +1,100 @@
-## Method under test: `PlayerDeckController()`
-- **TC1: this method is called** ( :white_check_mark: )
-  - **Name of the test**: constructor_called_success
+## Method under test: `buildPlayerDeckScene()`
+- **TC1: This method is called** ( :white_check_mark: )
+  - **Name of the test**: buildPlayerDeckScene_called_success
   - **State of the system**: N/A
-  - **Expected output**: onError has default empty handling, called view.buildAndAddPlayerHandCards, view.buildAddRenderPlayerNameTags, view.bindActionButtons, view.bindNameTags, view.bindPlayerHandCardButtons
+  - **Expected output**: called buildDependenUI, bindUI, returns view.createPlayerDeckScene
+
+- **TC2: Caught exception** ( :white_check_mark: )
+  - **Name of the test**: buildPlayerDeckScene_called_failed
+  - **State of the system**: buildDependentUI throws RuntimeException "An error occurred."
+  - **Expected output**: onError accepts exception
+
+## Method under test: `buildDependentUI()`
+- **TC3: This method is executed successfully** ( :white_check_mark: )
+  - **Name of the test**: buildDependentUI_called_success
+  - **State of the system**: currentPlayerHandIds = [], isFaceUp = true, canDraw = true, playerNames = [], currentPlayerIndex = 0, isGameOngoing = true
+  - **Expected output**: called view.buildAndAddPlayerHandCards and view.buildAddRenderPlayerNameTags
+
+## Method under test: `bindUI()`
+- **TC4: This method is called** ( :white_check_mark: )
+  - **Name of the test**: bindUI_called_success
+  - **State of the system**: N/A
+  - **Expected output**: called view.bindDrawPileButton, view.bindHandVisibilityButton, view.bindStartGameButton, view.bindNameTags, view.bindPlayerHandCardButtons
 
 ### Method under test: `onNameTag(int playerIndex)`
-- **TC2: player index is the same as current player index** ( :white_check_mark: )
+- **TC5: Player index is the same as current player index** ( :white_check_mark: )
     - **Name of the test**: onNameTag_playerStaysTheSame_noChange
     - **State of the system**: playerIndex = 0, currentPlayerIndex = 0
     - **Expected output**: no model method is called
 
-- **TC3: player index is different from current player index** ( :white_check_mark: )
+- **TC6: Player index is different from current player index** ( :white_check_mark: )
     - **Name of the test**: onNameTag_playerChanges_success
     - **State of the system**: playerIndex = 1, currentPlayerIndex = 0
-    - **Expected output**: called handleChangeCurrentPlayer(playerIndex)
+    - **Expected output**: called handleChangeCurrentPlayer
+
+- **TC7: Caught exception from model** ( :white_check_mark: )
+  - **Name of the test**: onNameTag_called_failed
+  - **State of the system**: playerIndex = 0, currentPlayerIndex = 0, model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
+  - **Expected output**: onError accepts exception
 
 ### Method under test: `handleChangeCurrentPlayer(int playerIndex)`
-- **TC4: current player changes successfully** ( :white_check_mark: )
+- **TC8: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: handleChangeCurrentPlayer_playerChanges_success
-    - **State of the system**: playerIndex = 0
-    - **Expected output**: called model.changeCurrentPlayerIndexAndSetFaceUpToFalse(playerIndex), view.renderPlayerNameTags, view.renderHandVisibilityButton, and buildAddBindPlayerHandCards()
+    - **State of the system**: playerIndex = 0, currentPlayerIndex = 0, isGameOngoing = true, isFaceUp = true
+    - **Expected output**: called model.changeCurrentPlayerIndex, model.setIsFaceUpToFalse, view.renderPlayerNameTags, view.renderHandVisibilityButton, and rebuildHandCards
 
-- **TC5: model throws InvalidStateException** ( :white_check_mark: )
-  - **Name of the test**: handleChangeCurrentPlayer_playerChanges_fail
-  - **State of the system**: playerIndex = 0
-  - **Expected output**: caught exception from model.changeCurrentPlayerIndexAndSetFaceUpToFalse(playerIndex), called onError.accept("Failed to change current player.")
-
-### Method under test: `buildAddBindPlayerHandCards()`
-- **TC6: this method is called** ( :white_check_mark: )
-  - **Name of the test**: buildAddBindPlayerHandCards_called_success
-  - **State of the system**: N/A
-  - **Expected output**: called view.buildAndAddPlayerHandCards and bindPlayerHandCardButtons
+### Method under test: `rebuildHandCards()`
+- **TC9: This method is called** ( :white_check_mark: )
+  - **Name of the test**: rebuildHandCards_called_success
+  - **State of the system**: currentPlayerHandIds = [], isFaceUp = true, canDraw = true
+  - **Expected output**: called view.buildAndAddPlayerHandCards and view.bindPlayerHandCardButtons
 
 ### Method under test: `onDrawPile()`
-- **TC7: card is drawn from pile successfully** ( :white_check_mark: )
+- **TC10: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: onDrawPile_drawsCard_success
-    - **State of the system**: N/A
-    - **Expected output**: called model.drawFromPile(), view.renderDrawPile, buildAddBindPlayerHandCards(), and view.renderTurnControlSection
+    - **State of the system**: canDraw = true, isDrawPileEmpty = true, canPlaySelected = true, canEndTurn = true
+    - **Expected output**: called model.drawFromPile, view.renderDrawPile, rebuildHandCards, and view.renderTurnControlSection
 
-- **TC8: model throws InvalidStateException** ( :white_check_mark: )
-  - **Name of the test**: onDrawPile_drawsCard_fail()
-  - **State of the system**: N/A
-  - **Expected output**: caught exception from model.drawFromPile(), , called onError.accept("Failed to draw from pile.")
+- **TC11: Caught exception from model** ( :white_check_mark: )
+  - **Name of the test**: onDrawPile_drawsCard_failed
+  - **State of the system**: model.drawFromPile throws RuntimeException "An error occurred."
+  - **Expected output**: onError accepts exception
 
 ### Method under test: `onHandVisibilityButton()`
-- **TC9: this method is called** ( :white_check_mark: )
+- **TC12: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: onHandVisibilityButton_called_success
-    - **State of the system**: N/A
-    - **Expected output**: called model.setIsFaceUpToOpposite(), view.renderHandVisibilityButton, and buildAddBindPlayerHandCards()
+    - **State of the system**: isFaceUp = true
+    - **Expected output**: called model.setIsFaceUpToOpposite, view.renderHandVisibilityButton, and rebuildHandCards
+
+- **TC13: Caught exception from model** ( :white_check_mark: )
+  - **Name of the test**: onHandVisibilityButton_called_failed
+  - **State of the system**: model.setIsFaceUpToOpposite throws RuntimeException "An error occurred."
+  - **Expected output**: onError accepts exception
 
 ### Method under test: `onPlayerHandCardButton(int handCardIndex)`
-- **TC10: cards are face down** ( :white_check_mark: )
+- **TC14: Cards are face up** ( :white_check_mark: )
+  - **Name of the test**: onPlayerHandCardButton_cardsFaceUp_success
+  - **State of the system**: handCardIndex = 0, isFaceUp = true, canPlaySelected = true, canEndTurn = false
+  - **Expected output**: called model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite and view.renderTurnControlSection
+
+- **TC15: Cards are face down** ( :white_check_mark: )
     - **Name of the test**: onPlayerHandCardButton_cardsFaceDown_callsOnHandVisibility
     - **State of the system**: handCardIndex = 0, isFaceUp = false
-    - **Expected output**: called onHandVisibilityButton()
+    - **Expected output**: called onHandVisibilityButton
 
-- **TC11: cards are face up** ( :white_check_mark: )
-    - **Name of the test**: onPlayerHandCardButton_cardsFaceUp_callsModelMethod
-    - **State of the system**: handCardIndex = 0, isFaceUp = true
-    - **Expected output**: called model.setIsSelectedOfCurrentPlayerHandCardAtIndexToOpposite(handCardIndex) and view.renderTurnControlSection
+- **TC16: Caught exception from model** ( :white_check_mark: )
+  - **Name of the test**: onPlayerHandCardButton_called_failed
+  - **State of the system**: model.getIsFaceUp throws RuntimeException "An error occurred."
+  - **Expected output**: onError accepts exception
+
 
 ### Method under test: `onStartGameButton()`
-- **TC12: game starts successfully** ( :white_check_mark: )
+- **TC17: Game starts successfully** ( :white_check_mark: )
   - **Name of the test**: onStartGameButton_called_success
-  - **State of the system**: startingPlayerIndex = 0
-  - **Expected output**: called model.startGame(), handleChangeCurrentPlayer(startingPlayerIndex), view.renderDrawPile, and view.buildAndRenderTurnControlSection
+  - **State of the system**: startingPlayerIndex = 0, canDraw = true, isDrawPileEmpty = true, isGameOngoing = true, canPlaySelected = true, canEndTurn = true
+  - **Expected output**: called model.startGame, handleChangeCurrentPlayer, view.renderDrawPile, and view.buildAndRenderTurnControlSection
 
-- **TC13: model throws InvalidStateException** ( :white_check_mark: )
-    - **Name of the test**: onStartGameButton_called_fail
-    - **State of the system**: N/A
-    - **Expected output**: caught exception from model.startGame(), called onError.accept("Failed to start game.")
+- **TC18: Caught exception from model** ( :white_check_mark: )
+  - **Name of the test**: onStartGameButton_called_failed
+  - **State of the system**: model.startGame throws RuntimeException "An error occurred."
+  - **Expected output**: onError accepts exception

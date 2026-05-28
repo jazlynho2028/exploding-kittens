@@ -1,19 +1,32 @@
 package ui;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import javafx.scene.Scene;
+
 public class ErrorController {
 
+	private final ErrorView view;
 	private Runnable onRestart;
 
+	@SuppressFBWarnings(
+		value = "EI_EXPOSE_REP2",
+		justification = "View is injected by for compromise between MVC pattern " +
+				"and testability, defensive copy is not applicable for JavaFX " +
+				"components"
+	)
 	public ErrorController(ErrorView view) {
-		view.bindUI(this::onRestartButton);
+		this.view = view;
+		this.onRestart = () -> { };
 	}
 
-	void onRestartButton() {
-		onRestart.run();
+	public Scene buildErrorScene() {
+		view.bindRestartButton(onRestart);
+
+		return view.createErrorScene();
 	}
 
-	public void setOnRestart(Runnable onRestart) {
-		this.onRestart = onRestart;
+	public void setOnRestart(Runnable handler) {
+		onRestart = handler;
 	}
 
 }

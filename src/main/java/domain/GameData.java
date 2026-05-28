@@ -14,7 +14,7 @@ public interface GameData {
 
 	boolean getIsFaceUp();
 
-	boolean isGameOngoing();
+	boolean getIsGameOngoing();
 
 	boolean getIsBeforeDraw();
 
@@ -22,7 +22,7 @@ public interface GameData {
 
 	boolean canEndTurn();
 
-	boolean canDraw();
+	boolean getCanDraw();
 
 	boolean isDrawPileEmpty();
 
