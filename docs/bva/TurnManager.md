@@ -56,7 +56,7 @@
 
 - **TC11: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly
-  - **State of the system**: TurnManager constructed with N players (N = 3, 4), currentPlayerIndex = N - 2
+  - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = N - 2
   - **Expected output**: getCurrentPlayerIndex() = N - 1
 
 - **TC12: Advance that hits upper boundary, wrapping index back to zero** ( :white_check_mark: )
