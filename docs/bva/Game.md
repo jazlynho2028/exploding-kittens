@@ -258,7 +258,7 @@
   - **Expected output**:
     - return false 
 
-- **TC29: single valid card is provided** ( :x: )
+- **TC29: single valid card is provided** ( :white_check_mark: )
   - **Name of the test**: isValidOneCard_singleValidActionCard_returnsTrue
   - **State of the system**:
     - Game is initialized
