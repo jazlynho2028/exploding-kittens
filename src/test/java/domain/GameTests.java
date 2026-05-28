@@ -5,8 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+
+import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -962,7 +963,7 @@ public class GameTests {
     }
 
     @Test
-    public void isValidOneCard_zeroCardsProvided_returnsFalse() {
+    public void isValidOneCard_zeroCardsProvided_returnsFalse() throws Exception {
         final int numTotalCards = 10;
 
         List<String> names = Arrays.asList("Alice", "Bob");
@@ -986,7 +987,46 @@ public class GameTests {
 
         List<Card> emptySelectionList = new ArrayList<>();
 
-        boolean result = game.isValidOneCard(emptySelectionList);
+        Method targetMethod = Game.class.getDeclaredMethod("isValidOneCard", List.class);
+        targetMethod.setAccessible(true);
+
+        boolean result = (boolean) targetMethod.invoke(game, emptySelectionList);
+
+        assertFalse(result);
+
+        EasyMock.verify(mockDrawPile, mockDiscardPile);
+    }
+
+    @Test
+    public void isValidOneCard_twoCardsProvided_returnsFalse() throws Exception {
+        final int numTotalCards = 10;
+
+        List<String> names = Arrays.asList("Alice", "Bob");
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+
+        List<Card> initialCards = new ArrayList<>();
+        for (int i = 0; i < numTotalCards; i++) {
+            Card mockCard = EasyMock.createMock(Card.class);
+            EasyMock.replay(mockCard);
+            initialCards.add(mockCard);
+        }
+
+        EasyMock.expect(mockDrawPile.getCards()).andReturn(initialCards);
+        EasyMock.expect(mockDiscardPile.getCards()).andReturn(new ArrayList<>());
+
+        EasyMock.replay(mockDrawPile, mockDiscardPile);
+
+        Game game = new Game(names, mockDrawPile, mockDiscardPile);
+
+        Card actionCard1 = new Card("attack-1", CardType.ATTACK);
+        Card actionCard2 = new Card("attack-2", CardType.ATTACK);
+        List<Card> twoCardsList = Arrays.asList(actionCard1, actionCard2);
+
+        Method targetMethod = Game.class.getDeclaredMethod("isValidOneCard", List.class);
+        targetMethod.setAccessible(true);
+        boolean result = (boolean) targetMethod.invoke(game, twoCardsList);
 
         assertFalse(result);
 

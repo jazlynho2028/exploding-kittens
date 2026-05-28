@@ -226,7 +226,7 @@
   - **Expected output**:
     - return false 
 
-- **TC25: more than one card is provided** ( :x: )
+- **TC25: more than one card is provided** ( :white_check_mark: )
   - **Name of the test**: isValidOneCard_twoCardsProvided_returnsFalse
   - **State of the system**:
     - Game is initialized
