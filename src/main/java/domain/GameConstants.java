@@ -7,7 +7,7 @@ public final class GameConstants {
 	public static final int MIN_PLAYERS = 2;
 	public static final int MAX_PLAYERS = 4;
 
-	public static final int STARTING_HAND_SIZE = 6;
+	private static final int STARTING_HAND_SIZE = 6;
 	public static final int STARTING_PLAYER_INDEX = 0;
 
 }

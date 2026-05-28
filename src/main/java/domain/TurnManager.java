@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public final class TurnManager {
@@ -8,13 +7,13 @@ public final class TurnManager {
     private static final int STARTING_PLAYER_INDEX = 0;
 
     private final List<Player> players;
-    private int currentPlayerIndex;
-    private int drawCount;
+	private int currentPlayerIndex;
     private int roundCount;
+    private int drawCount;
 
-    public TurnManager(List<Player> players) {
+    public TurnManager(final List<Player> players) {
         if (players.isEmpty()) {
-            throw new IllegalArgumentException("Players list cannot be empty.");
+            throw new IllegalArgumentException("error.emptyPlayerList");
         }
         this.players = List.copyOf(players);
         currentPlayerIndex = 0;
@@ -26,17 +25,21 @@ public final class TurnManager {
         return currentPlayerIndex;
     }
 
+    public Player getCurrentPlayer() {
+        return players.get(currentPlayerIndex);
+    }
+
     public int getDrawCount() {
         return drawCount;
     }
 
-    //    public int getStartingPlayerIndex() {
-    //        return STARTING_PLAYER_INDEX;
-    //    }
+    public int getStartingPlayerIndex() {
+        return STARTING_PLAYER_INDEX;
+    }
 
-    //    public Player getCurrentPlayer() {
-    //        return players.get(currentPlayerIndex);
-    //    }
+    public int getRoundCount() {
+        return roundCount;
+    }
 
     public void setCurrentPlayerIndex(int newPlayerIndex) {
         currentPlayerIndex = newPlayerIndex;
@@ -47,6 +50,9 @@ public final class TurnManager {
     }
 
     public void decrementDrawCount() {
+        if (drawCount <= 0) {
+            throw new IllegalStateException("error.negativeDrawCount");
+        }
         drawCount--;
     }
 
@@ -54,18 +60,14 @@ public final class TurnManager {
         roundCount++;
     }
 
-        public void advanceTurn() {
-            this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
+    public void advanceTurn() {
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 
-            if (currentPlayerIndex == STARTING_PLAYER_INDEX) {
-                incrementRound();
-            }
-
-            incrementDrawCount();
+        if (currentPlayerIndex == STARTING_PLAYER_INDEX) {
+            incrementRound();
         }
 
-    public int getRoundCounter() {
-        return this.roundCount;
+        incrementDrawCount();
     }
 
 }

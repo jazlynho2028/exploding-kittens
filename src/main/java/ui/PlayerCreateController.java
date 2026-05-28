@@ -20,9 +20,9 @@ public class PlayerCreateController {
     private Runnable onRestart;
 
     @SuppressFBWarnings(
-            value = "EI_EXPOSE_REP2",
-            justification = "View is injected by for compromise between MVC pattern and " +
-                    "testability, defensive copy is not applicable for JavaFX components"
+        value = "EI_EXPOSE_REP2",
+        justification = "View is injected by for compromise between MVC pattern and " +
+                "testability, defensive copy is not applicable for JavaFX components"
     )
     public PlayerCreateController(PlayerCreateView view) {
         this.view = view;

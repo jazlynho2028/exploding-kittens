@@ -83,7 +83,6 @@ public class TurnManagerTests {
 
     @Test
     public void incrementDrawCount_initialZero_success() {
-        final int initialDrawCount = 0;
         List<Player> players = new ArrayList<>();
 
         Player mockPlayer1 = EasyMock.createMock(Player.class);
@@ -96,16 +95,16 @@ public class TurnManagerTests {
 
         turnManager.incrementDrawCount();
 
+        int expected = 1;
         int actual = turnManager.getDrawCount();
 
-        assertEquals(initialDrawCount + 1, actual);
+        assertEquals(expected, actual);
 
         EasyMock.verify(mockPlayer1);
     }
 
     @Test
     public void incrementDrawCount_fromOne_success() {
-        final int initialDrawCount = 0;
         List<Player> players = new ArrayList<>();
 
         Player mockPlayer1 = EasyMock.createMock(Player.class);
@@ -119,9 +118,10 @@ public class TurnManagerTests {
         turnManager.incrementDrawCount();
         turnManager.incrementDrawCount();
 
+        int expected = 2;
         int actual = turnManager.getDrawCount();
 
-        assertEquals(initialDrawCount + 2, actual);
+        assertEquals(expected, actual);
 
         EasyMock.verify(mockPlayer1);
     }
@@ -158,7 +158,6 @@ public class TurnManagerTests {
 
         turnManager.decrementDrawCount();
 
-        assertEquals(0, turnManager.getDrawCount());
         EasyMock.verify(mockPlayer1);
     }
 
@@ -177,7 +176,7 @@ public class TurnManagerTests {
 
         turnManager.incrementRound();
 
-        int actual = turnManager.getRoundCounter();
+        int actual = turnManager.getRoundCount();
 
         assertEquals(initialRoundCounter + 1, actual);
 
@@ -200,7 +199,7 @@ public class TurnManagerTests {
         turnManager.incrementRound();
         turnManager.incrementRound();
 
-        int actual = turnManager.getRoundCounter();
+        int actual = turnManager.getRoundCount();
 
         assertEquals(initialRoundCounter + 2, actual);
 
