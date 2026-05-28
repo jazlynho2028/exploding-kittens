@@ -2,6 +2,7 @@ package ui;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -12,14 +13,20 @@ public class ErrorView {
 	private final StackPane root;
 	private final String message;
 
+	private final Button restartButton;
 
 	public ErrorView(AssetProvider assetProvider, String message) {
 		root = new StackPane();
 
 		this.assetProvider = assetProvider;
 		this.message = message;
+		this.restartButton = new Button();
 
 		buildUI();
+	}
+
+	public void bindRestartButton(Runnable handler) {
+		restartButton.setOnMouseClicked(e -> handler.run());
 	}
 
 	public Scene createErrorScene() {
@@ -28,7 +35,11 @@ public class ErrorView {
 
 	private void buildUI() {
 		StackPane errorScreen = buildErrorScreen();
-		root.getChildren().add(errorScreen);
+		StackPane overlayLayer = PlayerCreateView.buildOverlayLayer(
+				assetProvider, restartButton
+		);
+
+		root.getChildren().addAll(errorScreen, overlayLayer);
 	}
 
 	private StackPane buildErrorScreen() {

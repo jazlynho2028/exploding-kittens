@@ -1,37 +1,38 @@
 package ui;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
 
 public class StartController {
 
     private final StartView view;
-    private Runnable onPlay;
 
-    public StartController(AssetProvider assetProvider) {
-        this.view = new StartView(assetProvider);
-        this.onPlay = () -> { };
+	private Runnable onEnglishPlay;
+    private Runnable onSpanishPlay;
 
-        buildAndBindUI();
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "View is injected by for compromise between MVC pattern and " +
+                "testability, defensive copy is not applicable for JavaFX components"
+    )
+    public StartController(StartView view) {
+        this.view = view;
+        this.onEnglishPlay = () -> { };
+        this.onSpanishPlay = () -> { };
     }
 
-    public void setOnPlay(Runnable onPlay) {
-        this.onPlay = onPlay;
-    }
+    public Scene buildStartScene() {
+        view.bindEnglishPlayButton(onEnglishPlay);
+        view.bindSpanishPlayButton(onSpanishPlay);
 
-    private void buildAndBindUI() {
-        bindUI();
-    }
-
-    private void bindUI() {
-        view.playButton.setOnMouseClicked(e -> onPlayButton());
-    }
-
-    private void onPlayButton() {
-        System.out.println("START GAME BUTTON CLICKED");
-        onPlay.run();
-    }
-
-    public Scene getStartScene() {
         return view.createStartScene();
+    }
+
+    public void setOnEnglishPlay(Runnable handler) {
+        onEnglishPlay = handler;
+    }
+
+    public void setOnSpanishPlay(Runnable handler) {
+        onSpanishPlay = handler;
     }
 }
