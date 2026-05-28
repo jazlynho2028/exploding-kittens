@@ -16,8 +16,6 @@ public interface GameData {
 
 	boolean getIsGameOngoing();
 
-	boolean getIsBeforeDraw();
-
 	boolean canPlaySelected();
 
 	boolean canEndTurn();
