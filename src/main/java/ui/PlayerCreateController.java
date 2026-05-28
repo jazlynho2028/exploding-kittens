@@ -66,26 +66,14 @@ public class PlayerCreateController {
     }
 
     void onAddPlayer() {
-        if (isBelowMaxPlayers()) {
+        if (playerFieldsCount < GameConstants.MAX_PLAYERS) {
             playerFieldsCount++;
             view.addPlayerField(playerFieldsCount);
 
-            updateAddPlayerButtonState();
+            if (playerFieldsCount == GameConstants.MAX_PLAYERS) {
+                view.setAddPlayerButtonDisabled(true);
+            }
         }
-    }
-
-    private boolean isBelowMaxPlayers() {
-        return playerFieldsCount < GameConstants.MAX_PLAYERS;
-    }
-
-    private void updateAddPlayerButtonState() {
-        if (isAtMaxPlayers()) {
-            view.setAddPlayerButtonDisabled(true);
-        }
-    }
-
-    private boolean isAtMaxPlayers() {
-        return playerFieldsCount == GameConstants.MAX_PLAYERS;
     }
 
     void onConfirmNames() {
