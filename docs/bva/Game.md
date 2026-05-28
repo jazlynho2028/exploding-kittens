@@ -276,7 +276,7 @@
   - **Expected output**:
     - return true 
 
-- **TC31: card type contains "cat" but not "card" keyword** ( :x: )
+- **TC31: card type contains "cat" but not "card" keyword** ( :white_check_mark: )
   - **Name of the test**: isCatCard_nameContainsCatCard_returnsTrue
   - **State of the system**:
     - Game is initialized
