@@ -14,7 +14,7 @@ public class PlayerCreateController {
     private final PlayerCreateView view;
     private final List<String> confirmedNames;
 
-    private int playerFieldsCount;
+    private int numPlayerFields;
     private Consumer<String> onError;
     private Runnable onSuccess;
     private Runnable onRestart;
@@ -66,13 +66,21 @@ public class PlayerCreateController {
     }
 
     void onAddPlayer() {
-        if (playerFieldsCount < GameConstants.MAX_PLAYERS) {
-            playerFieldsCount++;
-            view.addPlayerField(playerFieldsCount);
+        if (isBelowMaxPlayers()) {
+            numPlayerFields++;
+            view.addPlayerField(numPlayerFields);
 
-            if (playerFieldsCount == GameConstants.MAX_PLAYERS) {
-                view.setAddPlayerButtonDisabled(true);
-            }
+            updateAddPlayerButton();
+        }
+    }
+
+    private boolean isBelowMaxPlayers() {
+        return numPlayerFields < GameConstants.MAX_PLAYERS;
+    }
+
+    private void updateAddPlayerButton() {
+        if (numPlayerFields == GameConstants.MAX_PLAYERS) {
+            view.setAddPlayerButtonDisabled(true);
         }
     }
 
@@ -94,8 +102,8 @@ public class PlayerCreateController {
         }
     }
 
-    int getPlayerFieldsCount() {
-        return playerFieldsCount;
+    int getNumPlayerFields() {
+        return numPlayerFields;
     }
 
 }

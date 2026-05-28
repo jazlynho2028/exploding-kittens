@@ -120,7 +120,7 @@ public class PlayerCreateControllerTests {
             controller.onAddPlayer();
         }
 
-        int actualCount = controller.getPlayerFieldsCount();
+        int actualCount = controller.getNumPlayerFields();
         assertEquals(expectedCount, actualCount);
 
         EasyMock.verify(view);
@@ -146,7 +146,7 @@ public class PlayerCreateControllerTests {
             controller.onAddPlayer();
         }
 
-        int actualCount = controller.getPlayerFieldsCount();
+        int actualCount = controller.getNumPlayerFields();
         assertEquals(expectedCount, actualCount);
 
         EasyMock.verify(view);
