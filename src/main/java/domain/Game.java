@@ -115,7 +115,7 @@ public final class Game {
                 isValidThreeCards(selectedCards);
     }
 
-    private boolean isValidOneCard(List<Card> selectedCards) {
+     boolean isValidOneCard(List<Card> selectedCards) {
         if (selectedCards.size() == 1) {
             Card first = selectedCards.get(0);
 

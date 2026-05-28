@@ -215,3 +215,53 @@
     - current active player has marked 4 cards as selected in their hand
   - **Expected output**:
     - return false 
+
+### Method under test: `isValidOneCard()`
+
+- **TC24: empty input list of cards** ( :white_check_mark: )
+  - **Name of the test**: isValidOneCard_zeroCardsProvided_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - empty ArrayList is passed into method
+  - **Expected output**:
+    - return false 
+
+- **TC25: more than one card is provided** ( :x: )
+  - **Name of the test**: isValidOneCard_twoCardsProvided_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - list containing 2 valid cards is passed into method 
+  - **Expected output**:
+    - return false 
+
+- **TC26: single exploding kitten card is provided** ( :x: )
+  - **Name of the test**: isValidOneCard_singleExplodingKitten_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - list containing 1 EXPLODING KITTEN is passed into method
+  - **Expected output**:
+    - return false 
+
+- **TC27: single defuse card is provided** ( :x: )
+  - **Name of the test**: isValidOneCard_singleDefuseCard_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - list containing 1 DEFUSE is passed into method
+  - **Expected output**:
+    - return false 
+
+- **TC28: single cat card is provided** ( :x: )
+  - **Name of the test**: isValidOneCard_singleCatCard_returnsFalse
+  - **State of the system**:
+    - Game is initialized
+    - list containing 1 CAT CARD is passed into method
+  - **Expected output**:
+    - return false 
+
+- **TC29: single valid card is provided** ( :x: )
+  - **Name of the test**: isValidOneCard_singleValidActionCard_returnsTrue
+  - **State of the system**:
+    - Game is initialized
+    - list containing 1 valid card (FERAL_CAT) is passed into method
+  - **Expected output**:
+    - return true 
