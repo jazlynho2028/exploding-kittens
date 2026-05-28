@@ -39,21 +39,17 @@ public class PlayerDeckController {
         rebuildNameTags();
     }
 
-    void rebuildHandCards() {
-        view.buildAndAddPlayerHandCards(
-                model.getCurrentPlayerHandIds(),
-                model.getIsFaceUp(),
-                model.getCanDraw()
-        );
-    }
-
     void rebindHandCards() {
         rebuildHandCards();
         bindHandCards();
     }
 
-    private void bindHandCards() {
-        view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
+    private void rebuildHandCards() {
+        view.buildAndAddPlayerHandCards(
+                model.getCurrentPlayerHandIds(),
+                model.getIsFaceUp(),
+                model.getCanDraw()
+        );
     }
 
     private void rebuildNameTags() {
@@ -70,6 +66,10 @@ public class PlayerDeckController {
         view.bindStartGameButton(this::onStartGameButton);
         view.bindNameTags(this::onNameTag);
         bindHandCards();
+    }
+
+    private void bindHandCards() {
+        view.bindPlayerHandCardButtons(this::onPlayerHandCardButton);
     }
 
     public void setOnError(Consumer<String> handler) {
@@ -108,16 +108,17 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             ((Game) model).drawFromPile();
 
-            view.renderDrawPile(
-                    model.getCanDraw(),
-                    model.isDrawPileEmpty()
-            );
+            updateDrawPile();
             rebindHandCards();
-            view.renderTurnControlSection(
-                    model.canPlaySelected(),
-                    model.canEndTurn()
-            );
+            updateTurnControls();
         });
+    }
+
+    private void updateDrawPile() {
+        view.renderDrawPile(
+                model.getCanDraw(),
+                model.isDrawPileEmpty()
+        );
     }
 
     void onHandVisibilityButton() {
@@ -158,13 +159,6 @@ public class PlayerDeckController {
             updateDrawPile();
             rebuildTurnControl();
         });
-    }
-
-    private void updateDrawPile() {
-        view.renderDrawPile(
-                model.getCanDraw(),
-                model.isDrawPileEmpty()
-        );
     }
 
     private void rebuildTurnControl() {
