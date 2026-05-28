@@ -27,15 +27,15 @@
   - **Expected output**: getCurrentDrawCount() = 2
 
 ### Method under test: `decrementDrawCount()`
-- **TC6: Draw count decremented from its absolute minimum baseline** ( :white_check_mark: )
-  - **Name of the test**: decrementDrawCount_initialZero_success
+- **TC6: Decrementing from zero throws state exception*** ( :x: )
+  - **Name of the test**: decrementDrawCount_fromZero_throwsIllegalStateException
   - **State of the system**: currentDrawCount = 0
   - **Expected output**: getCurrentDrawCount() = -1
 
-- **TC7: Draw count incremented on nonzero draw count** ( :white_check_mark: )
-  - **Name of the test**: decrementDrawCount_fromNonZero_success
-  - **State of the system**: currentDrawCount = -1
-  - **Expected output**: getCurrentDrawCount() = -2
+- **TC7: Decrementing from a positive value successfully reduces count** ( :x: )
+  - **Name of the test**: decrementDrawCount_fromPositiveValue_decrementsCount
+  - **State of the system**: currentDrawCount = 1
+  - **Expected output**: getCurrentDrawCount() = 0
 
 ### Method under test: `incrementRound()`
 - **TC8: Round incremented from its minimum baseline** ( :white_check_mark: )
@@ -65,7 +65,7 @@
   - **Expected output**: getCurrentPlayerIndex() = 0 getRoundCounter() = 1 getCurrentDrawCount() = 1
 
 ### Method under test: `TurnManager(List<Player> players)`
-- **TC13: Empty players list throws exception** ( :white_check_mark: )
+- **TC13: Empty players list throws exception** ( :x: )
   - **Name of the test**: constructor_emptyPlayerList_throwsException
   - **State of the system**: TurnManager constructed with 0 players
-  - **Expected output**: IllegalArgumentException with the message "Players list cannot be empty"
+  - **Expected output**: IllegalArgumentException with the message "error.emptyPlayerList"
