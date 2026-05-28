@@ -49,17 +49,17 @@
   - **Expected output**: getRoundCounter() = 2
 
 ### Method under test: `advanceTurn()`
-- **TC10: Advance turn away from starting baseline across varying player sizes**
+- **TC10: Advance turn away from starting baseline across varying player sizes** ( :x: )
   - **Name of the test**: advanceTurn_fromIndexZero_currentPlayerIndexIncrements
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = 0
   - **Expected output**: getCurrentPlayerIndex() = 1
 
-- **TC11: Advance turn on boundary just before list wraps around**
+- **TC11: Advance turn on boundary just before list wraps around** ( :x: )
   - **Name of the test**: advanceTurn_fromSecondToLastPlayer_currentIndexReachesMaxValidIndex
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = N - 2
   - **Expected output**: getCurrentPlayerIndex() = N - 1
 
-- **TC12: Advance that hits upper boundary, wrapping index back to zero**
+- **TC12: Advance that hits upper boundary, wrapping index back to zero** ( :x: )
   - **Name of the test**: advanceTurn_fromMaxValidIndex_wrapsIndexToZero
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = N - 1
   - **Expected output**: getCurrentPlayerIndex() = 0
