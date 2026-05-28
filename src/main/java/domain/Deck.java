@@ -1,29 +1,48 @@
 package domain;
 
-import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
+import java.util.Random;
 
 public class Deck {
 
-    private final List<Card> cards = new ArrayList<>();
+    public Deck(Deque<Card> deck) { }
 
-    public int getCardCount() {
-        return this.cards.size(); // Returns collection size [cite: 182]
+    Deck(Deque<Card> deck, Random random) { }
+
+    public void shuffle() { }
+
+    public Card peekTop() {
+        return new Card("placeholder", CardType.DEFUSE);
     }
 
     public Card removeTop() {
-        return null;
+        return new Card("placeholder", CardType.DEFUSE);
     }
 
-    public void addCard(Card card) {
-
-    }
-
-    public void shuffle() {
-
-    }
-
-    public int getCountOfCardType(CardType type) {
+    public int size() {
         return 0;
+    }
+
+    public Card peekBottom() {
+        return new Card("placeholder", CardType.DEFUSE);
+    }
+
+    public List<Card> peekTopNCards(int n) {
+        return List.of();
+    }
+
+    public Card removeBottom() {
+        return new Card("placeholder", CardType.DEFUSE);
+    }
+
+    public void addCard(Card card) { }
+
+    public boolean isEmpty() {
+        return true;
+    }
+
+    List<Card> getCards() {
+        return List.of();
     }
 }
