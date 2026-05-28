@@ -1,10 +1,7 @@
 package ui;
 
 import domain.GameConstants;
-import io.cucumber.java.an.E;
 import javafx.scene.Scene;
-import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethodsOnException;
-import org.codehaus.plexus.util.cli.Arg;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +10,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
