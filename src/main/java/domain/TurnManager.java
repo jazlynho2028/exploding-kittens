@@ -13,7 +13,7 @@ public final class TurnManager {
 
     public TurnManager(final List<Player> players) {
         if (players.isEmpty()) {
-            throw new IllegalArgumentException("Player list cannot be empty");
+            throw new IllegalArgumentException("error.emptyPlayerList");
         }
         this.players = List.copyOf(players);
         currentPlayerIndex = 0;
