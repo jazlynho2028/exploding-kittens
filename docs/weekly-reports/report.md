@@ -70,9 +70,10 @@
 1. [Done] Jazlyn: replaced all placeholder images with new assets for background, card back, and each card front
 2. [Done] Jazlyn: modify tests to include view method calls for start, player create, and player deck controllers
 3. [Done] Jazlyn: modify controller tests to satisfy 100% coverage and all mutants killed
-4. [50% Done] Ejean: DeckBuilder.java
-5. [40% Done] DJ: Game.java
-6. [95% Done] DJ: TurnManager.java
-7. [95% Done] DJ: Player.java
+4. [90% Done] Jazlyn: working on controller files 
+5. [50% Done] Ejean: DeckBuilder.java
+6. [50% Done] DJ: Game.java
+7. [not started] DJ: Player.java
 8. [not started] Luke: Card.java
-9. [Done] Irene: Deck.java
+9. [Done] Luke: TurnManager.java
+10. [Done] Irene: Deck.java
