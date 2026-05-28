@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TurnManagerTests {
 
@@ -285,6 +286,20 @@ public class TurnManagerTests {
         assertEquals(expectedIndex, turnManager.getCurrentPlayerIndex());
 
         EasyMock.verify(mockPlayer1, mockPlayer2, mockPlayer3);
+    }
+
+    @Test
+    public void constructor_emptyPlayerList_throwsException() {
+        List<Player> emptyPlayersList = new ArrayList<>();
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    new TurnManager(emptyPlayersList);
+                }
+        );
+
+        assertEquals("Players list cannot be empty", exception.getMessage());
     }
 
 }
