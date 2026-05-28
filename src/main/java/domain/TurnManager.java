@@ -13,7 +13,7 @@ public final class TurnManager {
 
     public TurnManager(final List<Player> players) {
         if (players.isEmpty()) {
-            throw new IllegalArgumentException("Players list cannot be empty");
+            throw new IllegalArgumentException("Player list cannot be empty");
         }
         this.players = List.copyOf(players);
         currentPlayerIndex = 0;
@@ -50,6 +50,9 @@ public final class TurnManager {
     }
 
     public void decrementDrawCount() {
+        if (this.currentDrawCount <= 0) {
+            throw new IllegalStateException("error.negativeDrawCount");
+        }
         this.currentDrawCount--;
     }
 
