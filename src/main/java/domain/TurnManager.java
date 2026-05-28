@@ -12,8 +12,8 @@ public final class TurnManager {
     private int currentDrawCount;
 
     public TurnManager(final List<Player> players) {
-        if (players == null) {
-            throw new GameException("error.playerListNull");
+        if (players.isEmpty()) {
+            throw new IllegalArgumentException("Players list cannot be empty");
         }
         this.players = List.copyOf(players);
         currentPlayerIndex = 0;
@@ -62,4 +62,5 @@ public final class TurnManager {
     {
         this.roundCounter++;
     }
+
 }
