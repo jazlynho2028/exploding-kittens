@@ -10,4 +10,6 @@ public final class GameConstants {
 	public static final int STARTING_HAND_SIZE = 6;
 	public static final int STARTING_PLAYER_INDEX = 0;
 
+	public static final int NUM_DEFUSES = 5;
+
 }
