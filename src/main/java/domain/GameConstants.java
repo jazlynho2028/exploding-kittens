@@ -19,6 +19,4 @@ public final class GameConstants {
 	public static final int EXPECTED_BASE_DECK_SIZE = 56;
 	public static final int EXPECTED_DEFUSE_COUNT_2_PLAYERS = 3;
 	public static final int EXPECTED_DEFUSE_COUNT_4_PLAYERS = 1;
-
-
 }
