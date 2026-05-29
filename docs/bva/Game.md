@@ -339,7 +339,7 @@
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throw IllegalStateException "error.emptyDeck"
 
-- **TC62: Draw pile has one card** ( :x: )
+- **TC62: Draw pile has one card** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_oneCardInDrawPile_addToCurrentPlayerHand
   - **State of the system**: currentPlayerIndex = 0, drawPile = [SKIP_1]
   - **Expected output**:

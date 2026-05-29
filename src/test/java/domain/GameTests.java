@@ -646,6 +646,40 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
 
+	@Test
+	public void drawFromPile_oneCardInDrawPile_addToCurrentPlayerHand() {
+		final int NUM_PLAYERS = 2;
+		final int CURRENT_INDEX = 0;
+
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		for (int i = 0; i < NUM_PLAYERS * (STARTING_HAND_SIZE - 1); i++) {
+			Card card = EasyMock.createNiceMock(Card.class);
+			EasyMock.expect(drawPile.removeTop()).andReturn(card);
+			EasyMock.replay(card);
+		}
+
+		Card drawnCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(drawPile.removeTop()).andReturn(drawnCard);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(CURRENT_INDEX);
+		player1.addCardToHand(drawnCard);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(player1, player2, drawPile, turnManager, drawnCard);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		game.drawFromPile();
+
+		EasyMock.verify(player1, player2, drawPile, turnManager, drawnCard);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
