@@ -113,7 +113,7 @@
   - **Expected output**: returns player2
 
 ### Method under test: `canPlaySelected()`
-- **TC18: No cards selected** ( :x: )
+- **TC18: No cards selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCards = []
   - **Expected output**: returns false

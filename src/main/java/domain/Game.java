@@ -123,7 +123,8 @@ public class Game {
     }
 
     public boolean canPlaySelected() {
-        return true;
+        List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
+        return !selectedCards.isEmpty();
     }
 
     public boolean canEndTurn() {

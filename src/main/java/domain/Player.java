@@ -26,4 +26,8 @@ public class Player {
         return List.of();
     }
 
+    public List<Card> getSelectedCards() {
+        return List.of();
+    }
+
 }

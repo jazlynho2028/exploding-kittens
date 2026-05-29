@@ -291,6 +291,28 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
 
+	@Test
+	public void canPlaySelected_invalidCards_returnFalse() {
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(0);
+		EasyMock.expect(player1.getSelectedCards()).andReturn(List.of());
+
+		EasyMock.replay(player1, player2, drawPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		assertFalse(game.canPlaySelected());
+
+		EasyMock.verify(player1, player2, drawPile, turnManager);
+	}
+
 	private static Stream<Arguments> provideHandIds() {
 		return Stream.of(
 				Arguments.of(0, List.of()),
