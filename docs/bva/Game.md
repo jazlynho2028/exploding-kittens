@@ -21,10 +21,10 @@
   - **Expected output**:
     - isGameOngoing = false
     - isFaceUp = false
-    - player1.addCardToHand DEFUSE_5 called
-    - player2.addCardToHand DEFUSE_4 called
-    - player3.addCardToHand DEFUSE_3 called
-    - player4.addCardToHand DEFUSE_2 called
+    - player1.addCardToHand with DEFUSE_5 called
+    - player2.addCardToHand with DEFUSE_4 called
+    - player3.addCardToHand with DEFUSE_3 called
+    - player4.addCardToHand with DEFUSE_2 called
     - player.addCardToHand called with drawPile.removeTop 5 times for each player
 
 - **TC4: Constructor called with 5 players** ( :white_check_mark: )
