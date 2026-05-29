@@ -4,8 +4,6 @@ import java.util.Collections;
 import java.util.List;
 
 public final class TurnManager {
-    private static final int STARTING_PLAYER_INDEX = 0;
-
     private int currentPlayerIndex;
     private final List<Player> players;
     private int roundCounter;
@@ -34,7 +32,7 @@ public final class TurnManager {
     }
 
     public int getStartingPlayerIndex() {
-        return STARTING_PLAYER_INDEX;
+        return GameConstants.STARTING_PLAYER_INDEX;
     }
 
     public int getRoundCounter() {
@@ -63,7 +61,7 @@ public final class TurnManager {
     public void advanceTurn() {
         this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
 
-        if (currentPlayerIndex == STARTING_PLAYER_INDEX) {
+        if (currentPlayerIndex == GameConstants.STARTING_PLAYER_INDEX) {
             incrementRound();
         }
 
