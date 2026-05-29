@@ -18,15 +18,19 @@ public class Player {
     }
 
     public List<Card> getHand() {
-        return new ArrayList<>(hand);
+        return List.copyOf(hand);
     }
 
     public int getHandSize() {
         return this.hand.size();
     }
 
-    public void addCardtoHand(Card card) {
-        this.hand.add(card);
+    public void addCardToHand(Card card) {
+        hand.add(card);
+    }
+
+    public void setIsSelectedOfHandCardToOpposite(int handCardIndex) {
+        hand.get(handCardIndex).toggleSelected();
     }
 
     public void removeCardFromHand(Card card) throws GameException {
