@@ -3,6 +3,8 @@ package domain;
 import org.junit.jupiter.api.Test;
 
 import org.easymock.EasyMock;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -224,5 +226,47 @@ public class PlayerTests {
         player.deselectHandCards();
 
         assertEquals(handSize, player.getHandSize());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "3, 0",
+            "3, 1",
+            "3, 2",
+            "3, 3",
+            "1, 0",
+            "1, 1",
+    })
+    public void deselectHandCards_nonEmptyHand_allUnselected(int totalCards, int numToSelect) {
+        Player player = new Player("Alice");
+        Card[] mockCards = new Card[totalCards];
+
+        for (int i = 0; i < totalCards; i++) {
+            mockCards[i] = EasyMock.createMock(Card.class);
+
+            boolean initiallySelected = (i < numToSelect);
+
+            if (initiallySelected) {
+                EasyMock.expect(mockCards[i].getIsSelected()).andReturn(true);
+
+                mockCards[i].toggleSelected();
+
+                EasyMock.expect(mockCards[i].getIsSelected()).andStubReturn(false);
+            }
+            else {
+                EasyMock.expect(mockCards[i].getIsSelected()).andStubReturn(false);
+            }
+
+            player.addCardToHand(mockCards[i]);
+        }
+        EasyMock.replay((Object[]) mockCards);
+
+        player.deselectHandCards();
+
+        for (Card card : player.getHand()) {
+            assertFalse(card.getIsSelected());
+        }
+
+        EasyMock.verify((Object[]) mockCards);
     }
 }

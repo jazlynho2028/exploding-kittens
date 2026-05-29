@@ -41,5 +41,10 @@ public class Player {
     }
 
     public void deselectHandCards() {
+        for (Card card : hand) {
+            if (card.getIsSelected()) {
+                card.toggleSelected();
+            }
+        }
     }
 }

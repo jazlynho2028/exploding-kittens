@@ -62,32 +62,32 @@
   - **State of the system**: player hand is empty, No cards in hand are selected
   - **Expected output**: Method completes successfully, hand remains empty and no exceptions are thrown
 
-- **TC13: Deselecting cards when none are currently selected (multiple cards)** ( :x: )
-  - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected(
+- **TC13: Deselecting cards when none are currently selected (multiple cards)** ( :white_check_mark: )
+  - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected
   - **State of the system**: Player hand has card objects, but none have isSelected = true
   - **Expected output**: Method completes successfully, all cards remain unselected
 
 - **TC14: Deselecting cards when one is currently selected (multiple cards)** ( :x: )
-  - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected(
+  - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected
   - **State of the system**: Player hand has card objects, one has isSelected = true
   - **Expected output**: Expected output: Method Successful, Every card in the hand has its isSelected property set to false.
 
 - **TC15: Deselecting cards when multiple cards are selected (multiple cards)** ( :x: )
-  - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected(
+  - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected
   - **State of the system**: Player hand has multiple card objects, more than one have isSelected = true
   - **Expected output**: Method Successful, Every card in the hand has its isSelected property set to false
 
 - **TC16: Deselecting cards when all cards are currently selected (multiple cards)** ( :x: )
-  - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected(
+  - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected
   - **State of the system**: Player hand has multiple card objects, and every single card has isSelected = true
   - **Expected output**: Method Successful, Every card in the hand has its isSelected property set to false
 
 - **TC17: Deselecting cards when no cards are selected (one card)** ( :x: )
-  - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected(
+  - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected
   - **State of the system**: Player hand has one card object, it has isSelected = true
   - **Expected output**: Method Successful, Every card in the hand has its isSelected property set to false
 
 - **TC18: Deselecting cards when all cards are selected (one card)** ( :x: )
-  - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected(
+  - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected
   - **State of the system**: Player hand has one card object, it has isSelected = true
   - **Expected output**: Method Successful, Every card in the hand has its isSelected property set to false
