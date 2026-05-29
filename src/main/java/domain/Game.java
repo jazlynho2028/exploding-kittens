@@ -128,11 +128,11 @@ public class Game {
     }
 
     public List<String> getCurrentPlayerHandIds() {
-        return players.get(turnManager.getCurrentPlayerIndex()).getHandIds();
+        return getCurrentPlayer().getHandIds();
     }
 
     public Player getCurrentPlayer() {
-        return players.get(turnManager.getCurrentPlayerIndex());
+        return players.get(getCurrentPlayerIndex());
     }
 
     public boolean canPlaySelected() {
