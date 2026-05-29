@@ -13,16 +13,16 @@ public class Player {
         this.hand = new ArrayList<>();
     }
 
-    public String getName() {
-        return this.name;
+    int getHandSize() {
+        return this.hand.size();
     }
 
     public List<Card> getHand() {
         return List.copyOf(hand);
     }
 
-    public int getHandSize() {
-        return this.hand.size();
+    public String getName() {
+        return this.name;
     }
 
     public void addCardToHand(Card card) {
