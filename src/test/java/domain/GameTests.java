@@ -366,7 +366,22 @@ public class GameTests {
 
 	private static Stream<Arguments> provideValidCardSelections() {
 		return Stream.of(
-				Arguments.of(List.of(new Card("ATTACK_1", CardType.ATTACK)))
+				Arguments.of(List.of(new Card("ATTACK_1", CardType.ATTACK))),
+				Arguments.of(List.of(new Card("SHUFFLE_2", CardType.SHUFFLE))),
+				Arguments.of(List.of(new Card("SKIP_3", CardType.SKIP))),
+				Arguments.of(List.of(new Card("SEETHEFUTURE_4", CardType.SEE_THE_FUTURE))),
+				Arguments.of(List.of(new Card("CATOMICBOMB_1", CardType.CATOMIC_BOMB))),
+				Arguments.of(List.of(new Card("SUPERSKIP_1", CardType.SUPER_SKIP))),
+				Arguments.of(List.of(new Card("GODCAT_1", CardType.GODCAT))),
+				Arguments.of(List.of(new Card("CLONE_1", CardType.CLONE))),
+				Arguments.of(List.of(new Card("SWAPTOPANDBOTTOM_1", CardType.SWAP_TOP_AND_BOTTOM))),
+				Arguments.of(List.of(new Card("DRAWFROMTHEBOTTOM_1", CardType.DRAW_FROM_THE_BOTTOM))),
+				Arguments.of(List.of(new Card("TARGETEDATTACK_1", CardType.TARGETED_ATTACK))),
+				Arguments.of(List.of(new Card("WINNERWINNERCATNIPDINNER_1", CardType.WINNER_WINNER_CATNIP_DINNER))),
+				Arguments.of(List.of(new Card("RAGEBAIT_1", CardType.RAGEBAIT))),
+				Arguments.of(List.of(new Card("RECYCLE_1", CardType.RECYCLE))),
+				Arguments.of(List.of(new Card("DOUBLEUP_1", CardType.DOUBLE_UP))),
+				Arguments.of(List.of(new Card("MILDDRAW_1", CardType.MILD_DRAW)))
 		);
 	}
 
