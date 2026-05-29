@@ -334,7 +334,7 @@
   - **Expected output**: isFaceUp = false
 
 ### Method under test: `drawFromPile()`
-- **TC61: Empty draw pile** ( :x: )
+- **TC61: Empty draw pile** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_emptyDrawPile_failed
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throw IllegalStateException "error.emptyDeck"

@@ -172,7 +172,10 @@ public class Game {
         isFaceUp = false;
     }
 
-    public void drawFromPile() { }
+    public void drawFromPile() {
+        Card card = drawPile.removeTop();
+        getCurrentPlayer().addCardToHand(card);
+    }
 
     public void toggleFaceUp() { }
 
