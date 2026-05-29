@@ -177,7 +177,9 @@ public class Game {
         getCurrentPlayer().addCardToHand(card);
     }
 
-    public void toggleFaceUp() { }
+    public void toggleFaceUp() {
+//        isFaceUp = !isFaceUp;
+    }
 
     public void toggleSelectedPlayerCardAt(int handCardIndex) { }
 
@@ -189,5 +191,9 @@ public class Game {
 
     int getDrawCount() {
         return drawCount;
+    }
+
+    void setIsFaceUp(boolean isFaceUp) {
+        this.isFaceUp = isFaceUp;
     }
 }
