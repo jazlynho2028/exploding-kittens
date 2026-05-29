@@ -24,7 +24,8 @@ public class Game {
             CardType.CAT_CARD_1,
             CardType.CAT_CARD_2,
             CardType.CAT_CARD_3,
-            CardType.CAT_CARD_4
+            CardType.CAT_CARD_4,
+            CardType.FERAL_CAT
     );
 
     private TurnManager turnManager;
@@ -133,21 +134,11 @@ public class Game {
 
     public boolean canPlaySelected() {
         List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
-        if (selectedCards.isEmpty()) {
+        if (selectedCards.size() != 1) {
             return false;
         }
-        for (Card card : selectedCards) {
-            if (UNPLAYABLE_TYPES.contains(card.getType())) {
-                return false;
-            }
-        }
-        CardType firstType = selectedCards.get(0).getType();
-        for (Card card : selectedCards) {
-            if (card.getType() != firstType) {
-                return false;
-            }
-        }
-        return true;
+        CardType type = selectedCards.get(0).getType();
+        return !UNPLAYABLE_TYPES.contains(type);
     }
 
     public boolean canEndTurn() {

@@ -118,37 +118,37 @@
   - **State of the system**: selectedCards = []
   - **Expected output**: returns false
 
-- **TC19: One Defuse selected** ( :x: )
+- **TC19: One Defuse selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCards = [DEFUSE_1]
   - **Expected output**: returns false
 
-- **TC20: One Exploding Kitten selected** ( :x: )
+- **TC20: One Exploding Kitten selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCards = [EXPLODINGKITTEN_3]
   - **Expected output**: returns false
 
-- **TC21: One Cat Card 1 selected** ( :x: )
+- **TC21: One Cat Card 1 selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCards = [CATCARD1_1]
   - **Expected output**: returns false
 
-- **TC22: One Cat Card 2 selected** ( :x: )
+- **TC22: One Cat Card 2 selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCards = [CATCARD2_1]
   - **Expected output**: returns false
 
-- **TC23: One Cat Card 3 selected** ( :x: )
+- **TC23: One Cat Card 3 selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCards = [CATCARD3_4]
   - **Expected output**: returns false
 
-- **TC24: One Cat Card 4 selected** ( :x: )
+- **TC24: One Cat Card 4 selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCards = [CATCARD4_4]
   - **Expected output**: returns false
 
-- **TC25: One Feral Cat selected** ( :x: )
+- **TC25: One Feral Cat selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCards = [FERALCAT_1]
   - **Expected output**: returns false
