@@ -93,10 +93,10 @@
   - **Expected output**: Method Successful, Every card in the hand has its isSelected property set to false
 
 ### Method under test: `toggleSelectedHandCardAt()`
-- **TC19: Toggle index less than zero boundary check** ( :white_check_mark: )
+- **TC19: Toggle index less than zero boundary check** ( :x: )
   - **Name of the test**: toggleSelectedHandCardAt_indexLessThanZero_callsException
   - **State of the system**: Player hand can have any number of cards; index provided is -1
-  - **Expected output**: IndexOutOfBoundsException called with "error.invalidHandCardIndex"
+  - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
 
 - **TC20: Toggle valid lower boundary index on a non-empty hand** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedHandCardAt_validLowerBoundIndex_cardToggled
@@ -108,7 +108,7 @@
   - **State of the system**: Player hand has 2, index provided is equal to 1
   - **Expected output**: Method executes successfully; card at index 1 changes its selection state
 
-- **TC19: Toggle index greater than hand size boundary check** ( :white_check_mark: )
+- **TC19: Toggle index greater than hand size boundary check** ( :x: )
   - **Name of the test**: toggleSelectedHandCardAt_indexGreaterThanHandSize_callsException
   - **State of the system**: Player hand has 2 cards, index provided is greater than 1
-  - **Expected output**: IndexOutOfBoundsException called with "error.invalidHandCardIndex"
+  - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
