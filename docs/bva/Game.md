@@ -13,7 +13,7 @@
     - isFaceUp = false
     - player1.addCardToHand with DEFUSE_5 called
     - player2.addCardToHand with DEFUSE_4 called
-    - player.addCard called with drawPile.removeTop 5 times for each player
+    - player.addCardToHand called with drawPile.removeTop 5 times for each player
 
 - **TC3: Constructor called with 4 players** ( :x: )
   - **Name of the test**: constructor_fourPlayers_initializeGame
