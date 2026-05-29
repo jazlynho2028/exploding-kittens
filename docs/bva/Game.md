@@ -368,7 +368,7 @@
   - **State of the system**: handCardIndex = 1
   - **Expected output**: getCurrentPlayer.toggleSelectedHandCardAt is called with handCardIndex
 
-- **TC67: Player method throws exception** ( :x: )
+- **TC67: Player method throws exception** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_indexZero_failed
   - **State of the system**: 
     - handCardIndex = 0

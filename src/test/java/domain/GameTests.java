@@ -731,6 +731,35 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
 
+	@Test
+	public void toggleSelectedCurrentPlayerCardAt_indexZero_failed() {
+		final int HAND_CARD_INDEX = 0;
+		final String EXPECTED_MSG = "error.handCardIndexOutOfBounds";
+
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(0);
+		player1.toggleSelectedHandCardAt(HAND_CARD_INDEX);
+		EasyMock.expectLastCall().andThrow(new IllegalArgumentException(EXPECTED_MSG));
+
+		EasyMock.replay(player1, player2, drawPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Exception exception = assertThrows(IllegalArgumentException.class,
+				() -> game.toggleSelectedPlayerCardAt(HAND_CARD_INDEX));
+
+		assertEquals(EXPECTED_MSG, exception.getMessage());
+
+		EasyMock.verify(player1, player2, drawPile, turnManager);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
