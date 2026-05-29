@@ -268,9 +268,7 @@ public class PlayerDeckControllerTests {
 				.addMockedMethod("rebindHandCards")
 				.createMock();
 
-		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
-
-		model.drawFromPile(currentPlayerIndex);
+		model.drawFromPile();
 		EasyMock.expectLastCall();
 
 		setUpRenderDrawPileExpectations();
@@ -305,9 +303,7 @@ public class PlayerDeckControllerTests {
 	public void onDrawPile_drawsCard_failed() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
-		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
-
-		model.drawFromPile(currentPlayerIndex);
+		model.drawFromPile();
 		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
 
 		onError.accept(expectedMsg);
@@ -335,7 +331,7 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
 
-		model.setIsFaceUpToOpposite();
+		model.toggleFaceUp();
 		EasyMock.expectLastCall();
 
 		view.renderHandVisibilityButton(isFaceUp);
@@ -355,7 +351,7 @@ public class PlayerDeckControllerTests {
 	public void onHandVisibilityButton_called_failed() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
-		model.setIsFaceUpToOpposite();
+		model.toggleFaceUp();
 		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
 
 		onError.accept(expectedMsg);
@@ -380,7 +376,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
 		setUpRenderTurnControlSectionExpectations(canEndTurn);
 
-		model.setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
+		model.toggleSelectedPlayerCardAtIndex(handCardIndex);
 		EasyMock.expectLastCall();
 
 		view.renderTurnControlSection(canPlaySelected, canEndTurn);

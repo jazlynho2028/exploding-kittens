@@ -1,9 +1,6 @@
 package ui;
 
-import domain.Deck;
-import domain.DeckBuilder;
-import domain.Game;
-import domain.Player;
+import domain.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -73,8 +70,9 @@ public class ExplodingKittensApp extends Application {
         List<Player> players = createPlayers(createController.getConfirmedNames());
         Deck drawPile = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(players.size());
         Deck discardPile = new Deck(new ArrayDeque<>());
+        TurnManager turnManager = new TurnManager(players);
 
-        Game model = new Game(players, drawPile, discardPile);
+        Game model = new Game(players, drawPile, discardPile, turnManager);
 
         showPlayerDeckScreen(model, stage);
     }
