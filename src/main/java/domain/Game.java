@@ -118,8 +118,8 @@ public class Game {
         return players.get(turnManager.getCurrentPlayerIndex()).getHandIds();
     }
 
-    private Player getCurrentPlayer() {
-        return new Player("");
+    public Player getCurrentPlayer() {
+        return players.get(turnManager.getCurrentPlayerIndex());
     }
 
     public boolean canPlaySelected() {

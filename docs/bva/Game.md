@@ -102,12 +102,12 @@
   - **Expected output**: returns ["SKIP_1", "ATTACK_3"]
 
 ### Method under test: `getCurrentPlayer()`
-- **TC16: Current player is 0** ( :x: )
+- **TC16: Current player is 0** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayer_called_returnCurrentPlayer
   - **State of the system**: currentPlayerIndex = 0, players = [player1, player2]
   - **Expected output**: returns player1
 
-- **TC17: Current player is 0** ( :x: )
+- **TC17: Current player is 0** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayer_called_returnCurrentPlayer
   - **State of the system**: currentPlayerIndex = 1, players = [player1, player2]
   - **Expected output**: returns player2

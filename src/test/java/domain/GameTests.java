@@ -240,8 +240,7 @@ public class GameTests {
 
 	@ParameterizedTest
 	@MethodSource("provideHandIds")
-	public void getCurrentPlayerHandIds_called_returnHandIds(int currentPlayerIndex,
-	                                                         List<String> expectedIds) {
+	public void getCurrentPlayerHandIds_called_returnHandIds(int currIndex, List<String> ids) {
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -250,9 +249,9 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		Player currentPlayer = players.get(currentPlayerIndex);
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
-		EasyMock.expect(currentPlayer.getHandIds()).andReturn(expectedIds);
+		Player currentPlayer = players.get(currIndex);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(currIndex);
+		EasyMock.expect(currentPlayer.getHandIds()).andReturn(ids);
 
 		EasyMock.replay(player1, player2, drawPile, turnManager);
 
@@ -260,7 +259,34 @@ public class GameTests {
 
 		List<String> actualIds = game.getCurrentPlayerHandIds();
 
-		assertEquals(expectedIds, actualIds);
+		assertEquals(ids, actualIds);
+
+		EasyMock.verify(player1, player2, drawPile, turnManager);
+	}
+
+	@ParameterizedTest
+	@CsvSource({
+			"0",
+			"1"
+	})
+	public void getCurrentPlayer_called_returnCurrentPlayer(int currentPlayerIndex) {
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+
+		EasyMock.replay(player1, player2, drawPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Player actualPlayer = game.getCurrentPlayer();
+
+		assertEquals(players.get(currentPlayerIndex), actualPlayer);
 
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
