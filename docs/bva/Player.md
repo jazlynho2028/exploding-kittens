@@ -98,17 +98,17 @@
   - **State of the system**: Player hand can have any number of cards; index provided is -1
   - **Expected output**: IndexOutOfBoundsException called with "error.invalidHandCardIndex"
 
-- **TC20: Toggle valid lower boundary index on a non-empty hand** ( :x: )
+- **TC20: Toggle valid lower boundary index on a non-empty hand** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedHandCardAt_validLowerBoundIndex_cardToggled
   - **State of the system**: Player hand can have any number of cards; index provided is 0
   - **Expected output**: Method executes successfully; card at index 0 changes its selection state
 
 - **TC21: Toggle index exactly equal to hand size upper boundary check** ( :x: )
-  - **Name of the test**: toggleSelectedHandCardAt_indexEqualToHandSize_callsException
-  - **State of the system**: Player hand has $N$ cards, index provided is equal to $N$
-  - **Expected output**: Method executes successfully; card at index $N$ changes its selection state
+  - **Name of the test**: toggleSelectedHandCardAt_indexEqualToHandSize_cardToggled
+  - **State of the system**: Player hand has 2, index provided is equal to 1
+  - **Expected output**: Method executes successfully; card at index 1 changes its selection state
 
 - **TC19: Toggle index greater than hand size boundary check** ( :x: )
   - **Name of the test**: toggleSelectedHandCardAt_indexGreaterThanHandSize_callsException
-  - **State of the system**: Player hand has $N$ cards, index provided is greater than $N$
+  - **State of the system**: Player hand has 2 cards, index provided is greater than 1
   - **Expected output**: IndexOutOfBoundsException called with "error.invalidHandCardIndex"

@@ -282,4 +282,20 @@ public class PlayerTests {
         assertEquals("error.invalidHandCardIndex", exception.getMessage());
     }
 
+    @Test
+    public void toggleSelectedHandCardA_validLowerBoundIndex_cardToggled() {
+        final int cardIndex = 0;
+        Player player = new Player("Alice");
+        Card mockCard = EasyMock.createMock(Card.class);
+
+        mockCard.toggleSelected();
+        EasyMock.replay(mockCard);
+
+        player.addCardToHand(mockCard);
+
+        player.toggleSelectedHandCardAt(cardIndex);
+
+        EasyMock.verify(mockCard);
+    }
+
 }
