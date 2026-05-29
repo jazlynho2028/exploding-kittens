@@ -77,27 +77,27 @@
 
 ### Method under test: `getCurrentPlayerHandIds()`
 - **TC11: Current player is 0, empty hand** ( :x: )
-  - **Name of the test**: getCurrentPlayerHandIds_emptyHand_emptyIds
+  - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
   - **State of the system**: currentPlayerIndex = 0, hand = []
   - **Expected output**: returns []
 
 - **TC12: Current player is 1, hand has one card** ( :x: )
-  - **Name of the test**: getCurrentPlayerHandIds_emptyHand_emptyIds
+  - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
   - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1]
   - **Expected output**: returns ["SKIP_1"]
 
 - **TC13: Current player is 0, hand has two different cards** ( :x: )
-  - **Name of the test**: getCurrentPlayerHandIds_emptyHand_emptyIds
+  - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
   - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1, SKIP_2]
   - **Expected output**: returns ["SKIP_1", "SKIP_2"]
 
 - **TC14: Current player is 0, hand has duplicate cards** ( :x: )
-  - **Name of the test**: getCurrentPlayerHandIds_emptyHand_emptyIds
+  - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
   - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1, SKIP_1]
   - **Expected output**: returns ["SKIP_1", "SKIP_1"]
 
 - **TC15: Current player is 0, hand two different card types** ( :x: )
-  - **Name of the test**: getCurrentPlayerHandIds_emptyHand_emptyIds
+  - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
   - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1, ATTACK_3]
   - **Expected output**: returns ["SKIP_1", "ATTACK_3"]
 
