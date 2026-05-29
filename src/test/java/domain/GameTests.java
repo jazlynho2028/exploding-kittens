@@ -763,6 +763,39 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
 
+	@Test
+	public void advanceTurn_canEndTurn_advanceTurnAndDeselectCards() {
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		turnManager.advanceTurn();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(player1, player2, drawPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canEndTurn")
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.canEndTurn()).andReturn(true);
+		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1);
+		player1.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(game);
+
+		game.advanceTurn();
+
+		EasyMock.verify(game);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override

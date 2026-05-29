@@ -185,7 +185,13 @@ public class Game {
         getCurrentPlayer().toggleSelectedHandCardAt(handCardIndex);
     }
 
-    public void advanceTurn() { }
+    public void advanceTurn() {
+        if (!canEndTurn()) {
+            return;
+        }
+        turnManager.advanceTurn();
+        getCurrentPlayer().deselectHandCards();
+    }
 
     int getRoundCount() {
         return roundCount;
