@@ -275,17 +275,17 @@
   - **State of the system**: drawPile = [SKIP_1]
   - **Expected output**: returns false
 
-- **TC50: Draw pile has two cards of same type** ( :x: )
+- **TC50: Draw pile has two cards of same type** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
   - **State of the system**: drawPile = [SKIP_1, SKIP_2]
   - **Expected output**: returns false
 
-- **TC51: Draw pile has two cards with same ID** ( :x: )
+- **TC51: Draw pile has two cards with same ID** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
   - **State of the system**: drawPile = [SKIP_1, SKIP_1]
   - **Expected output**: returns false
 
-- **TC52: Draw pile has two different type cards** ( :x: )
+- **TC52: Draw pile has two different type cards** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
   - **State of the system**: drawPile = [SKIP_1, ATTACK_3]
   - **Expected output**: returns false

@@ -495,8 +495,11 @@ public class GameTests {
 
 	private static Stream<Arguments> provideNonEmptyDrawPiles() {
 		return Stream.of(
-				Arguments.of(List.of(new Card("SKIP_1", CardType.SKIP)))
-		);
+				Arguments.of(List.of(new Card("SKIP_1", CardType.SKIP))),
+				Arguments.of(List.of(new Card("SKIP_1", CardType.SKIP), new Card("SKIP_2", CardType.SKIP))),
+				Arguments.of(List.of(new Card("SKIP_1", CardType.SKIP), new Card("SKIP_1", CardType.SKIP))),
+				Arguments.of(List.of(new Card("SKIP_1", CardType.SKIP), new Card("ATTACK_3", CardType.ATTACK)))
+				);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
