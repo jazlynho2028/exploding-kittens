@@ -15,6 +15,9 @@ public class Game {
     private boolean isGameOngoing;
     private boolean isFaceUp;
 
+    private int roundCount;
+    private int drawCount;
+
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
             justification = "EI_EXPOSE_REP2: TurnManager is injected by for testability. " +
@@ -79,6 +82,21 @@ public class Game {
             throw new IllegalStateException("error.gameAlreadyStarted");
         }
 
+        addExplodingKittens();
+        drawPile.shuffle();
+
+        isGameOngoing = true;
+        roundCount = 1;
+        drawCount = 1;
+    }
+
+    private void addExplodingKittens() {
+        int numKittens = players.size() - 1;
+        for (int i = 1; i <= numKittens; i++) {
+            String cardId = createCardId(CardType.EXPLODING_KITTEN, i);
+            Card kitten = new Card(cardId, CardType.EXPLODING_KITTEN);
+            drawPile.addCard(kitten);
+        }
     }
 
     public List<String> getPlayerNames() {
@@ -136,4 +154,12 @@ public class Game {
     public void toggleSelectedPlayerCardAt(int handCardIndex) { }
 
     public void advanceTurn() { }
+
+    int getRoundCount() {
+        return roundCount;
+    }
+
+    int getDrawCount() {
+        return drawCount;
+    }
 }

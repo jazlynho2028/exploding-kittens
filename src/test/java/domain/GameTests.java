@@ -15,6 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTests {
 
+	private static final int STARTING_ROUND_COUNT = 1;
+	private static final int STARTING_DRAW_COUNT = 1;
+
 	@ParameterizedTest
 	@CsvSource({
 			"1, error.minPlayers",
@@ -51,7 +54,7 @@ public class GameTests {
 			Player player = EasyMock.createMock(Player.class);
 			players.add(player);
 
-			player.addCardToHand(mockCardWithTypeAndId(CardType.DEFUSE, NUM_DEFUSES - i));
+			player.addCardToHand(mockSpecificCard(CardType.DEFUSE, NUM_DEFUSES - i));
 			EasyMock.expectLastCall();
 		}
 
@@ -144,7 +147,50 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
-	private static Card mockCardWithTypeAndId(CardType cardType, int idNum) {
+	@ParameterizedTest
+	@CsvSource({
+			"2, 1",
+			"4, 3"
+	})
+	public void startGame_gameIsNotOngoing_startFirstRound(int numPlayers, int numKittens) {
+		List<Player> players = new ArrayList<>();
+		for (int i = 0; i < numPlayers; i++) {
+			players.add(EasyMock.createNiceMock(Player.class));
+		}
+
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		for (int i = 0; i < numPlayers * (STARTING_HAND_SIZE - 1); i++) {
+			Card card = EasyMock.createNiceMock(Card.class);
+			EasyMock.expect(drawPile.removeTop()).andReturn(card);
+			EasyMock.replay(card);
+		}
+
+		for (int i = 1; i <= numKittens; i++) {
+			drawPile.addCard(mockSpecificCard(CardType.EXPLODING_KITTEN, i));
+			EasyMock.expectLastCall();
+		}
+		drawPile.shuffle();
+		EasyMock.expectLastCall();
+
+		Object[] playerMocks = players.toArray();
+		EasyMock.replay(playerMocks);
+		EasyMock.replay(drawPile);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.startGame();
+
+		assertTrue(game.getIsGameOngoing());
+		assertEquals(STARTING_ROUND_COUNT, game.getRoundCount());
+		assertEquals(STARTING_DRAW_COUNT, game.getDrawCount());
+
+		EasyMock.verify(playerMocks);
+		EasyMock.verify(drawPile);
+	}
+
+	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
 			public boolean matches(Object argument) {
@@ -158,7 +204,10 @@ public class GameTests {
 
 			@Override
 			public void appendTo(StringBuffer buffer) {
-				buffer.append(String.format("isCardOfTypeAndId(%s, %d)", cardType, idNum));
+				buffer.append(
+						String.format("isCardOfTypeAndId(%s, %d)",
+								cardType,
+								idNum));
 			}
 		});
 		return new Card("INVALID_CARD_MOCK", cardType);
@@ -166,7 +215,8 @@ public class GameTests {
 
 	private static boolean hasSameCardFields(Card card, CardType cardType, int idNum) {
 		boolean matchesType = (card.getType() == cardType);
-		String expectedId = String.format("%s_%d", cardType.name(), idNum);
+		String normalizedTypeName = cardType.name().replace("_", "");
+		String expectedId = String.format("%s_%d", normalizedTypeName, idNum);
 
 		boolean matchesId = Objects.equals(card.getId(), expectedId);
 
