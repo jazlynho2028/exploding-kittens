@@ -710,6 +710,8 @@ public class GameTests {
 			"1"
 	})
 	public void toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle(int handCardIndex) {
+		final int CURRENT_INDEX = 0;
+
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -718,7 +720,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(0);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(CURRENT_INDEX);
 		player1.toggleSelectedHandCardAt(handCardIndex);
 		EasyMock.expectLastCall();
 
@@ -735,6 +737,7 @@ public class GameTests {
 	public void toggleSelectedCurrentPlayerCardAt_indexZero_failed() {
 		final int HAND_CARD_INDEX = 0;
 		final String EXPECTED_MSG = "error.handCardIndexOutOfBounds";
+		final int CURRENT_INDEX = 0;
 
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
@@ -744,7 +747,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(0);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(CURRENT_INDEX);
 		player1.toggleSelectedHandCardAt(HAND_CARD_INDEX);
 		EasyMock.expectLastCall().andThrow(new IllegalArgumentException(EXPECTED_MSG));
 
