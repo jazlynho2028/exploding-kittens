@@ -706,7 +706,8 @@ public class GameTests {
 
 	@ParameterizedTest
 	@CsvSource({
-			"0"
+			"0",
+			"1"
 	})
 	public void toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle(int handCardIndex) {
 		Player player1 = EasyMock.createNiceMock(Player.class);
