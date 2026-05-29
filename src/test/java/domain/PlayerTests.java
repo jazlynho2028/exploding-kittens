@@ -215,4 +215,14 @@ public class PlayerTests {
 
         EasyMock.verify(mockDuplicateCard);
     }
+
+    @Test
+    public void deselectHandCards_emptyHand_noChanges() {
+        final int handSize = 0;
+        Player player = new Player("Alice");
+
+        player.deselectHandCards();
+
+        assertEquals(handSize, player.getHandSize());
+    }
 }

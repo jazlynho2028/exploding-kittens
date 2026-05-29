@@ -39,4 +39,7 @@ public class Player {
         }
         hand.remove(card);
     }
+
+    public void deselectHandCards() {
+    }
 }
