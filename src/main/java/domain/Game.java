@@ -157,7 +157,7 @@ public class Game {
     }
 
     public boolean getCanDraw() {
-        return true;
+        return getIsGameOngoing() && getDrawCount() > 0;
     }
 
     public boolean getIsFaceUp() {

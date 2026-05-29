@@ -291,7 +291,7 @@
   - **Expected output**: returns false
 
 ### Method under test: `getCanDraw()`
-- **TC53: Game is not ongoing, draw count is 0** ( :x: )
+- **TC53: Game is not ongoing, draw count is 0** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 0
   - **Expected output**: returns false
