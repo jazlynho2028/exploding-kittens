@@ -616,8 +616,6 @@ public class GameTests {
 
 	@Test
 	public void drawFromPile_emptyDrawPile_failed() {
-		final int NUM_PLAYERS = 2;
-
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -626,7 +624,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		for (int i = 0; i < NUM_PLAYERS * (STARTING_HAND_SIZE - 1); i++) {
+		for (int i = 0; i < MIN_PLAYERS * (STARTING_HAND_SIZE - 1); i++) {
 			Card card = EasyMock.createNiceMock(Card.class);
 			EasyMock.expect(drawPile.removeTop()).andReturn(card);
 			EasyMock.replay(card);
@@ -647,7 +645,6 @@ public class GameTests {
 
 	@Test
 	public void drawFromPile_oneCardInDrawPile_addToCurrentPlayerHand() {
-		final int NUM_PLAYERS = 2;
 		final int CURRENT_INDEX = 0;
 
 		Player player1 = EasyMock.createNiceMock(Player.class);
@@ -658,7 +655,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		for (int i = 0; i < NUM_PLAYERS * (STARTING_HAND_SIZE - 1); i++) {
+		for (int i = 0; i < MIN_PLAYERS * (STARTING_HAND_SIZE - 1); i++) {
 			Card card = EasyMock.createNiceMock(Card.class);
 			EasyMock.expect(drawPile.removeTop()).andReturn(card);
 			EasyMock.replay(card);
