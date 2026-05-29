@@ -587,8 +587,12 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
 
-	@Test
-	public void setFaceUpToFalse_called_setToFalse() {
+	@ParameterizedTest
+	@CsvSource({
+			"true",
+			"false"
+	})
+	public void setFaceUpToFalse_called_setToFalse(boolean initialFaceUp) {
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -599,20 +603,14 @@ public class GameTests {
 
 		EasyMock.replay(player1, player2, drawPile, turnManager);
 
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getIsFaceUp")
-				.createMock();
+		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		EasyMock.expect(game.getIsFaceUp()).andReturn(false);
-
-		EasyMock.replay(game);
-
+		game.setIsFaceUp(initialFaceUp);
 		game.setFaceUpToFalse();
 
 		assertFalse(game.getIsFaceUp());
 
-		EasyMock.verify(game);
+		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
 
 	@Test

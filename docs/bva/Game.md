@@ -347,7 +347,7 @@
     - currentPlayerIndex = 0
 
 ### Method under test: `toggleFaceUp()`
-- **TC63: Is face up** ( :x: )
+- **TC63: Is face up** ( :white_check_mark: )
   - **Name of the test**: toggleFaceUp_isFaceUp_setToFalse
   - **State of the system**: isFaceUp = true
   - **Expected output**: isFaceUp = false
