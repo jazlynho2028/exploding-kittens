@@ -67,7 +67,7 @@
   - **State of the system**: Player hand has card objects, but none have isSelected = true
   - **Expected output**: Method completes successfully, all cards remain unselected
 
-- **TC14: Deselecting cards when one is currently selected (multiple cards)** ( :x: )
+- **TC14: Deselecting cards when one is currently selected (multiple cards)** ( :white_check_mark: )
   - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected
   - **State of the system**: Player hand has card objects, one has isSelected = true
   - **Expected output**: Expected output: Method Successful, Every card in the hand has its isSelected property set to false.
