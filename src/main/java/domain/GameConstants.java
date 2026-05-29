@@ -16,5 +16,6 @@ public final class GameConstants {
 	public static final int TWO_CARDS = 2;
 	public static final int THREE_CARDS = 3;
 	public static final int FOUR_CARDS = 4;
+	public static final int FIVE_CARDS = 5;
 
 }

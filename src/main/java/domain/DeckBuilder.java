@@ -60,7 +60,13 @@ public class DeckBuilder {
     }
 
     public static String createCardId(CardType type, int num) {
-        return type.name().replace("_", "") + "_" + num;
+        String cardTypeNameWithoutUnderscore = type.name().replace("_", "");
+
+        return String.format(
+                "%s_%d",
+                cardTypeNameWithoutUnderscore,
+                num
+        );
     }
 
     static int calculateDefusesToAdd(int numPlayers) {

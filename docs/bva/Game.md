@@ -5,7 +5,7 @@
   - **State of the system**: players.size = 1
   - **Expected output**: throw IllegalArgumentException "error.minPlayers"
 
-- **TC2: Constructor called with 2 players** ( :x: )
+- **TC2: Constructor called with 2 players** ( :white_check_mark: )
   - **Name of the test**: constructor_twoPlayers_initializeGame
   - **State of the system**: players.size = 2
   - **Expected output**:

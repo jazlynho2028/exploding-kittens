@@ -4,9 +4,16 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.List;
 
-import static domain.GameConstants.MIN_PLAYERS;
+import static domain.DeckBuilder.createCardId;
+import static domain.GameConstants.*;
 
 public class Game {
+
+    private List<Player> players;
+    private Deck drawPile;
+
+    private boolean isGameOngoing;
+    private boolean isFaceUp;
 
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
@@ -20,9 +27,39 @@ public class Game {
         if (players.size() < MIN_PLAYERS) {
             throw new IllegalArgumentException("error.minPlayers");
         }
+
+        this.players = List.copyOf(players);
+        this.drawPile = drawPile;
+
+        isGameOngoing = false;
+        isFaceUp = false;
+
+        populatePlayerHands();
     }
 
-    private void populatePlayerHand() { }
+    void populatePlayerHands() {
+        populateHandsWithDefuse();
+
+        populateHandsWithNonDefuseStartingCards();
+    }
+
+    private void populateHandsWithDefuse() {
+        for (int i = 0; i < players.size(); i++) {
+            String cardId = createCardId(CardType.DEFUSE, NUM_DEFUSES - i);
+            Card defuse = new Card(cardId, CardType.DEFUSE);
+
+            players.get(i).addCardToHand(defuse);
+        }
+    }
+
+    private void populateHandsWithNonDefuseStartingCards() {
+        for (Player player : players) {
+            for (int i = 0; i < STARTING_HAND_SIZE - 1; i++) {
+                Card card = drawPile.removeTop();
+                player.addCardToHand(card);
+            }
+        }
+    }
 
     public void startGame() { }
 
@@ -59,7 +96,7 @@ public class Game {
     }
 
     public boolean getIsGameOngoing() {
-        return true;
+        return isGameOngoing;
     }
 
     public boolean getCanDraw() {
@@ -67,7 +104,7 @@ public class Game {
     }
 
     public boolean getIsFaceUp() {
-        return true;
+        return isFaceUp;
     }
 
     public void changeCurrentPlayerIndex(int newPlayerIndex) { }
