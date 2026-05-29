@@ -4,26 +4,26 @@ import java.util.List;
 
 public interface GameData {
 
-    List<String> getPlayerNames();
+	List<String> getPlayerNames();
 
-    int getCurrentPlayerIndex();
+	int getCurrentPlayerIndex();
 
-    int getStartingPlayerIndex();
+	int getStartingPlayerIndex();
 
-    List<String> getCurrentPlayerHand();
+	List<String> getCurrentPlayerHandIds();
 
-    boolean getIsFaceUp();
+	boolean getIsFaceUp();
 
-    boolean isGameOngoing();
+	boolean getIsGameOngoing();
 
-    boolean getIsBeforeDraw();
+	boolean getIsBeforeDraw();
 
-    boolean canPlaySelected();
+	boolean canPlaySelected();
 
-    boolean canEndTurn();
+	boolean canEndTurn();
 
-    boolean canDraw();
+	boolean getCanDraw();
 
-    boolean isDrawPileEmpty();
+	boolean isDrawPileEmpty();
 
 }

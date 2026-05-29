@@ -1,111 +1,109 @@
 package ui;
 
+import domain.GameConstants;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static ui.ErrorHandler.attempt;
+
 public class PlayerCreateController {
     private final PlayerCreateView view;
-    private final List<String> playerFields = new ArrayList<>();
+    private final List<String> confirmedNames;
 
-    private List<String> confirmedNames;
+    private int numPlayerFields;
     private Consumer<String> onError;
     private Runnable onSuccess;
-    private Runnable onBack;
+    private Runnable onRestart;
 
-    private static final int MAX_PLAYERS = 4;
-
-    public PlayerCreateController(AssetProvider assets) {
-        this.view = new PlayerCreateView(assets);
-        this.onError = message -> { };
-
-        buildAndBindUI();
-    }
-
-    PlayerCreateController(PlayerCreateView view) {
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "View is injected by for compromise between MVC pattern and " +
+                "testability, defensive copy is not applicable for JavaFX components"
+    )
+    public PlayerCreateController(PlayerCreateView view) {
         this.view = view;
+        this.confirmedNames = new ArrayList<>();
+        this.onError = message -> { };
     }
 
-    public void setOnError(Consumer<String> onError) {
-        this.onError = onError;
-    }
-
-    public void setOnSuccess(Runnable onSuccess) {
-        this.onSuccess = onSuccess;
-    }
-
-    public void setOnBack(Runnable onBack) {
-        this.onBack = onBack;
-    }
-
-    private void buildAndBindUI() {
-        onAddPlayer();
-        onAddPlayer();
+    public Scene buildPlayerCreateScene() {
+        buildDependentUI();
         bindUI();
+
+        return view.createPlayerCreateScene();
     }
 
-    private void bindUI() {
-        view.addPlayerButton.setOnMouseClicked(e -> onAddPlayer());
-        view.confirmButton.setOnMouseClicked(e -> onConfirmNames());
-        view.restartButton.setOnMouseClicked(e -> onBack.run());
+    void buildDependentUI() {
+        for (int i = 0; i < GameConstants.MIN_PLAYERS; i++) {
+            onAddPlayer();
+        }
     }
 
-    void onAddPlayer() {
-
-        int visualIndex = playerFields.size() + 1;
-
-        if (visualIndex > MAX_PLAYERS) {
-            onError.accept("You cannot have more than 4 players");
-            return;
-        }
-
-        playerFields.add("");
-
-        view.addPlayerField(visualIndex);
-
-        view.setAddPlayerButtonDisabled(
-                playerFields.size() >= MAX_PLAYERS
-        );
+    void bindUI() {
+        view.bindAddPlayerButton(this::onAddPlayer);
+        view.bindConfirmButton(this::onConfirmNames);
+        view.bindRestartButton(onRestart);
     }
 
-    void onConfirmNames() {
-        List<String> names = new ArrayList<>();
+    public void setOnError(Consumer<String> handler) {
+        onError = handler;
+    }
 
-        List<String> inputsFromView = view.getPlayerNamesFromFields();
+    public void setOnSuccess(Runnable handler) {
+        onSuccess = handler;
+    }
 
-        for (String input : inputsFromView) {
-            if (input != null && !input.isBlank()) {
-                names.add(input.trim());
-            }
-        }
-
-        if (names.size() < 2) {
-            onError.accept("You need at least 2 players");
-            return;
-        }
-
-        this.confirmedNames = names;
-
-        try {
-            if (onSuccess != null) {
-                onSuccess.run();
-            }
-        }
-        catch (Exception e) {
-            onError.accept("Error initializing game: " + e.getMessage());
-        }
+    public void setOnRestart(Runnable handler) {
+        onRestart = handler;
     }
 
     public List<String> getConfirmedNames() {
-        return new ArrayList<>(confirmedNames);
+        return List.copyOf(confirmedNames);
     }
 
-    public int getPlayerNumbers() {
-        return playerFields.size();
+    void onAddPlayer() {
+        if (isBelowMaxPlayers()) {
+            numPlayerFields++;
+            view.addPlayerField(numPlayerFields);
+
+            updateAddPlayerButton();
+        }
     }
 
-    public Scene getPlayerCreateScene() {
-        return view.createPlayerCreateScene();
+    private boolean isBelowMaxPlayers() {
+        return numPlayerFields < GameConstants.MAX_PLAYERS;
     }
+
+    private void updateAddPlayerButton() {
+        if (numPlayerFields == GameConstants.MAX_PLAYERS) {
+            view.setAddPlayerButtonDisabled(true);
+        }
+    }
+
+    void onConfirmNames() {
+        populateConfirmedNames();
+
+        attempt(onError, () -> onSuccess.run());
+    }
+
+    void populateConfirmedNames() {
+        for (String input : view.getPlayerNamesFromFields()) {
+            addToConfirmedNames(input);
+        }
+    }
+
+    private void addToConfirmedNames(String name) {
+        if (!name.isBlank()) {
+            confirmedNames.add(name.trim());
+        }
+    }
+
+    int getNumPlayerFields() {
+        return numPlayerFields;
+    }
+
 }
