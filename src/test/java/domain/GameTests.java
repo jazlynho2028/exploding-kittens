@@ -339,8 +339,9 @@ public class GameTests {
 		);
 	}
 
-	@Test
-	public void canPlaySelected_validCards_returnTrue() {
+	@ParameterizedTest
+	@MethodSource("provideValidCardSelections")
+	public void canPlaySelected_validCards_returnTrue(List<Card> selectedCards) {
 		final int CURRENT_INDEX = 0;
 
 		Player player1 = EasyMock.createNiceMock(Player.class);
@@ -352,7 +353,7 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(CURRENT_INDEX);
-		EasyMock.expect(player1.getSelectedCards()).andReturn(List.of(new Card("ATTACK_1", CardType.ATTACK)));
+		EasyMock.expect(player1.getSelectedCards()).andReturn(selectedCards);
 
 		EasyMock.replay(player1, player2, drawPile, turnManager);
 
@@ -361,6 +362,12 @@ public class GameTests {
 		assertTrue(game.canPlaySelected());
 
 		EasyMock.verify(player1, player2, drawPile, turnManager);
+	}
+
+	private static Stream<Arguments> provideValidCardSelections() {
+		return Stream.of(
+				Arguments.of(List.of(new Card("ATTACK_1", CardType.ATTACK)))
+		);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
