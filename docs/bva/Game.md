@@ -86,17 +86,17 @@
   - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1]
   - **Expected output**: returns ["SKIP_1"]
 
-- **TC13: Current player is 0, hand has two different cards** ( :x: )
+- **TC13: Current player is 0, hand has two different cards** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
   - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1, SKIP_2]
   - **Expected output**: returns ["SKIP_1", "SKIP_2"]
 
-- **TC14: Current player is 0, hand has duplicate cards** ( :x: )
+- **TC14: Current player is 0, hand has duplicate cards** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
   - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1, SKIP_1]
   - **Expected output**: returns ["SKIP_1", "SKIP_1"]
 
-- **TC15: Current player is 0, hand two different card types** ( :x: )
+- **TC15: Current player is 0, hand two different card types** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
   - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1, ATTACK_3]
   - **Expected output**: returns ["SKIP_1", "ATTACK_3"]

@@ -268,7 +268,10 @@ public class GameTests {
 	private static Stream<Arguments> provideHandIds() {
 		return Stream.of(
 				Arguments.of(0, List.of()),
-				Arguments.of(1, List.of("SKIP_1"))
+				Arguments.of(1, List.of("SKIP_1")),
+				Arguments.of(1, List.of("SKIP_1", "SKIP_2")),
+				Arguments.of(1, List.of("SKIP_1", "SKIP_1")),
+				Arguments.of(1, List.of("SKIP_1", "ATTACK_3"))
 		);
 	}
 
