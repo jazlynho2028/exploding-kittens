@@ -16,18 +16,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTests {
 
-	@Test
-	public void constructor_onePlayer_failed() {
+	@ParameterizedTest
+	@CsvSource({
+			"1, error.minPlayers",
+			"5, error.maxPlayers"
+	})
+	public void constructor_invalidNumPlayers_failed(int numPlayers, String expectedMsg) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		EasyMock.expect(players.size()).andReturn(1);
+		EasyMock.expect(players.size()).andReturn(numPlayers);
 
 		EasyMock.replay(players);
-
-		String expectedMsg = "error.minPlayers";
 
 		Exception exception = assertThrows(IllegalArgumentException.class, () ->
 				new Game(players, drawPile, discardPile, turnManager));
@@ -107,7 +109,8 @@ public class GameTests {
 
 	private static boolean hasSameDefuseCardFields(Card card, int idNum) {
 		boolean isDefuse = (card.getType() == CardType.DEFUSE);
-		boolean hasValidId = Objects.equals(card.getId(), String.format("%s%d", "DEFUSE_", idNum));
+		boolean hasValidId = Objects.equals(
+				card.getId(), String.format("%s%d", "DEFUSE_", idNum));
 
 		return isDefuse && hasValidId;
 	}

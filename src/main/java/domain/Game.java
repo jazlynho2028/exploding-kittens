@@ -24,9 +24,10 @@ public class Game {
     )
     public Game(List<Player> players, Deck drawPile,
                 Deck discardPile, TurnManager turnManager) {
-        if (players.size() < MIN_PLAYERS) {
-            throw new IllegalArgumentException("error.minPlayers");
-        }
+
+        int numPlayers = players.size();
+        verifyMinPlayers(numPlayers);
+        verifyMaxPlayers(numPlayers);
 
         this.players = List.copyOf(players);
         this.drawPile = drawPile;
@@ -35,6 +36,18 @@ public class Game {
         isFaceUp = false;
 
         populatePlayerHands();
+    }
+
+    private void verifyMinPlayers(int numPlayers) {
+        if (numPlayers < MIN_PLAYERS) {
+            throw new IllegalArgumentException("error.minPlayers");
+        }
+    }
+
+    private void verifyMaxPlayers(int numPlayers) {
+        if (numPlayers > MAX_PLAYERS) {
+            throw new IllegalArgumentException("error.maxPlayers");
+        }
     }
 
     void populatePlayerHands() {
