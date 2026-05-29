@@ -16,8 +16,10 @@ public class Player {
 
     public void addCardToHand(Card card) { }
 
-    public void setIsSelectedOfHandCardToOpposite(int handCardIndex) { }
+    public void toggleSelectedHandCardAt(int index) { }
 
     public void removeCardFromHand(Card card) { }
+
+    public void deselectHandCards() { }
 
 }
