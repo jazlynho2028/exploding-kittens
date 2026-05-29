@@ -1,74 +1,82 @@
 package domain;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 public class DeckBuilder {
+
     public static Deck buildDeckWithoutExplodeAndAddDefuse(int numPlayers) {
-        if (numPlayers < 2 || numPlayers > 4) {
-            throw new IllegalArgumentException("Number of players must be between 2 and 4");
-        }
+        List<Card> cardsList = initializeFullDeck();
 
-        List<Card> deck = initializeFullDeck();
         int defusesToAdd = calculateDefusesToAdd(numPlayers);
-        addPlayerDefuses(deck, defusesToAdd);
-        shuffleDeck(deck);
+        addCards(cardsList, CardType.DEFUSE, defusesToAdd);
 
-        return new Deck(deck);
+        Deque<Card> deckDeque = new ArrayDeque<>(cardsList);
+        Deck deck = new Deck(deckDeque);
+
+        deck.shuffle();
+
+        return deck;
     }
 
     static List<Card> initializeFullDeck() {
-        List<Card> baseCards = new ArrayList<>();
+        List<Card> cardsList = new ArrayList<>();
 
-        for (int i = 0; i < 2; i++) {
-            baseCards.add(new Card(CardType.SUPER_SKIP));
+        addCards(cardsList, CardType.MILD_DRAW, 1);
+        addCards(cardsList, CardType.GODCAT, 1);
+        addCards(cardsList, CardType.WINNER_WINNER_CATNIP_DINNER, 1);
+        addCards(cardsList, CardType.RAGEBAIT, 1);
+        addCards(cardsList, CardType.RECYCLE, 1);
+        addCards(cardsList, CardType.DOUBLE_UP, 1);
+        addCards(cardsList, CardType.CATOMIC_BOMB, 1);
+
+        addCards(cardsList, CardType.SUPER_SKIP, 2);
+
+        addCards(cardsList, CardType.ATTACK, 3);
+        addCards(cardsList, CardType.SKIP, 3);
+        addCards(cardsList, CardType.CLONE, 3);
+        addCards(cardsList, CardType.SWAP_TOP_AND_BOTTOM, 3);
+        addCards(cardsList, CardType.DRAW_FROM_THE_BOTTOM, 3);
+
+        addCards(cardsList, CardType.FERAL_CAT, 4);
+        addCards(cardsList, CardType.SEE_THE_FUTURE, 4);
+        addCards(cardsList, CardType.SHUFFLE, 4);
+        addCards(cardsList, CardType.TARGETED_ATTACK, 4);
+        addCards(cardsList, CardType.CAT_CARD_1, 4);
+        addCards(cardsList, CardType.CAT_CARD_2, 4);
+        addCards(cardsList, CardType.CAT_CARD_3, 4);
+        addCards(cardsList, CardType.CAT_CARD_4, 4);
+
+        return cardsList;
+    }
+
+    private static void addCards(List<Card> destinationList, CardType type, int numToAdd) {
+        for (int i = 1; i <= numToAdd; i++) {
+            String cardId = createCardId(type, i);
+            destinationList.add(new Card(cardId, type));
         }
+    }
 
-        for (int i = 0; i < 3; i++) {
-            baseCards.add(new Card(CardType.ATTACK));
-            baseCards.add(new Card(CardType.SKIP));
-            baseCards.add(new Card(CardType.CLONE));
-            baseCards.add(new Card(CardType.SWAP_TOP_AND_BOTTOM));
-            baseCards.add(new Card(CardType.DRAW_FROM_THE_BOTTOM));
-        }
+    public static String createCardId(CardType type, int num) {
+        String cardTypeNameWithoutUnderscore = type.name().replace("_", "");
 
-        for (int i = 0; i < 4; i++) {
-            baseCards.add(new Card(CardType.FERAL_CAT));
-            baseCards.add(new Card(CardType.SEE_THE_FUTURE));
-            baseCards.add(new Card(CardType.SHUFFLE));
-            baseCards.add(new Card(CardType.TARGETED_ATTACK));
-            baseCards.add(new Card(CardType.CAT_CARD_1));
-            baseCards.add(new Card(CardType.CAT_CARD_2));
-            baseCards.add(new Card(CardType.CAT_CARD_3));
-            baseCards.add(new Card(CardType.CAT_CARD_4));
-        }
-
-        baseCards.add(new Card(CardType.MILD_DRAW));
-        baseCards.add(new Card(CardType.GODCAT));
-        baseCards.add(new Card(CardType.WINNER_WINNER_CATNIP_DINNER));
-        baseCards.add(new Card(CardType.RAGEBAIT));
-        baseCards.add(new Card(CardType.RECYCLE));
-        baseCards.add(new Card(CardType.DOUBLE_UP));
-        baseCards.add(new Card(CardType.CATOMIC_BOMB));
-
-        return baseCards;
+        return String.format(
+                "%s_%d",
+                cardTypeNameWithoutUnderscore,
+                num
+        );
     }
 
     static int calculateDefusesToAdd(int numPlayers) {
-        if (numPlayers < 2 || numPlayers > 4) {
-            throw new IllegalArgumentException("Number of players must be between 2 and 4");
+        int defusesToAdd = 5 - numPlayers;
+
+        if (defusesToAdd < 0) {
+            throw new GameException("error.negativeDefuseCount");
         }
 
-        return 5 - numPlayers;
+        return defusesToAdd;
     }
 
-    static void addPlayerDefuses(List<Card> deck, int defuseCount) {
-        for (int i = 0; i < defuseCount; i++) {
-            deck.add(new Card(CardType.DEFUSE));
-        }
-    }
-
-    static void shuffleDeck(List<Card> deck) {
-        java.util.Collections.shuffle(deck);
-    }
 }

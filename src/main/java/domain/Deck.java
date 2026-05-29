@@ -1,22 +1,85 @@
 package domain;
 
-import java.util.Collection;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
-import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
-// Temporary Deck class so I can implement DeckBuilder class
 public class Deck {
-    private final Deque<Card> deck;
 
-    public Deck(Collection<Card> cards) {
-        this.deck = new LinkedList<>(cards);
+    private final Deque<Card> deck;
+    private final Random random;
+
+    public Deck(Deque<Card> deck) {
+        this(deck, new Random());
+    }
+
+    Deck(Deque<Card> deck, Random random) {
+        this.deck = new ArrayDeque<>(deck);
+        this.random = random;
+    }
+
+    public void shuffle() {
+        List<Card> cards = new ArrayList<>(this.deck);
+
+        for (int i = cards.size() - 1; i > 0; i--) {
+            int randomIndex = this.random.nextInt(i + 1);
+            Card currentCard = cards.get(i);
+            cards.set(i, cards.get(randomIndex));
+            cards.set(randomIndex, currentCard);
+        }
+
+        this.deck.clear();
+        this.deck.addAll(cards);
+    }
+
+    public Card peekTop() {
+        if (this.deck.isEmpty()) {
+            throw new UnsupportedOperationException("Cannot peek top of empty deck.");
+        }
+
+        return this.deck.peekFirst();
+    }
+
+    public Card removeTop() {
+        if (this.deck.isEmpty()) {
+            throw new UnsupportedOperationException("Cannot remove top of empty deck.");
+        }
+
+        return this.deck.removeFirst();
     }
 
     public int size() {
-        return deck.size();
+        return this.deck.size();
     }
 
-    public Deque<Card> getCards() {
-        return deck;
+    public Card peekBottom() {
+        if (this.deck.isEmpty()) {
+            throw new UnsupportedOperationException("Cannot peek bottom of empty deck.");
+        }
+
+        return this.deck.peekLast();
+    }
+
+    public List<Card> peekTopNCards(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Cannot peek a negative number of cards.");
+        }
+
+        if (n > this.deck.size()) {
+            throw new UnsupportedOperationException("Cannot peek more cards than are in the deck.");
+        }
+
+        List<Card> cards = new ArrayList<>(this.deck);
+        return new ArrayList<>(cards.subList(0, n));
+    }
+
+    public Card removeBottom() {
+        if (this.deck.isEmpty()) {
+            throw new UnsupportedOperationException("Cannot remove bottom of empty deck.");
+        }
+
+        return this.deck.removeLast();
     }
 }

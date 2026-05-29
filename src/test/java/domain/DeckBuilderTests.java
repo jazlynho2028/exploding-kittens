@@ -8,19 +8,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckBuilderTests {
-    @Test
-    void buildDeck_LessThanMinPlayers_ThrowError() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(1);
-        });
-    }
-
-    @Test
-    void buildDeck_MoreThanMaxPlayers_ThrowError() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(5);
-        });
-    }
 
     @Test
     void buildDeck_MinAllowedPlayers_ReturnsCorrect59CardDeck() {
@@ -28,7 +15,9 @@ public class DeckBuilderTests {
         assertEquals(59, deck.size());
 
         int defuseCount = 0;
-        for (Card card : deck.getCards()) {
+        int initialSize = deck.size();
+        for (int i = 0; i < initialSize; i++) {
+            Card card = deck.removeTop();
             if (card.getType() == CardType.DEFUSE) {
                 defuseCount++;
             }
@@ -42,7 +31,9 @@ public class DeckBuilderTests {
         assertEquals(57, deck.size());
 
         int defuseCount = 0;
-        for (Card card : deck.getCards()) {
+        int initialSize = deck.size();
+        for (int i = 0; i < initialSize; i++) {
+            Card card = deck.removeTop();
             if (card.getType() == CardType.DEFUSE) {
                 defuseCount++;
             }
@@ -52,29 +43,24 @@ public class DeckBuilderTests {
 
     @Test
     void initializeFullDeck_ReturnsExactly56BaseCards() {
-        List<Card> baseCards = DeckBuilder.initializeFullDeck();
+        List<Card> baseDeck = DeckBuilder.initializeFullDeck();
 
-        assertNotNull(baseCards, "The returned card list should not be null");
-        assertEquals(56, baseCards.size(), "The base deck should start with 56 cards");
+        assertNotNull(baseDeck, "The returned card list should not be null");
+        assertEquals(56, baseDeck.size(), "The base deck should start with 56 cards");
 
-        for (Card card : baseCards) {
+        for (Card card : baseDeck) {
             assertNotEquals(CardType.EXPLODING_KITTEN, card.getType());
             assertNotEquals(CardType.DEFUSE, card.getType());
         }
     }
 
     @Test
-    void calculateDefusesToAdd_LessThanMinimumPlayers_ThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DeckBuilder.calculateDefusesToAdd(1);
+    void calculateDefusesToAdd_NegativeDefuses_ThrowsException() {
+        GameException exception = assertThrows(GameException.class, () -> {
+            DeckBuilder.calculateDefusesToAdd(6);
         });
-    }
 
-    @Test
-    void calculateDefusesToAdd_MoreThanMaximumPlayers_ThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DeckBuilder.calculateDefusesToAdd(5);
-        });
+        assertEquals("error.negativeDefuseCount", exception.getKey());
     }
 
     @Test
@@ -89,78 +75,4 @@ public class DeckBuilderTests {
         assertEquals(1, numDefuses, "4 players should leave 1 defuse in the deck (5 total - 4 dealt)");
     }
 
-    @Test
-    void addPlayerDefuses_AddThreeDefuses_AppendsThreeDefuseCards() {
-        List<Card> testDeck = new ArrayList<>();
-        DeckBuilder.addPlayerDefuses(testDeck, 3);
-
-        assertEquals(3, testDeck.size(), "Deck size should increase by 3 cards");
-
-        int defuseCount = 0;
-        for (Card card : testDeck) {
-            if (card.getType() == CardType.DEFUSE) {
-                defuseCount++;
-            }
-        }
-        assertEquals(3, defuseCount, "All 3 added cards are of CardType.DEFUSE");
-    }
-
-    @Test
-    void addPlayerDefuses_AddOneDefuse_AppendsOneDefuseCards() {
-        List<Card> testDeck = new ArrayList<>();
-        DeckBuilder.addPlayerDefuses(testDeck, 1);
-
-        assertEquals(1, testDeck.size(), "Deck size should increase by 1 card");
-
-        int defuseCount = 0;
-        for (Card card : testDeck) {
-            if (card.getType() == CardType.DEFUSE) {
-                defuseCount++;
-            }
-        }
-        assertEquals(1, defuseCount, "The one added card should be of CardType.DEFUSE");
-    }
-
-    @Test
-    void shuffleDeckOnce_ChangesDeckOrder() {
-        List<Card> testDeck = DeckBuilder.initializeFullDeck();
-        List<CardType> originalOrder = new ArrayList<>();
-        for (Card card : testDeck) {
-            originalOrder.add(card.getType());
-        }
-
-        DeckBuilder.shuffleDeck(testDeck);
-
-        List<CardType> shuffledOrder = new ArrayList<>();
-        for (Card card : testDeck) {
-            shuffledOrder.add(card.getType());
-        }
-        assertNotEquals(originalOrder, shuffledOrder);
-    }
-
-    @Test
-    void shuffleDeckTwice_ChangesDeckOrderBothTimes() {
-        List<Card> testDeck = DeckBuilder.initializeFullDeck();
-        List<CardType> originalOrder = new ArrayList<>();
-        for (Card card : testDeck) {
-            originalOrder.add(card.getType());
-        }
-
-        DeckBuilder.shuffleDeck(testDeck);
-
-        List<CardType> shuffledOrder = new ArrayList<>();
-        for (Card card : testDeck) {
-            shuffledOrder.add(card.getType());
-        }
-        assertNotEquals(originalOrder, shuffledOrder);
-
-        DeckBuilder.shuffleDeck(testDeck);
-
-        List<CardType> secondShuffledOrder = new ArrayList<>();
-        for (Card card : testDeck) {
-            secondShuffledOrder.add(card.getType());
-        }
-        assertNotEquals(shuffledOrder, secondShuffledOrder);
-        assertNotEquals(originalOrder, secondShuffledOrder);
-    }
 }
