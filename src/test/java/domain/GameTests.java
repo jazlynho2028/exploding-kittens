@@ -471,8 +471,9 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
 
-	@Test
-	public void isDrawPileEmpty_called_returnFalse() {
+	@ParameterizedTest
+	@MethodSource("provideNonEmptyDrawPiles")
+	public void isDrawPileEmpty_called_returnFalse(List<Card> drawPileCards) {
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -490,6 +491,12 @@ public class GameTests {
 		assertFalse(game.isDrawPileEmpty());
 
 		EasyMock.verify(player1, player2, drawPile, turnManager);
+	}
+
+	private static Stream<Arguments> provideNonEmptyDrawPiles() {
+		return Stream.of(
+				Arguments.of(List.of(new Card("SKIP_1", CardType.SKIP)))
+		);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
