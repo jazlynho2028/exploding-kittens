@@ -149,7 +149,7 @@ public class Game {
     }
 
     public boolean isDrawPileEmpty() {
-        return true;
+        return drawPile.isEmpty();
     }
 
     public boolean getIsGameOngoing() {
