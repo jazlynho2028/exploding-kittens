@@ -102,15 +102,10 @@
   - **Expected output**: returns ["SKIP_1", "ATTACK_3"]
 
 ### Method under test: `getCurrentPlayer()`
-- **TC16: Current player is 0** ( :white_check_mark: )
+- **TC16: Current player is 0** ( :x: )
   - **Name of the test**: getCurrentPlayer_called_returnCurrentPlayer
   - **State of the system**: currentPlayerIndex = 0, players = [player1, player2]
   - **Expected output**: returns player1
-
-- **TC17: Current player is 0** ( :white_check_mark: )
-  - **Name of the test**: getCurrentPlayer_called_returnCurrentPlayer
-  - **State of the system**: currentPlayerIndex = 1, players = [player1, player2]
-  - **Expected output**: returns player2
 
 ### Method under test: `canPlaySelected()`
 - **TC18: No cards selected** ( :white_check_mark: )
