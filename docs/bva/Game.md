@@ -11,8 +11,8 @@
   - **Expected output**:
     - isGameOngoing = false
     - isFaceUp = false
-    - player1.addCard("DEFUSE_5", CardType.DEFUSE) called
-    - player2.addCard("DEFUSE_4", CardType.DEFUSE) called
+    - player1.addCardToHand("DEFUSE_5", CardType.DEFUSE) called
+    - player2.addCardToHand("DEFUSE_4", CardType.DEFUSE) called
     - player.addCard called with drawPile.removeTop 5 times for each player
 
 - **TC3: Constructor called with 4 players** ( :x: )
@@ -21,11 +21,11 @@
   - **Expected output**:
     - isGameOngoing = false
     - isFaceUp = false
-    - player1.addCard("DEFUSE_5", CardType.DEFUSE) called
-    - player2.addCard("DEFUSE_4", CardType.DEFUSE) called
-    - player3.addCard("DEFUSE_3", CardType.DEFUSE) called
-    - player4.addCard("DEFUSE_2", CardType.DEFUSE) called
-    - player.addCard called with drawPile.removeTop 5 times for each player
+    - player1.addCardToHand("DEFUSE_5", CardType.DEFUSE) called
+    - player2.addCardToHand("DEFUSE_4", CardType.DEFUSE) called
+    - player3.addCardToHand("DEFUSE_3", CardType.DEFUSE) called
+    - player4.addCardToHand("DEFUSE_2", CardType.DEFUSE) called
+    - player.addCardToHand called with drawPile.removeTop 5 times for each player
 
 - **TC3: Constructor called with 2 players, not enough cards in drawPile** ( :x: )
   - **Name of the test**: constructor_notEnoughCards_failed
