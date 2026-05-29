@@ -70,7 +70,7 @@
   - **Expected output**: returns turnManager.getCurrentPlayerIndex
 
 ### Method under test: `getStartingPlayerIndex()`
-- **TC10: This method is called** ( :x: )
+- **TC10: This method is called** ( :white_check_mark: )
   - **Name of the test**: getStartingPlayerIndex_called_success
   - **State of the system**: N/A
   - **Expected output**: returns GameConstants.STARTING_PLAYER_INDEX

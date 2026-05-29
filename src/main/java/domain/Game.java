@@ -111,7 +111,7 @@ public class Game {
     }
 
     public int getStartingPlayerIndex() {
-        return 0;
+        return STARTING_PLAYER_INDEX;
     }
 
     public List<String> getCurrentPlayerHandIds() {

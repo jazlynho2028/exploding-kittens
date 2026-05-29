@@ -215,6 +215,25 @@ public class GameTests {
 		EasyMock.verify(turnManager);
 	}
 
+	@Test
+	public void getStartingPlayerIndex_called_success() {
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(player1, player2, drawPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		int actualIndex = game.getStartingPlayerIndex();
+
+		assertEquals(STARTING_PLAYER_INDEX, actualIndex);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
