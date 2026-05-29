@@ -238,10 +238,10 @@ public class GameTests {
 		assertEquals(STARTING_PLAYER_INDEX, actualIndex);
 	}
 
-	@Test
-	public void getCurrentPlayerHandIds_called_returnHandIds() {
-		final int CURRENT_INDEX = 0;
-
+	@ParameterizedTest
+	@MethodSource("provideHandIds")
+	public void getCurrentPlayerHandIds_called_returnHandIds(int currentPlayerIndex,
+	                                                         List<String> expectedIds) {
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -250,17 +250,26 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(CURRENT_INDEX);
-		EasyMock.expect(player1.getHandIds()).andReturn(List.of());
+		Player currentPlayer = players.get(currentPlayerIndex);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		EasyMock.expect(currentPlayer.getHandIds()).andReturn(expectedIds);
 
 		EasyMock.replay(player1, player2, drawPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
+
 		List<String> actualIds = game.getCurrentPlayerHandIds();
 
-		assertEquals(List.of(), actualIds);
+		assertEquals(expectedIds, actualIds);
 
 		EasyMock.verify(player1, player2, drawPile, turnManager);
+	}
+
+	private static Stream<Arguments> provideHandIds() {
+		return Stream.of(
+				Arguments.of(0, List.of()),
+				Arguments.of(1, List.of("SKIP_1"))
+		);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {

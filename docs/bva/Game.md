@@ -81,7 +81,7 @@
   - **State of the system**: currentPlayerIndex = 0, hand = []
   - **Expected output**: returns []
 
-- **TC12: Current player is 1, hand has one card** ( :x: )
+- **TC12: Current player is 1, hand has one card** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
   - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1]
   - **Expected output**: returns ["SKIP_1"]
