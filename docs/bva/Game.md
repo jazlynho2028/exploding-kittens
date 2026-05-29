@@ -233,123 +233,118 @@
   - **State of the system**: selectedCards = [MILDDRAW_1]
   - **Expected output**: returns true
 
-- **TC42: One Winner Winner Catnip Dinner selected** ( :x: )
-  - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: selectedCards = [WINNERWINNERCATNIPDINNER_1]
-  - **Expected output**: returns true
-
 ### Method under test: `canEndTurn()`
-- **TC57: Game is not ongoing, draw count is 0** ( :x: )
+- **TC42: Game is not ongoing, draw count is 0** ( :x: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 0
   - **Expected output**: returns false
 
-- **TC58: Game is not ongoing, draw count is 1** ( :x: )
+- **TC43: Game is not ongoing, draw count is 1** ( :x: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 1
   - **Expected output**: returns false
 
-- **TC59: Game is not ongoing, draw count is 2** ( :x: )
+- **TC44: Game is not ongoing, draw count is 2** ( :x: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 2
   - **Expected output**: returns false
 
-- **TC60: Game is ongoing, draw count is 1** ( :x: )
+- **TC45: Game is ongoing, draw count is 1** ( :x: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 1
   - **Expected output**: returns false
 
-- **TC61: Game is ongoing, draw count is 2** ( :x: )
+- **TC46: Game is ongoing, draw count is 2** ( :x: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 1
   - **Expected output**: returns false
 
-- **TC62: Game is ongoing, draw count is 0** ( :x: )
+- **TC47: Game is ongoing, draw count is 0** ( :x: )
   - **Name of the test**: canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue
   - **State of the system**: isGameOngoing = true, drawCount = 0
   - **Expected output**: returns true
 
 ### Method under test: `isDrawPileEmpty()`
-- **TC63: Empty draw pile** ( :x: )
+- **TC48: Empty draw pile** ( :x: )
   - **Name of the test**: isDrawPileEmpty_emptyDrawPile_returnTrue
   - **State of the system**: drawPile = []
   - **Expected output**: returns true
 
-- **TC64: Draw pile has one card** ( :x: )
+- **TC49: Draw pile has one card** ( :x: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
   - **State of the system**: drawPile = [SKIP_1]
   - **Expected output**: returns false
 
-- **TC65: Draw pile has two cards of same type** ( :x: )
+- **TC50: Draw pile has two cards of same type** ( :x: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
   - **State of the system**: drawPile = [SKIP_1, SKIP_2]
   - **Expected output**: returns false
 
-- **TC66: Draw pile has two cards with same ID** ( :x: )
+- **TC51: Draw pile has two cards with same ID** ( :x: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
   - **State of the system**: drawPile = [SKIP_1, SKIP_1]
   - **Expected output**: returns false
 
-- **TC67: Draw pile has two different type cards** ( :x: )
+- **TC52: Draw pile has two different type cards** ( :x: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
   - **State of the system**: drawPile = [SKIP_1, ATTACK_3]
   - **Expected output**: returns false
 
 ### Method under test: `getCanDraw()`
-- **TC68: Game is not ongoing, draw count is 0** ( :x: )
+- **TC53: Game is not ongoing, draw count is 0** ( :x: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 0
   - **Expected output**: returns false
 
-- **TC69: Game is not ongoing, draw count is 1** ( :x: )
+- **TC54: Game is not ongoing, draw count is 1** ( :x: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 1
   - **Expected output**: returns false
 
-- **TC70: Game is not ongoing, draw count is 2** ( :x: )
+- **TC55: Game is not ongoing, draw count is 2** ( :x: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 2
   - **Expected output**: returns false
 
-- **TC71: Game is ongoing, draw count is 0** ( :x: )
+- **TC56: Game is ongoing, draw count is 0** ( :x: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = true, drawCount = 0
   - **Expected output**: returns false
 
-- **TC72: Game is ongoing, draw count is 1** ( :x: )
+- **TC57: Game is ongoing, draw count is 1** ( :x: )
   - **Name of the test**: getCanDraw_called_returnTrue
   - **State of the system**: isGameOngoing = true, drawCount = 1
   - **Expected output**: returns true
 
-- **TC73: Game is ongoing, draw count is 2** ( :x: )
+- **TC58: Game is ongoing, draw count is 2** ( :x: )
   - **Name of the test**: getCanDraw_called_returnTrue
   - **State of the system**: isGameOngoing = true, drawCount = 1
   - **Expected output**: returns true
 
 ### Method under test: `changeCurrentPlayerIndex(int newPlayerIndex)`
-- **TC74: This method is called** ( :x: )
+- **TC59: This method is called** ( :x: )
   - **Name of the test**: changeCurrentPlayerIndex_called_callsTurnManager
   - **State of the system**: newPlayerIndex = 0
   - **Expected output**: calls turnManager.setCurrentPlayerIndex with newPlayerIndex
 
 ### Method under test: `setFaceUpToFalse()`
-- **TC75: Is face up** ( :x: )
+- **TC60: Is face up** ( :x: )
   - **Name of the test**: setFaceUpToFalse_isFaceUp_setToFalse
   - **State of the system**: isFaceUp = true
   - **Expected output**: isFaceUp = false
 
-- **TC76: Is face down** ( :x: )
+- **TC61: Is face down** ( :x: )
   - **Name of the test**: setFaceUpToFalse_isFaceDown_setToFalse
   - **State of the system**: isFaceUp = false
   - **Expected output**: isFaceUp = false
 
 ### Method under test: `drawFromPile()`
-- **TC77: Empty draw pile** ( :x: )
+- **TC62: Empty draw pile** ( :x: )
   - **Name of the test**: drawFromPile_emptyDrawPile_failed
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throw IllegalStateException "error.emptyDeck"
 
-- **TC78: Draw pile has one card** ( :x: )
+- **TC63: Draw pile has one card** ( :x: )
   - **Name of the test**: drawFromPile_oneCardInDrawPile_addToCurrentPlayerHand
   - **State of the system**: currentPlayerIndex = 0, drawPile = [SKIP_1]
   - **Expected output**:
@@ -357,28 +352,28 @@
     - currentPlayerIndex = 0
 
 ### Method under test: `toggleFaceUp()`
-- **TC79: Is face up** ( :x: )
+- **TC64: Is face up** ( :x: )
   - **Name of the test**: toggleFaceUp_isFaceUp_setToFalse
   - **State of the system**: isFaceUp = true
   - **Expected output**: isFaceUp = false
 
-- **TC80: Is face down** ( :x: )
+- **TC65: Is face down** ( :x: )
   - **Name of the test**: toggleFaceUp_isFaceDown_setToTrue
   - **State of the system**: isFaceUp = false
   - **Expected output**: isFaceUp = true
 
 ### Method under test: `toggleSelectedCurrentPlayerCardAt(int handCardIndex)`
-- **TC81: Hand card index at 0** ( :x: )
+- **TC66: Hand card index at 0** ( :x: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_indexZero_calledPlayerToggle
   - **State of the system**: handCardIndex = 0
   - **Expected output**: getCurrentPlayer.toggleSelectedHandCardAt is called with handCardIndex
 
-- **TC82: Hand card index at 1** ( :x: )
+- **TC67: Hand card index at 1** ( :x: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_indexOne_calledPlayerToggle
   - **State of the system**: handCardIndex = 1
   - **Expected output**: getCurrentPlayer.toggleSelectedHandCardAt is called with handCardIndex
 
-- **TC83: Player method throws exception** ( :x: )
+- **TC68: Player method throws exception** ( :x: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_indexZero_failed
   - **State of the system**: 
     - handCardIndex = 0
@@ -386,14 +381,14 @@
   - **Expected output**: throws InvalidArgumentException "error.handCardIndexOutOfBounds"
 
 ### Method under test: `advanceTurn()`
-- **TC84: Can end turn** ( :x: )
+- **TC69: Can end turn** ( :x: )
   - **Name of the test**: advanceTurn_canEndTurn_advanceTurnAndDeselectCards
   - **State of the system**: canEndTurn = true
   - **Expected output**:
     - turnManager.advanceTurn is called
     - getCurrentPlayer.deselectHandCards is called
 
-- **TC85: Cannot end turn** ( :x: )
+- **TC70: Cannot end turn** ( :x: )
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
   - **State of the system**: canEndTurn = false
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
