@@ -103,8 +103,8 @@
   - **State of the system**: Player hand can have any number of cards; index provided is 0
   - **Expected output**: Method executes successfully; card at index 0 changes its selection state
 
-- **TC21: Toggle index exactly equal to hand size upper boundary check** ( :x: )
-  - **Name of the test**: toggleSelectedHandCardAt_indexEqualToHandSize_cardToggled
+- **TC21: Toggle index exactly equal to hand size upper boundary check** ( :white_check_mark: )
+  - **Name of the test**: toggleSelectedHandCardAt_indexUpperBound_cardToggled
   - **State of the system**: Player hand has 2, index provided is equal to 1
   - **Expected output**: Method executes successfully; card at index 1 changes its selection state
 

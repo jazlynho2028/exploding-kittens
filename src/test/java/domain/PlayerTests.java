@@ -298,4 +298,24 @@ public class PlayerTests {
         EasyMock.verify(mockCard);
     }
 
+    @Test
+    public void toggleSelectedHandCardAt_indexUpperBound_cardToggled() {
+        final int cardIndex = 1;
+        Player player = new Player("Alice");
+
+        Card mockCard1 = EasyMock.createMock(Card.class);
+        Card mockCard2 = EasyMock.createMock(Card.class);
+
+        mockCard2.toggleSelected();
+
+        EasyMock.replay(mockCard1, mockCard2);
+
+        player.addCardToHand(mockCard1);
+        player.addCardToHand(mockCard2);
+
+        player.toggleSelectedHandCardAt(cardIndex);
+
+        EasyMock.verify(mockCard1, mockCard2);
+    }
+
 }
