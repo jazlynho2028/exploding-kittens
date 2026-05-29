@@ -153,7 +153,7 @@
   - **State of the system**: selectedCards = [FERALCAT_1]
   - **Expected output**: returns false
 
-- **TC26: One Attack selected** ( :x: )
+- **TC26: One Attack selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [ATTACK_1]
   - **Expected output**: returns true
