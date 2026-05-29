@@ -15,9 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTests {
 
-	private static final int STARTING_ROUND_COUNT = 1;
-	private static final int STARTING_DRAW_COUNT = 1;
-
 	@ParameterizedTest
 	@CsvSource({
 			"1, error.minPlayers",
@@ -153,6 +150,9 @@ public class GameTests {
 			"4, 3"
 	})
 	public void startGame_gameIsNotOngoing_startFirstRound(int numPlayers, int numKittens) {
+		final int STARTING_ROUND_COUNT = 1;
+		final int STARTING_DRAW_COUNT = 1;
+
 		List<Player> players = new ArrayList<>();
 		for (int i = 0; i < numPlayers; i++) {
 			players.add(EasyMock.createNiceMock(Player.class));
@@ -188,6 +188,31 @@ public class GameTests {
 
 		EasyMock.verify(playerMocks);
 		EasyMock.verify(drawPile);
+	}
+
+	@Test
+	public void getCurrentPlayerIndex_called_success() {
+		final int EXPECTED_INDEX = 2;
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(player1, player2, drawPile);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(EXPECTED_INDEX);
+		EasyMock.replay(turnManager);
+
+		int actualIndex = game.getCurrentPlayerIndex();
+
+		assertEquals(EXPECTED_INDEX, actualIndex);
+
+		EasyMock.verify(turnManager);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {

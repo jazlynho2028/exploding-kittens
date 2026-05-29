@@ -18,6 +18,8 @@ public class Game {
     private int roundCount;
     private int drawCount;
 
+    private TurnManager turnManager;
+
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
             justification = "EI_EXPOSE_REP2: TurnManager is injected by for testability. " +
@@ -34,6 +36,7 @@ public class Game {
 
         this.players = List.copyOf(players);
         this.drawPile = drawPile;
+        this.turnManager = turnManager;
 
         isGameOngoing = false;
         isFaceUp = false;
@@ -104,7 +107,7 @@ public class Game {
     }
 
     public int getCurrentPlayerIndex() {
-        return 0;
+        return turnManager.getCurrentPlayerIndex();
     }
 
     public int getStartingPlayerIndex() {
