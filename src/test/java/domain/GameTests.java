@@ -94,8 +94,7 @@ public class GameTests {
 				}
 
 				Card card = (Card) argument;
-				return card.getType() == CardType.DEFUSE &&
-						Objects.equals(card.getId(), "DEFUSE_" + idNum);
+				return hasSameDefuseCardFields(card, idNum);
 			}
 
 			@Override
@@ -104,6 +103,13 @@ public class GameTests {
 			}
 		});
 		return new Card("DEFUSE_INVALID", CardType.DEFUSE);
+	}
+
+	private static boolean hasSameDefuseCardFields(Card card, int idNum) {
+		boolean isDefuse = (card.getType() == CardType.DEFUSE);
+		boolean hasValidId = Objects.equals(card.getId(), String.format("%s%d", "DEFUSE_", idNum));
+
+		return isDefuse && hasValidId;
 	}
 
 }
