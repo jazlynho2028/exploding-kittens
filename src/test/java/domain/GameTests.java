@@ -504,7 +504,10 @@ public class GameTests {
 
 	@ParameterizedTest
 	@CsvSource({
-			"false, 0"
+			"false, 0",
+			"false, 1",
+			"false, 2",
+			"true, 0"
 	})
 	public void getCanDraw_called_returnFalse(boolean isGameOngoing, int drawCount) {
 		Player player1 = EasyMock.createNiceMock(Player.class);
