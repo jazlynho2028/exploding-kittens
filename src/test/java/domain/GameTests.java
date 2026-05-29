@@ -1,9 +1,13 @@
 package domain;
 
+import io.cucumber.java.bs.A;
 import org.easymock.EasyMock;
 import org.easymock.IArgumentMatcher;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,20 +38,25 @@ public class GameTests {
 		EasyMock.verify(players);
 	}
 
-	@Test
-	public void constructor_twoPlayers_initializeGame() {
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		List<Player> players = List.of(player1, player2);
+	@ParameterizedTest
+	@CsvSource({
+			"2",
+			"4"
+	})
+	public void constructor_validNumPlayers_initializeGame(int numPlayers) {
+		List<Player> players = new ArrayList<>();
+
+		for (int i = 0; i < numPlayers; i++) {
+			Player player = EasyMock.createMock(Player.class);
+			players.add(player);
+
+			player.addCardToHand(defuseCard(NUM_DEFUSES - i));
+			EasyMock.expectLastCall();
+		}
 
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		player1.addCardToHand(defuseCard(FIVE_CARDS));
-		EasyMock.expectLastCall();
-		player2.addCardToHand(defuseCard(FOUR_CARDS));
-		EasyMock.expectLastCall();
 
 		for (Player player : players) {
 			for (int i = 0; i < STARTING_HAND_SIZE - 1; i++) {
@@ -61,14 +70,19 @@ public class GameTests {
 			}
 		}
 
-		EasyMock.replay(player1, player2, drawPile);
+		List<Object> mocks = new ArrayList<>(players);
+		mocks.add(drawPile);
+
+		Object[] mocksArray = mocks.toArray();
+
+		EasyMock.replay(mocksArray);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
 		assertFalse(game.getIsGameOngoing());
 		assertFalse(game.getIsFaceUp());
 
-		EasyMock.verify(player1, player2, drawPile);
+		EasyMock.verify(mocksArray);
 	}
 
 	private static Card defuseCard(int idNum) {

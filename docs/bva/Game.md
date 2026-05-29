@@ -6,7 +6,7 @@
   - **Expected output**: throw IllegalArgumentException "error.minPlayers"
 
 - **TC2: Constructor called with 2 players** ( :white_check_mark: )
-  - **Name of the test**: constructor_twoPlayers_initializeGame
+  - **Name of the test**: constructor_validNumPlayers_initializeGame
   - **State of the system**: players.size = 2
   - **Expected output**:
     - isGameOngoing = false
@@ -15,8 +15,8 @@
     - player2.addCardToHand with DEFUSE_4 called
     - player.addCardToHand called with drawPile.removeTop 5 times for each player
 
-- **TC3: Constructor called with 4 players** ( :x: )
-  - **Name of the test**: constructor_fourPlayers_initializeGame
+- **TC3: Constructor called with 4 players** ( :white_check_mark: )
+  - **Name of the test**: constructor_validNumPlayers_initializeGame
   - **State of the system**: players.size = 4
   - **Expected output**:
     - isGameOngoing = false
