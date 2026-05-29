@@ -87,6 +87,33 @@ public class GameTests {
 		EasyMock.verify(mocksArray);
 	}
 
+	@Test
+	public void constructor_drawPileThrowsException_failed() {
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		String expectedMsg = "error.emptyDeck";
+
+		EasyMock.expect(drawPile.removeTop()).andThrow(
+				new IllegalStateException(expectedMsg)
+		);
+
+		EasyMock.replay(player1, player2, drawPile);
+
+		Exception exception = assertThrows(IllegalStateException.class, () ->
+				new Game(players, drawPile, discardPile, turnManager));
+
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(player1, player2, drawPile);
+	}
+
 	private static Card defuseCard(int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override

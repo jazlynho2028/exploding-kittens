@@ -32,9 +32,9 @@
   - **State of the system**: players.size = 5
   - **Expected output**: throw IllegalArgumentException "error.maxPlayers"
 
-- **TC5: Constructor called with 2 players, not enough cards in drawPile** ( :x: )
-  - **Name of the test**: constructor_notEnoughCards_failed
-  - **State of the system**: players.size = 2
+- **TC5: Draw pile remove top throws exception** ( :white_check_mark: )
+  - **Name of the test**: constructor_drawPileThrowsException_failed
+  - **State of the system**: players.size = 2, drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throw IllegalStateException "error.emptyDeck"
 
 ### Method under test: `startGame()`
