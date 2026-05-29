@@ -73,7 +73,7 @@ public class DeckBuilder {
         int defusesToAdd = 5 - numPlayers;
 
         if (defusesToAdd < 0) {
-            throw new GameException("error.negativeDefuseCount");
+            throw new IllegalArgumentException("error.negativeDefuseCount");
         }
 
         return defusesToAdd;

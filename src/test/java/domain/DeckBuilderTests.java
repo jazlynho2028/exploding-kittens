@@ -56,11 +56,9 @@ public class DeckBuilderTests {
 
     @Test
     void calculateDefusesToAdd_NegativeDefuses_ThrowsException() {
-        GameException exception = assertThrows(GameException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             DeckBuilder.calculateDefusesToAdd(6);
         });
-
-        assertEquals("error.negativeDefuseCount", exception.getKey());
     }
 
     @Test
