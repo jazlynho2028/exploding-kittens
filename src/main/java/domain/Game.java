@@ -164,7 +164,9 @@ public class Game {
         return isFaceUp;
     }
 
-    public void changeCurrentPlayerIndex(int newPlayerIndex) { }
+    public void changeCurrentPlayerIndex(int newPlayerIndex) {
+        turnManager.setCurrentPlayerIndex(newPlayerIndex);
+    }
 
     public void setFaceUpToFalse() { }
 
