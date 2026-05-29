@@ -181,7 +181,9 @@ public class Game {
         isFaceUp = !isFaceUp;
     }
 
-    public void toggleSelectedPlayerCardAt(int handCardIndex) { }
+    public void toggleSelectedPlayerCardAt(int handCardIndex) {
+        getCurrentPlayer().toggleSelectedHandCardAt(handCardIndex);
+    }
 
     public void advanceTurn() { }
 
