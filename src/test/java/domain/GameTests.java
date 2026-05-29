@@ -385,10 +385,11 @@ public class GameTests {
 		);
 	}
 
-	@Test
-	public void canEndTurn_called_returnFalse() {
-		final int DRAW_COUNT = 0;
-
+	@ParameterizedTest
+	@CsvSource({
+			"false, 0"
+	})
+	public void canEndTurn_called_returnFalse(boolean isGameOngoing, int drawCount) {
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -405,8 +406,8 @@ public class GameTests {
 				.addMockedMethod("getDrawCount")
 				.createMock();
 
-		EasyMock.expect(game.getIsGameOngoing()).andReturn(false);
-		EasyMock.expect(game.getDrawCount()).andReturn(DRAW_COUNT).anyTimes();
+		EasyMock.expect(game.getIsGameOngoing()).andReturn(isGameOngoing);
+		EasyMock.expect(game.getDrawCount()).andReturn(drawCount).anyTimes();
 
 		EasyMock.replay(game);
 
