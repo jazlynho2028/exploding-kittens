@@ -3,6 +3,7 @@ package domain;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static domain.DeckBuilder.createCardId;
 import static domain.GameConstants.*;
@@ -113,7 +114,9 @@ public class Game {
     }
 
     public List<String> getPlayerNames() {
-        return List.of();
+        return players.stream()
+                .map(Player::getName)
+                .collect(Collectors.toList());
     }
 
     public int getCurrentPlayerIndex() {
