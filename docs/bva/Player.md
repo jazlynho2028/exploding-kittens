@@ -55,3 +55,29 @@
     - **Name of the test**: removeCardFromHand_duplicateCardsAndMatchingCard_oneInstanceRemoved
     - **State of the system**: player hand has duplicate cards; card to remove does exist in hand
     - **Expected output**: exactly one instance of the duplicate card is not in hand (the other is still in hand); player hand size decreased by 1
+
+### Method under test: `deselectHandCards()`
+- **TC12: deselecting hand with no cards in it** ( :white_check_mark: )
+  - **Name of the test**: deselectHandCards_emptyHand_noChanges
+  - **State of the system**: player hand is empty, No cards in hand are selected
+  - **Expected output**: Method completes successfully, hand remains empty and no exceptions are thrown
+
+- **TC13: Deselecting cards when none are currently selected** ( :x: )
+  - **Name of the test**: deselectHandCards_noCardsSelected_remainsUnselected
+  - **State of the system**: Player hand has card objects, but none have isSelected == true
+  - **Expected output**: Method completes successfully, all cards remain unselected
+
+- **TC14: Deselecting cards when one is currently selected** ( :x: )
+  - **Name of the test**: deselectHandCards_oneCardsSelected_allUnselected
+  - **State of the system**: Player hand has card objects, one has isSelected == true
+  - **Expected output**: Expected output: Method Successful, Every card in the hand has its isSelected property set to false.
+
+- **TC15: Deselecting cards when multiple cards are selected** ( :x: )
+  - **Name of the test**: deselectHandCards_multipleCardsSelected_allUnselected
+  - **State of the system**: Player hand has multiple card objects, more than one have isSelected == true
+  - **Expected output**: Method Successful, Every card in the hand has its isSelected property set to false
+
+- **TC16: Deselecting cards when all cards are currently selected** ( :x: )
+  - **Name of the test**: deselectHandCards_allCardsSelected_allUnselected
+  - **State of the system**: Player hand has multiple card objects, and every single card has isSelected == true
+  - **Expected output**: Method Successful, Every card in the hand has its isSelected property set to false
