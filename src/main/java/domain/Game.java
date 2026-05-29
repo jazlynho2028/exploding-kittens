@@ -145,7 +145,7 @@ public class Game {
     }
 
     public boolean canEndTurn() {
-        return true;
+        return getIsGameOngoing() && getDrawCount() == 0;
     }
 
     public boolean isDrawPileEmpty() {

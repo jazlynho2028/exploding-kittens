@@ -234,7 +234,7 @@
   - **Expected output**: returns true
 
 ### Method under test: `canEndTurn()`
-- **TC42: Game is not ongoing, draw count is 0** ( :x: )
+- **TC42: Game is not ongoing, draw count is 0** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 0
   - **Expected output**: returns false
