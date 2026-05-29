@@ -26,7 +26,7 @@
     - **State of the system**: player hand is empty; card to remove does not exist in hand 
     - **Expected output**: IllegalStateException called with key "error.cardNotInHand"
 
-- **TC6: remove non-existing card from hand with one card** ( :x: )
+- **TC6: remove non-existing card from hand with one card** ( :white_check_mark: )
     - **Name of the test**: removeCardFromHand_oneCardAndMissingCard_throwsGameException
     - **State of the system**: player hand has one card; card to remove does not exist in hand 
     - **Expected output**: IllegalStateException called with key "error.cardNotInHand"
