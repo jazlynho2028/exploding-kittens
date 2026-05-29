@@ -4,7 +4,7 @@ import java.util.List;
 
 import static domain.GameConstants.STARTING_PLAYER_INDEX;
 
-public final class TurnManager {
+public class TurnManager {
 
     private final List<Player> players;
 	private int currentPlayerIndex;

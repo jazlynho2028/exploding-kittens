@@ -4,6 +4,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.List;
 
+import static domain.GameConstants.MIN_PLAYERS;
+
 public class Game {
 
     @SuppressFBWarnings(
@@ -14,7 +16,11 @@ public class Game {
                     "attack is not a concern."
     )
     public Game(List<Player> players, Deck drawPile,
-                Deck discardPile, TurnManager turnManager) { }
+                Deck discardPile, TurnManager turnManager) {
+        if (players.size() < MIN_PLAYERS) {
+            throw new IllegalArgumentException("error.minPlayers");
+        }
+    }
 
     private void populatePlayerHand() { }
 

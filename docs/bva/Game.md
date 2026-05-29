@@ -1,6 +1,6 @@
 # BVA Analysis: Game Class
 ### Method under test: `Game(List<Player> players, Deck drawPile, Deck discardPile)`
-- **TC1: Constructor called with 1 player** ( :x: )
+- **TC1: Constructor called with 1 player** ( :white_check_mark: )
   - **Name of the test**: constructor_onePlayer_failed
   - **State of the system**: players.size = 1
   - **Expected output**: throw IllegalArgumentException "error.minPlayers"
