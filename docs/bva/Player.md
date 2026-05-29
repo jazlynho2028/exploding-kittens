@@ -96,7 +96,7 @@
 - **TC19: Toggle index less than zero boundary check** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedHandCardAt_indexLessThanZero_callsException
   - **State of the system**: Player hand can have any number of cards; index provided is -1
-  - **Expected output**: IndexOutOfBoundsException called with "error.invalidHandCardIndex"
+  - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
 
 - **TC20: Toggle valid lower boundary index on a non-empty hand** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedHandCardAt_validLowerBoundIndex_cardToggled
@@ -111,4 +111,4 @@
 - **TC19: Toggle index greater than hand size boundary check** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedHandCardAt_indexGreaterThanHandSize_callsException
   - **State of the system**: Player hand has 2 cards, index provided is greater than 1
-  - **Expected output**: IndexOutOfBoundsException called with "error.invalidHandCardIndex"
+  - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
