@@ -328,7 +328,49 @@ public class GameTests {
 
 	private static Stream<Arguments> provideInvalidCardSelections() {
 		return Stream.of(
-				Arguments.of(List.of()));
+				Arguments.of(List.of()),
+				Arguments.of(List.of(new Card("DEFUSE_1", CardType.DEFUSE))),
+				Arguments.of(List.of(new Card("EXPLODINGKITTEN_3", CardType.EXPLODING_KITTEN))),
+				Arguments.of(List.of(new Card("CATCARD1_1", CardType.CAT_CARD_1))),
+				Arguments.of(List.of(new Card("CATCARD2_1", CardType.CAT_CARD_2))),
+				Arguments.of(List.of(new Card("CATCARD3_4", CardType.CAT_CARD_3))),
+				Arguments.of(List.of(new Card("CATCARD4_4", CardType.CAT_CARD_4))),
+				Arguments.of(List.of(
+						new Card("DEFUSE_1", CardType.DEFUSE),
+						new Card("EXPLODINGKITTEN_3", CardType.EXPLODING_KITTEN))),
+				Arguments.of(List.of(
+						new Card("DEFUSE_1", CardType.DEFUSE),
+						new Card("DEFUSE_2", CardType.DEFUSE))),
+				Arguments.of(List.of(
+						new Card("DEFUSE_1", CardType.DEFUSE),
+						new Card("DEFUSE_1", CardType.DEFUSE))),
+				Arguments.of(List.of(
+						new Card("DEFUSE_5", CardType.DEFUSE),
+						new Card("SKIP_1", CardType.SKIP))),
+				Arguments.of(List.of(
+						new Card("SKIP_1", CardType.SKIP),
+						new Card("ATTACK_1", CardType.ATTACK))),
+				Arguments.of(List.of(
+						new Card("DEFUSE_1", CardType.DEFUSE),
+						new Card("EXPLODINGKITTEN_3", CardType.EXPLODING_KITTEN),
+						new Card("DEFUSE_2", CardType.DEFUSE))),
+				Arguments.of(List.of(
+						new Card("SKIP_1", CardType.SKIP),
+						new Card("EXPLODINGKITTEN_1", CardType.EXPLODING_KITTEN),
+						new Card("DEFUSE_5", CardType.DEFUSE))),
+				Arguments.of(List.of(
+						new Card("DEFUSE_1", CardType.DEFUSE),
+						new Card("SKIP_1", CardType.SKIP),
+						new Card("ATTACK_1", CardType.ATTACK))),
+				Arguments.of(List.of(
+						new Card("SKIP_1", CardType.SKIP),
+						new Card("SKIP_2", CardType.SKIP),
+						new Card("DEFUSE_1", CardType.DEFUSE))),
+				Arguments.of(List.of(
+						new Card("SKIP_1", CardType.SKIP),
+						new Card("ATTACK_1", CardType.ATTACK),
+						new Card("SHUFFLE_4", CardType.SHUFFLE)))
+		);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {

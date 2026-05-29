@@ -18,6 +18,15 @@ public class Game {
     private int roundCount;
     private int drawCount;
 
+    private static final List<CardType> UNPLAYABLE_TYPES = List.of(
+            CardType.DEFUSE,
+            CardType.EXPLODING_KITTEN,
+            CardType.CAT_CARD_1,
+            CardType.CAT_CARD_2,
+            CardType.CAT_CARD_3,
+            CardType.CAT_CARD_4
+    );
+
     private TurnManager turnManager;
 
     @SuppressFBWarnings(
@@ -124,7 +133,21 @@ public class Game {
 
     public boolean canPlaySelected() {
         List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
-        return !selectedCards.isEmpty();
+        if (selectedCards.isEmpty()) {
+            return false;
+        }
+        for (Card card : selectedCards) {
+            if (UNPLAYABLE_TYPES.contains(card.getType())) {
+                return false;
+            }
+        }
+        CardType firstType = selectedCards.get(0).getType();
+        for (Card card : selectedCards) {
+            if (card.getType() != firstType) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean canEndTurn() {
