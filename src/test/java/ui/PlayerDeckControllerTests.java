@@ -376,7 +376,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
 		setUpRenderTurnControlSectionExpectations(canEndTurn);
 
-		model.toggleSelectedPlayerCardAtIndex(handCardIndex);
+		model.toggleSelectedPlayerCardAt(handCardIndex);
 		EasyMock.expectLastCall();
 
 		view.renderTurnControlSection(canPlaySelected, canEndTurn);

@@ -133,7 +133,7 @@ public class PlayerDeckController {
     void onPlayerHandCardButton(int handCardIndex) {
         attempt(onError, () -> {
             if (model.getIsFaceUp()) {
-                model.toggleSelectedPlayerCardAtIndex(handCardIndex);
+                model.toggleSelectedPlayerCardAt(handCardIndex);
 
                 updateTurnControls();
             }
