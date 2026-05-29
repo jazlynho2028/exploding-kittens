@@ -5,14 +5,15 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static domain.GameConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckBuilderTests {
 
     @Test
     void buildDeck_MinAllowedPlayers_ReturnsCorrect59CardDeck() {
-        Deck deck = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(2);
-        assertEquals(59, deck.size());
+        Deck deck = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(MIN_PLAYERS);
+        assertEquals(EXPECTED_DECK_SIZE_2_PLAYERS, deck.size());
 
         int defuseCount = 0;
         int initialSize = deck.size();
@@ -22,13 +23,13 @@ public class DeckBuilderTests {
                 defuseCount++;
             }
         }
-        assertEquals(3, defuseCount, "2 players should result in 3 defuse cards in the deck");
+        assertEquals(EXPECTED_DEFUSE_COUNT_2_PLAYERS, defuseCount);
     }
 
     @Test
     void buildDeck_MaxAllowedPlayers_ReturnsCorrect57CardDeck() {
-        Deck deck = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(4);
-        assertEquals(57, deck.size());
+        Deck deck = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(MAX_PLAYERS);
+        assertEquals(EXPECTED_DECK_SIZE_4_PLAYERS, deck.size());
 
         int defuseCount = 0;
         int initialSize = deck.size();
@@ -38,15 +39,15 @@ public class DeckBuilderTests {
                 defuseCount++;
             }
         }
-        assertEquals(1, defuseCount, "4 players should result in 1 defuse card in the deck");
+        assertEquals(EXPECTED_DEFUSE_COUNT_4_PLAYERS, defuseCount);
     }
 
     @Test
     void initializeFullDeck_ReturnsExactly56BaseCards() {
         List<Card> baseDeck = DeckBuilder.initializeFullDeck();
 
-        assertNotNull(baseDeck, "The returned card list should not be null");
-        assertEquals(56, baseDeck.size(), "The base deck should start with 56 cards");
+        assertNotNull(baseDeck);
+        assertEquals(EXPECTED_BASE_DECK_SIZE, baseDeck.size());
 
         for (Card card : baseDeck) {
             assertNotEquals(CardType.EXPLODING_KITTEN, card.getType());
@@ -57,20 +58,20 @@ public class DeckBuilderTests {
     @Test
     void calculateDefusesToAdd_NegativeDefuses_ThrowsException() {
         assertThrows(IllegalArgumentException.class, () -> {
-            DeckBuilder.calculateDefusesToAdd(6);
+            DeckBuilder.calculateDefusesToAdd(INVALID_PLAYER_COUNT);
         });
     }
 
     @Test
     void calculateDefusesToAdd_MinimumPlayers_ReturnsThree() {
-        int numDefuses = DeckBuilder.calculateDefusesToAdd(2);
-        assertEquals(3, numDefuses, "2 players should leave 3 defuses in the deck (5 total - 2 dealt)");
+        int numDefuses = DeckBuilder.calculateDefusesToAdd(MIN_PLAYERS);
+        assertEquals(EXPECTED_DEFUSE_COUNT_2_PLAYERS, numDefuses);
     }
 
     @Test
     void calculateDefusesToAdd_MaximumPlayers_ReturnsOne() {
-        int numDefuses = DeckBuilder.calculateDefusesToAdd(4);
-        assertEquals(1, numDefuses, "4 players should leave 1 defuse in the deck (5 total - 4 dealt)");
+        int numDefuses = DeckBuilder.calculateDefusesToAdd(MAX_PLAYERS);
+        assertEquals(EXPECTED_DEFUSE_COUNT_4_PLAYERS, numDefuses);
     }
 
 }

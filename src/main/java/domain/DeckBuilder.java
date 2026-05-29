@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+import static domain.GameConstants.*;
+
 public class DeckBuilder {
+
+
 
     public static Deck buildDeckWithoutExplodeAndAddDefuse(int numPlayers) {
         List<Card> cardsList = initializeFullDeck();
@@ -34,20 +38,20 @@ public class DeckBuilder {
 
         addCards(cardsList, CardType.SUPER_SKIP, 2);
 
-        addCards(cardsList, CardType.ATTACK, 3);
-        addCards(cardsList, CardType.SKIP, 3);
-        addCards(cardsList, CardType.CLONE, 3);
-        addCards(cardsList, CardType.SWAP_TOP_AND_BOTTOM, 3);
-        addCards(cardsList, CardType.DRAW_FROM_THE_BOTTOM, 3);
+        addCards(cardsList, CardType.ATTACK, THREE_CARD_COUNT);
+        addCards(cardsList, CardType.SKIP, THREE_CARD_COUNT);
+        addCards(cardsList, CardType.CLONE, THREE_CARD_COUNT);
+        addCards(cardsList, CardType.SWAP_TOP_AND_BOTTOM, THREE_CARD_COUNT);
+        addCards(cardsList, CardType.DRAW_FROM_THE_BOTTOM, THREE_CARD_COUNT);
 
-        addCards(cardsList, CardType.FERAL_CAT, 4);
-        addCards(cardsList, CardType.SEE_THE_FUTURE, 4);
-        addCards(cardsList, CardType.SHUFFLE, 4);
-        addCards(cardsList, CardType.TARGETED_ATTACK, 4);
-        addCards(cardsList, CardType.CAT_CARD_1, 4);
-        addCards(cardsList, CardType.CAT_CARD_2, 4);
-        addCards(cardsList, CardType.CAT_CARD_3, 4);
-        addCards(cardsList, CardType.CAT_CARD_4, 4);
+        addCards(cardsList, CardType.FERAL_CAT, FOUR_CARD_COUNT);
+        addCards(cardsList, CardType.SEE_THE_FUTURE, FOUR_CARD_COUNT);
+        addCards(cardsList, CardType.SHUFFLE, FOUR_CARD_COUNT);
+        addCards(cardsList, CardType.TARGETED_ATTACK, FOUR_CARD_COUNT);
+        addCards(cardsList, CardType.CAT_CARD_1, FOUR_CARD_COUNT);
+        addCards(cardsList, CardType.CAT_CARD_2, FOUR_CARD_COUNT);
+        addCards(cardsList, CardType.CAT_CARD_3, FOUR_CARD_COUNT);
+        addCards(cardsList, CardType.CAT_CARD_4, FOUR_CARD_COUNT);
 
         return cardsList;
     }
@@ -70,7 +74,7 @@ public class DeckBuilder {
     }
 
     static int calculateDefusesToAdd(int numPlayers) {
-        int defusesToAdd = 5 - numPlayers;
+        int defusesToAdd = MAX_DEFUSES_COUNT - numPlayers;
 
         if (defusesToAdd < 0) {
             throw new IllegalArgumentException("error.negativeDefuseCount");
