@@ -239,24 +239,24 @@
   - **State of the system**: isGameOngoing = false, drawCount = 0
   - **Expected output**: returns false
 
-- **TC43: Game is not ongoing, draw count is 1** ( :x: )
+- **TC43: Game is not ongoing, draw count is 1** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 1
   - **Expected output**: returns false
 
-- **TC44: Game is not ongoing, draw count is 2** ( :x: )
+- **TC44: Game is not ongoing, draw count is 2** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 2
   - **Expected output**: returns false
 
-- **TC45: Game is ongoing, draw count is 1** ( :x: )
+- **TC45: Game is ongoing, draw count is 1** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
-  - **State of the system**: isGameOngoing = false, drawCount = 1
+  - **State of the system**: isGameOngoing = true, drawCount = 1
   - **Expected output**: returns false
 
-- **TC46: Game is ongoing, draw count is 2** ( :x: )
+- **TC46: Game is ongoing, draw count is 2** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
-  - **State of the system**: isGameOngoing = false, drawCount = 1
+  - **State of the system**: isGameOngoing = true, drawCount = 1
   - **Expected output**: returns false
 
 - **TC47: Game is ongoing, draw count is 0** ( :x: )
