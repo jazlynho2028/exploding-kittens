@@ -331,8 +331,8 @@ public class PlayerTests {
         player.addCardToHand(mockCard1);
         player.addCardToHand(mockCard2);
 
-        IndexOutOfBoundsException exception = assertThrows(
-                IndexOutOfBoundsException.class,
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
                 () -> player.toggleSelectedHandCardAt(cardIndex)
         );
 
