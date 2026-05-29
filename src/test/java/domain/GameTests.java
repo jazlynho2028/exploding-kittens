@@ -264,6 +264,16 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
 
+	private static Stream<Arguments> provideHandIds() {
+		return Stream.of(
+				Arguments.of(0, List.of()),
+				Arguments.of(1, List.of("SKIP_1")),
+				Arguments.of(1, List.of("SKIP_1", "SKIP_2")),
+				Arguments.of(1, List.of("SKIP_1", "SKIP_1")),
+				Arguments.of(1, List.of("SKIP_1", "ATTACK_3"))
+		);
+	}
+
 	@ParameterizedTest
 	@CsvSource({
 			"0",
@@ -291,8 +301,9 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
 
-	@Test
-	public void canPlaySelected_invalidCards_returnFalse() {
+	@ParameterizedTest
+	@MethodSource("provideInvalidCardSelections")
+	public void canPlaySelected_invalidCards_returnFalse(List<Card> selectedCards) {
 		final int CURRENT_INDEX = 0;
 
 		Player player1 = EasyMock.createNiceMock(Player.class);
@@ -304,7 +315,7 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(CURRENT_INDEX);
-		EasyMock.expect(player1.getSelectedCards()).andReturn(List.of());
+		EasyMock.expect(player1.getSelectedCards()).andReturn(selectedCards);
 
 		EasyMock.replay(player1, player2, drawPile, turnManager);
 
@@ -315,14 +326,9 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
 
-	private static Stream<Arguments> provideHandIds() {
+	private static Stream<Arguments> provideInvalidCardSelections() {
 		return Stream.of(
-				Arguments.of(0, List.of()),
-				Arguments.of(1, List.of("SKIP_1")),
-				Arguments.of(1, List.of("SKIP_1", "SKIP_2")),
-				Arguments.of(1, List.of("SKIP_1", "SKIP_1")),
-				Arguments.of(1, List.of("SKIP_1", "ATTACK_3"))
-		);
+				Arguments.of(List.of()));
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
