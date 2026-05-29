@@ -293,6 +293,8 @@ public class GameTests {
 
 	@Test
 	public void canPlaySelected_invalidCards_returnFalse() {
+		final int CURRENT_INDEX = 0;
+
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -301,7 +303,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(0);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(CURRENT_INDEX);
 		EasyMock.expect(player1.getSelectedCards()).andReturn(List.of());
 
 		EasyMock.replay(player1, player2, drawPile, turnManager);
