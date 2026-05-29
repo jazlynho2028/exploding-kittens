@@ -94,7 +94,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void removeCardFromHand_emptyHand_throwsGameException() {
+    public void removeCardFromHand_emptyHand_IllegalStateException() {
         Player player = new Player("Alice");
         Card mockCard = EasyMock.createMock(Card.class);
         EasyMock.replay(mockCard);
@@ -108,7 +108,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void removeCardFromHand_oneCardAndMissingCard_throwsGameException() {
+    public void removeCardFromHand_oneCardAndMissingCard_IllegalStateException() {
         Card mockExistingCard = EasyMock.createMock(Card.class);
         Card mockNonExistingCard = EasyMock.createMock(Card.class);
         EasyMock.replay(mockExistingCard, mockNonExistingCard);
@@ -125,7 +125,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void removeCardFromHand_oneCardAndMatchingCard_handBecomesEmpty() throws GameException {
+    public void removeCardFromHand_oneCardAndMatchingCard_handBecomesEmpty() {
         Card mockExistingCard = EasyMock.createMock(Card.class);
         EasyMock.replay(mockExistingCard);
 
@@ -141,7 +141,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void removeCardFromHand_multipleCardsAndMissingCard_throwsGameException() {
+    public void removeCardFromHand_multipleCardsAndMissingCard_IllegalStateException() {
         Card mockFirstCard = EasyMock.createMock(Card.class);
         Card mockSecondCard = EasyMock.createMock(Card.class);
         Card mockNonExistingCard = EasyMock.createMock(Card.class);
@@ -161,7 +161,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void removeCardFromHand_multipleCardsAndMatchingCard_cardRemoved() throws GameException {
+    public void removeCardFromHand_multipleCardsAndMatchingCard_cardRemoved() {
         final int maintainHandSize = 1;
         Card mockCardToRemove = EasyMock.createMock(Card.class);
         Card mockCardToKeep = EasyMock.createMock(Card.class);
@@ -181,7 +181,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void removeCardFromHand_duplicateCardsAndMissingCard_throwsGameException() {
+    public void removeCardFromHand_duplicateCardsAndMissingCard_IllegalStateException() {
         Card mockDuplicateCard = EasyMock.createMock(Card.class);
         Card mockNonExistingCard = EasyMock.createMock(Card.class);
         EasyMock.replay(mockDuplicateCard, mockNonExistingCard);
@@ -199,7 +199,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void removeCardFromHand_duplicateCard_oneInstanceRemoved() throws GameException {
+    public void removeCardFromHand_duplicateCard_oneInstanceRemoved() {
         final int expectedFinalSize = 1;
         Card mockDuplicateCard = EasyMock.createMock(Card.class);
         EasyMock.replay(mockDuplicateCard);
