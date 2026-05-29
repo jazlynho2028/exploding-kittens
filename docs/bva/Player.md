@@ -22,12 +22,12 @@
 
 ### Method under test: `removeCardFromHand(Card card)`
 - **TC5: remove non-existing card from empty hand** ( :white_check_mark: )
-    - **Name of the test**: removeCardFromHand_emptyHand_throwsGameException
+    - **Name of the test**: removeCardFromHand_emptyHand_IllegalStateException
     - **State of the system**: player hand is empty; card to remove does not exist in hand 
     - **Expected output**: IllegalStateException called with key "error.cardNotInHand"
 
 - **TC6: remove non-existing card from hand with one card** ( :white_check_mark: )
-    - **Name of the test**: removeCardFromHand_oneCardAndMissingCard_throwsGameException
+    - **Name of the test**: removeCardFromHand_oneCardAndMissingCard_IllegalStateException
     - **State of the system**: player hand has one card; card to remove does not exist in hand 
     - **Expected output**: IllegalStateException called with key "error.cardNotInHand"
 
@@ -37,7 +37,7 @@
     - **Expected output**: player hand does not have card anymore; player hand size is 0
 
 - **TC8: remove non-existing card from hand with more than one card** ( :white_check_mark: )
-    - **Name of the test**: removeCardFromHand_multipleCardsAndMissingCard_throwsGameException
+    - **Name of the test**: removeCardFromHand_multipleCardsAndMissingCard_IllegalStateException
     - **State of the system**: player hand has more than one card; card to remove does not exist in hand
     - **Expected output**: IllegalStateException called with key "error.cardNotInHand"
 
@@ -47,7 +47,7 @@
     - **Expected output**: player hand does not have card anymore; player hand size decreased by 1
 
 - **TC10: remove non-existing card from hand with duplicate cards** ( :white_check_mark: )
-    - **Name of the test**: removeCardFromHand_duplicateCardsAndMissingCard_throwsGameException
+    - **Name of the test**: removeCardFromHand_duplicateCardsAndMissingCard_IllegalStateException
     - **State of the system**: player hand has duplicate cards; card to remove does not exist in hand
     - **Expected output**: IllegalStateException called with key "error.cardNotInHand"
 
