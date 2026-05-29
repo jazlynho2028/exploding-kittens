@@ -1,6 +1,5 @@
 package domain;
 
-import io.cucumber.java.bs.A;
 import org.easymock.EasyMock;
 import org.easymock.IArgumentMatcher;
 import org.junit.jupiter.api.Test;
