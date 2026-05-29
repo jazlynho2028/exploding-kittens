@@ -74,7 +74,12 @@ public class Game {
         }
     }
 
-    public void startGame() { }
+    public void startGame() {
+        if (getIsGameOngoing()) {
+            throw new IllegalStateException("error.gameAlreadyStarted");
+        }
+
+    }
 
     public List<String> getPlayerNames() {
         return List.of();

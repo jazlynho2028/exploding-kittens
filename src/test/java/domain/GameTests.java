@@ -113,6 +113,37 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile);
 	}
 
+	@Test
+	public void startGame_gameIsOngoing_failed() {
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(player1, player2, drawPile);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getIsGameOngoing")
+				.createMock();
+
+		EasyMock.expect(game.getIsGameOngoing()).andReturn(true);
+
+		EasyMock.replay(game);
+
+		Exception exception = assertThrows(IllegalStateException.class, game::startGame);
+
+		String expectedMsg = "error.gameAlreadyStarted";
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(game);
+	}
+
 	private static Card defuseCard(int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
