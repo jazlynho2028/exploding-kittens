@@ -51,7 +51,7 @@ public class GameTests {
 			Player player = EasyMock.createMock(Player.class);
 			players.add(player);
 
-			player.addCardToHand(defuseCard(NUM_DEFUSES - i));
+			player.addCardToHand(mockCardWithTypeAndId(CardType.DEFUSE, NUM_DEFUSES - i));
 			EasyMock.expectLastCall();
 		}
 
@@ -144,7 +144,7 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
-	private static Card defuseCard(int idNum) {
+	private static Card mockCardWithTypeAndId(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
 			public boolean matches(Object argument) {
@@ -153,23 +153,24 @@ public class GameTests {
 				}
 
 				Card card = (Card) argument;
-				return hasSameDefuseCardFields(card, idNum);
+				return hasSameCardFields(card, cardType, idNum);
 			}
 
 			@Override
 			public void appendTo(StringBuffer buffer) {
-				buffer.append("isDefuseCard()");
+				buffer.append(String.format("isCardOfTypeAndId(%s, %d)", cardType, idNum));
 			}
 		});
-		return new Card("DEFUSE_INVALID", CardType.DEFUSE);
+		return new Card("INVALID_CARD_MOCK", cardType);
 	}
 
-	private static boolean hasSameDefuseCardFields(Card card, int idNum) {
-		boolean isDefuse = (card.getType() == CardType.DEFUSE);
-		boolean hasValidId = Objects.equals(
-				card.getId(), String.format("%s%d", "DEFUSE_", idNum));
+	private static boolean hasSameCardFields(Card card, CardType cardType, int idNum) {
+		boolean matchesType = (card.getType() == cardType);
+		String expectedId = String.format("%s_%d", cardType.name(), idNum);
 
-		return isDefuse && hasValidId;
+		boolean matchesId = Objects.equals(card.getId(), expectedId);
+
+		return matchesType && matchesId;
 	}
 
 }
