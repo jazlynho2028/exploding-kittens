@@ -316,7 +316,7 @@
   - **State of the system**: isGameOngoing = true, drawCount = 1
   - **Expected output**: returns true
 
-- **TC58: Game is ongoing, draw count is 2** ( :x: )
+- **TC58: Game is ongoing, draw count is 2** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnTrue
   - **State of the system**: isGameOngoing = true, drawCount = 1
   - **Expected output**: returns true

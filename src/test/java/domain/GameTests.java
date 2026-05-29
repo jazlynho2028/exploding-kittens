@@ -538,7 +538,8 @@ public class GameTests {
 
 	@ParameterizedTest
 	@CsvSource({
-			"1"
+			"1",
+			"2"
 	})
 	public void getCanDraw_called_returnTrue(int drawCount) {
 		Player player1 = EasyMock.createNiceMock(Player.class);
