@@ -33,10 +33,10 @@ public class Player {
         hand.get(handCardIndex).toggleSelected();
     }
 
-    public void removeCardFromHand(Card card) throws GameException {
+    public void removeCardFromHand(Card card) {
         if (!this.hand.contains(card)) {
-            throw new GameException("error.cardNotInHand");
+            throw new IllegalStateException("error.cardNotInHand");
         }
-        this.hand.remove(card);
+        hand.remove(card);
     }
 }

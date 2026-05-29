@@ -21,7 +21,7 @@
     - **Expected output**: player hand still has duplicate cards; card at last index (size - 1) is the specified card instance
 
 ### Method under test: `removeCardFromHand(Card card)`
-- **TC5: remove non-existing card from empty hand** ( :x: )
+- **TC5: remove non-existing card from empty hand** ( :white_check_mark: )
     - **Name of the test**: removeCardFromHand_emptyHand_throwsGameException
     - **State of the system**: player hand is empty; card to remove does not exist in hand 
     - **Expected output**: IllegalStateException called with key "error.cardNotInHand"
