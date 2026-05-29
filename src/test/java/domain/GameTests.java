@@ -273,6 +273,7 @@ public class GameTests {
 				Arguments.of(1, List.of("SKIP_1", "ATTACK_3"))
 		);
 	}
+
 	@Test
 	public void getCurrentPlayer_called_returnCurrentPlayer() {
 		Player player1 = EasyMock.createNiceMock(Player.class);
