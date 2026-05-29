@@ -270,7 +270,7 @@
   - **State of the system**: drawPile = []
   - **Expected output**: returns true
 
-- **TC49: Draw pile has one card** ( :x: )
+- **TC49: Draw pile has one card** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
   - **State of the system**: drawPile = [SKIP_1]
   - **Expected output**: returns false
