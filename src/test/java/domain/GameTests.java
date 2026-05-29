@@ -678,8 +678,11 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, turnManager, drawnCard);
 	}
 
-	@Test
-	public void toggleFaceUp_called_togglesFaceUp() {
+	@ParameterizedTest
+	@CsvSource({
+			"true"
+	})
+	public void toggleFaceUp_called_togglesFaceUp(boolean initialFaceUp) {
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -692,10 +695,10 @@ public class GameTests {
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		game.setIsFaceUp(false);
+		game.setIsFaceUp(initialFaceUp);
 		game.toggleFaceUp();
 
-		assertEquals(true, game.getIsFaceUp());
+		assertEquals(!initialFaceUp, game.getIsFaceUp());
 
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
