@@ -269,4 +269,17 @@ public class PlayerTests {
 
         EasyMock.verify((Object[]) mockCards);
     }
+
+    @Test
+    public void toggleSelectedHandCardAt_indexLessThanZero_callsException() {
+        Player player = new Player("Bob");
+
+        IndexOutOfBoundsException exception = assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> player.toggleSelectedHandCardAt(-1)
+        );
+
+        assertEquals("error.invalidHandCardIndex", exception.getMessage());
+    }
+
 }

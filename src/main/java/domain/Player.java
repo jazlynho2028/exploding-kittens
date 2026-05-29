@@ -29,7 +29,10 @@ public class Player {
         hand.add(card);
     }
 
-    public void setIsSelectedOfHandCardToOpposite(int handCardIndex) {
+    public void toggleSelectedHandCardAt(int handCardIndex) {
+        if (handCardIndex < 0) {
+            throw new IndexOutOfBoundsException("error.invalidHandCardIndex");
+        }
         hand.get(handCardIndex).toggleSelected();
     }
 

@@ -91,3 +91,24 @@
   - **Name of the test**: deselectHandCards_nonEmptyHand_allUnselected
   - **State of the system**: Player hand has one card object, it has isSelected = true
   - **Expected output**: Method Successful, Every card in the hand has its isSelected property set to false
+
+### Method under test: `toggleSelectedHandCardAt()`
+- **TC19: Toggle index less than zero boundary check** ( :white_check_mark: )
+  - **Name of the test**: toggleSelectedHandCardAt_indexLessThanZero_callsException
+  - **State of the system**: Player hand can have any number of cards; index provided is -1
+  - **Expected output**: IndexOutOfBoundsException called with "error.invalidHandCardIndex"
+
+- **TC20: Toggle valid lower boundary index on a non-empty hand** ( :x: )
+  - **Name of the test**: toggleSelectedHandCardAt_validLowerBoundIndex_cardToggled
+  - **State of the system**: Player hand can have any number of cards; index provided is 0
+  - **Expected output**: Method executes successfully; card at index 0 changes its selection state
+
+- **TC21: Toggle index exactly equal to hand size upper boundary check** ( :x: )
+  - **Name of the test**: toggleSelectedHandCardAt_indexEqualToHandSize_callsException
+  - **State of the system**: Player hand has $N$ cards, index provided is equal to $N$
+  - **Expected output**: Method executes successfully; card at index $N$ changes its selection state
+
+- **TC19: Toggle index greater than hand size boundary check** ( :x: )
+  - **Name of the test**: toggleSelectedHandCardAt_indexGreaterThanHandSize_callsException
+  - **State of the system**: Player hand has $N$ cards, index provided is greater than $N$
+  - **Expected output**: IndexOutOfBoundsException called with "error.invalidHandCardIndex"
