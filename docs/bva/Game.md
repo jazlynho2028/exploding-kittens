@@ -359,7 +359,7 @@
 
 ### Method under test: `toggleSelectedCurrentPlayerCardAt(int handCardIndex)`
 - **TC65: Hand card index at 0** ( :white_check_mark: )
-  - **Name of the test**: toggleSelectedCurrentPlayerCardAt_indexZero_calledPlayerToggle
+  - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle
   - **State of the system**: handCardIndex = 0
   - **Expected output**: getCurrentPlayer.toggleSelectedHandCardAt is called with handCardIndex
 

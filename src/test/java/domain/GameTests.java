@@ -704,10 +704,11 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
 
-	@Test
-	public void toggleSelectedCurrentPlayerCardAt_indexZero_calledPlayerToggle() {
-		final int HAND_CARD_INDEX = 0;
-
+	@ParameterizedTest
+	@CsvSource({
+			"0"
+	})
+	public void toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle(int handCardIndex) {
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -717,14 +718,14 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(0);
-		player1.toggleSelectedHandCardAt(HAND_CARD_INDEX);
+		player1.toggleSelectedHandCardAt(handCardIndex);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(player1, player2, drawPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		game.toggleSelectedPlayerCardAt(HAND_CARD_INDEX);
+		game.toggleSelectedPlayerCardAt(handCardIndex);
 
 		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
