@@ -108,7 +108,7 @@
   - **State of the system**: Player hand has 2, index provided is equal to 1
   - **Expected output**: Method executes successfully; card at index 1 changes its selection state
 
-- **TC19: Toggle index greater than hand size boundary check** ( :x: )
+- **TC19: Toggle index greater than hand size boundary check** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedHandCardAt_indexGreaterThanHandSize_callsException
   - **State of the system**: Player hand has 2 cards, index provided is greater than 1
   - **Expected output**: IndexOutOfBoundsException called with "error.invalidHandCardIndex"

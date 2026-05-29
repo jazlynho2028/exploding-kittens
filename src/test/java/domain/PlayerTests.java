@@ -318,4 +318,26 @@ public class PlayerTests {
         EasyMock.verify(mockCard1, mockCard2);
     }
 
+    @Test
+    public void toggleSelectedHandCardAt_indexGreaterThanHandSize_callsException() {
+        final int cardIndex = 3;
+        Player player = new Player("Alice");
+
+        Card mockCard1 = EasyMock.createMock(Card.class);
+        Card mockCard2 = EasyMock.createMock(Card.class);
+
+        EasyMock.replay(mockCard1, mockCard2);
+
+        player.addCardToHand(mockCard1);
+        player.addCardToHand(mockCard2);
+
+        IndexOutOfBoundsException exception = assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> player.toggleSelectedHandCardAt(cardIndex)
+        );
+
+        assertEquals("error.invalidHandCardIndex", exception.getMessage());
+        EasyMock.verify(mockCard1, mockCard2);
+    }
+
 }
