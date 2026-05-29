@@ -187,7 +187,7 @@ public class Game {
 
     public void advanceTurn() {
         if (!canEndTurn()) {
-            return;
+            throw new IllegalStateException("error.cannotEndTurn");
         }
         turnManager.advanceTurn();
         getCurrentPlayer().deselectHandCards();

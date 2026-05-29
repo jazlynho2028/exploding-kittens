@@ -796,6 +796,32 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
+	@Test
+	public void advanceTurn_cannotEndTurn_failed() {
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(player1, player2, drawPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canEndTurn")
+				.createMock();
+
+		EasyMock.expect(game.canEndTurn()).andReturn(false);
+		EasyMock.replay(game);
+
+		Exception exception = assertThrows(IllegalStateException.class, game::advanceTurn);
+		assertEquals("error.cannotEndTurn", exception.getMessage());
+
+		EasyMock.verify(game);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override

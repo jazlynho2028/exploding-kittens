@@ -383,7 +383,7 @@
     - turnManager.advanceTurn is called
     - getCurrentPlayer.deselectHandCards is called
 
-- **TC69: Cannot end turn** ( :x: )
+- **TC69: Cannot end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
   - **State of the system**: canEndTurn = false
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
