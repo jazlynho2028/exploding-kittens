@@ -536,6 +536,35 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
+	@Test
+	public void getCanDraw_called_returnTrue() {
+		final int DRAW_COUNT = 1;
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(player1, player2, drawPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getIsGameOngoing")
+				.addMockedMethod("getDrawCount")
+				.createMock();
+
+		EasyMock.expect(game.getIsGameOngoing()).andReturn(true);
+		EasyMock.expect(game.getDrawCount()).andReturn(DRAW_COUNT);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.getCanDraw());
+
+		EasyMock.verify(game);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
