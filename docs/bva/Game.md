@@ -352,8 +352,8 @@
   - **State of the system**: isFaceUp = true
   - **Expected output**: isFaceUp = false
 
-- **TC64: Is face down** ( :x: )
-  - **Name of the test**: toggleFaceUp_isFaceDown_setToTrue
+- **TC64: Is face down** ( :white_check_mark: )
+  - **Name of the test**: toggleFaceUp_called_togglesFaceUp
   - **State of the system**: isFaceUp = false
   - **Expected output**: isFaceUp = true
 

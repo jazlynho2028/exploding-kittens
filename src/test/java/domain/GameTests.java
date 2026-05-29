@@ -680,7 +680,8 @@ public class GameTests {
 
 	@ParameterizedTest
 	@CsvSource({
-			"true"
+			"true",
+			"false"
 	})
 	public void toggleFaceUp_called_togglesFaceUp(boolean initialFaceUp) {
 		Player player1 = EasyMock.createNiceMock(Player.class);
