@@ -4,6 +4,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
+import static domain.GameConstants.*;
+
 public class DeckBuilder {
 
     private static List<Card> cards;
@@ -22,30 +24,30 @@ public class DeckBuilder {
     static Deck initializeFullDeck() {
         cards = new ArrayList<>();
 
-        addCards(CardType.MILD_DRAW, 1);
-        addCards(CardType.GODCAT, 1);
-        addCards(CardType.WINNER_WINNER_CATNIP_DINNER, 1);
-        addCards(CardType.RAGEBAIT, 1);
-        addCards(CardType.RECYCLE, 1);
-        addCards(CardType.DOUBLE_UP, 1);
-        addCards(CardType.CATOMIC_BOMB, 1);
+        addCards(CardType.MILD_DRAW, ONE_CARD);
+        addCards(CardType.GODCAT, ONE_CARD);
+        addCards(CardType.WINNER_WINNER_CATNIP_DINNER, ONE_CARD);
+        addCards(CardType.RAGEBAIT, ONE_CARD);
+        addCards(CardType.RECYCLE, ONE_CARD);
+        addCards(CardType.DOUBLE_UP, ONE_CARD);
+        addCards(CardType.CATOMIC_BOMB, ONE_CARD);
 
-        addCards(CardType.SUPER_SKIP, 2);
+        addCards(CardType.SUPER_SKIP, TWO_CARDS);
 
-        addCards(CardType.ATTACK, 3);
-        addCards(CardType.SKIP, 3);
-        addCards(CardType.CLONE, 3);
-        addCards(CardType.SWAP_TOP_AND_BOTTOM, 3);
-        addCards(CardType.DRAW_FROM_THE_BOTTOM, 3);
+        addCards(CardType.ATTACK, THREE_CARDS);
+        addCards(CardType.SKIP, THREE_CARDS);
+        addCards(CardType.CLONE, THREE_CARDS);
+        addCards(CardType.SWAP_TOP_AND_BOTTOM, THREE_CARDS);
+        addCards(CardType.DRAW_FROM_THE_BOTTOM, THREE_CARDS);
 
-        addCards(CardType.FERAL_CAT, 4);
-        addCards(CardType.SEE_THE_FUTURE, 4);
-        addCards(CardType.SHUFFLE, 4);
-        addCards(CardType.TARGETED_ATTACK, 4);
-        addCards(CardType.CAT_CARD_1, 4);
-        addCards(CardType.CAT_CARD_2, 4);
-        addCards(CardType.CAT_CARD_3, 4);
-        addCards(CardType.CAT_CARD_4, 4);
+        addCards(CardType.FERAL_CAT, FOUR_CARDS);
+        addCards(CardType.SEE_THE_FUTURE, FOUR_CARDS);
+        addCards(CardType.SHUFFLE, FOUR_CARDS);
+        addCards(CardType.TARGETED_ATTACK, FOUR_CARDS);
+        addCards(CardType.CAT_CARD_1, FOUR_CARDS);
+        addCards(CardType.CAT_CARD_2, FOUR_CARDS);
+        addCards(CardType.CAT_CARD_3, FOUR_CARDS);
+        addCards(CardType.CAT_CARD_4, FOUR_CARDS);
 
         return new Deck(new ArrayDeque<>(cards));
     }
@@ -58,13 +60,11 @@ public class DeckBuilder {
     }
 
     public static String createCardId(CardType type, int num) {
-        String test = type.name().replace("_", "") + "_" + num;
-        System.out.println("HERE: "+test);
-        return test;
+        return type.name().replace("_", "") + "_" + num;
     }
 
     static int calculateDefusesToAdd(int numPlayers) {
-        int defusesToAdd = 5 - numPlayers;
+        int defusesToAdd = NUM_DEFUSES - numPlayers;
 
         if (defusesToAdd < 0) {
             throw new IllegalArgumentException("Cannot add negative number of defuses");

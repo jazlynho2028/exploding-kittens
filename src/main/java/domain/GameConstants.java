@@ -12,4 +12,9 @@ public final class GameConstants {
 
 	public static final int NUM_DEFUSES = 5;
 
+	public static final int ONE_CARD = 1;
+	public static final int TWO_CARDS = 2;
+	public static final int THREE_CARDS = 3;
+	public static final int FOUR_CARDS = 4;
+
 }

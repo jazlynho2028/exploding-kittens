@@ -17,9 +17,9 @@ public class PlayerDeckController {
 
     @SuppressFBWarnings(
             value = "EI_EXPOSE_REP2",
-            justification = "View and model are injected by for compromise between MVC pattern and " +
-                    "testability, defensive copies are not applicable or not desired for JavaFX " +
-                    "components and Game objects."
+            justification = "View and model are injected by for compromise between MVC " +
+                    "pattern and testability, defensive copies are not applicable or not " +
+                    "desired for JavaFX components and Game objects."
     )
     public PlayerDeckController(Game model, PlayerDeckView view) {
         this.model = model;
