@@ -536,9 +536,11 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
-	@Test
-	public void getCanDraw_called_returnTrue() {
-		final int DRAW_COUNT = 1;
+	@ParameterizedTest
+	@CsvSource({
+			"1"
+	})
+	public void getCanDraw_called_returnTrue(int drawCount) {
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -556,7 +558,7 @@ public class GameTests {
 				.createMock();
 
 		EasyMock.expect(game.getIsGameOngoing()).andReturn(true);
-		EasyMock.expect(game.getDrawCount()).andReturn(DRAW_COUNT);
+		EasyMock.expect(game.getDrawCount()).andReturn(drawCount);
 
 		EasyMock.replay(game);
 
