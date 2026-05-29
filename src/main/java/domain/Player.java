@@ -22,4 +22,8 @@ public class Player {
 
     public void deselectHandCards() { }
 
+    public List<String> getHandIds() {
+        return List.of();
+    }
+
 }

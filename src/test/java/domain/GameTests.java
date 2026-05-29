@@ -4,11 +4,14 @@ import org.easymock.EasyMock;
 import org.easymock.IArgumentMatcher;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import static domain.GameConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -193,6 +196,7 @@ public class GameTests {
 	@Test
 	public void getCurrentPlayerIndex_called_success() {
 		final int EXPECTED_INDEX = 2;
+
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -232,6 +236,31 @@ public class GameTests {
 		int actualIndex = game.getStartingPlayerIndex();
 
 		assertEquals(STARTING_PLAYER_INDEX, actualIndex);
+	}
+
+	@Test
+	public void getCurrentPlayerHandIds_called_returnHandIds() {
+		final int CURRENT_INDEX = 0;
+
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(CURRENT_INDEX);
+		EasyMock.expect(player1.getHandIds()).andReturn(List.of());
+
+		EasyMock.replay(player1, player2, drawPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		List<String> actualIds = game.getCurrentPlayerHandIds();
+
+		assertEquals(List.of(), actualIds);
+
+		EasyMock.verify(player1, player2, drawPile, turnManager);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {

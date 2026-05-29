@@ -115,7 +115,7 @@ public class Game {
     }
 
     public List<String> getCurrentPlayerHandIds() {
-        return List.of();
+        return players.get(turnManager.getCurrentPlayerIndex()).getHandIds();
     }
 
     private Player getCurrentPlayer() {

@@ -76,7 +76,7 @@
   - **Expected output**: returns GameConstants.STARTING_PLAYER_INDEX
 
 ### Method under test: `getCurrentPlayerHandIds()`
-- **TC11: Current player is 0, empty hand** ( :x: )
+- **TC11: Current player is 0, empty hand** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
   - **State of the system**: currentPlayerIndex = 0, hand = []
   - **Expected output**: returns []
