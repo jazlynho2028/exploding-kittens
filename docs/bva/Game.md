@@ -148,7 +148,7 @@
   - **State of the system**: selectedCards = [CATCARD4_4]
   - **Expected output**: returns false
 
-- **TC25: One Attack selected** ( :x: )
+- **TC25: One Attack selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [ATTACK_1]
   - **Expected output**: returns true
