@@ -168,7 +168,9 @@ public class Game {
         turnManager.setCurrentPlayerIndex(newPlayerIndex);
     }
 
-    public void setFaceUpToFalse() { }
+    public void setFaceUpToFalse() {
+        isFaceUp = false;
+    }
 
     public void drawFromPile() { }
 
