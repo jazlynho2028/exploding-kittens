@@ -348,7 +348,7 @@
 
 ### Method under test: `toggleFaceUp()`
 - **TC63: Is face up** ( :white_check_mark: )
-  - **Name of the test**: toggleFaceUp_isFaceUp_setToFalse
+  - **Name of the test**: toggleFaceUp_called_setToFalse
   - **State of the system**: isFaceUp = true
   - **Expected output**: isFaceUp = false
 
