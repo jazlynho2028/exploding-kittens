@@ -274,8 +274,8 @@ public class PlayerTests {
     public void toggleSelectedHandCardAt_indexLessThanZero_callsException() {
         Player player = new Player("Bob");
 
-        IndexOutOfBoundsException exception = assertThrows(
-                IndexOutOfBoundsException.class,
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
                 () -> player.toggleSelectedHandCardAt(-1)
         );
 

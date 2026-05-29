@@ -31,7 +31,7 @@ public class Player {
 
     public void toggleSelectedHandCardAt(int handCardIndex) {
         if (handCardIndex < 0 || handCardIndex >= this.hand.size()) {
-            throw new IndexOutOfBoundsException("error.invalidHandCardIndex");
+            throw new IllegalArgumentException("error.invalidHandCardIndex");
         }
         hand.get(handCardIndex).toggleSelected();
     }
