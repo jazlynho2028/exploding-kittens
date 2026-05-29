@@ -9,6 +9,14 @@ The following chapters of the textbook are considered: Chapter 1, 2, 3, 4, 5, 6,
 Please note that this feedback does not include evaluation of your progress, the proper use of linters, the quality of your test cases, or your compliance of TDD/BDD workflow.  
 You can find the weekly feedback from your dedicated PM/TA for that.
 
+## Week 7-8 Code Review
+This review is for the code your team developed in Week 7 and 8.
+I apologize for this delayed code review (should have been given last Friday but I got really sick...).
+As compensation, I will add one extra code review in Week 10 (around Thursday).
+
+I have read all the code `main` branch and I found no violation of any code standards! Good job!!!!!!
+
+
 ## Week 6 Code Review
 I have read every line of code currently in the main branch and I don't find any violations of the coding standards required by letter grade A! Good job! Look forward to reviewing the domain classes in the future.
 
