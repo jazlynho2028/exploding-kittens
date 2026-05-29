@@ -259,7 +259,7 @@
   - **State of the system**: isGameOngoing = true, drawCount = 1
   - **Expected output**: returns false
 
-- **TC47: Game is ongoing, draw count is 0** ( :x: )
+- **TC47: Game is ongoing, draw count is 0** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue
   - **State of the system**: isGameOngoing = true, drawCount = 0
   - **Expected output**: returns true
