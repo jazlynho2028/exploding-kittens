@@ -153,87 +153,87 @@
   - **State of the system**: selectedCards = [ATTACK_1]
   - **Expected output**: returns true
 
-- **TC26: One Shuffle selected** ( :x: )
+- **TC26: One Shuffle selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [SHUFFLE_2]
   - **Expected output**: returns true
 
-- **TC27: One Skip selected** ( :x: )
+- **TC27: One Skip selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [SKIP_3]
   - **Expected output**: returns true
 
-- **TC28: One See The Future selected** ( :x: )
+- **TC28: One See The Future selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [SEETHEFUTURE_4]
   - **Expected output**: returns true
 
-- **TC29: One Feral Cat selected** ( :x: )
+- **TC29: One Feral Cat selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [FERALCAT_1]
   - **Expected output**: returns true
 
-- **TC30: One Catomic Bomb selected** ( :x: )
+- **TC30: One Catomic Bomb selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [CATOMICBOMB_1]
   - **Expected output**: returns true
 
-- **TC31: One Super Skip selected** ( :x: )
+- **TC31: One Super Skip selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [SUPERSKIP_1]
   - **Expected output**: returns true
 
-- **TC32: One Godcat selected** ( :x: )
+- **TC32: One Godcat selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [GODCAT_1]
   - **Expected output**: returns true
 
-- **TC33: One Clone selected** ( :x: )
+- **TC33: One Clone selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [CLONE_1]
   - **Expected output**: returns true
 
-- **TC34: One Swap Top And Bottom selected** ( :x: )
+- **TC34: One Swap Top And Bottom selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [SWAPTOPANDBOTTOM_1]
   - **Expected output**: returns true
 
-- **TC35: One Draw From The Bottom selected** ( :x: )
+- **TC35: One Draw From The Bottom selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [DRAWFROMTHEBOTTOM_1]
   - **Expected output**: returns true
 
-- **TC36: One Targeted Attack selected** ( :x: )
+- **TC36: One Targeted Attack selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [TARGETEDATTACK_1]
   - **Expected output**: returns true
 
-- **TC37: One Winner Winner Catnip Dinner selected** ( :x: )
+- **TC37: One Winner Winner Catnip Dinner selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [WINNERWINNERCATNIPDINNER_1]
   - **Expected output**: returns true
 
-- **TC38: One Ragebait selected** ( :x: )
+- **TC38: One Ragebait selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [RAGEBAIT_1]
   - **Expected output**: returns true
 
-- **TC39: One Recycle selected** ( :x: )
+- **TC39: One Recycle selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [RECYCLE_1]
   - **Expected output**: returns true
 
-- **TC40: One Double Up selected** ( :x: )
+- **TC40: One Double Up selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [DOUBLEUP_1]
   - **Expected output**: returns true
 
-- **TC41: One Mild Draw selected** ( :x: )
+- **TC41: One Mild Draw selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [MILDDRAW_1]
   - **Expected output**: returns true
 
-- **TC42: One Winner Winner Catnip Dinner selected** ( :x: )
+- **TC42: One Winner Winner Catnip Dinner selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [WINNERWINNERCATNIPDINNER_1]
   - **Expected output**: returns true
@@ -263,12 +263,12 @@
   - **State of the system**: selectedCards = [SKIP_1, ATTACK_1]
   - **Expected output**: returns false
 
-- **TC48: Two same valid type cards selected** ( :x: )
+- **TC48: Two same valid type cards selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [SKIP_1, SKIP_3]
   - **Expected output**: returns true
 
-- **TC49: Two same ID valid type cards selected** ( :x: )
+- **TC49: Two same ID valid type cards selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [SKIP_1, SKIP_1]
   - **Expected output**: returns true
@@ -298,12 +298,12 @@
   - **State of the system**: selectedCards = [SKIP_1, ATTACK_1, SHUFFLE_4]
   - **Expected output**: returns false
 
-- **TC55: Three same valid type cards with duplicate IDs selected** ( :x: )
+- **TC55: Three same valid type cards with duplicate IDs selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [SKIP_1, SKIP_1, SKIP_2]
   - **Expected output**: returns true
 
-- **TC56: Three same valid type cards with unique IDs selected** ( :x: )
+- **TC56: Three same valid type cards with unique IDs selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCards = [SHUFFLE_2, SHUFFLE_1, SHUFFLE_4]
   - **Expected output**: returns true
