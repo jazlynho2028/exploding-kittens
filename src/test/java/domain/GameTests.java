@@ -200,14 +200,17 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		EasyMock.replay(drawPile);
-
 		List<Player> players = new ArrayList<>();
 
 		for (String name : expectedNames) {
-			Player player = new Player(name);
+			Player player = EasyMock.createNiceMock(Player.class);
+			EasyMock.expect(player.getName()).andStubReturn(name);
+			EasyMock.replay(player);
+
 			players.add(player);
 		}
+
+		EasyMock.replay(drawPile);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 		List<String> actualNames = game.getPlayerNames();
