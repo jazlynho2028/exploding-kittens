@@ -278,4 +278,29 @@ public class TurnManagerTests {
         EasyMock.verify((Object[]) mockPlayers);
     }
 
+    @Test
+    public void advanceTurn_atLastPlayer_wrapsToZeroExactly() {
+        final int startingIndex = 0;
+        List<Player> players = new ArrayList<>();
+        Player mockPlayer1 = EasyMock.createMock(Player.class);
+        Player mockPlayer2 = EasyMock.createMock(Player.class);
+        Player mockPlayer3 = EasyMock.createMock(Player.class);
+
+        players.add(mockPlayer1);
+        players.add(mockPlayer2);
+        players.add(mockPlayer3);
+
+        EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        turnManager.advanceTurn();
+        turnManager.advanceTurn();
+        turnManager.advanceTurn();
+
+        assertEquals(startingIndex, turnManager.getCurrentPlayerIndex());
+
+        EasyMock.verify(mockPlayer1, mockPlayer2, mockPlayer3);
+    }
+
 }

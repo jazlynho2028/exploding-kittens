@@ -86,7 +86,7 @@
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = N - 1
   - **Expected output**: getCurrentPlayerIndex() = 0
 
-- **TC16: Strict testing on index of player when starting next round** ( :x: )
+- **TC16: Strict testing on index of player when starting next round** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_atLastPlayer_wrapsToZeroExactly
   - **State of the system**: TurnManager constructed with 3 players advanced turn three times
   - **Expected output**: getCurrentPlayerIndex() = 0
