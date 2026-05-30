@@ -50,4 +50,12 @@ public class Player {
             }
         }
     }
+
+    public List<Card> getSelectedCards() {
+        return List.of();
+    }
+
+    public List<String> getHandIds() {
+        return List.of();
+    }
 }
