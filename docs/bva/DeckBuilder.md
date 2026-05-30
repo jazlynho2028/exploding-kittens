@@ -35,13 +35,13 @@
   - **Expected output**: throws an error (5 starting defuses - 6 players = -1, throw error)
 
 ### Method under test: `createCardID(CardType type, int num)`
-- **TC6: Lower boundary valid CardID sequence number of 1 ** ( :x: )
+- **TC6: Lower boundary valid CardID sequence number of 1 ** ( :white_check_mark: )
   - **Name of the test**: createCardID_LowerValidInput_ReturnsCorrectString
   - **State of the system**: card type = FERAL_CAT, num = 1
   - **Expected output**: returns string "FERALCAT_1"
 
 - **TC6: Upper boundary valid CardID sequence number of 3 ** ( :x: )
-  - **Name of the test**: createCardID_LowerValidInput_ReturnsCorrectString
+  - **Name of the test**: createCardID_UpperValidInput_ReturnsCorrectString
   - **State of the system**: card type = ATTACK, num = 3
   - **Expected output**: returns string "ATTACK_3"
 

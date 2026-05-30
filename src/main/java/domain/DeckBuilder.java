@@ -67,7 +67,7 @@ public class DeckBuilder {
         }
     }
 
-    private static int calculateDefusesToAdd(int numPlayers) {
+     static int calculateDefusesToAdd(int numPlayers) {
         int defusesToAdd = NUM_DEFUSES_IN_GAME - numPlayers;
 
         if (defusesToAdd < 0) {
@@ -78,6 +78,10 @@ public class DeckBuilder {
     }
 
     public static String createCardId(CardType type, int num) {
+        if (num <= 0) {
+            throw new IllegalArgumentException("error.invalidCardSequenceNumber");
+        }
+
         String cardTypeNameWithoutUnderscore = type.name().replace("_", "");
 
         return String.format(
@@ -86,5 +90,4 @@ public class DeckBuilder {
                 num
         );
     }
-
 }

@@ -51,9 +51,15 @@ public class DeckBuilderTests {
     }
 
     @Test
-    void calculateDefusesToAdd_MaximumPlayers_ReturnsOne() {
+    void calculateDefusesToAdd_MaximumPlayers_ReturnsOne(){
         int numDefuses = DeckBuilder.calculateDefusesToAdd(MAX_PLAYERS);
         assertEquals(EXPECTED_DEFUSE_COUNT_4_PLAYERS, numDefuses);
+    }
+
+    @Test
+    void createCardID_LowerValidInput_ReturnsCorrectString(){
+        String actualID = DeckBuilder.createCardId(CardType.FERAL_CAT, 1);
+        assertEquals("FERALCAT_1", actualID);
     }
 
     private int countCards(Deck deck, CardType type){
@@ -96,7 +102,7 @@ public class DeckBuilderTests {
         assertEquals(NUM_CAT_CARD, countCards(deck, CardType.CAT_CARD_3));
         assertEquals(NUM_CAT_CARD, countCards(deck, CardType.CAT_CARD_4));
 
-        // Should start with 0 EXPLODING_KITTEN in deck
+        // Should start with 0 EXPLODING_KITTEN's in deck
         assertEquals(0, countCards(deck, CardType.EXPLODING_KITTEN));
     }
 
