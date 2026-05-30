@@ -23,7 +23,7 @@
   - **Expected output**: validates that all 1-count cards (e.g., `MILD_DRAW`, `GODCAT`, `CATOMIC_BOMB`) 
     only exist once in deck and are mapped sequentially to cardID containing 1.
 
-- **TC5: Double-card counts ** ( :x: )
+- **TC5: Double-card counts ** ( :white_check_mark: )
   - **Name of the test**: initializeDeckWithoutDefuses_DoubleInstanceCards_PopulateCorrectQuantitiesAndIDs
   - **State of the system**: no inputs because deck of non-defuse cards does not depend on player count
   - **Expected output**: validates that all double-allocation cards (`SUPER_SKIP`) exist exactly twice 

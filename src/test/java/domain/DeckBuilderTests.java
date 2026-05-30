@@ -34,6 +34,11 @@ public class DeckBuilderTests {
     }
 
     @Test
+    void initializeDeckWithoutDefuses_DoubleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
+        verifyCardTypeGroup(baseCards, CardType.SUPER_SKIP, NUM_SUPER_SKIP, "SUPERSKIP");
+    }
+
+    @Test
     void calculateDefusesToAdd_NegativeDefuses_ThrowsException() {
         assertThrows(IllegalArgumentException.class, () -> {
             DeckBuilder.calculateDefusesToAdd(INVALID_PLAYER_COUNT);
