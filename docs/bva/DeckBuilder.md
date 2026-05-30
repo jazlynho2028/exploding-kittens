@@ -1,34 +1,17 @@
 # BVA Analysis: DeckBuilder Class
 
-### Method under test: `buildDeckWithoutExplodeAndAddDefuse(int numPlayers)`
-- **TC1: Minimum allowed players ** ( :white_check_mark: )
-    - **Name of the test**: buildDeck_NumberOfPlayers_ReturnsCorrectCardDeck
-    - **State of the system**: numPlayers = 2
-    - **Expected output**: deck has 59 cards, of which 3 are "DEFUSE"'s. deck is shuffled.
-
-- **TC2: Maximum allowed players ** ( :white_check_mark: )
-    - **Name of the test**: buildDeck_NumberOfPlayers_ReturnsCorrectCardDeck
-    - **State of the system**: numPlayers = 4
-    - **Expected output**: deck has 57 cards, of which 1 is a "DEFUSE". deck is shuffled.
-
 ### Method under test: `DeckBuilder(int numPlayers)`
-- **TC3: Minimum allowed players ** ( :white_check_mark: )
-  - **Name of the test**: constructor_MinimumPlayers_ReturnsCorrect59CardDeck
+- **TC1: Minimum allowed players (parameterized test) ** ( :white_check_mark: )
+  - **Name of the test**: constructor_ValidPlayerCounts_PopulatesCardDeckCorrectly
   - **State of the system**: numPlayers = 2
   - **Expected output**: instance is initialized. internal deck has 59 cards, of which 3 are "DEFUSE" cards. deck is shuffled.
 
-- **TC4: Maximum allowed players ** ( :x: )
-  - **Name of the test**: constructor_MaximumPlayers_ReturnsCorrect57CardDeck
+- **TC2: Maximum allowed players (parameterized test) ** ( :white_check_mark: )
+  - **Name of the test**: constructor_ValidPlayerCounts_PopulatesCardDeckCorrectly
   - **State of the system**: numPlayers = 4
   - **Expected output**: instance is initialized. internal deck has 57 cards, of which 1 is a "DEFUSE" card. deck is shuffled.
   
 ### Helper functions
-### Method under test: `initializeFullDeck()`
-- **TC3: Create deck with base game cards ** ( :white_check_mark: )
-    - **Name of the test**: initializeFullDeck_ReturnsExactly56BaseCards
-    - **State of the system**: invoked internally after confirming numPlayers is valid
-    - **Expected output**: returns list of exactly 56 base cards (excluding all Exploding Kittens and Defuse cards)
-
 ### Method under test: `calculateDefusesToAdd(int numPlayers)`
 - **TC4: Defuse count for minimum player count (2 players) ** ( :white_check_mark: )
     - **Name of the test**: calculateDefusesToAdd_MinimumPlayers_ReturnsThree

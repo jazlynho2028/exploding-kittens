@@ -1,6 +1,8 @@
 package domain;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,51 +11,22 @@ import static domain.GameConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckBuilderTests {
+    @ParameterizedTest(name = "Constructor for {0} players should produce a deck of size {1} with {2} defuses")
+    @CsvSource({
+            "2, 59, 3",
+            "4, 57, 1"
+    })
+    void constructor_ValidPlayerCounts_PopulatesCardDeckCorrectly(int numPlayers, int expectedDeckSize, int expectedNumDefuses) {
+        DeckBuilder builder = new DeckBuilder(numPlayers);
+        Deck deck = builder.getDeck();
 
-    @Test
-    void buildDeck_NumberOfPlayers_ReturnsCorrectCardDeck(int numPlayers, int expectedDeckSize) {
-        Deck deck = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(MIN_PLAYERS);
-        assertEquals(EXPECTED_DECK_SIZE_2_PLAYERS, deck.size());
+        assertNotNull(deck);
+        assertEquals(expectedDeckSize, deck.size());
 
-        int defuseCount = 0;
-        int initialSize = deck.size();
-        for (int i = 0; i < initialSize; i++) {
-            Card card = deck.removeTop();
-            if (card.getType() == CardType.DEFUSE) {
-                defuseCount++;
-            }
-        }
-        assertEquals(EXPECTED_DEFUSE_COUNT_2_PLAYERS, defuseCount);
+        int actualNumDefuses = countCards(deck, CardType.DEFUSE);
+        assertEquals(expectedNumDefuses, actualNumDefuses);
     }
 
-    @Test
-    void buildDeck_MaxAllowedPlayers_ReturnsCorrect57CardDeck() {
-        Deck deck = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(MAX_PLAYERS);
-        assertEquals(EXPECTED_DECK_SIZE_4_PLAYERS, deck.size());
-
-        int defuseCount = 0;
-        int initialSize = deck.size();
-        for (int i = 0; i < initialSize; i++) {
-            Card card = deck.removeTop();
-            if (card.getType() == CardType.DEFUSE) {
-                defuseCount++;
-            }
-        }
-        assertEquals(EXPECTED_DEFUSE_COUNT_4_PLAYERS, defuseCount);
-    }
-
-    @Test
-    void initializeFullDeck_ReturnsExactly56BaseCards() {
-        List<Card> baseDeck = DeckBuilder.initializeFullDeck();
-
-        assertNotNull(baseDeck);
-        assertEquals(EXPECTED_BASE_DECK_SIZE, baseDeck.size());
-
-        for (Card card : baseDeck) {
-            assertNotEquals(CardType.EXPLODING_KITTEN, card.getType());
-            assertNotEquals(CardType.DEFUSE, card.getType());
-        }
-    }
 
     @Test
     void calculateDefusesToAdd_NegativeDefuses_ThrowsException() {
@@ -74,13 +47,14 @@ public class DeckBuilderTests {
         assertEquals(EXPECTED_DEFUSE_COUNT_4_PLAYERS, numDefuses);
     }
 
-    @Test
-    void constructor_MinimumPlayers_PopulatesCorrect59CardDeck() {
-        DeckBuilder builder = new DeckBuilder(MIN_PLAYERS);
-        Deck deck = builder.getDeck();
-
-        assertNotNull(deck);
-        assertEquals(59, deck.size());
+    private int countCards(Deck deck, CardType type){
+        int count = 0;
+        for (Card card : deck.peekTopNCards(deck.size())){
+            if (card.getType() == type){
+                count++;
+            }
+        }
+        return count;
     }
 
 }

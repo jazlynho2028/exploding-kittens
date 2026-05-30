@@ -12,28 +12,21 @@ public class DeckBuilder {
     private final Deck deck;
 
     public DeckBuilder(int numPlayers){
-        this.deck = buildDeckWithoutExplodeAndAddDefuse(numPlayers);
-    }
-
-    public Deck getDeck(){
-        return this.deck;
-    }
-
-    public static Deck buildDeckWithoutExplodeAndAddDefuse(int numPlayers) {
         List<Card> cardsList = initializeFullDeck();
 
         int defusesToAdd = calculateDefusesToAdd(numPlayers);
         addCards(cardsList, CardType.DEFUSE, defusesToAdd);
 
         Deque<Card> deckDeque = new ArrayDeque<>(cardsList);
-        Deck deck = new Deck(deckDeque);
-
-        deck.shuffle();
-
-        return deck;
+        this.deck = new Deck(deckDeque);
+        this.deck.shuffle();
     }
 
-    static List<Card> initializeFullDeck() {
+    public Deck getDeck(){
+        return this.deck;
+    }
+
+     List<Card> initializeFullDeck() {
         List<Card> cardsList = new ArrayList<>();
 
         addCards(cardsList, CardType.MILD_DRAW, 1);
@@ -64,7 +57,7 @@ public class DeckBuilder {
         return cardsList;
     }
 
-    private static void addCards(List<Card> destinationList, CardType type, int numToAdd) {
+    private void addCards(List<Card> destinationList, CardType type, int numToAdd) {
         for (int i = 1; i <= numToAdd; i++) {
             String cardId = createCardId(type, i);
             destinationList.add(new Card(cardId, type));
@@ -82,7 +75,7 @@ public class DeckBuilder {
     }
 
     static int calculateDefusesToAdd(int numPlayers) {
-        int defusesToAdd = MAX_DEFUSES_COUNT - numPlayers;
+        int defusesToAdd = NUM_DEFUSES_IN_GAME - numPlayers;
 
         if (defusesToAdd < 0) {
             throw new IllegalArgumentException("error.negativeDefuseCount");
