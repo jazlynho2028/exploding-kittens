@@ -62,6 +62,12 @@ public class DeckBuilderTests {
         assertEquals("FERALCAT_1", actualID);
     }
 
+    @Test
+    void createCardID_UpperValidInput_ReturnsCorrectString(){
+        String actualID = DeckBuilder.createCardId(CardType.ATTACK, 3);
+        assertEquals("ATTACK_3", actualID);
+    }
+
     private int countCards(Deck deck, CardType type){
         int count = 0;
         for (Card card : deck.peekTopNCards(deck.size())){
