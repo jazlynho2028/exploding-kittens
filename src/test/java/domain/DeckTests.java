@@ -175,11 +175,13 @@ public class DeckTests {
     }
 
     @Test
-    public void removeTop_emptyDeck_throwsUnsupportedOperationException() {
+    public void removeTop_emptyDeck_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards);
 
-        assertThrows(UnsupportedOperationException.class, deck::removeTop);
+        IllegalStateException exception = assertThrows(IllegalStateException.class, deck::removeTop);
+
+        assertEquals("error.emptyDeck", exception.getMessage());
         assertEquals(0, deck.size());
     }
 

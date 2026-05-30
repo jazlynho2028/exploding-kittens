@@ -45,7 +45,7 @@ public class Deck {
 
     public Card removeTop() {
         if (this.deck.isEmpty()) {
-            throw new UnsupportedOperationException("Cannot remove top of empty deck.");
+            throw new IllegalStateException(ERROR_EMPTY_DECK);
         }
 
         return this.deck.removeFirst();

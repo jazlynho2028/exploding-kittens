@@ -42,9 +42,9 @@
 
 ### Method under test: `removeTop()`
 - **TC9: Remove top from empty deck** ( :white_check_mark: )
-  - **Name of the test**: `removeTop_emptyDeck_throwsUnsupportedOperationException`
+  - **Name of the test**: `removeTop_emptyDeck_throwsIllegalStateException`
   - **State of the system**: Deck is empty: []
-  - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
+  - **Expected output**: Throws IllegalStateException with message `error.emptyDeck`; deck is still empty: []
 
 - **TC10: Remove top from deck with one card** ( :white_check_mark: )
   - **Name of the test**: `removeTop_oneCardDeck_returnsTopCard`
