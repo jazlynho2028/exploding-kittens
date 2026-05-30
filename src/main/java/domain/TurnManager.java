@@ -7,7 +7,7 @@ import static domain.GameConstants.STARTING_PLAYER_INDEX;
 public class TurnManager {
 
     private final List<Player> players;
-	private int currentPlayerIndex;
+	  private int currentPlayerIndex;
     private int roundCount;
     private int drawCount;
 
@@ -34,7 +34,7 @@ public class TurnManager {
     }
 
     public int getStartingPlayerIndex() {
-        return STARTING_PLAYER_INDEX;
+        return GameConstants.STARTING_PLAYER_INDEX;
     }
 
     public int getRoundCount() {
@@ -63,7 +63,7 @@ public class TurnManager {
     public void advanceTurn() {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 
-        if (currentPlayerIndex == STARTING_PLAYER_INDEX) {
+        if (currentPlayerIndex == GameConstants.STARTING_PLAYER_INDEX) {
             incrementRound();
         }
 

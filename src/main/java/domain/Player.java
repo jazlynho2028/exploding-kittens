@@ -1,33 +1,53 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
 
-    public Player(String name) { }
+    private final String name;
+    private final List<Card> hand;
+
+    public Player(String name) {
+        this.name = name;
+        this.hand = new ArrayList<>();
+    }
+
+    int getHandSize() {
+        return this.hand.size();
+    }
 
     public List<Card> getHand() {
-        return List.of();
+        return List.copyOf(hand);
     }
 
     public String getName() {
-        return "";
+        return this.name;
     }
 
-    public void addCardToHand(Card card) { }
-
-    public void toggleSelectedHandCardAt(int index) { }
-
-    public void removeCardFromHand(Card card) { }
-
-    public void deselectHandCards() { }
-
-    public List<String> getHandIds() {
-        return List.of();
+    public void addCardToHand(Card card) {
+        hand.add(card);
     }
 
-    public List<Card> getSelectedCards() {
-        return List.of();
+    public void toggleSelectedHandCardAt(int handCardIndex) {
+        if (handCardIndex < 0 || handCardIndex >= this.hand.size()) {
+            throw new IllegalArgumentException("error.invalidHandCardIndex");
+        }
+        hand.get(handCardIndex).toggleSelected();
     }
 
+    public void removeCardFromHand(Card card) {
+        if (!this.hand.contains(card)) {
+            throw new IllegalStateException("error.cardNotInHand");
+        }
+        hand.remove(card);
+    }
+
+    public void deselectHandCards() {
+        for (Card card : hand) {
+            if (card.getIsSelected()) {
+                card.toggleSelected();
+            }
+        }
+    }
 }

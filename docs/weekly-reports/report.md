@@ -64,3 +64,15 @@
 8. [95% Done] DJ: Player.java
 9. [not started] Irene: Card.java
 10. [50% Done] Irene: Deck.java
+
+# Week 8 (05/18/2026-05/24/2026)
+**Planning and Progress Tracking**:
+1. [Done] Jazlyn: replaced all placeholder images with new assets for background, card back, and each card front
+2. [Done] Jazlyn: modify tests to include view method calls for start, player create, and player deck controllers
+3. [Done] Jazlyn: modify controller tests to satisfy 100% coverage and all mutants killed
+4. [50% Done] Ejean: DeckBuilder.java
+5. [95% Done] DJ: Game.java
+6. [95% Done] DJ: Player.java
+7. [95% Done] DJ: TurnManager.java
+8. [not started] Luke: Card.java
+9. [Done] Irene: Deck.java
