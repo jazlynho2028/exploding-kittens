@@ -133,7 +133,7 @@ public class Game {
     }
 
     public Player getCurrentPlayer() {
-        return players.get(getCurrentPlayerIndex());
+        return turnManager.getCurrentPlayer();
     }
 
     public boolean canPlaySelected() {
@@ -176,6 +176,7 @@ public class Game {
     public void drawFromPile() {
         Card card = drawPile.removeTop();
         getCurrentPlayer().addCardToHand(card);
+        turnManager.decrementDrawCount();
     }
 
     public void toggleFaceUp() {

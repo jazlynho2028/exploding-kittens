@@ -89,34 +89,34 @@
 ### Method under test: `getCurrentPlayerHandIds()`
 - **TC13: Current player is 0, empty hand** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
-  - **State of the system**: currentPlayerIndex = 0, hand = []
-  - **Expected output**: returns []
+  - **State of the system**: hand = []
+  - **Expected output**: getCurrentPlayer is called, returns []
 
 - **TC14: Current player is 1, hand has one card** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
-  - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1]
-  - **Expected output**: returns ["SKIP_1"]
+  - **State of the system**: hand = [SKIP_1]
+  - **Expected output**: getCurrentPlayer is called, returns ["SKIP_1"]
 
 - **TC15: Current player is 0, hand has two different cards** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
-  - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1, SKIP_2]
-  - **Expected output**: returns ["SKIP_1", "SKIP_2"]
+  - **State of the system**: hand = [SKIP_1, SKIP_2]
+  - **Expected output**: getCurrentPlayer is called, returns ["SKIP_1", "SKIP_2"]
 
 - **TC16: Current player is 0, hand has duplicate cards** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
-  - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1, SKIP_1]
-  - **Expected output**: returns ["SKIP_1", "SKIP_1"]
+  - **State of the system**: hand = [SKIP_1, SKIP_1]
+  - **Expected output**: getCurrentPlayer is called, returns ["SKIP_1", "SKIP_1"]
 
 - **TC17: Current player is 0, hand two different card types** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
-  - **State of the system**: currentPlayerIndex = 1, hand = [SKIP_1, ATTACK_3]
-  - **Expected output**: returns ["SKIP_1", "ATTACK_3"]
+  - **State of the system**: hand = [SKIP_1, ATTACK_3]
+  - **Expected output**: getCurrentPlayer is called, returns ["SKIP_1", "ATTACK_3"]
 
 ### Method under test: `getCurrentPlayer()`
 - **TC18: Current player is 0** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayer_called_returnCurrentPlayer
-  - **State of the system**: currentPlayerIndex = 0, players = [player1, player2]
-  - **Expected output**: returns player1
+  - **State of the system**: currentPlayer = 1, players = [player1, player2]
+  - **Expected output**: returns turnManager.getCurrentPlayer
 
 ### Method under test: `canPlaySelected()`
 - **TC19: No cards selected** ( :white_check_mark: )
@@ -350,36 +350,41 @@
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throw IllegalStateException "error.emptyDeck"
 
-- **TC64: Draw pile has one card** ( :white_check_mark: )
+- **TC64: Draw count at zero** ( :white_check_mark: )
+  - **Name of the test**: drawFromPile_drawCountAtZero_failed
+  - **State of the system**: turnManager.decrementDrawCount throws IllegalStateException "error.negativeDrawCount"
+  - **Expected output**: throw IllegalStateException "error.negativeDrawCount"
+
+- **TC65: Draw pile has one card** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_oneCardInDrawPile_addToCurrentPlayerHand
-  - **State of the system**: currentPlayerIndex = 0, drawPile = [SKIP_1]
+  - **State of the system**: drawPile = [SKIP_1], drawCount = 0
   - **Expected output**:
     - getCurrentPlayer.addCardToHand is called with drawPile.removeTop
-    - currentPlayerIndex = 0
+    - turnManager.decrementDrawCount is called
 
 ### Method under test: `toggleFaceUp()`
-- **TC65: Is face up** ( :white_check_mark: )
+- **TC66: Is face up** ( :white_check_mark: )
   - **Name of the test**: toggleFaceUp_called_setToFalse
   - **State of the system**: isFaceUp = true
   - **Expected output**: isFaceUp = false
 
-- **TC66: Is face down** ( :white_check_mark: )
+- **TC67: Is face down** ( :white_check_mark: )
   - **Name of the test**: toggleFaceUp_called_togglesFaceUp
   - **State of the system**: isFaceUp = false
   - **Expected output**: isFaceUp = true
 
 ### Method under test: `toggleSelectedCurrentPlayerCardAt(int handCardIndex)`
-- **TC67: Hand card index at 0** ( :white_check_mark: )
+- **TC68: Hand card index at 0** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle
   - **State of the system**: handCardIndex = 0
   - **Expected output**: getCurrentPlayer.toggleSelectedHandCardAt is called with handCardIndex
 
-- **TC68: Hand card index at 1** ( :white_check_mark: )
+- **TC69: Hand card index at 1** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle
   - **State of the system**: handCardIndex = 1
   - **Expected output**: getCurrentPlayer.toggleSelectedHandCardAt is called with handCardIndex
 
-- **TC69: Player method throws exception** ( :white_check_mark: )
+- **TC70: Player method throws exception** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_indexZero_failed
   - **State of the system**: 
     - handCardIndex = 0
@@ -387,14 +392,14 @@
   - **Expected output**: throws InvalidArgumentException "error.handCardIndexOutOfBounds"
 
 ### Method under test: `advanceTurn()`
-- **TC70: Can end turn** ( :white_check_mark: )
+- **TC71: Can end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_canEndTurn_advanceTurnAndDeselectCards
   - **State of the system**: canEndTurn = true
   - **Expected output**:
     - turnManager.advanceTurn is called
     - getCurrentPlayer.deselectHandCards is called
 
-- **TC71: Cannot end turn** ( :white_check_mark: )
+- **TC72: Cannot end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
   - **State of the system**: canEndTurn = false
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
