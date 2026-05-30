@@ -118,10 +118,15 @@
   - **State of the system**: Player hand has 2 cards, index provided is equal to 2 (index == hand.size())
   - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
 
-- **TC24: Toggle index zero on an empty hand boundary check** ( :x: )
+- **TC24: Toggle index zero on an empty hand boundary check** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedHandCardAt_emptyHandIndexZero_throwsException
   - **State of the system**: Player hand has 0 cards, index provided is 0
   - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
+
+- **TC25: Baseline validation of name property** ( :x: )
+  - **Name of the test**: getName_validName_returnsExactString
+  - **State of the system**: Player initialized with a specific name string (e.g., "Alice")
+  - **Expected output**: getName() returns exactly "Alice"
 
 ### Method under test: `getSelectedCards()`
 - **TC25: Get selected cards from empty hand** ( :white_check_mark: )
