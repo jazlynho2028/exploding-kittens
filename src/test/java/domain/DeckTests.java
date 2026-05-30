@@ -108,7 +108,7 @@ public class DeckTests {
     @Test
     public void peekTop_emptyDeck_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
@@ -126,7 +126,7 @@ public class DeckTests {
         Deque<Card> cards = new ArrayDeque<>();
         cards.addLast(card1);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         Card result = deck.peekTop();
 
@@ -147,7 +147,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         Card result = deck.peekTop();
 
@@ -167,7 +167,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card1);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         Card result = deck.peekTop();
 
@@ -181,7 +181,7 @@ public class DeckTests {
     @Test
     public void removeTop_emptyDeck_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
@@ -199,7 +199,7 @@ public class DeckTests {
         Deque<Card> cards = new ArrayDeque<>();
         cards.addLast(card1);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         Card result = deck.removeTop();
 
@@ -219,7 +219,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         Card result = deck.removeTop();
 
@@ -239,7 +239,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card1);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         Card result = deck.removeTop();
 
@@ -253,7 +253,7 @@ public class DeckTests {
     @Test
     public void peekBottom_emptyDeck_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
@@ -271,7 +271,7 @@ public class DeckTests {
         Deque<Card> cards = new ArrayDeque<>();
         cards.addLast(card1);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         Card result = deck.peekBottom();
 
@@ -292,7 +292,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         Card result = deck.peekBottom();
 
@@ -313,7 +313,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card1);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         Card result = deck.peekBottom();
 
@@ -328,7 +328,7 @@ public class DeckTests {
     @Test
     public void peekTopNCards_emptyDeckAndZeroCards_returnsEmptyList() {
         Deque<Card> cards = new ArrayDeque<>();
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         List<Card> result = deck.peekTopNCards(0);
 
@@ -339,7 +339,7 @@ public class DeckTests {
     @Test
     public void peekTopNCards_emptyDeckAndPositiveCount_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
@@ -359,7 +359,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         assertThrows(IllegalArgumentException.class, () -> deck.peekTopNCards(-1));
         assertEquals(TWO_CARDS, deck.size());
@@ -378,7 +378,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         List<Card> result = deck.peekTopNCards(0);
 
@@ -399,7 +399,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         List<Card> result = deck.peekTopNCards(1);
 
@@ -421,7 +421,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         List<Card> result = deck.peekTopNCards(TWO_CARDS);
 
@@ -444,7 +444,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
@@ -469,7 +469,7 @@ public class DeckTests {
         cards.addLast(card1CopyTwo);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         List<Card> result = deck.peekTopNCards(TWO_CARDS);
 
@@ -485,7 +485,7 @@ public class DeckTests {
     @Test
     public void removeBottom_emptyDeck_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
@@ -503,7 +503,7 @@ public class DeckTests {
         Deque<Card> cards = new ArrayDeque<>();
         cards.addLast(card1);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         Card result = deck.removeBottom();
 
@@ -523,7 +523,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         Card result = deck.removeBottom();
 
@@ -543,7 +543,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card1);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         Card result = deck.removeBottom();
 
@@ -560,7 +560,7 @@ public class DeckTests {
         EasyMock.replay(card1);
 
         Deque<Card> cards = new ArrayDeque<>();
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         deck.addCard(card1);
 
@@ -579,7 +579,7 @@ public class DeckTests {
         Deque<Card> cards = new ArrayDeque<>();
         cards.addLast(card1);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         deck.addCard(card2);
 
@@ -601,7 +601,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         deck.addCard(card3);
 
@@ -622,7 +622,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         deck.addCard(card1);
 
@@ -636,7 +636,7 @@ public class DeckTests {
     @Test
     public void isEmpty_emptyDeck_returnsTrue() {
         Deque<Card> cards = new ArrayDeque<>();
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         assertTrue(deck.isEmpty());
     }
@@ -649,7 +649,7 @@ public class DeckTests {
         Deque<Card> cards = new ArrayDeque<>();
         cards.addLast(card1);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         assertFalse(deck.isEmpty());
 
@@ -666,7 +666,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         assertFalse(deck.isEmpty());
 
@@ -676,7 +676,7 @@ public class DeckTests {
     @Test
     public void getCards_emptyDeck_returnsEmptyList() {
         Deque<Card> cards = new ArrayDeque<>();
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         List<Card> result = deck.getCards();
 
@@ -692,7 +692,7 @@ public class DeckTests {
         Deque<Card> cards = new ArrayDeque<>();
         cards.addLast(card1);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         List<Card> result = deck.getCards();
 
@@ -714,7 +714,7 @@ public class DeckTests {
         cards.addLast(card1);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         List<Card> result = deck.getCards();
 
@@ -740,7 +740,7 @@ public class DeckTests {
         cards.addLast(card1CopyTwo);
         cards.addLast(card2);
 
-        Deck deck = new Deck(cards);
+        Deck deck = new Deck(cards, new Random());
 
         List<Card> result = deck.getCards();
 

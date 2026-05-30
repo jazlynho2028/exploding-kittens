@@ -1,6 +1,7 @@
 package domain;
 
-import java.util.ArrayDeque;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
@@ -12,12 +13,13 @@ public class Deck {
     private final Deque<Card> deck;
     private final Random random;
 
-    public Deck(Deque<Card> deck) {
-        this(deck, new Random());
-    }
-
-    Deck(Deque<Card> deck, Random random) {
-        this.deck = new ArrayDeque<>(deck);
+    @SuppressFBWarnings(
+            value = "EI_EXPOSE_REP2",
+            justification = "Deck intentionally stores injected mutable dependencies " +
+                    "to support controlled deck state and deterministic shuffle testing."
+    )
+    public Deck(Deque<Card> deck, Random random) {
+        this.deck = deck;
         this.random = random;
     }
 
