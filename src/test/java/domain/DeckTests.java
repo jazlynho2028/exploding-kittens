@@ -2,16 +2,15 @@ package domain;
 
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import java.util.stream.Stream;
 
 import java.util.List;
 import java.util.Random;
 import java.util.ArrayDeque;
 import java.util.Deque;
-
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -202,20 +201,15 @@ public class DeckTests {
     public void removeTop_nonEmptyDeck_returnsTopCard(
             String caseName,
             Deque<Card> cards,
-            Card expectedTop,
-            int expectedSizeAfterRemove,
-            Card expectedNewTop,
+            Card expectedRemovedCard,
+            List<Card> expectedCards,
             Card[] mocksToVerify) {
         Deck deck = new Deck(cards, new Random());
 
         Card result = deck.removeTop();
 
-        assertSame(expectedTop, result);
-        assertEquals(expectedSizeAfterRemove, deck.size());
-
-        if (expectedSizeAfterRemove > 0) {
-            assertSame(expectedNewTop, deck.peekTop());
-        }
+        assertSame(expectedRemovedCard, result);
+        assertEquals(expectedCards, deck.getCards());
 
         EasyMock.verify((Object[]) mocksToVerify);
     }
@@ -244,22 +238,19 @@ public class DeckTests {
                         "one-card deck",
                         oneCardDeck,
                         oneCard,
-                        0,
-                        null,
+                        List.of(),
                         new Card[] {oneCard}),
                 Arguments.of(
                         "multiple different cards",
                         differentCardsDeck,
                         firstDifferentCard,
-                        ONE_CARD,
-                        secondDifferentCard,
+                        List.of(secondDifferentCard),
                         new Card[] {firstDifferentCard, secondDifferentCard}),
                 Arguments.of(
                         "multiple duplicate cards",
                         duplicateCardsDeck,
                         duplicateCard,
-                        ONE_CARD,
-                        duplicateCard,
+                        List.of(duplicateCard),
                         new Card[] {duplicateCard})
         );
     }
@@ -283,17 +274,14 @@ public class DeckTests {
             String caseName,
             Deque<Card> cards,
             Card expectedBottom,
-            int expectedSize,
-            Card expectedTop,
+            List<Card> expectedCards,
             Card[] mocksToVerify) {
         Deck deck = new Deck(cards, new Random());
 
         Card result = deck.peekBottom();
 
         assertSame(expectedBottom, result);
-        assertEquals(expectedSize, deck.size());
-        assertSame(expectedTop, deck.peekTop());
-        assertSame(expectedBottom, deck.peekBottom());
+        assertEquals(expectedCards, deck.getCards());
 
         EasyMock.verify((Object[]) mocksToVerify);
     }
@@ -322,22 +310,19 @@ public class DeckTests {
                         "one-card deck",
                         oneCardDeck,
                         oneCard,
-                        ONE_CARD,
-                        oneCard,
+                        List.of(oneCard),
                         new Card[] {oneCard}),
                 Arguments.of(
                         "multiple different cards",
                         differentCardsDeck,
                         secondDifferentCard,
-                        TWO_CARDS,
-                        firstDifferentCard,
+                        List.of(firstDifferentCard, secondDifferentCard),
                         new Card[] {firstDifferentCard, secondDifferentCard}),
                 Arguments.of(
                         "multiple duplicate cards",
                         duplicateCardsDeck,
                         duplicateCard,
-                        TWO_CARDS,
-                        duplicateCard,
+                        List.of(duplicateCard, duplicateCard),
                         new Card[] {duplicateCard})
         );
     }
