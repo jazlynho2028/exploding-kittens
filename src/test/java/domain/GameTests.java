@@ -193,15 +193,15 @@ public class GameTests {
 		EasyMock.verify(drawPile);
 	}
 
-	@Test
-	public void getPlayerNames_twoPlayers_returnTwoNames() {
+	@ParameterizedTest
+	@MethodSource("playerNameProvider")
+	public void getPlayerNames_validNPlayers_returnNNames(List<String> expectedNames) {
 		Deck drawPile = EasyMock.createNiceMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		EasyMock.replay(drawPile);
 
-		List<String> expectedNames = List.of("Alice", "Bob");
 		List<Player> players = new ArrayList<>();
 
 		for (String name : expectedNames) {
@@ -213,6 +213,13 @@ public class GameTests {
 		List<String> actualNames = game.getPlayerNames();
 
 		assertEquals(expectedNames, actualNames);
+	}
+
+	private static Stream<Arguments> playerNameProvider() {
+		return Stream.of(
+				Arguments.of(List.of("Alice", "Bob")),
+				Arguments.of(List.of("Alice", "Alice", "Audrey", "Turkey"))
+		);
 	}
 
 	@Test
