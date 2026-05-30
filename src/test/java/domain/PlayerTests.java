@@ -6,6 +6,8 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTests {
@@ -338,6 +340,16 @@ public class PlayerTests {
 
         assertEquals("error.invalidHandCardIndex", exception.getMessage());
         EasyMock.verify(mockCard1, mockCard2);
+    }
+
+    @Test
+    public void getSelectedCards_emptyHand_returnsEmptyList() {
+        final int expectedCardSize = 0;
+        Player player = new Player("Alice");
+
+        List<Card> selectedCards = player.getSelectedCards();
+
+        assertEquals(expectedCardSize, selectedCards.size());
     }
 
 }

@@ -114,7 +114,7 @@
   - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
 
 ### Method under test: `getSelectedCards()`
-- **TC20: Get selected cards from empty hand** ( :x: )
+- **TC20: Get selected cards from empty hand** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_emptyHand_returnsEmptyList
   - **State of the system**: player hand is empty
   - **Expected output**: returns an empty list
