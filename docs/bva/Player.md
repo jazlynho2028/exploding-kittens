@@ -143,3 +143,19 @@
   - **Name of the test**: getSelectedCards_multipleCardsAllSelected_returnsAllCards
   - **State of the system**: player hand has three cards; every card has isSelected = true
   - **Expected output**: returns a list containing all three cards in the hand
+
+### Method under test: `getHandIds()`
+- **TC26: Get hand IDs from empty hand** ( :x: )
+  - **Name of the test**: getHandIds_emptyHand_returnsEmptyList
+  - **State of the system**: player hand is empty
+  - **Expected output**: returns an empty list
+
+- **TC27: Get hand IDs from hand with one card** ( :x: )
+  - **Name of the test**: getHandIds_oneCard_returnsListWithOneId
+  - **State of the system**: player hand has one card with id
+  - **Expected output**: returns a list containing exactly that card's ID
+
+- **TC28: Get hand IDs from hand with more than one card** ( :x: )
+  - **Name of the test**: getHandIds_multipleCards_returnsAllIdsInOrder
+  - **State of the system**: player hand has multiple cards each with distinct known IDs
+  - **Expected output**: returns a list of all card IDs in the same order as the hand
