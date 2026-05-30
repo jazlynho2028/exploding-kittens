@@ -104,5 +104,5 @@
 ### Method under test: `getCurrentPlayer()`
 - **TC19: getCurrentPlayer returns the correct player** ( :x: )
   - **Name of the test**: getCurrentPlayer_returnsCorrectPlayerInstance
-  - **State of the system**: TurnManager constructed with 2 players 'Alice' 'Bob'
-  - **Expected output**: getCurrentPlayer = player1, which will be 'Alice'
+  - **State of the system**: TurnManager constructed with 2 players 1 turn advanced
+  - **Expected output**: getCurrentPlayer = player2
