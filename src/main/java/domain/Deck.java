@@ -69,7 +69,7 @@ public class Deck {
         }
 
         if (n > this.deck.size()) {
-            throw new UnsupportedOperationException("Cannot peek more cards than are in the deck.");
+            throw new IllegalStateException(ERROR_EMPTY_DECK);
         }
 
         List<Card> cards = new ArrayList<>(this.deck);

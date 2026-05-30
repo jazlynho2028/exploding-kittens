@@ -329,11 +329,15 @@ public class DeckTests {
     }
 
     @Test
-    public void peekTopNCards_emptyDeckAndPositiveCount_throwsUnsupportedOperationException() {
+    public void peekTopNCards_emptyDeckAndPositiveCount_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards);
 
-        assertThrows(UnsupportedOperationException.class, () -> deck.peekTopNCards(1));
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                () -> deck.peekTopNCards(ONE_CARD));
+
+        assertEquals("error.emptyDeck", exception.getMessage());
         assertEquals(0, deck.size());
     }
 
@@ -423,7 +427,7 @@ public class DeckTests {
     }
 
     @Test
-    public void peekTopNCards_countGreaterThanDeckSize_throwsUnsupportedOperationException() {
+    public void peekTopNCards_countGreaterThanDeckSize_throwsIllegalStateException() {
         Card card1 = EasyMock.createMock(Card.class);
         Card card2 = EasyMock.createMock(Card.class);
         EasyMock.replay(card1, card2);
@@ -434,7 +438,11 @@ public class DeckTests {
 
         Deck deck = new Deck(cards);
 
-        assertThrows(UnsupportedOperationException.class, () -> deck.peekTopNCards(THREE_CARDS));
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                () -> deck.peekTopNCards(THREE_CARDS));
+
+        assertEquals("error.emptyDeck", exception.getMessage());
         assertEquals(TWO_CARDS, deck.size());
         assertSame(card1, deck.peekTop());
 
