@@ -57,4 +57,8 @@ public class Player {
                 .filter(Card::getIsSelected)
                 .collect(Collectors.toList());
     }
+
+    public List<String> getHandIds() {
+        return new ArrayList<>();
+    }
 }

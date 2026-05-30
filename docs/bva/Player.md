@@ -145,7 +145,7 @@
   - **Expected output**: returns a list containing all three cards in the hand
 
 ### Method under test: `getHandIds()`
-- **TC26: Get hand IDs from empty hand** ( :x: )
+- **TC26: Get hand IDs from empty hand** ( :white_check_mark: )
   - **Name of the test**: getHandIds_emptyHand_returnsEmptyList
   - **State of the system**: player hand is empty
   - **Expected output**: returns an empty list

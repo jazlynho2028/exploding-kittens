@@ -465,4 +465,13 @@ public class PlayerTests {
 
         EasyMock.verify(mockCard1, mockCard2, mockCard3);
     }
+
+    @Test
+    public void getHandIds_emptyHand_returnsEmptyList() {
+        Player player = new Player("Alice");
+
+        List<String> handIds = player.getHandIds();
+
+        assertEquals(0, handIds.size());
+    }
 }
