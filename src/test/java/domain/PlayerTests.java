@@ -438,4 +438,31 @@ public class PlayerTests {
 
         EasyMock.verify(mockCard1, mockCard2, mockCard3);
     }
+
+    @Test
+    public void getSelectedCards_multipleCardsAllSelected_returnsAllCards() {
+        final int expectedSelectedCards = 3;
+        Card mockCard1 = EasyMock.createMock(Card.class);
+        Card mockCard2 = EasyMock.createMock(Card.class);
+        Card mockCard3 = EasyMock.createMock(Card.class);
+
+        EasyMock.expect(mockCard1.getIsSelected()).andReturn(true);
+        EasyMock.expect(mockCard2.getIsSelected()).andReturn(true);
+        EasyMock.expect(mockCard3.getIsSelected()).andReturn(true);
+        EasyMock.replay(mockCard1, mockCard2, mockCard3);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard1);
+        player.addCardToHand(mockCard2);
+        player.addCardToHand(mockCard3);
+
+        List<Card> selectedCards = player.getSelectedCards();
+
+        assertEquals(expectedSelectedCards, selectedCards.size());
+        assertTrue(selectedCards.contains(mockCard1));
+        assertTrue(selectedCards.contains(mockCard2));
+        assertTrue(selectedCards.contains(mockCard3));
+
+        EasyMock.verify(mockCard1, mockCard2, mockCard3);
+    }
 }
