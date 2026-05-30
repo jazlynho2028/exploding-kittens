@@ -9,7 +9,15 @@ import static domain.GameConstants.*;
 
 public class DeckBuilder {
 
+    private final Deck deck;
 
+    public DeckBuilder(int numPlayers){
+        this.deck = buildDeckWithoutExplodeAndAddDefuse(numPlayers);
+    }
+
+    public Deck getDeck(){
+        return this.deck;
+    }
 
     public static Deck buildDeckWithoutExplodeAndAddDefuse(int numPlayers) {
         List<Card> cardsList = initializeFullDeck();

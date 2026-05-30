@@ -1,7 +1,7 @@
 # BVA Analysis: DeckBuilder Class
 
 ### Method under test: `buildDeckWithoutExplodeAndAddDefuse(int numPlayers)`
-- **TC1: Minimum allowed players ** ( :x: )
+- **TC1: Minimum allowed players ** ( :white_check_mark: )
     - **Name of the test**: buildDeck_NumberOfPlayers_ReturnsCorrectCardDeck
     - **State of the system**: numPlayers = 2
     - **Expected output**: deck has 59 cards, of which 3 are "DEFUSE"'s. deck is shuffled.
