@@ -1,40 +1,25 @@
 package domain;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static domain.GameConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckBuilderTests {
-    @ParameterizedTest(name = "Constructor for {0} players should produce a deck of size {1} with {2} defuses")
-    @CsvSource({
-            "2, 59, 3",
-            "4, 57, 1"
-    })
-    void constructor_ValidPlayerCounts_PopulatesCardDeckCorrectly(int numPlayers, int expectedDeckSize, int expectedNumDefuses) {
-        DeckBuilder builder = new DeckBuilder(numPlayers);
-        Deck deck = builder.getDeck();
+    private List<Card> baseCards;
 
-        assertNotNull(deck);
-        assertEquals(expectedDeckSize, deck.size());
-
-        int actualNumDefuses = countCards(deck, CardType.DEFUSE);
-        assertEquals(expectedNumDefuses, actualNumDefuses);
+    @BeforeEach
+    void setUp() {
+        DeckBuilder builder = new DeckBuilder();
+        baseCards = builder.initializeDeckWithoutDefuses();
     }
 
-    @ParameterizedTest(name = "Verify card type breakdown for {0} players")
-    @ValueSource(ints = {2, 4})
-    void constructor_ValidPlayerCounts_PopulatesExactCardTypeQuantities(int numPlayers) {
-        DeckBuilder builder = new DeckBuilder(numPlayers);
-        Deck deck = builder.getDeck();
-
-        assertBaseCardQuantities(deck);
+    @Test
+    void initializeDeckWithoutDefuses_TotalCardCount_EqualsBaselineConstant() {
+        assertEquals(56, baseCards.size());
     }
 
     @Test

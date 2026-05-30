@@ -12,7 +12,7 @@
   - **Expected output**: deck has 57 cards, of which 1 is a "DEFUSE" card. deck is shuffled.
 
 ### Method under test: `InitializeDeckWithoutDefuses()`
-- **TC3: Verify size of base deck ** ( :x: )
+- **TC3: Verify size of base deck ** ( :white_check_mark: )
   - **Name of the test**: initializeDeckWithoutDefuses_TotalCardCount_EqualsBaselineConstant
   - **State of the system**: no inputs because deck of non-defuse cards does not depend on player count
   - **Expected output**: returns a list containing exactly 56 baseline cards.

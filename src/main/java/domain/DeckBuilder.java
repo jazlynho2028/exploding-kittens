@@ -9,17 +9,10 @@ import static domain.GameConstants.*;
 
 public class DeckBuilder {
 
-    private final Deck deck;
-
-    public DeckBuilder(int numPlayers) {
-        this.deck = buildPlayableDeck(numPlayers);
+    public DeckBuilder() {
     }
 
-    public Deck getDeck() {
-        return this.deck;
-    }
-
-    private Deck buildPlayableDeck(int numPlayers) {
+    public Deck initializeDeck(int numPlayers) {
         List<Card> cardsList = initializeDeckWithoutDefuses();
 
         int defusesToAdd = calculateDefusesToAdd(numPlayers);
@@ -32,7 +25,7 @@ public class DeckBuilder {
         return baseDeck;
     }
 
-    private List<Card> initializeDeckWithoutDefuses() {
+    List<Card> initializeDeckWithoutDefuses() {
         List<Card> cardsList = new ArrayList<>();
 
         addCards(cardsList, CardType.MILD_DRAW, NUM_MILD_DRAW);
@@ -67,7 +60,7 @@ public class DeckBuilder {
         }
     }
 
-     static int calculateDefusesToAdd(int numPlayers) {
+    static int calculateDefusesToAdd(int numPlayers) {
         int defusesToAdd = NUM_DEFUSES_IN_GAME - numPlayers;
 
         if (defusesToAdd < 0) {
