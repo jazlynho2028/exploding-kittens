@@ -6,6 +6,8 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTests {
@@ -274,8 +276,8 @@ public class PlayerTests {
     public void toggleSelectedHandCardAt_indexLessThanZero_callsException() {
         Player player = new Player("Bob");
 
-        IndexOutOfBoundsException exception = assertThrows(
-                IndexOutOfBoundsException.class,
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
                 () -> player.toggleSelectedHandCardAt(-1)
         );
 
@@ -331,8 +333,8 @@ public class PlayerTests {
         player.addCardToHand(mockCard1);
         player.addCardToHand(mockCard2);
 
-        IndexOutOfBoundsException exception = assertThrows(
-                IndexOutOfBoundsException.class,
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
                 () -> player.toggleSelectedHandCardAt(cardIndex)
         );
 
@@ -340,4 +342,215 @@ public class PlayerTests {
         EasyMock.verify(mockCard1, mockCard2);
     }
 
+    @Test
+    public void getSelectedCards_emptyHand_returnsEmptyList() {
+        final int expectedSelectedCards = 0;
+        Player player = new Player("Alice");
+
+        List<Card> selectedCards = player.getSelectedCards();
+
+        assertEquals(expectedSelectedCards, selectedCards.size());
+    }
+
+    @Test
+    public void getSelectedCards_oneCardUnselected_returnsEmptyList() {
+        final int expectedSelectedCards = 0;
+        Card mockCard = EasyMock.createMock(Card.class);
+        EasyMock.expect(mockCard.getIsSelected()).andReturn(false);
+        EasyMock.replay(mockCard);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard);
+
+        List<Card> selectedCards = player.getSelectedCards();
+
+        assertEquals(expectedSelectedCards, selectedCards.size());
+
+        EasyMock.verify(mockCard);
+    }
+
+    @Test
+    public void getSelectedCards_oneCardSelected_returnsListWithCard() {
+        final int expectedSelectedCards = 1;
+        final int selectedCardIndex = 0;
+        Card mockCard = EasyMock.createMock(Card.class);
+        EasyMock.expect(mockCard.getIsSelected()).andReturn(true);
+        EasyMock.replay(mockCard);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard);
+
+        List<Card> selectedCards = player.getSelectedCards();
+
+        assertEquals(expectedSelectedCards, selectedCards.size());
+        assertSame(mockCard, selectedCards.get(selectedCardIndex));
+
+        EasyMock.verify(mockCard);
+    }
+
+    @Test
+    public void getSelectedCards_multipleCardsNoneSelected_returnsEmptyList() {
+        final int expectedSelectedCards = 0;
+        Card mockCard1 = EasyMock.createMock(Card.class);
+        Card mockCard2 = EasyMock.createMock(Card.class);
+        Card mockCard3 = EasyMock.createMock(Card.class);
+
+        EasyMock.expect(mockCard1.getIsSelected()).andReturn(false);
+        EasyMock.expect(mockCard2.getIsSelected()).andReturn(false);
+        EasyMock.expect(mockCard3.getIsSelected()).andReturn(false);
+        EasyMock.replay(mockCard1, mockCard2, mockCard3);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard1);
+        player.addCardToHand(mockCard2);
+        player.addCardToHand(mockCard3);
+
+        List<Card> selectedCards = player.getSelectedCards();
+
+        assertEquals(expectedSelectedCards, selectedCards.size());
+
+        EasyMock.verify(mockCard1, mockCard2, mockCard3);
+    }
+
+    @Test
+    public void getSelectedCards_multipleCardsSomeSelected_returnsOnlySelectedCards() {
+        final int expectedSelectedCards = 2;
+        Card mockCard1 = EasyMock.createMock(Card.class);
+        Card mockCard2 = EasyMock.createMock(Card.class);
+        Card mockCard3 = EasyMock.createMock(Card.class);
+
+        EasyMock.expect(mockCard1.getIsSelected()).andReturn(true);
+        EasyMock.expect(mockCard2.getIsSelected()).andReturn(true);
+        EasyMock.expect(mockCard3.getIsSelected()).andReturn(false);
+        EasyMock.replay(mockCard1, mockCard2, mockCard3);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard1);
+        player.addCardToHand(mockCard2);
+        player.addCardToHand(mockCard3);
+
+        List<Card> selectedCards = player.getSelectedCards();
+
+        assertEquals(expectedSelectedCards, selectedCards.size());
+        assertTrue(selectedCards.contains(mockCard1));
+        assertTrue(selectedCards.contains(mockCard2));
+        assertFalse(selectedCards.contains(mockCard3));
+
+        EasyMock.verify(mockCard1, mockCard2, mockCard3);
+    }
+
+    @Test
+    public void getSelectedCards_multipleCardsAllSelected_returnsAllCards() {
+        final int expectedSelectedCards = 3;
+        Card mockCard1 = EasyMock.createMock(Card.class);
+        Card mockCard2 = EasyMock.createMock(Card.class);
+        Card mockCard3 = EasyMock.createMock(Card.class);
+
+        EasyMock.expect(mockCard1.getIsSelected()).andReturn(true);
+        EasyMock.expect(mockCard2.getIsSelected()).andReturn(true);
+        EasyMock.expect(mockCard3.getIsSelected()).andReturn(true);
+        EasyMock.replay(mockCard1, mockCard2, mockCard3);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard1);
+        player.addCardToHand(mockCard2);
+        player.addCardToHand(mockCard3);
+
+        List<Card> selectedCards = player.getSelectedCards();
+
+        assertEquals(expectedSelectedCards, selectedCards.size());
+        assertTrue(selectedCards.contains(mockCard1));
+        assertTrue(selectedCards.contains(mockCard2));
+        assertTrue(selectedCards.contains(mockCard3));
+
+        EasyMock.verify(mockCard1, mockCard2, mockCard3);
+    }
+
+    @Test
+    public void getHandIds_emptyHand_returnsEmptyList() {
+        Player player = new Player("Alice");
+
+        List<String> handIds = player.getHandIds();
+
+        assertEquals(0, handIds.size());
+    }
+
+    @Test
+    public void getHandIds_oneCard_returnsListWithOneId() {
+        final String cardId = "DEFUSE_1";
+        final int handSize = 1;
+        final int cardIndex1 = 0;
+        Card mockCard = EasyMock.createMock(Card.class);
+        EasyMock.expect(mockCard.getId()).andReturn(cardId);
+        EasyMock.replay(mockCard);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard);
+
+        List<String> handIds = player.getHandIds();
+
+        assertEquals(handSize, handIds.size());
+        assertEquals(cardId, handIds.get(cardIndex1));
+
+        EasyMock.verify(mockCard);
+    }
+
+    @Test
+    public void getHandIds_multipleCards_returnsAllIdsInOrder() {
+        final String cardId1 = "DEFUSE_1";
+        final String cardId2 = "ATTACK_1";
+        final String cardId3 = "SKIP_1";
+        final int handSize = 3;
+        final int cardIndex1 = 0;
+        final int cardIndex2 = 1;
+        final int cardIndex3 = 2;
+
+        Card mockCard1 = EasyMock.createMock(Card.class);
+        Card mockCard2 = EasyMock.createMock(Card.class);
+        Card mockCard3 = EasyMock.createMock(Card.class);
+
+        EasyMock.expect(mockCard1.getId()).andReturn(cardId1);
+        EasyMock.expect(mockCard2.getId()).andReturn(cardId2);
+        EasyMock.expect(mockCard3.getId()).andReturn(cardId3);
+        EasyMock.replay(mockCard1, mockCard2, mockCard3);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard1);
+        player.addCardToHand(mockCard2);
+        player.addCardToHand(mockCard3);
+
+        List<String> handIds = player.getHandIds();
+
+        assertEquals(handSize, handIds.size());
+        assertEquals(cardId1, handIds.get(cardIndex1));
+        assertEquals(cardId2, handIds.get(cardIndex2));
+        assertEquals(cardId3, handIds.get(cardIndex3));
+
+        EasyMock.verify(mockCard1, mockCard2, mockCard3);
+    }
+
+    @Test
+    public void getHandIds_duplicateCards_returnsDuplicateIds() {
+        final String cardId = "DEFUSE_1";
+        final int duplicateCount = 2;
+        final int handSize = 2;
+        final int cardIndex1 = 0;
+        final int cardIndex2 = 1;
+
+        Card mockCard = EasyMock.createMock(Card.class);
+        EasyMock.expect(mockCard.getId()).andReturn(cardId).times(duplicateCount);
+        EasyMock.replay(mockCard);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard);
+        player.addCardToHand(mockCard);
+
+        List<String> handIds = player.getHandIds();
+
+        assertEquals(handSize, handIds.size());
+        assertEquals(cardId, handIds.get(cardIndex1));
+        assertEquals(cardId, handIds.get(cardIndex2));
+
+        EasyMock.verify(mockCard);
+    }
 }

@@ -2,6 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Player {
 
@@ -31,7 +32,7 @@ public class Player {
 
     public void toggleSelectedHandCardAt(int handCardIndex) {
         if (handCardIndex < 0 || handCardIndex >= this.hand.size()) {
-            throw new IndexOutOfBoundsException("error.invalidHandCardIndex");
+            throw new IllegalArgumentException("error.invalidHandCardIndex");
         }
         hand.get(handCardIndex).toggleSelected();
     }
@@ -49,5 +50,17 @@ public class Player {
                 card.toggleSelected();
             }
         }
+    }
+
+    public List<Card> getSelectedCards() {
+        return hand.stream()
+                .filter(Card::getIsSelected)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getHandIds() {
+        return hand.stream()
+                .map(Card::getId)
+                .collect(Collectors.toList());
     }
 }

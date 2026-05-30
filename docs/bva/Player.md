@@ -96,7 +96,7 @@
 - **TC19: Toggle index less than zero boundary check** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedHandCardAt_indexLessThanZero_callsException
   - **State of the system**: Player hand can have any number of cards; index provided is -1
-  - **Expected output**: IndexOutOfBoundsException called with "error.invalidHandCardIndex"
+  - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
 
 - **TC20: Toggle valid lower boundary index on a non-empty hand** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedHandCardAt_validLowerBoundIndex_cardToggled
@@ -111,4 +111,56 @@
 - **TC19: Toggle index greater than hand size boundary check** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedHandCardAt_indexGreaterThanHandSize_callsException
   - **State of the system**: Player hand has 2 cards, index provided is greater than 1
-  - **Expected output**: IndexOutOfBoundsException called with "error.invalidHandCardIndex"
+  - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
+
+### Method under test: `getSelectedCards()`
+- **TC20: Get selected cards from empty hand** ( :white_check_mark: )
+  - **Name of the test**: getSelectedCards_emptyHand_returnsEmptyList
+  - **State of the system**: player hand is empty
+  - **Expected output**: returns an empty list
+
+- **TC21: Get selected cards when no cards are selected** ( :white_check_mark: )
+  - **Name of the test**: getSelectedCards_oneCardUnselected_returnsEmptyList
+  - **State of the system**: player hand has one card; card has isSelected = false
+  - **Expected output**: returns an empty list
+
+- **TC22: Get selected cards when the card is selected** ( :white_check_mark: )
+  - **Name of the test**: getSelectedCards_oneCardSelected_returnsListWithCard
+  - **State of the system**: player hand has one card; card has isSelected = true
+  - **Expected output**: returns a list containing exactly that one card
+
+- **TC23: Get selected cards when no cards are selected** ( :white_check_mark: )
+  - **Name of the test**: getSelectedCards_multipleCardsNoneSelected_returnsEmptyList
+  - **State of the system**: player hand has three cards; all cards have isSelected = false
+  - **Expected output**: returns an empty list
+
+  - **TC24: Get selected cards when more than one card is selected** ( :white_check_mark: )
+  - **Name of the test**: getSelectedCards_multipleCardsSomeSelected_returnsOnlySelectedCards
+  - **State of the system**: player hand has three cards; some but not all have isSelected = true (two cards have isSelected = true, one card has isSelected = false)
+  - **Expected output**: returns a list containing only the two selected cards; the one unselected card is not included
+
+- **TC25: Get selected cards when more than one card is selected** ( :white_check_mark: )
+  - **Name of the test**: getSelectedCards_multipleCardsAllSelected_returnsAllCards
+  - **State of the system**: player hand has three cards; every card has isSelected = true
+  - **Expected output**: returns a list containing all three cards in the hand
+
+### Method under test: `getHandIds()`
+- **TC26: Get hand IDs from empty hand** ( :white_check_mark: )
+  - **Name of the test**: getHandIds_emptyHand_returnsEmptyList
+  - **State of the system**: player hand is empty
+  - **Expected output**: returns an empty list
+
+- **TC27: Get hand IDs from hand with one card** ( :white_check_mark: )
+  - **Name of the test**: getHandIds_oneCard_returnsListWithOneId
+  - **State of the system**: player hand has one card with id
+  - **Expected output**: returns a list containing exactly that card's ID
+
+- **TC28: Get hand IDs from hand with more than one card** ( :white_check_mark: )
+  - **Name of the test**: getHandIds_multipleCards_returnsAllIdsInOrder
+  - **State of the system**: player hand has multiple cards each with distinct known IDs
+  - **Expected output**: returns a list of all card IDs in the same order as the hand
+
+- **TC29: Get hand IDs from hand with duplicate cards** ( :white_check_mark: )
+  - **Name of the test**: getHandIds_duplicateCards_returnsDuplicateIds
+  - **State of the system**: player hand has two duplicate cards with the same ID
+  - **Expected output**: returns a list of all cards where the duplicate ID appears twice for the two duplicate cards 

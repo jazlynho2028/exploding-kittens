@@ -1,7 +1,6 @@
 package ui;
 
 import domain.Game;
-import domain.GameData;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
 
@@ -12,14 +11,15 @@ import static ui.ErrorHandler.attempt;
 public class PlayerDeckController {
 
     private final PlayerDeckView view;
-    private final GameData model;
+    private final Game model;
 
     private Consumer<String> onError;
 
     @SuppressFBWarnings(
-        value = "EI_EXPOSE_REP2",
-        justification = "View is injected by for compromise between MVC pattern and " +
-                "testability, defensive copy is not applicable for JavaFX components"
+            value = "EI_EXPOSE_REP2",
+            justification = "View and model are injected by for compromise between MVC " +
+                    "pattern and testability, defensive copies are not applicable or not " +
+                    "desired for JavaFX components and Game objects."
     )
     public PlayerDeckController(Game model, PlayerDeckView view) {
         this.model = model;
@@ -85,8 +85,8 @@ public class PlayerDeckController {
     }
 
     void handleChangeCurrentPlayer(int playerIndex) {
-        ((Game) model).changeCurrentPlayerIndex(playerIndex);
-        ((Game) model).setFaceUpToFalse();
+        model.changeCurrentPlayerIndex(playerIndex);
+        model.setFaceUpToFalse();
 
         updateNameTags();
         updateHandVisibilityButton();
@@ -106,7 +106,7 @@ public class PlayerDeckController {
 
     void onDrawPile() {
         attempt(onError, () -> {
-            ((Game) model).drawFromPile();
+            model.drawFromPile();
 
             updateDrawPile();
             rebindHandCards();
@@ -123,7 +123,7 @@ public class PlayerDeckController {
 
     void onHandVisibilityButton() {
         attempt(onError, () -> {
-            ((Game) model).setIsFaceUpToOpposite();
+            model.toggleFaceUp();
 
             updateHandVisibilityButton();
             rebindHandCards();
@@ -133,7 +133,7 @@ public class PlayerDeckController {
     void onPlayerHandCardButton(int handCardIndex) {
         attempt(onError, () -> {
             if (model.getIsFaceUp()) {
-                ((Game) model).setIsSelectedOfPlayerCardAtIndexToOpposite(handCardIndex);
+                model.toggleSelectedPlayerCardAt(handCardIndex);
 
                 updateTurnControls();
             }
@@ -152,7 +152,7 @@ public class PlayerDeckController {
 
     void onStartGameButton() {
         attempt(onError, () -> {
-            ((Game) model).startGame();
+            model.startGame();
 
             handleChangeCurrentPlayer(model.getStartingPlayerIndex());
 
