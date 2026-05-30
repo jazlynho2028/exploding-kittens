@@ -11,7 +11,7 @@ public final class GameConstants {
 	public static final int STARTING_PLAYER_INDEX = 0;
 
 
-	public static final int NUM_DEFUSES = 5;
+	public static final int NUM_DEFUSES_IN_GAME = 5;
 
 	public static final int ONE_CARD = 1;
 	public static final int TWO_CARDS = 2;
@@ -37,10 +37,7 @@ public final class GameConstants {
 	public static final int NUM_SHUFFLE = 4;
 	public static final int NUM_TARGETED_ATTACK = 4;
 	public static final int NUM_CAT_CARD = 4;
-	public static final int THREE_CARD_COUNT = 3;
-	public static final int FOUR_CARD_COUNT = 4;
 
-	public static final int NUM_DEFUSES_IN_GAME = 5;
 	public static final int INVALID_PLAYER_COUNT = 6;
 	public static final int EXPECTED_DECK_SIZE_4_PLAYERS = 57;
 	public static final int EXPECTED_DECK_SIZE_2_PLAYERS = 59;
