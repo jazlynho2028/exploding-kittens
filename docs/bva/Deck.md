@@ -68,17 +68,17 @@
   - **Expected output**: Throws IllegalStateException with message `error.emptyDeck`; deck is still empty: []
 
 - **TC14: Peek bottom of deck with one card** ( :white_check_mark: )
-  - **Name of the test**: `peekBottom_oneCardDeck_returnsBottomCard`
+  - **Name of the test**: `peekBottom_nonEmptyDeck_returnsBottomCard` with case `one-card deck`
   - **State of the system**: Deck has exactly one card: [card1]
   - **Expected output**: Returns card1; deck is still [card1]
 
 - **TC15: Peek bottom of deck with more than one different card** ( :white_check_mark: )
-  - **Name of the test**: `peekBottom_multipleDifferentCards_returnsBottomCard`
+  - **Name of the test**: `peekBottom_nonEmptyDeck_returnsBottomCard` with case `multiple different cards`
   - **State of the system**: Deck has more than one card with different cards: [card1, card2]
   - **Expected output**: Returns card2; deck is still [card1, card2]
 
 - **TC16: Peek bottom of deck with more than one duplicate card** ( :white_check_mark: )
-  - **Name of the test**: `peekBottom_multipleDuplicateCards_returnsBottomCard`
+  - **Name of the test**: `peekBottom_nonEmptyDeck_returnsBottomCard` with case `multiple duplicate cards`
   - **State of the system**: Deck has more than one card with duplicates: [card1, card1]
   - **Expected output**: Returns card1; deck is still [card1, card1]
 

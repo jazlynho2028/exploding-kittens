@@ -8,6 +8,11 @@ import java.util.Random;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import java.util.stream.Stream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTests {
@@ -264,66 +269,69 @@ public class DeckTests {
         assertEquals(0, deck.size());
     }
 
-    @Test
-    public void peekBottom_oneCardDeck_returnsBottomCard() {
-        Card card1 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("peekBottomNonEmptyDeckCases")
+    public void peekBottom_nonEmptyDeck_returnsBottomCard(
+            String caseName,
+            Deque<Card> cards,
+            Card expectedBottom,
+            int expectedSize,
+            Card expectedTop,
+            Card[] mocksToVerify) {
         Deck deck = new Deck(cards, new Random());
 
         Card result = deck.peekBottom();
 
-        assertSame(card1, result);
-        assertEquals(1, deck.size());
-        assertSame(card1, deck.peekBottom());
+        assertSame(expectedBottom, result);
+        assertEquals(expectedSize, deck.size());
+        assertSame(expectedTop, deck.peekTop());
+        assertSame(expectedBottom, deck.peekBottom());
 
-        EasyMock.verify(card1);
+        EasyMock.verify((Object[]) mocksToVerify);
     }
 
-    @Test
-    public void peekBottom_multipleDifferentCards_returnsBottomCard() {
-        Card card1 = EasyMock.createMock(Card.class);
-        Card card2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1, card2);
+    private static Stream<Arguments> peekBottomNonEmptyDeckCases() {
+        Card oneCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(oneCard);
+        Deque<Card> oneCardDeck = new ArrayDeque<>();
+        oneCardDeck.addLast(oneCard);
 
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card2);
+        Card firstDifferentCard = EasyMock.createMock(Card.class);
+        Card secondDifferentCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(firstDifferentCard, secondDifferentCard);
+        Deque<Card> differentCardsDeck = new ArrayDeque<>();
+        differentCardsDeck.addLast(firstDifferentCard);
+        differentCardsDeck.addLast(secondDifferentCard);
 
-        Deck deck = new Deck(cards, new Random());
+        Card duplicateCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(duplicateCard);
+        Deque<Card> duplicateCardsDeck = new ArrayDeque<>();
+        duplicateCardsDeck.addLast(duplicateCard);
+        duplicateCardsDeck.addLast(duplicateCard);
 
-        Card result = deck.peekBottom();
-
-        assertSame(card2, result);
-        assertEquals(2, deck.size());
-        assertSame(card1, deck.peekTop());
-        assertSame(card2, deck.peekBottom());
-
-        EasyMock.verify(card1, card2);
-    }
-
-    @Test
-    public void peekBottom_multipleDuplicateCards_returnsBottomCard() {
-        Card card1 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card1);
-
-        Deck deck = new Deck(cards, new Random());
-
-        Card result = deck.peekBottom();
-
-        assertSame(card1, result);
-        assertEquals(2, deck.size());
-        assertSame(card1, deck.peekTop());
-        assertSame(card1, deck.peekBottom());
-
-        EasyMock.verify(card1);
+        return Stream.of(
+                Arguments.of(
+                        "one-card deck",
+                        oneCardDeck,
+                        oneCard,
+                        ONE_CARD,
+                        oneCard,
+                        new Card[] {oneCard}),
+                Arguments.of(
+                        "multiple different cards",
+                        differentCardsDeck,
+                        secondDifferentCard,
+                        TWO_CARDS,
+                        firstDifferentCard,
+                        new Card[] {firstDifferentCard, secondDifferentCard}),
+                Arguments.of(
+                        "multiple duplicate cards",
+                        duplicateCardsDeck,
+                        duplicateCard,
+                        TWO_CARDS,
+                        duplicateCard,
+                        new Card[] {duplicateCard})
+        );
     }
 
     @Test
