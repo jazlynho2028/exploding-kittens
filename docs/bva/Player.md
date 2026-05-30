@@ -134,7 +134,7 @@
   - **State of the system**: player hand has three cards; all cards have isSelected = false
   - **Expected output**: returns an empty list
 
-  - **TC24: Get selected cards when more than one card is selected** ( :x: )
+  - **TC24: Get selected cards when more than one card is selected** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_multipleCardsSomeSelected_returnsOnlySelectedCards
   - **State of the system**: player hand has three cards; some but not all have isSelected = true (two cards have isSelected = true, one card has isSelected = false)
   - **Expected output**: returns a list containing only the two selected cards; the one unselected card is not included
