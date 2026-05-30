@@ -46,6 +46,17 @@ public class DeckBuilderTests {
         verifyCardTypeGroup(baseCards, CardType.SWAP_TOP_AND_BOTTOM, NUM_SWAP_TOP_AND_BOTTOM, "SWAPTOPANDBOTTOM");
         verifyCardTypeGroup(baseCards, CardType.DRAW_FROM_THE_BOTTOM, NUM_DRAW_FROM_THE_BOTTOM, "DRAWFROMTHEBOTTOM");
     }
+    @Test
+    void initializeDeckWithoutDefuses_QuadrupleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
+        verifyCardTypeGroup(baseCards, CardType.FERAL_CAT, NUM_FERAL_CAT, "FERALCAT");
+        verifyCardTypeGroup(baseCards, CardType.SEE_THE_FUTURE, NUM_SEE_THE_FUTURE, "SEETHEFUTURE");
+        verifyCardTypeGroup(baseCards, CardType.SHUFFLE, NUM_SHUFFLE, "SHUFFLE");
+        verifyCardTypeGroup(baseCards, CardType.TARGETED_ATTACK, NUM_TARGETED_ATTACK, "TARGETEDATTACK");
+        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_1, NUM_CAT_CARD, "CATCARD1");
+        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_2, NUM_CAT_CARD, "CATCARD2");
+        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_3, NUM_CAT_CARD, "CATCARD3");
+        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_4, NUM_CAT_CARD, "CATCARD4");
+    }
 
     @Test
     void calculateDefusesToAdd_NegativeDefuses_ThrowsException() {

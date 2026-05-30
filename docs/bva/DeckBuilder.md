@@ -35,7 +35,7 @@
   - **Expected output**: validates that all triple-allocation cards (`ATTACK`, `SKIP`, `CLONE`, `SWAP_TOP_AND_BOTTOM`,
     `DRAW_FROM_THE_BOTTOM`) exist exactly three times and scale sequence IDs sequentially from 1 to 3.
 
-- **TC7: Quadruple-card counts ** ( :x: )
+- **TC7: Quadruple-card counts ** ( :white_check_mark: )
   - **Name of the test**: initializeDeckWithoutDefuses_QuadrupleInstanceCards_PopulateCorrectQuantitiesAndIDs
   - **State of the system**: no inputs because deck of non-defuse cards does not depend on player count
   - **Expected output**: validates that all quadruple-allocation cards (`FERAL_CAT`, `SEE_THE_FUTURE`, `SHUFFLE`,
