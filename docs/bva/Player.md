@@ -112,3 +112,34 @@
   - **Name of the test**: toggleSelectedHandCardAt_indexGreaterThanHandSize_callsException
   - **State of the system**: Player hand has 2 cards, index provided is greater than 1
   - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
+
+### Method under test: `getSelectedCards()`
+- **TC20: Get selected cards from empty hand** ( :x: )
+  - **Name of the test**: getSelectedCards_emptyHand_returnsEmptyList
+  - **State of the system**: player hand is empty
+  - **Expected output**: returns an empty list
+
+- **TC21: Get selected cards when no cards are selected** ( :x: )
+  - **Name of the test**: getSelectedCards_oneCardUnselected_returnsEmptyList
+  - **State of the system**: player hand has one card; card has isSelected = false
+  - **Expected output**: returns an empty list
+
+- **TC22: Get selected cards when the card is selected** ( :x: )
+  - **Name of the test**: getSelectedCards_oneCardSelected_returnsListWithCard
+  - **State of the system**: player hand has one card; card has isSelected = true
+  - **Expected output**: returns a list containing exactly that one card
+
+- **TC23: Get selected cards when no cards are selected** ( :x: )
+  - **Name of the test**: getSelectedCards_multipleCardsNoneSelected_returnsEmptyList
+  - **State of the system**: player hand has three cards; all cards have isSelected = false
+  - **Expected output**: returns an empty list
+
+  - **TC24: Get selected cards when more than one card is selected** ( :x: )
+  - **Name of the test**: getSelectedCards_multipleCardsSomeSelected_returnsOnlySelectedCards
+  - **State of the system**: player hand has three cards; some but not all have isSelected = true (two cards have isSelected = true, one card has isSelected = false)
+  - **Expected output**: returns a list containing only the two selected cards; the one unselected card is not included
+
+- **TC25: Get selected cards when more than one card is selected** ( :x: )
+  - **Name of the test**: getSelectedCards_multipleCardsAllSelected_returnsAllCards
+  - **State of the system**: player hand has three cards; every card has isSelected = true
+  - **Expected output**: returns a list containing all three cards in the hand
