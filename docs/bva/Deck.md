@@ -180,3 +180,24 @@
   - **Name of the test**: `isEmpty_multipleCards_returnsFalse`
   - **State of the system**: Deck has cards: [card1, card2]
   - **Expected output**: Returns false
+
+### Method under test: `getCards()`
+- **TC36: Get cards from empty deck** ( :x: )
+  - **Name of the test**: `getCards_emptyDeck_returnsEmptyList`
+  - **State of the system**: Deck is empty: []
+  - **Expected output**: Returns empty list []; deck is still empty: []
+
+- **TC37: Get cards from one-card deck** ( :x: )
+  - **Name of the test**: `getCards_oneCardDeck_returnsCopyWithOneCard`
+  - **State of the system**: Deck has exactly one card: [card1]
+  - **Expected output**: Returns [card1]; deck is still [card1]
+
+- **TC38: Get cards from multiple-card deck without duplicates** ( :x: )
+  - **Name of the test**: `getCards_multipleDifferentCards_returnsCopyInDeckOrder`
+  - **State of the system**: Deck has cards without duplicates: [card1, card2]
+  - **Expected output**: Returns [card1, card2] in the same order; deck is still [card1, card2]
+
+- **TC39: Get cards from multiple-card deck with duplicates** ( :x: )
+  - **Name of the test**: `getCards_multipleDuplicateCards_returnsCopyInDeckOrder`
+  - **State of the system**: Deck has cards with duplicates: [card1, card1, card2]
+  - **Expected output**: Returns [card1, card1, card2] with both copies of card1 preserved in order; deck is still [card1, card1, card2]
