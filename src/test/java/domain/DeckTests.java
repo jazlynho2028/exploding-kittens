@@ -197,63 +197,71 @@ public class DeckTests {
         assertEquals(0, deck.size());
     }
 
-    @Test
-    public void removeTop_oneCardDeck_returnsTopCard() {
-        Card card1 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("removeTopNonEmptyDeckCases")
+    public void removeTop_nonEmptyDeck_returnsTopCard(
+            String caseName,
+            Deque<Card> cards,
+            Card expectedTop,
+            int expectedSizeAfterRemove,
+            Card expectedNewTop,
+            Card[] mocksToVerify) {
         Deck deck = new Deck(cards, new Random());
 
         Card result = deck.removeTop();
 
-        assertSame(card1, result);
-        assertEquals(0, deck.size());
+        assertSame(expectedTop, result);
+        assertEquals(expectedSizeAfterRemove, deck.size());
 
-        EasyMock.verify(card1);
+        if (expectedSizeAfterRemove > 0) {
+            assertSame(expectedNewTop, deck.peekTop());
+        }
+
+        EasyMock.verify((Object[]) mocksToVerify);
     }
 
-    @Test
-    public void removeTop_multipleDifferentCards_returnsTopCard() {
-        Card card1 = EasyMock.createMock(Card.class);
-        Card card2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1, card2);
+    private static Stream<Arguments> removeTopNonEmptyDeckCases() {
+        Card oneCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(oneCard);
+        Deque<Card> oneCardDeck = new ArrayDeque<>();
+        oneCardDeck.addLast(oneCard);
 
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card2);
+        Card firstDifferentCard = EasyMock.createMock(Card.class);
+        Card secondDifferentCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(firstDifferentCard, secondDifferentCard);
+        Deque<Card> differentCardsDeck = new ArrayDeque<>();
+        differentCardsDeck.addLast(firstDifferentCard);
+        differentCardsDeck.addLast(secondDifferentCard);
 
-        Deck deck = new Deck(cards, new Random());
+        Card duplicateCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(duplicateCard);
+        Deque<Card> duplicateCardsDeck = new ArrayDeque<>();
+        duplicateCardsDeck.addLast(duplicateCard);
+        duplicateCardsDeck.addLast(duplicateCard);
 
-        Card result = deck.removeTop();
-
-        assertSame(card1, result);
-        assertEquals(1, deck.size());
-        assertSame(card2, deck.peekTop());
-
-        EasyMock.verify(card1, card2);
-    }
-
-    @Test
-    public void removeTop_multipleDuplicateCards_returnsTopCard() {
-        Card card1 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card1);
-
-        Deck deck = new Deck(cards, new Random());
-
-        Card result = deck.removeTop();
-
-        assertSame(card1, result);
-        assertEquals(1, deck.size());
-        assertSame(card1, deck.peekTop());
-
-        EasyMock.verify(card1);
+        return Stream.of(
+                Arguments.of(
+                        "one-card deck",
+                        oneCardDeck,
+                        oneCard,
+                        0,
+                        null,
+                        new Card[] {oneCard}),
+                Arguments.of(
+                        "multiple different cards",
+                        differentCardsDeck,
+                        firstDifferentCard,
+                        ONE_CARD,
+                        secondDifferentCard,
+                        new Card[] {firstDifferentCard, secondDifferentCard}),
+                Arguments.of(
+                        "multiple duplicate cards",
+                        duplicateCardsDeck,
+                        duplicateCard,
+                        ONE_CARD,
+                        duplicateCard,
+                        new Card[] {duplicateCard})
+        );
     }
 
     @Test
