@@ -116,3 +116,9 @@
   - **Name of the test**: getCurrentPlayer_oneTurnAdvanced_returnsCorrectPlayerInstance
   - **State of the system**: TurnManager constructed with 2 players 1 turn advanced
   - **Expected output**: getCurrentPlayer = player2
+
+### Method under test: `getStartingPlayerIndex()`
+- **TC21: getCurrentPlayer returns the index 0** ( :x: )
+  - **Name of the test**: getStartingPlayerIndex_successfullyReturnsStartingIndex
+  - **State of the system**: TurnManager constructed with 1 player
+  - **Expected output**: getCurrentPlayer = player2
