@@ -199,6 +199,27 @@ public class TurnManagerTests {
     }
 
     @Test
+    public void decrementDrawCount_subtractsValueCorrectly() {
+        final int expectedDrawCount = 1;
+        List<Player> players = new ArrayList<>();
+        Player mockPlayer1 = EasyMock.createMock(Player.class);
+        players.add(mockPlayer1);
+
+        EasyMock.replay(mockPlayer1);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        turnManager.incrementDrawCount();
+        turnManager.incrementDrawCount();
+
+        turnManager.decrementDrawCount();
+
+        assertEquals(expectedDrawCount, turnManager.getDrawCount(), "decrementDrawCount must subtract exactly 1");
+
+        EasyMock.verify(mockPlayer1);
+    }
+
+    @Test
     public void incrementRound_initialZero_success() {
         final int initialRoundCounter = 0;
         List<Player> players = new ArrayList<>();

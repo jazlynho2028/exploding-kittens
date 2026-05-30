@@ -59,7 +59,7 @@
   - **State of the system**: currentDrawCount = 1
   - **Expected output**: getCurrentDrawCount() = 0
 
-- **TC11: Decrementing from a positive value subtracts from the total** ( :x: )
+- **TC11: Decrementing from a positive value subtracts from the total** ( :white_check_mark: )
   - **Name of the test**: decrementDrawCount_subtractsValueCorrectly
   - **State of the system**: currentDrawCount = 2
   - **Expected output**: getCurrentDrawCount() = 1
