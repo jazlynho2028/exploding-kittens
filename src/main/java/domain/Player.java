@@ -2,6 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Player {
 
@@ -52,10 +53,14 @@ public class Player {
     }
 
     public List<Card> getSelectedCards() {
-        return List.of();
+        return hand.stream()
+                .filter(Card::getIsSelected)
+                .collect(Collectors.toList());
     }
 
     public List<String> getHandIds() {
-        return List.of();
+        return hand.stream()
+                .map(Card::getId)
+                .collect(Collectors.toList());
     }
 }
