@@ -115,9 +115,7 @@ public class Game {
     }
 
     public List<String> getPlayerNames() {
-        return players.stream()
-                .map(Player::getName)
-                .collect(Collectors.toList());
+        return List.of();
     }
 
     public int getCurrentPlayerIndex() {
