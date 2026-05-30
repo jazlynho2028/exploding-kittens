@@ -374,6 +374,16 @@ public class PlayerTests {
     }
 
     @Test
+    public void getName_validName_returnsExactString() {
+        final String expectedName = "Alice";
+        Player player = new Player(expectedName);
+
+        String actualName = player.getName();
+
+        assertEquals(expectedName, actualName);
+    }
+
+    @Test
     public void getSelectedCards_emptyHand_returnsEmptyList() {
         final int expectedSelectedCards = 0;
         Player player = new Player("Alice");

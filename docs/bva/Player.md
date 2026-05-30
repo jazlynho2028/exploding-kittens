@@ -123,7 +123,7 @@
   - **State of the system**: Player hand has 0 cards, index provided is 0
   - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
 
-- **TC25: Baseline validation of name property** ( :x: )
+- **TC25: Baseline validation of name property** ( :white_check_mark: )
   - **Name of the test**: getName_validName_returnsExactString
   - **State of the system**: Player initialized with a specific name string (e.g., "Alice")
   - **Expected output**: getName() returns exactly "Alice"
