@@ -1,7 +1,7 @@
 # BVA Analysis: DeckBuilder Class
 
 ### Method under test: `InitializeDeck`
-- **TC1: Minimum allowed players ** ( :x: )
+- **TC1: Minimum allowed players ** ( :white_check_mark: )
   - **Name of the test**: initializeDeck_MinimumPlayers_AppendsThreeDefuses
   - **State of the system**: stateless initialization via empty constructor
   - **Expected output**: deck has 59 cards, of which 3 are "DEFUSE" cards. deck is shuffled.
