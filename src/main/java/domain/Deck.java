@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Deck {
+    private static final String ERROR_EMPTY_DECK = "error.emptyDeck";
 
     private final Deque<Card> deck;
     private final Random random;
@@ -36,7 +37,7 @@ public class Deck {
 
     public Card peekTop() {
         if (this.deck.isEmpty()) {
-            throw new UnsupportedOperationException("Cannot peek top of empty deck.");
+            throw new IllegalStateException(ERROR_EMPTY_DECK);
         }
 
         return this.deck.peekFirst();

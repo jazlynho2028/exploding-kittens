@@ -104,11 +104,13 @@ public class DeckTests {
     }
 
     @Test
-    public void peekTop_emptyDeck_throwsUnsupportedOperationException() {
+    public void peekTop_emptyDeck_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards);
 
-        assertThrows(UnsupportedOperationException.class, deck::peekTop);
+        IllegalStateException exception = assertThrows(IllegalStateException.class, deck::peekTop);
+
+        assertEquals("error.emptyDeck", exception.getMessage());
         assertEquals(0, deck.size());
     }
 
