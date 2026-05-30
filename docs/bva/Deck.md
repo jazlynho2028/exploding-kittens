@@ -166,7 +166,7 @@
   - **Expected output**: Deck becomes [card1, card2, card1]; deck size is 3
 
 ### Method under test: `isEmpty()`
-- **TC33: Check if empty deck is empty** ( :x: )
+- **TC33: Check if empty deck is empty** ( :white_check_mark: )
   - **Name of the test**: `isEmpty_emptyDeck_returnsTrue`
   - **State of the system**: Deck is empty: []
   - **Expected output**: Returns true

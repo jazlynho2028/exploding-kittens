@@ -87,4 +87,8 @@ public class Deck {
     public void addCard(Card card) {
         this.deck.addLast(card);
     }
+
+    public boolean isEmpty() {
+        return this.deck.isEmpty();
+    }
 }

@@ -632,4 +632,12 @@ public class DeckTests {
 
         EasyMock.verify(card1, card2);
     }
+
+    @Test
+    public void isEmpty_emptyDeck_returnsTrue() {
+        Deque<Card> cards = new ArrayDeque<>();
+        Deck deck = new Deck(cards);
+
+        assertTrue(deck.isEmpty());
+    }
 }
