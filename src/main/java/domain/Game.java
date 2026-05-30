@@ -12,7 +12,6 @@ public class Game {
 
     private List<Player> players;
     private Deck drawPile;
-    private Deck discardPile;
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
@@ -176,8 +175,10 @@ public class Game {
 
     public void drawFromPile() {
         Card card = drawPile.removeTop();
-        getCurrentPlayer().addCardToHand(card);
-        getCurrentPlayer().deselectHandCards();
+        Player currentPlayer = getCurrentPlayer();
+
+        currentPlayer.addCardToHand(card);
+        currentPlayer.deselectHandCards();
         turnManager.decrementDrawCount();
     }
 
