@@ -119,7 +119,7 @@
   - **State of the system**: player hand is empty
   - **Expected output**: returns an empty list
 
-- **TC21: Get selected cards when no cards are selected** ( :x: )
+- **TC21: Get selected cards when no cards are selected** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_oneCardUnselected_returnsEmptyList
   - **State of the system**: player hand has one card; card has isSelected = false
   - **Expected output**: returns an empty list
