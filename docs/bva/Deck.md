@@ -160,7 +160,7 @@
   - **State of the system**: Deck has cards: [card1, card2]; card = card3
   - **Expected output**: Deck becomes [card1, card2, card3]; deck size is 3
 
-- **TC32: Add duplicate card to deck** ( :x: )
+- **TC32: Add duplicate card to deck** ( :white_check_mark: )
   - **Name of the test**: `addCard_duplicateCard_addsCardToBottom`
   - **State of the system**: Deck has cards: [card1, card2]; card = card1
   - **Expected output**: Deck becomes [card1, card2, card1]; deck size is 3
