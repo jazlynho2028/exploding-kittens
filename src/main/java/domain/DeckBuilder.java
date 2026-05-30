@@ -19,7 +19,7 @@ public class DeckBuilder {
         return this.deck;
     }
 
-    private Deck buildPlayableDeck(int numPlayers){
+    private Deck buildPlayableDeck(int numPlayers) {
         List<Card> cardsList = initializeDeckWithoutDefuses();
 
         int defusesToAdd = calculateDefusesToAdd(numPlayers);
