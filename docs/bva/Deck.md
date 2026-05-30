@@ -192,7 +192,7 @@
   - **State of the system**: Deck has exactly one card: [card1]
   - **Expected output**: Returns [card1]; deck is still [card1]
 
-- **TC38: Get cards from multiple-card deck without duplicates** ( :x: )
+- **TC38: Get cards from multiple-card deck without duplicates** ( :white_check_mark: )
   - **Name of the test**: `getCards_multipleDifferentCards_returnsCopyInOrderWithoutDuplicates`
   - **State of the system**: Deck has cards without duplicates: [card1, card2]
   - **Expected output**: Returns [card1, card2] in the same order; deck is still [card1, card2]

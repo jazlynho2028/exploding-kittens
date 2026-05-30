@@ -683,4 +683,48 @@ public class DeckTests {
         assertEquals(0, result.size());
         assertEquals(0, deck.size());
     }
+
+    @Test
+    public void getCards_oneCardDeck_returnsCopyWithOneCard() {
+        Card card1 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+
+        Deck deck = new Deck(cards);
+
+        List<Card> result = deck.getCards();
+
+        assertEquals(ONE_CARD, result.size());
+        assertSame(card1, result.get(0));
+        assertEquals(ONE_CARD, deck.size());
+        assertSame(card1, deck.peekTop());
+
+        EasyMock.verify(card1);
+    }
+
+    @Test
+    public void getCards_multipleDifferentCards_returnsCopyInOrderWithoutDuplicates() {
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1, card2);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+        cards.addLast(card2);
+
+        Deck deck = new Deck(cards);
+
+        List<Card> result = deck.getCards();
+
+        assertEquals(TWO_CARDS, result.size());
+        assertSame(card1, result.get(0));
+        assertSame(card2, result.get(1));
+        assertEquals(TWO_CARDS, deck.size());
+        assertSame(card1, deck.peekTop());
+        assertSame(card2, deck.peekBottom());
+
+        EasyMock.verify(card1, card2);
+    }
 }
