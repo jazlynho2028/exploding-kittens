@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -336,7 +337,9 @@ public class GameTests {
 
 	@ParameterizedTest
 	@MethodSource("provideInvalidCardSelections")
-	public void canPlaySelected_invalidCards_returnFalse(List<Card> selectedCards) {
+	public void canPlaySelected_invalidCards_returnFalse(List<CardType> selectedCardTypes) {
+		List<Card> selectedCards = getCardMocksWithTypeExpectations(selectedCardTypes);
+
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -365,23 +368,35 @@ public class GameTests {
 	private static Stream<Arguments> provideInvalidCardSelections() {
 		return Stream.of(
 				Arguments.of(List.of()),
-				Arguments.of(List.of(new Card("DEFUSE_1", CardType.DEFUSE))),
-
-				Arguments.of(List.of(new Card(
-						"EXPLODINGKITTEN_3",
-						CardType.EXPLODING_KITTEN))),
-
-				Arguments.of(List.of(new Card("CATCARD1_1", CardType.CAT_CARD_1))),
-				Arguments.of(List.of(new Card("CATCARD2_1", CardType.CAT_CARD_2))),
-				Arguments.of(List.of(new Card("CATCARD3_4", CardType.CAT_CARD_3))),
-				Arguments.of(List.of(new Card("CATCARD4_4", CardType.CAT_CARD_4))),
-				Arguments.of(List.of(new Card("FERALCAT_1", CardType.FERAL_CAT)))
+				Arguments.of(List.of(CardType.DEFUSE)),
+				Arguments.of(List.of(CardType.EXPLODING_KITTEN)),
+				Arguments.of(List.of(CardType.CAT_CARD_1)),
+				Arguments.of(List.of(CardType.CAT_CARD_2)),
+				Arguments.of(List.of(CardType.CAT_CARD_3)),
+				Arguments.of(List.of(CardType.CAT_CARD_4)),
+				Arguments.of(List.of(CardType.FERAL_CAT))
 		);
+	}
+
+	private List<Card> getCardMocksWithTypeExpectations(List<CardType> cardTypes) {
+		List<Card> selectedCards = new ArrayList<>();
+
+		for (CardType cardType : cardTypes) {
+			Card card = EasyMock.createMock(Card.class);
+			EasyMock.expect(card.getType()).andReturn(cardType);
+			EasyMock.replay(card);
+
+			selectedCards.add(card);
+		}
+
+		return selectedCards;
 	}
 
 	@ParameterizedTest
 	@MethodSource("provideValidCardSelections")
-	public void canPlaySelected_validCards_returnTrue(List<Card> selectedCards) {
+	public void canPlaySelected_validCards_returnTrue(List<CardType> selectedCardTypes) {
+		List<Card> selectedCards = getCardMocksWithTypeExpectations(selectedCardTypes);
+
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -405,47 +420,31 @@ public class GameTests {
 
 		assertTrue(game.canPlaySelected());
 
-		EasyMock.verify(player1, player2, drawPile, game);
+		List<Object> mocks = new ArrayList<>(selectedCards);
+		Collections.addAll(mocks, player1, player2, drawPile, game);
+		Object[] mocksArray = mocks.toArray();
+
+		EasyMock.verify(mocksArray);
 	}
 
 	private static Stream<Arguments> provideValidCardSelections() {
 		return Stream.of(
-				Arguments.of(List.of(new Card("ATTACK_1", CardType.ATTACK))),
-				Arguments.of(List.of(new Card("SHUFFLE_2", CardType.SHUFFLE))),
-				Arguments.of(List.of(new Card("SKIP_3", CardType.SKIP))),
-
-				Arguments.of(List.of(new Card(
-						"SEETHEFUTURE_4",
-						CardType.SEE_THE_FUTURE))),
-
-				Arguments.of(List.of(new Card(
-						"CATOMICBOMB_1",
-						CardType.CATOMIC_BOMB))),
-
-				Arguments.of(List.of(new Card("SUPERSKIP_1", CardType.SUPER_SKIP))),
-				Arguments.of(List.of(new Card("GODCAT_1", CardType.GODCAT))),
-				Arguments.of(List.of(new Card("CLONE_1", CardType.CLONE))),
-
-				Arguments.of(List.of(new Card(
-						"SWAPTOPANDBOTTOM_1",
-						CardType.SWAP_TOP_AND_BOTTOM))),
-
-				Arguments.of(List.of(new Card(
-						"DRAWFROMTHEBOTTOM_1",
-						CardType.DRAW_FROM_THE_BOTTOM))),
-
-				Arguments.of(List.of(new Card(
-						"TARGETEDATTACK_1",
-						CardType.TARGETED_ATTACK))),
-
-				Arguments.of(List.of(new Card(
-						"WINNERWINNERCATNIPDINNER_1",
-						CardType.WINNER_WINNER_CATNIP_DINNER))),
-
-				Arguments.of(List.of(new Card("RAGEBAIT_1", CardType.RAGEBAIT))),
-				Arguments.of(List.of(new Card("RECYCLE_1", CardType.RECYCLE))),
-				Arguments.of(List.of(new Card("DOUBLEUP_1", CardType.DOUBLE_UP))),
-				Arguments.of(List.of(new Card("MILDDRAW_1", CardType.MILD_DRAW)))
+				Arguments.of(List.of(CardType.ATTACK)),
+				Arguments.of(List.of(CardType.SHUFFLE)),
+				Arguments.of(List.of(CardType.SKIP)),
+				Arguments.of(List.of(CardType.SEE_THE_FUTURE)),
+				Arguments.of(List.of(CardType.CATOMIC_BOMB)),
+				Arguments.of(List.of(CardType.SUPER_SKIP)),
+				Arguments.of(List.of(CardType.GODCAT)),
+				Arguments.of(List.of(CardType.CLONE)),
+				Arguments.of(List.of(CardType.SWAP_TOP_AND_BOTTOM)),
+				Arguments.of(List.of(CardType.DRAW_FROM_THE_BOTTOM)),
+				Arguments.of(List.of(CardType.TARGETED_ATTACK)),
+				Arguments.of(List.of(CardType.WINNER_WINNER_CATNIP_DINNER)),
+				Arguments.of(List.of(CardType.RAGEBAIT)),
+				Arguments.of(List.of(CardType.RECYCLE)),
+				Arguments.of(List.of(CardType.DOUBLE_UP)),
+				Arguments.of(List.of(CardType.MILD_DRAW))
 		);
 	}
 
@@ -559,16 +558,9 @@ public class GameTests {
 
 	private static Stream<Arguments> provideNonEmptyDrawPiles() {
 		return Stream.of(
-				Arguments.of(List.of(new Card("SKIP_1", CardType.SKIP))),
-				Arguments.of(List.of(
-						new Card("SKIP_1", CardType.SKIP),
-						new Card("SKIP_2", CardType.SKIP))),
-				Arguments.of(List.of(
-						new Card("SKIP_1", CardType.SKIP),
-						new Card("SKIP_1", CardType.SKIP))),
-				Arguments.of(List.of(
-						new Card("SKIP_1", CardType.SKIP),
-						new Card("ATTACK_3", CardType.ATTACK)))
+				Arguments.of(List.of(CardType.SKIP)),
+				Arguments.of(List.of(CardType.SKIP, CardType.SKIP)),
+				Arguments.of(List.of(CardType.SKIP, CardType.ATTACK))
 				);
 	}
 

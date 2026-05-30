@@ -176,6 +176,7 @@ public class Game {
     public void drawFromPile() {
         Card card = drawPile.removeTop();
         getCurrentPlayer().addCardToHand(card);
+        getCurrentPlayer().deselectHandCards();
         turnManager.decrementDrawCount();
     }
 
