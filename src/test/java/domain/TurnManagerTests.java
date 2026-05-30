@@ -14,6 +14,44 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TurnManagerTests {
 
     @Test
+    public void constructor_emptyPlayerList_throwsException() {
+        List<Player> emptyPlayersList = List.of();
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    new TurnManager(emptyPlayersList);
+                }
+        );
+
+        assertEquals("error.emptyPlayerList", exception.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1",
+            "2"
+    })
+    public void constructor_moreThanOnePlayer_zeroInitialCounts(int numPlayers) {
+        List<Player> players = new ArrayList<>();
+
+        for (int i = 0; i < numPlayers; i++) {
+            Player player = EasyMock.createMock(Player.class);
+            players.add(player);
+        }
+
+        TurnManager turnManager = new TurnManager(players);
+
+        int currentPlayerIndex = turnManager.getCurrentPlayerIndex();
+        int drawCount = turnManager.getDrawCount();
+        int roundCount = turnManager.getRoundCount();
+
+        assertEquals(0, currentPlayerIndex);
+        assertEquals(0, drawCount);
+        assertEquals(0, roundCount);
+    }
+
+    @Test
     public void getCurrentPlayerIndex_minimumPlayers_returnsZero() {
         final int firstPlayerIndex = 0;
         List<Player> players = new ArrayList<>();
@@ -220,9 +258,8 @@ public class TurnManagerTests {
             "3, 2, 0",
             "4, 3, 0"
     })
-    public void advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly(int totalPlayers,
-                                                                          int initialIndex,
-                                                                          int expectedIndex) {
+    public void advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly(
+            int totalPlayers, int initialIndex, int expectedIndex) {
         List<Player> players = new ArrayList<>();
         Player[] mockPlayers = new Player[totalPlayers];
         for (int i = 0; i < totalPlayers; i++) {
@@ -239,20 +276,6 @@ public class TurnManagerTests {
         assertEquals(expectedIndex, turnManager.getCurrentPlayerIndex());
 
         EasyMock.verify((Object[]) mockPlayers);
-    }
-
-    @Test
-    public void constructor_emptyPlayerList_throwsException() {
-        List<Player> emptyPlayersList = new ArrayList<>();
-
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    new TurnManager(emptyPlayersList);
-                }
-        );
-
-        assertEquals("error.emptyPlayerList", exception.getMessage());
     }
 
 }
