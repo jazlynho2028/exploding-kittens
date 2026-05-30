@@ -118,7 +118,7 @@
   - **Expected output**: getCurrentPlayer = player2
 
 ### Method under test: `getStartingPlayerIndex()`
-- **TC22: getCurrentPlayer returns the index 0** ( :x: )
+- **TC22: getCurrentPlayer returns the index 0** ( :white_check_mark: )
   - **Name of the test**: getStartingPlayerIndex_successfullyReturnsStartingIndex
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**: getStartingPlayerIndex() returns 0

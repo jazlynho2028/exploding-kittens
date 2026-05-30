@@ -401,4 +401,22 @@ public class TurnManagerTests {
         EasyMock.verify(mockPlayer1, mockPlayer2);
     }
 
+    @Test
+    public void getStartingPlayerIndex_successfullyReturnsStartingIndex() {
+        final int expectedIndex = 0;
+        List<Player> players = new ArrayList<>();
+        Player mockPlayer = EasyMock.createMock(Player.class);
+        players.add(mockPlayer);
+
+        EasyMock.replay(mockPlayer);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        int startingIndex = turnManager.getStartingPlayerIndex();
+
+        assertEquals(expectedIndex, startingIndex);
+
+        EasyMock.verify(mockPlayer);
+    }
+
 }
