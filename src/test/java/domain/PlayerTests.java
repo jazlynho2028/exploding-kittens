@@ -528,4 +528,29 @@ public class PlayerTests {
 
         EasyMock.verify(mockCard1, mockCard2, mockCard3);
     }
+
+    @Test
+    public void getHandIds_duplicateCards_returnsDuplicateIds() {
+        final String cardId = "DEFUSE_1";
+        final int duplicateCount = 2;
+        final int handSize = 2;
+        final int cardIndex1 = 0;
+        final int cardIndex2 = 1;
+
+        Card mockCard = EasyMock.createMock(Card.class);
+        EasyMock.expect(mockCard.getId()).andReturn(cardId).times(duplicateCount);
+        EasyMock.replay(mockCard);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard);
+        player.addCardToHand(mockCard);
+
+        List<String> handIds = player.getHandIds();
+
+        assertEquals(handSize, handIds.size());
+        assertEquals(cardId, handIds.get(cardIndex1));
+        assertEquals(cardId, handIds.get(cardIndex2));
+
+        EasyMock.verify(mockCard);
+    }
 }
