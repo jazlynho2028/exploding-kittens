@@ -39,6 +39,15 @@ public class DeckBuilderTests {
     }
 
     @Test
+    void initializeDeckWithoutDefuses_TripleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
+        verifyCardTypeGroup(baseCards, CardType.ATTACK, NUM_ATTACK, "ATTACK");
+        verifyCardTypeGroup(baseCards, CardType.SKIP, NUM_SKIP, "SKIP");
+        verifyCardTypeGroup(baseCards, CardType.CLONE, NUM_CLONE, "CLONE");
+        verifyCardTypeGroup(baseCards, CardType.SWAP_TOP_AND_BOTTOM, NUM_SWAP_TOP_AND_BOTTOM, "SWAPTOPANDBOTTOM");
+        verifyCardTypeGroup(baseCards, CardType.DRAW_FROM_THE_BOTTOM, NUM_DRAW_FROM_THE_BOTTOM, "DRAWFROMTHEBOTTOM");
+    }
+
+    @Test
     void calculateDefusesToAdd_NegativeDefuses_ThrowsException() {
         assertThrows(IllegalArgumentException.class, () -> {
             DeckBuilder.calculateDefusesToAdd(INVALID_PLAYER_COUNT);
