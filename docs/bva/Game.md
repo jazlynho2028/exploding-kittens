@@ -64,15 +64,15 @@
     - drawCount = 1
 
 ### Method under test: `getPlayerNames()`
-- **TC9: Get names for two players** ( :x: )
+- **TC9: Get names for two players** ( :white_check_mark: )
   - **Name of the test**: getPlayerNames_twoPlayers_returnTwoNames
-  - **State of the system**: players = [player1, player2]
-  - **Expected output**: returns [player1.getName, player2.getName]
+  - **State of the system**: players = [Alice, Bob]
+  - **Expected output**: returns ["Alice", "Bob"]
 
-- **TC10: Get names for four players** ( :x: )
-  - **Name of the test**: getPlayerNames_fourPlayers_returnFourNames
-  - **State of the system**: players = [player1, player2, player3, player4]
-  - **Expected output**: returns [player1.getName, player2.getName, player3.getName, player4.getName]
+- **TC10: Get names for four players with duplicate names** ( :x: )
+  - **Name of the test**: getPlayerNames_fourPlayersWithDuplicateNames_returnFourNames
+  - **State of the system**: players = [Alice, Alice, Audrey, Turkey]
+  - **Expected output**: returns ["Alice", "Alice", "Audrey", "Turkey"]
 
 ### Method under test: `getCurrentPlayerIndex()`
 - **TC11: This method is called** ( :white_check_mark: )

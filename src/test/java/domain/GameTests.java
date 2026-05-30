@@ -194,6 +194,28 @@ public class GameTests {
 	}
 
 	@Test
+	public void getPlayerNames_twoPlayers_returnTwoNames() {
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(drawPile);
+
+		List<String> expectedNames = List.of("Alice", "Bob");
+		List<Player> players = new ArrayList<>();
+
+		for (String name : expectedNames) {
+			Player player = new Player(name);
+			players.add(player);
+		}
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		List<String> actualNames = game.getPlayerNames();
+
+		assertEquals(expectedNames, actualNames);
+	}
+
+	@Test
 	public void getCurrentPlayerIndex_called_success() {
 		final int EXPECTED_INDEX = 2;
 
