@@ -655,4 +655,21 @@ public class DeckTests {
 
         EasyMock.verify(card1);
     }
+
+    @Test
+    public void isEmpty_multipleCards_returnsFalse() {
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1, card2);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+        cards.addLast(card2);
+
+        Deck deck = new Deck(cards);
+
+        assertFalse(deck.isEmpty());
+
+        EasyMock.verify(card1, card2);
+    }
 }

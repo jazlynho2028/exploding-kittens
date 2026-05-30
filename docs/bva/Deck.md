@@ -176,7 +176,7 @@
   - **State of the system**: Deck has exactly one card: [card1]
   - **Expected output**: Returns false
 
-- **TC35: Check if multi-card deck is empty** ( :x: )
+- **TC35: Check if multi-card deck is empty** ( :white_check_mark: )
   - **Name of the test**: `isEmpty_multipleCards_returnsFalse`
   - **State of the system**: Deck has cards: [card1, card2]
   - **Expected output**: Returns false
