@@ -343,6 +343,25 @@ public class PlayerTests {
     }
 
     @Test
+    public void toggleSelectedHandCardAt_indexExactlyEqualToHandSize_throwsException() {
+        Player player = new Player("Alice");
+        Card mockCard1 = EasyMock.createMock(Card.class);
+        Card mockCard2 = EasyMock.createMock(Card.class);
+
+        EasyMock.replay(mockCard1, mockCard2);
+        player.addCardToHand(mockCard1);
+        player.addCardToHand(mockCard2);
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> player.toggleSelectedHandCardAt(2) // The exact boundary value
+        );
+
+        assertEquals("error.invalidHandCardIndex", exception.getMessage());
+        EasyMock.verify(mockCard1, mockCard2);
+    }
+
+    @Test
     public void getSelectedCards_emptyHand_returnsEmptyList() {
         final int expectedSelectedCards = 0;
         Player player = new Player("Alice");
