@@ -355,6 +355,7 @@
   - **State of the system**: drawPile = [SKIP_1], drawCount = 0
   - **Expected output**:
     - getCurrentPlayer.addCardToHand is called with drawPile.removeTop
+    - getCurrentPlayer.deselectHandCards is called
     - turnManager.decrementDrawCount is called
 
 ### Method under test: `toggleFaceUp()`

@@ -763,27 +763,31 @@ public class GameTests {
 		}
 
 		Card drawnCard = EasyMock.createMock(Card.class);
-		EasyMock.expect(drawPile.removeTop()).andStubReturn(drawnCard);
+		EasyMock.expect(drawPile.removeTop()).andReturn(drawnCard);
 
 		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(drawPile, turnManager);
+		player1.addCardToHand(drawnCard);
+		EasyMock.expectLastCall();
+
+		player1.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(player1, drawPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getCurrentPlayer")
 				.createMock();
 
-		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(player1);
-		player1.addCardToHand(drawnCard);
-		EasyMock.expectLastCall();
+		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1).anyTimes();
 
 		EasyMock.replay(game);
 
 		game.drawFromPile();
 
-		EasyMock.verify(drawPile, turnManager);
+		EasyMock.verify(player1, drawPile, turnManager, game);
 	}
 
 	@ParameterizedTest

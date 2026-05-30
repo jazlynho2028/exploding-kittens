@@ -12,6 +12,7 @@ public class Game {
 
     private List<Player> players;
     private Deck drawPile;
+    private Deck discardPile;
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
