@@ -181,8 +181,9 @@ public class PlayerDeckControllerTests {
 		int playerIndex = 0;
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
-		model.getCurrentPlayerIndex();
-		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
+		EasyMock.expect(model.getCurrentPlayerIndex()).andThrow(
+				new RuntimeException(expectedMsg)
+		);
 
 		onError.accept(expectedMsg);
 		EasyMock.expectLastCall();
