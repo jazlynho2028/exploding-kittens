@@ -44,6 +44,29 @@ public class DeckBuilderTests {
     }
 
     @Test
+    void initializeDeck_MaximumPlayers_AppendsOneDefuse() {
+        Deck mockDeck = mock(Deck.class);
+        DeckBuilder deckBuilder = EasyMock.createMockBuilder(DeckBuilder.class)
+                .addMockedMethod("createDeckInstance")
+                .createMock();
+
+        Capture<List<Card>> capturedList = EasyMock.newCapture();
+        expect(deckBuilder.createDeckInstance(capture(capturedList))).andReturn(mockDeck);
+        replay(mockDeck, deckBuilder);
+
+        Deck resultDeck = deckBuilder.initializeDeck(MAX_PLAYERS);
+
+        assertSame(mockDeck, resultDeck);
+        List<Card> finalAssembledCards = capturedList.getValue();
+
+        assertEquals(EXPECTED_DECK_SIZE_4_PLAYERS, finalAssembledCards.size());
+
+        verifyCardTypeGroup(finalAssembledCards, CardType.DEFUSE, EXPECTED_DEFUSE_COUNT_4_PLAYERS, "DEFUSE");
+
+        verify(mockDeck, deckBuilder);
+    }
+
+    @Test
     void initializeDeckWithoutDefuses_TotalCardCount_EqualsBaselineConstant() {
         assertEquals(56, baseCards.size());
     }

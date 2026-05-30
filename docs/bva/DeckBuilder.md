@@ -6,7 +6,7 @@
   - **State of the system**: stateless initialization via empty constructor
   - **Expected output**: deck has 59 cards, of which 3 are "DEFUSE" cards. deck is shuffled.
 
-- **TC2: Maximum allowed players ** ( :x: )
+- **TC2: Maximum allowed players ** ( :white_check_mark: )
   - **Name of the test**: initializeDeck_MaximumPlayers_AppendsOneDefuse
   - **State of the system**: stateless initialization via empty constructor
   - **Expected output**: deck has 57 cards, of which 1 is a "DEFUSE" card. deck is shuffled.
