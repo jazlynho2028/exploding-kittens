@@ -2,15 +2,21 @@
 
 ### Method under test: `DeckBuilder(int numPlayers)`
 - **TC1: Minimum allowed players (parameterized test) ** ( :white_check_mark: )
-  - **Name of the test**: constructor_ValidPlayerCounts_PopulatesCardDeckCorrectly
+  - **Name of the test**: constructor_ValidPlayerCounts_PopulatesCorrectDeckSizeAndDefuses
   - **State of the system**: numPlayers = 2
   - **Expected output**: instance is initialized. internal deck has 59 cards, of which 3 are "DEFUSE" cards. deck is shuffled.
 
 - **TC2: Maximum allowed players (parameterized test) ** ( :white_check_mark: )
-  - **Name of the test**: constructor_ValidPlayerCounts_PopulatesCardDeckCorrectly
+  - **Name of the test**: constructor_ValidPlayerCounts_PopulatesCorrectDeckSizeAndDefuses
   - **State of the system**: numPlayers = 4
   - **Expected output**: instance is initialized. internal deck has 57 cards, of which 1 is a "DEFUSE" card. deck is shuffled.
-  
+
+- **TC3: Base Game Card Quantities ** ( :white_check_mark: )
+  - **Name of the test**: constructor_ValidPlayerCounts_MaintainsStaticBaseCardQuantities
+  - **State of the system**: n/a (same card quantity regardless of numPlayers & numPlayers verified in Game class)
+  - **Expected output**: deck contains every single base game CardType (excluding DEFUSE) as its static quantity 
+    defined in GameConstants (e.g., exactly 3 ATTACK, 1 GODCAT, 0 EXPLODING_KITTENS)
+
 ### Helper functions
 ### Method under test: `calculateDefusesToAdd(int numPlayers)`
 - **TC4: Defuse count for minimum player count (2 players) ** ( :white_check_mark: )

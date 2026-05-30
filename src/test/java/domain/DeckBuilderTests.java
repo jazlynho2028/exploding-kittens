@@ -3,6 +3,7 @@ package domain;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,14 @@ public class DeckBuilderTests {
         assertEquals(expectedNumDefuses, actualNumDefuses);
     }
 
+    @ParameterizedTest(name = "Verify card type breakdown for {0} players")
+    @ValueSource(ints = {2, 4})
+    void constructor_ValidPlayerCounts_PopulatesExactCardTypeQuantities(int numPlayers) {
+        DeckBuilder builder = new DeckBuilder(numPlayers);
+        Deck deck = builder.getDeck();
+
+        assertBaseCardQuantities(deck);
+    }
 
     @Test
     void calculateDefusesToAdd_NegativeDefuses_ThrowsException() {
@@ -55,6 +64,40 @@ public class DeckBuilderTests {
             }
         }
         return count;
+    }
+
+    private void assertBaseCardQuantities(Deck deck) {
+        // 1-Count Cards
+        assertEquals(NUM_MILD_DRAW, countCards(deck, CardType.MILD_DRAW));
+        assertEquals(NUM_GODCAT, countCards(deck, CardType.GODCAT));
+        assertEquals(NUM_WINNER_WINNER_CATNIP_DINNER, countCards(deck, CardType.WINNER_WINNER_CATNIP_DINNER));
+        assertEquals(NUM_RAGEBAIT, countCards(deck, CardType.RAGEBAIT));
+        assertEquals(NUM_RECYCLE, countCards(deck, CardType.RECYCLE));
+        assertEquals(NUM_DOUBLE_UP, countCards(deck, CardType.DOUBLE_UP));
+        assertEquals(NUM_CATOMIC_BOMB, countCards(deck, CardType.CATOMIC_BOMB));
+
+        // 2-Count Cards
+        assertEquals(NUM_SUPER_SKIP, countCards(deck, CardType.SUPER_SKIP));
+
+        // 3-Count Cards
+        assertEquals(NUM_ATTACK, countCards(deck, CardType.ATTACK));
+        assertEquals(NUM_SKIP, countCards(deck, CardType.SKIP));
+        assertEquals(NUM_CLONE, countCards(deck, CardType.CLONE));
+        assertEquals(NUM_SWAP_TOP_AND_BOTTOM, countCards(deck, CardType.SWAP_TOP_AND_BOTTOM));
+        assertEquals(NUM_DRAW_FROM_THE_BOTTOM, countCards(deck, CardType.DRAW_FROM_THE_BOTTOM));
+
+        // 4-Count Cards
+        assertEquals(NUM_FERAL_CAT, countCards(deck, CardType.FERAL_CAT));
+        assertEquals(NUM_SEE_THE_FUTURE, countCards(deck, CardType.SEE_THE_FUTURE));
+        assertEquals(NUM_SHUFFLE, countCards(deck, CardType.SHUFFLE));
+        assertEquals(NUM_TARGETED_ATTACK, countCards(deck, CardType.TARGETED_ATTACK));
+        assertEquals(NUM_CAT_CARD, countCards(deck, CardType.CAT_CARD_1));
+        assertEquals(NUM_CAT_CARD, countCards(deck, CardType.CAT_CARD_2));
+        assertEquals(NUM_CAT_CARD, countCards(deck, CardType.CAT_CARD_3));
+        assertEquals(NUM_CAT_CARD, countCards(deck, CardType.CAT_CARD_4));
+
+        // Should start with 0 EXPLODING_KITTEN in deck
+        assertEquals(0, countCards(deck, CardType.EXPLODING_KITTEN));
     }
 
 }
