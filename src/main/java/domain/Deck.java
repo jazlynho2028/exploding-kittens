@@ -24,45 +24,45 @@ public class Deck {
     }
 
     public void shuffle() {
-        List<Card> cards = new ArrayList<>(this.deck);
+        List<Card> cards = new ArrayList<>(deck);
 
         for (int i = cards.size() - 1; i > 0; i--) {
-            int randomIndex = this.random.nextInt(i + 1);
+            int randomIndex = random.nextInt(i + 1);
             Card currentCard = cards.get(i);
             cards.set(i, cards.get(randomIndex));
             cards.set(randomIndex, currentCard);
         }
 
-        this.deck.clear();
-        this.deck.addAll(cards);
+        deck.clear();
+        deck.addAll(cards);
     }
 
     public Card peekTop() {
-        this.checkNotEmpty();
+        checkNotEmpty();
 
-        return this.deck.peekFirst();
+        return deck.peekFirst();
     }
 
     public Card removeTop() {
-        this.checkNotEmpty();
+        checkNotEmpty();
 
-        return this.deck.removeFirst();
+        return deck.removeFirst();
     }
 
     public int size() {
-        return this.deck.size();
+        return deck.size();
     }
 
     private void checkNotEmpty() {
-        if (this.deck.isEmpty()) {
+        if (deck.isEmpty()) {
             throw new IllegalStateException(ERROR_EMPTY_DECK);
         }
     }
 
     public Card peekBottom() {
-        this.checkNotEmpty();
+        checkNotEmpty();
 
-        return this.deck.peekLast();
+        return deck.peekLast();
     }
 
     public List<Card> peekTopNCards(int n) {
@@ -70,29 +70,29 @@ public class Deck {
             throw new IllegalArgumentException("Cannot peek a negative number of cards.");
         }
 
-        if (n > this.deck.size()) {
+        if (n > deck.size()) {
             throw new IllegalStateException(ERROR_EMPTY_DECK);
         }
 
-        List<Card> cards = new ArrayList<>(this.deck);
+        List<Card> cards = new ArrayList<>(deck);
         return new ArrayList<>(cards.subList(0, n));
     }
 
     public Card removeBottom() {
-        this.checkNotEmpty();
+        checkNotEmpty();
 
-        return this.deck.removeLast();
+        return deck.removeLast();
     }
 
     public void addCard(Card card) {
-        this.deck.addLast(card);
+        deck.addLast(card);
     }
 
     public boolean isEmpty() {
-        return this.deck.isEmpty();
+        return deck.isEmpty();
     }
 
     List<Card> getCards() {
-        return List.copyOf(this.deck);
+        return List.copyOf(deck);
     }
 }
