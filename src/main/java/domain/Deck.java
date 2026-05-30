@@ -83,4 +83,8 @@ public class Deck {
 
         return this.deck.removeLast();
     }
+
+    public void addCard(Card card) {
+        this.deck.addLast(card);
+    }
 }

@@ -145,7 +145,7 @@
   - **Expected output**: Returns card1; deck becomes [card1]
 
 ### Method under test: `addCard(Card card)`
-- **TC29: Add card to empty deck** ( :x: )
+- **TC29: Add card to empty deck** ( :white_check_mark: )
   - **Name of the test**: `addCard_emptyDeck_addsCardToDeck`
   - **State of the system**: Deck is empty: []; card = card1
   - **Expected output**: Deck becomes [card1]; deck size is 1
