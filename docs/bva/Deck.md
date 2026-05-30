@@ -125,9 +125,9 @@
 
 ### Method under test: `removeBottom()`
 - **TC25: Remove bottom from empty deck** ( :white_check_mark: )
-  - **Name of the test**: `removeBottom_emptyDeck_throwsUnsupportedOperationException`
+  - **Name of the test**: `removeBottom_emptyDeck_throwsIllegalStateException`
   - **State of the system**: Deck is empty: []
-  - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
+  - **Expected output**: Throws IllegalStateException with message `error.emptyDeck`; deck is still empty: []
 
 - **TC26: Remove bottom from deck with one card** ( :white_check_mark: )
   - **Name of the test**: `removeBottom_oneCardDeck_returnsBottomCard`

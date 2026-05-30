@@ -78,7 +78,7 @@ public class Deck {
 
     public Card removeBottom() {
         if (this.deck.isEmpty()) {
-            throw new UnsupportedOperationException("Cannot remove bottom of empty deck.");
+            throw new IllegalStateException(ERROR_EMPTY_DECK);
         }
 
         return this.deck.removeLast();
