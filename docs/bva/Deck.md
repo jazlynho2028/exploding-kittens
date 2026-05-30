@@ -21,9 +21,9 @@
 
 ### Method under test: `peekTop()`
 - **TC5: Peek top of empty deck** ( :white_check_mark: )
-  - **Name of the test**: `peekTop_emptyDeck_throwsUnsupportedOperationException`
+  - **Name of the test**: `peekTop_emptyDeck_throwsIllegalStateException`
   - **State of the system**: Deck is empty: []
-  - **Expected output**: Throws UnsupportedOperationException; deck is still empty: []
+  - **Expected output**: Throws IllegalStateException with message `error.emptyDeck`; deck is still empty: []
 
 - **TC6: Peek top of deck with one card** ( :white_check_mark: )
   - **Name of the test**: `peekTop_oneCardDeck_returnsTopCard`
