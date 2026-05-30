@@ -477,7 +477,7 @@ public class PlayerTests {
 
     @Test
     public void getHandIds_oneCard_returnsListWithOneId() {
-        final String cardId = "card-1";
+        final String cardId = "DEFUSE_1";
         final int handSize = 1;
         final int cardIndex1 = 0;
         Card mockCard = EasyMock.createMock(Card.class);
@@ -497,9 +497,9 @@ public class PlayerTests {
 
     @Test
     public void getHandIds_multipleCards_returnsAllIdsInOrder() {
-        final String cardId1 = "card-1";
-        final String cardId2 = "card-2";
-        final String cardId3 = "card-3";
+        final String cardId1 = "DEFUSE_1";
+        final String cardId2 = "ATTACK_1";
+        final String cardId3 = "SKIP_1";
         final int handSize = 3;
         final int cardIndex1 = 0;
         final int cardIndex2 = 1;
