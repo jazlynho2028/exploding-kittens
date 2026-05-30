@@ -164,3 +164,19 @@
   - **Name of the test**: `addCard_duplicateCard_addsCardToBottom`
   - **State of the system**: Deck has cards: [card1, card2]; card = card1
   - **Expected output**: Deck becomes [card1, card2, card1]; deck size is 3
+
+### Method under test: `isEmpty()`
+- **TC33: Check if empty deck is empty** ( :x: )
+  - **Name of the test**: `isEmpty_emptyDeck_returnsTrue`
+  - **State of the system**: Deck is empty: []
+  - **Expected output**: Returns true
+
+- **TC34: Check if one-card deck is empty** ( :x: )
+  - **Name of the test**: `isEmpty_oneCardDeck_returnsFalse`
+  - **State of the system**: Deck has exactly one card: [card1]
+  - **Expected output**: Returns false
+
+- **TC35: Check if multi-card deck is empty** ( :x: )
+  - **Name of the test**: `isEmpty_multipleCards_returnsFalse`
+  - **State of the system**: Deck has cards: [card1, card2]
+  - **Expected output**: Returns false
