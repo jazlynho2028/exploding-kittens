@@ -85,3 +85,24 @@
   - **Name of the test**: advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = N - 1
   - **Expected output**: getCurrentPlayerIndex() = 0
+
+- **TC16: Strict testing on index of player when starting next round** ( :x: )
+  - **Name of the test**: advanceTurn_atLastPlayer_wrapsToZeroExactly
+  - **State of the system**: TurnManager constructed with 3 players advanced turn three times
+  - **Expected output**: getCurrentPlayerIndex() = 0
+
+- **TC17: Strict testing on round count when not starting next round** ( :x: )
+  - **Name of the test**: advanceTurn_nextPlayer_sameRoundCount
+  - **State of the system**: TurnManager constructed with 2 players advanced turn once
+  - **Expected output**: getRoundCount() = 0
+
+- **TC18: Strict testing on round count when starting next round** ( :x: )
+  - **Name of the test**: advanceTurn_wrapsToStartingPlayer_incrementsRoundCount
+  - **State of the system**: TurnManager constructed with 2 players advanced turn twice times
+  - **Expected output**: getRoundCount() = 1
+
+### Method under test: `getCurrentPlayer()`
+- **TC19: getCurrentPlayer returns the correct player** ( :x: )
+  - **Name of the test**: getCurrentPlayer_returnsCorrectPlayerInstance
+  - **State of the system**: TurnManager constructed with 2 players 'Alice' 'Bob'
+  - **Expected output**: getCurrentPlayer = player1, which will be 'Alice'
