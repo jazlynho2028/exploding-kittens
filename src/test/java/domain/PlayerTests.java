@@ -285,7 +285,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void toggleSelectedHandCardA_validLowerBoundIndex_cardToggled() {
+    public void toggleSelectedHandCardAt_validLowerBoundIndex_cardToggled() {
         final int cardIndex = 0;
         Player player = new Player("Alice");
         Card mockCard = EasyMock.createMock(Card.class);
@@ -359,6 +359,18 @@ public class PlayerTests {
 
         assertEquals("error.invalidHandCardIndex", exception.getMessage());
         EasyMock.verify(mockCard1, mockCard2);
+    }
+
+    @Test
+    public void toggleSelectedHandCardAt_emptyHandIndexZero_throwsException() {
+        Player player = new Player("Alice");
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> player.toggleSelectedHandCardAt(0)
+        );
+
+        assertEquals("error.invalidHandCardIndex", exception.getMessage());
     }
 
     @Test
