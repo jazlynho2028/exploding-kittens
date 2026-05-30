@@ -150,7 +150,7 @@
   - **State of the system**: player hand is empty
   - **Expected output**: returns an empty list
 
-- **TC27: Get hand IDs from hand with one card** ( :x: )
+- **TC27: Get hand IDs from hand with one card** ( :white_check_mark: )
   - **Name of the test**: getHandIds_oneCard_returnsListWithOneId
   - **State of the system**: player hand has one card with id
   - **Expected output**: returns a list containing exactly that card's ID

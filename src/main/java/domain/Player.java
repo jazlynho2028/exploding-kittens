@@ -59,6 +59,8 @@ public class Player {
     }
 
     public List<String> getHandIds() {
-        return new ArrayList<>();
+        return hand.stream()
+                .map(Card::getId)
+                .collect(Collectors.toList());
     }
 }

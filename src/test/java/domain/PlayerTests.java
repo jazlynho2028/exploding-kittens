@@ -474,4 +474,24 @@ public class PlayerTests {
 
         assertEquals(0, handIds.size());
     }
+
+    @Test
+    public void getHandIds_oneCard_returnsListWithOneId() {
+        final String cardId = "card-1";
+        final int handSize = 1;
+        final int cardIndex1 = 0;
+        Card mockCard = EasyMock.createMock(Card.class);
+        EasyMock.expect(mockCard.getId()).andReturn(cardId);
+        EasyMock.replay(mockCard);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard);
+
+        List<String> handIds = player.getHandIds();
+
+        assertEquals(handSize, handIds.size());
+        assertEquals(cardId, handIds.get(cardIndex1));
+
+        EasyMock.verify(mockCard);
+    }
 }
