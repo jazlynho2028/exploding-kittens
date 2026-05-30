@@ -106,7 +106,7 @@
   - **State of the system**: TurnManager constructed with 2 players advanced turn twice times
   - **Expected output**: getRoundCount() = 1
 
-- **TC20: Strict testing on draw count when advancing turn** ( :x: )
+- **TC20: Strict testing on draw count when advancing turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_incrementsDrawCount
   - **State of the system**: TurnManager constructed with 1 player advanced turn once
   - **Expected output**: getDrawCount() = 1

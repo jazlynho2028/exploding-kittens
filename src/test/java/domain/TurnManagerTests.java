@@ -365,6 +365,24 @@ public class TurnManagerTests {
     }
 
     @Test
+    public void advanceTurn_incrementsDrawCount() {
+        final int expectedDrawCount = 1;
+        List<Player> players = new ArrayList<>();
+        Player mockPlayer1 = EasyMock.createMock(Player.class);
+        players.add(mockPlayer1);
+
+        EasyMock.replay(mockPlayer1);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        turnManager.advanceTurn();
+
+        assertEquals(expectedDrawCount, turnManager.getDrawCount(), "drawCount must increment when turn advances");
+
+        EasyMock.verify(mockPlayer1);
+    }
+
+    @Test
     public void getCurrentPlayer_oneTurnAdvanced_returnsCorrectPlayerInstance() {
         List<Player> players = new ArrayList<>();
         Player mockPlayer1 = EasyMock.createMock(Player.class);
