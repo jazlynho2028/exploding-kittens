@@ -197,7 +197,7 @@
   - **State of the system**: Deck has cards without duplicates: [card1, card2]
   - **Expected output**: Returns [card1, card2] in the same order; deck is still [card1, card2]
 
-- **TC39: Get cards from multiple-card deck with duplicates** ( :x: )
+- **TC39: Get cards from multiple-card deck with duplicates** ( :white_check_mark: )
   - **Name of the test**: `getCards_multipleDuplicateCards_returnsCopyInOrderWithDuplicates`
   - **State of the system**: Deck has cards with duplicates: [card1, card1, card2]
   - **Expected output**: Returns [card1, card1, card2] with both copies of card1 preserved in order; deck is still [card1, card1, card2]

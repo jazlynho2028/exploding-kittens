@@ -727,4 +727,31 @@ public class DeckTests {
 
         EasyMock.verify(card1, card2);
     }
+
+    @Test
+    public void getCards_multipleDuplicateCards_returnsCopyInOrderWithDuplicates() {
+        Card card1CopyOne = EasyMock.createMock(Card.class);
+        Card card1CopyTwo = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1CopyOne, card1CopyTwo, card2);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1CopyOne);
+        cards.addLast(card1CopyTwo);
+        cards.addLast(card2);
+
+        Deck deck = new Deck(cards);
+
+        List<Card> result = deck.getCards();
+
+        assertEquals(THREE_CARDS, result.size());
+        assertSame(card1CopyOne, result.get(0));
+        assertSame(card1CopyTwo, result.get(1));
+        assertSame(card2, result.get(2));
+        assertEquals(THREE_CARDS, deck.size());
+        assertSame(card1CopyOne, deck.peekTop());
+        assertSame(card2, deck.peekBottom());
+
+        EasyMock.verify(card1CopyOne, card1CopyTwo, card2);
+    }
 }
