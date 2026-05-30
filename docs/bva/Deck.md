@@ -150,7 +150,7 @@
   - **State of the system**: Deck is empty: []; card = card1
   - **Expected output**: Deck becomes [card1]; deck size is 1
 
-- **TC30: Add card to deck with one card** ( :x: )
+- **TC30: Add card to deck with one card** ( :white_check_mark: )
   - **Name of the test**: `addCard_oneCardDeck_addsCardToBottom`
   - **State of the system**: Deck has exactly one card: [card1]; card = card2
   - **Expected output**: Deck becomes [card1, card2]; deck size is 2

@@ -569,4 +569,24 @@ public class DeckTests {
 
         EasyMock.verify(card1);
     }
+
+    @Test
+    public void addCard_oneCardDeck_addsCardToBottom() {
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1, card2);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+
+        Deck deck = new Deck(cards);
+
+        deck.addCard(card2);
+
+        assertEquals(TWO_CARDS, deck.size());
+        assertSame(card1, deck.peekTop());
+        assertSame(card2, deck.peekBottom());
+
+        EasyMock.verify(card1, card2);
+    }
 }
