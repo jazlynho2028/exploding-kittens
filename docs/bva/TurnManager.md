@@ -102,7 +102,7 @@
   - **Expected output**: getRoundCount() = 1
 
 ### Method under test: `getCurrentPlayer()`
-- **TC19: getCurrentPlayer returns the correct player** ( :x: )
-  - **Name of the test**: getCurrentPlayer_returnsCorrectPlayerInstance
+- **TC19: getCurrentPlayer returns the correct player** ( :white_check_mark: )
+  - **Name of the test**: getCurrentPlayer_oneTurnAdvanced_returnsCorrectPlayerInstance
   - **State of the system**: TurnManager constructed with 2 players 1 turn advanced
   - **Expected output**: getCurrentPlayer = player2

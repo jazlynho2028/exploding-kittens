@@ -8,8 +8,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TurnManagerTests {
 
@@ -340,6 +339,25 @@ public class TurnManagerTests {
         turnManager.advanceTurn();
 
         assertEquals(1, turnManager.getRoundCount());
+
+        EasyMock.verify(mockPlayer1, mockPlayer2);
+    }
+
+    @Test
+    public void getCurrentPlayer_oneTurnAdvanced_returnsCorrectPlayerInstance() {
+        List<Player> players = new ArrayList<>();
+        Player mockPlayer1 = EasyMock.createMock(Player.class);
+        Player mockPlayer2 = EasyMock.createMock(Player.class);
+
+        players.add(mockPlayer1);
+        players.add(mockPlayer2);
+
+        EasyMock.replay(mockPlayer1, mockPlayer2);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        turnManager.advanceTurn();
+        assertSame(mockPlayer2, turnManager.getCurrentPlayer());
 
         EasyMock.verify(mockPlayer1, mockPlayer2);
     }
