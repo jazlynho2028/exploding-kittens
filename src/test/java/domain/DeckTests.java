@@ -640,4 +640,19 @@ public class DeckTests {
 
         assertTrue(deck.isEmpty());
     }
+
+    @Test
+    public void isEmpty_oneCardDeck_returnsFalse() {
+        Card card1 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+
+        Deck deck = new Deck(cards);
+
+        assertFalse(deck.isEmpty());
+
+        EasyMock.verify(card1);
+    }
 }

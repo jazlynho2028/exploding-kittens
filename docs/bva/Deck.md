@@ -171,7 +171,7 @@
   - **State of the system**: Deck is empty: []
   - **Expected output**: Returns true
 
-- **TC34: Check if one-card deck is empty** ( :x: )
+- **TC34: Check if one-card deck is empty** ( :white_check_mark: )
   - **Name of the test**: `isEmpty_oneCardDeck_returnsFalse`
   - **State of the system**: Deck has exactly one card: [card1]
   - **Expected output**: Returns false
