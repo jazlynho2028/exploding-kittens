@@ -1,31 +1,33 @@
 package domain;
 
 public class Card {
-    private final String id;
     private final CardType type;
+    private final String cardId;
     private boolean isSelected;
 
-    public Card(String id, CardType type) {
-        this.id = id;
+    public Card(String cardId, CardType type) {
         this.type = type;
+        this.cardId = cardId;
         this.isSelected = false;
     }
 
     public String getId() {
-        return id;
+        return this.cardId;
     }
 
     public CardType getType() {
-        return type;
+        return this.type;
     }
 
     public boolean getIsSelected() {
-        return isSelected;
+        return this.isSelected;
+    }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 
     public void toggleSelected() {
         this.isSelected = !this.isSelected;
     }
-
-
 }
