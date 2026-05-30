@@ -67,7 +67,7 @@ public class Game {
         }
     }
 
-    void populatePlayerHands() {
+    private void populatePlayerHands() {
         populateHandsWithDefuse();
 
         populateHandsWithNonDefuseStartingCards();
