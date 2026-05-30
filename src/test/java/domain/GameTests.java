@@ -836,7 +836,10 @@ public class GameTests {
 		turnManager.advanceTurn();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(player1, player2, drawPile, turnManager);
+		player1.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(player1, drawPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
@@ -846,14 +849,12 @@ public class GameTests {
 
 		EasyMock.expect(game.canEndTurn()).andReturn(true);
 		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1);
-		player1.deselectHandCards();
-		EasyMock.expectLastCall();
 
 		EasyMock.replay(game);
 
 		game.advanceTurn();
 
-		EasyMock.verify(game);
+		EasyMock.verify(game, player1, turnManager);
 	}
 
 	@Test
