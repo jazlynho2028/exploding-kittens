@@ -91,4 +91,8 @@ public class Deck {
     public boolean isEmpty() {
         return this.deck.isEmpty();
     }
+
+    List<Card> getCards() {
+        return List.copyOf(this.deck);
+    }
 }

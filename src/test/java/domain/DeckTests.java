@@ -672,4 +672,15 @@ public class DeckTests {
 
         EasyMock.verify(card1, card2);
     }
+
+    @Test
+    public void getCards_emptyDeck_returnsEmptyList() {
+        Deque<Card> cards = new ArrayDeque<>();
+        Deck deck = new Deck(cards);
+
+        List<Card> result = deck.getCards();
+
+        assertEquals(0, result.size());
+        assertEquals(0, deck.size());
+    }
 }

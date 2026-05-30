@@ -182,7 +182,7 @@
   - **Expected output**: Returns false
 
 ### Method under test: `getCards()`
-- **TC36: Get cards from empty deck** ( :x: )
+- **TC36: Get cards from empty deck** ( :white_check_mark: )
   - **Name of the test**: `getCards_emptyDeck_returnsEmptyList`
   - **State of the system**: Deck is empty: []
   - **Expected output**: Returns empty list []; deck is still empty: []
