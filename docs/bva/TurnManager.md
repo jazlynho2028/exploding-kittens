@@ -96,7 +96,7 @@
   - **State of the system**: TurnManager constructed with 2 players advanced turn once
   - **Expected output**: getRoundCount() = 0
 
-- **TC18: Strict testing on round count when starting next round** ( :x: )
+- **TC18: Strict testing on round count when starting next round** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_wrapsToStartingPlayer_incrementsRoundCount
   - **State of the system**: TurnManager constructed with 2 players advanced turn twice times
   - **Expected output**: getRoundCount() = 1
