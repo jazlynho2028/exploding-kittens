@@ -1,49 +1,38 @@
 package ui;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
 
 public class StartController {
 
     private final StartView view;
-    private Runnable onEnglishPlay;
+
+	private Runnable onEnglishPlay;
     private Runnable onSpanishPlay;
 
-    public StartController(AssetProvider assets) {
-        this.view = new StartView(assets);
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "View is injected by for compromise between MVC pattern and " +
+                "testability, defensive copy is not applicable for JavaFX components"
+    )
+    public StartController(StartView view) {
+        this.view = view;
         this.onEnglishPlay = () -> { };
         this.onSpanishPlay = () -> { };
-
-        bindUI();
     }
 
-    // Fake constructor for tests to exclude UI view implementation
-    StartController(StartView view) {
-        this.view = view;
-    }
+    public Scene buildStartScene() {
+        view.bindEnglishPlayButton(onEnglishPlay);
+        view.bindSpanishPlayButton(onSpanishPlay);
 
-    public void setOnEnglishPlay(Runnable onEnglishPlay) {
-        this.onEnglishPlay = onEnglishPlay;
-    }
-
-    public void setOnSpanishPlay(Runnable onSpanishPlay) {
-        this.onSpanishPlay = onSpanishPlay;
-    }
-
-    private void bindUI() {
-        view.playButtonEnglish.setOnMouseClicked(e -> onEnglishPlayButton());
-        view.playButtonSpanish.setOnMouseClicked(e -> onSpanishPlayButton());
-    }
-
-    void onEnglishPlayButton() {
-        onEnglishPlay.run();
-    }
-
-    void onSpanishPlayButton() {
-        onSpanishPlay.run();
-    }
-
-    public Scene getStartScene() {
         return view.createStartScene();
     }
 
+    public void setOnEnglishPlay(Runnable handler) {
+        onEnglishPlay = handler;
+    }
+
+    public void setOnSpanishPlay(Runnable handler) {
+        onSpanishPlay = handler;
+    }
 }

@@ -15,8 +15,8 @@ import java.util.Objects;
 public class StartView {
     private final AssetProvider assetProvider;
     private final StackPane root;
-    public Button playButtonEnglish;
-    public Button playButtonSpanish;
+    private final Button playButtonEnglish;
+    private final Button playButtonSpanish;
 
     public StartView(AssetProvider assetProvider) {
         this.assetProvider = assetProvider;
@@ -25,6 +25,14 @@ public class StartView {
         this.playButtonSpanish = new Button();
 
         buildUI();
+    }
+
+    public void bindEnglishPlayButton(Runnable handler) {
+        playButtonEnglish.setOnMouseClicked(e -> handler.run());
+    }
+
+    public void bindSpanishPlayButton(Runnable handler) {
+        playButtonSpanish.setOnMouseClicked(e -> handler.run());
     }
 
     public Scene createStartScene () {

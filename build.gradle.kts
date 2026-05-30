@@ -27,6 +27,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.junit.platform:junit-platform-suite")
     testImplementation("org.pitest:pitest-junit5-plugin:1.2.2")
+    compileOnly("com.github.spotbugs:spotbugs-annotations:4.8.3")
+    testCompileOnly("com.github.spotbugs:spotbugs-annotations:4.8.3")
 
     // https://mvnrepository.com/artifact/org.easymock/easymock
     testImplementation("org.easymock:easymock:5.4.0")
@@ -59,10 +61,6 @@ tasks.compileJava {
     options.release = 11
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 tasks.withType<Checkstyle>().configureEach {
     reports {
         xml.required = false
@@ -93,7 +91,15 @@ spotbugs {
 tasks.spotbugsMain {
     reports.create("html") {
         required = true
-        outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugs.html")
+        outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugsMain.html")
+        setStylesheet("fancy-hist.xsl")
+    }
+}
+
+tasks.spotbugsTest {
+    reports.create("html") {
+        required = true
+        outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugsTest.html")
         setStylesheet("fancy-hist.xsl")
     }
 }
@@ -111,6 +117,7 @@ tasks.build {
 }
 
 tasks.test {
+    useJUnitPlatform()
     finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
     finalizedBy(tasks.pitest)
 }
@@ -119,8 +126,8 @@ tasks.jacocoTestReport {
 }
 
 pitest {
-    targetClasses.set(listOf("domain.*"))
-    targetTests.set(listOf("domain.*"))
+    targetClasses.set(listOf("domain.*", "ui.*Controller"))
+    targetTests.set(listOf("domain.*", "ui.*ControllerTests"))
     junit5PluginVersion = "1.2.2"
     pitestVersion = "1.15.0" //not needed when a default PIT version should be used
 

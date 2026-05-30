@@ -9,55 +9,27 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public class StartControllerTests {
 
 	@Test
-	public void onEnglishPlayButton_buttonPressed_success() {
-		StartView view = EasyMock.createMock(StartView.class);
-		Runnable onEnglishPlay = EasyMock.createMock(Runnable.class);
-
-		onEnglishPlay.run();
-		EasyMock.expectLastCall();
-
-		StartController controller = new StartController(view);
-		controller.setOnEnglishPlay(onEnglishPlay);
-
-		EasyMock.replay(view, onEnglishPlay);
-
-		controller.onEnglishPlayButton();
-
-		EasyMock.verify(view, onEnglishPlay);
-	}
-
-	@Test
-	public void onSpanishPlayButton_buttonPressed_success() {
-		StartView view = EasyMock.createMock(StartView.class);
-		Runnable onSpanishPlay = EasyMock.createMock(Runnable.class);
-
-		onSpanishPlay.run();
-		EasyMock.expectLastCall();
-
-		StartController controller = new StartController(view);
-		controller.setOnSpanishPlay(onSpanishPlay);
-
-		EasyMock.replay(view, onSpanishPlay);
-
-		controller.onSpanishPlayButton();
-
-		EasyMock.verify(view, onSpanishPlay);
-	}
-
-	@Test
-	public void getStartScene_called_success() {
+	public void buildStartScene_called_success() {
 		StartView view = EasyMock.createMock(StartView.class);
 		Scene expectedScene = EasyMock.createMock(Scene.class);
+		Runnable onEnglishPlay = EasyMock.createMock(Runnable.class);
+		Runnable onSpanishPlay = EasyMock.createMock(Runnable.class);
 
-		EasyMock.expect(view.createStartScene()).andReturn(
-				expectedScene
-		);
+		view.bindEnglishPlayButton(onEnglishPlay);
+		EasyMock.expectLastCall();
 
-		StartController controller = new StartController(view);
+		view.bindSpanishPlayButton(onSpanishPlay);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(view.createStartScene()).andReturn(expectedScene);
 
 		EasyMock.replay(view);
 
-		Scene actualScene = controller.getStartScene();
+		StartController controller = new StartController(view);
+		controller.setOnEnglishPlay(onEnglishPlay);
+		controller.setOnSpanishPlay(onSpanishPlay);
+
+		Scene actualScene = controller.buildStartScene();
 		assertSame(expectedScene, actualScene);
 
 		EasyMock.verify(view);

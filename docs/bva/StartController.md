@@ -1,17 +1,5 @@
-### Method under test: `onEnglishPlayButton()`
-- **TC1: this method is called ** ( :white_check_mark: )
-    - **Name of the test**: onEnglishPlayButton_buttonPressed_success
-    - **State of the system**: N/A
-    - **Expected output**: called onEnglishPlay.run()
-
-### Method under test: `onSpanishPlayButton()`
-- **TC2: this method is called ** ( :white_check_mark: )
-    - **Name of the test**: onSpanishPlayButton_buttonPressed_success
-    - **State of the system**: N/A
-    - **Expected output**: called onSpanishPlay.run()
-
-### Method under test: `getStartScene()`
-- **TC3: this method is called ** ( :white_check_mark: )
-    - **Name of the test**: getStartScene_called_success
-    - **State of the system**: N/A
-    - **Expected output**: called view.createStartScene()
+### Method under test: `buildStartScene()`
+- **TC1: This method is called** ( :white_check_mark: )
+  - **Name of the test**: buildStartScene_called_success
+  - **State of the system**: N/A
+  - **Expected output**: called view.bindEnglishPlayButton, view.bindSpanishPlayButton, returns view.createStartScene

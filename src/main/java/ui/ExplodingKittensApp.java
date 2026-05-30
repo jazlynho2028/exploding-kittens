@@ -18,8 +18,9 @@ public class ExplodingKittensApp extends Application {
 	@Override
     public void start(Stage stage) {
 		this.assets.loadGlobalFiles(englishLanguage);
-        this.errorHandler = message -> {
-            showErrorScreen(message, stage);
+        this.errorHandler = key -> {
+            String errorMsg = assets.getString(key);
+            showErrorScreen(errorMsg, stage);
         };
 
         showStartScreen(stage);
@@ -31,30 +32,35 @@ public class ExplodingKittensApp extends Application {
     }
 
     private void showStartScreen(Stage stage) {
-        StartController controller = new StartController(assets);
+        StartView view = new StartView(assets);
+        StartController controller = new StartController(view);
 
         controller.setOnEnglishPlay(() -> switchLanguageAndView(stage, englishLanguage));
         controller.setOnSpanishPlay(() -> switchLanguageAndView(stage, spanishLanguage));
 
-        Scene startScene = controller.getStartScene();
+        Scene startScene = controller.buildStartScene();
         setScene(startScene, stage);
     }
 
     private void showPlayerCreateScreen(Stage stage) {
-        PlayerCreateController controller = new PlayerCreateController(assets);
+        PlayerCreateView view = new PlayerCreateView(assets);
+        PlayerCreateController controller = new PlayerCreateController(view);
 
         controller.setOnError(errorHandler);
         controller.setOnSuccess(() -> initializeGame(controller, stage));
         controller.setOnRestart(() -> showStartScreen(stage));
 
-        Scene playerCreateScene = controller.getPlayerCreateScene();
+        Scene playerCreateScene = controller.buildPlayerCreateScene();
         setScene(playerCreateScene, stage);
     }
 
     private void showErrorScreen(String message, Stage stage) {
-        ErrorController controller = new ErrorController(assets, message);
+        ErrorView view = new ErrorView(assets, message);
+        ErrorController controller = new ErrorController(view);
 
-        Scene errorScene = controller.getErrorScene();
+        controller.setOnRestart(() -> showStartScreen(stage));
+
+        Scene errorScene = controller.buildErrorScene();
         setScene(errorScene, stage);
     }
 
@@ -66,11 +72,12 @@ public class ExplodingKittensApp extends Application {
     }
 
     private void showPlayerDeckScreen(Game model, Stage stage) {
-        PlayerDeckController controller = new PlayerDeckController(model, assets);
+        PlayerDeckView view = new PlayerDeckView(assets);
+        PlayerDeckController controller = new PlayerDeckController(model, view);
 
         controller.setOnError(errorHandler);
 
-        Scene playerDeckScene = controller.getPlayerDeckScene();
+        Scene playerDeckScene = controller.buildPlayerDeckScene();
         setScene(playerDeckScene, stage);
     }
 
