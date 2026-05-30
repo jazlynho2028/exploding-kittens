@@ -11,6 +11,8 @@ import java.util.Deque;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTests {
+    private static final String ERROR_EMPTY_DECK = "error.emptyDeck";
+
     private static final int ONE_CARD = 1;
     private static final int TWO_CARDS = 2;
     private static final int THREE_CARDS = 3;
@@ -108,9 +110,11 @@ public class DeckTests {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards);
 
-        IllegalStateException exception = assertThrows(IllegalStateException.class, deck::peekTop);
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                deck::peekTop);
 
-        assertEquals("error.emptyDeck", exception.getMessage());
+        assertEquals(ERROR_EMPTY_DECK, exception.getMessage());
         assertEquals(0, deck.size());
     }
 
@@ -179,9 +183,11 @@ public class DeckTests {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards);
 
-        IllegalStateException exception = assertThrows(IllegalStateException.class, deck::removeTop);
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                deck::removeTop);
 
-        assertEquals("error.emptyDeck", exception.getMessage());
+        assertEquals(ERROR_EMPTY_DECK, exception.getMessage());
         assertEquals(0, deck.size());
     }
 
@@ -249,9 +255,11 @@ public class DeckTests {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards);
 
-        IllegalStateException exception = assertThrows(IllegalStateException.class, deck::peekBottom);
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                deck::peekBottom);
 
-        assertEquals("error.emptyDeck", exception.getMessage());
+        assertEquals(ERROR_EMPTY_DECK, exception.getMessage());
         assertEquals(0, deck.size());
     }
 
@@ -337,7 +345,7 @@ public class DeckTests {
                 IllegalStateException.class,
                 () -> deck.peekTopNCards(ONE_CARD));
 
-        assertEquals("error.emptyDeck", exception.getMessage());
+        assertEquals(ERROR_EMPTY_DECK, exception.getMessage());
         assertEquals(0, deck.size());
     }
 
@@ -442,7 +450,7 @@ public class DeckTests {
                 IllegalStateException.class,
                 () -> deck.peekTopNCards(THREE_CARDS));
 
-        assertEquals("error.emptyDeck", exception.getMessage());
+        assertEquals(ERROR_EMPTY_DECK, exception.getMessage());
         assertEquals(TWO_CARDS, deck.size());
         assertSame(card1, deck.peekTop());
 
@@ -479,9 +487,11 @@ public class DeckTests {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards);
 
-        IllegalStateException exception = assertThrows(IllegalStateException.class, deck::removeBottom);
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                deck::removeBottom);
 
-        assertEquals("error.emptyDeck", exception.getMessage());
+        assertEquals(ERROR_EMPTY_DECK, exception.getMessage());
         assertEquals(0, deck.size());
     }
 
