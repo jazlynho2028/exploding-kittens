@@ -11,48 +11,51 @@ public class DeckBuilder {
 
     private final Deck deck;
 
-    public DeckBuilder(int numPlayers){
-        List<Card> cardsList = initializeFullDeck();
+    public DeckBuilder(int numPlayers) {
+        this.deck = buildPlayableDeck(numPlayers);
+    }
+
+    public Deck getDeck() {
+        return this.deck;
+    }
+
+    private Deck buildPlayableDeck(int numPlayers){
+        List<Card> cardsList = initializeDeckWithoutDefuses();
 
         int defusesToAdd = calculateDefusesToAdd(numPlayers);
         addCards(cardsList, CardType.DEFUSE, defusesToAdd);
 
         Deque<Card> deckDeque = new ArrayDeque<>(cardsList);
-        this.deck = new Deck(deckDeque);
-        this.deck.shuffle();
+        Deck baseDeck = new Deck(deckDeque);
+        baseDeck.shuffle();
+
+        return baseDeck;
     }
 
-    public Deck getDeck(){
-        return this.deck;
-    }
-
-     List<Card> initializeFullDeck() {
+    private List<Card> initializeDeckWithoutDefuses() {
         List<Card> cardsList = new ArrayList<>();
 
-        addCards(cardsList, CardType.MILD_DRAW, 1);
-        addCards(cardsList, CardType.GODCAT, 1);
-        addCards(cardsList, CardType.WINNER_WINNER_CATNIP_DINNER, 1);
-        addCards(cardsList, CardType.RAGEBAIT, 1);
-        addCards(cardsList, CardType.RECYCLE, 1);
-        addCards(cardsList, CardType.DOUBLE_UP, 1);
-        addCards(cardsList, CardType.CATOMIC_BOMB, 1);
-
-        addCards(cardsList, CardType.SUPER_SKIP, 2);
-
-        addCards(cardsList, CardType.ATTACK, THREE_CARD_COUNT);
-        addCards(cardsList, CardType.SKIP, THREE_CARD_COUNT);
-        addCards(cardsList, CardType.CLONE, THREE_CARD_COUNT);
-        addCards(cardsList, CardType.SWAP_TOP_AND_BOTTOM, THREE_CARD_COUNT);
-        addCards(cardsList, CardType.DRAW_FROM_THE_BOTTOM, THREE_CARD_COUNT);
-
-        addCards(cardsList, CardType.FERAL_CAT, FOUR_CARD_COUNT);
-        addCards(cardsList, CardType.SEE_THE_FUTURE, FOUR_CARD_COUNT);
-        addCards(cardsList, CardType.SHUFFLE, FOUR_CARD_COUNT);
-        addCards(cardsList, CardType.TARGETED_ATTACK, FOUR_CARD_COUNT);
-        addCards(cardsList, CardType.CAT_CARD_1, FOUR_CARD_COUNT);
-        addCards(cardsList, CardType.CAT_CARD_2, FOUR_CARD_COUNT);
-        addCards(cardsList, CardType.CAT_CARD_3, FOUR_CARD_COUNT);
-        addCards(cardsList, CardType.CAT_CARD_4, FOUR_CARD_COUNT);
+        addCards(cardsList, CardType.MILD_DRAW, NUM_MILD_DRAW);
+        addCards(cardsList, CardType.GODCAT, NUM_GODCAT);
+        addCards(cardsList, CardType.WINNER_WINNER_CATNIP_DINNER, NUM_WINNER_WINNER_CATNIP_DINNER);
+        addCards(cardsList, CardType.RAGEBAIT, NUM_RAGEBAIT);
+        addCards(cardsList, CardType.RECYCLE, NUM_RECYCLE);
+        addCards(cardsList, CardType.DOUBLE_UP, NUM_DOUBLE_UP);
+        addCards(cardsList, CardType.CATOMIC_BOMB, NUM_CATOMIC_BOMB);
+        addCards(cardsList, CardType.SUPER_SKIP, NUM_SUPER_SKIP);
+        addCards(cardsList, CardType.ATTACK, NUM_ATTACK);
+        addCards(cardsList, CardType.SKIP, NUM_SKIP);
+        addCards(cardsList, CardType.CLONE, NUM_CLONE);
+        addCards(cardsList, CardType.SWAP_TOP_AND_BOTTOM, NUM_SWAP_TOP_AND_BOTTOM);
+        addCards(cardsList, CardType.DRAW_FROM_THE_BOTTOM, NUM_DRAW_FROM_THE_BOTTOM);
+        addCards(cardsList, CardType.FERAL_CAT, NUM_FERAL_CAT);
+        addCards(cardsList, CardType.SEE_THE_FUTURE, NUM_SEE_THE_FUTURE);
+        addCards(cardsList, CardType.SHUFFLE, NUM_SHUFFLE);
+        addCards(cardsList, CardType.TARGETED_ATTACK, NUM_TARGETED_ATTACK);
+        addCards(cardsList, CardType.CAT_CARD_1, NUM_CAT_CARD);
+        addCards(cardsList, CardType.CAT_CARD_2, NUM_CAT_CARD);
+        addCards(cardsList, CardType.CAT_CARD_3, NUM_CAT_CARD);
+        addCards(cardsList, CardType.CAT_CARD_4, NUM_CAT_CARD);
 
         return cardsList;
     }
@@ -64,6 +67,16 @@ public class DeckBuilder {
         }
     }
 
+    private static int calculateDefusesToAdd(int numPlayers) {
+        int defusesToAdd = NUM_DEFUSES_IN_GAME - numPlayers;
+
+        if (defusesToAdd < 0) {
+            throw new IllegalArgumentException("error.negativeDefuseCount");
+        }
+
+        return defusesToAdd;
+    }
+
     public static String createCardId(CardType type, int num) {
         String cardTypeNameWithoutUnderscore = type.name().replace("_", "");
 
@@ -72,16 +85,6 @@ public class DeckBuilder {
                 cardTypeNameWithoutUnderscore,
                 num
         );
-    }
-
-    static int calculateDefusesToAdd(int numPlayers) {
-        int defusesToAdd = NUM_DEFUSES_IN_GAME - numPlayers;
-
-        if (defusesToAdd < 0) {
-            throw new IllegalArgumentException("error.negativeDefuseCount");
-        }
-
-        return defusesToAdd;
     }
 
 }
