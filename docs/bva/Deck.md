@@ -155,7 +155,7 @@
   - **State of the system**: Deck has exactly one card: [card1]; card = card2
   - **Expected output**: Deck becomes [card1, card2]; deck size is 2
 
-- **TC31: Add card to deck with multiple different cards** ( :x: )
+- **TC31: Add card to deck with multiple different cards** ( :white_check_mark: )
   - **Name of the test**: `addCard_multipleDifferentCards_addsCardToBottom`
   - **State of the system**: Deck has cards: [card1, card2]; card = card3
   - **Expected output**: Deck becomes [card1, card2, card3]; deck size is 3
