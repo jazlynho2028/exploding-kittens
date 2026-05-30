@@ -143,3 +143,24 @@
   - **Name of the test**: `removeBottom_multipleDuplicateCards_returnsBottomCard`
   - **State of the system**: Deck has more than one card with duplicates: [card1, card1]
   - **Expected output**: Returns card1; deck becomes [card1]
+
+### Method under test: `addCard(Card card)`
+- **TC29: Add card to empty deck** ( :x: )
+  - **Name of the test**: `addCard_emptyDeck_addsCardToDeck`
+  - **State of the system**: Deck is empty: []; card = card1
+  - **Expected output**: Deck becomes [card1]; deck size is 1
+
+- **TC30: Add card to deck with one card** ( :x: )
+  - **Name of the test**: `addCard_oneCardDeck_addsCardToBottom`
+  - **State of the system**: Deck has exactly one card: [card1]; card = card2
+  - **Expected output**: Deck becomes [card1, card2]; deck size is 2
+
+- **TC31: Add card to deck with multiple different cards** ( :x: )
+  - **Name of the test**: `addCard_multipleDifferentCards_addsCardToBottom`
+  - **State of the system**: Deck has cards: [card1, card2]; card = card3
+  - **Expected output**: Deck becomes [card1, card2, card3]; deck size is 3
+
+- **TC32: Add duplicate card to deck** ( :x: )
+  - **Name of the test**: `addCard_duplicateCard_addsCardToBottom`
+  - **State of the system**: Deck has cards: [card1, card2]; card = card1
+  - **Expected output**: Deck becomes [card1, card2, card1]; deck size is 3
