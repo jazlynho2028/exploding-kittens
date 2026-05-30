@@ -303,4 +303,24 @@ public class TurnManagerTests {
         EasyMock.verify(mockPlayer1, mockPlayer2, mockPlayer3);
     }
 
+    @Test
+    public void advanceTurn_nextPlayer_sameRoundCount() {
+        List<Player> players = new ArrayList<>();
+        Player mockPlayer1 = EasyMock.createMock(Player.class);
+        Player mockPlayer2 = EasyMock.createMock(Player.class);
+
+        players.add(mockPlayer1);
+        players.add(mockPlayer2);
+
+        EasyMock.replay(mockPlayer1, mockPlayer2);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        turnManager.advanceTurn();
+
+        assertEquals(0, turnManager.getRoundCount());
+
+        EasyMock.verify(mockPlayer1, mockPlayer2);
+    }
+
 }

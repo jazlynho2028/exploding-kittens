@@ -91,7 +91,7 @@
   - **State of the system**: TurnManager constructed with 3 players advanced turn three times
   - **Expected output**: getCurrentPlayerIndex() = 0
 
-- **TC17: Strict testing on round count when not starting next round** ( :x: )
+- **TC17: Strict testing on round count when not starting next round** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_nextPlayer_sameRoundCount
   - **State of the system**: TurnManager constructed with 2 players advanced turn once
   - **Expected output**: getRoundCount() = 0
