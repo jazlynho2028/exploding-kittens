@@ -38,17 +38,13 @@ public class Deck {
     }
 
     public Card peekTop() {
-        if (this.deck.isEmpty()) {
-            throw new IllegalStateException(ERROR_EMPTY_DECK);
-        }
+        this.checkNotEmpty();
 
         return this.deck.peekFirst();
     }
 
     public Card removeTop() {
-        if (this.deck.isEmpty()) {
-            throw new IllegalStateException(ERROR_EMPTY_DECK);
-        }
+        this.checkNotEmpty();
 
         return this.deck.removeFirst();
     }
@@ -57,10 +53,14 @@ public class Deck {
         return this.deck.size();
     }
 
-    public Card peekBottom() {
+    private void checkNotEmpty() {
         if (this.deck.isEmpty()) {
             throw new IllegalStateException(ERROR_EMPTY_DECK);
         }
+    }
+
+    public Card peekBottom() {
+        this.checkNotEmpty();
 
         return this.deck.peekLast();
     }
@@ -79,9 +79,7 @@ public class Deck {
     }
 
     public Card removeBottom() {
-        if (this.deck.isEmpty()) {
-            throw new IllegalStateException(ERROR_EMPTY_DECK);
-        }
+        this.checkNotEmpty();
 
         return this.deck.removeLast();
     }
