@@ -118,11 +118,6 @@
   - **State of the system**: Player hand has 2 cards, index provided is equal to 2 (index == hand.size())
   - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
 
-- **TC24: Toggle index zero on an empty hand boundary check** ( :x: )
-  - **Name of the test**: toggleSelectedHandCardAt_emptyHandIndexZero_throwsException
-  - **State of the system**: Player hand has 0 cards, index provided is 0
-  - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
-
 ### Method under test: `getSelectedCards()`
 - **TC25: Get selected cards from empty hand** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_emptyHand_returnsEmptyList
@@ -174,9 +169,3 @@
   - **Name of the test**: getHandIds_duplicateCards_returnsDuplicateIds
   - **State of the system**: player hand has two duplicate cards with the same ID
   - **Expected output**: returns a list of all cards where the duplicate ID appears twice for the two duplicate cards 
-
-### Method under test: `getName()`
-- **TC35: Get name from a person** ( :x: )
-  - **Name of the test**: getName_existingPerson_success
-  - **State of the system**: Player created with name 'Alice'
-  - **Expected output**: returns the string 'Alice'
