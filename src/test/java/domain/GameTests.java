@@ -326,7 +326,11 @@ public class GameTests {
 		return Stream.of(
 				Arguments.of(List.of()),
 				Arguments.of(List.of(new Card("DEFUSE_1", CardType.DEFUSE))),
-				Arguments.of(List.of(new Card("EXPLODINGKITTEN_3", CardType.EXPLODING_KITTEN))),
+
+				Arguments.of(List.of(new Card(
+						"EXPLODINGKITTEN_3",
+						CardType.EXPLODING_KITTEN))),
+
 				Arguments.of(List.of(new Card("CATCARD1_1", CardType.CAT_CARD_1))),
 				Arguments.of(List.of(new Card("CATCARD2_1", CardType.CAT_CARD_2))),
 				Arguments.of(List.of(new Card("CATCARD3_4", CardType.CAT_CARD_3))),
@@ -365,15 +369,35 @@ public class GameTests {
 				Arguments.of(List.of(new Card("ATTACK_1", CardType.ATTACK))),
 				Arguments.of(List.of(new Card("SHUFFLE_2", CardType.SHUFFLE))),
 				Arguments.of(List.of(new Card("SKIP_3", CardType.SKIP))),
-				Arguments.of(List.of(new Card("SEETHEFUTURE_4", CardType.SEE_THE_FUTURE))),
-				Arguments.of(List.of(new Card("CATOMICBOMB_1", CardType.CATOMIC_BOMB))),
+
+				Arguments.of(List.of(new Card(
+						"SEETHEFUTURE_4",
+						CardType.SEE_THE_FUTURE))),
+
+				Arguments.of(List.of(new Card(
+						"CATOMICBOMB_1",
+						CardType.CATOMIC_BOMB))),
+
 				Arguments.of(List.of(new Card("SUPERSKIP_1", CardType.SUPER_SKIP))),
 				Arguments.of(List.of(new Card("GODCAT_1", CardType.GODCAT))),
 				Arguments.of(List.of(new Card("CLONE_1", CardType.CLONE))),
-				Arguments.of(List.of(new Card("SWAPTOPANDBOTTOM_1", CardType.SWAP_TOP_AND_BOTTOM))),
-				Arguments.of(List.of(new Card("DRAWFROMTHEBOTTOM_1", CardType.DRAW_FROM_THE_BOTTOM))),
-				Arguments.of(List.of(new Card("TARGETEDATTACK_1", CardType.TARGETED_ATTACK))),
-				Arguments.of(List.of(new Card("WINNERWINNERCATNIPDINNER_1", CardType.WINNER_WINNER_CATNIP_DINNER))),
+
+				Arguments.of(List.of(new Card(
+						"SWAPTOPANDBOTTOM_1",
+						CardType.SWAP_TOP_AND_BOTTOM))),
+
+				Arguments.of(List.of(new Card(
+						"DRAWFROMTHEBOTTOM_1",
+						CardType.DRAW_FROM_THE_BOTTOM))),
+
+				Arguments.of(List.of(new Card(
+						"TARGETEDATTACK_1",
+						CardType.TARGETED_ATTACK))),
+
+				Arguments.of(List.of(new Card(
+						"WINNERWINNERCATNIPDINNER_1",
+						CardType.WINNER_WINNER_CATNIP_DINNER))),
+
 				Arguments.of(List.of(new Card("RAGEBAIT_1", CardType.RAGEBAIT))),
 				Arguments.of(List.of(new Card("RECYCLE_1", CardType.RECYCLE))),
 				Arguments.of(List.of(new Card("DOUBLEUP_1", CardType.DOUBLE_UP))),
@@ -492,9 +516,15 @@ public class GameTests {
 	private static Stream<Arguments> provideNonEmptyDrawPiles() {
 		return Stream.of(
 				Arguments.of(List.of(new Card("SKIP_1", CardType.SKIP))),
-				Arguments.of(List.of(new Card("SKIP_1", CardType.SKIP), new Card("SKIP_2", CardType.SKIP))),
-				Arguments.of(List.of(new Card("SKIP_1", CardType.SKIP), new Card("SKIP_1", CardType.SKIP))),
-				Arguments.of(List.of(new Card("SKIP_1", CardType.SKIP), new Card("ATTACK_3", CardType.ATTACK)))
+				Arguments.of(List.of(
+						new Card("SKIP_1", CardType.SKIP),
+						new Card("SKIP_2", CardType.SKIP))),
+				Arguments.of(List.of(
+						new Card("SKIP_1", CardType.SKIP),
+						new Card("SKIP_1", CardType.SKIP))),
+				Arguments.of(List.of(
+						new Card("SKIP_1", CardType.SKIP),
+						new Card("ATTACK_3", CardType.ATTACK)))
 				);
 	}
 
