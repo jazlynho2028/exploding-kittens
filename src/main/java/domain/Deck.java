@@ -57,7 +57,7 @@ public class Deck {
 
     public Card peekBottom() {
         if (this.deck.isEmpty()) {
-            throw new UnsupportedOperationException("Cannot peek bottom of empty deck.");
+            throw new IllegalStateException(ERROR_EMPTY_DECK);
         }
 
         return this.deck.peekLast();
