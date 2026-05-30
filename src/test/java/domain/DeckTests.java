@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTests {
     private static final String ERROR_EMPTY_DECK = "error.emptyDeck";
+    private static final String ERROR_NOT_ENOUGH_CARDS = "error.notEnoughCards";
 
     private static final int ONE_CARD = 1;
     private static final int TWO_CARDS = 2;
@@ -345,7 +346,7 @@ public class DeckTests {
                 IllegalStateException.class,
                 () -> deck.peekTopNCards(ONE_CARD));
 
-        assertEquals(ERROR_EMPTY_DECK, exception.getMessage());
+        assertEquals(ERROR_NOT_ENOUGH_CARDS, exception.getMessage());
         assertEquals(0, deck.size());
     }
 
@@ -450,7 +451,7 @@ public class DeckTests {
                 IllegalStateException.class,
                 () -> deck.peekTopNCards(THREE_CARDS));
 
-        assertEquals(ERROR_EMPTY_DECK, exception.getMessage());
+        assertEquals(ERROR_NOT_ENOUGH_CARDS, exception.getMessage());
         assertEquals(TWO_CARDS, deck.size());
         assertSame(card1, deck.peekTop());
 

@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class Deck {
     private static final String ERROR_EMPTY_DECK = "error.emptyDeck";
+    private static final String ERROR_NOT_ENOUGH_CARDS = "error.notEnoughCards";
 
     private final Deque<Card> deck;
     private final Random random;
@@ -71,7 +72,7 @@ public class Deck {
         }
 
         if (n > deck.size()) {
-            throw new IllegalStateException(ERROR_EMPTY_DECK);
+            throw new IllegalStateException(ERROR_NOT_ENOUGH_CARDS);
         }
 
         List<Card> cards = new ArrayList<>(deck);
