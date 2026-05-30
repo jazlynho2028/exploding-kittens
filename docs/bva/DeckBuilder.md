@@ -45,7 +45,7 @@
   - **State of the system**: card type = ATTACK, num = 3
   - **Expected output**: returns string "ATTACK_3"
 
-- **TC9: Invalid boundary CardID sequence number of 0 ** ( :x: )
+- **TC9: Invalid boundary CardID sequence number of 0 ** ( :white_check_mark: )
   - **Name of the test**: createCardID_InvalidInputNum_ThrowsException
   - **State of the system**: card type = MILD_DRAW, num = 0
   - **Expected output**: throws IllegalArgumentException

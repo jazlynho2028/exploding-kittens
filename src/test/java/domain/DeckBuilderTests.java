@@ -68,6 +68,13 @@ public class DeckBuilderTests {
         assertEquals("ATTACK_3", actualID);
     }
 
+    @Test
+    void createCardId_ZeroSequenceNumber_ThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            DeckBuilder.createCardId(CardType.MILD_DRAW, 0);
+        });
+    }
+
     private int countCards(Deck deck, CardType type){
         int count = 0;
         for (Card card : deck.peekTopNCards(deck.size())){

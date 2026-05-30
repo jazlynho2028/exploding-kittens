@@ -60,7 +60,7 @@ public class DeckBuilder {
         return cardsList;
     }
 
-    private void addCards(List<Card> destinationList, CardType type, int numToAdd) {
+    public void addCards(List<Card> destinationList, CardType type, int numToAdd) {
         for (int i = 1; i <= numToAdd; i++) {
             String cardId = createCardId(type, i);
             destinationList.add(new Card(cardId, type));
@@ -79,7 +79,7 @@ public class DeckBuilder {
 
     public static String createCardId(CardType type, int num) {
         if (num <= 0) {
-            throw new IllegalArgumentException("error.invalidCardSequenceNumber");
+            throw new IllegalArgumentException("error.invalidCardIDNumber");
         }
 
         String cardTypeNameWithoutUnderscore = type.name().replace("_", "");
