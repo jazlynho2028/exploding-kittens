@@ -36,7 +36,8 @@ public class Game {
             justification = "EI_EXPOSE_REP2: TurnManager is injected by for testability. " +
                     "Defensive copy is not desired in this context. " +
                     "CT_CONSTRUCTOR_THROW: Game is an internal domain object. Finalizer " +
-                    "attack is not a concern."
+                    "attack is not a concern. It is Game's responsibility to " +
+                    "verify its inputs, and it cannot be made a final class for testability."
     )
     public Game(List<Player> players, Deck drawPile,
                 Deck discardPile, TurnManager turnManager) {
