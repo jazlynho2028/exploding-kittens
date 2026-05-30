@@ -17,7 +17,7 @@
   - **State of the system**: no inputs because deck of non-defuse cards does not depend on player count
   - **Expected output**: returns a list containing exactly 56 baseline cards.
 
-- **TC4: Single-card counts ** ( :x: )
+- **TC4: Single-card counts ** ( :white_check_mark: )
   - **Name of the test**: initializeDeckWithoutDefuses_SingleCountCards_PopulateCorrectQuantitiesAndIDs
   - **State of the system**: no inputs because deck of non-defuse cards does not depend on player count
   - **Expected output**: validates that all 1-count cards (e.g., `MILD_DRAW`, `GODCAT`, `CATOMIC_BOMB`) 
