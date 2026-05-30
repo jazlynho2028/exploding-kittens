@@ -59,50 +59,60 @@
   - **State of the system**: currentDrawCount = 1
   - **Expected output**: getCurrentDrawCount() = 0
 
+- **TC11: Decrementing from a positive value subtracts from the total** ( :x: )
+  - **Name of the test**: decrementDrawCount_subtractsValueCorrectly
+  - **State of the system**: currentDrawCount = 2
+  - **Expected output**: getCurrentDrawCount() = 1
+
 ### Method under test: `incrementRound()`
-- **TC11: Round incremented from its minimum baseline** ( :white_check_mark: )
+- **TC12: Round incremented from its minimum baseline** ( :white_check_mark: )
   - **Name of the test**: incrementRound_initialZero_success
   - **State of the system**: roundCounter = 0
   - **Expected output**: getRoundCounter() = 1
 
-- **TC12: Draw count incremented on nonzero draw count** ( :white_check_mark: )
+- **TC13: Draw count incremented on nonzero draw count** ( :white_check_mark: )
   - **Name of the test**: incrementRound_fromNonZero_success
   - **State of the system**: roundCounter = 1
   - **Expected output**: getRoundCounter() = 2
 
 ### Method under test: `advanceTurn()`
-- **TC13: Advance turn away from starting baseline across varying player sizes** ( :white_check_mark: )
+- **TC14: Advance turn away from starting baseline across varying player sizes** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = 0
   - **Expected output**: getCurrentPlayerIndex() = 1
 
-- **TC14: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
+- **TC15: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = N - 2
   - **Expected output**: getCurrentPlayerIndex() = N - 1
 
-- **TC15: Advance that hits upper boundary, wrapping index back to zero** ( :white_check_mark: )
+- **TC16: Advance that hits upper boundary, wrapping index back to zero** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = N - 1
   - **Expected output**: getCurrentPlayerIndex() = 0
 
-- **TC16: Strict testing on index of player when starting next round** ( :white_check_mark: )
+- **TC17: Strict testing on index of player when starting next round** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_atLastPlayer_wrapsToZeroExactly
   - **State of the system**: TurnManager constructed with 3 players advanced turn three times
   - **Expected output**: getCurrentPlayerIndex() = 0
 
-- **TC17: Strict testing on round count when not starting next round** ( :white_check_mark: )
+- **TC18: Strict testing on round count when not starting next round** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_nextPlayer_sameRoundCount
   - **State of the system**: TurnManager constructed with 2 players advanced turn once
   - **Expected output**: getRoundCount() = 0
 
-- **TC18: Strict testing on round count when starting next round** ( :white_check_mark: )
+- **TC19: Strict testing on round count when starting next round** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_wrapsToStartingPlayer_incrementsRoundCount
   - **State of the system**: TurnManager constructed with 2 players advanced turn twice times
   - **Expected output**: getRoundCount() = 1
 
+- **TC20: Strict testing on draw count when advancing turn** ( :x: )
+  - **Name of the test**: advanceTurn_incrementsDrawCount
+  - **State of the system**: TurnManager constructed with 1 player advanced turn once
+  - **Expected output**: getDrawCount() = 1
+
 ### Method under test: `getCurrentPlayer()`
-- **TC19: getCurrentPlayer returns the correct player** ( :white_check_mark: )
+- **TC21: getCurrentPlayer returns the correct player** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayer_oneTurnAdvanced_returnsCorrectPlayerInstance
   - **State of the system**: TurnManager constructed with 2 players 1 turn advanced
   - **Expected output**: getCurrentPlayer = player2
