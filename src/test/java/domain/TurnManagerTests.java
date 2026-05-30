@@ -214,7 +214,7 @@ public class TurnManagerTests {
 
         turnManager.decrementDrawCount();
 
-        assertEquals(expectedDrawCount, turnManager.getDrawCount(), "decrementDrawCount must subtract exactly 1");
+        assertEquals(expectedDrawCount, turnManager.getDrawCount());
 
         EasyMock.verify(mockPlayer1);
     }
@@ -377,7 +377,7 @@ public class TurnManagerTests {
 
         turnManager.advanceTurn();
 
-        assertEquals(expectedDrawCount, turnManager.getDrawCount(), "drawCount must increment when turn advances");
+        assertEquals(expectedDrawCount, turnManager.getDrawCount());
 
         EasyMock.verify(mockPlayer1);
     }

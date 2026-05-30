@@ -354,7 +354,7 @@ public class PlayerTests {
 
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> player.toggleSelectedHandCardAt(2) // The exact boundary value
+                () -> player.toggleSelectedHandCardAt(2)
         );
 
         assertEquals("error.invalidHandCardIndex", exception.getMessage());
