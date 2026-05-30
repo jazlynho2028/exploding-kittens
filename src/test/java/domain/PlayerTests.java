@@ -494,4 +494,38 @@ public class PlayerTests {
 
         EasyMock.verify(mockCard);
     }
+
+    @Test
+    public void getHandIds_multipleCards_returnsAllIdsInOrder() {
+        final String cardId1 = "card-1";
+        final String cardId2 = "card-2";
+        final String cardId3 = "card-3";
+        final int handSize = 3;
+        final int cardIndex1 = 0;
+        final int cardIndex2 = 1;
+        final int cardIndex3 = 2;
+
+        Card mockCard1 = EasyMock.createMock(Card.class);
+        Card mockCard2 = EasyMock.createMock(Card.class);
+        Card mockCard3 = EasyMock.createMock(Card.class);
+
+        EasyMock.expect(mockCard1.getId()).andReturn(cardId1);
+        EasyMock.expect(mockCard2.getId()).andReturn(cardId2);
+        EasyMock.expect(mockCard3.getId()).andReturn(cardId3);
+        EasyMock.replay(mockCard1, mockCard2, mockCard3);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard1);
+        player.addCardToHand(mockCard2);
+        player.addCardToHand(mockCard3);
+
+        List<String> handIds = player.getHandIds();
+
+        assertEquals(handSize, handIds.size());
+        assertEquals(cardId1, handIds.get(cardIndex1));
+        assertEquals(cardId2, handIds.get(cardIndex2));
+        assertEquals(cardId3, handIds.get(cardIndex3));
+
+        EasyMock.verify(mockCard1, mockCard2, mockCard3);
+    }
 }

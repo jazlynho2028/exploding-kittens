@@ -155,7 +155,7 @@
   - **State of the system**: player hand has one card with id
   - **Expected output**: returns a list containing exactly that card's ID
 
-- **TC28: Get hand IDs from hand with more than one card** ( :x: )
+- **TC28: Get hand IDs from hand with more than one card** ( :white_check_mark: )
   - **Name of the test**: getHandIds_multipleCards_returnsAllIdsInOrder
   - **State of the system**: player hand has multiple cards each with distinct known IDs
   - **Expected output**: returns a list of all card IDs in the same order as the hand
