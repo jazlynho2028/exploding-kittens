@@ -159,3 +159,8 @@
   - **Name of the test**: getHandIds_multipleCards_returnsAllIdsInOrder
   - **State of the system**: player hand has multiple cards each with distinct known IDs
   - **Expected output**: returns a list of all card IDs in the same order as the hand
+
+- **TC29: Get hand IDs from hand with duplicate cards** ( :x: )
+  - **Name of the test**: getHandIds_duplicateCards_returnsDuplicateIds
+  - **State of the system**: player hand has two duplicate cards with the same ID
+  - **Expected output**: returns a list of all cards where the duplicate ID appears twice for the two duplicate cards 
