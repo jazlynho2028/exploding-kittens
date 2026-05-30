@@ -355,10 +355,11 @@
   - **State of the system**: turnManager.decrementDrawCount throws IllegalStateException "error.negativeDrawCount"
   - **Expected output**: throw IllegalStateException "error.negativeDrawCount"
 
-- **TC65: Draw pile has one card** ( :white_check_mark: )
-  - **Name of the test**: drawFromPile_oneCardInDrawPile_addToCurrentPlayerHand
-  - **State of the system**: drawPile = [SKIP_1], drawCount = 0
+- **TC65: Successful draw from pile** ( :white_check_mark: )
+  - **Name of the test**: drawFromPile_oneCardInDrawPile_success
+  - **State of the system**: currentPlayer = player1
   - **Expected output**:
+    - getCurrentPlayer.deselectHandCards is called
     - getCurrentPlayer.addCardToHand is called with drawPile.removeTop
     - turnManager.decrementDrawCount is called
 
@@ -391,13 +392,20 @@
     - getCurrentPlayer.toggleSelectedHandCardAt with handCardIndex throws InvalidArgumentException "error.handCardIndexOutOfBounds"
   - **Expected output**: throws InvalidArgumentException "error.handCardIndexOutOfBounds"
 
-### Method under test: `advanceTurn()`
+### Method under test: `playSelectedCards()`
 - **TC71: Can end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_canEndTurn_advanceTurnAndDeselectCards
   - **State of the system**: canEndTurn = true
   - **Expected output**:
     - turnManager.advanceTurn is called
     - getCurrentPlayer.deselectHandCards is called
+
+### Method under test: `advanceTurn()`
+- **TC71: Can end turn** ( :white_check_mark: )
+  - **Name of the test**: advanceTurn_canEndTurn_advanceTurn
+  - **State of the system**: canEndTurn = true
+  - **Expected output**:
+    - turnManager.advanceTurn is called
 
 - **TC72: Cannot end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_cannotEndTurn_failed

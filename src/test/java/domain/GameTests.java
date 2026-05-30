@@ -755,7 +755,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void drawFromPile_oneCardInDrawPile_addToCurrentPlayerHand() {
+	public void drawFromPile_oneCardInDrawPile_success() {
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -771,19 +771,23 @@ public class GameTests {
 		}
 
 		Card drawnCard = EasyMock.createMock(Card.class);
-		EasyMock.expect(drawPile.removeTop()).andStubReturn(drawnCard);
+		EasyMock.expect(drawPile.removeTop()).andReturn(drawnCard);
 
 		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(drawPile, turnManager);
+		EasyMock.replay(player1, player2, drawPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getCurrentPlayer")
 				.createMock();
 
-		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(player1);
+		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1);
+
+		player1.deselectHandCards();
+		EasyMock.expectLastCall();
+
 		player1.addCardToHand(drawnCard);
 		EasyMock.expectLastCall();
 
@@ -791,7 +795,7 @@ public class GameTests {
 
 		game.drawFromPile();
 
-		EasyMock.verify(drawPile, turnManager);
+		EasyMock.verify(player1, player2, drawPile, turnManager, game);
 	}
 
 	@ParameterizedTest
@@ -890,7 +894,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void advanceTurn_canEndTurn_advanceTurnAndDeselectCards() {
+	public void advanceTurn_canEndTurn_advanceTurn() {
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -902,19 +906,14 @@ public class GameTests {
 		turnManager.advanceTurn();
 		EasyMock.expectLastCall();
 
-		player1.deselectHandCards();
-		EasyMock.expectLastCall();
-
 		EasyMock.replay(player1, player2, drawPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("canEndTurn")
-				.addMockedMethod("getCurrentPlayer")
 				.createMock();
 
 		EasyMock.expect(game.canEndTurn()).andReturn(true);
-		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1);
 
 		EasyMock.replay(game);
 
