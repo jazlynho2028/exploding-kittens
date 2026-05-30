@@ -1,7 +1,7 @@
 package domain;
 
 import org.easymock.EasyMock;
-import org.easymock.EasyMockExtension;
+
 import org.easymock.IArgumentMatcher;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
