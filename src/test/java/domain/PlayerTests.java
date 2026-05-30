@@ -368,4 +368,23 @@ public class PlayerTests {
 
         EasyMock.verify(mockCard);
     }
+
+    @Test
+    public void getSelectedCards_oneCardSelected_returnsListWithCard() {
+        final int expectedSelectedCards = 1;
+        final int selectedCardIndex = 0;
+        Card mockCard = EasyMock.createMock(Card.class);
+        EasyMock.expect(mockCard.getIsSelected()).andReturn(true);
+        EasyMock.replay(mockCard);
+
+        Player player = new Player("Alice");
+        player.addCardToHand(mockCard);
+
+        List<Card> selectedCards = player.getSelectedCards();
+
+        assertEquals(expectedSelectedCards, selectedCards.size());
+        assertSame(mockCard, selectedCards.get(selectedCardIndex));
+
+        EasyMock.verify(mockCard);
+    }
 }

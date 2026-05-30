@@ -124,7 +124,7 @@
   - **State of the system**: player hand has one card; card has isSelected = false
   - **Expected output**: returns an empty list
 
-- **TC22: Get selected cards when the card is selected** ( :x: )
+- **TC22: Get selected cards when the card is selected** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_oneCardSelected_returnsListWithCard
   - **State of the system**: player hand has one card; card has isSelected = true
   - **Expected output**: returns a list containing exactly that one card
