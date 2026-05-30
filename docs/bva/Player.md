@@ -129,7 +129,7 @@
   - **State of the system**: player hand has one card; card has isSelected = true
   - **Expected output**: returns a list containing exactly that one card
 
-- **TC23: Get selected cards when no cards are selected** ( :x: )
+- **TC23: Get selected cards when no cards are selected** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_multipleCardsNoneSelected_returnsEmptyList
   - **State of the system**: player hand has three cards; all cards have isSelected = false
   - **Expected output**: returns an empty list
