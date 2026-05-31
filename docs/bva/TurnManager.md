@@ -70,7 +70,7 @@
   - **State of the system**: roundCounter = 0
   - **Expected output**: getRoundCounter() = 1
 
-- **TC13: Draw count incremented on nonzero draw count** ( :white_check_mark: )
+- **TC13: Round count incremented on nonzero draw count** ( :white_check_mark: )
   - **Name of the test**: incrementRound_fromNonZero_success
   - **State of the system**: roundCounter = 1
   - **Expected output**: getRoundCounter() = 2
