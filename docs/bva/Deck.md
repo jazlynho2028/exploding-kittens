@@ -183,21 +183,21 @@
 
 ### Method under test: `getCards()`
 - **TC36: Get cards from empty deck** ( :white_check_mark: )
-  - **Name of the test**: `getCards_emptyDeck_returnsEmptyList`
+  - **Name of the test**: `getCards_called_returnsCopyInDeckOrder` with case `empty deck`
   - **State of the system**: Deck is empty: []
   - **Expected output**: Returns empty list []; deck is still empty: []
 
 - **TC37: Get cards from one-card deck** ( :white_check_mark: )
-  - **Name of the test**: `getCards_oneCardDeck_returnsCopyWithOneCard`
+  - **Name of the test**: `getCards_called_returnsCopyInDeckOrder` with case `one-card deck`
   - **State of the system**: Deck has exactly one card: [card1]
   - **Expected output**: Returns [card1]; deck is still [card1]
 
 - **TC38: Get cards from multiple-card deck without duplicates** ( :white_check_mark: )
-  - **Name of the test**: `getCards_multipleDifferentCards_returnsCopyInOrderWithoutDuplicates`
+  - **Name of the test**: `getCards_called_returnsCopyInDeckOrder` with case `multiple different cards`
   - **State of the system**: Deck has cards without duplicates: [card1, card2]
   - **Expected output**: Returns [card1, card2] in the same order; deck is still [card1, card2]
 
 - **TC39: Get cards from multiple-card deck with duplicates** ( :white_check_mark: )
-  - **Name of the test**: `getCards_multipleDuplicateCards_returnsCopyInOrderWithDuplicates`
+  - **Name of the test**: `getCards_called_returnsCopyInDeckOrder` with case `multiple duplicate cards`
   - **State of the system**: Deck has cards with duplicates: [card1, card1, card2]
   - **Expected output**: Returns [card1, card1, card2] with both copies of card1 preserved in order; deck is still [card1, card1, card2]

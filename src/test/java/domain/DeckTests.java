@@ -695,85 +695,72 @@ public class DeckTests {
         );
     }
 
-    @Test
-    public void getCards_emptyDeck_returnsEmptyList() {
-        Deque<Card> cards = new ArrayDeque<>();
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("getCardsCases")
+    public void getCards_called_returnsCopyInDeckOrder(
+            String caseName,
+            Deque<Card> cards,
+            List<Card> expectedCards,
+            Card[] mocksToVerify) {
         Deck deck = new Deck(cards, new Random());
 
         List<Card> result = deck.getCards();
 
-        assertEquals(0, result.size());
-        assertEquals(0, deck.size());
+        assertEquals(expectedCards, result);
+        assertEquals(expectedCards, deck.getCards());
+
+        EasyMock.verify((Object[]) mocksToVerify);
     }
 
-    @Test
-    public void getCards_oneCardDeck_returnsCopyWithOneCard() {
-        Card card1 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1);
+    private static Stream<Arguments> getCardsCases() {
+        Deque<Card> emptyDeck = new ArrayDeque<>();
 
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
+        Card oneCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(oneCard);
+        Deque<Card> oneCardDeck = new ArrayDeque<>();
+        oneCardDeck.addLast(oneCard);
 
-        Deck deck = new Deck(cards, new Random());
+        Card firstDifferentCard = EasyMock.createMock(Card.class);
+        Card secondDifferentCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(firstDifferentCard, secondDifferentCard);
+        Deque<Card> differentCardsDeck = new ArrayDeque<>();
+        differentCardsDeck.addLast(firstDifferentCard);
+        differentCardsDeck.addLast(secondDifferentCard);
 
-        List<Card> result = deck.getCards();
+        Card duplicateCardOne = EasyMock.createMock(Card.class);
+        Card duplicateCardTwo = EasyMock.createMock(Card.class);
+        Card cardAfterDuplicates = EasyMock.createMock(Card.class);
+        EasyMock.replay(duplicateCardOne, duplicateCardTwo, cardAfterDuplicates);
+        Deque<Card> duplicateCardsDeck = new ArrayDeque<>();
+        duplicateCardsDeck.addLast(duplicateCardOne);
+        duplicateCardsDeck.addLast(duplicateCardTwo);
+        duplicateCardsDeck.addLast(cardAfterDuplicates);
 
-        assertEquals(ONE_CARD, result.size());
-        assertSame(card1, result.get(0));
-        assertEquals(ONE_CARD, deck.size());
-        assertSame(card1, deck.peekTop());
-
-        EasyMock.verify(card1);
-    }
-
-    @Test
-    public void getCards_multipleDifferentCards_returnsCopyInOrderWithoutDuplicates() {
-        Card card1 = EasyMock.createMock(Card.class);
-        Card card2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1, card2);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card2);
-
-        Deck deck = new Deck(cards, new Random());
-
-        List<Card> result = deck.getCards();
-
-        assertEquals(TWO_CARDS, result.size());
-        assertSame(card1, result.get(0));
-        assertSame(card2, result.get(1));
-        assertEquals(TWO_CARDS, deck.size());
-        assertSame(card1, deck.peekTop());
-        assertSame(card2, deck.peekBottom());
-
-        EasyMock.verify(card1, card2);
-    }
-
-    @Test
-    public void getCards_multipleDuplicateCards_returnsCopyInOrderWithDuplicates() {
-        Card card1CopyOne = EasyMock.createMock(Card.class);
-        Card card1CopyTwo = EasyMock.createMock(Card.class);
-        Card card2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1CopyOne, card1CopyTwo, card2);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1CopyOne);
-        cards.addLast(card1CopyTwo);
-        cards.addLast(card2);
-
-        Deck deck = new Deck(cards, new Random());
-
-        List<Card> result = deck.getCards();
-
-        assertEquals(THREE_CARDS, result.size());
-        assertSame(card1CopyOne, result.get(0));
-        assertSame(card1CopyTwo, result.get(1));
-        assertSame(card2, result.get(2));
-        assertEquals(THREE_CARDS, deck.size());
-        assertSame(card1CopyOne, deck.peekTop());
-        assertSame(card2, deck.peekBottom());
-
-        EasyMock.verify(card1CopyOne, card1CopyTwo, card2);
+        return Stream.of(
+                Arguments.of(
+                        "empty deck",
+                        emptyDeck,
+                        List.of(),
+                        new Card[]{}),
+                Arguments.of(
+                        "one-card deck",
+                        oneCardDeck,
+                        List.of(oneCard),
+                        new Card[]{oneCard}),
+                Arguments.of(
+                        "multiple different cards",
+                        differentCardsDeck,
+                        List.of(firstDifferentCard, secondDifferentCard),
+                        new Card[]{firstDifferentCard, secondDifferentCard}),
+                Arguments.of(
+                        "multiple duplicate cards",
+                        duplicateCardsDeck,
+                        List.of(duplicateCardOne, duplicateCardTwo, cardAfterDuplicates),
+                        new Card[]{
+                                duplicateCardOne,
+                                duplicateCardTwo,
+                                cardAfterDuplicates
+                        })
+        );
     }
 }
