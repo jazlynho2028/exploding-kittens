@@ -183,6 +183,9 @@ public class Game {
             case GODCAT:
                 applyGodcat();
                 break;
+            case CLONE:
+                applyClone();
+                break;
             default:
                 break;
         }
@@ -201,6 +204,8 @@ public class Game {
     void applySuperSkip() { }
 
     void applyGodcat() { }
+
+    void applyClone() { }
 
     public String getTopDiscardId() {
         return "";

@@ -308,7 +308,7 @@
     - discardPile.addCard(card1) is called
     - applyGodcat is called
 
-- **TC51: Valid play with one Clone** ( :x: )
+- **TC51: Valid play with one Clone** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [CLONE]
   - **Expected output**:

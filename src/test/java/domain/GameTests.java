@@ -545,7 +545,9 @@ public class GameTests {
 				Arguments.of(CardType.SUPER_SKIP, "applySuperSkip",
 						(Consumer<Game>) Game::applySuperSkip),
 				Arguments.of(CardType.GODCAT, "applyGodcat",
-						(Consumer<Game>) Game::applyGodcat)
+						(Consumer<Game>) Game::applyGodcat),
+				Arguments.of(CardType.CLONE, "applyClone",
+						(Consumer<Game>) Game::applyClone)
 		);
 	}
 
