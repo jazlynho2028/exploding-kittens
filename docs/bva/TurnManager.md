@@ -99,17 +99,17 @@
 - **TC18: Strict testing on round count when not starting next round** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_nextPlayer_sameRoundCount
   - **State of the system**: TurnManager constructed with 2 players advanced turn once
-  - **Expected output**: getRoundCount() = 0
+  - **Expected output**: getRoundCount() = 1
 
 - **TC19: Strict testing on round count when starting next round** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_wrapsToStartingPlayer_incrementsRoundCount
   - **State of the system**: TurnManager constructed with 2 players advanced turn twice times
-  - **Expected output**: getRoundCount() = 1
+  - **Expected output**: getRoundCount() = 2
 
 - **TC20: Strict testing on draw count when advancing turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_incrementsDrawCount
   - **State of the system**: TurnManager constructed with 1 player advanced turn once
-  - **Expected output**: getDrawCount() = 1
+  - **Expected output**: getDrawCount() = 2
 
 ### Method under test: `getCurrentPlayer()`
 - **TC21: getCurrentPlayer returns the correct player** ( :white_check_mark: )
