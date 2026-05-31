@@ -363,8 +363,8 @@ public class TurnManagerTests {
     }
 
     @Test
-    public void advanceTurn_incrementsDrawCount() {
-        final int expectedDrawCount = 1;
+    public void advanceTurn_fromDrawCountOne_toTwo () {
+        final int expectedDrawCount = 2;
         List<Player> players = new ArrayList<>();
         Player mockPlayer1 = EasyMock.createMock(Player.class);
         players.add(mockPlayer1);
