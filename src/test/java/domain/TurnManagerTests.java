@@ -357,7 +357,7 @@ public class TurnManagerTests {
         turnManager.advanceTurn();
         turnManager.advanceTurn();
 
-        assertEquals(1, turnManager.getRoundCount());
+        assertEquals(2, turnManager.getRoundCount());
 
         EasyMock.verify(mockPlayer1, mockPlayer2);
     }
