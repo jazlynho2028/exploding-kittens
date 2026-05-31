@@ -533,7 +533,8 @@ public class GameTests {
 	private static Stream<Arguments> provideValidPlaysAndMethods() {
 		return Stream.of(
 				Arguments.of(CardType.ATTACK, "applyAttack", (Consumer<Game>) Game::applyAttack),
-				Arguments.of(CardType.SHUFFLE, "applyShuffle", (Consumer<Game>) Game::applyShuffle)
+				Arguments.of(CardType.SHUFFLE, "applyShuffle", (Consumer<Game>) Game::applyShuffle),
+				Arguments.of(CardType.SKIP, "applySkip", (Consumer<Game>) Game::applySkip)
 		);
 	}
 

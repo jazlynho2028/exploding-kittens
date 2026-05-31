@@ -263,7 +263,7 @@
     - discardPile.addCard(card1) is called
     - applyShuffle is called
 
-- **TC46: Valid play with one Skip** ( :x: )
+- **TC46: Valid play with one Skip** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SKIP]
   - **Expected output**:

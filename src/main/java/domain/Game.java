@@ -168,6 +168,9 @@ public class Game {
             case SHUFFLE:
                 applyShuffle();
                 break;
+            case SKIP:
+                applySkip();
+                break;
             default:
                 break;
         }
@@ -176,6 +179,8 @@ public class Game {
     void applyAttack() { }
 
     void applyShuffle() { }
+
+    void applySkip() { }
 
     public String getTopDiscardId() {
         return "";
