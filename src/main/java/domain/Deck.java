@@ -82,4 +82,16 @@ public class Deck {
 
         return this.deck.removeLast();
     }
+
+    public void addCard(Card card) {
+        this.deck.addLast(card);
+    }
+
+    public boolean isEmpty() {
+        return this.deck.isEmpty();
+    }
+
+    List<Card> getCards() {
+        return List.copyOf(this.deck);
+    }
 }
