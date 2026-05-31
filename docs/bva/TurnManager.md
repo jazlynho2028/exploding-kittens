@@ -117,8 +117,20 @@
   - **State of the system**: TurnManager constructed with 2 players 1 turn advanced
   - **Expected output**: getCurrentPlayer = player2
 
+### Method under test: `getCurrentPlayerHandIds()`
+- **TC22: This method is called** ( :x: )
+  - **Name of the test**: getCurrentPlayerHandIds_onePlayer_callsPlayerMethod
+  - **State of the system**: TurnManager constructed with 1 player
+  - **Expected output**: calls getHandIds on player
+
+### Method under test: `getCurrentSelectedCards()`
+- **TC23: This method is called** ( :x: )
+  - **Name of the test**: getCurrentSelectedCards_onePlayer_callsPlayerMethod
+  - **State of the system**: TurnManager constructed with 1 player
+  - **Expected output**: calls getSelectedCards on player
+
 ### Method under test: `getStartingPlayerIndex()`
-- **TC22: getCurrentPlayer returns the index 0** ( :white_check_mark: )
+- **TC24: getCurrentPlayer returns the index 0** ( :white_check_mark: )
   - **Name of the test**: getStartingPlayerIndex_successfullyReturnsStartingIndex
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**: getStartingPlayerIndex() returns 0
