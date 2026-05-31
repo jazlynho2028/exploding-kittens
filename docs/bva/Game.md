@@ -254,7 +254,7 @@
     - discardPile.addCard(card1) is called
     - applyAttack is called
 
-- **TC45: Valid play with one Shuffle** ( :x: )
+- **TC45: Valid play with one Shuffle** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SHUFFLE]
   - **Expected output**:

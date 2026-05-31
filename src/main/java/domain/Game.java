@@ -165,12 +165,17 @@ public class Game {
             case ATTACK:
                 applyAttack();
                 break;
+            case SHUFFLE:
+                applyShuffle();
+                break;
             default:
                 break;
         }
     }
 
     void applyAttack() { }
+
+    void applyShuffle() { }
 
     public String getTopDiscardId() {
         return "";

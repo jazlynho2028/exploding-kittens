@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static domain.GameConstants.*;
@@ -196,7 +197,7 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("playerNameProvider")
+	@MethodSource("providePlayerName")
 	public void getPlayerNames_validNPlayers_returnNNames(List<String> expectedNames) {
 		Deck drawPile = EasyMock.createNiceMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -220,7 +221,7 @@ public class GameTests {
 		assertEquals(expectedNames, actualNames);
 	}
 
-	private static Stream<Arguments> playerNameProvider() {
+	private static Stream<Arguments> providePlayerName() {
 		return Stream.of(
 				Arguments.of(List.of("Alice", "Bob")),
 				Arguments.of(List.of("Alice", "Alice", "Audrey", "Turkey"))
@@ -479,8 +480,11 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, game);
 	}
 
-	@Test
-	public void playSelectedCards_validPlay_cardsMovedFromHandToDiscard() {
+	@ParameterizedTest
+	@MethodSource("provideValidPlaysAndMethods")
+	public void playSelectedCards_validPlay_cardsMovedFromHandToDiscard(
+			CardType cardType, String applyMethodName, Consumer<Game> applyMethod) {
+
 		Player player1 = EasyMock.createNiceMock(Player.class);
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
@@ -490,7 +494,7 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		Card card = EasyMock.createMock(Card.class);
-		EasyMock.expect(card.getType()).andReturn(CardType.ATTACK);
+		EasyMock.expect(card.getType()).andReturn(cardType);
 		List<Card> selectedCards = List.of(card);
 
 		card.toggleSelected();
@@ -510,12 +514,13 @@ public class GameTests {
 				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("canPlaySelected")
 				.addMockedMethod("getCurrentPlayer")
-				.addMockedMethod("applyAttack")
+				.addMockedMethod(applyMethodName)
 				.createMock();
 
 		EasyMock.expect(game.canPlaySelected()).andReturn(true);
 		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1).anyTimes();
-		game.applyAttack();
+
+		applyMethod.accept(game);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(game);
@@ -523,6 +528,13 @@ public class GameTests {
 		game.playSelectedCards();
 
 		EasyMock.verify(player1, player2, drawPile, discardPile, card, game);
+	}
+
+	private static Stream<Arguments> provideValidPlaysAndMethods() {
+		return Stream.of(
+				Arguments.of(CardType.ATTACK, "applyAttack", (Consumer<Game>) Game::applyAttack),
+				Arguments.of(CardType.SHUFFLE, "applyShuffle", (Consumer<Game>) Game::applyShuffle)
+		);
 	}
 
 	@ParameterizedTest
