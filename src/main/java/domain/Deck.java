@@ -83,7 +83,7 @@ public class Deck {
     }
 
     public void addCard(Card card) {
-        deck.addLast(card);
+        deck.addFirst(card);
     }
 
     public boolean isEmpty() {

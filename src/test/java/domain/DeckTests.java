@@ -571,7 +571,7 @@ public class DeckTests {
 
     @ParameterizedTest(name = "{0}")
     @MethodSource("addCardCases")
-    public void addCard_validCard_addsCardToBottom(
+    public void addCard_validCard_addsCardToTop(
             String caseName,
             Deque<Card> cards,
             Card cardToAdd,
@@ -623,13 +623,16 @@ public class DeckTests {
                         "one-card deck",
                         oneCardDeck,
                         cardAddedToOneCardDeck,
-                        List.of(oneCardDeckCard, cardAddedToOneCardDeck),
+                        List.of(cardAddedToOneCardDeck, oneCardDeckCard),
                         new Card[] {oneCardDeckCard, cardAddedToOneCardDeck}),
                 Arguments.of(
                         "multiple different cards",
                         differentCardsDeck,
                         cardAddedToDifferentCards,
-                        List.of(firstDifferentCard, secondDifferentCard, cardAddedToDifferentCards),
+                        List.of(
+                                cardAddedToDifferentCards,
+                                firstDifferentCard,
+                                secondDifferentCard),
                         new Card[] {
                                 firstDifferentCard,
                                 secondDifferentCard,
@@ -639,7 +642,7 @@ public class DeckTests {
                         "duplicate card",
                         duplicateCardDeck,
                         duplicateCard,
-                        List.of(duplicateCard, otherCard, duplicateCard),
+                        List.of(duplicateCard, duplicateCard, otherCard),
                         new Card[] {duplicateCard, otherCard})
         );
     }
@@ -746,12 +749,12 @@ public class DeckTests {
                         "multiple different cards",
                         differentCardsDeck,
                         List.of(firstDifferentCard, secondDifferentCard),
-                        new Card[]{firstDifferentCard, secondDifferentCard}),
+                        new Card[] {firstDifferentCard, secondDifferentCard}),
                 Arguments.of(
                         "multiple duplicate cards",
                         duplicateCardsDeck,
                         List.of(duplicateCardOne, duplicateCardTwo, cardAfterDuplicates),
-                        new Card[]{
+                        new Card[] {
                                 duplicateCardOne,
                                 duplicateCardTwo,
                                 cardAfterDuplicates
