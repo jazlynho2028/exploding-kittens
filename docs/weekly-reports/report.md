@@ -82,7 +82,7 @@
 1. [Done] Jazlyn: refactor controllers and rewrite tests for adjusted error handling and binding
 2. [Done] Jazlyn : reconduct BVA analysis for Game.java
 3. [6% Done] DJ/Jazlyn: reimplement Game.java based on new BVA
-4. [95% Done] Ejean: DeckBuilder.java
+4. [Done] Ejean: DeckBuilder.java
 5. [Done] Luke: Revise Player.java
 6. [Done] Luke: Revise Card.java
 7. [Done] Luke: Revise TurnManager.java
