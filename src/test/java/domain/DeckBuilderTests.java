@@ -37,7 +37,8 @@ public class DeckBuilderTests {
         List<Card> finalAssembledCards = capturedList.getValue();
 
         int expectedDeckSizeWithoutDefuses = getExpectedDeckSizeWithoutDefuses();
-        int expectedDeckSizeAddDefuses = expectedDeckSizeWithoutDefuses + (NUM_DEFUSES_IN_GAME - MIN_PLAYERS);
+        int expectedDeckSizeAddDefuses = expectedDeckSizeWithoutDefuses
+                + (NUM_DEFUSES_IN_GAME - MIN_PLAYERS);
         assertEquals(expectedDeckSizeAddDefuses, finalAssembledCards.size());
 
         verifyCardTypeGroup(
@@ -66,7 +67,8 @@ public class DeckBuilderTests {
         List<Card> finalAssembledCards = capturedList.getValue();
 
         int expectedDeckSizeWithoutDefuses = getExpectedDeckSizeWithoutDefuses();
-        int expectedDeckSizeAddDefuses = expectedDeckSizeWithoutDefuses + (NUM_DEFUSES_IN_GAME - MAX_PLAYERS);
+        int expectedDeckSizeAddDefuses = expectedDeckSizeWithoutDefuses
+                + (NUM_DEFUSES_IN_GAME - MAX_PLAYERS);
         assertEquals(expectedDeckSizeAddDefuses, finalAssembledCards.size());
 
         verifyCardTypeGroup(
@@ -196,6 +198,6 @@ public class DeckBuilderTests {
                 + NUM_SEE_THE_FUTURE_IN_GAME
                 + NUM_SHUFFLE_IN_GAME
                 + NUM_TARGETED_ATTACK_IN_GAME
-                + (NUM_CAT_CARD_IN_GAME * 4);
+                + (NUM_CAT_CARD_IN_GAME * FOUR_CARDS);
     }
 }
