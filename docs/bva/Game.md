@@ -401,7 +401,7 @@
   - **Expected output**: returns drawPile.peekTop.getId
 
 ### Method under test: `getCanDrawFromDiscard()`
-- **TC62: Empty discard pile** ( :x: )
+- **TC62: Empty discard pile** ( :white_check_mark: )
   - **Name of the test**: canDrawFromDiscard_none_returnFalse
   - **State of the system**: N/A
   - **Expected output**: returns false

@@ -623,6 +623,25 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, discardPile, topCard);
 	}
 
+	@Test
+	public void canDrawFromDiscard_none_returnFalse() {
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(player1, player2, drawPile);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		assertFalse(game.canDrawFromDiscard());
+
+		EasyMock.verify(player1, player2, drawPile);
+	}
+
 	@ParameterizedTest
 	@CsvSource({
 			"false, 0",
