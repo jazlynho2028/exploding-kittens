@@ -126,6 +126,9 @@ public class PlayerDeckControllerTests {
 		view.bindStartGameButton(EasyMock.anyObject());
 		EasyMock.expectLastCall();
 
+		view.bindPlayCardsButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
 		view.bindNameTags(EasyMock.anyObject());
 		EasyMock.expectLastCall();
 
