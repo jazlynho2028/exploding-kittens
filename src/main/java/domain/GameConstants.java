@@ -31,7 +31,7 @@ public final class GameConstants {
 	public static final int NUM_SKIP_IN_GAME = 3;
 	public static final int NUM_CLONE_IN_GAME = 3;
 	public static final int NUM_SWAP_TOP_AND_BOTTOM_IN_GAME = 3;
-	public static final int NUM_DRAW_FROM_THE_BOTTOM_IN_GAME= 3;
+	public static final int NUM_DRAW_FROM_THE_BOTTOM_IN_GAME = 3;
 	public static final int NUM_FERAL_CAT_IN_GAME = 4;
 	public static final int NUM_SEE_THE_FUTURE_IN_GAME = 4;
 	public static final int NUM_SHUFFLE_IN_GAME = 4;

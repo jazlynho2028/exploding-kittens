@@ -34,7 +34,8 @@ public class DeckBuilder {
 
         addCards(cardsList, CardType.MILD_DRAW, NUM_MILD_DRAW_IN_GAME);
         addCards(cardsList, CardType.GODCAT, NUM_GODCAT_IN_GAME);
-        addCards(cardsList, CardType.WINNER_WINNER_CATNIP_DINNER, NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME);
+        addCards(cardsList, CardType.WINNER_WINNER_CATNIP_DINNER,
+                NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME);
         addCards(cardsList, CardType.RAGEBAIT, NUM_RAGEBAIT_IN_GAME);
         addCards(cardsList, CardType.RECYCLE, NUM_RECYCLE_IN_GAME);
         addCards(cardsList, CardType.DOUBLE_UP, NUM_DOUBLE_UP_IN_GAME);
