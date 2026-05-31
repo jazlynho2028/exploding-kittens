@@ -7,9 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import static domain.GameConstants.NUM_DEFUSES;
+import static domain.GameConstants.STARTING_HAND_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTests {
@@ -40,7 +44,7 @@ public class GameTests {
 
 		EasyMock.expect(players.size()).andReturn(numPlayers);
 
-		EasyMock.replay(players);
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
@@ -49,55 +53,54 @@ public class GameTests {
 		String actualMsg = exception.getMessage();
 		assertEquals(expectedMsg, actualMsg);
 
-		EasyMock.verify(players);
+		EasyMock.verify(players, drawPile, discardPile, turnManager);
 	}
-//
-//	@ParameterizedTest
-//	@CsvSource({
-//			"2",
-//			"4"
-//	})
-//	public void constructor_validNumPlayers_initializeGame(int numPlayers) {
-//		List<Player> players = new ArrayList<>();
-//
-//		for (int i = 0; i < numPlayers; i++) {
-//			Player player = EasyMock.createMock(Player.class);
-//			players.add(player);
-//
-//			player.addCardToHand(mockSpecificCard(CardType.DEFUSE, NUM_DEFUSES - i));
-//			EasyMock.expectLastCall();
-//		}
-//
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		for (Player player : players) {
-//			for (int i = 0; i < STARTING_HAND_SIZE - 1; i++) {
-//				Card card = EasyMock.createMock(Card.class);
-//				EasyMock.expect(drawPile.removeTop()).andReturn(card);
-//
-//				player.addCardToHand(card);
-//				EasyMock.expectLastCall();
-//
-//				EasyMock.replay(card);
-//			}
-//		}
-//
-//		List<Object> mocks = new ArrayList<>(players);
-//		mocks.add(drawPile);
-//
-//		Object[] mocksArray = mocks.toArray();
-//
-//		EasyMock.replay(mocksArray);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		assertFalse(game.getIsGameOngoing());
-//		assertFalse(game.getIsFaceUp());
-//
-//		EasyMock.verify(mocksArray);
-//	}
+
+	@ParameterizedTest
+	@CsvSource({
+			"2",
+			"4"
+	})
+	public void setUp_validNumPlayers_initializeGame(int numPlayers) {
+		List<Player> players = new ArrayList<>();
+
+		for (int i = 0; i < numPlayers; i++) {
+			Player player = EasyMock.createMock(Player.class);
+			players.add(player);
+
+			player.addCardToHand(mockSpecificCard(CardType.DEFUSE, NUM_DEFUSES - i));
+			EasyMock.expectLastCall();
+		}
+
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		for (Player player : players) {
+			for (int i = 0; i < STARTING_HAND_SIZE - 1; i++) {
+				Card card = EasyMock.createMock(Card.class);
+				EasyMock.expect(drawPile.removeTop()).andReturn(card);
+
+				player.addCardToHand(card);
+				EasyMock.expectLastCall();
+
+				EasyMock.replay(card);
+			}
+		}
+
+		List<Object> mocks = new ArrayList<>(players);
+		Collections.addAll(mocks, drawPile, discardPile, turnManager);
+
+		Object[] mocksArray = mocks.toArray();
+
+		EasyMock.replay(mocksArray);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		game.setUp();
+
+		EasyMock.verify(mocksArray);
+	}
 //
 //	@Test
 //	public void constructor_drawPileThrowsException_failed() {

@@ -11,7 +11,7 @@
   - **State of the system**: players.size = 1
   - **Expected output**: throw IllegalArgumentException "error.minPlayers"
 
-- **TC3: Set up for 2 players** ( :x: )
+- **TC3: Set up for 2 players** ( :white_check_mark: )
   - **Name of the test**: setUp_validNumPlayers_initializeGame
   - **State of the system**: players.size = 2
   - **Expected output**:
@@ -19,7 +19,7 @@
     - player2.addCardToHand with DEFUSE_4 called
     - player.addCardToHand called with drawPile.removeTop 5 times for each player
 
-- **TC4: Set up for 4 players** ( :x: )
+- **TC4: Set up for 4 players** ( :white_check_mark: )
   - **Name of the test**: setUp_validNumPlayers_initializeGame
   - **State of the system**: players.size = 4
   - **Expected output**:
