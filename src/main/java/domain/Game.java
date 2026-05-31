@@ -12,7 +12,6 @@ public class Game {
 
     private List<Player> players;
     private Deck drawPile;
-    private TurnManager turnManager;
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
@@ -29,6 +28,8 @@ public class Game {
             CardType.CAT_CARD_4,
             CardType.FERAL_CAT
     );
+
+    private TurnManager turnManager;
 
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
@@ -132,7 +133,7 @@ public class Game {
     }
 
     public Player getCurrentPlayer() {
-        return turnManager.getCurrentPlayer();
+        return players.get(getCurrentPlayerIndex());
     }
 
     public boolean canPlaySelected() {
@@ -174,11 +175,7 @@ public class Game {
 
     public void drawFromPile() {
         Card card = drawPile.removeTop();
-        Player currentPlayer = getCurrentPlayer();
-
-        currentPlayer.deselectHandCards();
-        currentPlayer.addCardToHand(card);
-        turnManager.decrementDrawCount();
+        getCurrentPlayer().addCardToHand(card);
     }
 
     public void toggleFaceUp() {
@@ -194,6 +191,7 @@ public class Game {
             throw new IllegalStateException("error.cannotEndTurn");
         }
         turnManager.advanceTurn();
+        getCurrentPlayer().deselectHandCards();
     }
 
     int getRoundCount() {
