@@ -272,7 +272,7 @@
     - discardPile.addCard(card1) is called
     - applySkip is called
 
-- **TC47: Valid play with one See The Future** ( :x: )
+- **TC47: Valid play with one See The Future** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SEE_THE_FUTURE]
   - **Expected output**:
@@ -281,7 +281,7 @@
     - discardPile.addCard(card1) is called
     - applySeeTheFuture is called
 
-- **TC48: Valid play with one Catomic Bomb** ( :x: )
+- **TC48: Valid play with one Catomic Bomb** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [CATOMIC_BOMB]
   - **Expected output**:

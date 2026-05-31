@@ -174,6 +174,9 @@ public class Game {
             case SEE_THE_FUTURE:
                 applySeeTheFuture();
                 break;
+            case CATOMIC_BOMB:
+                applyCatomicBomb();
+                break;
             default:
                 break;
         }
@@ -186,6 +189,8 @@ public class Game {
     void applySkip() { }
 
     void applySeeTheFuture() { }
+
+    void applyCatomicBomb() { }
 
     public String getTopDiscardId() {
         return "";
