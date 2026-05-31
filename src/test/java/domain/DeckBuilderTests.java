@@ -88,7 +88,8 @@ public class DeckBuilderTests {
         verifyCardTypeGroup(baseCards, CardType.RAGEBAIT, NUM_RAGEBAIT_IN_GAME, "RAGEBAIT");
         verifyCardTypeGroup(baseCards, CardType.RECYCLE, NUM_RECYCLE_IN_GAME, "RECYCLE");
         verifyCardTypeGroup(baseCards, CardType.DOUBLE_UP, NUM_DOUBLE_UP_IN_GAME, "DOUBLEUP");
-        verifyCardTypeGroup(baseCards, CardType.CATOMIC_BOMB, NUM_CATOMIC_BOMB_IN_GAME, "CATOMICBOMB");
+        verifyCardTypeGroup(baseCards, CardType.CATOMIC_BOMB,
+                NUM_CATOMIC_BOMB_IN_GAME, "CATOMICBOMB");
     }
 
     @Test
