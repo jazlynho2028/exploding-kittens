@@ -89,12 +89,12 @@
   - **Expected output**: Returns empty list []; deck is still empty: []
 
 - **TC18: Peek top N cards from empty deck when n is positive** ( :white_check_mark: )
-  - **Name of the test**: `peekTopNCards_emptyDeckAndPositiveCount_throwsIllegalStateException`
+  - **Name of the test**: `peekTopNCards_invalidCount_throwsException` with case `empty deck and positive count`
   - **State of the system**: Deck is empty: []; n = 1
   - **Expected output**: Throws IllegalStateException with message `error.notEnoughCards`; deck is still empty: []
 
 - **TC19: Peek top N cards when n is negative** ( :white_check_mark: )
-  - **Name of the test**: `peekTopNCards_negativeCount_throwsIllegalArgumentException`
+  - **Name of the test**: `peekTopNCards_invalidCount_throwsException` with case `negative count`
   - **State of the system**: Deck has cards: [card1, card2]; n = -1
   - **Expected output**: Throws IllegalArgumentException; deck is still [card1, card2]
 
@@ -114,7 +114,7 @@
   - **Expected output**: Returns [card1, card2]; deck is still [card1, card2]
 
 - **TC23: Peek top N cards when n is greater than deck size** ( :white_check_mark: )
-  - **Name of the test**: `peekTopNCards_countGreaterThanDeckSize_throwsIllegalStateException`
+  - **Name of the test**: `peekTopNCards_invalidCount_throwsException` with case `count greater than deck size`
   - **State of the system**: Deck has cards: [card1, card2]; n = 3
   - **Expected output**: Throws IllegalStateException with message `error.notEnoughCards`; deck is still [card1, card2]
 

@@ -326,36 +326,71 @@ public class DeckTests {
         );
     }
 
-    @Test
-    public void peekTopNCards_emptyDeckAndPositiveCount_throwsIllegalStateException() {
-        Deque<Card> cards = new ArrayDeque<>();
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("peekTopNCardsInvalidCountCases")
+    public void peekTopNCards_invalidCount_throwsException(
+            String caseName,
+            Deque<Card> cards,
+            int n,
+            Class<? extends RuntimeException> expectedExceptionType,
+            String expectedMessage,
+            List<Card> expectedCards,
+            Card[] mocksToVerify) {
         Deck deck = new Deck(cards, new Random());
 
-        IllegalStateException exception = assertThrows(
-                IllegalStateException.class,
-                () -> deck.peekTopNCards(ONE_CARD));
+        RuntimeException exception = assertThrows(
+                expectedExceptionType,
+                () -> deck.peekTopNCards(n));
 
-        assertEquals(ERROR_NOT_ENOUGH_CARDS, exception.getMessage());
-        assertEquals(0, deck.size());
+        assertEquals(expectedMessage, exception.getMessage());
+        assertEquals(expectedCards, deck.getCards());
+
+        EasyMock.verify((Object[]) mocksToVerify);
     }
 
-    @Test
-    public void peekTopNCards_negativeCount_throwsIllegalArgumentException() {
-        Card card1 = EasyMock.createMock(Card.class);
-        Card card2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1, card2);
+    private static Stream<Arguments> peekTopNCardsInvalidCountCases() {
+        Deque<Card> emptyDeck = new ArrayDeque<>();
 
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card2);
+        Card negativeCountCard1 = EasyMock.createMock(Card.class);
+        Card negativeCountCard2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(negativeCountCard1, negativeCountCard2);
+        Deque<Card> negativeCountDeck = new ArrayDeque<>();
+        negativeCountDeck.addLast(negativeCountCard1);
+        negativeCountDeck.addLast(negativeCountCard2);
 
-        Deck deck = new Deck(cards, new Random());
+        Card tooLargeCountCard1 = EasyMock.createMock(Card.class);
+        Card tooLargeCountCard2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(tooLargeCountCard1, tooLargeCountCard2);
+        Deque<Card> tooLargeCountDeck = new ArrayDeque<>();
+        tooLargeCountDeck.addLast(tooLargeCountCard1);
+        tooLargeCountDeck.addLast(tooLargeCountCard2);
 
-        assertThrows(IllegalArgumentException.class, () -> deck.peekTopNCards(-1));
-        assertEquals(TWO_CARDS, deck.size());
-        assertSame(card1, deck.peekTop());
-
-        EasyMock.verify(card1, card2);
+        return Stream.of(
+                Arguments.of(
+                        "empty deck and positive count",
+                        emptyDeck,
+                        ONE_CARD,
+                        IllegalStateException.class,
+                        ERROR_NOT_ENOUGH_CARDS,
+                        List.of(),
+                        new Card[] {}),
+                Arguments.of(
+                        "negative count",
+                        negativeCountDeck,
+                        -1,
+                        IllegalArgumentException.class,
+                        "Cannot peek a negative number of cards.",
+                        List.of(negativeCountCard1, negativeCountCard2),
+                        new Card[] {negativeCountCard1, negativeCountCard2}),
+                Arguments.of(
+                        "count greater than deck size",
+                        tooLargeCountDeck,
+                        THREE_CARDS,
+                        IllegalStateException.class,
+                        ERROR_NOT_ENOUGH_CARDS,
+                        List.of(tooLargeCountCard1, tooLargeCountCard2),
+                        new Card[] {tooLargeCountCard1, tooLargeCountCard2})
+        );
     }
 
     @ParameterizedTest(name = "{0}")
@@ -438,29 +473,6 @@ public class DeckTests {
         assertEquals(TWO_CARDS, result.size());
         assertSame(card1, result.get(0));
         assertSame(card2, result.get(1));
-        assertEquals(TWO_CARDS, deck.size());
-        assertSame(card1, deck.peekTop());
-
-        EasyMock.verify(card1, card2);
-    }
-
-    @Test
-    public void peekTopNCards_countGreaterThanDeckSize_throwsIllegalStateException() {
-        Card card1 = EasyMock.createMock(Card.class);
-        Card card2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1, card2);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card2);
-
-        Deck deck = new Deck(cards, new Random());
-
-        IllegalStateException exception = assertThrows(
-                IllegalStateException.class,
-                () -> deck.peekTopNCards(THREE_CARDS));
-
-        assertEquals(ERROR_NOT_ENOUGH_CARDS, exception.getMessage());
         assertEquals(TWO_CARDS, deck.size());
         assertSame(card1, deck.peekTop());
 
