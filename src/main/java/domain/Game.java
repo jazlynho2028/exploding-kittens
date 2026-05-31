@@ -177,9 +177,10 @@ public class Game {
         Card card = drawPile.removeTop();
         Player currentPlayer = getCurrentPlayer();
 
-        currentPlayer.addCardToHand(card);
-        currentPlayer.deselectHandCards();
         turnManager.decrementDrawCount();
+        currentPlayer.deselectHandCards();
+
+        currentPlayer.addCardToHand(card);
     }
 
     public void toggleFaceUp() {
