@@ -299,7 +299,7 @@
     - discardPile.addCard(card1) is called
     - applySuperSkip is called
 
-- **TC50: Valid play with one Godcat** ( :x: )
+- **TC50: Valid play with one Godcat** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [GODCAT]
   - **Expected output**:

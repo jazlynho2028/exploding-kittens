@@ -180,6 +180,9 @@ public class Game {
             case SUPER_SKIP:
                 applySuperSkip();
                 break;
+            case GODCAT:
+                applyGodcat();
+                break;
             default:
                 break;
         }
@@ -196,6 +199,8 @@ public class Game {
     void applyCatomicBomb() { }
 
     void applySuperSkip() { }
+
+    void applyGodcat() { }
 
     public String getTopDiscardId() {
         return "";
