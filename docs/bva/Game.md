@@ -395,8 +395,8 @@
   - **State of the system**: discardPile.peekTop throws InvalidStateException "error.emptyDeck"
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
 
-- **TC61: Non-empty discard pile** ( :x: )
-  - **Name of the test**: getTopDiscardId_emptyDiscardPile_failed
+- **TC61: Non-empty discard pile** ( :white_check_mark: )
+  - **Name of the test**: getTopDiscardId_nonEmptyDiscardPile_returnTopCardId
   - **State of the system**: topDiscardPileId = "SKIP_1" 
   - **Expected output**: returns drawPile.peekTop.getId
 

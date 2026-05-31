@@ -595,6 +595,34 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, discardPile);
 	}
 
+	@Test
+	public void getTopDiscardId_nonEmptyDiscardPile_returnTopCardId() {
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createNiceMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		String expectedId = "SKIP_1";
+
+		Card topCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(topCard.getId()).andReturn(expectedId);
+
+		EasyMock.expect(discardPile.peekTop()).andReturn(topCard);
+
+		EasyMock.replay(player1, player2, drawPile, discardPile, topCard);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		String actualId = game.getTopDiscardId();
+
+		assertEquals(expectedId, actualId);
+
+		EasyMock.verify(player1, player2, drawPile, discardPile, topCard);
+	}
+
 	@ParameterizedTest
 	@CsvSource({
 			"false, 0",
