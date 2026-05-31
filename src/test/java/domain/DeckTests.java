@@ -123,64 +123,63 @@ public class DeckTests {
         assertEquals(0, deck.size());
     }
 
-    @Test
-    public void peekTop_oneCardDeck_returnsTopCard() {
-        Card card1 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("peekTopNonEmptyDeckCases")
+    public void peekTop_nonEmptyDeck_returnsTopCard(
+            String caseName,
+            Deque<Card> cards,
+            Card expectedTop,
+            List<Card> expectedCards,
+            Card[] mocksToVerify) {
         Deck deck = new Deck(cards, new Random());
 
         Card result = deck.peekTop();
 
-        assertSame(card1, result);
-        assertEquals(1, deck.size());
-        assertSame(card1, deck.peekTop());
+        assertSame(expectedTop, result);
+        assertEquals(expectedCards, deck.getCards());
 
-        EasyMock.verify(card1);
+        EasyMock.verify((Object[]) mocksToVerify);
     }
 
-    @Test
-    public void peekTop_multipleDifferentCards_returnsTopCard() {
-        Card card1 = EasyMock.createMock(Card.class);
-        Card card2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1, card2);
+    private static Stream<Arguments> peekTopNonEmptyDeckCases() {
+        Card oneCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(oneCard);
+        Deque<Card> oneCardDeck = new ArrayDeque<>();
+        oneCardDeck.addLast(oneCard);
 
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card2);
+        Card firstDifferentCard = EasyMock.createMock(Card.class);
+        Card secondDifferentCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(firstDifferentCard, secondDifferentCard);
+        Deque<Card> differentCardsDeck = new ArrayDeque<>();
+        differentCardsDeck.addLast(firstDifferentCard);
+        differentCardsDeck.addLast(secondDifferentCard);
 
-        Deck deck = new Deck(cards, new Random());
+        Card duplicateCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(duplicateCard);
+        Deque<Card> duplicateCardsDeck = new ArrayDeque<>();
+        duplicateCardsDeck.addLast(duplicateCard);
+        duplicateCardsDeck.addLast(duplicateCard);
 
-        Card result = deck.peekTop();
-
-        assertSame(card1, result);
-        assertEquals(2, deck.size());
-        assertSame(card1, deck.peekTop());
-
-        EasyMock.verify(card1, card2);
-    }
-
-    @Test
-    public void peekTop_multipleDuplicateCards_returnsTopCard() {
-        Card card1 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card1);
-
-        Deck deck = new Deck(cards, new Random());
-
-        Card result = deck.peekTop();
-
-        assertSame(card1, result);
-        assertEquals(2, deck.size());
-        assertSame(card1, deck.peekTop());
-
-        EasyMock.verify(card1);
+        return Stream.of(
+                Arguments.of(
+                        "one-card deck",
+                        oneCardDeck,
+                        oneCard,
+                        List.of(oneCard),
+                        new Card[] {oneCard}),
+                Arguments.of(
+                        "multiple different cards",
+                        differentCardsDeck,
+                        firstDifferentCard,
+                        List.of(firstDifferentCard, secondDifferentCard),
+                        new Card[] {firstDifferentCard, secondDifferentCard}),
+                Arguments.of(
+                        "multiple duplicate cards",
+                        duplicateCardsDeck,
+                        duplicateCard,
+                        List.of(duplicateCard, duplicateCard),
+                        new Card[] {duplicateCard})
+        );
     }
 
     @Test
