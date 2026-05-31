@@ -124,7 +124,7 @@
   - **Expected output**: calls getHandIds on player
 
 ### Method under test: `getCurrentSelectedCards()`
-- **TC23: This method is called** ( :x: )
+- **TC23: This method is called** ( :white_check_mark: )
   - **Name of the test**: getCurrentSelectedCards_onePlayer_callsPlayerMethod
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**: calls getSelectedCards on player

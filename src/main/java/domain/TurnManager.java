@@ -38,6 +38,10 @@ public class TurnManager {
         return getCurrentPlayer().getHandIds();
     }
 
+    public List<Card> getCurrentSelectedCards() {
+        return getCurrentPlayer().getSelectedCards();
+    }
+
     public int getDrawCount() {
         return drawCount;
     }
