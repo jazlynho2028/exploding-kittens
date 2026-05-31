@@ -54,7 +54,8 @@ public class GameTests {
 			Player player = EasyMock.createMock(Player.class);
 			players.add(player);
 
-			player.addCardToHand(mockSpecificCard(CardType.DEFUSE, NUM_DEFUSES - i));
+			player.addCardToHand(mockSpecificCard(CardType.DEFUSE,
+					NUM_DEFUSES_IN_GAME - i));
 			EasyMock.expectLastCall();
 		}
 
