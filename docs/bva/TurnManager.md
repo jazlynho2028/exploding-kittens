@@ -10,16 +10,16 @@
   - **State of the system**: players = [player1]
   - **Expected output**:
     - currentPlayerIndex = 0
-    - drawCount = 0
-    - roundCount = 0
+    - drawCount = 1
+    - roundCount = 1
 
 - **TC3: Two players** ( :white_check_mark: )
   - **Name of the test**: constructor_validPlayerCount_zeroInitialCounts
   - **State of the system**: players = [player1, player2]
   - **Expected output**:
     - currentPlayerIndex = 0
-    - drawCount = 0
-    - roundCount = 0
+    - drawCount = 1
+    - roundCount = 1
 
 ### Method under test: `getCurrentPlayerIndex()`
 - **TC4: first player's index before any turns taken with list of minimum players** ( :white_check_mark: )
