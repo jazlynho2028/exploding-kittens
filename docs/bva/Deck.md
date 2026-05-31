@@ -84,7 +84,7 @@
 
 ### Method under test: `peekTopNCards(int n)`
 - **TC17: Peek top N cards from empty deck when n is zero** ( :white_check_mark: )
-  - **Name of the test**: `peekTopNCards_emptyDeckAndZeroCards_returnsEmptyList`
+  - **Name of the test**: `peekTopNCards_zeroCount_returnsEmptyList` with case `empty deck`
   - **State of the system**: Deck is empty: []; n = 0
   - **Expected output**: Returns empty list []; deck is still empty: []
 
@@ -99,7 +99,7 @@
   - **Expected output**: Throws IllegalArgumentException; deck is still [card1, card2]
 
 - **TC20: Peek top N cards when n is zero** ( :white_check_mark: )
-  - **Name of the test**: `peekTopNCards_zeroCount_returnsEmptyList`
+  - **Name of the test**: `peekTopNCards_zeroCount_returnsEmptyList` with case `non-empty deck`
   - **State of the system**: Deck has cards: [card1, card2]; n = 0
   - **Expected output**: Returns empty list []; deck is still [card1, card2]
 

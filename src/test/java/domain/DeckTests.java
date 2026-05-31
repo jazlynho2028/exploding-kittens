@@ -327,17 +327,6 @@ public class DeckTests {
     }
 
     @Test
-    public void peekTopNCards_emptyDeckAndZeroCards_returnsEmptyList() {
-        Deque<Card> cards = new ArrayDeque<>();
-        Deck deck = new Deck(cards, new Random());
-
-        List<Card> result = deck.peekTopNCards(0);
-
-        assertEquals(0, result.size());
-        assertEquals(0, deck.size());
-    }
-
-    @Test
     public void peekTopNCards_emptyDeckAndPositiveCount_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards, new Random());
@@ -369,25 +358,45 @@ public class DeckTests {
         EasyMock.verify(card1, card2);
     }
 
-    @Test
-    public void peekTopNCards_zeroCount_returnsEmptyList() {
-        Card card1 = EasyMock.createMock(Card.class);
-        Card card2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1, card2);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card2);
-
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("peekTopNCardsZeroCountCases")
+    public void peekTopNCards_zeroCount_returnsEmptyList(
+            String caseName,
+            Deque<Card> cards,
+            List<Card> expectedCards,
+            Card[] mocksToVerify) {
         Deck deck = new Deck(cards, new Random());
 
         List<Card> result = deck.peekTopNCards(0);
 
-        assertEquals(0, result.size());
-        assertEquals(TWO_CARDS, deck.size());
-        assertSame(card1, deck.peekTop());
+        assertEquals(List.of(), result);
+        assertEquals(expectedCards, deck.getCards());
 
-        EasyMock.verify(card1, card2);
+        EasyMock.verify((Object[]) mocksToVerify);
+    }
+
+    private static Stream<Arguments> peekTopNCardsZeroCountCases() {
+        Deque<Card> emptyDeck = new ArrayDeque<>();
+
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(card1, card2);
+        Deque<Card> nonEmptyDeck = new ArrayDeque<>();
+        nonEmptyDeck.addLast(card1);
+        nonEmptyDeck.addLast(card2);
+
+        return Stream.of(
+                Arguments.of(
+                        "empty deck",
+                        emptyDeck,
+                        List.of(),
+                        new Card[] {}),
+                Arguments.of(
+                        "non-empty deck",
+                        nonEmptyDeck,
+                        List.of(card1, card2),
+                        new Card[] {card1, card2})
+        );
     }
 
     @Test
