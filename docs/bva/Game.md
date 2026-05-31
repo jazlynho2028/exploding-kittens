@@ -380,7 +380,7 @@
     - discardPile.addCard(card1) is called
     - applyDoubleUp is called
 
-- **TC59: Valid play with one Mild Draw** ( :x: )
+- **TC59: Valid play with one Mild Draw** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [MILD_DRAW]
   - **Expected output**:

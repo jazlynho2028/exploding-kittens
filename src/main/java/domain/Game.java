@@ -205,6 +205,8 @@ public class Game {
                 applyRecycle();
             case DOUBLE_UP:
                 applyDoubleUp();
+            case MILD_DRAW:
+                applyMildDraw();
             default:
                 break;
         }
@@ -239,6 +241,8 @@ public class Game {
     void applyRecycle() { }
 
     void applyDoubleUp() { }
+
+    void applyMildDraw() { }
 
     public String getTopDiscardId() {
         return "";

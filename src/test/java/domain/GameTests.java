@@ -561,7 +561,9 @@ public class GameTests {
 				Arguments.of(CardType.RECYCLE, "applyRecycle",
 						(Consumer<Game>) Game::applyRecycle),
 				Arguments.of(CardType.DOUBLE_UP, "applyDoubleUp",
-						(Consumer<Game>) Game::applyDoubleUp)
+						(Consumer<Game>) Game::applyDoubleUp),
+				Arguments.of(CardType.MILD_DRAW, "applyMildDraw",
+						(Consumer<Game>) Game::applyMildDraw)
 		);
 	}
 
