@@ -166,7 +166,7 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             model.playSelectedCards();
 
-            view.renderDiscardPile(model.getCanDrawFromDiscard(), model.getTopDiscardId());
+            view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
             rebindHandCards();
             updateTurnControls();
         });

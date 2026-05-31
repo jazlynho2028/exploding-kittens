@@ -389,118 +389,135 @@
     - discardPile.addCard(card1) is called
     - applyMildDraw is called
 
+### Method under test: `getTopDiscardId()`
+- **TC60: Empty discard pile** ( :x: )
+  - **Name of the test**: getTopDiscardId_emptyDiscardPile_failed
+  - **State of the system**: discardPile.peekTop throws InvalidStateException "error.emptyDeck"
+  - **Expected output**: throws InvalidStateException "error.emptyDeck"
+
+- **TC61: Non-empty discard pile** ( :x: )
+  - **Name of the test**: getTopDiscardId_emptyDiscardPile_failed
+  - **State of the system**: topDiscardPileId = "SKIP_1" 
+  - **Expected output**: returns drawPile.peekTop.getId
+
+### Method under test: `getCanDrawFromDiscard()`
+- **TC62: Empty discard pile** ( :x: )
+  - **Name of the test**: canDrawFromDiscard_none_returnFalse
+  - **State of the system**: N/A
+  - **Expected output**: returns false
+
 ### Method under test: `canEndTurn()`
-- **TC43: Game is not ongoing, draw count is 0** ( :white_check_mark: )
+- **TC63: Game is not ongoing, draw count is 0** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 0
   - **Expected output**: returns false
 
-- **TC44: Game is not ongoing, draw count is 1** ( :white_check_mark: )
+- **TC64: Game is not ongoing, draw count is 1** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 1
   - **Expected output**: returns false
 
-- **TC45: Game is not ongoing, draw count is 2** ( :white_check_mark: )
+- **TC65: Game is not ongoing, draw count is 2** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 2
   - **Expected output**: returns false
 
-- **TC46: Game is ongoing, draw count is 1** ( :white_check_mark: )
+- **TC66: Game is ongoing, draw count is 1** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = true, drawCount = 1
   - **Expected output**: returns false
 
-- **TC47: Game is ongoing, draw count is 2** ( :white_check_mark: )
+- **TC67: Game is ongoing, draw count is 2** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = true, drawCount = 1
   - **Expected output**: returns false
 
-- **TC48: Game is ongoing, draw count is 0** ( :white_check_mark: )
+- **TC68: Game is ongoing, draw count is 0** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue
   - **State of the system**: isGameOngoing = true, drawCount = 0
   - **Expected output**: returns true
 
-### Method under test: `isDrawPileEmpty()`
-- **TC49: Empty draw pile** ( :white_check_mark: )
+### Mehhod under test: `isDrawPileEmpty()`
+- **TC69: Empty draw pile** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_emptyDrawPile_returnTrue
   - **State of the system**: drawPile = []
   - **Expected output**: returns true
 
-- **TC50: Draw pile has one card** ( :white_check_mark: )
+- **TC70: Draw pile has one card** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
   - **State of the system**: drawPile = [SKIP]
   - **Expected output**: returns false
 
-- **TC51: Draw pile has two cards of same type** ( :white_check_mark: )
+- **TC71: Draw pile has two cards of same type** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
   - **State of the system**: drawPile = [SKIP, SKIP]
   - **Expected output**: returns fal
 
-- **TC52: Draw pile has two different type cards** ( :white_check_mark: )
+- **TC72: Draw pile has two different type cards** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
   - **State of the system**: drawPile = [SKIP, ATTACK]
   - **Expected output**: returns false
 
 ### Method under test: `getCanDraw()`
-- **TC53: Game is not ongoing, draw count is 0** ( :white_check_mark: )
+- **TC73: Game is not ongoing, draw count is 0** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 0
   - **Expected output**: returns false
 
-- **TC54: Game is not ongoing, draw count is 1** ( :white_check_mark: )
+- **TC74: Game is not ongoing, draw count is 1** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 1
   - **Expected output**: returns false
 
-- **TC55: Game is not ongoing, draw count is 2** ( :white_check_mark: )
+- **TC75: Game is not ongoing, draw count is 2** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = false, drawCount = 2
   - **Expected output**: returns false
 
-- **TC56: Game is ongoing, draw count is 0** ( :white_check_mark: )
+- **TC76: Game is ongoing, draw count is 0** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = true, drawCount = 0
   - **Expected output**: returns false
 
-- **TC57: Game is ongoing, draw count is 1** ( :white_check_mark: )
+- **TC77: Game is ongoing, draw count is 1** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnTrue
   - **State of the system**: isGameOngoing = true, drawCount = 1
   - **Expected output**: returns true
 
-- **TC58: Game is ongoing, draw count is 2** ( :white_check_mark: )
+- **TC78: Game is ongoing, draw count is 2** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnTrue
   - **State of the system**: isGameOngoing = true, drawCount = 1
   - **Expected output**: returns true
 
 ### Method under test: `changeCurrentPlayerIndex(int newPlayerIndex)`
-- **TC59: This method is called** ( :white_check_mark: )
+- **TC79: This method is called** ( :white_check_mark: )
   - **Name of the test**: changeCurrentPlayerIndex_called_callsTurnManager
   - **State of the system**: newPlayerIndex = 0
   - **Expected output**: calls turnManager.setCurrentPlayerIndex with newPlayerIndex
 
 ### Method under test: `setFaceUpToFalse()`
-- **TC60: Is face up** ( :white_check_mark: )
+- **TC80: Is face up** ( :white_check_mark: )
   - **Name of the test**: setFaceUpToFalse_isFaceUp_setToFalse
   - **State of the system**: isFaceUp = true
   - **Expected output**: isFaceUp = false
 
-- **TC61: Is face down** ( :white_check_mark: )
+- **TC81: Is face down** ( :white_check_mark: )
   - **Name of the test**: setFaceUpToFalse_isFaceDown_setToFalse
   - **State of the system**: isFaceUp = false
   - **Expected output**: isFaceUp = false
 
 ### Method under test: `drawFromPile()`
-- **TC62: Empty draw pile** ( :white_check_mark: )
+- **TC82: Empty draw pile** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_emptyDrawPile_failed
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throw IllegalStateException "error.emptyDeck"
 
-- **TC63: Draw count at zero** ( :white_check_mark: )
+- **TC83: Draw count at zero** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_drawCountAtZero_failed
   - **State of the system**: turnManager.decrementDrawCount throws IllegalStateException "error.negativeDrawCount"
   - **Expected output**: throw IllegalStateException "error.negativeDrawCount"
 
-- **TC64: Draw pile has one card** ( :white_check_mark: )
+- **TC84: Draw pile has one card** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_oneCardInDrawPile_addToCurrentPlayerHand
   - **State of the system**: drawPile = [SKIP_1], drawCount = 0
   - **Expected output**:
@@ -509,28 +526,28 @@
     - turnManager.decrementDrawCount is called
 
 ### Method under test: `toggleFaceUp()`
-- **TC65: Is face up** ( :white_check_mark: )
+- **TC85: Is face up** ( :white_check_mark: )
   - **Name of the test**: toggleFaceUp_called_setToFalse
   - **State of the system**: isFaceUp = true
   - **Expected output**: isFaceUp = false
 
-- **TC66: Is face down** ( :white_check_mark: )
+- **TC86: Is face down** ( :white_check_mark: )
   - **Name of the test**: toggleFaceUp_called_togglesFaceUp
   - **State of the system**: isFaceUp = false
   - **Expected output**: isFaceUp = true
 
 ### Method under test: `toggleSelectedCurrentPlayerCardAt(int handCardIndex)`
-- **TC67: Hand card index at 0** ( :white_check_mark: )
+- **TC87: Hand card index at 0** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle
   - **State of the system**: handCardIndex = 0
   - **Expected output**: getCurrentPlayer.toggleSelectedHandCardAt is called with handCardIndex
 
-- **TC68: Hand card index at 1** ( :white_check_mark: )
+- **TC88: Hand card index at 1** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle
   - **State of the system**: handCardIndex = 1
   - **Expected output**: getCurrentPlayer.toggleSelectedHandCardAt is called with handCardIndex
 
-- **TC69: Player method throws exception** ( :white_check_mark: )
+- **TC89: Player method throws exception** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_indexZero_failed
   - **State of the system**: 
     - handCardIndex = 0
@@ -538,14 +555,14 @@
   - **Expected output**: throws InvalidArgumentException "error.handCardIndexOutOfBounds"
 
 ### Method under test: `advanceTurn()`
-- **TC70: Can end turn** ( :white_check_mark: )
+- **TC90: Can end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_canEndTurn_advanceTurnAndDeselectCards
   - **State of the system**: canEndTurn = true
   - **Expected output**:
     - turnManager.advanceTurn is called
     - getCurrentPlayer.deselectHandCards is called
 
-- **TC71: Cannot end turn** ( :white_check_mark: )
+- **TC91: Cannot end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
   - **State of the system**: canEndTurn = false
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"

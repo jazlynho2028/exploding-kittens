@@ -151,7 +151,7 @@ public class Game {
         return "";
     }
 
-    public boolean getCanDrawFromDiscard() {
+    public boolean canDrawFromDiscard() {
         return false;
     }
 
