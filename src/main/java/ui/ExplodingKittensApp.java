@@ -71,7 +71,8 @@ public class ExplodingKittensApp extends Application {
         List<Player> players = createPlayers(createController.getConfirmedNames());
         DeckBuilder builder = new DeckBuilder();
         Deck drawPile = builder.initializeDeck(players.size());
-        Deck discardPile = new Deck(new ArrayDeque<>());
+        Random random = new Random();
+        Deck discardPile = new Deck(new ArrayDeque<>(), random);
         TurnManager turnManager = new TurnManager(players);
 
         Game model = new Game(players, drawPile, discardPile, turnManager);
