@@ -344,7 +344,7 @@
     - discardPile.addCard(card1) is called
     - applyTargetedAttack is called
 
-- **TC55: Valid play with one Winner Winner Catnip Dinner** ( :x: )
+- **TC55: Valid play with one Winner Winner Catnip Dinner** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [WINNER_WINNER_CATNIP_DINNER]
   - **Expected output**:

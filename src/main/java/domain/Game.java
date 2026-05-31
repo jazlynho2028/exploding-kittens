@@ -195,6 +195,9 @@ public class Game {
             case TARGETED_ATTACK:
                 applyTargetedAttack();
                 break;
+            case WINNER_WINNER_CATNIP_DINNER:
+                applyWinnerWinnerCatnipDinner();
+                break;
             default:
                 break;
         }
@@ -221,6 +224,8 @@ public class Game {
     void applyDrawFromTheBottom() { }
 
     void applyTargetedAttack() { }
+
+    void applyWinnerWinnerCatnipDinner() { }
 
     public String getTopDiscardId() {
         return "";
