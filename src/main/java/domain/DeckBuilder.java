@@ -1,9 +1,6 @@
 package domain;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 import static domain.GameConstants.*;
 
@@ -23,7 +20,7 @@ public class DeckBuilder {
 
     Deck createDeckInstance(List<Card> cardsList) {
         Deque<Card> deckDeque = new ArrayDeque<>(cardsList);
-        Deck baseDeck = new Deck(deckDeque);
+        Deck baseDeck = new Deck(deckDeque, new Random());
         baseDeck.shuffle();
 
         return baseDeck;

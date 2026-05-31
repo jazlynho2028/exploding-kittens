@@ -36,12 +36,14 @@ public class DeckBuilderTests {
         assertSame(mockDeck, resultDeck);
         List<Card> finalAssembledCards = capturedList.getValue();
 
-        assertEquals(EXPECTED_DECK_SIZE_2_PLAYERS, finalAssembledCards.size());
+        int expectedDeckSizeWithoutDefuses = getExpectedDeckSizeWithoutDefuses();
+        int expectedDeckSizeAddDefuses = expectedDeckSizeWithoutDefuses + (NUM_DEFUSES_IN_GAME - MIN_PLAYERS);
+        assertEquals(expectedDeckSizeAddDefuses, finalAssembledCards.size());
 
         verifyCardTypeGroup(
                 finalAssembledCards,
                 CardType.DEFUSE,
-                EXPECTED_DEFUSE_COUNT_2_PLAYERS,
+                NUM_DEFUSES_IN_GAME - MIN_PLAYERS,
                 "DEFUSE");
 
         verify(mockDeck, deckBuilder);
@@ -63,12 +65,14 @@ public class DeckBuilderTests {
         assertSame(mockDeck, resultDeck);
         List<Card> finalAssembledCards = capturedList.getValue();
 
-        assertEquals(EXPECTED_DECK_SIZE_4_PLAYERS, finalAssembledCards.size());
+        int expectedDeckSizeWithoutDefuses = getExpectedDeckSizeWithoutDefuses();
+        int expectedDeckSizeAddDefuses = expectedDeckSizeWithoutDefuses + (NUM_DEFUSES_IN_GAME - MAX_PLAYERS);
+        assertEquals(expectedDeckSizeAddDefuses, finalAssembledCards.size());
 
         verifyCardTypeGroup(
                 finalAssembledCards,
                 CardType.DEFUSE,
-                EXPECTED_DEFUSE_COUNT_4_PLAYERS,
+                NUM_DEFUSES_IN_GAME - MAX_PLAYERS,
                 "DEFUSE");
 
         verify(mockDeck, deckBuilder);
@@ -76,7 +80,8 @@ public class DeckBuilderTests {
 
     @Test
     void initializeDeckWithoutDefuses_TotalCardCount_EqualsBaselineConstant() {
-        assertEquals(EXPECTED_BASE_DECK_SIZE, baseCards.size());
+        int expectedDeckSizeWithoutDefuses = getExpectedDeckSizeWithoutDefuses();
+        assertEquals(expectedDeckSizeWithoutDefuses, baseCards.size());
     }
 
     @Test
@@ -125,20 +130,20 @@ public class DeckBuilderTests {
     @Test
     void calculateDefusesToAdd_NegativeDefuses_ThrowsException() {
         assertThrows(IllegalArgumentException.class, () -> {
-            DeckBuilder.calculateDefusesToAdd(INVALID_PLAYER_COUNT);
+            DeckBuilder.calculateDefusesToAdd(NUM_DEFUSES_IN_GAME + 1);
         });
     }
 
     @Test
     void calculateDefusesToAdd_MinimumPlayers_ReturnsThree() {
         int numDefuses = DeckBuilder.calculateDefusesToAdd(MIN_PLAYERS);
-        assertEquals(EXPECTED_DEFUSE_COUNT_2_PLAYERS, numDefuses);
+        assertEquals(NUM_DEFUSES_IN_GAME - MIN_PLAYERS, numDefuses);
     }
 
     @Test
     void calculateDefusesToAdd_MaximumPlayers_ReturnsOne() {
         int numDefuses = DeckBuilder.calculateDefusesToAdd(MAX_PLAYERS);
-        assertEquals(EXPECTED_DEFUSE_COUNT_4_PLAYERS, numDefuses);
+        assertEquals(NUM_DEFUSES_IN_GAME - MAX_PLAYERS, numDefuses);
     }
 
     @Test
@@ -171,5 +176,26 @@ public class DeckBuilderTests {
             }
         }
         assertEquals(expectedQuantity, matchCount);
+    }
+
+    private static int getExpectedDeckSizeWithoutDefuses() {
+        return NUM_MILD_DRAW_IN_GAME
+                + NUM_GODCAT_IN_GAME
+                + NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME
+                + NUM_RAGEBAIT_IN_GAME
+                + NUM_RECYCLE_IN_GAME
+                + NUM_DOUBLE_UP_IN_GAME
+                + NUM_CATOMIC_BOMB_IN_GAME
+                + NUM_SUPER_SKIP_IN_GAME
+                + NUM_ATTACK_IN_GAME
+                + NUM_SKIP_IN_GAME
+                + NUM_CLONE_IN_GAME
+                + NUM_SWAP_TOP_AND_BOTTOM_IN_GAME
+                + NUM_DRAW_FROM_THE_BOTTOM_IN_GAME
+                + NUM_FERAL_CAT_IN_GAME
+                + NUM_SEE_THE_FUTURE_IN_GAME
+                + NUM_SHUFFLE_IN_GAME
+                + NUM_TARGETED_ATTACK_IN_GAME
+                + (NUM_CAT_CARD_IN_GAME * 4);
     }
 }

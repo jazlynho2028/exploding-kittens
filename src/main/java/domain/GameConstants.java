@@ -36,11 +36,4 @@ public final class GameConstants {
 	public static final int NUM_SHUFFLE_IN_GAME = 4;
 	public static final int NUM_TARGETED_ATTACK_IN_GAME = 4;
 	public static final int NUM_CAT_CARD_IN_GAME = 4;
-
-	public static final int INVALID_PLAYER_COUNT = 6;
-	public static final int EXPECTED_DECK_SIZE_4_PLAYERS = 57;
-	public static final int EXPECTED_DECK_SIZE_2_PLAYERS = 59;
-	public static final int EXPECTED_BASE_DECK_SIZE = 56;
-	public static final int EXPECTED_DEFUSE_COUNT_2_PLAYERS = 3;
-	public static final int EXPECTED_DEFUSE_COUNT_4_PLAYERS = 1;
 }
