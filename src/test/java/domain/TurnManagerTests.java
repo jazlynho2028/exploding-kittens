@@ -184,7 +184,7 @@ public class TurnManagerTests {
     }
 
     @Test
-    public void decrementDrawCount_fromPositiveValue_decrementsCount() {
+    public void decrementDrawCount_fromOne_toZero() {
         List<Player> players = new ArrayList<>();
         Player mockPlayer1 = EasyMock.createMock(Player.class);
         players.add(mockPlayer1);
@@ -200,7 +200,7 @@ public class TurnManagerTests {
     }
 
     @Test
-    public void decrementDrawCount_subtractsValueCorrectly() {
+    public void decrementDrawCount_fromTwo_toOne() {
         final int expectedDrawCount = 1;
         List<Player> players = new ArrayList<>();
         Player mockPlayer1 = EasyMock.createMock(Player.class);
@@ -211,8 +211,6 @@ public class TurnManagerTests {
         TurnManager turnManager = new TurnManager(players);
 
         turnManager.incrementDrawCount();
-        turnManager.incrementDrawCount();
-
         turnManager.decrementDrawCount();
 
         assertEquals(expectedDrawCount, turnManager.getDrawCount());
