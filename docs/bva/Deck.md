@@ -130,17 +130,17 @@
   - **Expected output**: Throws IllegalStateException with message `error.emptyDeck`; deck is still empty: []
 
 - **TC26: Remove bottom from deck with one card** ( :white_check_mark: )
-  - **Name of the test**: `removeBottom_oneCardDeck_returnsBottomCard`
+  - **Name of the test**: `removeBottom_nonEmptyDeck_returnsBottomCard` with case `one-card deck`
   - **State of the system**: Deck has exactly one card: [card1]
   - **Expected output**: Returns card1; deck becomes empty: []
 
 - **TC27: Remove bottom from deck with more than one different card** ( :white_check_mark: )
-  - **Name of the test**: `removeBottom_multipleDifferentCards_returnsBottomCard`
+  - **Name of the test**: `removeBottom_nonEmptyDeck_returnsBottomCard` with case `multiple different cards`
   - **State of the system**: Deck has more than one card with different cards: [card1, card2]
   - **Expected output**: Returns card2; deck becomes [card1]
 
 - **TC28: Remove bottom from deck with more than one duplicate card** ( :white_check_mark: )
-  - **Name of the test**: `removeBottom_multipleDuplicateCards_returnsBottomCard`
+  - **Name of the test**: `removeBottom_nonEmptyDeck_returnsBottomCard` with case `multiple duplicate cards`
   - **State of the system**: Deck has more than one card with duplicates: [card1, card1]
   - **Expected output**: Returns card1; deck becomes [card1]
 
