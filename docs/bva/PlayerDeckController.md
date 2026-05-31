@@ -104,7 +104,7 @@
   - **State of the system**: canDrawFromDiscard = true, topDiscardId = "SKIP_1", canPlaySelected = true, canEndTurn = true
   - **Expected output**: called model.playSelectedCards, view.renderDiscardPile with model.canDrawFromDiscard and model.getTopDiscardId, view.renderDrawPile, rebindHandCards, and view.renderTurnControlSection with model.canPlaySelected and model.canEndTurn
 
-- **TC20: Caught exception from model** ( :x: )
+- **TC20: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed
   - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
