@@ -362,7 +362,7 @@
     - discardPile.addCard(card1) is called
     - applyRagebait is called
 
-- **TC57: Valid play with one Recycle** ( :x: )
+- **TC57: Valid play with one Recycle** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [RECYCLE]
   - **Expected output**:
@@ -371,7 +371,7 @@
     - discardPile.addCard(card1) is called
     - applyRecycle is called
 
-- **TC58: Valid play with one Double Up** ( :x: )
+- **TC58: Valid play with one Double Up** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DOUBLE_UP]
   - **Expected output**:

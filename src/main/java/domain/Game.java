@@ -201,6 +201,10 @@ public class Game {
             case RAGEBAIT:
                 applyRagebait();
                 break;
+            case RECYCLE:
+                applyRecycle();
+            case DOUBLE_UP:
+                applyDoubleUp();
             default:
                 break;
         }
@@ -231,6 +235,10 @@ public class Game {
     void applyWinnerWinnerCatnipDinner() { }
 
     void applyRagebait() { }
+
+    void applyRecycle() { }
+
+    void applyDoubleUp() { }
 
     public String getTopDiscardId() {
         return "";
