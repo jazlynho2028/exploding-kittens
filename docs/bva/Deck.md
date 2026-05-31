@@ -172,12 +172,12 @@
   - **Expected output**: Returns true
 
 - **TC34: Check if one-card deck is empty** ( :white_check_mark: )
-  - **Name of the test**: `isEmpty_oneCardDeck_returnsFalse`
+  - **Name of the test**: `isEmpty_nonEmptyDeck_returnsFalse` with case `one-card deck`
   - **State of the system**: Deck has exactly one card: [card1]
   - **Expected output**: Returns false
 
 - **TC35: Check if multi-card deck is empty** ( :white_check_mark: )
-  - **Name of the test**: `isEmpty_multipleCards_returnsFalse`
+  - **Name of the test**: `isEmpty_nonEmptyDeck_returnsFalse` with case `multiple-card deck`
   - **State of the system**: Deck has cards: [card1, card2]
   - **Expected output**: Returns false
 

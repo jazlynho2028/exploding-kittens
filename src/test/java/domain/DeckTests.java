@@ -657,36 +657,42 @@ public class DeckTests {
         assertTrue(deck.isEmpty());
     }
 
-    @Test
-    public void isEmpty_oneCardDeck_returnsFalse() {
-        Card card1 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("nonEmptyDeckCases")
+    public void isEmpty_nonEmptyDeck_returnsFalse(
+            String caseName,
+            Deque<Card> cards,
+            Card[] mocksToVerify) {
         Deck deck = new Deck(cards, new Random());
 
         assertFalse(deck.isEmpty());
 
-        EasyMock.verify(card1);
+        EasyMock.verify((Object[]) mocksToVerify);
     }
 
-    @Test
-    public void isEmpty_multipleCards_returnsFalse() {
-        Card card1 = EasyMock.createMock(Card.class);
-        Card card2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1, card2);
+    private static Stream<Arguments> nonEmptyDeckCases() {
+        Card oneCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(oneCard);
+        Deque<Card> oneCardDeck = new ArrayDeque<>();
+        oneCardDeck.addLast(oneCard);
 
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card2);
+        Card firstCard = EasyMock.createMock(Card.class);
+        Card secondCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(firstCard, secondCard);
+        Deque<Card> multipleCardDeck = new ArrayDeque<>();
+        multipleCardDeck.addLast(firstCard);
+        multipleCardDeck.addLast(secondCard);
 
-        Deck deck = new Deck(cards, new Random());
-
-        assertFalse(deck.isEmpty());
-
-        EasyMock.verify(card1, card2);
+        return Stream.of(
+                Arguments.of(
+                        "one-card deck",
+                        oneCardDeck,
+                        new Card[] {oneCard}),
+                Arguments.of(
+                        "multiple-card deck",
+                        multipleCardDeck,
+                        new Card[] {firstCard, secondCard})
+        );
     }
 
     @Test
