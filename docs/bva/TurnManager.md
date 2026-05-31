@@ -66,14 +66,14 @@
 
 ### Method under test: `incrementRound()`
 - **TC12: Round incremented from its minimum baseline** ( :white_check_mark: )
-  - **Name of the test**: incrementRound_initialZero_success
-  - **State of the system**: roundCounter = 0
-  - **Expected output**: getRoundCounter() = 1
-
-- **TC13: Round count incremented on nonzero draw count** ( :white_check_mark: )
-  - **Name of the test**: incrementRound_fromNonZero_success
+  - **Name of the test**: incrementRound_initialOne_toTwo
   - **State of the system**: roundCounter = 1
   - **Expected output**: getRoundCounter() = 2
+
+- **TC13: Round count incremented on nonzero draw count** ( :white_check_mark: )
+  - **Name of the test**: incrementRound_fromTwo_toThree
+  - **State of the system**: roundCounter = 2
+  - **Expected output**: getRoundCounter() = 3
 
 ### Method under test: `advanceTurn()`
 - **TC14: Advance turn away from starting baseline across varying player sizes** ( :white_check_mark: )
