@@ -10,9 +10,10 @@ import static domain.GameConstants.*;
 
 public class Game {
 
-    private List<Player> players;
-    private Deck drawPile;
-    private Deck discardPile;
+    private final List<Player> players;
+    private final Deck drawPile;
+    private final Deck discardPile;
+    private final TurnManager turnManager;
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
@@ -29,8 +30,6 @@ public class Game {
             CardType.CAT_CARD_4,
             CardType.FERAL_CAT
     );
-
-    private TurnManager turnManager;
 
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
