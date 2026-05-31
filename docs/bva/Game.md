@@ -15,8 +15,6 @@
   - **Name of the test**: setUp_validNumPlayers_initializeGame
   - **State of the system**: players.size = 2
   - **Expected output**:
-    - isGameOngoing = false
-    - isFaceUp = false
     - player1.addCardToHand with DEFUSE_5 called
     - player2.addCardToHand with DEFUSE_4 called
     - player.addCardToHand called with drawPile.removeTop 5 times for each player
@@ -25,8 +23,6 @@
   - **Name of the test**: setUp_validNumPlayers_initializeGame
   - **State of the system**: players.size = 4
   - **Expected output**:
-    - isGameOngoing = false
-    - isFaceUp = false
     - player1.addCardToHand with DEFUSE_5 called
     - player2.addCardToHand with DEFUSE_4 called
     - player3.addCardToHand with DEFUSE_3 called
