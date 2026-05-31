@@ -73,6 +73,7 @@ public class ExplodingKittensApp extends Application {
         TurnManager turnManager = new TurnManager(players);
 
         Game model = new Game(players, drawPile, discardPile, turnManager);
+        model.setUp();
 
         showPlayerDeckScreen(model, stage);
     }

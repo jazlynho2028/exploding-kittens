@@ -42,10 +42,6 @@ public class Game {
     public Game(List<Player> players, Deck drawPile,
                 Deck discardPile, TurnManager turnManager) {
 
-        int numPlayers = players.size();
-        verifyMinPlayers(numPlayers);
-        verifyMaxPlayers(numPlayers);
-
         this.players = List.copyOf(players);
         this.drawPile = drawPile;
         this.discardPile = discardPile;
@@ -53,7 +49,12 @@ public class Game {
 
         isGameOngoing = false;
         isFaceUp = false;
+    }
 
+    public void setUp() {
+        int numPlayers = players.size();
+        verifyMinPlayers(numPlayers);
+        verifyMaxPlayers(numPlayers);
         populatePlayerHands();
     }
 
