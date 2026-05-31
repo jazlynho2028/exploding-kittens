@@ -212,38 +212,6 @@ public class Game {
         }
     }
 
-    void applyAttack() { }
-
-    void applyShuffle() { }
-
-    void applySkip() { }
-
-    void applySeeTheFuture() { }
-
-    void applyCatomicBomb() { }
-
-    void applySuperSkip() { }
-
-    void applyGodcat() { }
-
-    void applyClone() { }
-
-    void applySwapTopAndBottom() { }
-
-    void applyDrawFromTheBottom() { }
-
-    void applyTargetedAttack() { }
-
-    void applyWinnerWinnerCatnipDinner() { }
-
-    void applyRagebait() { }
-
-    void applyRecycle() { }
-
-    void applyDoubleUp() { }
-
-    void applyMildDraw() { }
-
     public String getTopDiscardId() {
         return "";
     }
@@ -317,4 +285,36 @@ public class Game {
     void setIsFaceUp(boolean isFaceUp) {
         this.isFaceUp = isFaceUp;
     }
+
+    void applyAttack() { }
+
+    void applyShuffle() { }
+
+    void applySkip() { }
+
+    void applySeeTheFuture() { }
+
+    void applyCatomicBomb() { }
+
+    void applySuperSkip() { }
+
+    void applyGodcat() { }
+
+    void applyClone() { }
+
+    void applySwapTopAndBottom() { }
+
+    void applyDrawFromTheBottom() { }
+
+    void applyTargetedAttack() { }
+
+    void applyWinnerWinnerCatnipDinner() { }
+
+    void applyRagebait() { }
+
+    void applyRecycle() { }
+
+    void applyDoubleUp() { }
+
+    void applyMildDraw() { }
 }
