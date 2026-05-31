@@ -12,6 +12,7 @@ public class Game {
 
     private List<Player> players;
     private Deck drawPile;
+    private Deck discardPile;
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
@@ -48,6 +49,7 @@ public class Game {
 
         this.players = List.copyOf(players);
         this.drawPile = drawPile;
+        this.discardPile = discardPile;
         this.turnManager = turnManager;
 
         isGameOngoing = false;
@@ -68,7 +70,7 @@ public class Game {
         }
     }
 
-    private void populatePlayerHands() {
+    void populatePlayerHands() {
         populateHandsWithDefuse();
 
         populateHandsWithNonDefuseStartingCards();
@@ -149,7 +151,26 @@ public class Game {
         if (!canPlaySelected()) {
             throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
+
+        List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
+        CardType cardType = selectedCards.get(0).getType();
+
+        for (Card card : getCurrentPlayer().getSelectedCards()) {
+            card.toggleSelected();
+            getCurrentPlayer().removeCardFromHand(card);
+            discardPile.addCard(card);
+        }
+
+        switch (cardType) {
+            case ATTACK:
+                applyAttack();
+                break;
+            default:
+                break;
+        }
     }
+
+    void applyAttack() { }
 
     public String getTopDiscardId() {
         return "";
