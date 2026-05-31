@@ -34,6 +34,10 @@ public class TurnManager {
         return players.get(currentPlayerIndex);
     }
 
+    public List<String> getCurrentPlayerHandIds() {
+        return getCurrentPlayer().getHandIds();
+    }
+
     public int getDrawCount() {
         return drawCount;
     }

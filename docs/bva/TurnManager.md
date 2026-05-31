@@ -118,7 +118,7 @@
   - **Expected output**: getCurrentPlayer = player2
 
 ### Method under test: `getCurrentPlayerHandIds()`
-- **TC22: This method is called** ( :x: )
+- **TC22: This method is called** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_onePlayer_callsPlayerMethod
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**: calls getHandIds on player

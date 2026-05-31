@@ -400,6 +400,23 @@ public class TurnManagerTests {
     }
 
     @Test
+    public void getCurrentPlayerHandIds_onePlayer_callsPlayerMethod() {
+        Player mockPlayer = EasyMock.createMock(Player.class);
+        List<Player> players = List.of(mockPlayer);
+        List<String> expectedHandIds = List.of();
+
+        EasyMock.expect(mockPlayer.getHandIds()).andReturn(expectedHandIds);
+
+        EasyMock.replay(mockPlayer);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        turnManager.getCurrentPlayerHandIds();
+
+        EasyMock.verify(mockPlayer);
+    }
+
+    @Test
     public void getStartingPlayerIndex_successfullyReturnsStartingIndex() {
         final int expectedIndex = 0;
         List<Player> players = new ArrayList<>();
