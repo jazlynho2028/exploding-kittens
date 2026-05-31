@@ -240,7 +240,7 @@
   - **Expected output**: returns true
 
 ### Method under test: `playSelectedCards()`
-- **TC43: Selected cards cannot be played** ( :x: )
+- **TC43: Selected cards cannot be played** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_invalidPlay_failed
   - **State of the system**: canPlaySelected returns false
   - **Expected output**: throws IllegalStateException "error.cannotPlaySelectedCards"

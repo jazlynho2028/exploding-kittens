@@ -145,7 +145,11 @@ public class Game {
         return !UNPLAYABLE_TYPES.contains(type);
     }
 
-    public void playSelectedCards() { }
+    public void playSelectedCards() {
+        if (!canPlaySelected()) {
+            throw new IllegalStateException("error.cannotPlaySelectedCards");
+        }
+    }
 
     public String getTopDiscardId() {
         return "";
