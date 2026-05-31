@@ -172,6 +172,7 @@ public class TurnManagerTests {
         EasyMock.replay(mockPlayer1);
 
         TurnManager turnManager = new TurnManager(players);
+        turnManager.decrementDrawCount();
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
