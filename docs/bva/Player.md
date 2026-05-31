@@ -108,59 +108,80 @@
   - **State of the system**: Player hand has 2, index provided is equal to 1
   - **Expected output**: Method executes successfully; card at index 1 changes its selection state
 
-- **TC19: Toggle index greater than hand size boundary check** ( :white_check_mark: )
+- **TC22: Toggle index greater than hand size boundary check** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedHandCardAt_indexGreaterThanHandSize_callsException
   - **State of the system**: Player hand has 2 cards, index provided is greater than 1
   - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
 
+- **TC23: Toggle index exactly equal to hand size upper boundary check** ( :white_check_mark: )
+  - **Name of the test**: toggleSelectedHandCardAt_indexExactlyEqualToHandSize_throwsException
+  - **State of the system**: Player hand has 2 cards, index provided is equal to 2 (index == hand.size())
+  - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
+
+- **TC24: Toggle index zero on an empty hand boundary check** ( :white_check_mark: )
+  - **Name of the test**: toggleSelectedHandCardAt_emptyHandIndexZero_throwsException
+  - **State of the system**: Player hand has 0 cards, index provided is 0
+  - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
+
+- **TC25: Baseline validation of name property** ( :white_check_mark: )
+  - **Name of the test**: getName_validName_returnsExactString
+  - **State of the system**: Player initialized with a specific name string (e.g., "Alice")
+  - **Expected output**: getName() returns exactly "Alice"
+
 ### Method under test: `getSelectedCards()`
-- **TC20: Get selected cards from empty hand** ( :white_check_mark: )
+- **TC25: Get selected cards from empty hand** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_emptyHand_returnsEmptyList
   - **State of the system**: player hand is empty
   - **Expected output**: returns an empty list
 
-- **TC21: Get selected cards when no cards are selected** ( :white_check_mark: )
+- **TC26: Get selected cards when no cards are selected** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_oneCardUnselected_returnsEmptyList
   - **State of the system**: player hand has one card; card has isSelected = false
   - **Expected output**: returns an empty list
 
-- **TC22: Get selected cards when the card is selected** ( :white_check_mark: )
+- **TC27: Get selected cards when the card is selected** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_oneCardSelected_returnsListWithCard
   - **State of the system**: player hand has one card; card has isSelected = true
   - **Expected output**: returns a list containing exactly that one card
 
-- **TC23: Get selected cards when no cards are selected** ( :white_check_mark: )
+- **TC28: Get selected cards when no cards are selected** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_multipleCardsNoneSelected_returnsEmptyList
   - **State of the system**: player hand has three cards; all cards have isSelected = false
   - **Expected output**: returns an empty list
 
-  - **TC24: Get selected cards when more than one card is selected** ( :white_check_mark: )
+  - **TC29: Get selected cards when more than one card is selected** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_multipleCardsSomeSelected_returnsOnlySelectedCards
   - **State of the system**: player hand has three cards; some but not all have isSelected = true (two cards have isSelected = true, one card has isSelected = false)
   - **Expected output**: returns a list containing only the two selected cards; the one unselected card is not included
 
-- **TC25: Get selected cards when more than one card is selected** ( :white_check_mark: )
+- **TC30: Get selected cards when more than one card is selected** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_multipleCardsAllSelected_returnsAllCards
   - **State of the system**: player hand has three cards; every card has isSelected = true
   - **Expected output**: returns a list containing all three cards in the hand
 
 ### Method under test: `getHandIds()`
-- **TC26: Get hand IDs from empty hand** ( :white_check_mark: )
+- **TC31: Get hand IDs from empty hand** ( :white_check_mark: )
   - **Name of the test**: getHandIds_emptyHand_returnsEmptyList
   - **State of the system**: player hand is empty
   - **Expected output**: returns an empty list
 
-- **TC27: Get hand IDs from hand with one card** ( :white_check_mark: )
+- **TC32: Get hand IDs from hand with one card** ( :white_check_mark: )
   - **Name of the test**: getHandIds_oneCard_returnsListWithOneId
   - **State of the system**: player hand has one card with id
   - **Expected output**: returns a list containing exactly that card's ID
 
-- **TC28: Get hand IDs from hand with more than one card** ( :white_check_mark: )
+- **TC33: Get hand IDs from hand with more than one card** ( :white_check_mark: )
   - **Name of the test**: getHandIds_multipleCards_returnsAllIdsInOrder
   - **State of the system**: player hand has multiple cards each with distinct known IDs
   - **Expected output**: returns a list of all card IDs in the same order as the hand
 
-- **TC29: Get hand IDs from hand with duplicate cards** ( :white_check_mark: )
+- **TC34: Get hand IDs from hand with duplicate cards** ( :white_check_mark: )
   - **Name of the test**: getHandIds_duplicateCards_returnsDuplicateIds
   - **State of the system**: player hand has two duplicate cards with the same ID
   - **Expected output**: returns a list of all cards where the duplicate ID appears twice for the two duplicate cards 
+
+### Method under test: `getName()`
+- **TC35: Get name from a person** ( :x: )
+  - **Name of the test**: getName_existingPerson_success
+  - **State of the system**: Player created with name 'Alice'
+  - **Expected output**: returns the string 'Alice'
