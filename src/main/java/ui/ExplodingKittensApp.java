@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Consumer;
 
 public class ExplodingKittensApp extends Application {
@@ -69,7 +70,7 @@ public class ExplodingKittensApp extends Application {
     private void initializeGame(PlayerCreateController createController, Stage stage) {
         List<Player> players = createPlayers(createController.getConfirmedNames());
         Deck drawPile = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(players.size());
-        Deck discardPile = new Deck(new ArrayDeque<>());
+        Deck discardPile = new Deck(new ArrayDeque<>(), new Random());
         TurnManager turnManager = new TurnManager(players);
 
         Game model = new Game(players, drawPile, discardPile, turnManager);
