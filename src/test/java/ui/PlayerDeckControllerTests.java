@@ -1,6 +1,7 @@
 package ui;
 
 import domain.Game;
+import domain.Player;
 import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
@@ -496,6 +497,42 @@ public class PlayerDeckControllerTests {
 		controller.onStartGameButton();
 
 		EasyMock.verify(model, onError);
+	}
+
+	@Test
+	public void onPlayCardsButton_called_success() {
+		boolean canDrawFromDiscard = true;
+		boolean canEndTurn = true;
+		String topDiscardId = "SKIP_1";
+
+		EasyMock.expect(model.canDrawFromDiscard()).andReturn(canDrawFromDiscard);
+		EasyMock.expect(model.getTopDiscardId()).andReturn(topDiscardId);
+
+		setUpRenderTurnControlSectionExpectations(canEndTurn);
+
+		model.playSelectedCards();
+		EasyMock.expectLastCall();
+
+		view.renderDiscardPile(canDrawFromDiscard, topDiscardId);
+		EasyMock.expectLastCall();
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("rebindHandCards")
+				.createMock();
+
+		controller.rebindHandCards();
+		EasyMock.expectLastCall();
+
+		view.renderTurnControlSection(canPlaySelected, canEndTurn);
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onPlayCardsButton();
+
+		EasyMock.verify(model, view, controller);
 	}
 
 }

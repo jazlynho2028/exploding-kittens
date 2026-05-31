@@ -99,7 +99,7 @@
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onPlayCardsButton()`
-- **TC19: Cards play successfully** ( :x: )
+- **TC19: Cards play successfully** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_success
   - **State of the system**: canDrawFromDiscard = true, topDiscardId = "SKIP_1", canPlaySelected = true, canEndTurn = true
   - **Expected output**: called model.playSelectedCards, view.renderDiscardPile with model.canDrawFromDiscard and model.getTopDiscardId, view.renderDrawPile, rebindHandCards, and view.renderTurnControlSection with model.canPlaySelected and model.canEndTurn

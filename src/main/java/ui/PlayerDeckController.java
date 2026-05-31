@@ -162,7 +162,7 @@ public class PlayerDeckController {
         });
     }
 
-    private void onPlayCardsButton() {
+    void onPlayCardsButton() {
         attempt(onError, () -> {
             model.playSelectedCards();
 
