@@ -290,7 +290,7 @@
     - discardPile.addCard(card1) is called
     - applyCatomicBomb is called
 
-- **TC49: Valid play with one Super Skip** ( :x: )
+- **TC49: Valid play with one Super Skip** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SUPER_SKIP]
   - **Expected output**:
