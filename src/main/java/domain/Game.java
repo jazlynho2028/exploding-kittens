@@ -171,6 +171,9 @@ public class Game {
             case SKIP:
                 applySkip();
                 break;
+            case SEE_THE_FUTURE:
+                applySeeTheFuture();
+                break;
             default:
                 break;
         }
@@ -181,6 +184,8 @@ public class Game {
     void applyShuffle() { }
 
     void applySkip() { }
+
+    void applySeeTheFuture() { }
 
     public String getTopDiscardId() {
         return "";
