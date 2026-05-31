@@ -481,6 +481,56 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile, game);
 	}
 
+	@Test
+	public void playSelectedCards_validPlayWithUnknownCardType_failed() {
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createNiceMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		CardType cardType = CardType.DEFUSE;
+		Card card = EasyMock.createMock(Card.class);
+		EasyMock.expect(card.getType()).andReturn(cardType);
+		List<Card> selectedCards = List.of(card);
+
+		card.toggleSelected();
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(player1.getSelectedCards()).andReturn(selectedCards).anyTimes();
+
+		player1.removeCardFromHand(card);
+		EasyMock.expectLastCall();
+
+		discardPile.addCard(card);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(player1, player2, drawPile, discardPile, card);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canPlaySelected")
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.canPlaySelected()).andReturn(true);
+		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1).anyTimes();
+
+		EasyMock.replay(game);
+
+		Exception exception = assertThrows(
+				IllegalStateException.class, game::playSelectedCards);
+
+		String expectedMsg = "error.cannotPlaySelectedCards";
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(player1, player2, drawPile, discardPile, card, game);
+	}
+
 	@ParameterizedTest
 	@MethodSource("provideValidPlaysAndMethods")
 	public void playSelectedCards_validPlay_cardsMovedFromHandToDiscard(
@@ -572,50 +622,6 @@ public class GameTests {
 				Arguments.of(CardType.MILD_DRAW, "applyMildDraw",
 						(Consumer<Game>) Game::applyMildDraw)
 		);
-	}
-
-	@Test
-	public void playSelectedCards_validPlayWithUnknownCardType_cardsMovedFromHandToDiscard() {
-		Player player1 = EasyMock.createNiceMock(Player.class);
-		Player player2 = EasyMock.createNiceMock(Player.class);
-		List<Player> players = List.of(player1, player2);
-
-		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-		Deck discardPile = EasyMock.createNiceMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		CardType cardType = CardType.DEFUSE;
-		Card card = EasyMock.createMock(Card.class);
-		EasyMock.expect(card.getType()).andReturn(cardType);
-		List<Card> selectedCards = List.of(card);
-
-		card.toggleSelected();
-		EasyMock.expectLastCall();
-
-		EasyMock.expect(player1.getSelectedCards()).andReturn(selectedCards).anyTimes();
-
-		player1.removeCardFromHand(card);
-		EasyMock.expectLastCall();
-
-		discardPile.addCard(card);
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(player1, player2, drawPile, discardPile, card);
-
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("canPlaySelected")
-				.addMockedMethod("getCurrentPlayer")
-				.createMock();
-
-		EasyMock.expect(game.canPlaySelected()).andReturn(true);
-		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1).anyTimes();
-
-		EasyMock.replay(game);
-
-		game.playSelectedCards();
-
-		EasyMock.verify(player1, player2, drawPile, discardPile, card, game);
 	}
 
 	@Test

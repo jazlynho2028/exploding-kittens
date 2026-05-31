@@ -203,12 +203,15 @@ public class Game {
                 break;
             case RECYCLE:
                 applyRecycle();
+                break;
             case DOUBLE_UP:
                 applyDoubleUp();
+                break;
             case MILD_DRAW:
                 applyMildDraw();
-            default:
                 break;
+            default:
+                throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
     }
 
