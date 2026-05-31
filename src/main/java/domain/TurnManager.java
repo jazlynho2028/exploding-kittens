@@ -22,6 +22,8 @@ public class TurnManager {
             throw new IllegalArgumentException("error.emptyPlayerList");
         }
         this.players = List.copyOf(players);
+        roundCount = 1;
+        drawCount = 1;
     }
 
     public int getCurrentPlayerIndex() {

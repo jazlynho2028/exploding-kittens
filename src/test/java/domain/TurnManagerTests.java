@@ -46,8 +46,8 @@ public class TurnManagerTests {
         int roundCount = turnManager.getRoundCount();
 
         assertEquals(0, currentPlayerIndex);
-        assertEquals(0, drawCount);
-        assertEquals(0, roundCount);
+        assertEquals(1, drawCount);
+        assertEquals(1, roundCount);
     }
 
     @Test
