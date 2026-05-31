@@ -854,4 +854,74 @@ public class DeckTests {
                         new Card[] {duplicateCard, otherCard})
         );
     }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("insertCardAtInvalidIndexCases")
+    public void insertCardAt_invalidIndex_throwsIllegalArgumentException(
+            String caseName,
+            Deque<Card> cards,
+            Card cardToInsert,
+            int index,
+            List<Card> expectedCards,
+            Card[] mocksToVerify) {
+        Deck deck = new Deck(cards, new Random());
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> deck.insertCardAt(cardToInsert, index));
+
+        assertEquals("error.invalidDeckIndex", exception.getMessage());
+        assertEquals(expectedCards, deck.getCards());
+
+        EasyMock.verify((Object[]) mocksToVerify);
+    }
+
+    private static Stream<Arguments> insertCardAtInvalidIndexCases() {
+        Card negativeIndexCard1 = EasyMock.createMock(Card.class);
+        Card negativeIndexCard2 = EasyMock.createMock(Card.class);
+        Card negativeIndexInsertedCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(
+                negativeIndexCard1,
+                negativeIndexCard2,
+                negativeIndexInsertedCard);
+        Deque<Card> negativeIndexDeck = new ArrayDeque<>();
+        negativeIndexDeck.addLast(negativeIndexCard1);
+        negativeIndexDeck.addLast(negativeIndexCard2);
+
+        Card tooLargeIndexCard1 = EasyMock.createMock(Card.class);
+        Card tooLargeIndexCard2 = EasyMock.createMock(Card.class);
+        Card tooLargeIndexInsertedCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(
+                tooLargeIndexCard1,
+                tooLargeIndexCard2,
+                tooLargeIndexInsertedCard);
+        Deque<Card> tooLargeIndexDeck = new ArrayDeque<>();
+        tooLargeIndexDeck.addLast(tooLargeIndexCard1);
+        tooLargeIndexDeck.addLast(tooLargeIndexCard2);
+
+        return Stream.of(
+                Arguments.of(
+                        "negative index",
+                        negativeIndexDeck,
+                        negativeIndexInsertedCard,
+                        -1,
+                        List.of(negativeIndexCard1, negativeIndexCard2),
+                        new Card[] {
+                                negativeIndexCard1,
+                                negativeIndexCard2,
+                                negativeIndexInsertedCard
+                        }),
+                Arguments.of(
+                        "index greater than size",
+                        tooLargeIndexDeck,
+                        tooLargeIndexInsertedCard,
+                        THREE_CARDS,
+                        List.of(tooLargeIndexCard1, tooLargeIndexCard2),
+                        new Card[] {
+                                tooLargeIndexCard1,
+                                tooLargeIndexCard2,
+                                tooLargeIndexInsertedCard
+                        })
+        );
+    }
 }
