@@ -203,37 +203,37 @@
   - **Expected output**: Returns [card1, card1, card2] with both copies of card1 preserved in order; deck is still [card1, card1, card2]
 
 ### Method under test: `insertCardAt(Card card, int index)`
-- **TC40: Insert card into empty deck at index zero** ( :x: )
+- **TC40: Insert card into empty deck at index zero** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_validIndex_insertsCardAtIndex` with case `empty deck at index zero`
   - **State of the system**: Deck is empty: []; card = card1; index = 0
   - **Expected output**: Deck becomes [card1]
 
-- **TC41: Insert card at top of non-empty deck** ( :x: )
+- **TC41: Insert card at top of non-empty deck** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_validIndex_insertsCardAtIndex` with case `insert at top`
   - **State of the system**: Deck has cards: [card1, card2]; card = card3; index = 0
   - **Expected output**: Deck becomes [card3, card1, card2]
 
-- **TC42: Insert card in middle of deck** ( :x: )
+- **TC42: Insert card in middle of deck** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_validIndex_insertsCardAtIndex` with case `insert in middle`
   - **State of the system**: Deck has cards: [card1, card2]; card = card3; index = 1
   - **Expected output**: Deck becomes [card1, card3, card2]
 
-- **TC43: Insert card at end of deck** ( :x: )
+- **TC43: Insert card at end of deck** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_validIndex_insertsCardAtIndex` with case `insert at end`
   - **State of the system**: Deck has cards: [card1, card2]; card = card3; index = 2
   - **Expected output**: Deck becomes [card1, card2, card3]
 
-- **TC44: Insert duplicate card into deck** ( :x: )
+- **TC44: Insert duplicate card into deck** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_validIndex_insertsCardAtIndex` with case `insert duplicate card`
   - **State of the system**: Deck has cards: [card1, card2]; card = card1; index = 1
   - **Expected output**: Deck becomes [card1, card1, card2]
 
-- **TC45: Insert card at negative index** ( :x: )
+- **TC45: Insert card at negative index** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_invalidIndex_throwsIllegalArgumentException` with case `negative index`
   - **State of the system**: Deck has cards: [card1, card2]; card = card3; index = -1
   - **Expected output**: Throws IllegalArgumentException with message `error.invalidDeckIndex`; deck is still [card1, card2]
 
-- **TC46: Insert card at index greater than deck size** ( :x: )
+- **TC46: Insert card at index greater than deck size** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_invalidIndex_throwsIllegalArgumentException` with case `index greater than size`
   - **State of the system**: Deck has cards: [card1, card2]; card = card3; index = 3
   - **Expected output**: Throws IllegalArgumentException with message `error.invalidDeckIndex`; deck is still [card1, card2]
