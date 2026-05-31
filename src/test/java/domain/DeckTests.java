@@ -13,15 +13,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
+import static domain.GameConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTests {
-    private static final String ERROR_EMPTY_DECK = "error.emptyDeck";
-    private static final String ERROR_NOT_ENOUGH_CARDS = "error.notEnoughCards";
-
-    private static final int ONE_CARD = 1;
-    private static final int TWO_CARDS = 2;
-    private static final int THREE_CARDS = 3;
 
     @Test
     public void shuffle_emptyDeck_deckStaysEmpty() {
@@ -119,7 +114,7 @@ public class DeckTests {
                 IllegalStateException.class,
                 deck::peekTop);
 
-        assertEquals(ERROR_EMPTY_DECK, exception.getMessage());
+        assertEquals("error.emptyDeck", exception.getMessage());
         assertEquals(0, deck.size());
     }
 
@@ -191,7 +186,7 @@ public class DeckTests {
                 IllegalStateException.class,
                 deck::removeTop);
 
-        assertEquals(ERROR_EMPTY_DECK, exception.getMessage());
+        assertEquals("error.emptyDeck", exception.getMessage());
         assertEquals(0, deck.size());
     }
 
@@ -263,7 +258,7 @@ public class DeckTests {
                 IllegalStateException.class,
                 deck::peekBottom);
 
-        assertEquals(ERROR_EMPTY_DECK, exception.getMessage());
+        assertEquals("error.emptyDeck", exception.getMessage());
         assertEquals(0, deck.size());
     }
 
@@ -371,7 +366,7 @@ public class DeckTests {
                         emptyDeck,
                         ONE_CARD,
                         IllegalStateException.class,
-                        ERROR_NOT_ENOUGH_CARDS,
+                        "error.notEnoughCards",
                         List.of(),
                         new Card[] {}),
                 Arguments.of(
@@ -379,7 +374,7 @@ public class DeckTests {
                         negativeCountDeck,
                         -1,
                         IllegalArgumentException.class,
-                        "Cannot peek a negative number of cards.",
+                        "error.peekNegativeCards",
                         List.of(negativeCountCard1, negativeCountCard2),
                         new Card[] {negativeCountCard1, negativeCountCard2}),
                 Arguments.of(
@@ -387,7 +382,7 @@ public class DeckTests {
                         tooLargeCountDeck,
                         THREE_CARDS,
                         IllegalStateException.class,
-                        ERROR_NOT_ENOUGH_CARDS,
+                        "error.notEnoughCards",
                         List.of(tooLargeCountCard1, tooLargeCountCard2),
                         new Card[] {tooLargeCountCard1, tooLargeCountCard2})
         );
@@ -511,7 +506,7 @@ public class DeckTests {
                 IllegalStateException.class,
                 deck::removeBottom);
 
-        assertEquals(ERROR_EMPTY_DECK, exception.getMessage());
+        assertEquals("error.emptyDeck", exception.getMessage());
         assertEquals(0, deck.size());
     }
 
@@ -741,12 +736,12 @@ public class DeckTests {
                         "empty deck",
                         emptyDeck,
                         List.of(),
-                        new Card[]{}),
+                        new Card[] {}),
                 Arguments.of(
                         "one-card deck",
                         oneCardDeck,
                         List.of(oneCard),
-                        new Card[]{oneCard}),
+                        new Card[] {oneCard}),
                 Arguments.of(
                         "multiple different cards",
                         differentCardsDeck,

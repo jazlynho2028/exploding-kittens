@@ -8,9 +8,6 @@ import java.util.List;
 import java.util.Random;
 
 public class Deck {
-    private static final String ERROR_EMPTY_DECK = "error.emptyDeck";
-    private static final String ERROR_NOT_ENOUGH_CARDS = "error.notEnoughCards";
-
     private final Deque<Card> deck;
     private final Random random;
 
@@ -56,7 +53,7 @@ public class Deck {
 
     private void checkNotEmpty() {
         if (deck.isEmpty()) {
-            throw new IllegalStateException(ERROR_EMPTY_DECK);
+            throw new IllegalStateException("error.emptyDeck");
         }
     }
 
@@ -68,11 +65,11 @@ public class Deck {
 
     public List<Card> peekTopNCards(int n) {
         if (n < 0) {
-            throw new IllegalArgumentException("Cannot peek a negative number of cards.");
+            throw new IllegalArgumentException("error.peekNegativeCards");
         }
 
         if (n > deck.size()) {
-            throw new IllegalStateException(ERROR_NOT_ENOUGH_CARDS);
+            throw new IllegalStateException("error.notEnoughCards");
         }
 
         List<Card> cards = new ArrayList<>(deck);

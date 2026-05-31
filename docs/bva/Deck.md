@@ -96,7 +96,7 @@
 - **TC19: Peek top N cards when n is negative** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_invalidCount_throwsException` with case `negative count`
   - **State of the system**: Deck has cards: [card1, card2]; n = -1
-  - **Expected output**: Throws IllegalArgumentException; deck is still [card1, card2]
+  - **Expected output**: Throws IllegalArgumentException with message `error.peekNegativeCards`
 
 - **TC20: Peek top N cards when n is zero** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_zeroCount_returnsEmptyList` with case `non-empty deck`

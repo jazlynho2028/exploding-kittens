@@ -285,7 +285,7 @@ public class PlayerTests {
     }
 
     @Test
-    public void toggleSelectedHandCardA_validLowerBoundIndex_cardToggled() {
+    public void toggleSelectedHandCardAt_validLowerBoundIndex_cardToggled() {
         final int cardIndex = 0;
         Player player = new Player("Alice");
         Card mockCard = EasyMock.createMock(Card.class);
@@ -340,6 +340,47 @@ public class PlayerTests {
 
         assertEquals("error.invalidHandCardIndex", exception.getMessage());
         EasyMock.verify(mockCard1, mockCard2);
+    }
+
+    @Test
+    public void toggleSelectedHandCardAt_indexExactlyEqualToHandSize_throwsException() {
+        Player player = new Player("Alice");
+        Card mockCard1 = EasyMock.createMock(Card.class);
+        Card mockCard2 = EasyMock.createMock(Card.class);
+
+        EasyMock.replay(mockCard1, mockCard2);
+        player.addCardToHand(mockCard1);
+        player.addCardToHand(mockCard2);
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> player.toggleSelectedHandCardAt(2)
+        );
+
+        assertEquals("error.invalidHandCardIndex", exception.getMessage());
+        EasyMock.verify(mockCard1, mockCard2);
+    }
+
+    @Test
+    public void toggleSelectedHandCardAt_emptyHandIndexZero_throwsException() {
+        Player player = new Player("Alice");
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> player.toggleSelectedHandCardAt(0)
+        );
+
+        assertEquals("error.invalidHandCardIndex", exception.getMessage());
+    }
+
+    @Test
+    public void getName_validName_returnsExactString() {
+        final String expectedName = "Alice";
+        Player player = new Player(expectedName);
+
+        String actualName = player.getName();
+
+        assertEquals(expectedName, actualName);
     }
 
     @Test

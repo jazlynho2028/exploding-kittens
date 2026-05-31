@@ -1,11 +1,14 @@
 package ui;
 
-import domain.Game;
+import domain.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Consumer;
 
 public class ExplodingKittensApp extends Application {
@@ -65,10 +68,24 @@ public class ExplodingKittensApp extends Application {
     }
 
     private void initializeGame(PlayerCreateController createController, Stage stage) {
-        List<String> playerNames = createController.getConfirmedNames();
-        Game model = new Game(playerNames);
+        List<Player> players = createPlayers(createController.getConfirmedNames());
+        Deck drawPile = DeckBuilder.buildDeckWithoutExplodeAndAddDefuse(players.size());
+        Deck discardPile = new Deck(new ArrayDeque<>(), new Random());
+        TurnManager turnManager = new TurnManager(players);
+
+        Game model = new Game(players, drawPile, discardPile, turnManager);
 
         showPlayerDeckScreen(model, stage);
+    }
+
+    private List<Player> createPlayers(List<String> names) {
+        List<Player> players = new ArrayList<>();
+
+        for (String name : names) {
+            players.add(new Player(name));
+        }
+
+        return players;
     }
 
     private void showPlayerDeckScreen(Game model, Stage stage) {
