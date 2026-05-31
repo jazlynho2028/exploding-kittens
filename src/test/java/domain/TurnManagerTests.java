@@ -241,7 +241,7 @@ public class TurnManagerTests {
 
     @Test
     public void incrementRound_fromTwo_toThree() {
-        final int initialRoundCounter = 0;
+        final int initialRoundCounter = 1;
         List<Player> players = new ArrayList<>();
 
         Player mockPlayer1 = EasyMock.createMock(Player.class);
