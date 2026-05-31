@@ -104,12 +104,12 @@
   - **Expected output**: Returns empty list []; deck is still [card1, card2]
 
 - **TC21: Peek top N cards when n is one** ( :white_check_mark: )
-  - **Name of the test**: `peekTopNCards_oneCardCount_returnsTopCardOnly`
+  - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `one-card count`
   - **State of the system**: Deck has cards: [card1, card2]; n = 1
   - **Expected output**: Returns [card1]; deck is still [card1, card2]
 
 - **TC22: Peek top N cards when n equals deck size** ( :white_check_mark: )
-  - **Name of the test**: `peekTopNCards_countEqualsDeckSize_returnsAllCards`
+  - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `count equals deck size`
   - **State of the system**: Deck has cards: [card1, card2]; n = 2
   - **Expected output**: Returns [card1, card2]; deck is still [card1, card2]
 
@@ -119,7 +119,7 @@
   - **Expected output**: Throws IllegalStateException with message `error.notEnoughCards`; deck is still [card1, card2]
 
 - **TC24: Peek top N cards with duplicate cards** ( :white_check_mark: )
-  - **Name of the test**: `peekTopNCards_duplicateCards_returnsTopCardsInOrder`
+  - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `duplicate cards`
   - **State of the system**: Deck has cards with duplicates: [card1, card1, card2]; n = 2
   - **Expected output**: Returns [card1, card1]; deck is still [card1, card1, card2]
 

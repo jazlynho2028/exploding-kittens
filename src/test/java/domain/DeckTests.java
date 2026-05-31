@@ -434,74 +434,72 @@ public class DeckTests {
         );
     }
 
-    @Test
-    public void peekTopNCards_oneCardCount_returnsTopCardOnly() {
-        Card card1 = EasyMock.createMock(Card.class);
-        Card card2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1, card2);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card2);
-
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("peekTopNCardsValidCountCases")
+    public void peekTopNCards_validCount_returnsTopCardsInOrder(
+            String caseName,
+            Deque<Card> cards,
+            int n,
+            List<Card> expectedResult,
+            List<Card> expectedCards,
+            Card[] mocksToVerify) {
         Deck deck = new Deck(cards, new Random());
 
-        List<Card> result = deck.peekTopNCards(1);
+        List<Card> result = deck.peekTopNCards(n);
 
-        assertEquals(1, result.size());
-        assertSame(card1, result.get(0));
-        assertEquals(TWO_CARDS, deck.size());
-        assertSame(card1, deck.peekTop());
+        assertEquals(expectedResult, result);
+        assertEquals(expectedCards, deck.getCards());
 
-        EasyMock.verify(card1, card2);
+        EasyMock.verify((Object[]) mocksToVerify);
     }
 
-    @Test
-    public void peekTopNCards_countEqualsDeckSize_returnsAllCards() {
-        Card card1 = EasyMock.createMock(Card.class);
-        Card card2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1, card2);
+    private static Stream<Arguments> peekTopNCardsValidCountCases() {
+        Card oneCountCard1 = EasyMock.createMock(Card.class);
+        Card oneCountCard2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(oneCountCard1, oneCountCard2);
+        Deque<Card> oneCountDeck = new ArrayDeque<>();
+        oneCountDeck.addLast(oneCountCard1);
+        oneCountDeck.addLast(oneCountCard2);
 
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1);
-        cards.addLast(card2);
+        Card fullDeckCard1 = EasyMock.createMock(Card.class);
+        Card fullDeckCard2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(fullDeckCard1, fullDeckCard2);
+        Deque<Card> fullDeck = new ArrayDeque<>();
+        fullDeck.addLast(fullDeckCard1);
+        fullDeck.addLast(fullDeckCard2);
 
-        Deck deck = new Deck(cards, new Random());
+        Card duplicateCard1 = EasyMock.createMock(Card.class);
+        Card duplicateCard2 = EasyMock.createMock(Card.class);
+        Card duplicateCard3 = EasyMock.createMock(Card.class);
+        EasyMock.replay(duplicateCard1, duplicateCard2, duplicateCard3);
+        Deque<Card> duplicateDeck = new ArrayDeque<>();
+        duplicateDeck.addLast(duplicateCard1);
+        duplicateDeck.addLast(duplicateCard2);
+        duplicateDeck.addLast(duplicateCard3);
 
-        List<Card> result = deck.peekTopNCards(TWO_CARDS);
-
-        assertEquals(TWO_CARDS, result.size());
-        assertSame(card1, result.get(0));
-        assertSame(card2, result.get(1));
-        assertEquals(TWO_CARDS, deck.size());
-        assertSame(card1, deck.peekTop());
-
-        EasyMock.verify(card1, card2);
-    }
-
-    @Test
-    public void peekTopNCards_duplicateCards_returnsTopCardsInOrder() {
-        Card card1CopyOne = EasyMock.createMock(Card.class);
-        Card card1CopyTwo = EasyMock.createMock(Card.class);
-        Card card2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(card1CopyOne, card1CopyTwo, card2);
-
-        Deque<Card> cards = new ArrayDeque<>();
-        cards.addLast(card1CopyOne);
-        cards.addLast(card1CopyTwo);
-        cards.addLast(card2);
-
-        Deck deck = new Deck(cards, new Random());
-
-        List<Card> result = deck.peekTopNCards(TWO_CARDS);
-
-        assertEquals(TWO_CARDS, result.size());
-        assertSame(card1CopyOne, result.get(0));
-        assertSame(card1CopyTwo, result.get(1));
-        assertEquals(THREE_CARDS, deck.size());
-        assertSame(card1CopyOne, deck.peekTop());
-
-        EasyMock.verify(card1CopyOne, card1CopyTwo, card2);
+        return Stream.of(
+                Arguments.of(
+                        "one-card count",
+                        oneCountDeck,
+                        ONE_CARD,
+                        List.of(oneCountCard1),
+                        List.of(oneCountCard1, oneCountCard2),
+                        new Card[] {oneCountCard1, oneCountCard2}),
+                Arguments.of(
+                        "count equals deck size",
+                        fullDeck,
+                        TWO_CARDS,
+                        List.of(fullDeckCard1, fullDeckCard2),
+                        List.of(fullDeckCard1, fullDeckCard2),
+                        new Card[] {fullDeckCard1, fullDeckCard2}),
+                Arguments.of(
+                        "duplicate cards",
+                        duplicateDeck,
+                        TWO_CARDS,
+                        List.of(duplicateCard1, duplicateCard2),
+                        List.of(duplicateCard1, duplicateCard2, duplicateCard3),
+                        new Card[] {duplicateCard1, duplicateCard2, duplicateCard3})
+        );
     }
 
     @Test
