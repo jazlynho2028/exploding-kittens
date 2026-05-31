@@ -198,6 +198,9 @@ public class Game {
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
                 break;
+            case RAGEBAIT:
+                applyRagebait();
+                break;
             default:
                 break;
         }
@@ -226,6 +229,8 @@ public class Game {
     void applyTargetedAttack() { }
 
     void applyWinnerWinnerCatnipDinner() { }
+
+    void applyRagebait() { }
 
     public String getTopDiscardId() {
         return "";

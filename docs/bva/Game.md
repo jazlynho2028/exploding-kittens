@@ -353,7 +353,7 @@
     - discardPile.addCard(card1) is called
     - applyWinnerWinnerCatnipDinner is called
 
-- **TC56: Valid play with one Ragebait** ( :x: )
+- **TC56: Valid play with one Ragebait** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [RAGEBAIT]
   - **Expected output**:
