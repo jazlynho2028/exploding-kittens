@@ -213,7 +213,7 @@ public class Game {
     }
 
     public String getTopDiscardId() {
-        return "";
+        return discardPile.peekTop().getId();
     }
 
     public boolean canDrawFromDiscard() {
