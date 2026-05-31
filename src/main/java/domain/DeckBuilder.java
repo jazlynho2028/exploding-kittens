@@ -9,7 +9,8 @@ import static domain.GameConstants.*;
 
 public class DeckBuilder {
 
-    public DeckBuilder() {}
+    public DeckBuilder() {
+    }
 
     public Deck initializeDeck(int numPlayers) {
         List<Card> cardsList = initializeDeckWithoutDefuses();
@@ -24,6 +25,7 @@ public class DeckBuilder {
         Deque<Card> deckDeque = new ArrayDeque<>(cardsList);
         Deck baseDeck = new Deck(deckDeque);
         baseDeck.shuffle();
+
         return baseDeck;
     }
 

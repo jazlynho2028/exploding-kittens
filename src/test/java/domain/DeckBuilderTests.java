@@ -38,7 +38,11 @@ public class DeckBuilderTests {
 
         assertEquals(EXPECTED_DECK_SIZE_2_PLAYERS, finalAssembledCards.size());
 
-        verifyCardTypeGroup(finalAssembledCards, CardType.DEFUSE, EXPECTED_DEFUSE_COUNT_2_PLAYERS, "DEFUSE");
+        verifyCardTypeGroup(
+                finalAssembledCards,
+                CardType.DEFUSE,
+                EXPECTED_DEFUSE_COUNT_2_PLAYERS,
+                "DEFUSE");
 
         verify(mockDeck, deckBuilder);
     }
@@ -61,21 +65,26 @@ public class DeckBuilderTests {
 
         assertEquals(EXPECTED_DECK_SIZE_4_PLAYERS, finalAssembledCards.size());
 
-        verifyCardTypeGroup(finalAssembledCards, CardType.DEFUSE, EXPECTED_DEFUSE_COUNT_4_PLAYERS, "DEFUSE");
+        verifyCardTypeGroup(
+                finalAssembledCards,
+                CardType.DEFUSE,
+                EXPECTED_DEFUSE_COUNT_4_PLAYERS,
+                "DEFUSE");
 
         verify(mockDeck, deckBuilder);
     }
 
     @Test
     void initializeDeckWithoutDefuses_TotalCardCount_EqualsBaselineConstant() {
-        assertEquals(56, baseCards.size());
+        assertEquals(EXPECTED_BASE_DECK_SIZE, baseCards.size());
     }
 
     @Test
     void initializeDeckWithoutDefuses_SingleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
         verifyCardTypeGroup(baseCards, CardType.MILD_DRAW, NUM_MILD_DRAW, "MILDDRAW");
         verifyCardTypeGroup(baseCards, CardType.GODCAT, NUM_GODCAT, "GODCAT");
-        verifyCardTypeGroup(baseCards, CardType.WINNER_WINNER_CATNIP_DINNER, NUM_WINNER_WINNER_CATNIP_DINNER, "WINNERWINNERCATNIPDINNER");
+        verifyCardTypeGroup(baseCards, CardType.WINNER_WINNER_CATNIP_DINNER,
+                NUM_WINNER_WINNER_CATNIP_DINNER, "WINNERWINNERCATNIPDINNER");
         verifyCardTypeGroup(baseCards, CardType.RAGEBAIT, NUM_RAGEBAIT, "RAGEBAIT");
         verifyCardTypeGroup(baseCards, CardType.RECYCLE, NUM_RECYCLE, "RECYCLE");
         verifyCardTypeGroup(baseCards, CardType.DOUBLE_UP, NUM_DOUBLE_UP, "DOUBLEUP");
@@ -92,16 +101,20 @@ public class DeckBuilderTests {
         verifyCardTypeGroup(baseCards, CardType.ATTACK, NUM_ATTACK, "ATTACK");
         verifyCardTypeGroup(baseCards, CardType.SKIP, NUM_SKIP, "SKIP");
         verifyCardTypeGroup(baseCards, CardType.CLONE, NUM_CLONE, "CLONE");
-        verifyCardTypeGroup(baseCards, CardType.SWAP_TOP_AND_BOTTOM, NUM_SWAP_TOP_AND_BOTTOM, "SWAPTOPANDBOTTOM");
-        verifyCardTypeGroup(baseCards, CardType.DRAW_FROM_THE_BOTTOM, NUM_DRAW_FROM_THE_BOTTOM, "DRAWFROMTHEBOTTOM");
+        verifyCardTypeGroup(baseCards, CardType.SWAP_TOP_AND_BOTTOM,
+                NUM_SWAP_TOP_AND_BOTTOM, "SWAPTOPANDBOTTOM");
+        verifyCardTypeGroup(baseCards, CardType.DRAW_FROM_THE_BOTTOM,
+                NUM_DRAW_FROM_THE_BOTTOM, "DRAWFROMTHEBOTTOM");
     }
 
     @Test
     void initializeDeckWithoutDefuses_QuadrupleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
         verifyCardTypeGroup(baseCards, CardType.FERAL_CAT, NUM_FERAL_CAT, "FERALCAT");
-        verifyCardTypeGroup(baseCards, CardType.SEE_THE_FUTURE, NUM_SEE_THE_FUTURE, "SEETHEFUTURE");
+        verifyCardTypeGroup(baseCards, CardType.SEE_THE_FUTURE,
+                NUM_SEE_THE_FUTURE, "SEETHEFUTURE");
         verifyCardTypeGroup(baseCards, CardType.SHUFFLE, NUM_SHUFFLE, "SHUFFLE");
-        verifyCardTypeGroup(baseCards, CardType.TARGETED_ATTACK, NUM_TARGETED_ATTACK, "TARGETEDATTACK");
+        verifyCardTypeGroup(baseCards, CardType.TARGETED_ATTACK,
+                NUM_TARGETED_ATTACK, "TARGETEDATTACK");
         verifyCardTypeGroup(baseCards, CardType.CAT_CARD_1, NUM_CAT_CARD, "CATCARD1");
         verifyCardTypeGroup(baseCards, CardType.CAT_CARD_2, NUM_CAT_CARD, "CATCARD2");
         verifyCardTypeGroup(baseCards, CardType.CAT_CARD_3, NUM_CAT_CARD, "CATCARD3");
@@ -135,7 +148,7 @@ public class DeckBuilderTests {
 
     @Test
     void createCardID_UpperValidInput_ReturnsCorrectString() {
-        String actualID = DeckBuilder.createCardId(CardType.ATTACK, 3);
+        String actualID = DeckBuilder.createCardId(CardType.ATTACK, NUM_ATTACK);
         assertEquals("ATTACK_3", actualID);
     }
 
@@ -146,7 +159,8 @@ public class DeckBuilderTests {
         });
     }
 
-    private void verifyCardTypeGroup(List<Card> cards, CardType type, int expectedQuantity, String idPrefix) {
+    private void verifyCardTypeGroup(List<Card> cards, CardType type,
+                                     int expectedQuantity, String idPrefix) {
         int matchCount = 0;
         for (Card card : cards) {
             if (card.getType() == type) {
