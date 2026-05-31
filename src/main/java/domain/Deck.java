@@ -1,97 +1,108 @@
 package domain;
 
-import java.util.ArrayDeque;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Random;
 
 public class Deck {
-
     private final Deque<Card> deck;
     private final Random random;
 
-    public Deck(Deque<Card> deck) {
-        this(deck, new Random());
-    }
-
-    Deck(Deque<Card> deck, Random random) {
-        this.deck = new ArrayDeque<>(deck);
+    @SuppressFBWarnings(
+            value = "EI_EXPOSE_REP2",
+            justification = "Deck intentionally stores injected mutable dependencies " +
+                    "to support controlled deck state and deterministic shuffle testing."
+    )
+    public Deck(Deque<Card> deck, Random random) {
+        this.deck = deck;
         this.random = random;
     }
 
     public void shuffle() {
-        List<Card> cards = new ArrayList<>(this.deck);
+        List<Card> cards = new ArrayList<>(deck);
 
         for (int i = cards.size() - 1; i > 0; i--) {
-            int randomIndex = this.random.nextInt(i + 1);
+            int randomIndex = random.nextInt(i + 1);
             Card currentCard = cards.get(i);
             cards.set(i, cards.get(randomIndex));
             cards.set(randomIndex, currentCard);
         }
 
-        this.deck.clear();
-        this.deck.addAll(cards);
+        deck.clear();
+        deck.addAll(cards);
     }
 
     public Card peekTop() {
-        if (this.deck.isEmpty()) {
-            throw new UnsupportedOperationException("Cannot peek top of empty deck.");
-        }
+        checkNotEmpty();
 
-        return this.deck.peekFirst();
+        return deck.peekFirst();
     }
 
     public Card removeTop() {
-        if (this.deck.isEmpty()) {
-            throw new UnsupportedOperationException("Cannot remove top of empty deck.");
-        }
+        checkNotEmpty();
 
-        return this.deck.removeFirst();
+        return deck.removeFirst();
     }
 
     public int size() {
-        return this.deck.size();
+        return deck.size();
+    }
+
+    private void checkNotEmpty() {
+        if (deck.isEmpty()) {
+            throw new IllegalStateException("error.emptyDeck");
+        }
     }
 
     public Card peekBottom() {
-        if (this.deck.isEmpty()) {
-            throw new UnsupportedOperationException("Cannot peek bottom of empty deck.");
-        }
+        checkNotEmpty();
 
-        return this.deck.peekLast();
+        return deck.peekLast();
     }
 
     public List<Card> peekTopNCards(int n) {
         if (n < 0) {
-            throw new IllegalArgumentException("Cannot peek a negative number of cards.");
+            throw new IllegalArgumentException("error.peekNegativeCards");
         }
 
-        if (n > this.deck.size()) {
-            throw new UnsupportedOperationException("Cannot peek more cards than are in the deck.");
+        if (n > deck.size()) {
+            throw new IllegalStateException("error.notEnoughCards");
         }
 
-        List<Card> cards = new ArrayList<>(this.deck);
+        List<Card> cards = new ArrayList<>(deck);
         return new ArrayList<>(cards.subList(0, n));
     }
 
     public Card removeBottom() {
-        if (this.deck.isEmpty()) {
-            throw new UnsupportedOperationException("Cannot remove bottom of empty deck.");
-        }
+        checkNotEmpty();
 
-        return this.deck.removeLast();
+        return deck.removeLast();
     }
 
     public void addCard(Card card) {
-        this.deck.addLast(card);
+        deck.addFirst(card);
     }
 
     public boolean isEmpty() {
-        return this.deck.isEmpty();
+        return deck.isEmpty();
     }
 
     List<Card> getCards() {
-        return List.copyOf(this.deck);
+        return List.copyOf(deck);
+    }
+
+    public void insertCardAt(Card card, int index) {
+        if (index < 0 || index > deck.size()) {
+            throw new IllegalArgumentException("error.invalidDeckIndex");
+        }
+
+        List<Card> cards = new ArrayList<>(deck);
+        cards.add(index, card);
+
+        deck.clear();
+        deck.addAll(cards);
     }
 }
