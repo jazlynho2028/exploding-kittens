@@ -389,7 +389,7 @@
     - discardPile.addCard(card1) is called
     - applyMildDraw is called
 
-- **TC60: Valid play with other card type** ( :x: )
+- **TC60: Valid play with other card type** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithUnknownCardType_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DEFUSE]
   - **Expected output**:
