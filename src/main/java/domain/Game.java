@@ -76,7 +76,7 @@ public class Game {
 
     private void populateHandsWithDefuse() {
         for (int i = 0; i < players.size(); i++) {
-            String cardId = createCardId(CardType.DEFUSE, NUM_DEFUSES - i);
+            String cardId = createCardId(CardType.DEFUSE, NUM_DEFUSES_IN_GAME - i);
             Card defuse = new Card(cardId, CardType.DEFUSE);
 
             players.get(i).addCardToHand(defuse);
