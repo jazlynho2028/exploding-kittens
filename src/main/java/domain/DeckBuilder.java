@@ -32,27 +32,27 @@ public class DeckBuilder {
     List<Card> initializeDeckWithoutDefuses() {
         List<Card> cardsList = new ArrayList<>();
 
-        addCards(cardsList, CardType.MILD_DRAW, NUM_MILD_DRAW);
-        addCards(cardsList, CardType.GODCAT, NUM_GODCAT);
-        addCards(cardsList, CardType.WINNER_WINNER_CATNIP_DINNER, NUM_WINNER_WINNER_CATNIP_DINNER);
-        addCards(cardsList, CardType.RAGEBAIT, NUM_RAGEBAIT);
-        addCards(cardsList, CardType.RECYCLE, NUM_RECYCLE);
-        addCards(cardsList, CardType.DOUBLE_UP, NUM_DOUBLE_UP);
-        addCards(cardsList, CardType.CATOMIC_BOMB, NUM_CATOMIC_BOMB);
-        addCards(cardsList, CardType.SUPER_SKIP, NUM_SUPER_SKIP);
-        addCards(cardsList, CardType.ATTACK, NUM_ATTACK);
-        addCards(cardsList, CardType.SKIP, NUM_SKIP);
-        addCards(cardsList, CardType.CLONE, NUM_CLONE);
-        addCards(cardsList, CardType.SWAP_TOP_AND_BOTTOM, NUM_SWAP_TOP_AND_BOTTOM);
-        addCards(cardsList, CardType.DRAW_FROM_THE_BOTTOM, NUM_DRAW_FROM_THE_BOTTOM);
-        addCards(cardsList, CardType.FERAL_CAT, NUM_FERAL_CAT);
-        addCards(cardsList, CardType.SEE_THE_FUTURE, NUM_SEE_THE_FUTURE);
-        addCards(cardsList, CardType.SHUFFLE, NUM_SHUFFLE);
-        addCards(cardsList, CardType.TARGETED_ATTACK, NUM_TARGETED_ATTACK);
-        addCards(cardsList, CardType.CAT_CARD_1, NUM_CAT_CARD);
-        addCards(cardsList, CardType.CAT_CARD_2, NUM_CAT_CARD);
-        addCards(cardsList, CardType.CAT_CARD_3, NUM_CAT_CARD);
-        addCards(cardsList, CardType.CAT_CARD_4, NUM_CAT_CARD);
+        addCards(cardsList, CardType.MILD_DRAW, NUM_MILD_DRAW_IN_GAME);
+        addCards(cardsList, CardType.GODCAT, NUM_GODCAT_IN_GAME);
+        addCards(cardsList, CardType.WINNER_WINNER_CATNIP_DINNER, NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME);
+        addCards(cardsList, CardType.RAGEBAIT, NUM_RAGEBAIT_IN_GAME);
+        addCards(cardsList, CardType.RECYCLE, NUM_RECYCLE_IN_GAME);
+        addCards(cardsList, CardType.DOUBLE_UP, NUM_DOUBLE_UP_IN_GAME);
+        addCards(cardsList, CardType.CATOMIC_BOMB, NUM_CATOMIC_BOMB_IN_GAME);
+        addCards(cardsList, CardType.SUPER_SKIP, NUM_SUPER_SKIP_IN_GAME);
+        addCards(cardsList, CardType.ATTACK, NUM_ATTACK_IN_GAME);
+        addCards(cardsList, CardType.SKIP, NUM_SKIP_IN_GAME);
+        addCards(cardsList, CardType.CLONE, NUM_CLONE_IN_GAME);
+        addCards(cardsList, CardType.SWAP_TOP_AND_BOTTOM, NUM_SWAP_TOP_AND_BOTTOM_IN_GAME);
+        addCards(cardsList, CardType.DRAW_FROM_THE_BOTTOM, NUM_DRAW_FROM_THE_BOTTOM_IN_GAME);
+        addCards(cardsList, CardType.FERAL_CAT, NUM_FERAL_CAT_IN_GAME);
+        addCards(cardsList, CardType.SEE_THE_FUTURE, NUM_SEE_THE_FUTURE_IN_GAME);
+        addCards(cardsList, CardType.SHUFFLE, NUM_SHUFFLE_IN_GAME);
+        addCards(cardsList, CardType.TARGETED_ATTACK, NUM_TARGETED_ATTACK_IN_GAME);
+        addCards(cardsList, CardType.CAT_CARD_1, NUM_CAT_CARD_IN_GAME);
+        addCards(cardsList, CardType.CAT_CARD_2, NUM_CAT_CARD_IN_GAME);
+        addCards(cardsList, CardType.CAT_CARD_3, NUM_CAT_CARD_IN_GAME);
+        addCards(cardsList, CardType.CAT_CARD_4, NUM_CAT_CARD_IN_GAME);
 
         return cardsList;
     }

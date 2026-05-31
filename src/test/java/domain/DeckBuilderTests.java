@@ -81,44 +81,44 @@ public class DeckBuilderTests {
 
     @Test
     void initializeDeckWithoutDefuses_SingleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
-        verifyCardTypeGroup(baseCards, CardType.MILD_DRAW, NUM_MILD_DRAW, "MILDDRAW");
-        verifyCardTypeGroup(baseCards, CardType.GODCAT, NUM_GODCAT, "GODCAT");
+        verifyCardTypeGroup(baseCards, CardType.MILD_DRAW, NUM_MILD_DRAW_IN_GAME, "MILDDRAW");
+        verifyCardTypeGroup(baseCards, CardType.GODCAT, NUM_GODCAT_IN_GAME, "GODCAT");
         verifyCardTypeGroup(baseCards, CardType.WINNER_WINNER_CATNIP_DINNER,
-                NUM_WINNER_WINNER_CATNIP_DINNER, "WINNERWINNERCATNIPDINNER");
-        verifyCardTypeGroup(baseCards, CardType.RAGEBAIT, NUM_RAGEBAIT, "RAGEBAIT");
-        verifyCardTypeGroup(baseCards, CardType.RECYCLE, NUM_RECYCLE, "RECYCLE");
-        verifyCardTypeGroup(baseCards, CardType.DOUBLE_UP, NUM_DOUBLE_UP, "DOUBLEUP");
-        verifyCardTypeGroup(baseCards, CardType.CATOMIC_BOMB, NUM_CATOMIC_BOMB, "CATOMICBOMB");
+                NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME, "WINNERWINNERCATNIPDINNER");
+        verifyCardTypeGroup(baseCards, CardType.RAGEBAIT, NUM_RAGEBAIT_IN_GAME, "RAGEBAIT");
+        verifyCardTypeGroup(baseCards, CardType.RECYCLE, NUM_RECYCLE_IN_GAME, "RECYCLE");
+        verifyCardTypeGroup(baseCards, CardType.DOUBLE_UP, NUM_DOUBLE_UP_IN_GAME, "DOUBLEUP");
+        verifyCardTypeGroup(baseCards, CardType.CATOMIC_BOMB, NUM_CATOMIC_BOMB_IN_GAME, "CATOMICBOMB");
     }
 
     @Test
     void initializeDeckWithoutDefuses_DoubleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
-        verifyCardTypeGroup(baseCards, CardType.SUPER_SKIP, NUM_SUPER_SKIP, "SUPERSKIP");
+        verifyCardTypeGroup(baseCards, CardType.SUPER_SKIP, NUM_SUPER_SKIP_IN_GAME, "SUPERSKIP");
     }
 
     @Test
     void initializeDeckWithoutDefuses_TripleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
-        verifyCardTypeGroup(baseCards, CardType.ATTACK, NUM_ATTACK, "ATTACK");
-        verifyCardTypeGroup(baseCards, CardType.SKIP, NUM_SKIP, "SKIP");
-        verifyCardTypeGroup(baseCards, CardType.CLONE, NUM_CLONE, "CLONE");
+        verifyCardTypeGroup(baseCards, CardType.ATTACK, NUM_ATTACK_IN_GAME, "ATTACK");
+        verifyCardTypeGroup(baseCards, CardType.SKIP, NUM_SKIP_IN_GAME, "SKIP");
+        verifyCardTypeGroup(baseCards, CardType.CLONE, NUM_CLONE_IN_GAME, "CLONE");
         verifyCardTypeGroup(baseCards, CardType.SWAP_TOP_AND_BOTTOM,
-                NUM_SWAP_TOP_AND_BOTTOM, "SWAPTOPANDBOTTOM");
+                NUM_SWAP_TOP_AND_BOTTOM_IN_GAME, "SWAPTOPANDBOTTOM");
         verifyCardTypeGroup(baseCards, CardType.DRAW_FROM_THE_BOTTOM,
-                NUM_DRAW_FROM_THE_BOTTOM, "DRAWFROMTHEBOTTOM");
+                NUM_DRAW_FROM_THE_BOTTOM_IN_GAME, "DRAWFROMTHEBOTTOM");
     }
 
     @Test
     void initializeDeckWithoutDefuses_QuadrupleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
-        verifyCardTypeGroup(baseCards, CardType.FERAL_CAT, NUM_FERAL_CAT, "FERALCAT");
+        verifyCardTypeGroup(baseCards, CardType.FERAL_CAT, NUM_FERAL_CAT_IN_GAME, "FERALCAT");
         verifyCardTypeGroup(baseCards, CardType.SEE_THE_FUTURE,
-                NUM_SEE_THE_FUTURE, "SEETHEFUTURE");
-        verifyCardTypeGroup(baseCards, CardType.SHUFFLE, NUM_SHUFFLE, "SHUFFLE");
+                NUM_SEE_THE_FUTURE_IN_GAME, "SEETHEFUTURE");
+        verifyCardTypeGroup(baseCards, CardType.SHUFFLE, NUM_SHUFFLE_IN_GAME, "SHUFFLE");
         verifyCardTypeGroup(baseCards, CardType.TARGETED_ATTACK,
-                NUM_TARGETED_ATTACK, "TARGETEDATTACK");
-        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_1, NUM_CAT_CARD, "CATCARD1");
-        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_2, NUM_CAT_CARD, "CATCARD2");
-        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_3, NUM_CAT_CARD, "CATCARD3");
-        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_4, NUM_CAT_CARD, "CATCARD4");
+                NUM_TARGETED_ATTACK_IN_GAME, "TARGETEDATTACK");
+        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_1, NUM_CAT_CARD_IN_GAME, "CATCARD1");
+        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_2, NUM_CAT_CARD_IN_GAME, "CATCARD2");
+        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_3, NUM_CAT_CARD_IN_GAME, "CATCARD3");
+        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_4, NUM_CAT_CARD_IN_GAME, "CATCARD4");
     }
 
     @Test
@@ -148,7 +148,7 @@ public class DeckBuilderTests {
 
     @Test
     void createCardID_UpperValidInput_ReturnsCorrectString() {
-        String actualID = DeckBuilder.createCardId(CardType.ATTACK, NUM_ATTACK);
+        String actualID = DeckBuilder.createCardId(CardType.ATTACK, NUM_ATTACK_IN_GAME);
         assertEquals("ATTACK_3", actualID);
     }
 
