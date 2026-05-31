@@ -761,4 +761,97 @@ public class DeckTests {
                         })
         );
     }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("insertCardAtValidIndexCases")
+    public void insertCardAt_validIndex_insertsCardAtIndex(
+            String caseName,
+            Deque<Card> cards,
+            Card cardToInsert,
+            int index,
+            List<Card> expectedCards,
+            Card[] mocksToVerify) {
+        Deck deck = new Deck(cards, new Random());
+
+        deck.insertCardAt(cardToInsert, index);
+
+        assertEquals(expectedCards, deck.getCards());
+
+        EasyMock.verify((Object[]) mocksToVerify);
+    }
+
+    private static Stream<Arguments> insertCardAtValidIndexCases() {
+        Card emptyDeckCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(emptyDeckCard);
+        Deque<Card> emptyDeck = new ArrayDeque<>();
+
+        Card topCard1 = EasyMock.createMock(Card.class);
+        Card topCard2 = EasyMock.createMock(Card.class);
+        Card insertedAtTop = EasyMock.createMock(Card.class);
+        EasyMock.replay(topCard1, topCard2, insertedAtTop);
+        Deque<Card> topDeck = new ArrayDeque<>();
+        topDeck.addLast(topCard1);
+        topDeck.addLast(topCard2);
+
+        Card middleCard1 = EasyMock.createMock(Card.class);
+        Card middleCard2 = EasyMock.createMock(Card.class);
+        Card insertedInMiddle = EasyMock.createMock(Card.class);
+        EasyMock.replay(middleCard1, middleCard2, insertedInMiddle);
+        Deque<Card> middleDeck = new ArrayDeque<>();
+        middleDeck.addLast(middleCard1);
+        middleDeck.addLast(middleCard2);
+
+        Card endCard1 = EasyMock.createMock(Card.class);
+        Card endCard2 = EasyMock.createMock(Card.class);
+        Card insertedAtEnd = EasyMock.createMock(Card.class);
+        EasyMock.replay(endCard1, endCard2, insertedAtEnd);
+        Deque<Card> endDeck = new ArrayDeque<>();
+        endDeck.addLast(endCard1);
+        endDeck.addLast(endCard2);
+
+        Card duplicateCard = EasyMock.createMock(Card.class);
+        Card otherCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(duplicateCard, otherCard);
+        Deque<Card> duplicateDeck = new ArrayDeque<>();
+        duplicateDeck.addLast(duplicateCard);
+        duplicateDeck.addLast(otherCard);
+
+        return Stream.of(
+                Arguments.of(
+                        "empty deck at index zero",
+                        emptyDeck,
+                        emptyDeckCard,
+                        0,
+                        List.of(emptyDeckCard),
+                        new Card[] {emptyDeckCard}),
+                Arguments.of(
+                        "insert at top",
+                        topDeck,
+                        insertedAtTop,
+                        0,
+                        List.of(insertedAtTop, topCard1, topCard2),
+                        new Card[] {topCard1, topCard2, insertedAtTop}),
+                Arguments.of(
+                        "insert in middle",
+                        middleDeck,
+                        insertedInMiddle,
+                        ONE_CARD,
+                        List.of(middleCard1, insertedInMiddle, middleCard2),
+                        new Card[] {middleCard1, middleCard2, insertedInMiddle}),
+                Arguments.of(
+                        "insert at end",
+                        endDeck,
+                        insertedAtEnd,
+                        TWO_CARDS,
+                        List.of(endCard1, endCard2, insertedAtEnd),
+                        new Card[] {endCard1, endCard2, insertedAtEnd}),
+                Arguments.of(
+                        "insert duplicate card",
+                        duplicateDeck,
+                        duplicateCard,
+                        ONE_CARD,
+                        List.of(duplicateCard, duplicateCard, otherCard),
+                        new Card[] {duplicateCard, otherCard})
+        );
+    }
 }

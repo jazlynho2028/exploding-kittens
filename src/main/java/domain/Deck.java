@@ -93,4 +93,16 @@ public class Deck {
     List<Card> getCards() {
         return List.copyOf(deck);
     }
+
+    public void insertCardAt(Card card, int index) {
+        if (index < 0 || index > deck.size()) {
+            throw new IllegalArgumentException("error.invalidDeckIndex");
+        }
+
+        List<Card> cards = new ArrayList<>(deck);
+        cards.add(index, card);
+
+        deck.clear();
+        deck.addAll(cards);
+    }
 }
