@@ -32,17 +32,15 @@ public class Game {
     );
 
     @SuppressFBWarnings(
-            value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
-            justification = "EI_EXPOSE_REP2: TurnManager is injected by for testability. " +
-                    "Defensive copy is not desired in this context. " +
-                    "CT_CONSTRUCTOR_THROW: Game is an internal domain object. Finalizer " +
-                    "attack is not a concern. It is Game's responsibility to " +
-                    "verify its inputs, and it cannot be made a final class for testability."
+            value = {"EI_EXPOSE_REP2"},
+            justification = "EI_EXPOSE_REP2: players, drawPile, discardPile, and turnManager " +
+                    "are injected by for testability and coverage. Defensive copy is not " +
+                    "desired in this context."
     )
     public Game(List<Player> players, Deck drawPile,
                 Deck discardPile, TurnManager turnManager) {
 
-        this.players = List.copyOf(players);
+        this.players = players;
         this.drawPile = drawPile;
         this.discardPile = discardPile;
         this.turnManager = turnManager;

@@ -6,7 +6,7 @@
   - **Expected output**: isGameOngoing = false, isFaceUp = false
 
 ### Method under test: `setUp()`
-- **TC2: Set up for 1 player** ( :x: )
+- **TC2: Set up for 1 player** ( :white_check_mark: )
   - **Name of the test**: setUp_invalidNumPlayers_failed
   - **State of the system**: players.size = 1
   - **Expected output**: throw IllegalArgumentException "error.minPlayers"
@@ -29,7 +29,7 @@
     - player4.addCardToHand with DEFUSE_2 called
     - player.addCardToHand called with drawPile.removeTop 5 times for each player
 
-- **TC5: Set up for 5 players** ( :x: )
+- **TC5: Set up for 5 players** ( :white_check_mark: )
   - **Name of the test**: setUp_invalidNumPlayers_failed
   - **State of the system**: players.size = 5
   - **Expected output**: throw IllegalArgumentException "error.maxPlayers"

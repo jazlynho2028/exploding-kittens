@@ -4,6 +4,8 @@ import org.easymock.EasyMock;
 
 import org.easymock.IArgumentMatcher;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +16,7 @@ public class GameTests {
 
 	@Test
 	public void constructor_anyInput_initializeFieldsFalse() {
-		List<Player> players = List.of();
+		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
@@ -25,29 +27,30 @@ public class GameTests {
 		assertFalse(game.getIsFaceUp());
 	}
 
-//	@ParameterizedTest
-//	@CsvSource({
-//			"1, error.minPlayers",
-//			"5, error.maxPlayers"
-//	})
-//	public void constructor_invalidNumPlayers_failed(int numPlayers, String expectedMsg) {
-//		List<Player> players = EasyMock.createMock(List.class);
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		EasyMock.expect(players.size()).andReturn(numPlayers);
-//
-//		EasyMock.replay(players);
-//
-//		Exception exception = assertThrows(IllegalArgumentException.class, () ->
-//				new Game(players, drawPile, discardPile, turnManager));
-//
-//		String actualMsg = exception.getMessage();
-//		assertEquals(expectedMsg, actualMsg);
-//
-//		EasyMock.verify(players);
-//	}
+	@ParameterizedTest
+	@CsvSource({
+			"1, error.minPlayers",
+			"5, error.maxPlayers"
+	})
+	public void setUp_invalidNumPlayers_failed(int numPlayers, String expectedMsg) {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(players.size()).andReturn(numPlayers);
+
+		EasyMock.replay(players);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Exception exception = assertThrows(IllegalArgumentException.class, game::setUp);
+
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(players);
+	}
 //
 //	@ParameterizedTest
 //	@CsvSource({
