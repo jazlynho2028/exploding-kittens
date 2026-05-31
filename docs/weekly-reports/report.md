@@ -86,4 +86,4 @@
 5. [Done] Luke: Revise Player.java
 6. [Done] Luke: Revise Card.java
 7. [Done] Luke: Revise TurnManager.java
-8. [90% Done] Irene: Deck.java
+8. [95% Done] Irene: Deck.java
