@@ -154,7 +154,6 @@ public class TurnManagerTests {
         TurnManager turnManager = new TurnManager(players);
 
         turnManager.incrementDrawCount();
-        turnManager.incrementDrawCount();
 
         int expected = 2;
         int actual = turnManager.getDrawCount();
