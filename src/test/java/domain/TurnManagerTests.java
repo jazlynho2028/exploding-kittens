@@ -31,7 +31,7 @@ public class TurnManagerTests {
             "1",
             "2"
     })
-    public void constructor_moreThanOnePlayer_zeroInitialCounts(int numPlayers) {
+    public void constructor_validPlayerCount_zeroInitialCounts(int numPlayers) {
         List<Player> players = new ArrayList<>();
 
         for (int i = 0; i < numPlayers; i++) {

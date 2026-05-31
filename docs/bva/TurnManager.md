@@ -6,7 +6,7 @@
   - **Expected output**: IllegalArgumentException with the message "error.emptyPlayerList"
 
 - **TC2: One player** ( :white_check_mark: )
-  - **Name of the test**: constructor_moreThanOnePlayer_zeroInitialCounts
+  - **Name of the test**: constructor_validPlayerCount_zeroInitialCounts
   - **State of the system**: players = [player1]
   - **Expected output**:
     - currentPlayerIndex = 0
@@ -14,7 +14,7 @@
     - roundCount = 0
 
 - **TC3: Two players** ( :white_check_mark: )
-  - **Name of the test**: constructor_moreThanOnePlayer_zeroInitialCounts
+  - **Name of the test**: constructor_validPlayerCount_zeroInitialCounts
   - **State of the system**: players = [player1, player2]
   - **Expected output**:
     - currentPlayerIndex = 0
