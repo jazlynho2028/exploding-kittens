@@ -3,6 +3,7 @@ package domain;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static domain.GameConstants.*;
 
@@ -49,7 +50,7 @@ public class DeckBuilder {
         addCards(CardType.CAT_CARD_3, FOUR_CARDS);
         addCards(CardType.CAT_CARD_4, FOUR_CARDS);
 
-        return new Deck(new ArrayDeque<>(cards));
+        return new Deck(new ArrayDeque<>(cards), new Random());
     }
 
     private static void addCards(CardType type, int numToAdd) {
