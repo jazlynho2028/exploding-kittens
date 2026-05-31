@@ -57,7 +57,7 @@ public class DeckBuilder {
         return cardsList;
     }
 
-    public void addCards(List<Card> destinationList, CardType type, int numToAdd) {
+    private void addCards(List<Card> destinationList, CardType type, int numToAdd) {
         for (int i = 1; i <= numToAdd; i++) {
             String cardId = createCardId(type, i);
             destinationList.add(new Card(cardId, type));
