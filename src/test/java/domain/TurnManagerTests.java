@@ -119,7 +119,7 @@ public class TurnManagerTests {
     }
 
     @Test
-    public void incrementDrawCount_initialZero_success() {
+    public void incrementDrawCount_fromZero_success() {
         List<Player> players = new ArrayList<>();
 
         Player mockPlayer1 = EasyMock.createMock(Player.class);
@@ -130,6 +130,7 @@ public class TurnManagerTests {
 
         TurnManager turnManager = new TurnManager(players);
 
+        turnManager.decrementDrawCount();
         turnManager.incrementDrawCount();
 
         int expected = 1;

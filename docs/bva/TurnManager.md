@@ -39,7 +39,7 @@
 
 ### Method under test: `incrementDrawCount()`
 - **TC7: Draw count incremented from its absolute minimum baseline** ( :white_check_mark: )
-  - **Name of the test**: incrementDrawCount_initialZero_success
+  - **Name of the test**: incrementDrawCount_fromZero_success
   - **State of the system**: currentDrawCount = 0
   - **Expected output**: getCurrentDrawCount() = 1
 
