@@ -64,6 +64,7 @@ public class PlayerDeckController {
         view.bindDrawPileButton(this::onDrawPile);
         view.bindHandVisibilityButton(this::onHandVisibilityButton);
         view.bindStartGameButton(this::onStartGameButton);
+        view.bindPlayCardsButton(this::onPlayCardsButton);
         view.bindNameTags(this::onNameTag);
         bindHandCards();
     }
@@ -158,6 +159,16 @@ public class PlayerDeckController {
 
             updateDrawPile();
             rebuildTurnControl();
+        });
+    }
+
+    private void onPlayCardsButton() {
+        attempt(onError, () -> {
+            model.playSelectedCards();
+
+            view.renderDiscardPile(model.getCanDrawFromDiscard(), model.getTopDiscardId());
+            rebindHandCards();
+            updateTurnControls();
         });
     }
 
