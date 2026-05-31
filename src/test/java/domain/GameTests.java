@@ -547,7 +547,9 @@ public class GameTests {
 				Arguments.of(CardType.GODCAT, "applyGodcat",
 						(Consumer<Game>) Game::applyGodcat),
 				Arguments.of(CardType.CLONE, "applyClone",
-						(Consumer<Game>) Game::applyClone)
+						(Consumer<Game>) Game::applyClone),
+				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM, "applySwapTopAndBottom",
+						(Consumer<Game>) Game::applySwapTopAndBottom)
 		);
 	}
 

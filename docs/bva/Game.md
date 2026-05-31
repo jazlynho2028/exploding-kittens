@@ -317,7 +317,7 @@
     - discardPile.addCard(card1) is called
     - applyClone is called
 
-- **TC52: Valid play with one Swap Top And Bottom** ( :x: )
+- **TC52: Valid play with one Swap Top And Bottom** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SWAP_TOP_AND_BOTTOM]
   - **Expected output**:

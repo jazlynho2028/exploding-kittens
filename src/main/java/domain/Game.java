@@ -186,6 +186,9 @@ public class Game {
             case CLONE:
                 applyClone();
                 break;
+            case SWAP_TOP_AND_BOTTOM:
+                applySwapTopAndBottom();
+                break;
             default:
                 break;
         }
@@ -206,6 +209,8 @@ public class Game {
     void applyGodcat() { }
 
     void applyClone() { }
+
+    void applySwapTopAndBottom() { }
 
     public String getTopDiscardId() {
         return "";
