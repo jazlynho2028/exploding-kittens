@@ -145,6 +145,16 @@ public class Game {
         return !UNPLAYABLE_TYPES.contains(type);
     }
 
+    public void playSelectedCards() { }
+
+    public String getTopDiscardId() {
+        return "";
+    }
+
+    public boolean getCanDrawFromDiscard() {
+        return false;
+    }
+
     public boolean canEndTurn() {
         return getIsGameOngoing() && getDrawCount() == 0;
     }
