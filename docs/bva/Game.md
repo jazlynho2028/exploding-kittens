@@ -326,7 +326,7 @@
     - discardPile.addCard(card1) is called
     - applySwapTopAndBottom is called
 
-- **TC53: Valid play with one Draw From The Bottom** ( :x: )
+- **TC53: Valid play with one Draw From The Bottom** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DRAW_FROM_THE_BOTTOM]
   - **Expected output**:
@@ -335,7 +335,7 @@
     - discardPile.addCard(card1) is called
     - applyDrawFromTheBottom is called
 
-- **TC54: Valid play with one Targeted Attack** ( :x: )
+- **TC54: Valid play with one Targeted Attack** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [TARGETED_ATTACK]
   - **Expected output**:

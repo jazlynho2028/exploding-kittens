@@ -549,7 +549,11 @@ public class GameTests {
 				Arguments.of(CardType.CLONE, "applyClone",
 						(Consumer<Game>) Game::applyClone),
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM, "applySwapTopAndBottom",
-						(Consumer<Game>) Game::applySwapTopAndBottom)
+						(Consumer<Game>) Game::applySwapTopAndBottom),
+				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM, "applyDrawFromTheBottom",
+						(Consumer<Game>) Game::applyDrawFromTheBottom),
+				Arguments.of(CardType.TARGETED_ATTACK, "applyTargetedAttack",
+						(Consumer<Game>) Game::applyTargetedAttack)
 		);
 	}
 

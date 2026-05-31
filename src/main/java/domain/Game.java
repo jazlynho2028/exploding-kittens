@@ -189,6 +189,12 @@ public class Game {
             case SWAP_TOP_AND_BOTTOM:
                 applySwapTopAndBottom();
                 break;
+            case DRAW_FROM_THE_BOTTOM:
+                applyDrawFromTheBottom();
+                break;
+            case TARGETED_ATTACK:
+                applyTargetedAttack();
+                break;
             default:
                 break;
         }
@@ -211,6 +217,10 @@ public class Game {
     void applyClone() { }
 
     void applySwapTopAndBottom() { }
+
+    void applyDrawFromTheBottom() { }
+
+    void applyTargetedAttack() { }
 
     public String getTopDiscardId() {
         return "";
