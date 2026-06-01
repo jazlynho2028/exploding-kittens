@@ -1,4 +1,12 @@
-**_Class Details_**: https://docs.google.com/document/d/1HCXGucTSq1peAxI6ct4DHDhMlGk4WQktcBtY_arrWGc/edit?tab=t.6hv1mk8szc0k
+# **Purpose**
+This design document describes the class structure and hierarchy of our Exploding Kittens application.
+
+# **Architecture Overview**
+This application follows an MVC (Model - View - Controller) architecture.
+
+# **Key Architectural Constraints**
+`ExplodingKittensApp` is the only class that instantiates `DeckBuilder` and passes the resulting `Deck` into `Game`.
+`Game` itself never references `DeckBuilder`. This way, Game only needs to know how to execute the game, not the details of how the deck was put together.
 
 **Entry Point**
 - ExplodingKittensApp.java
