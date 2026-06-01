@@ -80,10 +80,12 @@
 # Week 9 (05/25/2026-06/01/2026)
 **Planning and Progress Tracking**:
 1. [Done] Jazlyn: refactor controllers and rewrite tests for adjusted error handling and binding
-2. [Done] Jazlyn : reconduct BVA analysis for Game.java
-3. [6% Done] DJ/Jazlyn: reimplement Game.java based on new BVA
-4. [Done] Ejean: DeckBuilder.java
-5. [Done] Luke/DJ: Revise Player.java
-6. [Done] Luke: Revise Card.java
-7. [Done] Luke: Revise TurnManager.java
-8. [Done] Irene: Deck.java
+2. [Done] Jazlyn: reconduct BVA analysis for Game.java to accomodate changes needed for one turn of the game
+3. [Done] DJ: reimplement Game.java based on BVA analysis
+4. [Done] Jazlyn: implemented play cards button and effects in PlayerDeckController, PlayerDeckView, and Game
+5. [Done] Jazlyn: rewrite BVA analysis and tests for Game.java and TurnManager.java refactoring to improve code cleanliness and testing flexibility
+6. [Done] Ejean: DeckBuilder.java + iterations from review
+7. [Done] Luke/DJ: Revise Player.java + iterations from review
+8. [Done] Luke: Revise Card.java + iterations from review
+9. [Done] Luke: Revise TurnManager.java + iterations from review
+10. [Done] Irene: Deck.java + iterations from review
