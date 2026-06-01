@@ -34,6 +34,8 @@ These classes support the View and Controller layers.
 - SceneManager.java
 - AssetManager.java
 - UIConstants.java
+- CardMetadata.java
+  - Responsibility: Holds display information for a card, including its title, subtitle, and description. Used by the view to render card fronts.
 
 # **View Classes**
 These classes build the UI for their screen and pass any button or input events to their paired Controller.
@@ -44,6 +46,8 @@ These classes build the UI for their screen and pass any button or input events 
   - Responsibility: Builds the player name entry screen. Shows a list of text fields for player names, an add player button that gets disabled once the max number of players is reached, and a confirm button.
 - PlayerDecksView.java
   - Responsibility: Builds the main game screen. Shows the players, card piles, the current player's hand, and turn controls. 
+- ErrorView.java
+  - Responsibility: Builds an error screen that shows a description of the error and a restart button. This screen should never appear unless there is an implementation problem.
 
 # **Controller Classes**
 These classes sit between the View and Model layers. They handle events from their corresponding View class and update the Model accordingly
@@ -54,6 +58,8 @@ These classes sit between the View and Model layers. They handle events from the
   - Responsibility: Handles the player creation screen. Adds name fields up to the max player count, then triggers game initialization on confirm.
 - PlayerDecksController.java
   - Responsibility: The main game controller. Handles all player interactions on the game screen and updates the view after each action.
+- ErrorController.java
+  - Responsibility: Handles the error screen. Binds the restart button to bring the user back to the start screen.
 
 # **Model Classes**
 The Model layer contains all game logic.
@@ -61,7 +67,7 @@ The Model layer contains all game logic.
 - Game.java
   - Responsibility: The core game state. Holds the players, the draw pile, and a TurnManager. Deals starting hands, inserts Exploding Kittens when the game starts, and handles drawing and playing cards. Does **not** reference `DeckBuilder`.
 - TurnManager.java
-  - Responsibility: Tracks whose turn it is, how many draws the current player has left, and the current round. Advances to the next player when a turn ends. Passed into Game as a parameter rather than created inside it.
+  - Responsibility: Tracks whose turn it is, how many draws the current player has left, and the current round. Advances to the next player when a turn ends. Also fetches information from the current player. Passed into Game as a parameter rather than created inside it.
 - DeckBuilder.java
   - Responsibility: Builds the starting draw pile with the correct number of each card type, then shuffles and returns it. Called only by ExplodingKittensApp. Game never touches or interacts with it.
 - Player.java
@@ -69,12 +75,12 @@ The Model layer contains all game logic.
 - Deck.java
   - Responsibility: Represents an ordered pile of cards. Supports drawing, peeking, inserting at a specific position, and shuffling. Used for both the draw and discard piles.
 - Card.java
-  - Responsibility: Represents a single card. Holds a unique `cardId` and a `CardType`. Also tracks whether the card is currently selected by the player, which is used to determine what action they want to take on their turn.
+  - Responsibility: Represents a single card. Holds a unique `cardId` and a `CardType` enum value. Also tracks whether the card is currently selected by the player, which is used to determine what action they want to take on their turn.
 - CardType.java
-  - Responsibility: Defines all card types in the game. Used throughout the model to identify and categorize cards.
+  - Responsibility: An enum that defines all card types in the game. Used throughout the model to identify and categorize cards.
 
 # **Class Relationships**
-- `ExplodingKittensApp` creates `DeckBuilder`, gets back a `Deck`, then creates `Game(deck, players, discardPile, turnManager)`
+- `ExplodingKittensApp` creates `DeckBuilder`, gets back a `Deck`, then creates `Game(players, drawPile, discardPile, turnManager)`
 - `Game` owns `TurnManager` and both the draw pile and discard pile `Deck`s
 - `Deck` stores a collection of `Card`s
 - `Card` holds a `CardType`
