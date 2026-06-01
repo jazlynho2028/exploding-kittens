@@ -6,12 +6,15 @@ import org.easymock.EasyMock;
 import org.easymock.IArgumentMatcher;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import static domain.GameConstants.NUM_DEFUSES_IN_GAME;
 import static domain.GameConstants.STARTING_HAND_SIZE;
@@ -181,7 +184,7 @@ public class GameTests {
 		drawPile.shuffle();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(players, drawPile);
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 		game.startGame();
@@ -190,39 +193,39 @@ public class GameTests {
 
 		EasyMock.verify(drawPile);
 	}
-//
-//	@ParameterizedTest
-//	@MethodSource("providePlayerName")
-//	public void getPlayerNames_validNPlayers_returnNNames(List<String> expectedNames) {
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		List<Player> players = new ArrayList<>();
-//
-//		for (String name : expectedNames) {
-//			Player player = EasyMock.createNiceMock(Player.class);
-//			EasyMock.expect(player.getName()).andStubReturn(name);
-//			EasyMock.replay(player);
-//
-//			players.add(player);
-//		}
-//
-//		EasyMock.replay(drawPile);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//		List<String> actualNames = game.getPlayerNames();
-//
-//		assertEquals(expectedNames, actualNames);
-//	}
-//
-//	private static Stream<Arguments> providePlayerName() {
-//		return Stream.of(
-//				Arguments.of(List.of("Alice", "Bob")),
-//				Arguments.of(List.of("Alice", "Alice", "Audrey", "Turkey"))
-//		);
-//	}
-//
+
+	@ParameterizedTest
+	@MethodSource("providePlayerName")
+	public void getPlayerNames_validNPlayers_returnNNames(List<String> expectedNames) {
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<Player> players = new ArrayList<>();
+
+		for (String name : expectedNames) {
+			Player player = EasyMock.createMock(Player.class);
+			EasyMock.expect(player.getName()).andStubReturn(name);
+			EasyMock.replay(player);
+
+			players.add(player);
+		}
+
+		EasyMock.replay(drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		List<String> actualNames = game.getPlayerNames();
+
+		assertEquals(expectedNames, actualNames);
+	}
+
+	private static Stream<Arguments> providePlayerName() {
+		return Stream.of(
+				Arguments.of(List.of("Alice", "Bob")),
+				Arguments.of(List.of("Alice", "Alice", "Audrey", "Turkey"))
+		);
+	}
+
 //	@Test
 //	public void getCurrentPlayerIndex_called_success() {
 //		final int EXPECTED_INDEX = 2;

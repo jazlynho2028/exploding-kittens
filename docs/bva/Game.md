@@ -62,12 +62,12 @@
     - isGameOngoing = true
 
 ### Method under test: `getPlayerNames()`
-- **TC10: Get names for two players** ( :x: )
+- **TC10: Get names for two players** ( :white_check_mark: )
   - **Name of the test**: getPlayerNames_validNPlayers_returnNNames
   - **State of the system**: players = [Alice, Bob]
   - **Expected output**: returns ["Alice", "Bob"]
 
-- **TC11: Get names for four players with duplicate names** ( :x: )
+- **TC11: Get names for four players with duplicate names** ( :white_check_mark: )
   - **Name of the test**: getPlayerNames_validNPlayers_returnNNames
   - **State of the system**: players = [Alice, Alice, Audrey, Turkey]
   - **Expected output**: returns ["Alice", "Alice", "Audrey", "Turkey"]
