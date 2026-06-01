@@ -75,7 +75,7 @@
 ### Method under test: `getCurrentPlayerIndex()`
 - **TC12: This method is called** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerIndex_called_success
-  - **State of the system**: N/A
+  - **State of the system**: currentPlayerIndex = i, i = {0, 1, 2}
   - **Expected output**: returns turnManager.getCurrentPlayerIndex
 
 ### Method under test: `getStartingPlayerIndex()`
