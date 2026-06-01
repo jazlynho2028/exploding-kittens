@@ -377,47 +377,55 @@ public class GameTests {
 		return selectedCards;
 	}
 
-//	@ParameterizedTest
-//	@MethodSource("provideValidCardSelections")
-//	public void canPlaySelected_validCards_returnTrue(List<CardType> selectedCardTypes) {
-//		List<Player> players = EasyMock.createMock(List.class);
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		List<Card> selectedCards = getCardMocksWithTypeExpectations(selectedCardTypes);
-//		EasyMock.expect(turnManager.getCurrentSelectedCards()).andReturn(selectedCards);
-//
-//		EasyMock.replay(players, drawPile, discardPile, turnManager);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		assertTrue(game.canPlaySelected());
-//
-//		EasyMock.verify(turnManager);
-//	}
-//
-//	private static Stream<Arguments> provideValidCardSelections() {
-//		return Stream.of(
-//				Arguments.of(List.of(CardType.ATTACK)),
-//				Arguments.of(List.of(CardType.SHUFFLE)),
-//				Arguments.of(List.of(CardType.SKIP)),
-//				Arguments.of(List.of(CardType.SEE_THE_FUTURE)),
-//				Arguments.of(List.of(CardType.CATOMIC_BOMB)),
-//				Arguments.of(List.of(CardType.SUPER_SKIP)),
-//				Arguments.of(List.of(CardType.GODCAT)),
-//				Arguments.of(List.of(CardType.CLONE)),
-//				Arguments.of(List.of(CardType.SWAP_TOP_AND_BOTTOM)),
-//				Arguments.of(List.of(CardType.DRAW_FROM_THE_BOTTOM)),
-//				Arguments.of(List.of(CardType.TARGETED_ATTACK)),
-//				Arguments.of(List.of(CardType.WINNER_WINNER_CATNIP_DINNER)),
-//				Arguments.of(List.of(CardType.RAGEBAIT)),
-//				Arguments.of(List.of(CardType.RECYCLE)),
-//				Arguments.of(List.of(CardType.DOUBLE_UP)),
-//				Arguments.of(List.of(CardType.MILD_DRAW))
-//		);
-//	}
-//
+	@ParameterizedTest
+	@MethodSource("provideValidCardSelections")
+	public void canPlaySelected_validCards_returnTrue(List<CardType> selectedCardTypes) {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<Card> selectedCards = getCardMocksWithTypeExpectations(selectedCardTypes);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.getCurrentPlayer()).andReturn(currentPlayer);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(currentPlayer, game);
+	}
+
+	private static Stream<Arguments> provideValidCardSelections() {
+		return Stream.of(
+				Arguments.of(List.of(CardType.ATTACK)),
+				Arguments.of(List.of(CardType.SHUFFLE)),
+				Arguments.of(List.of(CardType.SKIP)),
+				Arguments.of(List.of(CardType.SEE_THE_FUTURE)),
+				Arguments.of(List.of(CardType.CATOMIC_BOMB)),
+				Arguments.of(List.of(CardType.SUPER_SKIP)),
+				Arguments.of(List.of(CardType.GODCAT)),
+				Arguments.of(List.of(CardType.CLONE)),
+				Arguments.of(List.of(CardType.SWAP_TOP_AND_BOTTOM)),
+				Arguments.of(List.of(CardType.DRAW_FROM_THE_BOTTOM)),
+				Arguments.of(List.of(CardType.TARGETED_ATTACK)),
+				Arguments.of(List.of(CardType.WINNER_WINNER_CATNIP_DINNER)),
+				Arguments.of(List.of(CardType.RAGEBAIT)),
+				Arguments.of(List.of(CardType.RECYCLE)),
+				Arguments.of(List.of(CardType.DOUBLE_UP)),
+				Arguments.of(List.of(CardType.MILD_DRAW))
+		);
+	}
+
 //	@Test
 //	public void playSelectedCards_invalidPlay_failed() {
 //		List<Player> players = EasyMock.createMock(List.class);
