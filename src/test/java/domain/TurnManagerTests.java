@@ -425,7 +425,7 @@ public class TurnManagerTests {
         int currentPlayerIndex = 0;
         Player mockPlayer = EasyMock.createMock(Player.class);
         List<Player> players = List.of(mockPlayer);
-        List<String> expectedHandIds = List.of();
+        List<String> expectedHandIds = List.of("SKIP_1", "DEFUSE_3");
 
         EasyMock.expect(players.get(currentPlayerIndex).getHandIds()).andReturn(expectedHandIds);
 
@@ -433,7 +433,9 @@ public class TurnManagerTests {
 
         TurnManager turnManager = new TurnManager(players);
 
-        turnManager.getCurrentPlayerHandIds();
+        List<String> actualHandIds = turnManager.getCurrentPlayerHandIds();
+
+        assertEquals(expectedHandIds, actualHandIds);
 
         EasyMock.verify(mockPlayer);
     }
@@ -443,7 +445,9 @@ public class TurnManagerTests {
         int currentPlayerIndex = 0;
         Player mockPlayer = EasyMock.createMock(Player.class);
         List<Player> players = List.of(mockPlayer);
-        List<Card> expectedSelectedCards = List.of();
+
+        Card mockCard = EasyMock.createMock(Card.class);
+        List<Card> expectedSelectedCards = List.of(mockCard);
 
         EasyMock.expect(players.get(currentPlayerIndex).getSelectedCards())
                 .andReturn(expectedSelectedCards);
@@ -452,7 +456,8 @@ public class TurnManagerTests {
 
         TurnManager turnManager = new TurnManager(players);
 
-        turnManager.getCurrentSelectedCards();
+        List<Card> actualSelectedCards = turnManager.getCurrentSelectedCards();
+        assertEquals(expectedSelectedCards, actualSelectedCards);
 
         EasyMock.verify(mockPlayer);
     }
