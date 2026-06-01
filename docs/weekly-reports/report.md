@@ -89,3 +89,31 @@
 8. [Done] Luke: Revise Card.java + iterations from review
 9. [Done] Luke: Revise TurnManager.java + iterations from review
 10. [Done] Irene: Deck.java + iterations from review
+
+# Week 10 (06/01/2026-06/07/2026)
+**Planning and Progress Tracking**:
+1. [Done] Jazlyn: Refactored game, turnManager, and main app (including BVA and test rewrites) to only pass in numPlayers to turnManager to store
+2. [Done] Jazlyn: Changed return type of game playSelectedCards and drawFromPile methods from void to CardType for controller card effect display
+3. [not started] Ejean: Game rules documentation
+4. [50% Done] Luke: README.md special cases documentation
+5. [50% Done] DJ: Design documentation
+6. [not started] Jazlyn: Exploding Kitten implementation
+7. [not started] Jazlyn: Defuse implementation
+8. [not started] Jazlyn: See The Future implementation
+9. [not started] Jazlyn: Winner Winner Catnip Dinner implementation
+10. [not started] Ejean: Attack implementation
+11. [not started] Ejean: Feral Cat implementation
+12. [not started] Ejean: Cat Cards 1-4 implementation
+13. [not started] Ejean: Double Up implementation
+14. [not started] Luke: Skip implementation
+15. [not started] Luke: Super Skip implementation
+16. [not started] Luke: Targeted Attack implementation
+17. [not started] Luke: Ragebait implementation
+18. [not started] DJ: Catomic Bomb implementation
+19. [not started] DJ: Godcat implementation
+20. [not started] DJ: Swap Top And Bottom implementation
+21. [not started] DJ: Recycle implementation
+22. [not started] Irene: Shuffle implementation
+23. [not started] Irene: Clone implementation
+24. [not started] Irene: Draw From The Bottom implementation
+25. [not started] Irene: Mild Draw implementation
