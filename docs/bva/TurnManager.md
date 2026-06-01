@@ -1,4 +1,5 @@
 # BVA Analysis: TurnManager Class
+
 ### Method under test: `TurnManager(int numPlayers)`
 - **TC1: Zero players throws exception** ( :white_check_mark: )
   - **Name of the test**: constructor_zeroPlayers_throwsException
