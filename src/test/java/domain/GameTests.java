@@ -227,11 +227,12 @@ public class GameTests {
 
 	@Test
 	public void getCurrentPlayerIndex_called_success() {
-		final int expectedCurrentPlayerIndex = 0;
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		int expectedCurrentPlayerIndex = 0;
 
 		EasyMock.expect(turnManager.getCurrentPlayerIndex())
 				.andReturn(expectedCurrentPlayerIndex);
@@ -254,6 +255,7 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		int expectedStartingPlayerIndex = STARTING_PLAYER_INDEX;
+
 		EasyMock.expect(turnManager.getCurrentPlayerIndex())
 				.andReturn(expectedStartingPlayerIndex);
 
@@ -287,29 +289,28 @@ public class GameTests {
 		EasyMock.verify(turnManager);
 	}
 
-//	@Test
-//	public void getCurrentPlayer_called_returnCurrentPlayer() {
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		EasyMock.expect(turnManager.getCurrentPlayer()).andReturn(player1);
-//
-//		EasyMock.replay(player1, player2, drawPile, turnManager);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		Player actualPlayer = game.getCurrentPlayer();
-//
-//		assertEquals(player1, actualPlayer);
-//
-//		EasyMock.verify(player1, player2, drawPile, turnManager);
-//	}
-//
+	@Test
+	public void getCurrentPlayer_called_returnTurnManagerMethodCall() {
+		Player expectedPlayer = EasyMock.createMock(Player.class);
+		List<Player> players = EasyMock.createMock(List.class);
+
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getCurrentPlayer()).andReturn(expectedPlayer);
+
+		EasyMock.replay(expectedPlayer, players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Player actualPlayer = game.getCurrentPlayer();
+
+		assertEquals(expectedPlayer, actualPlayer);
+
+		EasyMock.verify(turnManager);
+	}
+
 //	@ParameterizedTest
 //	@MethodSource("provideInvalidCardSelections")
 //	public void canPlaySelected_invalidCards_returnFalse(List<CardType> selectedCardTypes) {

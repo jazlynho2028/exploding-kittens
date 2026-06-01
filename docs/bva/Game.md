@@ -87,13 +87,13 @@
 ### Method under test: `getCurrentPlayerHandIds()`
 - **TC14: Current player is 0, empty hand** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_called_returnTurnManagerMethodCall
-  - **State of the system**: hand = []
+  - **State of the system**: N/A
   - **Expected output**: returns turnManager.getCurrentPlayerHandIds()
 
 ### Method under test: `getCurrentPlayer()`
-- **TC19: Current player is 0** ( :x: )
-  - **Name of the test**: getCurrentPlayer_called_returnCurrentPlayer
-  - **State of the system**: currentPlayer = 1, players = [player1, player2]
+- **TC19: Current player is 0** ( :white_check_mark: )
+  - **Name of the test**: getCurrentPlayer_called_returnTurnManagerMethodCall
+  - **State of the system**: N/A
   - **Expected output**: returns turnManager.getCurrentPlayer
 
 ### Method under test: `canPlaySelected()`
