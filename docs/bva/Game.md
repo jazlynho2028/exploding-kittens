@@ -85,8 +85,8 @@
   - **Expected output**: returns GameConstants.STARTING_PLAYER_INDEX
 
 ### Method under test: `getCurrentPlayerHandIds()`
-- **TC14: Current player is 0, empty hand** ( :x: )
-  - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
+- **TC14: Current player is 0, empty hand** ( :white_check_mark: )
+  - **Name of the test**: getCurrentPlayerHandIds_called_returnTurnManagerMethodCall
   - **State of the system**: hand = []
   - **Expected output**: returns turnManager.getCurrentPlayerHandIds()
 

@@ -265,47 +265,28 @@ public class GameTests {
 
 		assertEquals(expectedStartingPlayerIndex, actualStartingPlayerIndex);
 	}
-//
-//	@ParameterizedTest
-//	@MethodSource("provideHandIds")
-//	public void getCurrentPlayerHandIds_called_returnHandIds(List<String> ids) {
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		EasyMock.expect(player1.getHandIds()).andReturn(ids);
-//
-//		EasyMock.replay(player1, player2, drawPile);
-//
-//		Game game = EasyMock.createMockBuilder(Game.class)
-//				.withConstructor(players, drawPile, discardPile, turnManager)
-//				.addMockedMethod("getCurrentPlayer")
-//				.createMock();
-//		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1);
-//
-//		EasyMock.replay(game);
-//
-//		List<String> actualIds = game.getCurrentPlayerHandIds();
-//
-//		assertEquals(ids, actualIds);
-//
-//		EasyMock.verify(player1, player2, drawPile, game);
-//	}
-//
-//	private static Stream<Arguments> provideHandIds() {
-//		return Stream.of(
-//				Arguments.of(List.of()),
-//				Arguments.of(List.of("SKIP_1")),
-//				Arguments.of(List.of("SKIP_1", "SKIP_2")),
-//				Arguments.of(List.of("SKIP_1", "SKIP_1")),
-//				Arguments.of(List.of("SKIP_1", "ATTACK_3"))
-//		);
-//	}
-//
+
+	@Test
+	public void getCurrentPlayerHandIds_called_returnTurnManagerMethodCall() {
+		List<String> expectedHandIds = List.of();
+		List<Player> players = EasyMock.createNiceMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getCurrentPlayerHandIds()).andReturn(expectedHandIds);
+
+		EasyMock.replay(players, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		List<String> actualHandIds = game.getCurrentPlayerHandIds();
+
+		assertEquals(expectedHandIds, actualHandIds);
+
+		EasyMock.verify(turnManager);
+	}
+
 //	@Test
 //	public void getCurrentPlayer_called_returnCurrentPlayer() {
 //		Player player1 = EasyMock.createNiceMock(Player.class);
