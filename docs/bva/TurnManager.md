@@ -136,14 +136,14 @@
   - **Expected output**: getStartingPlayerIndex() returns 0
 
 ### Method under test: `toggleSelectedPlayerCardAt(int handCardIndex)`
-- **TC25: This method is called** ( :x: )
+- **TC25: This method is called** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedPlayerCardAt_onePlayer_callsPlayerMethod
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**: calls toggleSelectedHandCardAt with handCardIndex on current player
 
 ### Method under test: `updateAfterDraw(Card card)`
-- **TC26: This method is called** ( :x: )
-  - **Name of the test**: toggleSelectedPlayerCardAt_onePlayer_callsPlayerMethod
+- **TC26: This method is called** ( :white_check_mark: )
+  - **Name of the test**: updateAfterDraw_onePlayer_decrementDrawAndCallPlayerMethods
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**:
     - decrementDrawCount is called

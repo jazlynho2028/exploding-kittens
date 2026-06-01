@@ -498,4 +498,31 @@ public class TurnManagerTests {
         EasyMock.verify(mockPlayer);
     }
 
+    @Test
+    public void updateAfterDraw_onePlayer_decrementDrawAndCallPlayerMethods() {
+        int currentPlayerIndex = 0;
+        Card drawnCard = EasyMock.createMock(Card.class);
+        Player mockPlayer = EasyMock.createMock(Player.class);
+        List<Player> players = List.of(mockPlayer);
+
+        players.get(currentPlayerIndex).deselectHandCards();
+        EasyMock.expectLastCall();
+
+        players.get(currentPlayerIndex).addCardToHand(drawnCard);
+
+        TurnManager turnManager = EasyMock.createMockBuilder(TurnManager.class)
+                .withConstructor(players)
+                .addMockedMethod("decrementDrawCount")
+                .createMock();
+
+        turnManager.decrementDrawCount();
+        EasyMock.expectLastCall();
+
+        EasyMock.replay(mockPlayer, turnManager);
+
+        turnManager.updateAfterDraw(drawnCard);
+
+        EasyMock.verify(mockPlayer, turnManager);
+    }
+
 }
