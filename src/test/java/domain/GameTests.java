@@ -1133,38 +1133,34 @@ public class GameTests {
 		EasyMock.verify(turnManager, currentPlayer, game);
 	}
 
-//	@Test
-//	public void advanceTurn_cannotEndTurn_failed() {
-//		List<Player> players = EasyMock.createMock(List.class);
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		String expectedMsg = "error.cannotEndTurn";
-//		turnManager.advanceTurn();
-//		EasyMock.expectLastCall().andThrow(
-//				new IllegalStateException(expectedMsg)
-//		);
-//
-//		EasyMock.replay(players, drawPile, discardPile, turnManager);
-//
-//		Game game = EasyMock.createMockBuilder(Game.class)
-//				.withConstructor(players, drawPile, discardPile, turnManager)
-//				.addMockedMethod("canEndTurn")
-//				.createMock();
-//
-//		EasyMock.expect(game.canEndTurn()).andReturn(false);
-//
-//		EasyMock.replay(game);
-//
-//		Exception exception = assertThrows(IllegalStateException.class, game::advanceTurn);
-//
-//		String actualMsg = exception.getMessage();
-//		assertEquals(expectedMsg, actualMsg);
-//
-//		EasyMock.verify(game);
-//	}
-//
+	@Test
+	public void advanceTurn_cannotEndTurn_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		String expectedMsg = "error.cannotEndTurn";
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canEndTurn")
+				.createMock();
+
+		EasyMock.expect(game.canEndTurn()).andReturn(false);
+
+		EasyMock.replay(game);
+
+		Exception exception = assertThrows(IllegalStateException.class, game::advanceTurn);
+
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(game);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
