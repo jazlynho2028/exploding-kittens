@@ -319,8 +319,8 @@ public class GameTests {
 	}
 
 	private Game createAndSetGameExpectationsWithGetCurrentPlayer(
-			List<Player> players, Deck drawPile, Deck discardPile, TurnManager turnManager,
-			Player currentPlayer) {
+			List<Player> players, Deck drawPile, Deck discardPile,
+			TurnManager turnManager, Player currentPlayer) {
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
@@ -514,7 +514,8 @@ public class GameTests {
 	}
 
 	private Game createGameForPlaySelectedCardsExceptionCase(
-			List<Player> players, Deck drawPile, Deck discardPile, TurnManager turnManager) {
+			List<Player> players, Deck drawPile, Deck discardPile,
+			TurnManager turnManager) {
 
 		return EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
