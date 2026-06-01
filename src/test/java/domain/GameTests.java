@@ -426,35 +426,35 @@ public class GameTests {
 		);
 	}
 
-//	@Test
-//	public void playSelectedCards_invalidPlay_failed() {
-//		List<Player> players = EasyMock.createMock(List.class);
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		EasyMock.replay(players, drawPile, discardPile, turnManager);
-//
-//		Game game = EasyMock.createMockBuilder(Game.class)
-//				.withConstructor(players, drawPile, discardPile, turnManager)
-//				.addMockedMethod("canPlaySelected")
-//				.createMock();
-//
-//		EasyMock.expect(game.canPlaySelected()).andReturn(false);
-//
-//		EasyMock.replay(game);
-//
-//		Exception exception = assertThrows(
-//				IllegalStateException.class, game::playSelectedCards);
-//
-//		String expectedMsg = "error.cannotPlaySelectedCards";
-//		String actualMsg = exception.getMessage();
-//
-//		assertEquals(expectedMsg, actualMsg);
-//
-//		EasyMock.verify(game);
-//	}
-//
+	@Test
+	public void playSelectedCards_invalidPlay_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canPlaySelected")
+				.createMock();
+
+		EasyMock.expect(game.canPlaySelected()).andReturn(false);
+
+		EasyMock.replay(game);
+
+		Exception exception = assertThrows(
+				IllegalStateException.class, game::playSelectedCards);
+
+		String expectedMsg = "error.cannotPlaySelectedCards";
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(game);
+	}
+
 //	@Test
 //	public void playSelectedCards_validPlayWithUnknownCardType_failed() {
 //		List<Player> players = EasyMock.createMock(List.class);
