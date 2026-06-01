@@ -293,26 +293,34 @@ public class GameTests {
 		EasyMock.verify(players, turnManager);
 	}
 
-//	@Test
-//	public void getCurrentPlayerHandIds_called_returnTurnManagerMethodCall() {
-//		List<Player> players = EasyMock.createMock(List.class);
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		List<String> expectedHandIds = List.of("SKIP_1", "DEFUSE_3");
-//		EasyMock.expect(turnManager.getCurrentPlayerHandIds()).andReturn(expectedHandIds);
-//
-//		EasyMock.replay(players, discardPile, turnManager);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		List<String> actualHandIds = game.getCurrentPlayerHandIds();
-//
-//		assertEquals(expectedHandIds, actualHandIds);
-//
-//		EasyMock.verify(turnManager);
-//	}
+	@Test
+	public void getCurrentPlayerHandIds_called_returnPlayerMethodCall() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<String> expectedHandIds = List.of("SKIP_1", "DEFUSE_3");
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getHandIds()).andReturn(expectedHandIds);
+
+		EasyMock.replay(players, discardPile, turnManager, currentPlayer);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.getCurrentPlayer()).andReturn(currentPlayer);
+
+		EasyMock.replay(game);
+
+		List<String> actualHandIds = game.getCurrentPlayerHandIds();
+
+		assertEquals(expectedHandIds, actualHandIds);
+
+		EasyMock.verify(currentPlayer, game);
+	}
 //
 //	@ParameterizedTest
 //	@MethodSource("provideInvalidCardSelections")

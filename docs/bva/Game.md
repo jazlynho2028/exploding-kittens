@@ -101,7 +101,7 @@
 
 ### Method under test: `getCurrentPlayerHandIds()`
 - **TC16: Current player is 0, empty hand** ( :white_check_mark: )
-  - **Name of the test**: getCurrentPlayerHandIds_called_returnTurnManagerMethodCall
+  - **Name of the test**: getCurrentPlayerHandIds_called_returnPlayerMethodCall
   - **State of the system**: getCurrentPlayer = player
   - **Expected output**: returns player.getHandIds
 
