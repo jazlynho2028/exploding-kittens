@@ -992,37 +992,37 @@ public class GameTests {
 		EasyMock.verify(drawPile);
 	}
 
-//	@Test
-//	public void drawFromPile_turnManagerException_failed() {
-//		List<Player> players = EasyMock.createMock(List.class);
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		Card card = EasyMock.createMock(Card.class);
-//		EasyMock.expect(drawPile.removeTop()).andReturn(card);
-//
-//		String expectedMsg = "error.negativeDrawCount";
-//
-//		turnManager.updateAfterDraw(card);
-//		EasyMock.expectLastCall().andThrow(
-//				new IllegalStateException(expectedMsg)
-//		);
-//
-//		EasyMock.replay(players, drawPile, discardPile, turnManager, card);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		Exception exception = assertThrows(IllegalStateException.class,
-//				game::drawFromPile);
-//
-//		String actualMsg = exception.getMessage();
-//
-//		assertEquals(expectedMsg, actualMsg);
-//
-//		EasyMock.verify(drawPile, turnManager);
-//	}
-//
+	@Test
+	public void drawFromPile_turnManagerException_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card card = EasyMock.createMock(Card.class);
+		EasyMock.expect(drawPile.removeTop()).andReturn(card);
+
+		String expectedMsg = "error.negativeDrawCount";
+
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall().andThrow(
+				new IllegalStateException(expectedMsg)
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, card);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Exception exception = assertThrows(IllegalStateException.class,
+				game::drawFromPile);
+
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(drawPile, turnManager);
+	}
+
 //	@ParameterizedTest
 //	@CsvSource({
 //			"true",
