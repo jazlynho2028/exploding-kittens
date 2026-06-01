@@ -480,21 +480,15 @@
   - **Expected output**: isFaceUp = false
 
 ### Method under test: `drawFromPile()`
-- **TC84: Empty draw pile** ( :x: )
-  - **Name of the test**: drawFromPile_emptyDrawPile_failed
+- **TC84: This method is called successfully** ( :white_check_mark: )
+  - **Name of the test**: drawFromPile_called_callDrawPileAndTurnManagerMethods
+  - **State of the system**: N/A
+  - **Expected output**: turnManager.updateAfterDraw is called with drawPile.removeTop
+
+- **TC84: Throw exception** ( :x: )
+  - **Name of the test**: drawFromPile_called_failed
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throw IllegalStateException "error.emptyDeck"
-
-- **TC85: Draw count at zero** ( :x: )
-  - **Name of the test**: drawFromPile_drawCountAtZero_failed
-  - **State of the system**: turnManager.decrementDrawCount throws IllegalStateException "error.negativeDrawCount"
-  - **Expected output**: throw IllegalStateException "error.negativeDrawCount"
-
-- **TC86: Draw pile has one card** ( :x: )
-  - **Name of the test**: drawFromPile_oneCardInDrawPile_addToCurrentPlayerHand
-  - **State of the system**: drawPile = [SKIP_1], drawCount = 0
-  - **Expected output**:
-    - turnManager.updateAfterDraw is called with card
 
 ### Method under test: `toggleFaceUp()`
 - **TC87: Is face up** ( :x: )
