@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import static domain.GameConstants.NUM_DEFUSES_IN_GAME;
-import static domain.GameConstants.STARTING_HAND_SIZE;
+import static domain.GameConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTests {
@@ -240,31 +239,32 @@ public class GameTests {
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		int actualIndex = game.getCurrentPlayerIndex();
+		int actualCurrentPlayerIndex = game.getCurrentPlayerIndex();
 
-		assertEquals(expectedCurrentPlayerIndex, actualIndex);
+		assertEquals(expectedCurrentPlayerIndex, actualCurrentPlayerIndex);
 
 		EasyMock.verify(turnManager);
 	}
-//
-//	@Test
-//	public void getStartingPlayerIndex_called_success() {
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		EasyMock.replay(player1, player2, drawPile, turnManager);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		int actualIndex = game.getStartingPlayerIndex();
-//
-//		assertEquals(STARTING_PLAYER_INDEX, actualIndex);
-//	}
+
+	@Test
+	public void getStartingPlayerIndex_called_success() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		int expectedStartingPlayerIndex = STARTING_PLAYER_INDEX;
+		EasyMock.expect(turnManager.getCurrentPlayerIndex())
+				.andReturn(expectedStartingPlayerIndex);
+
+		EasyMock.replay(players, discardPile, drawPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		int actualStartingPlayerIndex = game.getStartingPlayerIndex();
+
+		assertEquals(expectedStartingPlayerIndex, actualStartingPlayerIndex);
+	}
 //
 //	@ParameterizedTest
 //	@MethodSource("provideHandIds")
