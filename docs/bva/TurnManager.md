@@ -6,7 +6,7 @@
   - **Expected output**: IllegalArgumentException with the message "error.emptyPlayerList"
 
 - **TC2: One player** ( :white_check_mark: )
-  - **Name of the test**: constructor_validPlayerCount_zeroInitialCounts
+  - **Name of the test**: constructor_validPlayerCount_setInitialCounts
   - **State of the system**: players = [player1]
   - **Expected output**:
     - currentPlayerIndex = 0
@@ -14,7 +14,7 @@
     - roundCount = 1
 
 - **TC3: Two players** ( :white_check_mark: )
-  - **Name of the test**: constructor_validPlayerCount_zeroInitialCounts
+  - **Name of the test**: constructor_validPlayerCount_setInitialCounts
   - **State of the system**: players = [player1, player2]
   - **Expected output**:
     - currentPlayerIndex = 0
@@ -157,7 +157,7 @@
     - deselectHandCards is called on current player
     - addCardToHand is called on current player
 
-- **TC28: Helper method throws exception** ( :x: )
+- **TC28: Helper method throws exception** ( :white_check_mark: )
   - **Name of the test**: updateAfterDraw_onePlayer_failed
   - **State of the system**: 
     - TurnManager constructed with 1 player
