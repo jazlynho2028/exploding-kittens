@@ -10,6 +10,8 @@ This application follows an MVC (Model - View - Controller) architecture.
 
 **Entry Point**
 - ExplodingKittensApp.java
+  - Type: main class
+  - Responsibility: Application's entry point. Initializes `AssetManager` and handles screen navigation throughout the app. Responsible for building the game model once player setup is complete.
 
 **Datasource**
 - interface FileLoader.java
