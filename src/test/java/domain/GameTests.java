@@ -455,46 +455,65 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
-//	@Test
-//	public void playSelectedCards_validPlayWithUnknownCardType_failed() {
-//		List<Player> players = EasyMock.createMock(List.class);
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		CardType cardType = CardType.DEFUSE;
-//		Card card = EasyMock.createMock(Card.class);
-//		EasyMock.expect(card.getType()).andStubReturn(cardType);
-//
-//		List<Card> selectedCards = List.of(card);
-//		EasyMock.expect(turnManager.getCurrentSelectedCards()).andReturn(selectedCards);
-//
-//		setMoveCardToDiscardExpectations(selectedCards, discardPile, turnManager);
-//
-//		EasyMock.replay(players, drawPile, discardPile, turnManager);
-//
-//		Game game = EasyMock.createMockBuilder(Game.class)
-//				.withConstructor(players, drawPile, discardPile, turnManager)
-//				.addMockedMethod("canPlaySelected")
-//				.createMock();
-//
-//		EasyMock.expect(game.canPlaySelected()).andReturn(true);
-//
-//		EasyMock.replay(game);
-//
-//		Exception exception = assertThrows(
-//				IllegalStateException.class, game::playSelectedCards);
-//
-//		String expectedMsg = "error.cannotPlaySelectedCards";
-//		String actualMsg = exception.getMessage();
-//
-//		assertEquals(expectedMsg, actualMsg);
-//
-//		Object[] selectedCardsArray = selectedCards.toArray();
-//		EasyMock.verify(selectedCardsArray);
-//		EasyMock.verify(discardPile, turnManager, game);
-//	}
-//
+	@Test
+	public void playSelectedCards_validPlayWithUnknownCardType_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		CardType cardType = CardType.DEFUSE;
+		Card card = EasyMock.createMock(Card.class);
+		EasyMock.expect(card.getType()).andStubReturn(cardType);
+
+		List<Card> selectedCards = List.of(card);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(selectedCards);
+
+		setMoveCardToDiscardExpectations(selectedCards, discardPile, currentPlayer);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canPlaySelected")
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.canPlaySelected()).andReturn(true);
+		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
+
+		EasyMock.replay(game);
+
+		Exception exception = assertThrows(
+				IllegalStateException.class, game::playSelectedCards);
+
+		String expectedMsg = "error.cannotPlaySelectedCards";
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
+
+		Object[] selectedCardsArray = selectedCards.toArray();
+		EasyMock.verify(selectedCardsArray);
+		EasyMock.verify(discardPile, game, currentPlayer);
+	}
+
+	private void setMoveCardToDiscardExpectations(
+			List<Card> selectedCards, Deck discardPile, Player currentPlayer) {
+
+		for (Card selectedCard : selectedCards) {
+			selectedCard.toggleSelected();
+			EasyMock.expectLastCall();
+			EasyMock.replay(selectedCard);
+
+			currentPlayer.removeCardFromHand(selectedCard);
+			EasyMock.expectLastCall();
+
+			discardPile.addCard(selectedCard);
+			EasyMock.expectLastCall();
+		}
+	}
+
 //	@Test
 //	public void playSelectedCards_validPlay_failed() {
 //		List<Player> players = EasyMock.createMock(List.class);
@@ -535,21 +554,6 @@ public class GameTests {
 //		EasyMock.verify(turnManager, game);
 //	}
 //
-//	private void setMoveCardToDiscardExpectations(
-//			List<Card> selectedCards, Deck discardPile, TurnManager turnManager) {
-//
-//		for (Card selectedCard : selectedCards) {
-//			selectedCard.toggleSelected();
-//			EasyMock.expectLastCall();
-//			EasyMock.replay(selectedCard);
-//
-//			turnManager.removeCardFromCurrentPlayerHand(selectedCard);
-//			EasyMock.expectLastCall();
-//
-//			discardPile.addCard(selectedCard);
-//			EasyMock.expectLastCall();
-//		}
-//	}
 //
 //	@ParameterizedTest
 //	@MethodSource("provideValidPlaysAndMethods")
