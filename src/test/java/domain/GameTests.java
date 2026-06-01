@@ -626,42 +626,36 @@ public class GameTests {
 
 		assertFalse(game.canDrawFromDiscard());
 	}
-//
-//	@ParameterizedTest
-//	@CsvSource({
-//			"false, 0",
-//			"false, 1",
-//			"false, 2",
-//			"true, 1",
-//			"true, 2"
-//	})
-//	public void canEndTurn_called_returnFalse(boolean isGameOngoing, int drawCount) {
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		EasyMock.replay(player1, player2, drawPile, turnManager);
-//
-//		Game game = EasyMock.createMockBuilder(Game.class)
-//				.withConstructor(players, drawPile, discardPile, turnManager)
-//				.addMockedMethod("getIsGameOngoing")
-//				.addMockedMethod("getDrawCount")
-//				.createMock();
-//
-//		EasyMock.expect(game.getIsGameOngoing()).andReturn(isGameOngoing);
-//		EasyMock.expect(game.getDrawCount()).andReturn(drawCount).anyTimes();
-//
-//		EasyMock.replay(game);
-//
-//		assertFalse(game.canEndTurn());
-//
-//		EasyMock.verify(game);
-//	}
-//
+
+	@ParameterizedTest
+	@CsvSource({
+			"false, 0",
+			"false, 1",
+			"false, 2",
+			"true, 1",
+			"true, 2"
+	})
+	public void canEndTurn_called_returnFalse(boolean isGameOngoing, int drawCount) {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		if (isGameOngoing) {
+			EasyMock.expect(turnManager.getDrawCount()).andReturn(drawCount);
+		}
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		game.setIsGameOngoing(isGameOngoing);
+
+		assertFalse(game.canEndTurn());
+
+		EasyMock.verify(turnManager);
+	}
+
 //	@Test
 //	public void canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue() {
 //		final int DRAW_COUNT = 0;

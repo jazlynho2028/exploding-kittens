@@ -390,32 +390,32 @@
   - **Expected output**: returns false
 
 ### Method under test: `canEndTurn()`
-- **TC65: Game is not ongoing, draw count is 0** ( :x: )
+- **TC65: Game is not ongoing, draw count is 0** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 0
   - **Expected output**: returns false
 
-- **TC66: Game is not ongoing, draw count is 1** ( :x: )
+- **TC66: Game is not ongoing, draw count is 1** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 1
   - **Expected output**: returns false
 
-- **TC67: Game is not ongoing, draw count is 2** ( :x: )
+- **TC67: Game is not ongoing, draw count is 2** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 2
   - **Expected output**: returns false
 
-- **TC68: Game is ongoing, draw count is 1** ( :x: )
+- **TC68: Game is ongoing, draw count is 1** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 1
   - **Expected output**: returns false
 
-- **TC69: Game is ongoing, draw count is 2** ( :x: )
+- **TC69: Game is ongoing, draw count is 2** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_called_returnFalse
   - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 1
   - **Expected output**: returns false
 
-- **TC70: Game is ongoing, draw count is 0** ( :x: )
+- **TC70: Game is ongoing, draw count is 0** ( :white_check_mark: )
   - **Name of the test**: canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue
   - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 0
   - **Expected output**: returns true
