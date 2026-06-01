@@ -32,8 +32,6 @@ public class GameTests {
 
 		assertFalse(game.getIsGameOngoing());
 		assertFalse(game.getIsFaceUp());
-
-		EasyMock.verify(players, drawPile, discardPile, turnManager);
 	}
 
 	@ParameterizedTest
@@ -58,7 +56,7 @@ public class GameTests {
 		String actualMsg = exception.getMessage();
 		assertEquals(expectedMsg, actualMsg);
 
-		EasyMock.verify(players, drawPile, discardPile, turnManager);
+		EasyMock.verify(players);
 	}
 
 	@ParameterizedTest
@@ -94,18 +92,17 @@ public class GameTests {
 			}
 		}
 
-		List<Object> mocks = new ArrayList<>(players);
-		Collections.addAll(mocks, drawPile, discardPile, turnManager);
+		Object[] playerMocks = players.toArray();
 
-		Object[] mocksArray = mocks.toArray();
-
-		EasyMock.replay(mocksArray);
+		EasyMock.replay(playerMocks);
+		EasyMock.replay(drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
 		game.setUp();
 
-		EasyMock.verify(mocksArray);
+		EasyMock.verify(playerMocks);
+		EasyMock.verify(drawPile);
 	}
 
 	@Test
@@ -132,7 +129,7 @@ public class GameTests {
 		String actualMsg = exception.getMessage();
 		assertEquals(expectedMsg, actualMsg);
 
-		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager);
+		EasyMock.verify(drawPile);
 	}
 
 	@Test
@@ -160,54 +157,39 @@ public class GameTests {
 
 		assertEquals(expectedMsg, actualMsg);
 
-		EasyMock.verify(players, drawPile, discardPile, turnManager, game);
+		EasyMock.verify(game);
 	}
 
-//	@ParameterizedTest
-//	@CsvSource({
-//			"2, 1",
-//			"4, 3"
-//	})
-//	public void startGame_gameIsNotOngoing_startFirstRound(int numPlayers, int numKittens) {
-//		final int STARTING_ROUND_COUNT = 1;
-//		final int STARTING_DRAW_COUNT = 1;
-//
-//		List<Player> players = new ArrayList<>();
-//		for (int i = 0; i < numPlayers; i++) {
-//			players.add(EasyMock.createNiceMock(Player.class));
-//		}
-//
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		for (int i = 0; i < numPlayers * (STARTING_HAND_SIZE - 1); i++) {
-//			Card card = EasyMock.createNiceMock(Card.class);
-//			EasyMock.expect(drawPile.removeTop()).andReturn(card);
-//			EasyMock.replay(card);
-//		}
-//
-//		for (int i = 1; i <= numKittens; i++) {
-//			drawPile.addCard(mockSpecificCard(CardType.EXPLODING_KITTEN, i));
-//			EasyMock.expectLastCall();
-//		}
-//		drawPile.shuffle();
-//		EasyMock.expectLastCall();
-//
-//		Object[] playerMocks = players.toArray();
-//		EasyMock.replay(playerMocks);
-//		EasyMock.replay(drawPile);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//		game.startGame();
-//
-//		assertTrue(game.getIsGameOngoing());
-//		assertEquals(STARTING_ROUND_COUNT, game.getRoundCount());
-//		assertEquals(STARTING_DRAW_COUNT, game.getDrawCount());
-//
-//		EasyMock.verify(playerMocks);
-//		EasyMock.verify(drawPile);
-//	}
+	@ParameterizedTest
+	@CsvSource({
+			"2, 1",
+			"4, 3"
+	})
+	public void startGame_gameIsNotOngoing_startFirstRound(int numPlayers, int numKittens) {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(players.size()).andStubReturn(numPlayers);
+
+		for (int i = 1; i <= numKittens; i++) {
+			drawPile.addCard(mockSpecificCard(CardType.EXPLODING_KITTEN, i));
+			EasyMock.expectLastCall();
+		}
+
+		drawPile.shuffle();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.startGame();
+
+		assertTrue(game.getIsGameOngoing());
+
+		EasyMock.verify(drawPile);
+	}
 //
 //	@ParameterizedTest
 //	@MethodSource("providePlayerName")

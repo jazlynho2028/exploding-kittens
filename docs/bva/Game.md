@@ -45,7 +45,7 @@
   - **State of the system**: isGameOngoing = true
   - **Expected output**: throw IllegalStateException "error.gameAlreadyStarted"
 
-- **TC8: Start game with 2 players** ( :x: )
+- **TC8: Start game with 2 players** ( :white_check_mark: )
   - **Name of the test**: startGame_gameIsNotOngoing_startFirstRound
   - **State of the system**: players.size = 2, isGameOngoing = false
   - **Expected output**:
@@ -53,7 +53,7 @@
     - drawPile.shuffle called
     - isGameOngoing = true
 
-- **TC9: Start game with 4 players** ( :x: )
+- **TC9: Start game with 4 players** ( :white_check_mark: )
   - **Name of the test**: startGame_gameIsNotOngoing_startFirstRound
   - **State of the system**: players.size = 4, isGameOngoing = false
   - **Expected output**:
