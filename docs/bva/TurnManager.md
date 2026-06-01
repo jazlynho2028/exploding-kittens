@@ -151,7 +151,7 @@
     - addCardToHand is called on current player
 
 ### Method under test: `removeCardFromCurrentPlayerHand(Card card)`
-- **TC27: This method is called** ( :x: )
+- **TC27: This method is called** ( :white_check_mark: )
   - **Name of the test**: removeCardFromCurrentPlayerHand_onePlayer_callsPlayerMethod
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**: calls removeCardFromHand with card on current player

@@ -62,6 +62,10 @@ public class TurnManager {
         getCurrentPlayer().toggleSelectedHandCardAt(handCardIndex);
     }
 
+    public void removeCardFromCurrentPlayerHand(Card card) {
+        getCurrentPlayer().removeCardFromHand(card);
+    }
+
     public void updateAfterDraw(Card card) {
         decrementDrawCount();
         getCurrentPlayer().deselectHandCards();
