@@ -284,6 +284,10 @@ public class TurnManagerTests {
             mockPlayers[i] = EasyMock.createMock(Player.class);
             players.add(mockPlayers[i]);
         }
+
+        mockPlayers[initialIndex].deselectHandCards();
+        EasyMock.expectLastCall();
+
         EasyMock.replay((Object[]) mockPlayers);
 
         TurnManager turnManager = new TurnManager(players);
@@ -401,11 +405,12 @@ public class TurnManagerTests {
 
     @Test
     public void getCurrentPlayerHandIds_onePlayer_callsPlayerMethod() {
+        int currentPlayerIndex = 0;
         Player mockPlayer = EasyMock.createMock(Player.class);
         List<Player> players = List.of(mockPlayer);
         List<String> expectedHandIds = List.of();
 
-        EasyMock.expect(mockPlayer.getHandIds()).andReturn(expectedHandIds);
+        EasyMock.expect(players.get(currentPlayerIndex).getHandIds()).andReturn(expectedHandIds);
 
         EasyMock.replay(mockPlayer);
 
@@ -418,11 +423,13 @@ public class TurnManagerTests {
 
     @Test
     public void getCurrentSelectedCards_onePlayer_callsPlayerMethod() {
+        int currentPlayerIndex = 0;
         Player mockPlayer = EasyMock.createMock(Player.class);
         List<Player> players = List.of(mockPlayer);
         List<Card> expectedSelectedCards = List.of();
 
-        EasyMock.expect(mockPlayer.getSelectedCards()).andReturn(expectedSelectedCards);
+        EasyMock.expect(players.get(currentPlayerIndex).getSelectedCards())
+                .andReturn(expectedSelectedCards);
 
         EasyMock.replay(mockPlayer);
 
