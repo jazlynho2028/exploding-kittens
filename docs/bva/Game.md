@@ -52,8 +52,8 @@
     - drawPile.addCard called once (N-1=1) with EXPLODINGKITTEN_1
     - drawPile.shuffle called
     - isGameOngoing = true
-    - roundCount = 1
-    - drawCount = 1
+    - turnManager.incrementRound called
+    - turnManager.incrementDraw called
 
 - **TC9: Start game with 4 players** ( :x: )
   - **Name of the test**: startGame_gameIsNotOngoing_startFirstRound
@@ -62,8 +62,8 @@
     - drawPile.addCard called three times (N-1=3) with EXPLODINGKITTEN_1 to 3
     - drawPile.shuffle called
     - isGameOngoing = true
-    - roundCount = 1
-    - drawCount = 1
+    - turnManager.incrementRound called
+    - turnManager.incrementDraw called
 
 ### Method under test: `getPlayerNames()`
 - **TC10: Get names for two players** ( :x: )
@@ -92,27 +92,7 @@
 - **TC14: Current player is 0, empty hand** ( :x: )
   - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
   - **State of the system**: hand = []
-  - **Expected output**: getCurrentPlayer is called, returns []
-
-- **TC15: Current player is 1, hand has one card** ( :x: )
-  - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
-  - **State of the system**: hand = [SKIP_1]
-  - **Expected output**: getCurrentPlayer is called, returns ["SKIP_1"]
-
-- **TC16: Current player is 0, hand has two different cards** ( :x: )
-  - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
-  - **State of the system**: hand = [SKIP_1, SKIP_2]
-  - **Expected output**: getCurrentPlayer is called, returns ["SKIP_1", "SKIP_2"]
-
-- **TC17: Current player is 0, hand has duplicate cards** ( :x: )
-  - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
-  - **State of the system**: hand = [SKIP_1, SKIP_1]
-  - **Expected output**: getCurrentPlayer is called, returns ["SKIP_1", "SKIP_1"]
-
-- **TC18: Current player is 0, hand two different card types** ( :x: )
-  - **Name of the test**: getCurrentPlayerHandIds_called_returnHandIds
-  - **State of the system**: hand = [SKIP_1, ATTACK_3]
-  - **Expected output**: getCurrentPlayer is called, returns ["SKIP_1", "ATTACK_3"]
+  - **Expected output**: returns turnManager.getCurrentPlayerHandIds()
 
 ### Method under test: `getCurrentPlayer()`
 - **TC19: Current player is 0** ( :x: )
@@ -257,7 +237,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [ATTACK]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applyAttack is called
 
@@ -266,7 +246,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SHUFFLE]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applyShuffle is called
 
@@ -275,7 +255,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SKIP]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applySkip is called
 
@@ -284,7 +264,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SEE_THE_FUTURE]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applySeeTheFuture is called
 
@@ -293,7 +273,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [CATOMIC_BOMB]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applyCatomicBomb is called
 
@@ -302,7 +282,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SUPER_SKIP]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applySuperSkip is called
 
@@ -311,7 +291,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [GODCAT]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applyGodcat is called
 
@@ -320,7 +300,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [CLONE]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applyClone is called
 
@@ -329,7 +309,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SWAP_TOP_AND_BOTTOM]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applySwapTopAndBottom is called
 
@@ -338,7 +318,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DRAW_FROM_THE_BOTTOM]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applyDrawFromTheBottom is called
 
@@ -347,7 +327,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [TARGETED_ATTACK]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applyTargetedAttack is called
 
@@ -356,7 +336,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [WINNER_WINNER_CATNIP_DINNER]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applyWinnerWinnerCatnipDinner is called
 
@@ -365,7 +345,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [RAGEBAIT]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applyRagebait is called
 
@@ -374,7 +354,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [RECYCLE]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applyRecycle is called
 
@@ -383,7 +363,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DOUBLE_UP]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applyDoubleUp is called
 
@@ -392,7 +372,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [MILD_DRAW]
   - **Expected output**:
     - card1.toggleSelected is called
-    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - turnManager.removeCardFromCurrentPlayerHand(card1) is called
     - discardPile.addCard(card1) is called
     - applyMildDraw is called
 
@@ -416,32 +396,32 @@
 ### Method under test: `canEndTurn()`
 - **TC65: Game is not ongoing, draw count is 0** ( :x: )
   - **Name of the test**: canEndTurn_called_returnFalse
-  - **State of the system**: isGameOngoing = false, drawCount = 0
+  - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 0
   - **Expected output**: returns false
 
 - **TC66: Game is not ongoing, draw count is 1** ( :x: )
   - **Name of the test**: canEndTurn_called_returnFalse
-  - **State of the system**: isGameOngoing = false, drawCount = 1
+  - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 1
   - **Expected output**: returns false
 
 - **TC67: Game is not ongoing, draw count is 2** ( :x: )
   - **Name of the test**: canEndTurn_called_returnFalse
-  - **State of the system**: isGameOngoing = false, drawCount = 2
+  - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 2
   - **Expected output**: returns false
 
 - **TC68: Game is ongoing, draw count is 1** ( :x: )
   - **Name of the test**: canEndTurn_called_returnFalse
-  - **State of the system**: isGameOngoing = true, drawCount = 1
+  - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 1
   - **Expected output**: returns false
 
 - **TC69: Game is ongoing, draw count is 2** ( :x: )
   - **Name of the test**: canEndTurn_called_returnFalse
-  - **State of the system**: isGameOngoing = true, drawCount = 1
+  - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 1
   - **Expected output**: returns false
 
 - **TC70: Game is ongoing, draw count is 0** ( :x: )
   - **Name of the test**: canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue
-  - **State of the system**: isGameOngoing = true, drawCount = 0
+  - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 0
   - **Expected output**: returns true
 
 ### Method under test: `isDrawPileEmpty()`
@@ -468,32 +448,32 @@
 ### Method under test: `getCanDraw()`
 - **TC75: Game is not ongoing, draw count is 0** ( :x: )
   - **Name of the test**: getCanDraw_called_returnFalse
-  - **State of the system**: isGameOngoing = false, drawCount = 0
+  - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 0
   - **Expected output**: returns false
 
 - **TC76: Game is not ongoing, draw count is 1** ( :x: )
   - **Name of the test**: getCanDraw_called_returnFalse
-  - **State of the system**: isGameOngoing = false, drawCount = 1
+  - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 1
   - **Expected output**: returns false
 
 - **TC77: Game is not ongoing, draw count is 2** ( :x: )
   - **Name of the test**: getCanDraw_called_returnFalse
-  - **State of the system**: isGameOngoing = false, drawCount = 2
+  - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 2
   - **Expected output**: returns false
 
 - **TC78: Game is ongoing, draw count is 0** ( :x: )
   - **Name of the test**: getCanDraw_called_returnFalse
-  - **State of the system**: isGameOngoing = true, drawCount = 0
+  - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 0
   - **Expected output**: returns false
 
 - **TC79: Game is ongoing, draw count is 1** ( :x: )
   - **Name of the test**: getCanDraw_called_returnTrue
-  - **State of the system**: isGameOngoing = true, drawCount = 1
+  - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 1
   - **Expected output**: returns true
 
 - **TC80: Game is ongoing, draw count is 2** ( :x: )
   - **Name of the test**: getCanDraw_called_returnTrue
-  - **State of the system**: isGameOngoing = true, drawCount = 1
+  - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 1
   - **Expected output**: returns true
 
 ### Method under test: `changeCurrentPlayerIndex(int newPlayerIndex)`
@@ -528,9 +508,7 @@
   - **Name of the test**: drawFromPile_oneCardInDrawPile_addToCurrentPlayerHand
   - **State of the system**: drawPile = [SKIP_1], drawCount = 0
   - **Expected output**:
-    - getCurrentPlayer.addCardToHand is called with drawPile.removeTop
-    - getCurrentPlayer.deselectHandCards is called
-    - turnManager.decrementDrawCount is called
+    - turnManager.updateAfterDraw is called with card
 
 ### Method under test: `toggleFaceUp()`
 - **TC87: Is face up** ( :x: )
@@ -565,9 +543,7 @@
 - **TC92: Can end turn** ( :x: )
   - **Name of the test**: advanceTurn_canEndTurn_advanceTurnAndDeselectCards
   - **State of the system**: canEndTurn = true
-  - **Expected output**:
-    - turnManager.advanceTurn is called
-    - getCurrentPlayer.deselectHandCards is called
+  - **Expected output**: turnManager.advanceTurn is called
 
 - **TC93: Cannot end turn** ( :x: )
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
