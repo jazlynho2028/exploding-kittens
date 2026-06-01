@@ -56,40 +56,25 @@ public class TurnManagerTests {
         assertEquals("error.negativeDrawCount", exception.getMessage());
     }
 
-    @Test
-    public void decrementDrawCount_fromOne_toZero() {
+    @ParameterizedTest
+    @CsvSource ({
+            "1, 0",
+            "2, 1"
+    })
+    public void decrementDrawCount_positiveDrawCount_decrementedByOne(
+            int initialDrawCount, int expectedDrawCount
+    ) {
         int numPlayers = 1;
 
         TurnManager turnManager = new TurnManager(numPlayers);
-        turnManager.setDrawCount(1);
+        turnManager.setDrawCount(initialDrawCount);
 
         turnManager.decrementDrawCount();
 
-        int expectedDrawCount = 0;
         int actualDrawCount = turnManager.getDrawCount();
-
         assertEquals(expectedDrawCount, actualDrawCount);
     }
 
-//    @Test
-//    public void decrementDrawCount_fromTwo_toOne() {
-//        final int expectedDrawCount = 1;
-//        List<Player> players = new ArrayList<>();
-//        Player mockPlayer1 = EasyMock.createMock(Player.class);
-//        players.add(mockPlayer1);
-//
-//        EasyMock.replay(mockPlayer1);
-//
-//        TurnManager turnManager = new TurnManager(players);
-//
-//        turnManager.incrementDrawCount();
-//        turnManager.decrementDrawCount();
-//
-//        assertEquals(expectedDrawCount, turnManager.getDrawCount());
-//
-//        EasyMock.verify(mockPlayer1);
-//    }
-//
 //    @Test
 //    public void incrementRound_initialOne_toTwo() {
 //        final int initialRoundCounter = 1;
