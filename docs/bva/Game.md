@@ -223,7 +223,7 @@
   - **State of the system**: canPlaySelected returns false
   - **Expected output**: throws IllegalStateException "error.cannotPlaySelectedCards"
 
-- **TC45: Valid play with unknown card type** ( :x: )
+- **TC45: Valid play with unknown card type** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithUnknownCardType_failed
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DEFUSE]
   - **Expected output**: throws IllegalStateException "error.cannotPlaySelectedCards"
