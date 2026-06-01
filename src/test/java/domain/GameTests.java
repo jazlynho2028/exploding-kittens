@@ -941,7 +941,10 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
+		CardType expectedCardType = CardType.DEFUSE;
 		Card drawnCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(drawnCard.getType()).andStubReturn(expectedCardType);
+
 		Player currentPlayer = EasyMock.createMock(Player.class);
 
 		EasyMock.expect(drawPile.removeTop()).andReturn(drawnCard);
@@ -963,7 +966,8 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		game.drawFromPile();
+		CardType actualCardType = game.drawFromPile();
+		assertEquals(expectedCardType, actualCardType);
 
 		EasyMock.verify(drawPile, turnManager, currentPlayer, game);
 	}

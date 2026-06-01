@@ -248,11 +248,13 @@ public class Game {
         isFaceUp = false;
     }
 
-    public void drawFromPile() {
+    public CardType drawFromPile() {
         Card card = drawPile.removeTop();
         turnManager.decrementDrawCount();
         getCurrentPlayer().deselectHandCards();
         getCurrentPlayer().addCardToHand(card);
+
+        return card.getType();
     }
 
     public void toggleFaceUp() {
