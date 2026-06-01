@@ -5,7 +5,7 @@
   - **State of the system**: numPlayers = 0
   - **Expected output**: IllegalArgumentException with the message "error.zeroOrNegativePlayers"
 
-- **TC2: One player** ( :x: )
+- **TC2: One player** ( :white_check_mark: )
   - **Name of the test**: constructor_validPlayerCount_setInitialCounts
   - **State of the system**: numPlayers = 1
   - **Expected output**:
@@ -13,7 +13,7 @@
     - drawCount = 1
     - roundCount = 1
 
-- **TC3: Two players** ( :x: )
+- **TC3: Two players** ( :white_check_mark: )
   - **Name of the test**: constructor_validPlayerCount_setInitialCounts
   - **State of the system**: numPlayers = 2
   - **Expected output**:

@@ -24,30 +24,23 @@ public class TurnManagerTests {
         assertEquals("error.zeroOrNegativePlayers", exception.getMessage());
     }
 
-//    @ParameterizedTest
-//    @CsvSource({
-//            "1",
-//            "2"
-//    })
-//    public void constructor_validPlayerCount_setInitialCounts(int numPlayers) {
-//        List<Player> players = new ArrayList<>();
-//
-//        for (int i = 0; i < numPlayers; i++) {
-//            Player player = EasyMock.createMock(Player.class);
-//            players.add(player);
-//        }
-//
-//        TurnManager turnManager = new TurnManager(players);
-//
-//        int currentPlayerIndex = turnManager.getCurrentPlayerIndex();
-//        int drawCount = turnManager.getDrawCount();
-//        int roundCount = turnManager.getRoundCount();
-//
-//        assertEquals(0, currentPlayerIndex);
-//        assertEquals(1, drawCount);
-//        assertEquals(1, roundCount);
-//    }
-//
+    @ParameterizedTest
+    @CsvSource({
+            "1",
+            "2"
+    })
+    public void constructor_validPlayerCount_setInitialCounts(int numPlayers) {
+        TurnManager turnManager = new TurnManager(numPlayers);
+
+        int currentPlayerIndex = turnManager.getCurrentPlayerIndex();
+        int drawCount = turnManager.getDrawCount();
+        int roundCount = turnManager.getRoundCount();
+
+        assertEquals(0, currentPlayerIndex);
+        assertEquals(1, drawCount);
+        assertEquals(1, roundCount);
+    }
+
 //    @Test
 //    public void getCurrentPlayerIndex_minimumPlayers_returnsZero() {
 //        final int firstPlayerIndex = 0;
