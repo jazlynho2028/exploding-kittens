@@ -2,7 +2,6 @@ package ui;
 
 import domain.CardType;
 import domain.Game;
-import domain.Player;
 import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
