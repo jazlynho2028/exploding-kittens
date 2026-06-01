@@ -8,7 +8,7 @@ This application follows an MVC (Model - View - Controller) architecture.
 `ExplodingKittensApp` is the only class that instantiates `DeckBuilder` and passes the resulting `Deck` into `Game`.
 `Game` itself never references `DeckBuilder`. This way, Game only needs to know how to execute the game, not the details of how the deck was put together.
 
-**Entry Point**
+# **Entry Point**
 - ExplodingKittensApp.java
   - Type: main class
   - Responsibility: Application's entry point. Sets up the AssetManager, handles switching between screens, and builds the game model once players are confirmed.
@@ -28,14 +28,14 @@ This layer handles all the file loading.
 - IconLoader.java implements PathLoader
   - Responsibility: Reads an icon file and returns its contents to display icons in the UI. 
 
-**Additional UI Classes**
+# **Additional UI Classes**
 These classes support the View and Controller layers. 
 
 - SceneManager.java
 - AssetManager.java
 - UIConstants.java
 
-**View Classes**
+# **View Classes**
 These classes build the UI for their screen and pass any button or input events to their paired Controller.
 
 - StartView.java
@@ -45,10 +45,15 @@ These classes build the UI for their screen and pass any button or input events 
 - PlayerDecksView.java
   - Responsibility: Builds the main game screen. Shows the players, card piles, the current player's hand, and turn controls. 
 
-**Controller Classes**
+# **Controller Classes**
+These classes sit between the View and Model layers. They handle events from their corresponding View class and update the Model accordingly
+
 - StartController.java
+  - Responsibility: Connects the two language buttons in StartView to their handlers, which tell ExplodingKittensApp which language to load.
 - PlayerCreateController.java
+  - Responsibility: Handles the player creation screen. Adds name fields up to the max player count, then triggers game initialization on confirm.
 - PlayerDecksController.java
+  - Responsibility: The main game controller. Handles all player interactions on the game screen and updates the view after each action.
 
 **Model Classes**
 - Game.java
