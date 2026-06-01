@@ -503,7 +503,7 @@
   - **Expected output**: isFaceUp = false
 
 ### Method under test: `drawFromPile()`
-- **TC81: This method is called successfully** ( :drawFromPile_called_callDrawPileAndTurnManagerMethods: )
+- **TC81: This method is called successfully** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_called_callDrawPileAndTurnManagerMethods
   - **State of the system**: 
     - card = drawPile.removeTop
@@ -518,7 +518,7 @@
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throw IllegalStateException "error.emptyDeck"
 
-- **TC83: Throw exception from turnManager** ( :x: )
+- **TC83: Throw exception from turnManager** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_turnManagerException_failed
   - **State of the system**: turnManager.decrementDrawCount throws IllegalStateException "error.negativeDrawCount"
   - **Expected output**: throw IllegalStateException "error.negativeDrawCount"
