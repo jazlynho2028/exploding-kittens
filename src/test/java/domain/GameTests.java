@@ -656,57 +656,43 @@ public class GameTests {
 		EasyMock.verify(turnManager);
 	}
 
-//	@Test
-//	public void canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue() {
-//		final int DRAW_COUNT = 0;
-//
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		EasyMock.replay(player1, player2, drawPile, turnManager);
-//
-//		Game game = EasyMock.createMockBuilder(Game.class)
-//				.withConstructor(players, drawPile, discardPile, turnManager)
-//				.addMockedMethod("getIsGameOngoing")
-//				.addMockedMethod("getDrawCount")
-//				.createMock();
-//
-//		EasyMock.expect(game.getIsGameOngoing()).andReturn(true);
-//		EasyMock.expect(game.getDrawCount()).andReturn(DRAW_COUNT);
-//
-//		EasyMock.replay(game);
-//
-//		assertTrue(game.canEndTurn());
-//
-//		EasyMock.verify(game);
-//	}
-//
-//	@Test
-//	public void isDrawPileEmpty_emptyDrawPile_returnTrue() {
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
-//
-//		EasyMock.replay(player1, player2, drawPile, turnManager);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		assertTrue(game.isDrawPileEmpty());
-//
-//		EasyMock.verify(player1, player2, drawPile, turnManager);
-//	}
-//
+	@Test
+	public void canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(0);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.setIsGameOngoing(true);
+
+		assertTrue(game.canEndTurn());
+
+		EasyMock.verify(turnManager);
+	}
+
+	@Test
+	public void isDrawPileEmpty_emptyDrawPile_returnTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		assertTrue(game.isDrawPileEmpty());
+
+		EasyMock.verify(drawPile);
+	}
+
 //	@ParameterizedTest
 //	@MethodSource("provideNonEmptyDrawPiles")
 //	public void isDrawPileEmpty_called_returnFalse(List<Card> drawPileCards) {

@@ -421,7 +421,7 @@
   - **Expected output**: returns true
 
 ### Method under test: `isDrawPileEmpty()`
-- **TC71: Empty draw pile** ( :x: )
+- **TC71: Empty draw pile** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_emptyDrawPile_returnTrue
   - **State of the system**: drawPile = []
   - **Expected output**: returns true
