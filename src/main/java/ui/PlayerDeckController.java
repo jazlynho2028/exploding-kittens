@@ -66,6 +66,7 @@ public class PlayerDeckController {
         view.bindHandVisibilityButton(this::onHandVisibilityButton);
         view.bindStartGameButton(this::onStartGameButton);
         view.bindPlayCardsButton(this::onPlayCardsButton);
+        view.bindEndTurnButton(this::onEndTurnButton);
         view.bindNameTags(this::onNameTag);
         bindHandCards();
     }
@@ -157,11 +158,23 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             model.startGame();
 
-            handleChangeCurrentPlayer(model.getStartingPlayerIndex());
-
-            updateDrawPile();
-            rebuildTurnControl();
+            handleNewTurn(model.getStartingPlayerIndex());
         });
+    }
+
+    private void handleNewTurn(int newPlayerIndex) {
+        handleChangeCurrentPlayer(newPlayerIndex);
+
+        updateDrawPile();
+        rebuildTurnControl();
+    }
+
+    private void rebuildTurnControl() {
+        view.buildAndRenderTurnControlSection(
+                model.getIsGameOngoing(),
+                model.canPlaySelected(),
+                model.canEndTurn()
+        );
     }
 
     void onPlayCardsButton() {
@@ -175,12 +188,12 @@ public class PlayerDeckController {
         });
     }
 
-    private void rebuildTurnControl() {
-        view.buildAndRenderTurnControlSection(
-                model.getIsGameOngoing(),
-                model.canPlaySelected(),
-                model.canEndTurn()
-        );
+    void onEndTurnButton() {
+        attempt(onError, () -> {
+            model.advanceTurn();
+
+            handleNewTurn(model.getCurrentPlayerIndex());
+        });
     }
 
 }

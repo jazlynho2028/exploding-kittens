@@ -74,6 +74,10 @@ public class PlayerDeckView {
         playCardsButton.setOnMouseClicked(e -> handler.run());
     }
 
+    public void bindEndTurnButton(Runnable handler) {
+        endTurnButton.setOnMouseClicked(e -> handler.run());
+    }
+
     public void bindNameTags(Consumer<Integer> handler) {
         ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
 
