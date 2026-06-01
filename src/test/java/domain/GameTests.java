@@ -1,5 +1,6 @@
 package domain;
 
+import io.cucumber.java.an.E;
 import org.easymock.EasyMock;
 
 import org.easymock.IArgumentMatcher;
@@ -25,10 +26,14 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
 		assertFalse(game.getIsGameOngoing());
 		assertFalse(game.getIsFaceUp());
+
+		EasyMock.verify(players, drawPile, discardPile, turnManager);
 	}
 
 	@ParameterizedTest
@@ -102,34 +107,34 @@ public class GameTests {
 
 		EasyMock.verify(mocksArray);
 	}
-//
-//	@Test
-//	public void constructor_drawPileThrowsException_failed() {
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		String expectedMsg = "error.emptyDeck";
-//
-//		EasyMock.expect(drawPile.removeTop()).andThrow(
-//				new IllegalStateException(expectedMsg)
-//		);
-//
-//		EasyMock.replay(player1, player2, drawPile);
-//
-//		Exception exception = assertThrows(IllegalStateException.class, () ->
-//				new Game(players, drawPile, discardPile, turnManager));
-//
-//		String actualMsg = exception.getMessage();
-//		assertEquals(expectedMsg, actualMsg);
-//
-//		EasyMock.verify(player1, player2, drawPile);
-//	}
-//
+
+	@Test
+	public void setUp_drawPileThrowsException_failed() {
+		Player player1 = EasyMock.createNiceMock(Player.class);
+		Player player2 = EasyMock.createNiceMock(Player.class);
+		List<Player> players = List.of(player1, player2);
+
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createNiceMock(Deck.class);
+		TurnManager turnManager = EasyMock.createNiceMock(TurnManager.class);
+
+		String expectedMsg = "error.emptyDeck";
+
+		EasyMock.expect(drawPile.removeTop()).andThrow(
+				new IllegalStateException(expectedMsg)
+		);
+
+		EasyMock.replay(player1, player2, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		Exception exception = assertThrows(IllegalStateException.class, game::setUp);
+
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager);
+	}
+
 //	@Test
 //	public void startGame_gameIsOngoing_failed() {
 //		Player player1 = EasyMock.createNiceMock(Player.class);

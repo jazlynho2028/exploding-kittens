@@ -34,7 +34,7 @@
   - **State of the system**: players.size = 5
   - **Expected output**: throw IllegalArgumentException "error.maxPlayers"
 
-- **TC6: Draw pile remove top throws exception** ( :x: )
+- **TC6: Draw pile remove top throws exception** ( :white_check_mark: )
   - **Name of the test**: setUp_drawPileThrowsException_failed
   - **State of the system**: players.size = 2, drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throw IllegalStateException "error.emptyDeck"
