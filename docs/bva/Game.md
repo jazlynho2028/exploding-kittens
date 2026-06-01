@@ -73,7 +73,7 @@
   - **Expected output**: returns ["Alice", "Alice", "Audrey", "Turkey"]
 
 ### Method under test: `getCurrentPlayerIndex()`
-- **TC12: This method is called** ( :x: )
+- **TC12: This method is called** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerIndex_called_success
   - **State of the system**: N/A
   - **Expected output**: returns turnManager.getCurrentPlayerIndex

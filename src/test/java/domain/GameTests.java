@@ -226,31 +226,26 @@ public class GameTests {
 		);
 	}
 
-//	@Test
-//	public void getCurrentPlayerIndex_called_success() {
-//		final int EXPECTED_INDEX = 2;
-//
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		EasyMock.replay(player1, player2, drawPile);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(EXPECTED_INDEX);
-//		EasyMock.replay(turnManager);
-//
-//		int actualIndex = game.getCurrentPlayerIndex();
-//
-//		assertEquals(EXPECTED_INDEX, actualIndex);
-//
-//		EasyMock.verify(turnManager);
-//	}
+	@Test
+	public void getCurrentPlayerIndex_called_success() {
+		final int expectedCurrentPlayerIndex = 0;
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getCurrentPlayerIndex())
+				.andReturn(expectedCurrentPlayerIndex);
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		int actualIndex = game.getCurrentPlayerIndex();
+
+		assertEquals(expectedCurrentPlayerIndex, actualIndex);
+
+		EasyMock.verify(turnManager);
+	}
 //
 //	@Test
 //	public void getStartingPlayerIndex_called_success() {
