@@ -645,4 +645,21 @@ public class TurnManagerTests {
         assertEquals(expectedMsg, actualMsg);
     }
 
+    @Test
+    public void setCurrentPlayerIndex_validIndex_setNewIndex() {
+        int expectedNewIndex = 0;
+
+        Player mockPlayer = EasyMock.createMock(Player.class);
+        List<Player> players = List.of(mockPlayer);
+
+        EasyMock.replay(mockPlayer);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        turnManager.setCurrentPlayerIndex(expectedNewIndex);
+
+        int actualNewIndex = turnManager.getCurrentPlayerIndex();
+        assertEquals(expectedNewIndex, actualNewIndex);
+    }
+
 }

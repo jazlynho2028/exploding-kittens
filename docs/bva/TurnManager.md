@@ -183,7 +183,7 @@
   - **State of the system**: TurnManager constructed with 1 player, newPlayerIndex = 0
   - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"
 
-- **TC32: Minimum valid index** ( :x: )
+- **TC32: Minimum valid index** ( :white_check_mark: )
   - **Name of the test**: setCurrentPlayerIndex_validIndex_setNewIndex
   - **State of the system**: TurnManager constructed with 2 players, newPlayerIndex = 0
   - **Expected output**: currentPlayerIndex = newPlayerIndex
