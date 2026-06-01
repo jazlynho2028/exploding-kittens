@@ -24,18 +24,18 @@
 ### Method under test: `decrementDrawCount()`
 - **TC4: Decrementing from zero throws state exception*** ( :white_check_mark: )
   - **Name of the test**: decrementDrawCount_fromZero_throwsIllegalStateException
-  - **State of the system**: currentDrawCount = 0
+  - **State of the system**: drawCount = 0
   - **Expected output**: IllegalStateException("error.negativeDrawCount")
 
-- **TC5: Decrementing from a positive value successfully reduces count** ( :x: )
+- **TC5: Decrementing from a positive value successfully reduces count** ( :white_check_mark: )
   - **Name of the test**: decrementDrawCount_fromOne_toZero
-  - **State of the system**: currentDrawCount = 1
-  - **Expected output**: getCurrentDrawCount() = 0
+  - **State of the system**: drawCount = 1
+  - **Expected output**: drawCount = 0
 
 - **TC6: Decrementing from a positive value subtracts from the total** ( :x: )
   - **Name of the test**: decrementDrawCount_fromTwo_toOne
-  - **State of the system**: currentDrawCount = 2
-  - **Expected output**: getCurrentDrawCount() = 1
+  - **State of the system**: drawCount = 2
+  - **Expected output**: drawCount = 1
 
 ### Method under test: `incrementTurn()`
 - **TC7: Advance turn away from starting baseline across varying player sizes** ( :x: )
