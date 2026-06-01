@@ -273,35 +273,67 @@ public class Game {
         this.isFaceUp = isFaceUp;
     }
 
-    void applyAttack() { }
+    void applyAttack() {
+        // TODO
+    }
 
-    void applyShuffle() { }
+    void applyShuffle() {
+        // TODO
+    }
 
-    void applySkip() { }
+    void applySkip() {
+        // TODO
+    }
 
-    void applySeeTheFuture() { }
+    void applySeeTheFuture() {
+        // TODO
+    }
 
-    void applyCatomicBomb() { }
+    void applyCatomicBomb() {
+        // TODO
+    }
 
-    void applySuperSkip() { }
+    void applySuperSkip() {
+        // TODO
+    }
 
-    void applyGodcat() { }
+    void applyGodcat() {
+        // TODO
+    }
 
-    void applyClone() { }
+    void applyClone() {
+        // TODO
+    }
 
-    void applySwapTopAndBottom() { }
+    void applySwapTopAndBottom() {
+        // TODO
+    }
 
-    void applyDrawFromTheBottom() { }
+    void applyDrawFromTheBottom() {
+        // TODO
+    }
 
-    void applyTargetedAttack() { }
+    void applyTargetedAttack() {
+        // TODO
+    }
 
-    void applyWinnerWinnerCatnipDinner() { }
+    void applyWinnerWinnerCatnipDinner() {
+        // TODO
+    }
 
-    void applyRagebait() { }
+    void applyRagebait() {
+        // TODO
+    }
 
-    void applyRecycle() { }
+    void applyRecycle() {
+        // TODO
+    }
 
-    void applyDoubleUp() { }
+    void applyDoubleUp() {
+        // TODO
+    }
 
-    void applyMildDraw() { }
+    void applyMildDraw() {
+        // TODO
+    }
 }
