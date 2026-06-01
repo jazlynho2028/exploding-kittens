@@ -276,7 +276,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<String> expectedHandIds = List.of();
+		List<String> expectedHandIds = List.of("SKIP_1", "DEFUSE_3");
 		EasyMock.expect(turnManager.getCurrentPlayerHandIds()).andReturn(expectedHandIds);
 
 		EasyMock.replay(players, discardPile, turnManager);
@@ -466,6 +466,46 @@ public class GameTests {
 		Object[] selectedCardsArray = selectedCards.toArray();
 		EasyMock.verify(selectedCardsArray);
 		EasyMock.verify(discardPile, turnManager, game);
+	}
+
+	@Test
+	public void playSelectedCards_validPlay_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createNiceMock(Deck.class);
+		TurnManager turnManager = EasyMock.createNiceMock(TurnManager.class);
+
+		Card card = EasyMock.createNiceMock(Card.class);
+		EasyMock.expect(card.getType()).andStubReturn(CardType.ATTACK);
+
+		List<Card> selectedCards = List.of(card);
+		EasyMock.expect(turnManager.getCurrentSelectedCards()).andReturn(selectedCards);
+
+		String expectedMsg = "error.cardNotInHand";
+		turnManager.removeCardFromCurrentPlayerHand(card);
+		EasyMock.expectLastCall().andThrow(
+				new IllegalStateException(expectedMsg)
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, card);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canPlaySelected")
+				.createMock();
+
+		EasyMock.expect(game.canPlaySelected()).andReturn(true);
+
+		EasyMock.replay(game);
+
+		Exception exception = assertThrows(
+				IllegalStateException.class, game::playSelectedCards);
+
+
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(turnManager, game);
 	}
 
 	private void setMoveCardToDiscardExpectations(
@@ -836,7 +876,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void drawFromPile_called_failed() {
+	public void drawFromPile_drawPileException_failed() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);

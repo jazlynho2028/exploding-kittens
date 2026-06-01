@@ -228,7 +228,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DEFUSE]
   - **Expected output**: throws IllegalStateException "error.cannotPlaySelectedCards"
 
-- **TC41: TurnManager method throws exception** ( :x: )
+- **TC41: TurnManager method throws exception** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_failed
   - **State of the system**: 
     - canPlaySelected returns true
