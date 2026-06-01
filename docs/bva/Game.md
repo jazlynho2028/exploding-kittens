@@ -137,82 +137,82 @@
   - **State of the system**: selectedCardTypes = [FERAL_CAT]
   - **Expected output**: returns false
 
-- **TC28: One Attack selected** ( :x: )
+- **TC28: One Attack selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [ATTACK]
   - **Expected output**: returns true
 
-- **TC29: One Shuffle selected** ( :x: )
+- **TC29: One Shuffle selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [SHUFFLE]
   - **Expected output**: returns true
 
-- **TC30: One Skip selected** ( :x: )
+- **TC30: One Skip selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [SKIP]
   - **Expected output**: returns true
 
-- **TC31: One See The Future selected** ( :x: )
+- **TC31: One See The Future selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [SEE_THE_FUTURE]
   - **Expected output**: returns true
 
-- **TC32: One Catomic Bomb selected** ( :x: )
+- **TC32: One Catomic Bomb selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [CATOMIC_BOMB]
   - **Expected output**: returns true
 
-- **TC33: One Super Skip selected** ( :x: )
+- **TC33: One Super Skip selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [SUPER_SKIP]
   - **Expected output**: returns true
 
-- **TC34: One Godcat selected** ( :x: )
+- **TC34: One Godcat selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [GODCAT]
   - **Expected output**: returns true
 
-- **TC35: One Clone selected** ( :x: )
+- **TC35: One Clone selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [CLONE]
   - **Expected output**: returns true
 
-- **TC36: One Swap Top And Bottom selected** ( :x: )
+- **TC36: One Swap Top And Bottom selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [SWAP_TOP_AND_BOTTOM]
   - **Expected output**: returns true
 
-- **TC37: One Draw From The Bottom selected** ( :x: )
+- **TC37: One Draw From The Bottom selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [DRAW_FROM_THE_BOTTOM]
   - **Expected output**: returns true
 
-- **TC38: One Targeted Attack selected** ( :x: )
+- **TC38: One Targeted Attack selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [TARGETED_ATTACK]
   - **Expected output**: returns true
 
-- **TC39: One Winner Winner Catnip Dinner selected** ( :x: )
+- **TC39: One Winner Winner Catnip Dinner selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [WINNER_WINNER_CATNIP_DINNER]
   - **Expected output**: returns true
 
-- **TC40: One Ragebait selected** ( :x: )
+- **TC40: One Ragebait selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [RAGEBAIT]
   - **Expected output**: returns true
 
-- **TC41: One Recycle selected** ( :x: )
+- **TC41: One Recycle selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [RECYCLE]
   - **Expected output**: returns true
 
-- **TC42: One Double Up selected** ( :x: )
+- **TC42: One Double Up selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [DOUBLE_UP]
   - **Expected output**: returns true
 
-- **TC43: One Mild Draw selected** ( :x: )
+- **TC43: One Mild Draw selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: selectedCardTypes = [MILD_DRAW]
   - **Expected output**: returns true
