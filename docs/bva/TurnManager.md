@@ -136,13 +136,20 @@
   - **Expected output**: getStartingPlayerIndex() returns 0
 
 ### Method under test: `toggleSelectedPlayerCardAt(int handCardIndex)`
-- **TC25: This method is called** ( :white_check_mark: )
+- **TC25: This method is called successfully** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedPlayerCardAt_onePlayer_callsPlayerMethod
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**: calls toggleSelectedHandCardAt with handCardIndex on current player
 
+- **TC26: Player method throws exception** ( :x: )
+  - **Name of the test**: toggleSelectedPlayerCardAt_onePlayer_failed
+  - **State of the system**: 
+    - TurnManager constructed with 1 player
+    - toggleSelectedHandCardAt with handCardIndex on current player throws IllegalArgumentException "error.invalidHandCardIndex"
+  - **Expected output**: throw IllegalArgumentException "error.invalidHandCardIndex"
+
 ### Method under test: `updateAfterDraw(Card card)`
-- **TC26: This method is called** ( :white_check_mark: )
+- **TC27: This method is called** ( :white_check_mark: )
   - **Name of the test**: updateAfterDraw_onePlayer_decrementDrawAndCallPlayerMethods
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**:
@@ -150,8 +157,43 @@
     - deselectHandCards is called on current player
     - addCardToHand is called on current player
 
+- **TC28: Helper method throws exception** ( :x: )
+  - **Name of the test**: updateAfterDraw_onePlayer_failed
+  - **State of the system**: 
+    - TurnManager constructed with 1 player
+    - decrementDrawCount throws IllegalStateException "error.negativeDrawCount"
+  - **Expected output**: throw IllegalStateException "error.negativeDrawCount"
+
 ### Method under test: `removeCardFromCurrentPlayerHand(Card card)`
-- **TC27: This method is called** ( :white_check_mark: )
+- **TC29: This method is called successfully** ( :white_check_mark: )
   - **Name of the test**: removeCardFromCurrentPlayerHand_onePlayer_callsPlayerMethod
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**: calls removeCardFromHand with card on current player
+
+- **TC30: Player method throws exception** ( :x: )
+  - **Name of the test**: removeCardFromCurrentPlayerHand_onePlayer_callsPlayerMethod
+  - **State of the system**: 
+    - TurnManager constructed with 1 player
+    - removeCardFromHand with card on current player throws IllegalStateException "error.cardNotInHand"
+  - **Expected output**: throw IllegalStateException "error.cardNotInHand"
+
+### Method under test: `setCurrentPlayerIndex(int newPlayerIndex)`
+- **TC31: Negative index** ( :x: )
+  - **Name of the test**: setCurrentPlayerIndex_invalidIndex_failed
+  - **State of the system**: TurnManager constructed with 1 player, newPlayerIndex = 0
+  - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"
+
+- **TC32: Minimum valid index** ( :x: )
+  - **Name of the test**: setCurrentPlayerIndex_validIndex_setNewIndex
+  - **State of the system**: TurnManager constructed with 2 players, newPlayerIndex = 0
+  - **Expected output**: currentPlayerIndex = newPlayerIndex
+
+- **TC33: Maximum valid index** ( :x: )
+  - **Name of the test**: setCurrentPlayerIndex_validIndex_setNewIndex
+  - **State of the system**: TurnManager constructed with 2 players, newPlayerIndex = 1
+  - **Expected output**: currentPlayerIndex = newPlayerIndex
+
+- **TC34: One above maximum valid index** ( :x: )
+  - **Name of the test**: setCurrentPlayerIndex_invalidIndex_failed
+  - **State of the system**: TurnManager constructed with 1 player, newPlayerIndex = 1
+  - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"
