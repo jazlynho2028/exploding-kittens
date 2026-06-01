@@ -42,3 +42,5 @@ This application follows an MVC (Model - View - Controller) architecture.
 - Deck.java
 - Card.java
 - CardType.java
+
+**Class Relationships**
