@@ -1,5 +1,6 @@
 package ui;
 
+import domain.CardType;
 import domain.Game;
 import domain.Player;
 import javafx.scene.Scene;
@@ -504,14 +505,14 @@ public class PlayerDeckControllerTests {
 		boolean canDrawFromDiscard = true;
 		boolean canEndTurn = true;
 		String topDiscardId = "SKIP_1";
+		CardType topDiscardType = CardType.SKIP;
 
 		EasyMock.expect(model.canDrawFromDiscard()).andReturn(canDrawFromDiscard);
 		EasyMock.expect(model.getTopDiscardId()).andReturn(topDiscardId);
 
 		setUpRenderTurnControlSectionExpectations(canEndTurn);
 
-		model.playSelectedCards();
-		EasyMock.expectLastCall();
+		EasyMock.expect(model.playSelectedCards()).andReturn(topDiscardType);
 
 		view.renderDiscardPile(canDrawFromDiscard, topDiscardId);
 		EasyMock.expectLastCall();

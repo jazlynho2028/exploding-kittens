@@ -76,7 +76,7 @@ public class ExplodingKittensApp extends Application {
         Random random = new Random();
         Deck discardPile = new Deck(new ArrayDeque<>(), random);
 
-        TurnManager turnManager = new TurnManager(players);
+        TurnManager turnManager = new TurnManager(players.size());
 
         Game model = new Game(players, drawPile, discardPile, turnManager);
         model.setUp();

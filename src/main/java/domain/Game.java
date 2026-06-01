@@ -124,15 +124,15 @@ public class Game {
     }
 
     public List<String> getCurrentPlayerHandIds() {
-        return turnManager.getCurrentPlayerHandIds();
+        return getCurrentPlayer().getHandIds();
     }
 
     public Player getCurrentPlayer() {
-        return turnManager.getCurrentPlayer();
+        return players.get(getCurrentPlayerIndex());
     }
 
     public boolean canPlaySelected() {
-        List<Card> selectedCards = turnManager.getCurrentSelectedCards();
+        List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
         if (selectedCards.size() != 1) {
             return false;
         }
@@ -141,17 +141,18 @@ public class Game {
         return !UNPLAYABLE_TYPES.contains(type);
     }
 
-    public void playSelectedCards() {
+    public CardType playSelectedCards() {
         if (!canPlaySelected()) {
             throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
 
-        List<Card> selectedCards = turnManager.getCurrentSelectedCards();
+        List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
         CardType cardType = selectedCards.get(0).getType();
 
         for (Card card : selectedCards) {
             card.toggleSelected();
-            turnManager.removeCardFromCurrentPlayerHand(card);
+
+            getCurrentPlayer().removeCardFromHand(card);
             discardPile.addCard(card);
         }
 
@@ -207,6 +208,8 @@ public class Game {
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
+
+        return cardType;
     }
 
     public String getTopDiscardId() {
@@ -247,7 +250,9 @@ public class Game {
 
     public void drawFromPile() {
         Card card = drawPile.removeTop();
-        turnManager.updateAfterDraw(card);
+        turnManager.decrementDrawCount();
+        getCurrentPlayer().deselectHandCards();
+        getCurrentPlayer().addCardToHand(card);
     }
 
     public void toggleFaceUp() {
@@ -255,14 +260,15 @@ public class Game {
     }
 
     public void toggleSelectedPlayerCardAt(int handCardIndex) {
-        turnManager.toggleSelectedPlayerCardAt(handCardIndex);
+        getCurrentPlayer().toggleSelectedHandCardAt(handCardIndex);
     }
 
     public void advanceTurn() {
         if (!canEndTurn()) {
             throw new IllegalStateException("error.cannotEndTurn");
         }
-        turnManager.advanceTurn();
+        getCurrentPlayer().deselectHandCards();
+        turnManager.incrementTurn();
     }
 
     void setIsGameOngoing(boolean isGameOngoing) {
@@ -319,6 +325,7 @@ public class Game {
 
     void applyWinnerWinnerCatnipDinner() {
         // TODO
+        // Make a WinnerWinnerCard extends Card with a turnsHeld field
     }
 
     void applyRagebait() {

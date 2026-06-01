@@ -1,6 +1,6 @@
 # BVA Analysis: TurnManager Class
 ### Method under test: `TurnManager(int numPlayers)`
-- **TC1: Zero players throws exception** ( :x: )
+- **TC1: Zero players throws exception** ( :white_check_mark: )
   - **Name of the test**: constructor_zeroPlayers_throwsException
   - **State of the system**: numPlayers = 0
   - **Expected output**: IllegalArgumentException with the message "error.zeroOrNegativePlayers"
