@@ -575,7 +575,8 @@ public class GameTests {
 	@ParameterizedTest
 	@MethodSource("provideValidPlaysAndMethods")
 	public void playSelectedCards_validPlay_cardsMovedFromHandToDiscard(
-			CardType cardType, String applyMethodName, Consumer<Game> applyMethod) {
+			CardType expectedCardType, String applyMethodName,
+			Consumer<Game> applyMethod) {
 
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
@@ -583,7 +584,7 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		Card card = EasyMock.createMock(Card.class);
-		EasyMock.expect(card.getType()).andStubReturn(cardType);
+		EasyMock.expect(card.getType()).andStubReturn(expectedCardType);
 
 		List<Card> selectedCards = List.of(card);
 		Player currentPlayer = EasyMock.createMock(Player.class);
@@ -607,7 +608,9 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		game.playSelectedCards();
+		CardType actualCardType = game.playSelectedCards();
+
+		assertEquals(expectedCardType, actualCardType);
 
 		Object[] selectedCardsArray = selectedCards.toArray();
 		EasyMock.verify(selectedCardsArray);
