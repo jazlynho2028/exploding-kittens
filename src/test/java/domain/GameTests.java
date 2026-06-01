@@ -835,43 +835,32 @@ public class GameTests {
 		EasyMock.verify(drawPile, turnManager);
 	}
 
-//	@Test
-//	public void drawFromPile_drawCountAtZero_failed() {
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		String expectedMsg = "error.negativeDrawCount";
-//
-//		turnManager.decrementDrawCount();
-//		EasyMock.expectLastCall().andThrow(
-//				new IllegalStateException(expectedMsg)
-//		);
-//
-//		EasyMock.replay(drawPile, turnManager);
-//
-//		Game game = EasyMock.createMockBuilder(Game.class)
-//				.withConstructor(players, drawPile, discardPile, turnManager)
-//				.addMockedMethod("getCurrentPlayer")
-//				.createMock();
-//
-//		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(player1);
-//
-//		EasyMock.replay(game);
-//
-//		Exception exception = assertThrows(IllegalStateException.class,
-//				game::drawFromPile);
-//		String actualMsg = exception.getMessage();
-//
-//		assertEquals(expectedMsg, actualMsg);
-//
-//		EasyMock.verify(game, drawPile, turnManager);
-//	}
-//
+	@Test
+	public void drawFromPile_called_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		String expectedMsg = "error.emptyDeck";
+		EasyMock.expect(drawPile.removeTop()).andThrow(
+				new IllegalStateException(expectedMsg)
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Exception exception = assertThrows(IllegalStateException.class,
+				game::drawFromPile);
+
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(drawPile);
+	}
+
 //	@Test
 //	public void drawFromPile_oneCardInDrawPile_addToCurrentPlayerHand() {
 //		Player player1 = EasyMock.createNiceMock(Player.class);
