@@ -755,7 +755,7 @@ public class GameTests {
 	})
 	public void getCanDraw_called_returnTrue(int drawCount) {
 		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
@@ -775,7 +775,7 @@ public class GameTests {
 	@Test
 	public void changeCurrentPlayerIndex_called_callsTurnManager() {
 		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
@@ -792,32 +792,27 @@ public class GameTests {
 		EasyMock.verify(turnManager);
 	}
 
-//	@ParameterizedTest
-//	@CsvSource({
-//			"true",
-//			"false"
-//	})
-//	public void setFaceUpToFalse_called_setToFalse(boolean initialFaceUp) {
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		EasyMock.replay(player1, player2, drawPile, turnManager);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		game.setIsFaceUp(initialFaceUp);
-//		game.setFaceUpToFalse();
-//
-//		assertFalse(game.getIsFaceUp());
-//
-//		EasyMock.verify(player1, player2, drawPile, turnManager);
-//	}
-//
+	@ParameterizedTest
+	@CsvSource({
+			"true",
+			"false"
+	})
+	public void setFaceUpToFalse_called_setToFalse(boolean initialFaceUp) {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.setIsFaceUp(initialFaceUp);
+
+		game.setFaceUpToFalse();
+
+		assertFalse(game.getIsFaceUp());
+	}
+
 //	@Test
 //	public void drawFromPile_emptyDrawPile_failed() {
 //		Player player1 = EasyMock.createNiceMock(Player.class);

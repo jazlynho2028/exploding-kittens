@@ -469,12 +469,12 @@
   - **Expected output**: calls turnManager.setCurrentPlayerIndex with newPlayerIndex
 
 ### Method under test: `setFaceUpToFalse()`
-- **TC82: Is face up** ( :x: )
+- **TC82: Is face up** ( :white_check_mark: )
   - **Name of the test**: setFaceUpToFalse_isFaceUp_setToFalse
   - **State of the system**: isFaceUp = true
   - **Expected output**: isFaceUp = false
 
-- **TC83: Is face down** ( :x: )
+- **TC83: Is face down** ( :white_check_mark: )
   - **Name of the test**: setFaceUpToFalse_isFaceDown_setToFalse
   - **State of the system**: isFaceUp = false
   - **Expected output**: isFaceUp = false
