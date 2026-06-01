@@ -79,37 +79,37 @@
 - **TC14: Advance turn away from starting baseline across varying player sizes** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = 0
-  - **Expected output**: getCurrentPlayerIndex() = 1
+  - **Expected output**: getCurrentPlayerIndex() = 1, deselectHandCards called on current player
 
 - **TC15: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = N - 2
-  - **Expected output**: getCurrentPlayerIndex() = N - 1
+  - **Expected output**: getCurrentPlayerIndex() = N - 1, deselectHandCards called on current player
 
 - **TC16: Advance that hits upper boundary, wrapping index back to zero** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: TurnManager constructed with N players (N = 2, 3, 4), currentPlayerIndex = N - 1
-  - **Expected output**: getCurrentPlayerIndex() = 0
+  - **Expected output**: getCurrentPlayerIndex() = 0, deselectHandCards called on current player
 
 - **TC17: Strict testing on index of player when starting next round** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_atLastPlayer_wrapsToZeroExactly
   - **State of the system**: TurnManager constructed with 3 players advanced turn three times
-  - **Expected output**: getCurrentPlayerIndex() = 0
+  - **Expected output**: getCurrentPlayerIndex() = 0, deselectHandCards called on current player
 
 - **TC18: Strict testing on round count when not starting next round** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_nextPlayer_sameRoundCount
   - **State of the system**: TurnManager constructed with 2 players advanced turn once
-  - **Expected output**: getRoundCount() = 1
+  - **Expected output**: getRoundCount() = 1, deselectHandCards called on current player
 
 - **TC19: Strict testing on round count when starting next round** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_wrapsToStartingPlayer_incrementsRoundCount
   - **State of the system**: TurnManager constructed with 2 players advanced turn twice times
-  - **Expected output**: getRoundCount() = 2
+  - **Expected output**: getRoundCount() = 2, deselectHandCards called on current player
 
 - **TC20: Strict testing on draw count when advancing turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_fromDrawCountOne_toTwo 
   - **State of the system**: TurnManager constructed with 1 player advanced turn once
-  - **Expected output**: getDrawCount() = 2
+  - **Expected output**: getDrawCount() = 2, deselectHandCards called on current player
 
 ### Method under test: `getCurrentPlayer()`
 - **TC21: getCurrentPlayer returns the correct player** ( :white_check_mark: )
@@ -121,16 +121,31 @@
 - **TC22: This method is called** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayerHandIds_onePlayer_callsPlayerMethod
   - **State of the system**: TurnManager constructed with 1 player
-  - **Expected output**: calls getHandIds on player
+  - **Expected output**: calls getHandIds on current player
 
 ### Method under test: `getCurrentSelectedCards()`
 - **TC23: This method is called** ( :white_check_mark: )
   - **Name of the test**: getCurrentSelectedCards_onePlayer_callsPlayerMethod
   - **State of the system**: TurnManager constructed with 1 player
-  - **Expected output**: calls getSelectedCards on player
+  - **Expected output**: calls getSelectedCards on current player
 
 ### Method under test: `getStartingPlayerIndex()`
 - **TC24: getCurrentPlayer returns the index 0** ( :white_check_mark: )
   - **Name of the test**: getStartingPlayerIndex_successfullyReturnsStartingIndex
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**: getStartingPlayerIndex() returns 0
+
+### Method under test: `toggleSelectedPlayerCardAt(int handCardIndex)`
+- **TC25: This method is called** ( :x: )
+  - **Name of the test**: toggleSelectedPlayerCardAt_onePlayer_callsPlayerMethod
+  - **State of the system**: TurnManager constructed with 1 player
+  - **Expected output**: calls toggleSelectedHandCardAt with handCardIndex on current player
+
+### Method under test: `updateAfterDraw(Card card)`
+- **TC26: This method is called** ( :x: )
+  - **Name of the test**: toggleSelectedPlayerCardAt_onePlayer_callsPlayerMethod
+  - **State of the system**: TurnManager constructed with 1 player
+  - **Expected output**:
+    - decrementDrawCount is called
+    - deselectHandCards is called on current player
+    - addCardToHand is called on current player
