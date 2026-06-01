@@ -141,7 +141,7 @@
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**: calls toggleSelectedHandCardAt with handCardIndex on current player
 
-- **TC26: Player method throws exception** ( :x: )
+- **TC26: Player method throws exception** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedPlayerCardAt_onePlayer_failed
   - **State of the system**: 
     - TurnManager constructed with 1 player

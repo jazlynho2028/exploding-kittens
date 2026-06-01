@@ -499,6 +499,34 @@ public class TurnManagerTests {
     }
 
     @Test
+    public void toggleSelectedPlayerCardAt_onePlayer_failed() {
+        int currentPlayerIndex = 0;
+        int handCardIndex = 0;
+        Player mockPlayer = EasyMock.createMock(Player.class);
+        List<Player> players = List.of(mockPlayer);
+
+        String expectedMsg = "error.invalidHandCardIndex";
+
+        players.get(currentPlayerIndex).toggleSelectedHandCardAt(handCardIndex);
+        EasyMock.expectLastCall().andThrow(
+                new IllegalArgumentException(expectedMsg)
+        );
+
+        EasyMock.replay(mockPlayer);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                turnManager.toggleSelectedPlayerCardAt(handCardIndex));
+
+        String actualMsg = exception.getMessage();
+
+        assertEquals(expectedMsg, actualMsg);
+
+        EasyMock.verify(mockPlayer);
+    }
+
+    @Test
     public void updateAfterDraw_onePlayer_decrementDrawAndCallPlayerMethods() {
         int currentPlayerIndex = 0;
         Card drawnCard = EasyMock.createMock(Card.class);
