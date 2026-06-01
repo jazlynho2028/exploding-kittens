@@ -463,7 +463,7 @@
   - **Expected output**: returns true
 
 ### Method under test: `changeCurrentPlayerIndex(int newPlayerIndex)`
-- **TC81: This method is called** ( :x: )
+- **TC81: This method is called** ( :white_check_mark: )
   - **Name of the test**: changeCurrentPlayerIndex_called_callsTurnManager
   - **State of the system**: newPlayerIndex = 0
   - **Expected output**: calls turnManager.setCurrentPlayerIndex with newPlayerIndex

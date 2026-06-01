@@ -755,7 +755,6 @@ public class GameTests {
 	})
 	public void getCanDraw_called_returnTrue(int drawCount) {
 		List<Player> players = EasyMock.createMock(List.class);
-
 		Deck drawPile = EasyMock.createNiceMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
@@ -773,30 +772,26 @@ public class GameTests {
 		EasyMock.verify(turnManager);
 	}
 
-//	@Test
-//	public void changeCurrentPlayerIndex_called_callsTurnManager() {
-//		final int NEW_PLAYER_INDEX = 0;
-//
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		turnManager.setCurrentPlayerIndex(NEW_PLAYER_INDEX);
-//		EasyMock.expectLastCall();
-//
-//		EasyMock.replay(player1, player2, drawPile, turnManager);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		game.changeCurrentPlayerIndex(NEW_PLAYER_INDEX);
-//
-//		EasyMock.verify(player1, player2, drawPile, turnManager);
-//	}
-//
+	@Test
+	public void changeCurrentPlayerIndex_called_callsTurnManager() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		int newPlayerIndex = 0;
+		turnManager.setCurrentPlayerIndex(newPlayerIndex);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		game.changeCurrentPlayerIndex(newPlayerIndex);
+
+		EasyMock.verify(turnManager);
+	}
+
 //	@ParameterizedTest
 //	@CsvSource({
 //			"true",
