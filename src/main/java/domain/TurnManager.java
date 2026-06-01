@@ -1,24 +1,27 @@
 package domain;
 
-import java.util.Collections;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.List;
 
-public final class TurnManager {
-    private static final int STARTING_PLAYER_INDEX = 0;
+public class TurnManager {
 
-    private int currentPlayerIndex;
     private final List<Player> players;
-    private int roundCounter;
-    private int currentDrawCount;
+    private int currentPlayerIndex;
+    private int roundCount;
+    private int drawCount;
 
-    public TurnManager(final List<Player> players) {
+    @SuppressFBWarnings(
+            value = {"CT_CONSTRUCTOR_THROW"},
+            justification = "CT_CONSTRUCTOR_THROW: TurnManager is an internal domain object. " +
+                    "Finalizer attack is not a concern. It is TurnManager's responsibility " +
+                    "to verify its inputs, and it cannot be made a final class for testability."
+    )
+    public TurnManager(List<Player> players) {
         if (players.isEmpty()) {
             throw new IllegalArgumentException("error.emptyPlayerList");
         }
         this.players = List.copyOf(players);
-        currentPlayerIndex = 0;
-        currentDrawCount = 0;
-        roundCounter = 0;
     }
 
     public int getCurrentPlayerIndex() {
@@ -29,16 +32,16 @@ public final class TurnManager {
         return players.get(currentPlayerIndex);
     }
 
-    public int getCurrentDrawCount() {
-        return currentDrawCount;
+    public int getDrawCount() {
+        return drawCount;
     }
 
     public int getStartingPlayerIndex() {
-        return STARTING_PLAYER_INDEX;
+        return GameConstants.STARTING_PLAYER_INDEX;
     }
 
-    public int getRoundCounter() {
-        return roundCounter;
+    public int getRoundCount() {
+        return roundCount;
     }
 
     public void setCurrentPlayerIndex(int newPlayerIndex) {
@@ -46,24 +49,24 @@ public final class TurnManager {
     }
 
     public void incrementDrawCount() {
-        this.currentDrawCount++;
+        drawCount++;
     }
 
     public void decrementDrawCount() {
-        if (this.currentDrawCount <= 0) {
+        if (drawCount <= 0) {
             throw new IllegalStateException("error.negativeDrawCount");
         }
-        this.currentDrawCount--;
+        drawCount--;
     }
 
     public void incrementRound() {
-        this.roundCounter++;
+        roundCount++;
     }
 
     public void advanceTurn() {
-        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 
-        if (currentPlayerIndex == STARTING_PLAYER_INDEX) {
+        if (currentPlayerIndex == GameConstants.STARTING_PLAYER_INDEX) {
             incrementRound();
         }
 
