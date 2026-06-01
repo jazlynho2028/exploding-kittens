@@ -885,7 +885,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle() {
+	public void toggleSelectedCurrentPlayerCardAt_called_calledTurnManagerToggle() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -893,6 +893,7 @@ public class GameTests {
 
 		int handCardIndex = 0;
 		turnManager.toggleSelectedPlayerCardAt(handCardIndex);
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
@@ -903,42 +904,35 @@ public class GameTests {
 		EasyMock.verify(turnManager);
 	}
 
-//	@Test
-//	public void toggleSelectedCurrentPlayerCardAt_indexZero_failed() {
-//		final int HAND_CARD_INDEX = 0;
-//		String expectedMsg = "error.handCardIndexOutOfBounds";
-//
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		player1.toggleSelectedHandCardAt(HAND_CARD_INDEX);
-//		EasyMock.expectLastCall().andThrow(new IllegalArgumentException(expectedMsg));
-//
-//		EasyMock.replay(player1, drawPile, turnManager);
-//
-//		Game game = EasyMock.createMockBuilder(Game.class)
-//				.withConstructor(players, drawPile, discardPile, turnManager)
-//				.addMockedMethod("getCurrentPlayer")
-//				.createMock();
-//
-//		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1);
-//
-//		EasyMock.replay(game);
-//
-//		Exception exception = assertThrows(IllegalArgumentException.class,
-//				() -> game.toggleSelectedPlayerCardAt(HAND_CARD_INDEX));
-//
-//		String actualMsg = exception.getMessage();
-//		assertEquals(expectedMsg, actualMsg);
-//
-//		EasyMock.verify(player1, drawPile, turnManager, game);
-//	}
-//
+	@Test
+	public void toggleSelectedCurrentPlayerCardAt_indexZero_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		int handCardIndex = 0;
+		String expectedMsg = "error.invalidHandCardIndex";
+
+		turnManager.toggleSelectedPlayerCardAt(handCardIndex);
+		EasyMock.expectLastCall().andThrow(
+				new IllegalStateException(expectedMsg)
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Exception exception = assertThrows(IllegalStateException.class, () ->
+				game.toggleSelectedPlayerCardAt(handCardIndex));
+
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(turnManager);
+	}
+
 //	@Test
 //	public void advanceTurn_canEndTurn_advanceTurnAndDeselectCards() {
 //		Player player1 = EasyMock.createNiceMock(Player.class);

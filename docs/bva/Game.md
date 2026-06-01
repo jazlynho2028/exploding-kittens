@@ -503,11 +503,11 @@
 
 ### Method under test: `toggleSelectedCurrentPlayerCardAt(int handCardIndex)`
 - **TC89: Hand card index at 0** ( :white_check_mark: )
-  - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle
+  - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledTurnManagerToggle
   - **State of the system**: handCardIndex = 0
   - **Expected output**: turnManager.toggleSelectedPlayerCardAt is called with handCardIndex
 
-- **TC91: Player method throws exception** ( :x: )
+- **TC91: Player method throws exception** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_indexZero_failed
   - **State of the system**: turnManager.toggleSelectedPlayerCardAt throws InvalidArgumentException "error.handCardIndexOutOfBounds"
   - **Expected output**: throw InvalidArgumentException "error.handCardIndexOutOfBounds"
