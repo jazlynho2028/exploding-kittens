@@ -228,7 +228,7 @@
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DEFUSE]
   - **Expected output**: throws IllegalStateException "error.cannotPlaySelectedCards"
 
-- **TC46: Valid play with one Attack** ( :x: )
+- **TC46: Valid play with one Attack** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [ATTACK]
   - **Expected output**:
@@ -237,7 +237,7 @@
     - discardPile.addCard(card1) is called
     - applyAttack is called
 
-- **TC47: Valid play with one Shuffle** ( :x: )
+- **TC47: Valid play with one Shuffle** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SHUFFLE]
   - **Expected output**:
@@ -246,7 +246,7 @@
     - discardPile.addCard(card1) is called
     - applyShuffle is called
 
-- **TC48: Valid play with one Skip** ( :x: )
+- **TC48: Valid play with one Skip** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SKIP]
   - **Expected output**:
@@ -255,7 +255,7 @@
     - discardPile.addCard(card1) is called
     - applySkip is called
 
-- **TC49: Valid play with one See The Future** ( :x: )
+- **TC49: Valid play with one See The Future** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SEE_THE_FUTURE]
   - **Expected output**:
@@ -264,7 +264,7 @@
     - discardPile.addCard(card1) is called
     - applySeeTheFuture is called
 
-- **TC50: Valid play with one Catomic Bomb** ( :x: )
+- **TC50: Valid play with one Catomic Bomb** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [CATOMIC_BOMB]
   - **Expected output**:
@@ -273,7 +273,7 @@
     - discardPile.addCard(card1) is called
     - applyCatomicBomb is called
 
-- **TC51: Valid play with one Super Skip** ( :x: )
+- **TC51: Valid play with one Super Skip** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SUPER_SKIP]
   - **Expected output**:
@@ -282,7 +282,7 @@
     - discardPile.addCard(card1) is called
     - applySuperSkip is called
 
-- **TC52: Valid play with one Godcat** ( :x: )
+- **TC52: Valid play with one Godcat** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [GODCAT]
   - **Expected output**:
@@ -291,7 +291,7 @@
     - discardPile.addCard(card1) is called
     - applyGodcat is called
 
-- **TC53: Valid play with one Clone** ( :x: )
+- **TC53: Valid play with one Clone** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [CLONE]
   - **Expected output**:
@@ -300,7 +300,7 @@
     - discardPile.addCard(card1) is called
     - applyClone is called
 
-- **TC54: Valid play with one Swap Top And Bottom** ( :x: )
+- **TC54: Valid play with one Swap Top And Bottom** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SWAP_TOP_AND_BOTTOM]
   - **Expected output**:
@@ -309,7 +309,7 @@
     - discardPile.addCard(card1) is called
     - applySwapTopAndBottom is called
 
-- **TC55: Valid play with one Draw From The Bottom** ( :x: )
+- **TC55: Valid play with one Draw From The Bottom** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DRAW_FROM_THE_BOTTOM]
   - **Expected output**:
@@ -318,7 +318,7 @@
     - discardPile.addCard(card1) is called
     - applyDrawFromTheBottom is called
 
-- **TC56: Valid play with one Targeted Attack** ( :x: )
+- **TC56: Valid play with one Targeted Attack** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [TARGETED_ATTACK]
   - **Expected output**:
@@ -327,7 +327,7 @@
     - discardPile.addCard(card1) is called
     - applyTargetedAttack is called
 
-- **TC57: Valid play with one Winner Winner Catnip Dinner** ( :x: )
+- **TC57: Valid play with one Winner Winner Catnip Dinner** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [WINNER_WINNER_CATNIP_DINNER]
   - **Expected output**:
@@ -336,7 +336,7 @@
     - discardPile.addCard(card1) is called
     - applyWinnerWinnerCatnipDinner is called
 
-- **TC58: Valid play with one Ragebait** ( :x: )
+- **TC58: Valid play with one Ragebait** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [RAGEBAIT]
   - **Expected output**:
@@ -345,7 +345,7 @@
     - discardPile.addCard(card1) is called
     - applyRagebait is called
 
-- **TC59: Valid play with one Recycle** ( :x: )
+- **TC59: Valid play with one Recycle** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [RECYCLE]
   - **Expected output**:
@@ -354,7 +354,7 @@
     - discardPile.addCard(card1) is called
     - applyRecycle is called
 
-- **TC60: Valid play with one Double Up** ( :x: )
+- **TC60: Valid play with one Double Up** ( :white_check_mark )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DOUBLE_UP]
   - **Expected output**:
@@ -363,7 +363,7 @@
     - discardPile.addCard(card1) is called
     - applyDoubleUp is called
 
-- **TC61: Valid play with one Mild Draw** ( :x: )
+- **TC61: Valid play with one Mild Draw** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [MILD_DRAW]
   - **Expected output**:
