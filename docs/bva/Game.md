@@ -519,7 +519,7 @@
   - **Expected output**: isFaceUp = false
 
 ### Method under test: `drawFromPile()`
-- **TC81: This method is called successfully** ( :white_check_mark: )
+- **TC81: This method is called successfully** ( :x: )
   - **Name of the test**: drawFromPile_called_callDrawPileAndPlayerAndTurnManagerMethods
   - **State of the system**: 
     - card = drawPile.removeTop
@@ -528,6 +528,7 @@
     - turnManager.decrementDrawCount is called
     - player.deselectHandCards is called
     - player.addCardToHand is called with card
+    - returns card.getType
 
 - **TC82: Throw exception from drawPile** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_drawPileException_failed
