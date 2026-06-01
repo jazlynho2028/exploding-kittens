@@ -535,8 +535,8 @@
   - **Expected output**: isFaceUp = true
 
 ### Method under test: `toggleSelectedCurrentPlayerCardAt(int handCardIndex)`
-- **TC86: Hand card index at 0** ( :x: )
-  - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledTurnManagerToggle
+- **TC86: Hand card index at 0** ( :white_check_mark: )
+  - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle
   - **State of the system**: 
     - player = getCurrentPlayer
     - handCardIndex = 0
