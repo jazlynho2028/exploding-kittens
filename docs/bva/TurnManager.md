@@ -38,7 +38,7 @@
   - **Expected output**: drawCount = 1
 
 ### Method under test: `incrementTurn()`
-- **TC7: Advance turn away from starting baseline across varying player sizes** ( :x: )
+- **TC7: Advance turn away from starting baseline across varying player sizes** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
@@ -50,42 +50,42 @@
     - roundCount = 1
     - drawCount = 1
 
-- **TC8: Advance turn on boundary just before list wraps around** ( :x: )
+- **TC8: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = N - 2
-    - roundCount = 1
+    - roundCount = 2
     - drawCount = 1
   - **Expected output**: 
     - currentPlayerIndex = N - 1
-    - roundCount = 1
+    - roundCount = 2
     - drawCount = 2
 
-- **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :x: )
+- **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = N - 1
-    - roundCount = 2
+    - roundCount = 1
     - drawCount = 0
   - **Expected output**: 
     - currentPlayerIndex = 0
-    - roundCount = 3
+    - roundCount = 2
     - drawCount = 1
 
 ### Method under test: `setCurrentPlayerIndex(int newPlayerIndex)`
-- **TC10: Negative index** ( :white_check_mark: )
+- **TC10: Negative index** ( :x: )
   - **Name of the test**: setCurrentPlayerIndex_invalidIndex_failed
   - **State of the system**: TurnManager constructed with 1 player, newPlayerIndex = 0
   - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"
 
-- **TC11: Minimum valid index** ( :white_check_mark: )
+- **TC11: Minimum valid index** ( :x: )
   - **Name of the test**: setCurrentPlayerIndex_validIndex_setNewIndex
   - **State of the system**: TurnManager constructed with 2 players, newPlayerIndex = 0
   - **Expected output**: currentPlayerIndex = newPlayerIndex
 
-- **TC12: Maximum valid index** ( :white_check_mark: )
+- **TC12: Maximum valid index** ( :x: )
   - **Name of the test**: setCurrentPlayerIndex_validIndex_setNewIndex
   - **State of the system**: TurnManager constructed with 2 players, newPlayerIndex = 1
   - **Expected output**: currentPlayerIndex = newPlayerIndex
