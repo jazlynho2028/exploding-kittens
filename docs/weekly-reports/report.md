@@ -70,9 +70,22 @@
 1. [Done] Jazlyn: replaced all placeholder images with new assets for background, card back, and each card front
 2. [Done] Jazlyn: modify tests to include view method calls for start, player create, and player deck controllers
 3. [Done] Jazlyn: modify controller tests to satisfy 100% coverage and all mutants killed
-4. [50% Done] Ejean: DeckBuilder.java
+4. [95% Done] Ejean: DeckBuilder.java
 5. [95% Done] DJ: Game.java
 6. [95% Done] DJ: Player.java
 7. [95% Done] DJ: TurnManager.java
 8. [not started] Luke: Card.java
 9. [Done] Irene: Deck.java
+
+# Week 9 (05/25/2026-06/01/2026)
+**Planning and Progress Tracking**:
+1. [Done] Jazlyn: refactor controllers and rewrite tests for adjusted error handling and binding
+2. [Done] Jazlyn: reconduct BVA analysis for Game.java to accomodate changes needed for one turn of the game
+3. [Done] DJ: reimplement Game.java based on BVA analysis
+4. [Done] Jazlyn: implemented play cards button and effects in PlayerDeckController, PlayerDeckView, and Game
+5. [Done] Jazlyn: rewrite BVA analysis and tests for Game.java and TurnManager.java refactoring to improve code cleanliness and testing flexibility
+6. [Done] Ejean: DeckBuilder.java + iterations from review
+7. [Done] Luke/DJ: Revise Player.java + iterations from review
+8. [Done] Luke: Revise Card.java + iterations from review
+9. [Done] Luke: Revise TurnManager.java + iterations from review
+10. [Done] Irene: Deck.java + iterations from review
