@@ -223,14 +223,18 @@ public class GameTests {
 		);
 	}
 
-	@Test
-	public void getCurrentPlayerIndex_called_success() {
+	@ParameterizedTest
+	@CsvSource({
+			"0",
+			"1",
+			"2"
+	})
+	public void getCurrentPlayerIndex_called_success(int expectedCurrentPlayerIndex) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		int expectedCurrentPlayerIndex = 0;
 		EasyMock.expect(turnManager.getCurrentPlayerIndex())
 				.andReturn(expectedCurrentPlayerIndex);
 
