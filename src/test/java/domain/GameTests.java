@@ -928,28 +928,44 @@ public class GameTests {
 		assertFalse(game.getIsFaceUp());
 	}
 
-//	@Test
-//	public void drawFromPile_called_callDrawPileAndTurnManagerMethods() {
-//		List<Player> players = EasyMock.createMock(List.class);
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		Card drawnCard = EasyMock.createMock(Card.class);
-//		EasyMock.expect(drawPile.removeTop()).andReturn(drawnCard);
-//
-//		turnManager.updateAfterDraw(drawnCard);
-//		EasyMock.expectLastCall();
-//
-//		EasyMock.replay(players, drawPile, discardPile, turnManager, drawnCard);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		game.drawFromPile();
-//
-//		EasyMock.verify(drawPile, turnManager);
-//	}
-//
+	@Test
+	public void drawFromPile_called_callDrawPileAndTurnManagerMethods() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card drawnCard = EasyMock.createMock(Card.class);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		EasyMock.expect(drawPile.removeTop()).andReturn(drawnCard);
+
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall();
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		currentPlayer.addCardToHand(drawnCard);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				drawnCard, currentPlayer);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
+
+		EasyMock.replay(game);
+
+		game.drawFromPile();
+
+		EasyMock.verify(drawPile, turnManager, currentPlayer, game);
+	}
+
 //	@Test
 //	public void drawFromPile_drawPileException_failed() {
 //		List<Player> players = EasyMock.createMock(List.class);
