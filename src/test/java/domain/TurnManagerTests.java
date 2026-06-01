@@ -479,4 +479,23 @@ public class TurnManagerTests {
         EasyMock.verify(mockPlayer);
     }
 
+    @Test
+    public void toggleSelectedPlayerCardAt_onePlayer_callsPlayerMethod() {
+        int currentPlayerIndex = 0;
+        int handCardIndex = 0;
+        Player mockPlayer = EasyMock.createMock(Player.class);
+        List<Player> players = List.of(mockPlayer);
+
+        players.get(currentPlayerIndex).toggleSelectedHandCardAt(handCardIndex);
+        EasyMock.expectLastCall();
+
+        EasyMock.replay(mockPlayer);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        turnManager.toggleSelectedPlayerCardAt(handCardIndex);
+
+        EasyMock.verify(mockPlayer);
+    }
+
 }
