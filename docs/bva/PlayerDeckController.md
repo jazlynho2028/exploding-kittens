@@ -53,7 +53,7 @@
 - **TC10: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: onDrawPile_drawsCard_success
     - **State of the system**: canDraw = true, isDrawPileEmpty = true, canPlaySelected = true, canEndTurn = true
-    - **Expected output**: called model.drawFromPile, view.renderDrawPile, rebuildHandCards, and view.renderTurnControlSection
+    - **Expected output**: called model.drawFromPile = CardType.DEFUSE, view.renderDrawPile, rebuildHandCards, and view.renderTurnControlSection
 
 - **TC11: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDrawPile_drawsCard_failed

@@ -1,5 +1,6 @@
 package ui;
 
+import domain.CardType;
 import domain.Game;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
@@ -107,7 +108,8 @@ public class PlayerDeckController {
 
     void onDrawPile() {
         attempt(onError, () -> {
-            model.drawFromPile();
+            CardType cardType = model.drawFromPile();
+            // TODO use ^ return value for UI changes if a card effect needs it
 
             updateDrawPile();
             rebindHandCards();
@@ -164,7 +166,8 @@ public class PlayerDeckController {
 
     void onPlayCardsButton() {
         attempt(onError, () -> {
-            model.playSelectedCards();
+            CardType cardType = model.playSelectedCards();
+            // TODO use ^ return value for UI changes if a card effect needs it
 
             view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
             rebindHandCards();

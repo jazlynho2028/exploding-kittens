@@ -274,7 +274,8 @@ public class PlayerDeckControllerTests {
 				.addMockedMethod("rebindHandCards")
 				.createMock();
 
-		model.drawFromPile();
+		CardType drawnCardType = CardType.DEFUSE;
+		EasyMock.expect(model.drawFromPile()).andStubReturn(drawnCardType);
 		EasyMock.expectLastCall();
 
 		setUpRenderDrawPileExpectations();
