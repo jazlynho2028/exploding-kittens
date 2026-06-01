@@ -55,13 +55,22 @@ These classes sit between the View and Model layers. They handle events from the
 - PlayerDecksController.java
   - Responsibility: The main game controller. Handles all player interactions on the game screen and updates the view after each action.
 
-**Model Classes**
+# **Model Classes**
+The Model layer contains all game logic.
+
 - Game.java
+  - Responsibility: The core game state. Holds the players, the draw pile, and a TurnManager. Deals starting hands, inserts Exploding Kittens when the game starts, and handles drawing and playing cards. Does **not** reference `DeckBuilder`.
 - TurnManager.java
+  - Responsibility: Tracks whose turn it is, how many draws the current player has left, and the current round. Advances to the next player when a turn ends. Passed into Game as a parameter rather than created inside it.
 - DeckBuilder.java
+  - Responsibility: Builds the starting draw pile with the correct number of each card type, then shuffles and returns it. Called only by ExplodingKittensApp. Game never touches or interacts with it.
 - Player.java
+  - Responsibility: Represents a player. Stores their name and hand of cards, and supports adding, removing, and selecting cards so the controller knows what the player wants to play.
 - Deck.java
+  - Responsibility: Represents an ordered pile of cards. Supports drawing, peeking, inserting at a specific position, and shuffling. Used for both the draw and discard piles.
 - Card.java
+  - Responsibility: Represents a single card. Holds a unique `cardId` and a `CardType`. Also tracks whether the card is currently selected by the player, which is used to determine what action they want to take on their turn.
 - CardType.java
+  - Responsibility: Defines all card types in the game. Used throughout the model to identify and categorize cards.
 
 **Class Relationships**
