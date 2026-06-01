@@ -188,12 +188,12 @@
   - **State of the system**: TurnManager constructed with 2 players, newPlayerIndex = 0
   - **Expected output**: currentPlayerIndex = newPlayerIndex
 
-- **TC33: Maximum valid index** ( :x: )
+- **TC33: Maximum valid index** ( :white_check_mark: )
   - **Name of the test**: setCurrentPlayerIndex_validIndex_setNewIndex
   - **State of the system**: TurnManager constructed with 2 players, newPlayerIndex = 1
   - **Expected output**: currentPlayerIndex = newPlayerIndex
 
-- **TC34: One above maximum valid index** ( :x: )
+- **TC34: One above maximum valid index** ( :white_check_mark: )
   - **Name of the test**: setCurrentPlayerIndex_invalidIndex_failed
   - **State of the system**: TurnManager constructed with 1 player, newPlayerIndex = 1
   - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"

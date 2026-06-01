@@ -625,10 +625,12 @@ public class TurnManagerTests {
         EasyMock.verify(mockPlayer);
     }
 
-    @Test
-    public void setCurrentPlayerIndex_invalidIndex_failed() {
-        int newPlayerIndex = -1;
-
+    @ParameterizedTest
+    @CsvSource({
+            "-1",
+            "1"
+    })
+    public void setCurrentPlayerIndex_invalidIndex_failed(int newPlayerIndex) {
         Player mockPlayer = EasyMock.createMock(Player.class);
         List<Player> players = List.of(mockPlayer);
 

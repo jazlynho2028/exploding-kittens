@@ -55,7 +55,7 @@ public class TurnManager {
     }
 
     public void setCurrentPlayerIndex(int newPlayerIndex) {
-        if (newPlayerIndex < 0) {
+        if (newPlayerIndex < 0 || newPlayerIndex >= players.size()) {
             throw new IllegalArgumentException("error.invalidPlayerIndex");
         }
         currentPlayerIndex = newPlayerIndex;
