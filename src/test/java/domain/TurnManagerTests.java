@@ -131,24 +131,20 @@ public class TurnManagerTests {
         assertEquals(expectedMsg, actualMsg);
     }
 
-//    @ParameterizedTest
-//    @CsvSource({
-//            "0",
-//            "1"
-//    })
-//    public void setCurrentPlayerIndex_validIndex_setNewIndex(int expectedNewIndex) {
-//        Player mockPlayer1 = EasyMock.createMock(Player.class);
-//        Player mockPlayer2 = EasyMock.createMock(Player.class);
-//        List<Player> players = List.of(mockPlayer1, mockPlayer2);
-//
-//        EasyMock.replay(mockPlayer1, mockPlayer2);
-//
-//        TurnManager turnManager = new TurnManager(players);
-//
-//        turnManager.setCurrentPlayerIndex(expectedNewIndex);
-//
-//        int actualNewIndex = turnManager.getCurrentPlayerIndex();
-//        assertEquals(expectedNewIndex, actualNewIndex);
-//    }
+    @ParameterizedTest
+    @CsvSource({
+            "0",
+            "1"
+    })
+    public void setCurrentPlayerIndex_validIndex_setNewIndex(int expectedNewIndex) {
+        int numPlayers = 2;
+
+        TurnManager turnManager = new TurnManager(numPlayers);
+
+        turnManager.setCurrentPlayerIndex(expectedNewIndex);
+
+        int actualNewIndex = turnManager.getCurrentPlayerIndex();
+        assertEquals(expectedNewIndex, actualNewIndex);
+    }
 
 }
