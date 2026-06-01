@@ -520,7 +520,7 @@
 
 ### Method under test: `drawFromPile()`
 - **TC81: This method is called successfully** ( :white_check_mark: )
-  - **Name of the test**: drawFromPile_called_callDrawPileAndPlayerAndTurnManagerMethods
+  - **Name of the test**: drawFromPile_called_returnsDrawnCardType
   - **State of the system**: 
     - card = drawPile.removeTop
     - player = getCurrentPlayer

@@ -935,7 +935,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void drawFromPile_called_callDrawPileAndPlayerAndTurnManagerMethods() {
+	public void drawFromPile_called_returnsDrawnCardType() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
