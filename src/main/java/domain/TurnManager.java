@@ -58,6 +58,16 @@ public class TurnManager {
         currentPlayerIndex = newPlayerIndex;
     }
 
+    public void toggleSelectedPlayerCardAt(int handCardIndex) {
+        getCurrentPlayer().toggleSelectedHandCardAt(handCardIndex);
+    }
+
+    public void updateAfterDraw(Card card) {
+        decrementDrawCount();
+        getCurrentPlayer().deselectHandCards();
+        getCurrentPlayer().addCardToHand(card);
+    }
+
     public void incrementDrawCount() {
         drawCount++;
     }
@@ -74,6 +84,7 @@ public class TurnManager {
     }
 
     public void advanceTurn() {
+        getCurrentPlayer().deselectHandCards();
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 
         if (currentPlayerIndex == GameConstants.STARTING_PLAYER_INDEX) {

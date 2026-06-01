@@ -312,6 +312,13 @@ public class TurnManagerTests {
         players.add(mockPlayer2);
         players.add(mockPlayer3);
 
+        mockPlayer1.deselectHandCards();
+        EasyMock.expectLastCall();
+        mockPlayer2.deselectHandCards();
+        EasyMock.expectLastCall();
+        mockPlayer3.deselectHandCards();
+        EasyMock.expectLastCall();
+
         EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3);
 
         TurnManager turnManager = new TurnManager(players);
