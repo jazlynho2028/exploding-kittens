@@ -178,7 +178,7 @@
   - **Expected output**: throw IllegalStateException "error.cardNotInHand"
 
 ### Method under test: `setCurrentPlayerIndex(int newPlayerIndex)`
-- **TC31: Negative index** ( :x: )
+- **TC31: Negative index** ( :white_check_mark: )
   - **Name of the test**: setCurrentPlayerIndex_invalidIndex_failed
   - **State of the system**: TurnManager constructed with 1 player, newPlayerIndex = 0
   - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"

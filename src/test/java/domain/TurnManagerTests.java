@@ -625,4 +625,24 @@ public class TurnManagerTests {
         EasyMock.verify(mockPlayer);
     }
 
+    @Test
+    public void setCurrentPlayerIndex_invalidIndex_failed() {
+        int newPlayerIndex = -1;
+
+        Player mockPlayer = EasyMock.createMock(Player.class);
+        List<Player> players = List.of(mockPlayer);
+
+        String expectedMsg = "error.invalidPlayerIndex";
+
+        EasyMock.replay(mockPlayer);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                turnManager.setCurrentPlayerIndex(newPlayerIndex));
+
+        String actualMsg = exception.getMessage();
+        assertEquals(expectedMsg, actualMsg);
+    }
+
 }
