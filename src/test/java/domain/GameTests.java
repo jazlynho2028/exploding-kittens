@@ -567,31 +567,28 @@ public class GameTests {
 		);
 	}
 
-//	@Test
-//	public void getTopDiscardId_emptyDiscardPile_failed() {
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createNiceMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		String expectedMsg = "error.emptyDeck";
-//
-//		EasyMock.expect(discardPile.peekTop()).andThrow(
-//				new IllegalStateException(expectedMsg)
-//		);
-//
-//		EasyMock.replay(player1, player2, drawPile, discardPile);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		assertThrows(IllegalStateException.class, game::getTopDiscardId);
-//
-//		EasyMock.verify(player1, player2, drawPile, discardPile);
-//	}
-//
+	@Test
+	public void getTopDiscardId_emptyDiscardPile_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		String expectedMsg = "error.emptyDeck";
+
+		EasyMock.expect(discardPile.peekTop()).andThrow(
+				new IllegalStateException(expectedMsg)
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		assertThrows(IllegalStateException.class, game::getTopDiscardId);
+
+		EasyMock.verify(discardPile);
+	}
+
 //	@Test
 //	public void getTopDiscardId_nonEmptyDiscardPile_returnTopCardId() {
 //		Player player1 = EasyMock.createNiceMock(Player.class);

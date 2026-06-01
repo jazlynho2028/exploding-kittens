@@ -373,7 +373,7 @@
     - applyMildDraw is called
 
 ### Method under test: `getTopDiscardId()`
-- **TC62: Empty discard pile** ( :x: )
+- **TC62: Empty discard pile** ( :white_check_mark: )
   - **Name of the test**: getTopDiscardId_emptyDiscardPile_failed
   - **State of the system**: discardPile.peekTop throws InvalidStateException "error.emptyDeck"
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
