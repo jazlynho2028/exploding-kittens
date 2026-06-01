@@ -1023,29 +1023,29 @@ public class GameTests {
 		EasyMock.verify(drawPile, turnManager);
 	}
 
-//	@ParameterizedTest
-//	@CsvSource({
-//			"true",
-//			"false"
-//	})
-//	public void toggleFaceUp_called_togglesFaceUp(boolean initialFaceUp) {
-//		List<Player> players = EasyMock.createMock(List.class);
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		EasyMock.replay(players, drawPile, discardPile, turnManager);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//		game.setIsFaceUp(initialFaceUp);
-//
-//		game.toggleFaceUp();
-//
-//		boolean updatedFaceUp = game.getIsFaceUp();
-//
-//		assertNotEquals(initialFaceUp, updatedFaceUp);
-//	}
-//
+	@ParameterizedTest
+	@CsvSource({
+			"true",
+			"false"
+	})
+	public void toggleFaceUp_called_togglesFaceUp(boolean initialFaceUp) {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.setIsFaceUp(initialFaceUp);
+
+		game.toggleFaceUp();
+
+		boolean updatedFaceUp = game.getIsFaceUp();
+
+		assertNotEquals(initialFaceUp, updatedFaceUp);
+	}
+
 //	@Test
 //	public void toggleSelectedCurrentPlayerCardAt_called_calledTurnManagerToggle() {
 //		List<Player> players = EasyMock.createMock(List.class);
