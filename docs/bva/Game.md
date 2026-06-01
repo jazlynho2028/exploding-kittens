@@ -85,14 +85,14 @@
   - **Expected output**: returns GameConstants.STARTING_PLAYER_INDEX
 
 ### Method under test: `getCurrentPlayer()`
-- **TC14: Current player is 0** ( :x: )
+- **TC14: Current player is 0** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayer_called_returnCurrentPlayer
   - **State of the system**: 
     - players = [player1, player2]
     - turnManager.getCurrentPlayerIndex = 0
   - **Expected output**: returns player1
 
-- **TC15: Current player is 1** ( :x: )
+- **TC15: Current player is 1** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayer_called_returnCurrentPlayer
   - **State of the system**:
     - players = [player1, player2]
