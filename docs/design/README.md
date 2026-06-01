@@ -13,13 +13,19 @@ This application follows an MVC (Model - View - Controller) architecture.
   - Type: main class
   - Responsibility: Application's entry point. Initializes `AssetManager` and handles screen navigation throughout the app. Responsible for building the game model once player setup is complete.
 
-**Datasource**
+# **Datasource**
+This layer handles all the file loading.
 - interface FileLoader.java
+  - Responsibility: Defines methods for loading a file and getting its URL. 
 - FontLoader.java implements FileLoader
+  - Responsibility: Loads a font file and returns its URL. 
 - ImageLoader.java implements FileLoader
+  - Responsibility: Loads an image file and returns its URL. 
 - PathLoader.java implements FileLoader
 - interface PathLoader.java
+  - Responsibility: Defines methods for loading a file and reading its contents. 
 - IconLoader.java implements PathLoader
+  - Responsibility: Reads an icon file and returns its contents to display icons in the UI. 
 
 **Additional UI Classes**
 - SceneManager.java
