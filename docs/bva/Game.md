@@ -503,7 +503,7 @@
   - **Expected output**: isFaceUp = false
 
 ### Method under test: `drawFromPile()`
-- **TC81: This method is called successfully** ( :x: )
+- **TC81: This method is called successfully** ( :drawFromPile_called_callDrawPileAndTurnManagerMethods: )
   - **Name of the test**: drawFromPile_called_callDrawPileAndTurnManagerMethods
   - **State of the system**: 
     - card = drawPile.removeTop
