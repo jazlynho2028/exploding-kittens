@@ -83,7 +83,7 @@
 2. [Done] Jazlyn : reconduct BVA analysis for Game.java
 3. [6% Done] DJ/Jazlyn: reimplement Game.java based on new BVA
 4. [Done] Ejean: DeckBuilder.java
-5. [Done] Luke: Revise Player.java
+5. [Done] Luke/DJ: Revise Player.java
 6. [Done] Luke: Revise Card.java
 7. [Done] Luke: Revise TurnManager.java
 8. [Done] Irene: Deck.java
