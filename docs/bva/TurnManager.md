@@ -170,8 +170,8 @@
   - **State of the system**: TurnManager constructed with 1 player
   - **Expected output**: calls removeCardFromHand with card on current player
 
-- **TC30: Player method throws exception** ( :x: )
-  - **Name of the test**: removeCardFromCurrentPlayerHand_onePlayer_callsPlayerMethod
+- **TC30: Player method throws exception** ( :white_check_mark: )
+  - **Name of the test**: removeCardFromCurrentPlayerHand_onePlayer_failed
   - **State of the system**: 
     - TurnManager constructed with 1 player
     - removeCardFromHand with card on current player throws IllegalStateException "error.cardNotInHand"

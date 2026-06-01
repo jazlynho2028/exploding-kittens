@@ -598,4 +598,31 @@ public class TurnManagerTests {
         EasyMock.verify(mockPlayer);
     }
 
+    @Test
+    public void removeCardFromCurrentPlayerHand_onePlayer_failed() {
+        int currentPlayerIndex = 0;
+        Card mockCard = EasyMock.createMock(Card.class);
+        Player mockPlayer = EasyMock.createMock(Player.class);
+        List<Player> players = List.of(mockPlayer);
+
+        String expectedMsg = "error.cardNotInHand";
+
+        players.get(currentPlayerIndex).removeCardFromHand(mockCard);
+        EasyMock.expectLastCall().andThrow(
+                new IllegalStateException(expectedMsg)
+        );
+
+        EasyMock.replay(mockPlayer, mockCard);
+
+        TurnManager turnManager = new TurnManager(players);
+
+        Exception exception = assertThrows(IllegalStateException.class, () ->
+                turnManager.removeCardFromCurrentPlayerHand(mockCard));
+
+        String actualMsg = exception.getMessage();
+        assertEquals(expectedMsg, actualMsg);
+
+        EasyMock.verify(mockPlayer);
+    }
+
 }
