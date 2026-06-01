@@ -513,12 +513,12 @@
   - **Expected output**: throw InvalidArgumentException "error.handCardIndexOutOfBounds"
 
 ### Method under test: `advanceTurn()`
-- **TC92: Can end turn** ( :x: )
+- **TC92: Can end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_canEndTurn_advanceTurnAndDeselectCards
   - **State of the system**: canEndTurn = true
   - **Expected output**: turnManager.advanceTurn is called
 
-- **TC93: Cannot end turn** ( :x: )
+- **TC93: Cannot end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
   - **State of the system**: canEndTurn = false
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"

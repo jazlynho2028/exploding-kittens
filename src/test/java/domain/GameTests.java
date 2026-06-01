@@ -933,65 +933,63 @@ public class GameTests {
 		EasyMock.verify(turnManager);
 	}
 
-//	@Test
-//	public void advanceTurn_canEndTurn_advanceTurnAndDeselectCards() {
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		turnManager.advanceTurn();
-//		EasyMock.expectLastCall();
-//
-//		player1.deselectHandCards();
-//		EasyMock.expectLastCall();
-//
-//		EasyMock.replay(player1, player2, drawPile, turnManager);
-//
-//		Game game = EasyMock.createMockBuilder(Game.class)
-//				.withConstructor(players, drawPile, discardPile, turnManager)
-//				.addMockedMethod("canEndTurn")
-//				.addMockedMethod("getCurrentPlayer")
-//				.createMock();
-//
-//		EasyMock.expect(game.canEndTurn()).andReturn(true);
-//		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1);
-//
-//		EasyMock.replay(game);
-//
-//		game.advanceTurn();
-//
-//		EasyMock.verify(player1, player2, drawPile, turnManager, game);
-//	}
-//
-//	@Test
-//	public void advanceTurn_cannotEndTurn_failed() {
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		EasyMock.replay(player1, player2, drawPile, turnManager);
-//
-//		Game game = EasyMock.createMockBuilder(Game.class)
-//				.withConstructor(players, drawPile, discardPile, turnManager)
-//				.addMockedMethod("canEndTurn")
-//				.createMock();
-//
-//		EasyMock.expect(game.canEndTurn()).andReturn(false);
-//		EasyMock.replay(game);
-//
-//		Exception exception = assertThrows(IllegalStateException.class, game::advanceTurn);
-//		assertEquals("error.cannotEndTurn", exception.getMessage());
-//
-//		EasyMock.verify(game);
-//	}
+	@Test
+	public void advanceTurn_canEndTurn_advanceTurnAndDeselectCards() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		turnManager.advanceTurn();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canEndTurn")
+				.createMock();
+
+		EasyMock.expect(game.canEndTurn()).andReturn(true);
+
+		EasyMock.replay(game);
+
+		game.advanceTurn();
+
+		EasyMock.verify(turnManager, game);
+	}
+
+	@Test
+	public void advanceTurn_cannotEndTurn_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		String expectedMsg = "error.cannotEndTurn";
+		turnManager.advanceTurn();
+		EasyMock.expectLastCall().andThrow(
+				new IllegalStateException(expectedMsg)
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canEndTurn")
+				.createMock();
+
+		EasyMock.expect(game.canEndTurn()).andReturn(false);
+
+		EasyMock.replay(game);
+
+		Exception exception = assertThrows(IllegalStateException.class, game::advanceTurn);
+
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(game);
+	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
