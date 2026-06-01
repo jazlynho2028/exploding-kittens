@@ -18,9 +18,6 @@ public class Game {
     private boolean isGameOngoing;
     private boolean isFaceUp;
 
-    private int roundCount;
-    private int drawCount;
-
     private static final List<CardType> UNPLAYABLE_TYPES = List.of(
             CardType.DEFUSE,
             CardType.EXPLODING_KITTEN,
@@ -68,7 +65,7 @@ public class Game {
         }
     }
 
-    void populatePlayerHands() {
+    private void populatePlayerHands() {
         populateHandsWithDefuse();
 
         populateHandsWithNonDefuseStartingCards();
@@ -101,8 +98,6 @@ public class Game {
         drawPile.shuffle();
 
         isGameOngoing = true;
-        roundCount = 1;
-        drawCount = 1;
     }
 
     private void addExplodingKittens() {
@@ -129,7 +124,7 @@ public class Game {
     }
 
     public List<String> getCurrentPlayerHandIds() {
-        return getCurrentPlayer().getHandIds();
+        return turnManager.getCurrentPlayerHandIds();
     }
 
     public Player getCurrentPlayer() {
@@ -137,10 +132,11 @@ public class Game {
     }
 
     public boolean canPlaySelected() {
-        List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
+        List<Card> selectedCards = turnManager.getCurrentSelectedCards();
         if (selectedCards.size() != 1) {
             return false;
         }
+
         CardType type = selectedCards.get(0).getType();
         return !UNPLAYABLE_TYPES.contains(type);
     }
@@ -150,12 +146,12 @@ public class Game {
             throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
 
-        List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
+        List<Card> selectedCards = turnManager.getCurrentSelectedCards();
         CardType cardType = selectedCards.get(0).getType();
 
-        for (Card card : getCurrentPlayer().getSelectedCards()) {
+        for (Card card : selectedCards) {
             card.toggleSelected();
-            getCurrentPlayer().removeCardFromHand(card);
+            turnManager.removeCardFromCurrentPlayerHand(card);
             discardPile.addCard(card);
         }
 
@@ -222,7 +218,7 @@ public class Game {
     }
 
     public boolean canEndTurn() {
-        return getIsGameOngoing() && getDrawCount() == 0;
+        return isGameOngoing && turnManager.getDrawCount() == 0;
     }
 
     public boolean isDrawPileEmpty() {
@@ -234,7 +230,7 @@ public class Game {
     }
 
     public boolean getCanDraw() {
-        return getIsGameOngoing() && getDrawCount() > 0;
+        return isGameOngoing && turnManager.getDrawCount() > 0;
     }
 
     public boolean getIsFaceUp() {
@@ -251,12 +247,7 @@ public class Game {
 
     public void drawFromPile() {
         Card card = drawPile.removeTop();
-        Player currentPlayer = getCurrentPlayer();
-
-        turnManager.decrementDrawCount();
-        currentPlayer.deselectHandCards();
-
-        currentPlayer.addCardToHand(card);
+        turnManager.updateAfterDraw(card);
     }
 
     public void toggleFaceUp() {
@@ -264,7 +255,7 @@ public class Game {
     }
 
     public void toggleSelectedPlayerCardAt(int handCardIndex) {
-        getCurrentPlayer().toggleSelectedHandCardAt(handCardIndex);
+        turnManager.toggleSelectedPlayerCardAt(handCardIndex);
     }
 
     public void advanceTurn() {
@@ -272,15 +263,10 @@ public class Game {
             throw new IllegalStateException("error.cannotEndTurn");
         }
         turnManager.advanceTurn();
-        getCurrentPlayer().deselectHandCards();
     }
 
-    int getRoundCount() {
-        return roundCount;
-    }
-
-    int getDrawCount() {
-        return drawCount;
+    void setIsGameOngoing(boolean isGameOngoing) {
+        this.isGameOngoing = isGameOngoing;
     }
 
     void setIsFaceUp(boolean isFaceUp) {

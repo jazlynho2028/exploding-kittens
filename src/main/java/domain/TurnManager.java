@@ -61,7 +61,7 @@ public class TurnManager {
     public void toggleSelectedPlayerCardAt(int handCardIndex) {
         getCurrentPlayer().toggleSelectedHandCardAt(handCardIndex);
     }
-
+    
     public void removeCardFromCurrentPlayerHand(Card card) {
         getCurrentPlayer().removeCardFromHand(card);
     }
