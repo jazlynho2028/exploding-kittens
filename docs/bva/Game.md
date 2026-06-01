@@ -485,18 +485,18 @@
   - **State of the system**: N/A
   - **Expected output**: turnManager.updateAfterDraw is called with drawPile.removeTop
 
-- **TC84: Throw exception** ( :x: )
+- **TC84: Throw exception** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_called_failed
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throw IllegalStateException "error.emptyDeck"
 
 ### Method under test: `toggleFaceUp()`
-- **TC87: Is face up** ( :x: )
+- **TC87: Is face up** ( :white_check_mark: )
   - **Name of the test**: toggleFaceUp_called_setToFalse
   - **State of the system**: isFaceUp = true
   - **Expected output**: isFaceUp = false
 
-- **TC88: Is face down** ( :x: )
+- **TC88: Is face down** ( :white_check_mark: )
   - **Name of the test**: toggleFaceUp_called_togglesFaceUp
   - **State of the system**: isFaceUp = false
   - **Expected output**: isFaceUp = true
