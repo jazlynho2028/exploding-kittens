@@ -112,7 +112,7 @@ public class GameTests {
 		Player player2 = EasyMock.createNiceMock(Player.class);
 		List<Player> players = List.of(player1, player2);
 
-		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
@@ -135,7 +135,7 @@ public class GameTests {
 	@Test
 	public void startGame_gameIsOngoing_failed() {
 		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
@@ -271,7 +271,7 @@ public class GameTests {
 
 	@Test
 	public void getCurrentPlayerHandIds_called_returnTurnManagerMethodCall() {
-		List<Player> players = EasyMock.createNiceMock(List.class);
+		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
@@ -699,7 +699,7 @@ public class GameTests {
 	@Test
 	public void canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue() {
 		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createNiceMock(Deck.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
