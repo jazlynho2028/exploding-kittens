@@ -493,18 +493,18 @@
 
 ### Method under test: `setFaceUpToFalse()`
 - **TC79: Is face up** ( :white_check_mark: )
-  - **Name of the test**: setFaceUpToFalse_isFaceUp_setToFalse
+  - **Name of the test**: setFaceUpToFalse_called_setToFalse
   - **State of the system**: isFaceUp = true
   - **Expected output**: isFaceUp = false
 
 - **TC80: Is face down** ( :white_check_mark: )
-  - **Name of the test**: setFaceUpToFalse_isFaceDown_setToFalse
+  - **Name of the test**: setFaceUpToFalse_called_setToFalse
   - **State of the system**: isFaceUp = false
   - **Expected output**: isFaceUp = false
 
 ### Method under test: `drawFromPile()`
 - **TC81: This method is called successfully** ( :white_check_mark: )
-  - **Name of the test**: drawFromPile_called_callDrawPileAndTurnManagerMethods
+  - **Name of the test**: drawFromPile_called_callDrawPileAndPlayerAndTurnManagerMethods
   - **State of the system**: 
     - card = drawPile.removeTop
     - player = getCurrentPlayer
