@@ -423,22 +423,12 @@
 ### Method under test: `isDrawPileEmpty()`
 - **TC71: Empty draw pile** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_emptyDrawPile_returnTrue
-  - **State of the system**: drawPile = []
+  - **State of the system**: drawPile.isEmpty = true
   - **Expected output**: returns true
 
-- **TC72: Draw pile has one card** ( :x: )
+- **TC72: Non-empty draw pile** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
-  - **State of the system**: drawPile = [SKIP]
-  - **Expected output**: returns false
-
-- **TC73: Draw pile has two cards of same type** ( :x: )
-  - **Name of the test**: isDrawPileEmpty_called_returnFalse
-  - **State of the system**: drawPile = [SKIP, SKIP]
-  - **Expected output**: returns fal
-
-- **TC74: Draw pile has two different type cards** ( :x: )
-  - **Name of the test**: isDrawPileEmpty_called_returnFalse
-  - **State of the system**: drawPile = [SKIP, ATTACK]
+  - **State of the system**: drawPile.isEmpty = false
   - **Expected output**: returns false
 
 ### Method under test: `getCanDraw()`
