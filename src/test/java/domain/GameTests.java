@@ -884,39 +884,25 @@ public class GameTests {
 		assertNotEquals(initialFaceUp, updatedFaceUp);
 	}
 
-//	@ParameterizedTest
-//	@CsvSource({
-//			"0",
-//			"1"
-//	})
-//	public void toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle(int handCardIndex) {
-//		Player player1 = EasyMock.createNiceMock(Player.class);
-//		Player player2 = EasyMock.createNiceMock(Player.class);
-//		List<Player> players = List.of(player1, player2);
-//
-//		Deck drawPile = EasyMock.createNiceMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		player1.toggleSelectedHandCardAt(handCardIndex);
-//		EasyMock.expectLastCall();
-//
-//		EasyMock.replay(player1, player2, drawPile);
-//
-//		Game game = EasyMock.createMockBuilder(Game.class)
-//				.withConstructor(players, drawPile, discardPile, turnManager)
-//				.addMockedMethod("getCurrentPlayer")
-//				.createMock();
-//
-//		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1);
-//
-//		EasyMock.replay(game);
-//
-//		game.toggleSelectedPlayerCardAt(handCardIndex);
-//
-//		EasyMock.verify(player1, player2, drawPile, game);
-//	}
-//
+	@Test
+	public void toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		int handCardIndex = 0;
+		turnManager.toggleSelectedPlayerCardAt(handCardIndex);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		game.toggleSelectedPlayerCardAt(handCardIndex);
+
+		EasyMock.verify(turnManager);
+	}
+
 //	@Test
 //	public void toggleSelectedCurrentPlayerCardAt_indexZero_failed() {
 //		final int HAND_CARD_INDEX = 0;

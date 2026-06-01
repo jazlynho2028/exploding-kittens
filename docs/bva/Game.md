@@ -502,22 +502,15 @@
   - **Expected output**: isFaceUp = true
 
 ### Method under test: `toggleSelectedCurrentPlayerCardAt(int handCardIndex)`
-- **TC89: Hand card index at 0** ( :x: )
+- **TC89: Hand card index at 0** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle
   - **State of the system**: handCardIndex = 0
-  - **Expected output**: getCurrentPlayer.toggleSelectedHandCardAt is called with handCardIndex
-
-- **TC90: Hand card index at 1** ( :x: )
-  - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle
-  - **State of the system**: handCardIndex = 1
-  - **Expected output**: getCurrentPlayer.toggleSelectedHandCardAt is called with handCardIndex
+  - **Expected output**: turnManager.toggleSelectedPlayerCardAt is called with handCardIndex
 
 - **TC91: Player method throws exception** ( :x: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_indexZero_failed
-  - **State of the system**:
-    - handCardIndex = 0
-    - getCurrentPlayer.toggleSelectedHandCardAt with handCardIndex throws InvalidArgumentException "error.handCardIndexOutOfBounds"
-  - **Expected output**: throws InvalidArgumentException "error.handCardIndexOutOfBounds"
+  - **State of the system**: turnManager.toggleSelectedPlayerCardAt throws InvalidArgumentException "error.handCardIndexOutOfBounds"
+  - **Expected output**: throw InvalidArgumentException "error.handCardIndexOutOfBounds"
 
 ### Method under test: `advanceTurn()`
 - **TC92: Can end turn** ( :x: )
