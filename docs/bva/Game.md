@@ -97,42 +97,42 @@
   - **Expected output**: returns turnManager.getCurrentPlayer
 
 ### Method under test: `canPlaySelected()`
-- **TC20: No cards selected** ( :x: )
+- **TC20: No cards selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCardTypes = []
   - **Expected output**: returns false
 
-- **TC21: One Defuse selected** ( :x: )
+- **TC21: One Defuse selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCardTypes = [DEFUSE]
   - **Expected output**: returns false
 
-- **TC22: One Exploding Kitten selected** ( :x: )
+- **TC22: One Exploding Kitten selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCardTypes = [EXPLODING_KITTEN]
   - **Expected output**: returns false
 
-- **TC23: One Cat Card 1 selected** ( :x: )
+- **TC23: One Cat Card 1 selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCardTypes = [CAT_CARD_1]
   - **Expected output**: returns false
 
-- **TC24: One Cat Card 2 selected** ( :x: )
+- **TC24: One Cat Card 2 selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCardTypes = [CAT_CARD_2]
   - **Expected output**: returns false
 
-- **TC25: One Cat Card 3 selected** ( :x: )
+- **TC25: One Cat Card 3 selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCardTypes = [CAT_CARD_3]
   - **Expected output**: returns false
 
-- **TC26: One Cat Card 4 selected** ( :x: )
+- **TC26: One Cat Card 4 selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCardTypes = [CAT_CARD_4]
   - **Expected output**: returns false
 
-- **TC27: One Feral Cat selected** ( :x: )
+- **TC27: One Feral Cat selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCardTypes = [FERAL_CAT]
   - **Expected output**: returns false
