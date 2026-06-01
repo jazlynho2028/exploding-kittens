@@ -542,7 +542,7 @@
     - handCardIndex = 0
   - **Expected output**: player.toggleSelectedPlayerCardAt is called with handCardIndex
 
-- **TC87: Player method throws exception** ( :x: )
+- **TC87: Player method throws exception** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_indexZero_failed
   - **State of the system**: player.toggleSelectedPlayerCardAt throws InvalidArgumentException "error.handCardIndexOutOfBounds"
   - **Expected output**: throw InvalidArgumentException "error.handCardIndexOutOfBounds"
