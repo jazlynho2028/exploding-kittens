@@ -476,7 +476,7 @@
   - **State of the system**: newPlayerIndex = 0
   - **Expected output**: calls turnManager.setCurrentPlayerIndex with newPlayerIndex
 
-- **TC76: This method is called** ( :x: )
+- **TC76: This method is called** ( :white_check_mark: )
   - **Name of the test**: changeCurrentPlayerIndex_called_failed
   - **State of the system**: turnManager.setCurrentPlayerIndex with newPlayerIndex throws IllegalArgumentException "error.invalidPlayerIndex"
   - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"
