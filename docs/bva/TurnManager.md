@@ -27,12 +27,12 @@
   - **State of the system**: currentDrawCount = 0
   - **Expected output**: IllegalStateException("error.negativeDrawCount")
 
-- **TC5: Decrementing from a positive value successfully reduces count** ( :white_check_mark: )
+- **TC5: Decrementing from a positive value successfully reduces count** ( :x: )
   - **Name of the test**: decrementDrawCount_fromOne_toZero
   - **State of the system**: currentDrawCount = 1
   - **Expected output**: getCurrentDrawCount() = 0
 
-- **TC6: Decrementing from a positive value subtracts from the total** ( :white_check_mark: )
+- **TC6: Decrementing from a positive value subtracts from the total** ( :x: )
   - **Name of the test**: decrementDrawCount_fromTwo_toOne
   - **State of the system**: currentDrawCount = 2
   - **Expected output**: getCurrentDrawCount() = 1

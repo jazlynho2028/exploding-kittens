@@ -41,133 +41,21 @@ public class TurnManagerTests {
         assertEquals(1, roundCount);
     }
 
-//    @Test
-//    public void getCurrentPlayerIndex_minimumPlayers_returnsZero() {
-//        final int firstPlayerIndex = 0;
-//        List<Player> players = new ArrayList<>();
-//
-//        Player mockPlayer1 = EasyMock.createMock(Player.class);
-//        Player mockPlayer2 = EasyMock.createMock(Player.class);
-//
-//        players.add(mockPlayer1);
-//        players.add(mockPlayer2);
-//
-//        EasyMock.replay(mockPlayer1, mockPlayer2);
-//
-//        TurnManager turnManager = new TurnManager(players);
-//
-//        int actual = turnManager.getCurrentPlayerIndex();
-//
-//        assertEquals(firstPlayerIndex, actual);
-//    }
-//
-//    @Test
-//    public void getCurrentPlayerIndex_moreThanOnePlayer_returnsZero() {
-//        final int firstPlayerIndex = 0;
-//        List<Player> players = new ArrayList<>();
-//        Player mockPlayer1 = EasyMock.createMock(Player.class);
-//        Player mockPlayer2 = EasyMock.createMock(Player.class);
-//        Player mockPlayer3 = EasyMock.createMock(Player.class);
-//
-//        players.add(mockPlayer1);
-//        players.add(mockPlayer2);
-//        players.add(mockPlayer3);
-//
-//        EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3);
-//
-//        TurnManager turnManager = new TurnManager(players);
-//        int actual = turnManager.getCurrentPlayerIndex();
-//
-//        assertEquals(firstPlayerIndex, actual);
-//    }
-//
-//    @Test
-//    public void getCurrentPlayerIndex_maximumPlayers_returnsZero() {
-//        final int firstPlayerIndex = 0;
-//        List<Player> players = new ArrayList<>();
-//        Player mockPlayer1 = EasyMock.createMock(Player.class);
-//        Player mockPlayer2 = EasyMock.createMock(Player.class);
-//        Player mockPlayer3 = EasyMock.createMock(Player.class);
-//        Player mockPlayer4 = EasyMock.createMock(Player.class);
-//
-//        players.add(mockPlayer1);
-//        players.add(mockPlayer2);
-//        players.add(mockPlayer3);
-//        players.add(mockPlayer4);
-//
-//        EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3, mockPlayer4);
-//
-//        TurnManager turnManager = new TurnManager(players);
-//        int actual = turnManager.getCurrentPlayerIndex();
-//
-//        assertEquals(firstPlayerIndex, actual);
-//    }
-//
-//    @Test
-//    public void incrementDrawCount_fromZero_success() {
-//        List<Player> players = new ArrayList<>();
-//
-//        Player mockPlayer1 = EasyMock.createMock(Player.class);
-//
-//        players.add(mockPlayer1);
-//
-//        EasyMock.replay(mockPlayer1);
-//
-//        TurnManager turnManager = new TurnManager(players);
-//
-//        turnManager.decrementDrawCount();
-//        turnManager.incrementDrawCount();
-//
-//        int expected = 1;
-//        int actual = turnManager.getDrawCount();
-//
-//        assertEquals(expected, actual);
-//
-//        EasyMock.verify(mockPlayer1);
-//    }
-//
-//    @Test
-//    public void incrementDrawCount_fromOne_success() {
-//        List<Player> players = new ArrayList<>();
-//
-//        Player mockPlayer1 = EasyMock.createMock(Player.class);
-//
-//        players.add(mockPlayer1);
-//
-//        EasyMock.replay(mockPlayer1);
-//
-//        TurnManager turnManager = new TurnManager(players);
-//
-//        turnManager.incrementDrawCount();
-//
-//        int expected = 2;
-//        int actual = turnManager.getDrawCount();
-//
-//        assertEquals(expected, actual);
-//
-//        EasyMock.verify(mockPlayer1);
-//    }
-//
-//    @Test
-//    public void decrementDrawCount_fromZero_throwsIllegalStateException() {
-//        List<Player> players = new ArrayList<>();
-//        Player mockPlayer1 = EasyMock.createMock(Player.class);
-//        players.add(mockPlayer1);
-//
-//        EasyMock.replay(mockPlayer1);
-//
-//        TurnManager turnManager = new TurnManager(players);
-//        turnManager.decrementDrawCount();
-//
-//        IllegalStateException exception = assertThrows(
-//                IllegalStateException.class,
-//                turnManager::decrementDrawCount
-//        );
-//
-//        assertEquals("error.negativeDrawCount", exception.getMessage());
-//        EasyMock.verify(mockPlayer1);
-//    }
-//
+    @Test
+    public void decrementDrawCount_fromZero_throwsIllegalStateException() {
+        int numPlayers = 1;
+
+        TurnManager turnManager = new TurnManager(numPlayers);
+        turnManager.decrementDrawCount();
+
+        IllegalStateException exception = assertThrows(
+                IllegalStateException.class,
+                turnManager::decrementDrawCount
+        );
+
+        assertEquals("error.negativeDrawCount", exception.getMessage());
+    }
+
 //    @Test
 //    public void decrementDrawCount_fromOne_toZero() {
 //        List<Player> players = new ArrayList<>();
