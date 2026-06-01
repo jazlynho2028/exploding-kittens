@@ -40,7 +40,7 @@
   - **Expected output**: throw IllegalStateException "error.emptyDeck"
 
 ### Method under test: `startGame()`
-- **TC7: Game is already ongoing** ( :x: )
+- **TC7: Game is already ongoing** ( :white_check_mark: )
   - **Name of the test**: startGame_gameIsOngoing_failed
   - **State of the system**: isGameOngoing = true
   - **Expected output**: throw IllegalStateException "error.gameAlreadyStarted"
@@ -52,8 +52,6 @@
     - drawPile.addCard called once (N-1=1) with EXPLODINGKITTEN_1
     - drawPile.shuffle called
     - isGameOngoing = true
-    - turnManager.incrementRound called
-    - turnManager.incrementDraw called
 
 - **TC9: Start game with 4 players** ( :x: )
   - **Name of the test**: startGame_gameIsNotOngoing_startFirstRound
@@ -62,8 +60,6 @@
     - drawPile.addCard called three times (N-1=3) with EXPLODINGKITTEN_1 to 3
     - drawPile.shuffle called
     - isGameOngoing = true
-    - turnManager.incrementRound called
-    - turnManager.incrementDraw called
 
 ### Method under test: `getPlayerNames()`
 - **TC10: Get names for two players** ( :x: )
