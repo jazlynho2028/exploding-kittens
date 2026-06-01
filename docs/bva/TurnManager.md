@@ -3,7 +3,7 @@
 - **TC1: Zero players throws exception** ( :x: )
   - **Name of the test**: constructor_zeroPlayers_throwsException
   - **State of the system**: numPlayers = 0
-  - **Expected output**: IllegalArgumentException with the message "error.emptyPlayerList"
+  - **Expected output**: IllegalArgumentException with the message "error.zeroOrNegativePlayers"
 
 - **TC2: One player** ( :x: )
   - **Name of the test**: constructor_validPlayerCount_setInitialCounts
