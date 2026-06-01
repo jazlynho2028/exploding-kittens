@@ -1101,32 +1101,38 @@ public class GameTests {
 		EasyMock.verify(currentPlayer, game);
 	}
 
-//	@Test
-//	public void advanceTurn_canEndTurn_advanceTurnAndDeselectCards() {
-//		List<Player> players = EasyMock.createMock(List.class);
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		turnManager.advanceTurn();
-//		EasyMock.expectLastCall();
-//
-//		EasyMock.replay(players, drawPile, discardPile, turnManager);
-//
-//		Game game = EasyMock.createMockBuilder(Game.class)
-//				.withConstructor(players, drawPile, discardPile, turnManager)
-//				.addMockedMethod("canEndTurn")
-//				.createMock();
-//
-//		EasyMock.expect(game.canEndTurn()).andReturn(true);
-//
-//		EasyMock.replay(game);
-//
-//		game.advanceTurn();
-//
-//		EasyMock.verify(turnManager, game);
-//	}
-//
+	@Test
+	public void advanceTurn_canEndTurn_advanceTurnAndDeselectCards() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		turnManager.incrementTurn();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canEndTurn")
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.canEndTurn()).andReturn(true);
+		EasyMock.expect(game.getCurrentPlayer()).andReturn(currentPlayer);
+
+		EasyMock.replay(game);
+
+		game.advanceTurn();
+
+		EasyMock.verify(turnManager, currentPlayer, game);
+	}
+
 //	@Test
 //	public void advanceTurn_cannotEndTurn_failed() {
 //		List<Player> players = EasyMock.createMock(List.class);
