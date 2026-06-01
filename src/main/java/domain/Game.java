@@ -123,12 +123,12 @@ public class Game {
         return STARTING_PLAYER_INDEX;
     }
 
-    public List<String> getCurrentPlayerHandIds() {
-        return getCurrentPlayer().getHandIds();
-    }
-
     public Player getCurrentPlayer() {
         return players.get(getCurrentPlayerIndex());
+    }
+
+    public List<String> getCurrentPlayerHandIds() {
+        return getCurrentPlayer().getHandIds();
     }
 
     public boolean canPlaySelected() {
