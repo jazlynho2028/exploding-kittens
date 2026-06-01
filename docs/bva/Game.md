@@ -111,7 +111,7 @@
   - **State of the system**: selectedCardTypes = []
   - **Expected output**: returns false
 
-- **TC18: One Defuse selected** ( :x: )
+- **TC18: One Defuse selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
   - **State of the system**: selectedCardTypes = [DEFUSE]
   - **Expected output**: returns false

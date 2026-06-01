@@ -304,7 +304,7 @@ public class GameTests {
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHandIds()).andReturn(expectedHandIds);
 
-		EasyMock.replay(players, discardPile, turnManager, currentPlayer);
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
@@ -321,54 +321,62 @@ public class GameTests {
 
 		EasyMock.verify(currentPlayer, game);
 	}
-//
-//	@ParameterizedTest
-//	@MethodSource("provideInvalidCardSelections")
-//	public void canPlaySelected_invalidCards_returnFalse(List<CardType> selectedCardTypes) {
-//		List<Player> players = EasyMock.createMock(List.class);
-//		Deck drawPile = EasyMock.createMock(Deck.class);
-//		Deck discardPile = EasyMock.createMock(Deck.class);
-//		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-//
-//		List<Card> selectedCards = getCardMocksWithTypeExpectations(selectedCardTypes);
-//		EasyMock.expect(turnManager.getCurrentSelectedCards()).andReturn(selectedCards);
-//
-//		EasyMock.replay(players, drawPile, discardPile, turnManager);
-//
-//		Game game = new Game(players, drawPile, discardPile, turnManager);
-//
-//		assertFalse(game.canPlaySelected());
-//
-//		EasyMock.verify(turnManager);
-//	}
-//
-//	private static Stream<Arguments> provideInvalidCardSelections() {
-//		return Stream.of(
-//				Arguments.of(List.of()),
-//				Arguments.of(List.of(CardType.DEFUSE)),
-//				Arguments.of(List.of(CardType.EXPLODING_KITTEN)),
-//				Arguments.of(List.of(CardType.CAT_CARD_1)),
-//				Arguments.of(List.of(CardType.CAT_CARD_2)),
-//				Arguments.of(List.of(CardType.CAT_CARD_3)),
-//				Arguments.of(List.of(CardType.CAT_CARD_4)),
-//				Arguments.of(List.of(CardType.FERAL_CAT))
-//		);
-//	}
-//
-//	private List<Card> getCardMocksWithTypeExpectations(List<CardType> cardTypes) {
-//		List<Card> selectedCards = new ArrayList<>();
-//
-//		for (CardType cardType : cardTypes) {
-//			Card card = EasyMock.createMock(Card.class);
-//			EasyMock.expect(card.getType()).andReturn(cardType);
-//			EasyMock.replay(card);
-//
-//			selectedCards.add(card);
-//		}
-//
-//		return selectedCards;
-//	}
-//
+
+	@ParameterizedTest
+	@MethodSource("provideInvalidCardSelections")
+	public void canPlaySelected_invalidCards_returnFalse(List<CardType> selectedCardTypes) {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<Card> selectedCards = getCardMocksWithTypeExpectations(selectedCardTypes);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.getCurrentPlayer()).andReturn(currentPlayer);
+
+		EasyMock.replay(game);
+
+		assertFalse(game.canPlaySelected());
+
+		EasyMock.verify(currentPlayer, game);
+	}
+
+	private static Stream<Arguments> provideInvalidCardSelections() {
+		return Stream.of(
+				Arguments.of(List.of()),
+				Arguments.of(List.of(CardType.DEFUSE)),
+				Arguments.of(List.of(CardType.EXPLODING_KITTEN)),
+				Arguments.of(List.of(CardType.CAT_CARD_1)),
+				Arguments.of(List.of(CardType.CAT_CARD_2)),
+				Arguments.of(List.of(CardType.CAT_CARD_3)),
+				Arguments.of(List.of(CardType.CAT_CARD_4)),
+				Arguments.of(List.of(CardType.FERAL_CAT))
+		);
+	}
+
+	private List<Card> getCardMocksWithTypeExpectations(List<CardType> cardTypes) {
+		List<Card> selectedCards = new ArrayList<>();
+
+		for (CardType cardType : cardTypes) {
+			Card card = EasyMock.createMock(Card.class);
+			EasyMock.expect(card.getType()).andReturn(cardType);
+			EasyMock.replay(card);
+
+			selectedCards.add(card);
+		}
+
+		return selectedCards;
+	}
+
 //	@ParameterizedTest
 //	@MethodSource("provideValidCardSelections")
 //	public void canPlaySelected_validCards_returnTrue(List<CardType> selectedCardTypes) {
