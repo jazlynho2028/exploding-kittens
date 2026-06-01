@@ -131,6 +131,9 @@ public class PlayerDeckControllerTests {
 		view.bindPlayCardsButton(EasyMock.anyObject());
 		EasyMock.expectLastCall();
 
+		view.bindEndTurnButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
 		view.bindNameTags(EasyMock.anyObject());
 		EasyMock.expectLastCall();
 
@@ -557,6 +560,40 @@ public class PlayerDeckControllerTests {
 		controller.onPlayCardsButton();
 
 		EasyMock.verify(model, onError);
+	}
+
+	@Test
+	public void onEndTurnButton_called_success() {
+		int currentPlayerIndex = 0;
+		boolean canEndTurn = true;
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("handleChangeCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		setUpRenderDrawPileExpectations();
+		setUpBuildAndRenderTurnControlSectionExpectations(canEndTurn);
+
+		model.advanceTurn();
+		EasyMock.expectLastCall();
+
+		controller.handleChangeCurrentPlayer(currentPlayerIndex);
+		EasyMock.expectLastCall();
+
+		view.renderDrawPile(canDraw, isDrawPileEmpty);
+		EasyMock.expectLastCall();
+
+		view.buildAndRenderTurnControlSection(isGameOngoing, canPlaySelected, canEndTurn);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onEndTurnButton();
+
+		EasyMock.verify(model, view, controller);
 	}
 
 }

@@ -36,6 +36,9 @@
     - view.bindDrawPileButton is called
     - view.bindHandVisibilityButton is called
     - view.bindStartGameButtonview.bindNameTags is called
+    - view.bindPlayCardsButton is called
+    - view.bindEndTurnButton is called
+    - view.bindNameTags is called
     - view.bindPlayerHandCardButtons is called
 
 ### Method under test: `onNameTag(int playerIndex)`
@@ -189,10 +192,10 @@
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onEndTurnButton()`
-- **TC21: Turn ends successfully** ( :x: )
+- **TC21: Turn ends successfully** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_success
   - **State of the system**: 
-    - newPlayerIndex = model.getCurrentPlayerIndex
+    - currentPlayerIndex = 0
     - canDraw = true
     - isDrawPileEmpty = true
     - isGameOngoing = true
@@ -201,7 +204,7 @@
   - **Expected output**:
     - model.advanceTurn is called
     - handleChangeCurrentPlayer is called with newPlayerIndex
-    - view.renderDrawPile is called with canDraw
+    - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.buildAndRenderTurnControlSection is called with isGameOngoing, canPlaySelected, and canEndTurn
 
 - **TC22: Caught exception from model** ( :x: )
