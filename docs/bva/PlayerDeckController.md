@@ -207,7 +207,7 @@
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.buildAndRenderTurnControlSection is called with isGameOngoing, canPlaySelected, and canEndTurn
 
-- **TC22: Caught exception from model** ( :x: )
+- **TC22: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_failed
   - **State of the system**: model.advanceTurn throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
