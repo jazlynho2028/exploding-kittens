@@ -529,7 +529,7 @@
     - turnManager.decrementDrawCount is called
     - player.deselectHandCards is called
     - player.addCardToHand is called with card
-    - returns card.getType
+    - returns card
 
 - **TC82: Throw exception from drawPile** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_drawPileException_failed
