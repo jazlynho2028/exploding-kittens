@@ -23,17 +23,16 @@ public class PlayerDeckView {
 
     private final AssetProvider assetProvider;
 
-    public final Button restartButton;
-    public final HBox playerNamesContainer;
-    public final Button drawPileButton;
-    public final Button discardPileButton;
-    public final HBox handCardsContainer;
-    public final Button handVisibilityButton;
-    public final Button startGameButton;
-    public final Button playCardsButton;
-    public final Button endTurnButton;
-    public final Button explodeButton;
-    public final Button defuseButton;
+    private final HBox playerNamesContainer;
+    private final Button drawPileButton;
+    private final Button discardPileButton;
+    private final HBox handCardsContainer;
+    private final Button handVisibilityButton;
+    private final Button startGameButton;
+    private final Button playCardsButton;
+    private final Button endTurnButton;
+    private final Button explodeButton;
+    private final Button defuseButton;
 
     private final StackPane root;
     private final HBox turnControlSection;
@@ -43,7 +42,6 @@ public class PlayerDeckView {
         this.assetProvider = assetProvider;
 
         root = new StackPane();
-        restartButton = new Button();
         playerNamesContainer = new HBox();
         drawPileButton = new Button();
         discardPileButton = new Button();
@@ -87,6 +85,10 @@ public class PlayerDeckView {
 
     public void bindDefuseButton(Runnable handler) {
         defuseButton.setOnMouseClicked(e -> handler.run());
+    }
+
+    public void bindExplodeButton(Runnable handler) {
+        explodeButton.setOnMouseClicked(e -> handler.run());
     }
 
     public void bindNameTags(Consumer<Integer> handler) {

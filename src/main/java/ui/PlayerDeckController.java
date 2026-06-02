@@ -72,6 +72,7 @@ public class PlayerDeckController {
         bindHandCards();
 
         view.bindDefuseButton(this::onDefuseButton);
+        view.bindExplodeButton(this::onExplodeButton);
     }
 
     private void bindHandCards() {
@@ -211,6 +212,14 @@ public class PlayerDeckController {
     void onDefuseButton() {
         attempt(onError, () -> {
             // model.applyDefuse();
+
+            view.hideOverlay();
+        });
+    }
+
+    void onExplodeButton() {
+        attempt(onError, () -> {
+            // model.applyExplode();
 
             view.hideOverlay();
         });

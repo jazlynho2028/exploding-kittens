@@ -21,10 +21,10 @@ public class PlayerCreateView {
     private final AssetProvider assetProvider;
     private final StackPane root;
 
-    public final VBox playerFieldsContainer;
-    public final Button addPlayerButton;
-    public final Button confirmButton;
-    public final Button restartButton;
+    private final VBox playerFieldsContainer;
+    private final Button addPlayerButton;
+    private final Button confirmButton;
+    private final Button restartButton;
 
     private final List<TextField> textFields = new ArrayList<>();
 
