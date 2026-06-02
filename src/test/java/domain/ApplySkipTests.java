@@ -93,6 +93,8 @@ public class ApplySkipTests {
 
     @Test
     public void applySkip_lastPlayer_turnWraps() {
+        final int expectedDrawCount = 0;
+        final int expectedPlayerIndex = 1;
         Player mockPlayer1 = EasyMock.createMock(Player.class);
         Player mockPlayer2 = EasyMock.createMock(Player.class);
         List<Player> players = new ArrayList<>();
@@ -104,9 +106,9 @@ public class ApplySkipTests {
         TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
 
         mockTurnManager.decrementDrawCount();
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(0); // canEndTurn() in applySkip
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(0); // canEndTurn() in advanceTurn
-        EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(1); // getCurrentPlayer() for deselectHandCards
+        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedDrawCount);
+        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedDrawCount);
+        EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectedPlayerIndex);
         mockPlayer2.deselectHandCards();
         mockTurnManager.incrementTurn();
 
