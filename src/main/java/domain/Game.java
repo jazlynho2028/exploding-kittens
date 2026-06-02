@@ -2,6 +2,7 @@ package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -327,8 +328,24 @@ public class Game {
     }
 
     void applyCatomicBomb() {
-        if (drawPile.isEmpty()) {
-            return;
+        List<Card> explodingKittens = new ArrayList<>();
+        List<Card> others = new ArrayList<>();
+
+        while (!drawPile.isEmpty()) {
+            Card card = drawPile.removeTop();
+            if (card.getType() == CardType.EXPLODING_KITTEN) {
+                explodingKittens.add(card);
+            } else {
+                others.add(card);
+            }
+        }
+
+        for (int i = others.size() - 1; i >= 0; i--) {
+            drawPile.addCard(others.get(i));
+        }
+
+        for (int i = explodingKittens.size() - 1; i >= 0; i--) {
+            drawPile.addCard(explodingKittens.get(i));
         }
     }
 
