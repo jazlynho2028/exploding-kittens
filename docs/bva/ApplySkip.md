@@ -1,4 +1,4 @@
-### Method under test: `toggleSelected()`
+### Method under test: `applySkip()`
 - **TC1: Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
     - **Name of the test:** applySkip_drawCountOne_TurnAdvances
     - **State of the system:** game is ongoing, drawCount = 1 (normal, unattacked turn)
