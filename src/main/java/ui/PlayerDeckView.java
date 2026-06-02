@@ -26,6 +26,7 @@ public class PlayerDeckView {
     public final Button restartButton;
     public final HBox playerNamesContainer;
     public final Button drawPileButton;
+    public final Button discardPileButton;
     public final HBox handCardsContainer;
     public final Button handVisibilityButton;
     public final Button startGameButton;
@@ -42,6 +43,7 @@ public class PlayerDeckView {
         restartButton = new Button();
         playerNamesContainer = new HBox();
         drawPileButton = new Button();
+        discardPileButton = new Button();
         handCardsContainer = new HBox();
         handVisibilityButton = new Button();
         startGameButton = new Button();
@@ -56,12 +58,24 @@ public class PlayerDeckView {
         drawPileButton.setOnMouseClicked(e -> handler.run());
     }
 
+    public void bindDiscardPileButton(Runnable handler) {
+        discardPileButton.setOnMouseClicked(e -> handler.run());
+    }
+
     public void bindHandVisibilityButton(Runnable handler) {
         handVisibilityButton.setOnMouseClicked(e -> handler.run());
     }
 
     public void bindStartGameButton(Runnable handler) {
         startGameButton.setOnMouseClicked(e -> handler.run());
+    }
+
+    public void bindPlayCardsButton(Runnable handler) {
+        playCardsButton.setOnMouseClicked(e -> handler.run());
+    }
+
+    public void bindEndTurnButton(Runnable handler) {
+        endTurnButton.setOnMouseClicked(e -> handler.run());
     }
 
     public void bindNameTags(Consumer<Integer> handler) {
@@ -125,6 +139,18 @@ public class PlayerDeckView {
         drawPileButton.setVisible(!isDrawPileEmpty);
     }
 
+    public void renderDiscardPile(boolean canDraw, String topCardId) {
+        if (topCardId.isEmpty()) {
+            discardPileButton.setVisible(false);
+            return;
+        }
+
+        VBox cardFront = buildCardFront(topCardId);
+        discardPileButton.setGraphic(cardFront);
+        discardPileButton.setVisible(true);
+        discardPileButton.setDisable(!canDraw);
+    }
+
     public void renderHandVisibilityButton(boolean isFaceUp) {
         if (isFaceUp) {
             handVisibilityButton.setText(
@@ -160,20 +186,6 @@ public class PlayerDeckView {
     ) {
         buildTurnControlSection(isGameOngoing);
         renderTurnControlSection(canPlaySelected, canEndTurn);
-    }
-
-    public void buildTurnControlSection(boolean isGameOngoing) {
-        turnControlSection.getChildren().clear();
-
-        turnControlSection.setAlignment(Pos.CENTER_RIGHT);
-        turnControlSection.getStyleClass().add("turn-control-section");
-
-        if (isGameOngoing) {
-            buildAndAddTurnControlButtonsAfterGameStart();
-        }
-        else {
-            buildAndAddTurnControlButtonsBeforeGameStart();
-        }
     }
 
     public void renderTurnControlSection(boolean canPlaySelected, boolean canEndTurn) {
@@ -422,10 +434,20 @@ public class PlayerDeckView {
         StackPane discardPileContainer = new StackPane();
 
         VBox emptyCard = buildEmptyPile();
+        buildDiscardPileButton();
 
-        discardPileContainer.getChildren().add(emptyCard);
+        discardPileContainer.getChildren().addAll(
+                discardPileButton,
+                emptyCard
+        );
 
         return discardPileContainer;
+    }
+
+    private void buildDiscardPileButton() {
+        discardPileButton.getStyleClass().addAll("card", "front");
+        discardPileButton.setVisible(false);
+        discardPileButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
     }
 
     private VBox buildPlayerChoiceSection() {
@@ -555,7 +577,7 @@ public class PlayerDeckView {
     }
 
     private String cardIdToCssClass(String cardId) {
-        return cardId.toLowerCase().replaceAll("_[0-9]+$", "");
+        return cardId.toLowerCase().replaceAll("[0-9]?_[0-9]+$", "");
     }
 
     private HBox buildCardHeader(String cardId) {
@@ -697,6 +719,20 @@ public class PlayerDeckView {
         );
 
         return cardDescription;
+    }
+
+    private void buildTurnControlSection(boolean isGameOngoing) {
+        turnControlSection.getChildren().clear();
+
+        turnControlSection.setAlignment(Pos.CENTER_RIGHT);
+        turnControlSection.getStyleClass().add("turn-control-section");
+
+        if (isGameOngoing) {
+            buildAndAddTurnControlButtonsAfterGameStart();
+        }
+        else {
+            buildAndAddTurnControlButtonsBeforeGameStart();
+        }
     }
 
     private void buildAndAddTurnControlButtonsAfterGameStart() {
