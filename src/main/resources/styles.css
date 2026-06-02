@@ -3,7 +3,7 @@
     gray-1: #E4E3E9;
     gray-2: #B7B4BE;
     gray-4: #4E4E4E;
-    gray-6-tr: #01010120;
+    gray-6-tr: #01010190;
     gray-6: #010101;
 
     beige-2: #D2C3AA;
@@ -293,7 +293,7 @@
 }
 
 .card-front-content.explodingkitten {
-    -fx-border-color: exploding-kitten;
+    -fx-border-color: linear-gradient(to bottom right, red-3, orange-3, yellow-3, orange-3, red-3);
 }
 
 .card-front-content.defuse {
@@ -386,7 +386,7 @@
 }
 
 .card-circle.explodingkitten {
-    -fx-background-color: linear-gradient(to bottom, yellow-3, orange-3, red-3);;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 50%, yellow-3, red-3);
 }
 
 .card-circle.defuse {
@@ -634,4 +634,22 @@
     -fx-fill: yellow-1;
     -fx-scale-x: 1.2;
     -fx-scale-y: 1.2;
+}
+
+.overlay {
+    -fx-background-color: gray-6-tr;
+}
+
+.overlay-content {
+    -fx-spacing: 16px;
+}
+
+.defuse-button {
+    -fx-background-color: linear-gradient(to bottom, yellow-3, defuse, recycle);
+    -fx-background-radius: 8;
+    -fx-text-fill: yellow-0;
+    -fx-border-width: 2;
+    -fx-border-radius: 16;
+    -fx-pref-width: 176px;
+    -fx-padding: -2 0 -2 0;
 }

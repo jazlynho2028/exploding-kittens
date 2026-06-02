@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Card;
 import domain.CardType;
 import domain.Game;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -69,6 +70,8 @@ public class PlayerDeckController {
         view.bindEndTurnButton(this::onEndTurnButton);
         view.bindNameTags(this::onNameTag);
         bindHandCards();
+
+        view.bindDefuseButton(this::onDefuseButton);
     }
 
     private void bindHandCards() {
@@ -109,8 +112,17 @@ public class PlayerDeckController {
 
     void onDrawPile() {
         attempt(onError, () -> {
-            CardType cardType = model.drawFromPile();
+            Card drawnCard = model.drawFromPile();
             // TODO use ^ return value for UI changes if a card effect needs it
+
+            switch (drawnCard.getType()) {
+                case EXPLODING_KITTEN:
+                    view.buildExplodeOverlay(
+                            model.currentPlayerHasDefuse(), drawnCard.getId());
+                    break;
+                default:
+                    break;
+            }
 
             updateDrawPile();
             rebindHandCards();
@@ -193,6 +205,14 @@ public class PlayerDeckController {
             model.advanceTurn();
 
             handleNewTurn(model.getCurrentPlayerIndex());
+        });
+    }
+
+    void onDefuseButton() {
+        attempt(onError, () -> {
+            // model.applyDefuse();
+
+            view.hideOverlay();
         });
     }
 
