@@ -737,10 +737,8 @@ public class PlayerDeckView {
         overlayLayer.setAlignment(Pos.CENTER);
         overlayLayer.getStyleClass().add("overlay");
 
-        overlayLayer.setVisible(true);
-        overlayLayer.setMouseTransparent(false);
-
-        buildExplodeOverlay(false, "EXPLODINGKITTEN_1");
+        overlayLayer.setVisible(false);
+        overlayLayer.setMouseTransparent(true);
     }
 
     private void showOverlay() {

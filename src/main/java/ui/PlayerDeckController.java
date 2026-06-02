@@ -211,7 +211,7 @@ public class PlayerDeckController {
 
     void onDefuseButton() {
         attempt(onError, () -> {
-            // model.applyDefuse();
+            // TODO model.applyDefuse();
 
             view.hideOverlay();
         });
@@ -219,7 +219,7 @@ public class PlayerDeckController {
 
     void onExplodeButton() {
         attempt(onError, () -> {
-            // model.applyExplode();
+            // TODO model.applyExplode();
 
             view.hideOverlay();
         });
