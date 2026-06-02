@@ -2038,17 +2038,11 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		Card skip1 = EasyMock.createMock(Card.class);
-		Card explodingKitten1 = EasyMock.createMock(Card.class);
-		Card attack1 = EasyMock.createMock(Card.class);
-		Card explodingKitten2 = EasyMock.createMock(Card.class);
-		Card shuffle1 = EasyMock.createMock(Card.class);
-
-		EasyMock.expect(skip1.getType()).andStubReturn(CardType.SKIP);
-		EasyMock.expect(explodingKitten1.getType()).andStubReturn(CardType.EXPLODING_KITTEN);
-		EasyMock.expect(attack1.getType()).andStubReturn(CardType.ATTACK);
-		EasyMock.expect(explodingKitten2.getType()).andStubReturn(CardType.EXPLODING_KITTEN);
-		EasyMock.expect(shuffle1.getType()).andStubReturn(CardType.SHUFFLE);
+		Card skip1 = mockCardOfType(CardType.SKIP);
+		Card explodingKitten1 = mockCardOfType(CardType.EXPLODING_KITTEN);
+		Card attack1 = mockCardOfType(CardType.ATTACK);
+		Card explodingKitten2 = mockCardOfType(CardType.EXPLODING_KITTEN);
+		Card shuffle1 = mockCardOfType(CardType.SHUFFLE);
 
 		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
 		EasyMock.expect(drawPile.removeTop()).andReturn(skip1);
