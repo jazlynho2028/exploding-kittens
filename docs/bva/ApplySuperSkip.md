@@ -11,7 +11,7 @@
     - **State of the system:** game is ongoing, drawCount = 2, currentPlayerIndex = 0
     - **Expected output:** decrementDrawCount() called twice, turn advances to currentPlayerIndex = 1
 
-- **TC3: Super Skip under stacked attacks (drawCount = 3+)** ( :x: )
+- **TC3: Super Skip under stacked attacks (drawCount = 3+)** ( :white_check_mark: )
     - **Name of the test:** applySuperSkip_drawCountThree_TurnAdvances
     - **State of the system:** game is ongoing, drawCount = 3, currentPlayerIndex = 0
     - **Expected output:** decrementDrawCount() called three times, turn advances to currentPlayerIndex = 1
