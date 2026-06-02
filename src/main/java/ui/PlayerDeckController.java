@@ -1,5 +1,6 @@
 package ui;
 
+import domain.CardType;
 import domain.Game;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
@@ -64,6 +65,8 @@ public class PlayerDeckController {
         view.bindDrawPileButton(this::onDrawPile);
         view.bindHandVisibilityButton(this::onHandVisibilityButton);
         view.bindStartGameButton(this::onStartGameButton);
+        view.bindPlayCardsButton(this::onPlayCardsButton);
+        view.bindEndTurnButton(this::onEndTurnButton);
         view.bindNameTags(this::onNameTag);
         bindHandCards();
     }
@@ -106,7 +109,8 @@ public class PlayerDeckController {
 
     void onDrawPile() {
         attempt(onError, () -> {
-            model.drawFromPile();
+            CardType cardType = model.drawFromPile();
+            // TODO use ^ return value for UI changes if a card effect needs it
 
             updateDrawPile();
             rebindHandCards();
@@ -154,11 +158,15 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             model.startGame();
 
-            handleChangeCurrentPlayer(model.getStartingPlayerIndex());
-
-            updateDrawPile();
-            rebuildTurnControl();
+            handleNewTurn(model.getStartingPlayerIndex());
         });
+    }
+
+    private void handleNewTurn(int newPlayerIndex) {
+        handleChangeCurrentPlayer(newPlayerIndex);
+
+        updateDrawPile();
+        rebuildTurnControl();
     }
 
     private void rebuildTurnControl() {
@@ -167,6 +175,25 @@ public class PlayerDeckController {
                 model.canPlaySelected(),
                 model.canEndTurn()
         );
+    }
+
+    void onPlayCardsButton() {
+        attempt(onError, () -> {
+            CardType cardType = model.playSelectedCards();
+            // TODO use ^ return value for UI changes if a card effect needs it
+
+            view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
+            rebindHandCards();
+            updateTurnControls();
+        });
+    }
+
+    void onEndTurnButton() {
+        attempt(onError, () -> {
+            model.advanceTurn();
+
+            handleNewTurn(model.getCurrentPlayerIndex());
+        });
     }
 
 }
