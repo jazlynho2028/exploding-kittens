@@ -19,7 +19,7 @@
     - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
     - **Expected output:** currentPlayerIndex wraps to 0, drawCount resets to 1 (from incrementTurn)
 
-- **TC5: Skip with minimum player count (2 players)** ( :x: )
+- **TC5: Skip with minimum player count (2 players)** ( :white_check_mark: )
     - **Name of the test:** applySkip_twoPlayers_turnAdvances
     - **State of the system:**  game is ongoing, 2 players, drawCount = 1, currentPlayerIndex = 0
     - **Expected output:** currentPlayerIndex becomes 1, drawCount resets to 1, the single other player is now active
