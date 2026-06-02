@@ -4,7 +4,7 @@
     - **State of the system:** game is ongoing, drawCount = 1 (normal, unattacked turn)
     - **Expected output:** drawCount resets to 1 (from incrementTurn), currentPlayerIndex becomes 1, turn has advanced automatically
 
-- **TC2: Skip while under attack (drawCount = 2)** ( :x: )
+- **TC2: Skip while under attack (drawCount = 2)** ( :white_check_mark: )
     - **Name of the test:** applySkip_drawCountTwo_TurnNotAdvanced
     - **State of the system:** game is ongoing, drawCount = 2, currentPlayerIndex = 0
     - **Expected output:** drawCount becomes 1, currentPlayerIndex remains 0, turn is NOT advanced, player must still draw a card
