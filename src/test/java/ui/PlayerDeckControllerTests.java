@@ -1,5 +1,6 @@
 package ui;
 
+import domain.CardType;
 import domain.Game;
 import javafx.scene.Scene;
 import org.easymock.EasyMock;
@@ -124,6 +125,12 @@ public class PlayerDeckControllerTests {
 		EasyMock.expectLastCall();
 
 		view.bindStartGameButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		view.bindPlayCardsButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		view.bindEndTurnButton(EasyMock.anyObject());
 		EasyMock.expectLastCall();
 
 		view.bindNameTags(EasyMock.anyObject());
@@ -269,7 +276,8 @@ public class PlayerDeckControllerTests {
 				.addMockedMethod("rebindHandCards")
 				.createMock();
 
-		model.drawFromPile();
+		CardType drawnCardType = CardType.DEFUSE;
+		EasyMock.expect(model.drawFromPile()).andStubReturn(drawnCardType);
 		EasyMock.expectLastCall();
 
 		setUpRenderDrawPileExpectations();
@@ -491,6 +499,118 @@ public class PlayerDeckControllerTests {
 		controller.setOnError(onError);
 
 		controller.onStartGameButton();
+
+		EasyMock.verify(model, onError);
+	}
+
+	@Test
+	public void onPlayCardsButton_called_success() {
+		boolean canDrawFromDiscard = true;
+		boolean canEndTurn = true;
+		String topDiscardId = "SKIP_1";
+		CardType topDiscardType = CardType.SKIP;
+
+		EasyMock.expect(model.canDrawFromDiscard()).andReturn(canDrawFromDiscard);
+		EasyMock.expect(model.getTopDiscardId()).andReturn(topDiscardId);
+
+		setUpRenderTurnControlSectionExpectations(canEndTurn);
+
+		EasyMock.expect(model.playSelectedCards()).andReturn(topDiscardType);
+
+		view.renderDiscardPile(canDrawFromDiscard, topDiscardId);
+		EasyMock.expectLastCall();
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("rebindHandCards")
+				.createMock();
+
+		controller.rebindHandCards();
+		EasyMock.expectLastCall();
+
+		view.renderTurnControlSection(canPlaySelected, canEndTurn);
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onPlayCardsButton();
+
+		EasyMock.verify(model, view, controller);
+	}
+
+	@Test
+	public void onPlayCardsButton_called_failed() {
+		Consumer<String> onError = EasyMock.createMock(Consumer.class);
+
+		model.playSelectedCards();
+		EasyMock.expectLastCall().andThrow(
+				new RuntimeException(expectedMsg)
+		);
+
+		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, onError);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.setOnError(onError);
+
+		controller.onPlayCardsButton();
+
+		EasyMock.verify(model, onError);
+	}
+
+	@Test
+	public void onEndTurnButton_called_success() {
+		int currentPlayerIndex = 0;
+		boolean canEndTurn = true;
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("handleChangeCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		setUpRenderDrawPileExpectations();
+		setUpBuildAndRenderTurnControlSectionExpectations(canEndTurn);
+
+		model.advanceTurn();
+		EasyMock.expectLastCall();
+
+		controller.handleChangeCurrentPlayer(currentPlayerIndex);
+		EasyMock.expectLastCall();
+
+		view.renderDrawPile(canDraw, isDrawPileEmpty);
+		EasyMock.expectLastCall();
+
+		view.buildAndRenderTurnControlSection(isGameOngoing, canPlaySelected, canEndTurn);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onEndTurnButton();
+
+		EasyMock.verify(model, view, controller);
+	}
+
+	@Test
+	public void onEndTurnButton_called_failed() {
+		Consumer<String> onError = EasyMock.createMock(Consumer.class);
+
+		model.advanceTurn();
+		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
+
+		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, onError);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.setOnError(onError);
+
+		controller.onEndTurnButton();
 
 		EasyMock.verify(model, onError);
 	}
