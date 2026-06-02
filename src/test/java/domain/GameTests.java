@@ -2087,4 +2087,43 @@ public class GameTests {
 
 		EasyMock.verify(drawPile, skip1, explodingKitten1, attack1, explodingKitten2, shuffle1);
 	}
+
+	@Test
+	public void applyCatomicBomb_allExplodingKittens_deckOrderUnchanged() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card explodingKitten1 = EasyMock.createMock(Card.class);
+		Card explodingKitten2 = EasyMock.createMock(Card.class);
+		Card explodingKitten3 = EasyMock.createMock(Card.class);
+
+		EasyMock.expect(explodingKitten1.getType()).andStubReturn(CardType.EXPLODING_KITTEN);
+		EasyMock.expect(explodingKitten2.getType()).andStubReturn(CardType.EXPLODING_KITTEN);
+		EasyMock.expect(explodingKitten3.getType()).andStubReturn(CardType.EXPLODING_KITTEN);
+
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten2);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten3);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
+
+		drawPile.addCard(explodingKitten3);
+		EasyMock.expectLastCall();
+		drawPile.addCard(explodingKitten2);
+		EasyMock.expectLastCall();
+		drawPile.addCard(explodingKitten1);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				explodingKitten1, explodingKitten2, explodingKitten3);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applyCatomicBomb();
+
+		EasyMock.verify(drawPile, explodingKitten1, explodingKitten2, explodingKitten3);
+	}
 }
