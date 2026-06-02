@@ -16,7 +16,7 @@
     - **State of the system:** game is ongoing, drawCount = 3, currentPlayerIndex = 0
     - **Expected output:** decrementDrawCount() called three times, turn advances to currentPlayerIndex = 1
 
-- **TC4: Super Skip completes turn for the last player in order (wraparound)** ( :x: )
+- **TC4: Super Skip completes turn for the last player in order (wraparound)** ( :white_check_mark: )
     - **Name of the test:** applySuperSkip_lastPlayer_turnWraps
     - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
     - **Expected output:** decrementDrawCount() called once, currentPlayerIndex wraps to 0
