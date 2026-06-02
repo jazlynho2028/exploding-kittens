@@ -1860,6 +1860,36 @@ public class GameTests {
 		);
 	}
 
+	@Test
+	public void applySwapTopAndBottom_twoCards_swapped() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card card1 = mockCardOfType(CardType.SKIP);
+		Card card2 = mockCardOfType(CardType.ATTACK);
+
+		int deckSize = 2;
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.size()).andReturn(deckSize);
+		EasyMock.expect(drawPile.removeTop()).andReturn(card1);
+		EasyMock.expect(drawPile.removeBottom()).andReturn(card2);
+
+		drawPile.addCard(card1);
+		EasyMock.expectLastCall();
+		drawPile.addCard(card2);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				card1, card2);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applySwapTopAndBottom();
+
+		EasyMock.verify(drawPile, card1, card2);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
@@ -1891,6 +1921,12 @@ public class GameTests {
 		boolean matchesId = Objects.equals(card.getId(), expectedId);
 
 		return matchesType && matchesId;
+	}
+
+	private Card mockCardOfType(CardType cardType) {
+		Card card = EasyMock.createMock(Card.class);
+		EasyMock.expect(card.getType()).andStubReturn(cardType);
+		return card;
 	}
 
 }

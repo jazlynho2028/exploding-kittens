@@ -342,6 +342,16 @@ public class Game {
         if (drawPile.isEmpty()) {
             return;
         }
+
+        if (drawPile.size() == 1) {
+            return;
+        }
+
+        Card top = drawPile.removeTop();
+        Card bottom = drawPile.removeBottom();
+
+        drawPile.addCard(top);
+        drawPile.addCard(bottom);
     }
 
     void applyDrawFromTheBottom() {
