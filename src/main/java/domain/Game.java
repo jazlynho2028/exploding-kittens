@@ -515,7 +515,9 @@ public class Game {
     }
 
     void applyRecycle() {
-        // TODO
+        if (discardPile.isEmpty()) {
+            throw new IllegalStateException("error.emptyDiscardPile");
+        }
     }
 
     void applyDoubleUp() {
