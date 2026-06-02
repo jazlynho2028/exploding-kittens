@@ -942,12 +942,14 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		CardType expectedCardType = CardType.DEFUSE;
-		Card drawnCard = EasyMock.createMock(Card.class);
-		EasyMock.expect(drawnCard.getType()).andStubReturn(expectedCardType);
+		String expectedCardId = "DEFUSE_1";
+		Card expectedCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(expectedCard.getType()).andStubReturn(expectedCardType);
+		EasyMock.expect(expectedCard.getId()).andStubReturn(expectedCardId);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 
-		EasyMock.expect(drawPile.removeTop()).andReturn(drawnCard);
+		EasyMock.expect(drawPile.removeTop()).andReturn(expectedCard);
 
 		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
@@ -955,19 +957,19 @@ public class GameTests {
 		currentPlayer.deselectHandCards();
 		EasyMock.expectLastCall();
 
-		currentPlayer.addCardToHand(drawnCard);
+		currentPlayer.addCardToHand(expectedCard);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
-				drawnCard, currentPlayer);
+				expectedCard, currentPlayer);
 
 		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
 
-		CardType actualCardType = game.drawFromPile();
-		assertEquals(expectedCardType, actualCardType);
+		Card actualCard = game.drawFromPile();
+		assertEquals(expectedCard, actualCard);
 
 		EasyMock.verify(drawPile, turnManager, currentPlayer, game);
 	}

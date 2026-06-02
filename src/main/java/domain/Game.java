@@ -248,13 +248,13 @@ public class Game {
         isFaceUp = false;
     }
 
-    public CardType drawFromPile() {
+    public Card drawFromPile() {
         Card card = drawPile.removeTop();
         turnManager.decrementDrawCount();
         getCurrentPlayer().deselectHandCards();
         getCurrentPlayer().addCardToHand(card);
 
-        return card.getType();
+        return card;
     }
 
     public void toggleFaceUp() {
@@ -271,6 +271,10 @@ public class Game {
         }
         getCurrentPlayer().deselectHandCards();
         turnManager.incrementTurn();
+    }
+
+    public boolean currentPlayerHasDefuse() {
+        return true;
     }
 
     void setIsGameOngoing(boolean isGameOngoing) {
