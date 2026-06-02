@@ -327,7 +327,9 @@ public class Game {
     }
 
     void applyCatomicBomb() {
-        // TODO
+        if (drawPile.isEmpty()) {
+            return;
+        }
     }
 
     void applySuperSkip() {
