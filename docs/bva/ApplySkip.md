@@ -1,5 +1,5 @@
 ### Method under test: `toggleSelected()`
-- **TC1: Skip on a standard single turn (drawCount = 1)** ( :x: )
+- **TC1: Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
     - **Name of the test:** applySkip_drawCountOne_TurnAdvances
     - **State of the system:** game is ongoing, drawCount = 1 (normal, unattacked turn)
     - **Expected output:** drawCount resets to 1 (from incrementTurn), currentPlayerIndex becomes 1, turn has advanced automatically

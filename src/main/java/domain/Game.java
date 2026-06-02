@@ -290,7 +290,10 @@ public class Game {
     }
 
     void applySkip() {
-        // TODO
+        turnManager.decrementDrawCount();
+        if (canEndTurn()) {
+            advanceTurn();
+        }
     }
 
     void applySeeTheFuture() {
