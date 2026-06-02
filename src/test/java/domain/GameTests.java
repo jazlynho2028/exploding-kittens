@@ -1911,6 +1911,37 @@ public class GameTests {
 		EasyMock.verify(drawPile, card1, card2, card3, card4);
 	}
 
+	@Test
+	public void applySwapTopAndBottom_sameType_swapped() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card explodingKitten1 = mockCardOfType(CardType.EXPLODING_KITTEN);
+		Card card2 = mockCardOfType(CardType.ATTACK);
+		Card card3 = mockCardOfType(CardType.SHUFFLE);
+		Card explodingKitten2 = mockCardOfType(CardType.EXPLODING_KITTEN);
+
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.size()).andReturn(4);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
+		EasyMock.expect(drawPile.removeBottom()).andReturn(explodingKitten2);
+
+		drawPile.addCard(explodingKitten1);
+		EasyMock.expectLastCall();
+		drawPile.addCard(explodingKitten2);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				explodingKitten1, card2, card3, explodingKitten2);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applySwapTopAndBottom();
+
+		EasyMock.verify(drawPile, explodingKitten1, card2, card3, explodingKitten2);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
