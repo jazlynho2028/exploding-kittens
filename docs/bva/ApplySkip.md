@@ -24,7 +24,7 @@
     - **State of the system:**  game is ongoing, 2 players, drawCount = 1, currentPlayerIndex = 0
     - **Expected output:** currentPlayerIndex becomes 1, drawCount resets to 1, the single other player is now active
 
-- **TC6: Skip on a standard single turn with maximum players (4 players)** ( :x: )
+- **TC6: Skip on a standard single turn with maximum players (4 players)** ( :white_check_mark: )
     - **Name of the test:** applySkip_fourPlayers_turnAdvances
     - **State of the system:**  game is ongoing, drawCount = 1, 4 players, currentPlayerIndex = 0
     - **Expected output:** drawCount resets to 1 (from incrementTurn), currentPlayerIndex = 1, turn has advanced automatically
