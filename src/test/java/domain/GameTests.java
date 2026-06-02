@@ -3064,6 +3064,44 @@ public class GameTests {
 		return card;
 	}
 
+	@Test
+	public void applyRecycle_manyCardsInDiscard_bottomCardDrawnToHand() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card bottomCard = mockCardOfType(CardType.SKIP);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		final int deckSize = 4;
+		EasyMock.expect(discardPile.isEmpty()).andReturn(false);
+		EasyMock.expect(discardPile.size()).andReturn(deckSize);
+
+		discardPile.shuffle();
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(discardPile.removeBottom()).andReturn(bottomCard);
+
+		currentPlayer.addCardToHand(bottomCard);
+		EasyMock.expectLastCall();
+
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				bottomCard, currentPlayer);
+
+		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		game.applyRecycle();
+
+		EasyMock.verify(discardPile, turnManager, currentPlayer, game);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
