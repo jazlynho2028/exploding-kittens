@@ -1861,6 +1861,25 @@ public class GameTests {
 	}
 
 	@Test
+	public void applySwapTopAndBottom_oneCard_deckUnchanged() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		int deckSize = 1;
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.size()).andReturn(deckSize);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applySwapTopAndBottom();
+
+		EasyMock.verify(drawPile);
+	}
+
+	@Test
 	public void applySwapTopAndBottom_moreThanOneCard_swapped() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
