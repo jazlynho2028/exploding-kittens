@@ -9,7 +9,7 @@
     - **State of the system:** game is ongoing, drawCount = 2, currentPlayerIndex = 0
     - **Expected output:** drawCount becomes 1, currentPlayerIndex remains 0, turn is NOT advanced, player must still draw a card
 
-- **TC3: Skip under stacked attacks (drawCount = 3+)** ( :x: )
+- **TC3: Skip under stacked attacks (drawCount = 3+)** ( :white_check_mark: )
     - **Name of the test:** applySkip_drawCountThree_TurnNotAdvanced
     - **State of the system:** game is ongoing, drawCount = 3, currentPlayerIndex = 0
     - **Expected output:** drawCount becomes 2, currentPlayerIndex remains 0, turn is NOT advanced
