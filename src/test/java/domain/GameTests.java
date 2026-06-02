@@ -1867,7 +1867,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		int deckSize = 1;
+		final int deckSize = 1;
 		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
 		EasyMock.expect(drawPile.size()).andReturn(deckSize);
 
@@ -1891,7 +1891,7 @@ public class GameTests {
 		Card card3 = mockCardOfType(CardType.SHUFFLE);
 		Card card4 = mockCardOfType(CardType.SEE_THE_FUTURE);
 
-		int deckSize = 4;
+		final int deckSize = 4;
 		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
 		EasyMock.expect(drawPile.size()).andReturn(deckSize);
 		EasyMock.expect(drawPile.removeTop()).andReturn(card1);
@@ -1923,8 +1923,9 @@ public class GameTests {
 		Card card3 = mockCardOfType(CardType.SHUFFLE);
 		Card explodingKitten2 = mockCardOfType(CardType.EXPLODING_KITTEN);
 
+		final int deckSize = 4;
 		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
-		EasyMock.expect(drawPile.size()).andReturn(4);
+		EasyMock.expect(drawPile.size()).andReturn(deckSize);
 		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
 		EasyMock.expect(drawPile.removeBottom()).andReturn(explodingKitten2);
 
