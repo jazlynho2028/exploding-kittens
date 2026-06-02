@@ -1861,7 +1861,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void applySwapTopAndBottom_twoCards_swapped() {
+	public void applySwapTopAndBottom_moreThanOneCard_swapped() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1869,25 +1869,27 @@ public class GameTests {
 
 		Card card1 = mockCardOfType(CardType.SKIP);
 		Card card2 = mockCardOfType(CardType.ATTACK);
+		Card card3 = mockCardOfType(CardType.SHUFFLE);
+		Card card4 = mockCardOfType(CardType.SEE_THE_FUTURE);
 
-		int deckSize = 2;
+		int deckSize = 4;
 		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
 		EasyMock.expect(drawPile.size()).andReturn(deckSize);
 		EasyMock.expect(drawPile.removeTop()).andReturn(card1);
-		EasyMock.expect(drawPile.removeBottom()).andReturn(card2);
+		EasyMock.expect(drawPile.removeBottom()).andReturn(card4);
 
 		drawPile.addCard(card1);
 		EasyMock.expectLastCall();
-		drawPile.addCard(card2);
+		drawPile.addCard(card4);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
-				card1, card2);
+				card1, card2, card3, card4);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 		game.applySwapTopAndBottom();
 
-		EasyMock.verify(drawPile, card1, card2);
+		EasyMock.verify(drawPile, card1, card2, card3, card4);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
