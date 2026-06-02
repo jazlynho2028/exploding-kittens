@@ -21,7 +21,7 @@
     - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
     - **Expected output:** decrementDrawCount() called once, currentPlayerIndex wraps to 0
 
-- **TC5: Super Skip with minimum player count (2 players)** ( :x: )
+- **TC5: Super Skip with minimum player count (2 players)** ( :white_check_mark: )
     - **Name of the test:** applySuperSkip_twoPlayers_turnAdvances
     - **State of the system:** game is ongoing, 2 players, drawCount = 1, currentPlayerIndex = 0
     - **Expected output:** decrementDrawCount() called once, currentPlayerIndex wraps to 0
