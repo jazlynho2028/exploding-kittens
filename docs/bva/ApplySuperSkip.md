@@ -6,7 +6,7 @@
     - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = 0
     - **Expected output:** decrementDrawCount() called once, turn advances to currentPlayerIndex = 1
 
-- **TC2: Super Skip while under attack (drawCount = 2)** ( :x: )
+- **TC2: Super Skip while under attack (drawCount = 2)** ( :white_check_mark: )
     - **Name of the test:** applySuperSkip_drawCountTwo_TurnAdvances
     - **State of the system:** game is ongoing, drawCount = 2, currentPlayerIndex = 0
     - **Expected output:** decrementDrawCount() called twice, turn advances to currentPlayerIndex = 1

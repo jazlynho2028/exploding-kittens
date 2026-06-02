@@ -39,4 +39,39 @@ public class ApplySuperSkipTests {
 
         EasyMock.verify(mockPlayer1, mockPlayer2, mockDrawPile, mockDiscardPile, mockTurnManager);
     }
+
+    @Test
+    public void applySuperSkip_drawCountTwo_TurnAdvances() {
+        final int expectIntTwo = 2;
+        final int expectIntOne = 1;
+        final int expectIntZero = 0;
+        Player mockPlayer1 = EasyMock.createMock(Player.class);
+        Player mockPlayer2 = EasyMock.createMock(Player.class);
+        List<Player> players = new ArrayList<>();
+        players.add(mockPlayer1);
+        players.add(mockPlayer2);
+
+        Deck mockDrawPile = EasyMock.createMock(Deck.class);
+        Deck mockDiscardPile = EasyMock.createMock(Deck.class);
+        TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+
+        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntTwo );
+        mockTurnManager.decrementDrawCount();
+        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntOne);
+        mockTurnManager.decrementDrawCount();
+        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
+        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
+        EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectIntZero);
+        mockPlayer1.deselectHandCards();
+        mockTurnManager.incrementTurn();
+
+        EasyMock.replay(mockPlayer1, mockPlayer2, mockDrawPile, mockDiscardPile, mockTurnManager);
+
+        Game game = new Game(players, mockDrawPile, mockDiscardPile, mockTurnManager);
+        game.setIsGameOngoing(true);
+
+        game.applySuperSkip();
+
+        EasyMock.verify(mockPlayer1, mockPlayer2, mockDrawPile, mockDiscardPile, mockTurnManager);
+    }
 }
