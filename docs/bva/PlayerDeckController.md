@@ -100,7 +100,7 @@
       - canPlaySelected = true
       - canEndTurn = true
     - **Expected output**: 
-      - model.drawFromPile = CardType.DEFUSE
+      - model.drawFromPile = DEFUSE_1
       - view.renderDrawPile is called with canDraw and isDrawPileEmpty
       - rebindHandCards is called
       - view.renderTurnControlSection is called with canPlaySelected and canEndTurn

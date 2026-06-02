@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Card;
 import domain.CardType;
 import domain.Game;
 import javafx.scene.Scene;
@@ -276,8 +277,9 @@ public class PlayerDeckControllerTests {
 				.addMockedMethod("rebindHandCards")
 				.createMock();
 
-		CardType drawnCardType = CardType.DEFUSE;
-		EasyMock.expect(model.drawFromPile()).andStubReturn(drawnCardType);
+		Card drawnCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(drawnCard.getType()).andStubReturn(CardType.DEFUSE);
+		EasyMock.expect(model.drawFromPile()).andStubReturn(drawnCard);
 		EasyMock.expectLastCall();
 
 		setUpRenderDrawPileExpectations();
@@ -291,7 +293,7 @@ public class PlayerDeckControllerTests {
 
 		view.renderTurnControlSection(canPlaySelected, canEndTurn);
 
-		EasyMock.replay(model, view, controller);
+		EasyMock.replay(model, view, controller, drawnCard);
 
 		controller.onDrawPile();
 
