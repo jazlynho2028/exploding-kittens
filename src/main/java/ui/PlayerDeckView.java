@@ -218,11 +218,11 @@ public class PlayerDeckView {
 
         if (hasDefuse) {
             buildAndAddExplodingOverlayButton(defuseButton,
-                    "playerDeckScreen.defuseLabel", "defuse-button", content);
+                    "playerDeckScreen.defuseLabel", "defuse", content);
         }
         else {
             buildAndAddExplodingOverlayButton(explodeButton,
-                    "playerDeckScreen.explodeLabel", "explode-button", content);
+                    "playerDeckScreen.explodeLabel", "explode", content);
         }
 
         overlayLayer.getChildren().setAll(content);
@@ -740,7 +740,7 @@ public class PlayerDeckView {
         overlayLayer.setVisible(true);
         overlayLayer.setMouseTransparent(false);
 
-        buildExplodeOverlay(true, "EXPLODINGKITTEN_1");
+        buildExplodeOverlay(false, "EXPLODINGKITTEN_1");
     }
 
     private void showOverlay() {
@@ -764,7 +764,8 @@ public class PlayerDeckView {
             Button button, String key, String styleClass, VBox content) {
 
         button.setText(assetProvider.getString(key));
-        button.getStyleClass().addAll(styleClass, "h4");
+        button.getStyleClass().addAll(
+                "overlay-button", styleClass, "h4");
         content.getChildren().add(button);
     }
 

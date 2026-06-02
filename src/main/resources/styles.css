@@ -644,12 +644,20 @@
     -fx-spacing: 16px;
 }
 
-.defuse-button {
-    -fx-background-color: linear-gradient(to bottom, yellow-3, defuse, recycle);
+.overlay-button {
     -fx-background-radius: 8;
-    -fx-text-fill: yellow-0;
     -fx-border-width: 2;
     -fx-border-radius: 16;
     -fx-pref-width: 176px;
     -fx-padding: -2 0 -2 0;
+}
+
+.overlay-button.defuse {
+    -fx-background-color: linear-gradient(to bottom, yellow-3, defuse, recycle);
+    -fx-text-fill: yellow-0;
+}
+
+.overlay-button.explode {
+    -fx-background-color: linear-gradient(to bottom, yellow-3, red-3, orange-3);
+    -fx-text-fill: magenta-6;
 }
