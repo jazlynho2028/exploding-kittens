@@ -2074,7 +2074,8 @@ public class GameTests {
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 		game.applyCatomicBomb();
 
-		EasyMock.verify(drawPile, skip1, explodingKitten1, attack1, explodingKitten2, shuffle1);
+		EasyMock.verify(drawPile, skip1, explodingKitten1,
+				attack1, explodingKitten2, shuffle1);
 	}
 
 	@Test
