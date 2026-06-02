@@ -14,7 +14,7 @@
     - **State of the system:** game is ongoing, drawCount = 3, currentPlayerIndex = 0
     - **Expected output:** drawCount becomes 2, currentPlayerIndex remains 0, turn is NOT advanced
 
-- **TC4: Skip completes turn for the last player in order (wraparound)** ( :x: )
+- **TC4: Skip completes turn for the last player in order (wraparound)** ( :white_check_mark: )
     - **Name of the test:** applySkip_lastPlayer_turnWraps
     - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
     - **Expected output:** currentPlayerIndex wraps to 0, drawCount resets to 1 (from incrementTurn)
