@@ -1,7 +1,7 @@
 # BVA Analysis: SuperSkip Method
 
 ### Method under test: `applySuperSkip()`
-- **TC1: Super Skip on a standard single turn (drawCount = 1)** ( :x: )
+- **TC1: Super Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
     - **Name of the test:** applySuperSkip_drawCountOne_TurnAdvances
     - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = 0
     - **Expected output:** decrementDrawCount() called once, turn advances to currentPlayerIndex = 1

@@ -302,7 +302,10 @@ public class Game {
     }
 
     void applySuperSkip() {
-        // TODO
+        while (turnManager.getDrawCount() > 0) {
+            turnManager.decrementDrawCount();
+        }
+        advanceTurn();
     }
 
     void applyGodcat() {
