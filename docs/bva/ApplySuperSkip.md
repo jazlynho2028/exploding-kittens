@@ -26,7 +26,7 @@
     - **State of the system:** game is ongoing, 2 players, drawCount = 1, currentPlayerIndex = 0
     - **Expected output:** decrementDrawCount() called once, currentPlayerIndex wraps to 0
 
-- **TC6: Super Skip with maximum player count (4 players)** ( :x: )
+- **TC6: Super Skip with maximum player count (4 players)** ( :white_check_mark: )
     - **Name of the test:** applySuperSkip_fourPlayers_turnAdvances
     - **State of the system:**  game is ongoing, 4 players, drawCount = 1, currentPlayerIndex = 0
     - **Expected output:** decrementDrawCount() called once, turn advances to currentPlayerIndex = 1
