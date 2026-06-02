@@ -205,4 +205,7 @@ public class Game {
     void setIsFaceUp(boolean isFaceUp) {
         this.isFaceUp = isFaceUp;
     }
+
+    public void applySkip() {
+    }
 }
