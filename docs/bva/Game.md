@@ -611,7 +611,7 @@
   - **State of the system**: CardType.CATOMIC_BOMB passed as cardType
   - **Expected output**: applyCatomicBomb() is called
 
-- **TC96: Valid card type Super Skip** ( :x: )
+- **TC96: Valid card type Super Skip** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
   - **State of the system**: CardType.SUPER_SKIP passed as cardType
   - **Expected output**: applySuperSkip() is called

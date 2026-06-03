@@ -363,6 +363,9 @@ public class Game {
             case CATOMIC_BOMB:
                 applyCatomicBomb();
                 break;
+            case SUPER_SKIP:
+                applySuperSkip();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
