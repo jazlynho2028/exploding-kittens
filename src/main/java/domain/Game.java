@@ -357,6 +357,9 @@ public class Game {
             case SKIP:
                 applySkip();
                 break;
+            case SEE_THE_FUTURE:
+                applySeeTheFuture();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }

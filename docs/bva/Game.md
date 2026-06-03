@@ -601,7 +601,7 @@
   - **State of the system**: CardType.SKIP passed as cardType
   - **Expected output**: applySkip() is called
 
-- **TC94: Valid card type See the Future** ( :x: )
+- **TC94: Valid card type See the Future** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
   - **State of the system**: CardType.SEE_THE_FUTURE passed as cardType
   - **Expected output**: applySeeTheFuture() is called
