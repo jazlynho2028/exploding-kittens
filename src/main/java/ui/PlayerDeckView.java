@@ -229,7 +229,6 @@ public class PlayerDeckView {
 
         ImageView backgroundImage = buildBackgroundImage(assetProvider);
         VBox contentSection = buildContentSection();
-//        StackPane overlayLayer = buildOverlayLayer();
         buildOverlayLayer();
 
         gameScreen.getChildren().addAll(
@@ -798,7 +797,7 @@ public class PlayerDeckView {
     public void buildGodcatOverlay(List<CardType> cardTypes) {
         VBox overlayContent = new VBox();
         overlayContent.setAlignment(Pos.CENTER);
-        overlayContent.setSpacing(20);
+        overlayContent.setSpacing(UIConstants.GODCAT_SCROLLPANE_PADDING);
         overlayContent.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 20;");
         overlayContent.setPrefSize(UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
 
@@ -832,7 +831,9 @@ public class PlayerDeckView {
         cardScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         cardScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         cardScrollPane.setFitToHeight(true);
-        cardScrollPane.setPrefHeight(UIConstants.CARD_IMAGE_HEIGHT * UIConstants.GODCAT_CARD_HEIGHT_MULTIPLIER + UIConstants.GODCAT_SCROLLPANE_PADDING);
+        cardScrollPane.setPrefHeight(UIConstants.CARD_IMAGE_HEIGHT
+                * UIConstants.GODCAT_CARD_HEIGHT_MULTIPLIER
+                + UIConstants.GODCAT_SCROLLPANE_PADDING);
 
         godcatConfirmButton.setText("Confirm");
         godcatConfirmButton.setDisable(true);
