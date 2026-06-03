@@ -37,6 +37,10 @@ public class PlayerDeckView {
     private final StackPane root;
     private final HBox turnControlSection;
 
+    public final StackPane godcatOverlay;
+    public final Button godcatConfirmButton;
+    private CardType selectedGodcatCardType;
+
     private static final List<CardType> GODCAT_CARD_OPTIONS = List.of(
             CardType.ATTACK,
             CardType.SHUFFLE,
@@ -69,6 +73,9 @@ public class PlayerDeckView {
         playCardsButton = new Button();
         endTurnButton = new Button();
         turnControlSection = new HBox();
+        godcatOverlay = new StackPane();
+        godcatConfirmButton = new Button();
+        selectedGodcatCardType = null;
 
         buildUI();
     }
