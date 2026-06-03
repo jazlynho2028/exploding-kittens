@@ -347,7 +347,7 @@ public class Game {
     }
 
     public void applyCardType(CardType cardType) {
-
+        throw new IllegalStateException("error.cannotPlaySelectedCards");
     }
 
 }

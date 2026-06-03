@@ -579,3 +579,84 @@
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
   - **State of the system**: canEndTurn = false
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
+
+### Method under test: `applyGodcat()`
+- **TC90: Invalid card type** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_invalidCardType_throwsException
+  - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType
+  - **Expected output**: throws IllegalArgumentException with message "error.cannotPlaySelectedCards"
+
+- **TC91: Valid card type Attack** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.ATTACK passed as cardType
+  - **Expected output**: applyAttack() is called
+
+- **TC92: Valid card type Shuffle** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.SHUFFLE passed as cardType
+  - **Expected output**: applyShuffle() is called
+
+- **TC93: Valid card type Skip** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.SKIP passed as cardType
+  - **Expected output**: applySkip() is called
+
+- **TC94: Valid card type See the Future** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.SEE_THE_FUTURE passed as cardType
+  - **Expected output**: applySeeTheFuture() is called
+
+- **TC95: Valid card type Catomic Bomb** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.CATOMIC_BOMB passed as cardType
+  - **Expected output**: applyCatomicBomb() is called
+
+- **TC96: Valid card type Super Skip** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.SUPER_SKIP passed as cardType
+  - **Expected output**: applySuperSkip() is called
+
+- **TC97: Valid card type Clone** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.CLONE passed as cardType
+  - **Expected output**: applyClone() is called
+
+- **TC98: Valid card type Swap Top and Bottom** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.SWAP_TOP_AND_BOTTOM passed as cardType
+  - **Expected output**: applySwapTopAndBottom() is called
+
+- **TC99: Valid card type Draw From the Bottom** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.DRAW_FROM_THE_BOTTOM passed as cardType
+  - **Expected output**: applyDrawFromTheBottom() is called
+
+- **TC100: Valid card type Targeted Attack** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.TARGETED_ATTACK passed as cardType
+  - **Expected output**: applyTargetedAttack() is called
+
+- **TC101: Valid card type Winner Winner Catnip Dinner** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.WINNER_WINNER_CATNIP_DINNER passed as cardType
+  - **Expected output**: applyWinnerWinnerCatnipDinner() is called
+
+- **TC102: Valid card type Ragebait** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.RAGEBAIT passed as cardType
+  - **Expected output**: applyRagebait() is called
+
+- **TC103: Valid card type Recycle** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.RECYCLE passed as cardType
+  - **Expected output**: applyRecycle() is called
+
+- **TC104: Valid card type Double Up** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.DOUBLE_UP passed as cardType
+  - **Expected output**: applyDoubleUp() is called
+
+- **TC105: Valid card type Mild Draw** ( :x: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.MILD_DRAW passed as cardType
+  - **Expected output**: applyMildDraw() is called
