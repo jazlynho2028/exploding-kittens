@@ -136,6 +136,9 @@ public class PlayerDeckControllerTests {
 		view.bindNameTags(EasyMock.anyObject());
 		EasyMock.expectLastCall();
 
+		view.bindGodcatConfirmButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
 		view.bindPlayerHandCardButtons(EasyMock.anyObject());
 		EasyMock.expectLastCall();
 
@@ -620,12 +623,15 @@ public class PlayerDeckControllerTests {
 		model.applyCardType(CardType.ATTACK);
 		EasyMock.expectLastCall();
 
+		view.hideGodcatOverlay();
+		EasyMock.expectLastCall();
+
 		EasyMock.replay(model, view);
 
 		PlayerDeckController controller = new PlayerDeckController(model, view);
 		controller.onConfirmGodcatCard(CardType.ATTACK);
 
-		EasyMock.verify(model);
+		EasyMock.verify(model, view);
 	}
 
 	@Test
