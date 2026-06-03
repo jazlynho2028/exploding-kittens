@@ -339,8 +339,12 @@ public class Game {
     }
 
     void applyDoubleUp() {
-        if (drawPile.isEmpty()) {
-            return;
+        for (int i = 0; i < 2; i++) {
+            if (drawPile.isEmpty()) {
+                return;
+            }
+            Card topCard = drawPile.removeTop();
+            getCurrentPlayer().addCardToHand(topCard);
         }
     }
 

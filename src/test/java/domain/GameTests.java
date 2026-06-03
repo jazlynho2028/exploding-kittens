@@ -1186,6 +1186,32 @@ public class GameTests {
 		EasyMock.verify(drawPile);
 	}
 
+	@Test
+	public void applyDoubleUp_deckHasOneCard_drawsOnlyThatCard() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+		Card card = EasyMock.createMock(Card.class);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(card);
+		currentPlayer.addCardToHand(card);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
+
+		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, card, currentPlayer, game);
+
+		game.applyDoubleUp();
+
+		EasyMock.verify(drawPile, currentPlayer, game);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override

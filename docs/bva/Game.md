@@ -586,7 +586,7 @@
   - **State of the system**: draw pile has no cards
   - **Expected output**: draw pile remains empty
 
-- **TC91: Draw pile only has one card** ( :x: )
+- **TC91: Draw pile only has one card** ( :white_check_mark: )
   - **Name of the test**: applyDoubleUp_deckHasOneCard_drawsOnlyThatCard
   - **State of the system**: draw pile has one card remaining
   - **Expected output**: player draws the last remaining card
