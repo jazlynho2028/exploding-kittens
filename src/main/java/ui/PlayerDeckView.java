@@ -1,6 +1,7 @@
 package ui;
 
 import domain.CardType;
+import domain.DeckBuilder;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -843,7 +844,7 @@ public class PlayerDeckView {
     }
 
     private ToggleButton buildCardOptionButton(CardType cardType, HBox cardOptions) {
-        String cardId = cardType.name().replace("_", "") + "_1";
+        String cardId = DeckBuilder.createCardId(cardType, 1);
         ToggleButton cardButton = new ToggleButton();
         cardButton.getStyleClass().addAll("card", "front");
         cardButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
