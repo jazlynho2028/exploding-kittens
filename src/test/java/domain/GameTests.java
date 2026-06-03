@@ -1237,7 +1237,9 @@ public class GameTests {
 				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM, "applyDrawFromTheBottom",
 						(Consumer<Game>) Game::applyDrawFromTheBottom),
 				Arguments.of(CardType.TARGETED_ATTACK, "applyTargetedAttack",
-						(Consumer<Game>) Game::applyTargetedAttack)
+						(Consumer<Game>) Game::applyTargetedAttack),
+				Arguments.of(CardType.WINNER_WINNER_CATNIP_DINNER, "applyWinnerWinnerCatnipDinner",
+						(Consumer<Game>) Game::applyWinnerWinnerCatnipDinner)
 				);
 	}
 

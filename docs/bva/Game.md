@@ -636,7 +636,7 @@
   - **State of the system**: CardType.TARGETED_ATTACK passed as cardType
   - **Expected output**: applyTargetedAttack() is called
 
-- **TC101: Valid card type Winner Winner Catnip Dinner** ( :x: )
+- **TC101: Valid card type Winner Winner Catnip Dinner** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
   - **State of the system**: CardType.WINNER_WINNER_CATNIP_DINNER passed as cardType
   - **Expected output**: applyWinnerWinnerCatnipDinner() is called

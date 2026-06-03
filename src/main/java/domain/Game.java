@@ -378,6 +378,9 @@ public class Game {
             case TARGETED_ATTACK:
                 applyTargetedAttack();
                 break;
+            case WINNER_WINNER_CATNIP_DINNER:
+                applyWinnerWinnerCatnipDinner();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
