@@ -815,10 +815,14 @@ public class PlayerDeckView {
         cardOptions.setAlignment(Pos.CENTER);
 
         for (CardType cardType : cardTypes) {
-            String cardId = cardType.name();
+            String cardId = cardType.name() + "_1"; 
             ToggleButton cardButton = new ToggleButton();
             cardButton.getStyleClass().addAll("card", "front");
             cardButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+
+            VBox cardFront = buildCardFront(cardId);
+            cardButton.setGraphic(cardFront);
+
             cardButton.setOnMouseClicked(e -> {
                 selectedGodcatCardType = cardType;
                 cardOptions.getChildren().forEach(n ->
