@@ -656,7 +656,7 @@
   - **State of the system**: CardType.DOUBLE_UP passed as cardType
   - **Expected output**: applyDoubleUp() is called
 
-- **TC105: Valid card type Mild Draw** ( :x: )
+- **TC105: Valid card type Mild Draw** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
   - **State of the system**: CardType.MILD_DRAW passed as cardType
   - **Expected output**: applyMildDraw() is called

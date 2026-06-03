@@ -390,6 +390,9 @@ public class Game {
             case DOUBLE_UP:
                 applyDoubleUp();
                 break;
+            case MILD_DRAW:
+                applyMildDraw();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
