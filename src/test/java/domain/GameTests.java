@@ -1243,7 +1243,9 @@ public class GameTests {
 				Arguments.of(CardType.RAGEBAIT, "applyRagebait",
 						(Consumer<Game>) Game::applyRagebait),
 				Arguments.of(CardType.RECYCLE, "applyRecycle",
-						(Consumer<Game>) Game::applyRecycle)
+						(Consumer<Game>) Game::applyRecycle),
+				Arguments.of(CardType.DOUBLE_UP, "applyDoubleUp",
+						(Consumer<Game>) Game::applyDoubleUp)
 				);
 	}
 

@@ -387,6 +387,9 @@ public class Game {
             case RECYCLE:
                 applyRecycle();
                 break;
+            case DOUBLE_UP:
+                applyDoubleUp();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
