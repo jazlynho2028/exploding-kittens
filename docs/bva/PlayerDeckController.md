@@ -233,15 +233,26 @@
   - **State of the system**: model.advanceTurn throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
-### Method under test: `onConfirmGodcatCard(CardType cardType()`
-- **TC24: Valid card type** ( :white_check_mark: )
+### Method under test: `onGodcatConfirm()`
+- **TC24: Confirm called successfully** ( :x: )
+  - **Name of the test**: onGodcatConfirm_validCardType_success
+  - **State of the system**: view.getSelectedGodcatCardType returns CardType.ATTACK
+  - **Expected output**: onConfirmGodcatCard() is called with CardType.ATTACK
+
+- **TC25: Caught exception** ( :x: )
+  - **Name of the test**: onGodcatConfirm_modelThrowsException_failed
+  - **State of the system**: view.getSelectedGodcatCardType throws RuntimeException with message "An error occurred."
+  - **Expected output**: onError is called with the exception message
+
+### Method under test: `onConfirmGodcatCard(CardType cardType)`
+- **TC26: Valid card type** ( :white_check_mark: )
   - **Name of the test**: onConfirmGodcatCard_validCardType_applyCardTypeCalled
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: 
     - model.applyCardType(CardType.ATTACK) is called
     - view.hideGodcatOverlay() is called
 
-- **TC25: Invalid card type** ( :white_check_mark: )
+- **TC27: Invalid card type** ( :white_check_mark: )
   - **Name of the test**: onConfirmGodcatCard_modelThrowsException_failed
   - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType; model.applyCardType() throws exception
   - **Expected output**: onError is called with the exception message
