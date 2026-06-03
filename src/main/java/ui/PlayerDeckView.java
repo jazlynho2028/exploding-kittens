@@ -795,4 +795,47 @@ public class PlayerDeckView {
         return overlayLayer;
     }
 
+    public void buildGodcatOverlay(List<CardType> cardTypes) {
+        godcatOverlay.getChildren().clear();
+        godcatOverlay.setVisible(false);
+        godcatOverlay.getStyleClass().add("godcat-overlay");
+
+        VBox overlayContent = new VBox();
+        overlayContent.setAlignment(Pos.CENTER);
+        overlayContent.getStyleClass().add("godcat-overlay-content");
+
+        Text title = new Text("Choose a card for Godcat");
+        title.getStyleClass().addAll("h4");
+
+        ScrollPane cardScrollPane = new ScrollPane();
+        HBox cardOptions = new HBox();
+        cardOptions.setAlignment(Pos.CENTER);
+
+        for (CardType cardType : cardTypes) {
+            String cardId = cardType.name();
+            ToggleButton cardButton = new ToggleButton();
+            cardButton.getStyleClass().addAll("card", "front");
+            cardButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            cardButton.setOnMouseClicked(e -> {
+                selectedGodcatCardType = cardType;
+                cardOptions.getChildren().forEach(n ->
+                        ((ToggleButton) n).setSelected(false));
+                cardButton.setSelected(true);
+                godcatConfirmButton.setDisable(false);
+            });
+            cardOptions.getChildren().add(cardButton);
+        }
+
+        cardScrollPane.setContent(cardOptions);
+        cardScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        cardScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        godcatConfirmButton.setText("Confirm");
+        godcatConfirmButton.setDisable(true);
+        godcatConfirmButton.getStyleClass().addAll("turn-control-button", "h5");
+
+        overlayContent.getChildren().addAll(title, cardScrollPane, godcatConfirmButton);
+        godcatOverlay.getChildren().add(overlayContent);
+    }
+
 }
