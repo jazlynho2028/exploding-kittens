@@ -851,4 +851,7 @@ public class PlayerDeckView {
         return selectedGodcatCardType;
     }
 
+    public void bindGodcatConfirmButton(Runnable handler) {
+        godcatConfirmButton.setOnMouseClicked(e -> handler.run());
+    }
 }
