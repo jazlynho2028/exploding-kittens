@@ -838,4 +838,13 @@ public class PlayerDeckView {
         godcatOverlay.getChildren().add(overlayContent);
     }
 
+    public void showGodcatOverlay() {
+        godcatOverlay.setVisible(true);
+    }
+
+    public void hideGodcatOverlay() {
+        godcatOverlay.setVisible(false);
+        selectedGodcatCardType = null;
+    }
+
 }
