@@ -196,4 +196,8 @@ public class PlayerDeckController {
         });
     }
 
+    void onConfirmGodcatCard(CardType cardType) {
+
+    }
+
 }
