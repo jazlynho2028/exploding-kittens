@@ -631,7 +631,7 @@
   - **State of the system**: CardType.DRAW_FROM_THE_BOTTOM passed as cardType
   - **Expected output**: applyDrawFromTheBottom() is called
 
-- **TC100: Valid card type Targeted Attack** ( :x: )
+- **TC100: Valid card type Targeted Attack** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
   - **State of the system**: CardType.TARGETED_ATTACK passed as cardType
   - **Expected output**: applyTargetedAttack() is called

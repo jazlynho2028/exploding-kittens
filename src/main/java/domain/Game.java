@@ -375,6 +375,9 @@ public class Game {
             case DRAW_FROM_THE_BOTTOM:
                 applyDrawFromTheBottom();
                 break;
+            case TARGETED_ATTACK:
+                applyTargetedAttack();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
