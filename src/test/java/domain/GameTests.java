@@ -1225,7 +1225,9 @@ public class GameTests {
 				Arguments.of(CardType.SKIP, "applySkip",
 						(Consumer<Game>) Game::applySkip),
 				Arguments.of(CardType.SEE_THE_FUTURE, "applySeeTheFuture",
-						(Consumer<Game>) Game::applySeeTheFuture)
+						(Consumer<Game>) Game::applySeeTheFuture),
+				Arguments.of(CardType.CATOMIC_BOMB, "applyCatomicBomb",
+						(Consumer<Game>) Game::applyCatomicBomb)
 				);
 	}
 

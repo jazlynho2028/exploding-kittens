@@ -606,7 +606,7 @@
   - **State of the system**: CardType.SEE_THE_FUTURE passed as cardType
   - **Expected output**: applySeeTheFuture() is called
 
-- **TC95: Valid card type Catomic Bomb** ( :x: )
+- **TC95: Valid card type Catomic Bomb** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
   - **State of the system**: CardType.CATOMIC_BOMB passed as cardType
   - **Expected output**: applyCatomicBomb() is called

@@ -360,6 +360,9 @@ public class Game {
             case SEE_THE_FUTURE:
                 applySeeTheFuture();
                 break;
+            case CATOMIC_BOMB:
+                applyCatomicBomb();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
