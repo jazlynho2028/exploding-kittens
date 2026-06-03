@@ -679,6 +679,26 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
+	public void onGodcatConfirm_modelThrowsException_failed() {
+		Consumer<String> onError = EasyMock.createMock(Consumer.class);
+
+		EasyMock.expect(view.getSelectedGodcatCardType()).andThrow(
+				new RuntimeException(expectedMsg)
+		);
+
+		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(view, onError);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.setOnError(onError);
+		controller.onGodcatConfirm();
+
+		EasyMock.verify(view, onError);
+	}
+
+	@Test
 	public void onConfirmGodcatCard_validCardType_applyCardTypeCalled() {
 		model.applyCardType(CardType.ATTACK);
 		EasyMock.expectLastCall();

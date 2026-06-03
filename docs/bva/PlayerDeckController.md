@@ -239,7 +239,7 @@
   - **State of the system**: view.getSelectedGodcatCardType returns CardType.ATTACK
   - **Expected output**: onConfirmGodcatCard() is called with CardType.ATTACK
 
-- **TC25: Caught exception** ( :x: )
+- **TC25: Caught exception** ( :white_check_mark: )
   - **Name of the test**: onGodcatConfirm_modelThrowsException_failed
   - **State of the system**: view.getSelectedGodcatCardType throws RuntimeException with message "An error occurred."
   - **Expected output**: onError is called with the exception message
