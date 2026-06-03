@@ -640,6 +640,10 @@
     -fx-alignment: center;
 }
 
+.overlay-title {
+    -fx-fill: yellow-0;
+}
+
 .overlay-button {
     -fx-background-radius: 8;
     -fx-border-width: 2;

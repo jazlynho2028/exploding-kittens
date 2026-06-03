@@ -814,8 +814,7 @@ public class PlayerDeckView {
 
     private Text buildOverlayTitle(String text) {
         Text title = new Text(text);
-        title.getStyleClass().add("h3");
-        title.setFill(javafx.scene.paint.Color.WHITE);
+        title.getStyleClass().addAll("h3", "overlay-title");
         return title;
     }
 
