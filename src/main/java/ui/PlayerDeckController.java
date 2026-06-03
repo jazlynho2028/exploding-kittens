@@ -68,6 +68,7 @@ public class PlayerDeckController {
         view.bindPlayCardsButton(this::onPlayCardsButton);
         view.bindEndTurnButton(this::onEndTurnButton);
         view.bindNameTags(this::onNameTag);
+        view.bindGodcatConfirmButton(this::onGodcatConfirm);
         bindHandCards();
     }
 
