@@ -792,6 +792,9 @@ public class PlayerDeckView {
         StackPane overlayLayer = new StackPane();
         overlayLayer.setPickOnBounds(false);
 
+        buildGodcatOverlay(GODCAT_CARD_OPTIONS);
+        overlayLayer.getChildren().add(godcatOverlay);
+
         return overlayLayer;
     }
 
