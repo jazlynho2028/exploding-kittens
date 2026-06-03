@@ -831,9 +831,7 @@ public class PlayerDeckView {
         cardScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         cardScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         cardScrollPane.setFitToHeight(true);
-        cardScrollPane.setPrefHeight(UIConstants.CARD_IMAGE_HEIGHT
-                * UIConstants.GODCAT_CARD_HEIGHT_MULTIPLIER
-                + UIConstants.GODCAT_SCROLLPANE_PADDING);
+        cardScrollPane.getStyleClass().add("scroll-pane");
 
         godcatConfirmButton.setText("Confirm");
         godcatConfirmButton.setDisable(true);
