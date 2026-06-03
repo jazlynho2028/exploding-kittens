@@ -581,7 +581,6 @@
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
 
 ## Method under test: `applyAttack()`
-## Method under test: `applyAttack()`
 - **TC90: Non-stacked standard attack, player turn index does not wrap around** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
@@ -632,7 +631,7 @@
     - advance the turn,
     - then set drawCount = 2
 
-- **TC95: Maximum players** ( :x: )
+- **TC95: Maximum players** ( :white_check_mark: )
   - **Name of the test**: applyAttack_maxPlayers_advancesAndSetsTwo
   - **State of the system**:
     - numPlayers = 4

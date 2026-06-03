@@ -1237,6 +1237,37 @@ public class GameTests {
 		EasyMock.verify(mockTurnManager);
 	}
 
+	@Test
+	public void applyAttack_minPlayers_advancesAndSetsTwo() {
+		Player mockPlayer = EasyMock.createMock(Player.class);
+		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(ONE_CARD);
+		mockTurnManager.setDrawCount(0);
+		EasyMock.expectLastCall();
+		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(0);
+
+		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(0);
+		mockPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+		mockTurnManager.incrementTurn();
+		EasyMock.expectLastCall();
+
+		mockTurnManager.setDrawCount(2);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(mockPlayer, mockTurnManager);
+
+		Game game = new Game(List.of(mockPlayer, mockPlayer, mockPlayer, mockPlayer),
+				EasyMock.createMock(Deck.class),
+				EasyMock.createMock(Deck.class),
+				mockTurnManager);
+		game.setIsGameOngoing(true);
+		game.applyAttack();
+
+		EasyMock.verify(mockTurnManager);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
