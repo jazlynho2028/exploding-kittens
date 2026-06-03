@@ -800,7 +800,7 @@ public class PlayerDeckView {
         overlayContent.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         overlayContent.getStyleClass().add("overlay-content");
 
-        Text title = buildOverlayTitle("Choose a card for Godcat");
+        Text title = buildOverlayTitle(assetProvider.getString("playerDeckScreen.godcatCaption"));
         ScrollPane cardScrollPane = buildCardSelectScrollPane(cardTypes);
 
         godcatConfirmButton.setText("Confirm");
