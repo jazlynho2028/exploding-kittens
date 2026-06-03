@@ -653,6 +653,11 @@
     -fx-text-fill: magenta-6;
 }
 
+.card-options {
+    -fx-spacing: 8px;
+    -fx-alignment: center;
+}
+
 .restart-icon {
     -fx-fill: yellow-1;
     -fx-scale-x: 1.2;

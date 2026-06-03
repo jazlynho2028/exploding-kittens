@@ -832,8 +832,8 @@ public class PlayerDeckView {
     }
 
     private HBox buildCardOptions(List<CardType> cardTypes) {
-        HBox cardOptions = new HBox(UIConstants.GODCAT_CARD_SPACING);
-        cardOptions.setAlignment(Pos.CENTER);
+        HBox cardOptions = new HBox();
+        cardOptions.getStyleClass().add("card-options");
 
         for (CardType cardType : cardTypes) {
             ToggleButton cardButton = buildCardOptionButton(cardType, cardOptions);
