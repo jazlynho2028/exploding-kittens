@@ -307,14 +307,13 @@
     - applySuperSkip is called
     - returns CardType.SUPER_SKIP
 
-- **TC50: Valid play with one Godcat** ( :white_check_mark: )
+- **TC50: Valid play with one Godcat** ( :x: )
   - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [GODCAT]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCard(card1) is called
-    - applyGodcat is called
     - returns CardType.GODCAT
 
 - **TC51: Valid play with one Clone** ( :white_check_mark: )
