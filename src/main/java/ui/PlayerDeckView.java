@@ -797,7 +797,7 @@ public class PlayerDeckView {
 
     public void showCardSelectOverlay(List<CardType> cardTypes) {
         VBox overlayContent = new VBox();
-        overlayContent.setPrefSize(UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
+        overlayContent.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         overlayContent.getStyleClass().add("overlay-content");
 
         Text title = buildOverlayTitle("Choose a card for Godcat");
