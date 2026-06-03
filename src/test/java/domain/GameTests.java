@@ -1231,7 +1231,9 @@ public class GameTests {
 				Arguments.of(CardType.SUPER_SKIP, "applySuperSkip",
 						(Consumer<Game>) Game::applySuperSkip),
 				Arguments.of(CardType.CLONE, "applyClone",
-						(Consumer<Game>) Game::applyClone)
+						(Consumer<Game>) Game::applyClone),
+				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM, "applySwapTopAndBottom",
+						(Consumer<Game>) Game::applySwapTopAndBottom)
 				);
 	}
 

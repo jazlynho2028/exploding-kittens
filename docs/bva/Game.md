@@ -621,7 +621,7 @@
   - **State of the system**: CardType.CLONE passed as cardType
   - **Expected output**: applyClone() is called
 
-- **TC98: Valid card type Swap Top and Bottom** ( :x: )
+- **TC98: Valid card type Swap Top and Bottom** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
   - **State of the system**: CardType.SWAP_TOP_AND_BOTTOM passed as cardType
   - **Expected output**: applySwapTopAndBottom() is called

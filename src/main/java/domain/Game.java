@@ -369,6 +369,9 @@ public class Game {
             case CLONE:
                 applyClone();
                 break;
+            case SWAP_TOP_AND_BOTTOM:
+                applySwapTopAndBottom();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
