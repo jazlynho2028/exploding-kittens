@@ -847,4 +847,8 @@ public class PlayerDeckView {
         selectedGodcatCardType = null;
     }
 
+    public CardType getSelectedGodcatCardType() {
+        return selectedGodcatCardType;
+    }
+
 }
