@@ -186,6 +186,10 @@ public class PlayerDeckController {
             view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
             rebindHandCards();
             updateTurnControls();
+
+            if (cardType == CardType.GODCAT) {
+                view.showGodcatOverlay();
+            }
         });
     }
 
