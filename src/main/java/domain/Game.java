@@ -176,7 +176,6 @@ public class Game {
                 applySuperSkip();
                 break;
             case GODCAT:
-                applyGodcat();
                 break;
             case CLONE:
                 applyClone();
