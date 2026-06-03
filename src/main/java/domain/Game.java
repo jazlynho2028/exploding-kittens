@@ -282,7 +282,16 @@ public class Game {
     }
 
     void applyAttack() {
-        // TODO
+        int currentDrawCount = turnManager.getDrawCount();
+        turnManager.setDrawCount(0);
+        advanceTurn();
+
+        if (currentDrawCount == 1) {
+            turnManager.setDrawCount(2);
+        }
+        else {
+            turnManager.setDrawCount(currentDrawCount + 2);
+        }
     }
 
     void applyShuffle() {

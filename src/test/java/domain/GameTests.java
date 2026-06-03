@@ -1169,6 +1169,42 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
+	@ParameterizedTest
+	@CsvSource({
+			"1, 2",
+			"2, 4",
+			"4, 6"
+	})
+	public void applyAttack_stackingLogic_calculatesCorrectDrawCount(int initialDrawCount, int expectedDrawCount) {
+		Player mockPlayer = EasyMock.createMock(Player.class);
+		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(initialDrawCount);
+
+		mockTurnManager.setDrawCount(0);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(0);
+
+		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(0);
+		mockPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+		mockTurnManager.incrementTurn();
+		EasyMock.expectLastCall();
+
+		mockTurnManager.setDrawCount(expectedDrawCount);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(mockPlayer, mockTurnManager);
+
+		Game game = new Game(List.of(mockPlayer), EasyMock.createMock(Deck.class),
+				EasyMock.createMock(Deck.class), mockTurnManager);
+
+		game.setIsGameOngoing(true);
+		game.applyAttack();
+		EasyMock.verify(mockTurnManager);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
