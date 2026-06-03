@@ -339,7 +339,9 @@ public class Game {
     }
 
     void applyDoubleUp() {
-        // TODO
+        if (drawPile.isEmpty()) {
+            return;
+        }
     }
 
     void applyMildDraw() {

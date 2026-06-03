@@ -1169,6 +1169,23 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
+	@Test
+	public void applyDoubleUp_emptyDeck_remainsEmpty() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applyDoubleUp();
+
+		EasyMock.verify(drawPile);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
@@ -1201,5 +1218,5 @@ public class GameTests {
 
 		return matchesType && matchesId;
 	}
-
 }
+

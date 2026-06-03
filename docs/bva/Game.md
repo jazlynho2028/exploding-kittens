@@ -581,7 +581,7 @@
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
 
 ### Method under test: `applyDoubleUp()`
-- **TC90: Draw pile is empty** ( :x: )
+- **TC90: Draw pile is empty** ( :white_check_mark: )
   - **Name of the test**: applyDoubleUp_emptyDeck_remainsEmpty
   - **State of the system**: draw pile has no cards
   - **Expected output**: draw pile remains empty
