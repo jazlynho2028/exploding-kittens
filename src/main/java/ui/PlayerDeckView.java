@@ -37,7 +37,7 @@ public class PlayerDeckView {
     private final StackPane root;
     private final HBox turnControlSection;
 
-    public final StackPane godcatOverlay;
+    private final StackPane overlayLayer;
     public final Button godcatConfirmButton;
     private CardType selectedGodcatCardType;
 
@@ -73,8 +73,7 @@ public class PlayerDeckView {
         playCardsButton = new Button();
         endTurnButton = new Button();
         turnControlSection = new HBox();
-        godcatOverlay = new StackPane();
-        godcatOverlay.setPickOnBounds(false);
+        overlayLayer = new StackPane();
         godcatConfirmButton = new Button();
         selectedGodcatCardType = null;
 
@@ -230,7 +229,8 @@ public class PlayerDeckView {
 
         ImageView backgroundImage = buildBackgroundImage(assetProvider);
         VBox contentSection = buildContentSection();
-        StackPane overlayLayer = buildOverlayLayer();
+//        StackPane overlayLayer = buildOverlayLayer();
+        buildOverlayLayer();
 
         gameScreen.getChildren().addAll(
                 backgroundImage,
@@ -789,26 +789,21 @@ public class PlayerDeckView {
         );
     }
 
-    private StackPane buildOverlayLayer() {
-        StackPane overlayLayer = new StackPane();
+    private void buildOverlayLayer() {
+        overlayLayer.setVisible(false);
+        overlayLayer.setMouseTransparent(true);
         overlayLayer.setPickOnBounds(false);
-
-        overlayLayer.getChildren().add(godcatOverlay);
-
-        return overlayLayer;
     }
 
     public void buildGodcatOverlay(List<CardType> cardTypes) {
-        godcatOverlay.getChildren().clear();
-        godcatOverlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
-
         VBox overlayContent = new VBox();
         overlayContent.setAlignment(Pos.CENTER);
-        overlayContent.setPickOnBounds(true);
-        overlayContent.setStyle("-fx-padding: 20;");
+        overlayContent.setSpacing(20);
+        overlayContent.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 20;");
+        overlayContent.setPrefSize(UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
 
         Text title = new Text("Choose a card for Godcat");
-        title.getStyleClass().addAll("h3");
+        title.getStyleClass().add("h3");
         title.setFill(javafx.scene.paint.Color.WHITE);
 
         HBox cardOptions = new HBox(UIConstants.GODCAT_CARD_SPACING);
@@ -834,27 +829,38 @@ public class PlayerDeckView {
         }
 
         ScrollPane cardScrollPane = new ScrollPane(cardOptions);
+        cardScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        cardScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         cardScrollPane.setFitToHeight(true);
-        cardScrollPane.setPrefHeight(UIConstants.CARD_IMAGE_HEIGHT
-                * UIConstants.GODCAT_CARD_HEIGHT_MULTIPLIER
-                + UIConstants.GODCAT_SCROLLPANE_PADDING);
+        cardScrollPane.setPrefHeight(UIConstants.CARD_IMAGE_HEIGHT * UIConstants.GODCAT_CARD_HEIGHT_MULTIPLIER + UIConstants.GODCAT_SCROLLPANE_PADDING);
 
         godcatConfirmButton.setText("Confirm");
         godcatConfirmButton.setDisable(true);
         godcatConfirmButton.getStyleClass().addAll("turn-control-button", "h5");
 
         overlayContent.getChildren().addAll(title, cardScrollPane, godcatConfirmButton);
-        godcatOverlay.getChildren().add(overlayContent);
+        overlayLayer.getChildren().setAll(overlayContent);
+        showOverlay();
     }
 
     public void showGodcatOverlay() {
         buildGodcatOverlay(GODCAT_CARD_OPTIONS);
-        godcatOverlay.setVisible(true);
     }
 
     public void hideGodcatOverlay() {
-        godcatOverlay.setVisible(false);
         selectedGodcatCardType = null;
+        hideOverlay();
+    }
+
+    private void showOverlay() {
+        overlayLayer.setVisible(true);
+        overlayLayer.setMouseTransparent(false);
+    }
+
+    public void hideOverlay() {
+        overlayLayer.setVisible(false);
+        overlayLayer.setMouseTransparent(true);
+        overlayLayer.getChildren().clear();
     }
 
     public CardType getSelectedGodcatCardType() {
