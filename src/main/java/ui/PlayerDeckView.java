@@ -496,7 +496,7 @@ public class PlayerDeckView {
         playerHandSection.setAlignment(Pos.CENTER);
 
         renderHandVisibilityToggle();
-        ScrollPane handScrollPane = buildHandScrollPane();
+        ScrollPane handScrollPane = buildCardScrollPane(handCardsContainer);
         Text handCaption = buildCaption(
                 assetProvider.getString("playerDeckScreen.handCaption"));
 
@@ -518,14 +518,15 @@ public class PlayerDeckView {
         );
     }
 
-    private ScrollPane buildHandScrollPane() {
-        ScrollPane handScrollPane = new ScrollPane();
+    private ScrollPane buildCardScrollPane(HBox content) {
+        ScrollPane handScrollPane = new ScrollPane(content);
         handScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         handScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         handScrollPane.getStyleClass().add("scroll-pane");
 
-        renderHandCardsContainer();
-        handScrollPane.setContent(handCardsContainer);
+        content.setAlignment(Pos.CENTER);
+        content.setMinWidth(UIConstants.SCENE_WIDTH);
+        content.getStyleClass().add("hand-cards-container");
 
         return handScrollPane;
     }
@@ -821,14 +822,7 @@ public class PlayerDeckView {
 
     private ScrollPane buildCardSelectScrollPane(List<CardType> cardTypes) {
         HBox cardOptions = buildCardOptions(cardTypes);
-
-        ScrollPane cardScrollPane = new ScrollPane(cardOptions);
-        cardScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        cardScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        cardScrollPane.setFitToHeight(true);
-        cardScrollPane.getStyleClass().add("scroll-pane");
-
-        return cardScrollPane;
+        return buildCardScrollPane(cardOptions);
     }
 
     private HBox buildCardOptions(List<CardType> cardTypes) {
