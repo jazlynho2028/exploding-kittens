@@ -345,4 +345,9 @@ public class Game {
     void applyMildDraw() {
         // TODO
     }
+
+    public void applyCardType(CardType cardType) {
+
+    }
+
 }
