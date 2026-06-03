@@ -74,6 +74,7 @@ public class PlayerDeckView {
         endTurnButton = new Button();
         turnControlSection = new HBox();
         godcatOverlay = new StackPane();
+        godcatOverlay.setPickOnBounds(false);
         godcatConfirmButton = new Button();
         selectedGodcatCardType = null;
 
@@ -792,7 +793,6 @@ public class PlayerDeckView {
         StackPane overlayLayer = new StackPane();
         overlayLayer.setPickOnBounds(false);
 
-        buildGodcatOverlay(GODCAT_CARD_OPTIONS);
         overlayLayer.getChildren().add(godcatOverlay);
 
         return overlayLayer;
@@ -846,6 +846,7 @@ public class PlayerDeckView {
     }
 
     public void showGodcatOverlay() {
+        buildGodcatOverlay(GODCAT_CARD_OPTIONS);
         godcatOverlay.setVisible(true);
     }
 
