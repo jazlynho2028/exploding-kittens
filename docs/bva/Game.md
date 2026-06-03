@@ -579,3 +579,65 @@
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
   - **State of the system**: canEndTurn = false
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
+
+## Method under test: `applyAttack()`
+## Method under test: `applyAttack()`
+- **TC90: Non-stacked standard attack, player turn index does not wrap around** ( :x: )
+  - **Name of the test**: applyAttack_drawCountOne_advancesAndIncreasesDrawCountToTwo
+  - **State of the system**:
+    - drawCount = 1
+    - currentPlayerIndex = 0
+  - **Expected output**:
+    - reset drawCount = 0,
+    - advance the turn,
+    - then set drawCount = 2
+
+- **TC91: One-time stacked attack, player turn index does not wrap around** ( :x: )
+  - **Name of the test**: applyAttack_drawCountTwo_advancesAndIncreasesDrawCountToFour
+  - **State of the system**:
+    - drawCount = 2
+    - currentPlayerIndex = 0
+  - **Expected output**:
+    - reset drawCount = 0,
+    - advance the turn,
+    - then set drawCount = 4
+
+- **TC92: Two-time stacked attack, player turn index does not wrap around** ( :x: )
+  - **Name of the test**: applyAttack_drawCountFour_advancesAndIncreasesDrawCountToSix
+  - **State of the system**:
+    - drawCount = 4
+    - currentPlayerIndex = 0
+  - **Expected output**:
+    - reset drawCount = 0,
+    - advance the turn,
+    - then set drawCount = 6
+
+- **TC93: Standard attack, player turn index wraps around** ( :x: )
+  - **Name of the test**: applyAttack_lastPlayer_indexWrapsAndDrawCountIsTwo
+  - **State of the system**:
+    - currentPlayerIndex = numPlayers - 1
+    - drawCount = 1
+  - **Expected output**:
+    - reset drawCount = 0,
+    - advance the turn,
+    - then set drawCount = 2
+
+- **TC94: Minimum players** ( :x: )
+  - **Name of the test**: applyAttack_minPlayers_advancesAndSetsTwo
+  - **State of the system**:
+    - numPlayers = 2
+    - drawCount = 1
+  - **Expected output**:
+    - reset drawCount = 0,
+    - advance the turn,
+    - then set drawCount = 2
+
+- **TC95: Maximum players** ( :x: )
+  - **Name of the test**: applyAttack_maxPlayers_advancesAndSetsTwo
+  - **State of the system**:
+    - numPlayers = 4
+    - drawCount = 1
+  - **Expected output**:
+    - reset drawCount = 0,
+    - advance the turn,
+    - then set drawCount = 2
