@@ -659,6 +659,43 @@ public class GameTests {
 	}
 
 	@Test
+	public void playSelectedCards_godcatPlayed_returnsGodcat() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card card = EasyMock.createMock(Card.class);
+		EasyMock.expect(card.getType()).andStubReturn(CardType.GODCAT);
+
+		List<Card> selectedCards = List.of(card);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(selectedCards);
+
+		setMoveCardToDiscardExpectations(selectedCards, discardPile, currentPlayer);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canPlaySelected")
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		setGameExpectationsForPlaySelectedCards(game, currentPlayer);
+
+		EasyMock.replay(game);
+
+		CardType actualCardType = game.playSelectedCards();
+
+		assertEquals(CardType.GODCAT, actualCardType);
+
+		Object[] selectedCardsArray = selectedCards.toArray();
+		EasyMock.verify(selectedCardsArray);
+		EasyMock.verify(discardPile, currentPlayer, game);
+	}
+
+	@Test
 	public void getTopDiscardId_emptyDiscardPile_failed() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);

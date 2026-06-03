@@ -307,7 +307,7 @@
     - applySuperSkip is called
     - returns CardType.SUPER_SKIP
 
-- **TC50: Valid play with one Godcat** ( :x: )
+- **TC50: Valid play with one Godcat** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_godcatPlayed_returnsGodcat
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [GODCAT]
   - **Expected output**:
