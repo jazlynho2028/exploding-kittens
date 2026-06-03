@@ -40,6 +40,7 @@
     - view.bindEndTurnButton is called
     - view.bindNameTags is called
     - view.bindPlayerHandCardButtons is called
+    - view.bindGodcatConfirmButton is called
 
 ### Method under test: `onNameTag(int playerIndex)`
 - **TC5: Player index is the same as current player index** ( :white_check_mark: )

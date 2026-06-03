@@ -201,9 +201,17 @@ public class PlayerDeckController {
         });
     }
 
+    void onGodcatConfirm() {
+        attempt(onError, () -> {
+            CardType selectedCardType = view.getSelectedGodcatCardType();
+            onConfirmGodcatCard(selectedCardType);
+        });
+    }
+
     void onConfirmGodcatCard(CardType cardType) {
         attempt(onError, () -> {
             model.applyCardType(cardType);
+            view.hideGodcatOverlay();
         });
     }
 
