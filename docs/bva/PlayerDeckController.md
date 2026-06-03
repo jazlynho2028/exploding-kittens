@@ -218,7 +218,7 @@
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: model.applyCardType(CardType.ATTACK) is called
 
-- **TC24: Invalid card type** ( :x: )
+- **TC24: Invalid card type** ( :white_check_mark: )
   - **Name of the test**: onConfirmGodcatCard_modelThrowsException_failed
   - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType; model.applyCardType() throws exception
   - **Expected output**: onError is called with the exception message
