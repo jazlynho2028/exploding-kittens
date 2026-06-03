@@ -211,3 +211,14 @@
   - **Name of the test**: onEndTurnButton_called_failed
   - **State of the system**: model.advanceTurn throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
+
+### Method under test: `onConfirmGodcatCard(CardType cardType()`
+- **TC23: Valid card type** ( :x: )
+  - **Name of the test**: onConfirmGodcatCard_validCardType_applyCardTypeCalled
+  - **State of the system**: CardType.ATTACK passed as cardType
+  - **Expected output**: model.applyCardType(CardType.ATTACK) is called
+
+- **TC24: Invalid card type** ( :x: )
+  - **Name of the test**: onConfirmGodcatCard_modelThrowsException_failed
+  - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType; model.applyCardType() throws exception
+  - **Expected output**: onError is called with the exception message
