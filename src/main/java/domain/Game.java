@@ -366,6 +366,9 @@ public class Game {
             case SUPER_SKIP:
                 applySuperSkip();
                 break;
+            case CLONE:
+                applyClone();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }

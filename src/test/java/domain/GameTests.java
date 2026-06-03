@@ -1229,7 +1229,9 @@ public class GameTests {
 				Arguments.of(CardType.CATOMIC_BOMB, "applyCatomicBomb",
 						(Consumer<Game>) Game::applyCatomicBomb),
 				Arguments.of(CardType.SUPER_SKIP, "applySuperSkip",
-						(Consumer<Game>) Game::applySuperSkip)
+						(Consumer<Game>) Game::applySuperSkip),
+				Arguments.of(CardType.CLONE, "applyClone",
+						(Consumer<Game>) Game::applyClone)
 				);
 	}
 
