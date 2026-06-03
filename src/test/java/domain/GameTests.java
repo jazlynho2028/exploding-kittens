@@ -1189,8 +1189,11 @@ public class GameTests {
 		assertEquals(expectedMsg, actualMsg);
 	}
 
-	@Test
-	public void applyCardType_validCardType_correctApplyCalled() {
+	@ParameterizedTest
+	@MethodSource("provideValidCardTypesAndMethods")
+	public void applyCardType_validCardType_correctApplyCalled(
+			CardType cardType, String applyMethodName,
+			Consumer<Game> applyMethod) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1200,17 +1203,24 @@ public class GameTests {
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("applyAttack")
+				.addMockedMethod(applyMethodName)
 				.createMock();
 
-		game.applyAttack();
+		applyMethod.accept(game);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(game);
 
-		game.applyCardType(CardType.ATTACK);
+		game.applyCardType(cardType);
 
 		EasyMock.verify(game);
+	}
+
+	private static Stream<Arguments> provideValidCardTypesAndMethods() {
+		return Stream.of(
+				Arguments.of(CardType.ATTACK, "applyAttack",
+						(Consumer<Game>) Game::applyAttack)
+				);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
