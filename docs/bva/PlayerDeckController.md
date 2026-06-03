@@ -213,7 +213,7 @@
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onConfirmGodcatCard(CardType cardType()`
-- **TC23: Valid card type** ( :x: )
+- **TC23: Valid card type** ( :white_check_mark: )
   - **Name of the test**: onConfirmGodcatCard_validCardType_applyCardTypeCalled
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: model.applyCardType(CardType.ATTACK) is called

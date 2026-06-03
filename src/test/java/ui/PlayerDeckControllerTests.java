@@ -615,4 +615,17 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, onError);
 	}
 
+	@Test
+	public void onConfirmGodcatCard_validCardType_applyCardTypeCalled() {
+		model.applyCardType(CardType.ATTACK);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.onConfirmGodcatCard(CardType.ATTACK);
+
+		EasyMock.verify(model);
+	}
+
 }

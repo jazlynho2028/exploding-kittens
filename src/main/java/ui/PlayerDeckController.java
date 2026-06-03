@@ -197,7 +197,9 @@ public class PlayerDeckController {
     }
 
     void onConfirmGodcatCard(CardType cardType) {
-
+        attempt(onError, () -> {
+            model.applyCardType(cardType);
+        });
     }
 
 }
