@@ -626,7 +626,7 @@
   - **State of the system**: CardType.SWAP_TOP_AND_BOTTOM passed as cardType
   - **Expected output**: applySwapTopAndBottom() is called
 
-- **TC99: Valid card type Draw From the Bottom** ( :x: )
+- **TC99: Valid card type Draw From the Bottom** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
   - **State of the system**: CardType.DRAW_FROM_THE_BOTTOM passed as cardType
   - **Expected output**: applyDrawFromTheBottom() is called

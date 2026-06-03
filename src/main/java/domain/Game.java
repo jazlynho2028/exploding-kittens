@@ -372,6 +372,9 @@ public class Game {
             case SWAP_TOP_AND_BOTTOM:
                 applySwapTopAndBottom();
                 break;
+            case DRAW_FROM_THE_BOTTOM:
+                applyDrawFromTheBottom();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
