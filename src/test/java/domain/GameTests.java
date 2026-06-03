@@ -1253,7 +1253,7 @@ public class GameTests {
 		mockTurnManager.incrementTurn();
 		EasyMock.expectLastCall();
 
-		mockTurnManager.setDrawCount(2);
+		mockTurnManager.setDrawCount(TWO_CARDS);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(mockPlayer, mockTurnManager);
