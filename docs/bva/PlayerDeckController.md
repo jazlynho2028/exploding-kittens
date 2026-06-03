@@ -234,7 +234,7 @@
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onGodcatConfirm()`
-- **TC24: Confirm called successfully** ( :x: )
+- **TC24: Confirm called successfully** ( :white_check_mark: )
   - **Name of the test**: onGodcatConfirm_validCardType_success
   - **State of the system**: view.getSelectedGodcatCardType returns CardType.ATTACK
   - **Expected output**: onConfirmGodcatCard() is called with CardType.ATTACK
