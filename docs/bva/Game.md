@@ -579,3 +579,24 @@
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
   - **State of the system**: canEndTurn = false
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
+
+### Method under test: `applyDoubleUp()`
+- **TC90: Draw pile is empty** ( :x: )
+  - **Name of the test**: applyDoubleUp_emptyDeck_remainsEmpty
+  - **State of the system**: draw pile has no cards
+  - **Expected output**: draw pile remains empty
+
+- **TC91: Draw pile only has one card** ( :x: )
+  - **Name of the test**: applyDoubleUp_deckHasOneCard_drawsOnlyThatCard
+  - **State of the system**: draw pile has one card remaining
+  - **Expected output**: player draws the last remaining card
+
+- **TC92: Draw pile has 2 cards** ( :x: )
+  - **Name of the test**: applyDoubleUp_deckHasTwoCards_drawsBothCards
+  - **State of the system**: draw pile has exactly two cards remaining
+  - **Expected output**: player draws both remaining cards, deck is now empty
+
+- **TC93: Draw pile has 3 cards** ( :x: )
+  - **Name of the test**: applyDoubleUp_deckHasThreeCards_drawsTwoLeavesOne
+  - **State of the system**: draw pile has three cards remaining
+  - **Expected output**: player draws two cards, deck has one card remaining
