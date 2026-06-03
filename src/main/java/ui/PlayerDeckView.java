@@ -789,9 +789,10 @@ public class PlayerDeckView {
     }
 
     private void buildOverlayLayer() {
+        overlayLayer.setAlignment(Pos.CENTER);
+        overlayLayer.getStyleClass().add("overlay");
         overlayLayer.setVisible(false);
         overlayLayer.setMouseTransparent(true);
-        overlayLayer.setPickOnBounds(false);
     }
 
     public void buildGodcatOverlay(List<CardType> cardTypes) {
