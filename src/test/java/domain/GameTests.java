@@ -1186,61 +1186,48 @@ public class GameTests {
 		EasyMock.verify(drawPile);
 	}
 
-	@Test
-	public void applyDoubleUp_deckHasOneCard_drawsOnlyThatCard() {
+	@ParameterizedTest
+	@CsvSource({
+			"1",
+			"2",
+			"3"
+	})
+	public void applyDoubleUp_variousDeckSizes_drawsUpToTwoCards(int deckSize) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-		Card card = EasyMock.createMock(Card.class);
 		Player currentPlayer = EasyMock.createMock(Player.class);
 
-		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
-		EasyMock.expect(drawPile.removeTop()).andReturn(card);
-		currentPlayer.addCardToHand(card);
-		EasyMock.expectLastCall();
+		List<Card> mockCards = new ArrayList<>();
+		int expectedDraws = Math.min(2, deckSize);
 
-		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
+		for (int i = 0; i < expectedDraws; i++) {
+			Card card = EasyMock.createMock(Card.class);
+			mockCards.add(card);
+
+			EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+			EasyMock.expect(drawPile.removeTop()).andReturn(card);
+			currentPlayer.addCardToHand(card);
+			EasyMock.expectLastCall();
+		}
+
+		if (deckSize < 2) {
+			EasyMock.expect(drawPile.isEmpty()).andReturn(true);
+		}
+
+		Object[] cardsArray = mockCards.toArray();
 
 		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
-		EasyMock.replay(players, drawPile, discardPile, turnManager, card, currentPlayer, game);
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer, game);
+		EasyMock.replay(cardsArray);
 
 		game.applyDoubleUp();
 
 		EasyMock.verify(drawPile, currentPlayer, game);
-	}
-
-	@Test
-	public void applyDoubleUp_deckHasTwoCards_drawsBothCards() {
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-		Card firstCard = EasyMock.createMock(Card.class);
-		Card secondCard = EasyMock.createMock(Card.class);
-		Player currentPlayer = EasyMock.createMock(Player.class);
-
-		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
-		EasyMock.expect(drawPile.removeTop()).andReturn(firstCard);
-		currentPlayer.addCardToHand(firstCard);
-		EasyMock.expectLastCall();
-
-		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
-		EasyMock.expect(drawPile.removeTop()).andReturn(secondCard);
-		currentPlayer.addCardToHand(secondCard);
-		EasyMock.expectLastCall();
-
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
-				players, drawPile, discardPile, turnManager, currentPlayer);
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager,
-				firstCard, secondCard, currentPlayer, game);
-
-		game.applyDoubleUp();
-
-		EasyMock.verify(drawPile, currentPlayer, game);
+		EasyMock.verify(cardsArray);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {

@@ -587,16 +587,16 @@
   - **Expected output**: draw pile remains empty
 
 - **TC91: Draw pile only has one card** ( :white_check_mark: )
-  - **Name of the test**: applyDoubleUp_deckHasOneCard_drawsOnlyThatCard
+  - **Name of the test**: applyDoubleUp_variousDeckSizes_drawsUpToTwoCards
   - **State of the system**: draw pile has one card remaining
   - **Expected output**: player draws the last remaining card
 
 - **TC92: Draw pile has 2 cards** ( :white_check_mark: )
-  - **Name of the test**: applyDoubleUp_deckHasTwoCards_drawsBothCards
+  - **Name of the test**: applyDoubleUp_variousDeckSizes_drawsUpToTwoCards
   - **State of the system**: draw pile has exactly two cards remaining
   - **Expected output**: player draws both remaining cards, deck is now empty
 
-- **TC93: Draw pile has 3 cards** ( :x: )
-  - **Name of the test**: applyDoubleUp_deckHasThreeCards_drawsTwoLeavesOne
+- **TC93: Draw pile has 3 cards** ( :white_check_mark: )
+  - **Name of the test**: applyDoubleUp_variousDeckSizes_drawsUpToTwoCards
   - **State of the system**: draw pile has three cards remaining
   - **Expected output**: player draws two cards, deck has one card remaining
