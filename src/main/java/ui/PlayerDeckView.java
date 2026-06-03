@@ -811,7 +811,7 @@ public class PlayerDeckView {
         title.getStyleClass().addAll("h3");
         title.setFill(javafx.scene.paint.Color.WHITE);
 
-        HBox cardOptions = new HBox(10);
+        HBox cardOptions = new HBox(UIConstants.GODCAT_CARD_SPACING);
         cardOptions.setAlignment(Pos.CENTER);
 
         for (CardType cardType : cardTypes) {
@@ -835,7 +835,9 @@ public class PlayerDeckView {
 
         ScrollPane cardScrollPane = new ScrollPane(cardOptions);
         cardScrollPane.setFitToHeight(true);
-        cardScrollPane.setPrefHeight(UIConstants.CARD_IMAGE_HEIGHT * 2 + 20);
+        cardScrollPane.setPrefHeight(UIConstants.CARD_IMAGE_HEIGHT
+                * UIConstants.GODCAT_CARD_HEIGHT_MULTIPLIER
+                + UIConstants.GODCAT_SCROLLPANE_PADDING);
 
         godcatConfirmButton.setText("Confirm");
         godcatConfirmButton.setDisable(true);

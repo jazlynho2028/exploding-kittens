@@ -22,4 +22,7 @@ public final class UIConstants {
     public static final int CARD_IMAGE_HEIGHT = 154;
     public static final double CARD_IMAGE_BOTTOM_PADDING = 10;
 
+    public static final int GODCAT_CARD_SPACING = 10;
+    public static final double GODCAT_CARD_HEIGHT_MULTIPLIER = 2;
+    public static final int GODCAT_SCROLLPANE_PADDING = 20;
 }
