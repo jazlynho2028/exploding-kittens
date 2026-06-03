@@ -591,7 +591,7 @@
   - **State of the system**: draw pile has one card remaining
   - **Expected output**: player draws the last remaining card
 
-- **TC92: Draw pile has 2 cards** ( :x: )
+- **TC92: Draw pile has 2 cards** ( :white_check_mark: )
   - **Name of the test**: applyDoubleUp_deckHasTwoCards_drawsBothCards
   - **State of the system**: draw pile has exactly two cards remaining
   - **Expected output**: player draws both remaining cards, deck is now empty
