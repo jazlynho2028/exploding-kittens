@@ -783,7 +783,7 @@ public class PlayerDeckView {
     private void renderTurnControlButton(Button turnControlButton, String label) {
         turnControlButton.setText(label);
         turnControlButton.getStyleClass().addAll(
-                "turn-control-button",
+                "button-secondary",
                 "h5"
         );
     }
@@ -799,8 +799,10 @@ public class PlayerDeckView {
         VBox overlayContent = new VBox();
         overlayContent.setAlignment(Pos.CENTER);
         overlayContent.setSpacing(UIConstants.GODCAT_SCROLLPANE_PADDING);
-        overlayContent.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 20;");
+        overlayContent.setStyle("-fx-padding: 20;");
         overlayContent.setPrefSize(UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
+        overlayContent.getStyleClass().add("overlay-content");
+
 
         Text title = new Text("Choose a card for Godcat");
         title.getStyleClass().add("h3");
@@ -836,7 +838,7 @@ public class PlayerDeckView {
 
         godcatConfirmButton.setText("Confirm");
         godcatConfirmButton.setDisable(true);
-        godcatConfirmButton.getStyleClass().addAll("turn-control-button", "h5");
+        godcatConfirmButton.getStyleClass().addAll("overlay-button", "confirm", "h5");
 
         overlayContent.getChildren().addAll(title, cardScrollPane, godcatConfirmButton);
         overlayLayer.getChildren().setAll(overlayContent);
