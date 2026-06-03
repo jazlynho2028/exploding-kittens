@@ -1241,7 +1241,9 @@ public class GameTests {
 				Arguments.of(CardType.WINNER_WINNER_CATNIP_DINNER, "applyWinnerWinnerCatnipDinner",
 						(Consumer<Game>) Game::applyWinnerWinnerCatnipDinner),
 				Arguments.of(CardType.RAGEBAIT, "applyRagebait",
-						(Consumer<Game>) Game::applyRagebait)
+						(Consumer<Game>) Game::applyRagebait),
+				Arguments.of(CardType.RECYCLE, "applyRecycle",
+						(Consumer<Game>) Game::applyRecycle)
 				);
 	}
 

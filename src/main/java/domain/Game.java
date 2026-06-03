@@ -384,6 +384,9 @@ public class Game {
             case RAGEBAIT:
                 applyRagebait();
                 break;
+            case RECYCLE:
+                applyRecycle();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }
