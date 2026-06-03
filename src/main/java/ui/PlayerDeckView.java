@@ -1,5 +1,6 @@
 package ui;
 
+import domain.CardType;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -35,6 +36,24 @@ public class PlayerDeckView {
 
     private final StackPane root;
     private final HBox turnControlSection;
+
+    private static final List<CardType> GODCAT_CARD_OPTIONS = List.of(
+            CardType.ATTACK,
+            CardType.SHUFFLE,
+            CardType.SKIP,
+            CardType.SEE_THE_FUTURE,
+            CardType.CATOMIC_BOMB,
+            CardType.SUPER_SKIP,
+            CardType.CLONE,
+            CardType.SWAP_TOP_AND_BOTTOM,
+            CardType.DRAW_FROM_THE_BOTTOM,
+            CardType.TARGETED_ATTACK,
+            CardType.WINNER_WINNER_CATNIP_DINNER,
+            CardType.RAGEBAIT,
+            CardType.RECYCLE,
+            CardType.DOUBLE_UP,
+            CardType.MILD_DRAW
+    );
 
     public PlayerDeckView(AssetProvider assetProvider) {
         this.assetProvider = assetProvider;
