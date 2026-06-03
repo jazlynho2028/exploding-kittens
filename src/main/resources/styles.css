@@ -636,6 +636,8 @@
 
 .overlay-content {
     -fx-spacing: 16px;
+    -fx-padding: 20px;
+    -fx-alignment: center;
 }
 
 .overlay-button {

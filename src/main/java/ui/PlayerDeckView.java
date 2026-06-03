@@ -797,12 +797,8 @@ public class PlayerDeckView {
 
     public void buildGodcatOverlay(List<CardType> cardTypes) {
         VBox overlayContent = new VBox();
-        overlayContent.setAlignment(Pos.CENTER);
-        overlayContent.setSpacing(UIConstants.GODCAT_SCROLLPANE_PADDING);
-        overlayContent.setStyle("-fx-padding: 20;");
         overlayContent.setPrefSize(UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
         overlayContent.getStyleClass().add("overlay-content");
-
 
         Text title = new Text("Choose a card for Godcat");
         title.getStyleClass().add("h3");
