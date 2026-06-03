@@ -178,6 +178,7 @@
     - topDiscardId = "SKIP_1"
     - canPlaySelected = true
     - canEndTurn = true
+    - playSelectedCards returns CardType.SKIP
   - **Expected output**: 
     - model.playSelectedCards is called
     - view.renderDiscardPile with model.canDrawFromDiscard is called
@@ -186,6 +187,7 @@
     - rebindHandCards is called
     - view.renderTurnControlSection with model.canPlaySelected is called
     - model.canEndTurn is called
+    - view.showGodcatOverlay is NOT called
 
 - **TC20: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed
