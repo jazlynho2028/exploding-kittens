@@ -381,6 +381,9 @@ public class Game {
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
                 break;
+            case RAGEBAIT:
+                applyRagebait();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }

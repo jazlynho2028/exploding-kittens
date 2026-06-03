@@ -1239,7 +1239,9 @@ public class GameTests {
 				Arguments.of(CardType.TARGETED_ATTACK, "applyTargetedAttack",
 						(Consumer<Game>) Game::applyTargetedAttack),
 				Arguments.of(CardType.WINNER_WINNER_CATNIP_DINNER, "applyWinnerWinnerCatnipDinner",
-						(Consumer<Game>) Game::applyWinnerWinnerCatnipDinner)
+						(Consumer<Game>) Game::applyWinnerWinnerCatnipDinner),
+				Arguments.of(CardType.RAGEBAIT, "applyRagebait",
+						(Consumer<Game>) Game::applyRagebait)
 				);
 	}
 
