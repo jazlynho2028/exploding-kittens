@@ -800,22 +800,22 @@ public class PlayerDeckView {
 
     public void buildGodcatOverlay(List<CardType> cardTypes) {
         godcatOverlay.getChildren().clear();
-        godcatOverlay.setVisible(false);
-        godcatOverlay.getStyleClass().add("godcat-overlay");
+        godcatOverlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
 
         VBox overlayContent = new VBox();
         overlayContent.setAlignment(Pos.CENTER);
-        overlayContent.getStyleClass().add("godcat-overlay-content");
+        overlayContent.setPickOnBounds(true);
+        overlayContent.setStyle("-fx-padding: 20;");
 
         Text title = new Text("Choose a card for Godcat");
-        title.getStyleClass().addAll("h4");
+        title.getStyleClass().addAll("h3");
+        title.setFill(javafx.scene.paint.Color.WHITE);
 
-        ScrollPane cardScrollPane = new ScrollPane();
-        HBox cardOptions = new HBox();
+        HBox cardOptions = new HBox(10);
         cardOptions.setAlignment(Pos.CENTER);
 
         for (CardType cardType : cardTypes) {
-            String cardId = cardType.name() + "_1"; 
+            String cardId = cardType.name().replace("_", "") + "_1";
             ToggleButton cardButton = new ToggleButton();
             cardButton.getStyleClass().addAll("card", "front");
             cardButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -833,9 +833,9 @@ public class PlayerDeckView {
             cardOptions.getChildren().add(cardButton);
         }
 
-        cardScrollPane.setContent(cardOptions);
-        cardScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        cardScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        ScrollPane cardScrollPane = new ScrollPane(cardOptions);
+        cardScrollPane.setFitToHeight(true);
+        cardScrollPane.setPrefHeight(UIConstants.CARD_IMAGE_HEIGHT * 2 + 20);
 
         godcatConfirmButton.setText("Confirm");
         godcatConfirmButton.setDisable(true);
