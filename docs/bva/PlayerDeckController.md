@@ -189,8 +189,8 @@
     - model.canEndTurn is called
     - view.showGodcatOverlay is NOT called
 
-- **TC20: Cards play successfully, Godcat card** ( :x: )
-  - **Name of the test**: onPlayCardsButton_called_success
+- **TC20: Cards play successfully, Godcat card** ( :white_check_mark: )
+  - **Name of the test**: onPlayCardsButton_godcatPlayed_overlayShown
   - **State of the system**:
     - canDrawFromDiscard = true
     - topDiscardId = "SKIP_1"

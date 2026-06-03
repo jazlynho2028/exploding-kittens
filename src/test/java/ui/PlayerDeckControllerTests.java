@@ -543,6 +543,45 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
+	public void onPlayCardsButton_godcatPlayed_overlayShown() {
+		boolean canDrawFromDiscard = true;
+		boolean canEndTurn = true;
+		String topDiscardId = "GODCAT_1";
+		CardType topDiscardType = CardType.GODCAT;
+
+		EasyMock.expect(model.canDrawFromDiscard()).andReturn(canDrawFromDiscard);
+		EasyMock.expect(model.getTopDiscardId()).andReturn(topDiscardId);
+
+		setUpRenderTurnControlSectionExpectations(canEndTurn);
+
+		EasyMock.expect(model.playSelectedCards()).andReturn(topDiscardType);
+
+		view.renderDiscardPile(canDrawFromDiscard, topDiscardId);
+		EasyMock.expectLastCall();
+
+		view.showGodcatOverlay();
+		EasyMock.expectLastCall();
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("rebindHandCards")
+				.createMock();
+
+		controller.rebindHandCards();
+		EasyMock.expectLastCall();
+
+		view.renderTurnControlSection(canPlaySelected, canEndTurn);
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onPlayCardsButton();
+
+		EasyMock.verify(model, view, controller);
+	}
+
+	@Test
 	public void onPlayCardsButton_called_failed() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
