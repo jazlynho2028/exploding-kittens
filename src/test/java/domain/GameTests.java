@@ -1221,7 +1221,9 @@ public class GameTests {
 				Arguments.of(CardType.ATTACK, "applyAttack",
 						(Consumer<Game>) Game::applyAttack),
 				Arguments.of(CardType.SHUFFLE, "applyShuffle",
-						(Consumer<Game>) Game::applyShuffle)
+						(Consumer<Game>) Game::applyShuffle),
+				Arguments.of(CardType.SKIP, "applySkip",
+						(Consumer<Game>) Game::applySkip)
 				);
 	}
 
