@@ -351,6 +351,9 @@ public class Game {
             case ATTACK:
                 applyAttack();
                 break;
+            case SHUFFLE:
+                applyShuffle();
+                break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
         }

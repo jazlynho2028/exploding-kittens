@@ -591,7 +591,7 @@
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: applyAttack() is called
 
-- **TC92: Valid card type Shuffle** ( :x: )
+- **TC92: Valid card type Shuffle** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
   - **State of the system**: CardType.SHUFFLE passed as cardType
   - **Expected output**: applyShuffle() is called
