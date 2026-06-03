@@ -586,7 +586,7 @@
   - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType
   - **Expected output**: throws IllegalArgumentException with message "error.cannotPlaySelectedCards"
 
-- **TC91: Valid card type Attack** ( :x: )
+- **TC91: Valid card type Attack** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: applyAttack() is called

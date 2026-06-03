@@ -1189,6 +1189,30 @@ public class GameTests {
 		assertEquals(expectedMsg, actualMsg);
 	}
 
+	@Test
+	public void applyCardType_validCardType_correctApplyCalled() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("applyAttack")
+				.createMock();
+
+		game.applyAttack();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(game);
+
+		game.applyCardType(CardType.ATTACK);
+
+		EasyMock.verify(game);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
