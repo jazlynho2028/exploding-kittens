@@ -308,7 +308,7 @@
     - returns CardType.SUPER_SKIP
 
 - **TC50: Valid play with one Godcat** ( :x: )
-  - **Name of the test**: playSelectedCards_validPlay_cardsMovedFromHandToDiscard
+  - **Name of the test**: playSelectedCards_godcatPlayed_returnsGodcat
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [GODCAT]
   - **Expected output**:
     - card1.toggleSelected is called
