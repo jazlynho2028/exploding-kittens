@@ -520,23 +520,36 @@
   - **Expected output**: isFaceUp = false
 
 ### Method under test: `drawFromPile()`
-- **TC81: This method is called successfully** ( :white_check_mark: )
-  - **Name of the test**: drawFromPile_called_returnsDrawnCardType
+- **TC81: This method is called with non-exploding card** ( :x: )
+  - **Name of the test**: drawFromPile_nonExplodingCard_returnsDrawnCard
   - **State of the system**: 
-    - card = drawPile.removeTop
+    - card = drawPile.peekTop
+    - card.getType = ATTACK
     - player = getCurrentPlayer
-  - **Expected output**: 
+  - **Expected output**:
+    - drawPile.removeTop is called
+    - player.addCardToHand is called with card
     - turnManager.decrementDrawCount is called
     - player.deselectHandCards is called
-    - player.addCardToHand is called with card
+    - returns card``
+
+- **TC82: This method is called with exploding kitten** ( :x: )
+  - **Name of the test**: drawFromPile_explodingCard_returnsExplodingCard
+  - **State of the system**:
+    - card = drawPile.peekTop
+    - card.getType = EXPLODING_KITTEN
+    - player = getCurrentPlayer
+  - **Expected output**:
+    - turnManager.decrementDrawCount is called
+    - player.deselectHandCards is called
     - returns card
 
-- **TC82: Throw exception from drawPile** ( :white_check_mark: )
+- **TC83: Throw exception from drawPile** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_drawPileException_failed
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throw IllegalStateException "error.emptyDeck"
 
-- **TC83: Throw exception from turnManager** ( :white_check_mark: )
+- **TC84: Throw exception from turnManager** ( :x: )
   - **Name of the test**: drawFromPile_turnManagerException_failed
   - **State of the system**: turnManager.decrementDrawCount throws IllegalStateException "error.negativeDrawCount"
   - **Expected output**: throw IllegalStateException "error.negativeDrawCount"
