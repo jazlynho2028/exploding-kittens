@@ -17,3 +17,62 @@
 
 ## Acknowledgements
 REFERENCES, SOURCE OF HELP ETC
+
+## Special Decisions and Exceptions
+**Unachievable 100% Line Coverage due to Empty Lambdas**
+Our project does not achieve 100% code coverage due to the use of
+intentionally empty lambda expressions in several controller classes.
+These lambdas are used as default callback implementations before a 
+controllers event handlers are configured.
+
+Example `src/main/java/ui/PlayerCreateController.java` Line 30
+```java
+this.onError = message -> { };
+```
+
+Because the lambda is empty, executing it doesn't cause anything to happen.
+As a result, coverage tools may report it as uncovered even though it is
+functioning as designed. Team 14 believes this to be a justified use
+
+**SpotBug Suppressions**
+There were several SpotBug warnings intentionally suppressed as they
+conflicted with project design requirements or testability
+
+- EI_EXPOSE_REP2
+Some classes accept dependencies in their constructors. Defensive
+copying would make unit testing significantly more difficult.
+
+- CT_CONSTRUCTOR_THROW
+The constructor in `src/main/java/domain/Game.java` performs validation
+of inputs and may throw an IllegalArgumentException when invalid data
+is provided. This is intentional as validating constructor arguments is
+the responsibility of `Game.java`, and this class can't be made final
+because doing so would reduce testability.
+
+**Game Rule Clarifications**
+There are two rules pertaining to cards that we want to specify as
+special exceptions.
+
+- Exploding Kitten cards are not playable cards, they cannot be selected
+and played during a player's turn
+- Defuses are not considered playable cards unless a player draws an
+Exploding Kitten and has to defuse it
+
+**Constructor Design Decisions**
+The `src/main/java/domain/Game.java` constructor accepts four parameters:
+
+```java
+public Game(List<Player> players,
+            Deck drawPile,
+            Deck discardPile,
+            TurnManager turnManager)
+```
+
+This was intentionally done to support dependency injection and
+unit testing. Providing these dependencies through the constructor
+allows for us to utilize mocks when verifying `Game.java` behavior
+
+We realize that constructors with many parameters can complicate things,
+but our team decided that all dependencies are necessary in Game.java
+and constructor injection leads to the most testable design.
+
