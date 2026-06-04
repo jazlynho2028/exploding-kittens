@@ -581,64 +581,34 @@
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
 
 ## Method under test: `applyAttack()`
-- **TC90: Non-stacked standard attack, player turn index does not wrap around** ( :white_check_mark: )
+- **TC90: Non-stacked standard attack, ** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
     - drawCount = 1
-    - currentPlayerIndex = 0
   - **Expected output**:
-    - reset drawCount = 0,
-    - advance the turn (currentPlayerIndex = 1),
-    - then set drawCount = 2
+    - ends current player's turn
+    - increments turn
+    - drawCount = 2
 
 - **TC91: One-time stacked attack, player turn index does not wrap around** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
     - drawCount = 2
-    - currentPlayerIndex = 0
   - **Expected output**:
-    - reset drawCount = 0,
-    - advance the turn (currentPlayerIndex = 1),
-    - then set drawCount = 4
+    - ends current player's turn
+    - increments turn
+    - draCount = 4
 
 - **TC92: Two-time stacked attack, player turn index does not wrap around** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
     - drawCount = 4
-    - currentPlayerIndex = 0
   - **Expected output**:
-    - reset drawCount = 0,
-    - advance the turn (currentPlayerIndex = 1),
-    - then set drawCount = 6
+    - ends current player's turn
+    - increments turn
+    - drawCount = 6
 
-- **TC93: Last player index advancement** ( :white_check_mark: )
-  - **Name of the test**: applyAttack_lastPlayer_successfullyAdvancesTurn
-  - **State of the system**:
-    - currentPlayerIndex = numPlayers - 1
-    - drawCount = 1
-  - **Expected output**:
-    - reset drawCount = 0,
-    - advance the turn (currentPlayerIndex = 0),
-    - then set drawCount = 2
-
-- **TC94: Minimum players** ( :white_check_mark: )
-  - **Name of the test**: applyAttack_boundaryPlayers_advancesAndSetsTwo
-  - **State of the system**:
-    - numPlayers = 2
-    - currentPlayerIndex = 0
-    - drawCount = 1
-  - **Expected output**:
-    - reset drawCount = 0,
-    - advance the turn (currentPlayerIndex = 1),
-    - then set drawCount = 2
-
-- **TC95: Maximum players** ( :white_check_mark: )
-  - **Name of the test**: applyAttack_maxPlayers_advancesAndSetsTwo
-  - **State of the system**:
-    - numPlayers = 4
-    - currentPlayerIndex = 0
-    - drawCount = 1
-  - **Expected output**:
-    - reset drawCount = 0,
-    - advance the turn (currentPlayerIndex = 1),
-    - then set drawCount = 2
+- **TC93: Attack is played while game is not ongoing** ( :x: )
+  - **Name of the test**: applyAttack_gameNotOngoing_throwsException
+  - **State of the system**: isGameOngoing = false
+  - **Expected output**: throws error.gameAlreadyEnded
