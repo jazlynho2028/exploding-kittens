@@ -475,7 +475,6 @@ public class PlayerDeckView {
         ScrollPane cardScrollPane = new ScrollPane(content);
         cardScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         cardScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        cardScrollPane.setFitToHeight(true);
         cardScrollPane.getStyleClass().add("scroll-pane");
 
         content.setMinWidth(UIConstants.SCENE_WIDTH);
