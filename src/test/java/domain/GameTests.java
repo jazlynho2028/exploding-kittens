@@ -1361,17 +1361,18 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
-	@Test
-	public void playDefuse_hasDefuse_reinsertExplodingKitten() {
+	@ParameterizedTest
+	@MethodSource("provideCurrentPlayerHandsWithDefuseIndex")
+	public void playDefuse_hasDefuse_reinsertExplodingKitten(
+			List<CardType> currentPlayerHandCardTypes, int defuseIndex) {
+
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		int drawPileIndex = 0;
-		int defuseIndex = 0;
 
-		List<CardType> currentPlayerHandCardTypes = List.of(CardType.DEFUSE);
 		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
@@ -1401,6 +1402,13 @@ public class GameTests {
 		game.playDefuse(drawPileIndex);
 
 		EasyMock.verify(game, currentPlayer, drawPile, discardPile);
+	}
+
+	private static Stream<Arguments> provideCurrentPlayerHandsWithDefuseIndex() {
+		return Stream.of(
+				Arguments.of(List.of(CardType.DEFUSE), 0),
+				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE), 1)
+		);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
