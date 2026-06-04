@@ -1203,6 +1203,21 @@ public class GameTests {
 		EasyMock.verify(mockTurnManager, mockPlayer);
 	}
 
+	@Test
+	public void applyAttack_gameNotOngoing_throwsException() {
+		Player mockPlayer = EasyMock.createMock(Player.class);
+		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		EasyMock.replay(mockPlayer, mockTurnManager);
+
+		Game game = new Game(List.of(mockPlayer), EasyMock.createMock(Deck.class),
+				EasyMock.createMock(Deck.class), mockTurnManager);
+
+		game.setIsGameOngoing(false);
+
+		Exception exception = assertThrows(IllegalStateException.class, () -> game.applyAttack());
+		assertEquals("error.gameAlreadyEnded", exception.getMessage());
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
