@@ -830,8 +830,8 @@ public class PlayerDeckView {
 
         cardButton.setOnMouseClicked(e -> {
             selectedGodcatCardType = cardType;
-            cardOptions.getChildren().forEach(n ->
-                    ((ToggleButton) n).setSelected(false));
+            cardOptions.getChildren().forEach(button ->
+                    ((ToggleButton) button).setSelected(false));
             cardButton.setSelected(true);
             godcatConfirmButton.setDisable(false);
         });
