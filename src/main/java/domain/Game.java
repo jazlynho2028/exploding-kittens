@@ -282,15 +282,15 @@ public class Game {
     }
 
     void applyAttack() {
-        int currentDrawCount = turnManager.getDrawCount();
-        turnManager.setDrawCount(0);
-        advanceTurn();
-
-        if (currentDrawCount == 1) {
-            turnManager.setDrawCount(2);
+        if (!isGameOngoing) {
+            throw new IllegalStateException("error.gameAlreadyEnded");
         }
-        else {
-            turnManager.setDrawCount(currentDrawCount + 2);
+        getCurrentPlayer().deselectHandCards();
+        turnManager.incrementTurn();
+
+        int drawCount = turnManager.getDrawCount();
+        if (drawCount > 1) {
+            turnManager.incrementDrawCount(drawCount);
         }
     }
 
