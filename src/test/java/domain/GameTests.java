@@ -1,6 +1,5 @@
 package domain;
 
-import io.cucumber.java.an.E;
 import org.easymock.EasyMock;
 
 import org.easymock.IArgumentMatcher;
