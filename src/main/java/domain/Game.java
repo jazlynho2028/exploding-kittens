@@ -282,9 +282,6 @@ public class Game {
     }
 
     void applyAttack() {
-        if (!isGameOngoing) {
-            throw new IllegalStateException("error.gameAlreadyEnded");
-        }
         getCurrentPlayer().deselectHandCards();
         turnManager.incrementTurn();
 
