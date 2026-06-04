@@ -539,18 +539,18 @@
     -fx-spacing: 8;
 }
 
-.turn-control-button {
+.button-secondary {
     -fx-border-radius: 8;
     -fx-padding: 0px 16px;
     -fx-effect: dropshadow(gaussian, magenta-5-tr, 2, 0, 0, 2);
 }
 
-.turn-control-button {
+.button-secondary {
     -fx-background-color: linear-gradient(to bottom, yellow-1, yellow-4);
     -fx-text-fill: magenta-6;
 }
 
-.turn-control-button:disabled {
+.button-secondary:disabled {
     -fx-opacity: 1;
     -fx-background-color: beige-2;
     -fx-text-fill: beige-3;
@@ -608,18 +608,18 @@
     -fx-spacing: 8;
 }
 
-.turn-control-button {
+.button-secondary {
     -fx-border-radius: 8;
     -fx-padding: 0px 16px;
     -fx-effect: dropshadow(gaussian, magenta-5-tr, 2, 0, 0, 2);
 }
 
-.turn-control-button {
+.button-secondary {
     -fx-background-color: linear-gradient(to bottom, yellow-1, yellow-4);
     -fx-text-fill: magenta-6;
 }
 
-.turn-control-button:disabled {
+.button-secondary:disabled {
     -fx-opacity: 1;
     -fx-background-color: beige-2;
     -fx-text-fill: beige-3;
@@ -631,18 +631,47 @@
     -fx-effect: none;
 }
 
-.restart-icon {
-    -fx-fill: yellow-1;
-    -fx-scale-x: 1.2;
-    -fx-scale-y: 1.2;
-}
-
 .overlay {
     -fx-background-color: gray-6-tr;
 }
 
 .overlay-content {
     -fx-spacing: 24px;
+    -fx-padding: 20px;
+}
+
+.overlay-title {
+    -fx-fill: yellow-0;
+}
+
+.overlay-button {
+    -fx-background-radius: 8;
+    -fx-border-width: 2;
+    -fx-border-radius: 16;
+    -fx-pref-width: 176px;
+    -fx-padding: -2 0 -2 0;
+}
+
+.overlay-button.confirm {
+    -fx-background-color: linear-gradient(to bottom, yellow-3, yellow-4);
+    -fx-text-fill: magenta-6;
+}
+
+.overlay-button.confirm:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: beige-2;
+    -fx-text-fill: beige-3;
+}
+
+.card-options {
+    -fx-spacing: 8px;
+    -fx-alignment: center;
+}
+
+.restart-icon {
+    -fx-fill: yellow-1;
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
 }
 
 .overlay-button {

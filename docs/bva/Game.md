@@ -307,7 +307,7 @@
     - returns CardType.SUPER_SKIP
 
 - **TC50: Valid play with one Godcat** ( :white_check_mark: )
-  - **Name of the test**: playSelectedCards_validPlayWithoutApplyMethod_cardsMovedFromHandToDiscard
+  - **Name of the test**: playSelectedCards_godcatPlayed_returnsGodcat
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [GODCAT]
   - **Expected output**:
     - card1.toggleSelected is called
@@ -552,31 +552,31 @@
   - **Expected output**: throw IllegalStateException "error.negativeDrawCount"
 
 ### Method under test: `toggleFaceUp()`
-- **TC84: Is face up** ( :white_check_mark: )
+- **TC85: Is face up** ( :white_check_mark: )
   - **Name of the test**: toggleFaceUp_called_setToFalse
   - **State of the system**: isFaceUp = true
   - **Expected output**: isFaceUp = false
 
-- **TC85: Is face down** ( :white_check_mark: )
+- **TC86: Is face down** ( :white_check_mark: )
   - **Name of the test**: toggleFaceUp_called_togglesFaceUp
   - **State of the system**: isFaceUp = false
   - **Expected output**: isFaceUp = true
 
 ### Method under test: `toggleSelectedCurrentPlayerCardAt(int handCardIndex)`
-- **TC86: Hand card index at 0** ( :white_check_mark: )
+- **TC87: Hand card index at 0** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle
   - **State of the system**: 
     - player = getCurrentPlayer
     - handCardIndex = 0
   - **Expected output**: player.toggleSelectedPlayerCardAt is called with handCardIndex
 
-- **TC87: Player method throws exception** ( :white_check_mark: )
+- **TC88: Player method throws exception** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_indexZero_failed
   - **State of the system**: player.toggleSelectedPlayerCardAt throws InvalidArgumentException "error.handCardIndexOutOfBounds"
   - **Expected output**: throws InvalidArgumentException "error.handCardIndexOutOfBounds"
 
 ### Method under test: `advanceTurn()`
-- **TC88: Can end turn** ( :white_check_mark: )
+- **TC89: Can end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_canEndTurn_advanceTurnAndDeselectCards
   - **State of the system**: 
     - canEndTurn = true
@@ -585,74 +585,74 @@
     - player.deselectHandCards is called
     - turnManager.incrementTurn is called
 
-- **TC89: Cannot end turn** ( :white_check_mark: )
+- **TC90: Cannot end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
   - **State of the system**: canEndTurn = false
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
 
 ### Method under test: `currentPlayerHasDefuse()`
-- **TC88: Empty hand** ( :white_check_mark: )
+- **TC91: Empty hand** ( :white_check_mark: )
   - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
   - **State of the system**: currentPlayerHandCardTypes = []
   - **Expected output**: return false
 
-- **TC88: Hand with one card type, no Defuse** ( :white_check_mark: )
+- **TC92: Hand with one card type, no Defuse** ( :white_check_mark: )
   - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK]
   - **Expected output**: return false
 
-- **TC88: Hand with two different card types, no Defuse** ( :white_check_mark: )
+- **TC93: Hand with two different card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK, SKIP]
   - **Expected output**: return false
 
-- **TC88: Hand with two same card types, no Defuse** ( :white_check_mark: )
+- **TC94: Hand with two same card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, SKIP]
   - **Expected output**: return false
 
-- **TC88: Hand with one card type, has Defuse** ( :white_check_mark: )
+- **TC95: Hand with one card type, has Defuse** ( :white_check_mark: )
   - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE]
   - **Expected output**: return true
 
-- **TC88: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
+- **TC96: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
   - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, DEFUSE]
   - **Expected output**: return true
 
-- **TC88: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
+- **TC97: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
   - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, SKIP]
   - **Expected output**: return true
 
-- **TC88: Hand with two same card types, has Defuse** ( :white_check_mark: )
+- **TC98: Hand with two same card types, has Defuse** ( :white_check_mark: )
   - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
   - **Expected output**: return true
 
 ### Method under test: `playDefuse(int drawPileIndex)`
-- **TC88: Empty hand** ( :white_check_mark: )
+- **TC99: Empty hand** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuse_failed
   - **State of the system**: getCurrentPlayer.getHand = []
   - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuse"
 
-- **TC88: Hand with one card type, no Defuse** ( :white_check_mark: )
+- **TC100: Hand with one card type, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuse_failed
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK]
   - **Expected output**: return false
 
-- **TC88: Hand with two different card types, no Defuse** ( :white_check_mark: )
+- **TC101: Hand with two different card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuse_failed
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK, SKIP]
   - **Expected output**: return false
 
-- **TC88: Hand with two same card types, no Defuse** ( :white_check_mark: )
+- **TC102: Hand with two same card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuse_failed
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, SKIP]
   - **Expected output**: return false
 
-- **TC88: Hand with one card type, has Defuse** ( :white_check_mark: )
+- **TC103: Hand with one card type, has Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE]
   - **Expected output**:
@@ -660,7 +660,7 @@
     - discardPile.addCard with card1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC88: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
+- **TC104: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, DEFUSE]
   - **Expected output**:
@@ -668,7 +668,7 @@
     - discardPile.addCard with card2 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC88: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
+- **TC105: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, SKIP]
   - **Expected output**:
@@ -676,7 +676,7 @@
     - discardPile.addCard with card1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC88: Hand with two same card types, has Defuse** ( :white_check_mark: )
+- **TC106: Hand with two same card types, has Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
   - **Expected output**:
@@ -684,7 +684,7 @@
     - discardPile.addCard with card1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC88: Invalid draw pile index** ( :white_check_mark: )
+- **TC107: Invalid draw pile index** ( :white_check_mark: )
   - **Name of the test**: playDefuse_invalidDrawPileIndex_failed
   - **State of the system**: 
     - currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
@@ -692,12 +692,12 @@
   - **Expected output**: throws IllegalArgumentException "error.invalidDeckIndex"
 
 ### Method under test: `playExplode()`
-- **TC88: Empty draw pile** ( :white_check_mark: )
+- **TC108: Empty draw pile** ( :white_check_mark: )
   - **Name of the test**: playExplode_emptyDrawPile_failed
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
 
-- **TC88: This method is called successfully** ( :white_check_mark: )
+- **TC109: This method is called successfully** ( :white_check_mark: )
   - **Name of the test**: playExplode_called_success
   - **State of the system**: N/A
   - **Expected output**:
@@ -706,7 +706,88 @@
     - turnManager.incrementTurn is called
 
 ### Method under test: `getDrawPileSize()`
-- **TC88: This method is called** ( :white_check_mark: )
+- **TC110: This method is called** ( :white_check_mark: )
   - **Name of the test**: getDrawPileSize_called_returnDrawPileMethodCall
   - **State of the system**: drawPile.size = N, N = [0, 1, 2]
   - **Expected output**: returns drawPile.size
+
+### Method under test: `applyGodcat()`
+- **TC111: Invalid card type** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_invalidCardType_throwsException
+  - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType
+  - **Expected output**: throws IllegalArgumentException with message "error.cannotPlaySelectedCards"
+
+- **TC112: Valid card type Attack** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.ATTACK passed as cardType
+  - **Expected output**: applyAttack() is called
+
+- **TC113: Valid card type Shuffle** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.SHUFFLE passed as cardType
+  - **Expected output**: applyShuffle() is called
+
+- **TC114: Valid card type Skip** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.SKIP passed as cardType
+  - **Expected output**: applySkip() is called
+
+- **TC115: Valid card type See the Future** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.SEE_THE_FUTURE passed as cardType
+  - **Expected output**: applySeeTheFuture() is called
+
+- **TC116: Valid card type Catomic Bomb** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.CATOMIC_BOMB passed as cardType
+  - **Expected output**: applyCatomicBomb() is called
+
+- **TC117: Valid card type Super Skip** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.SUPER_SKIP passed as cardType
+  - **Expected output**: applySuperSkip() is called
+
+- **TC118: Valid card type Clone** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.CLONE passed as cardType
+  - **Expected output**: applyClone() is called
+
+- **TC119: Valid card type Swap Top and Bottom** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.SWAP_TOP_AND_BOTTOM passed as cardType
+  - **Expected output**: applySwapTopAndBottom() is called
+
+- **TC120: Valid card type Draw From the Bottom** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.DRAW_FROM_THE_BOTTOM passed as cardType
+  - **Expected output**: applyDrawFromTheBottom() is called
+
+- **TC121: Valid card type Targeted Attack** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.TARGETED_ATTACK passed as cardType
+  - **Expected output**: applyTargetedAttack() is called
+
+- **TC122: Valid card type Winner Winner Catnip Dinner** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.WINNER_WINNER_CATNIP_DINNER passed as cardType
+  - **Expected output**: applyWinnerWinnerCatnipDinner() is called
+
+- **TC123: Valid card type Ragebait** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.RAGEBAIT passed as cardType
+  - **Expected output**: applyRagebait() is called
+
+- **TC124: Valid card type Recycle** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.RECYCLE passed as cardType
+  - **Expected output**: applyRecycle() is called
+
+- **TC125: Valid card type Double Up** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.DOUBLE_UP passed as cardType
+  - **Expected output**: applyDoubleUp() is called
+
+- **TC126: Valid card type Mild Draw** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **State of the system**: CardType.MILD_DRAW passed as cardType
+  - **Expected output**: applyMildDraw() is called

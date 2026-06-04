@@ -3,6 +3,7 @@ package ui;
 import domain.Card;
 import domain.CardType;
 import domain.Game;
+import domain.GameConstants;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
 
@@ -18,10 +19,10 @@ public class PlayerDeckController {
     private Consumer<String> onError;
 
     @SuppressFBWarnings(
-            value = "EI_EXPOSE_REP2",
-            justification = "View and model are injected by for compromise between MVC " +
-                    "pattern and testability, defensive copies are not applicable or not " +
-                    "desired for JavaFX components and Game objects."
+        value = "EI_EXPOSE_REP2",
+        justification = "View and model are injected by for compromise between MVC " +
+                "pattern and testability, defensive copies are not applicable or not " +
+                "desired for JavaFX components and Game objects."
     )
     public PlayerDeckController(Game model, PlayerDeckView view) {
         this.model = model;
@@ -69,6 +70,7 @@ public class PlayerDeckController {
         view.bindPlayCardsButton(this::onPlayCardsButton);
         view.bindEndTurnButton(this::onEndTurnButton);
         view.bindNameTags(this::onNameTag);
+        view.bindGodcatConfirmButton(this::onGodcatConfirm);
         bindHandCards();
     }
 
@@ -201,6 +203,10 @@ public class PlayerDeckController {
             view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
             rebindHandCards();
             updateTurnControls();
+
+            if (cardType == CardType.GODCAT) {
+                view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+            }
         });
     }
 
@@ -237,6 +243,20 @@ public class PlayerDeckController {
             view.hideOverlay();
 
             renderNextTurn();
+        });
+    }
+
+    void onGodcatConfirm() {
+        attempt(onError, () -> {
+            CardType selectedCardType = view.getSelectedGodcatCardType();
+            onConfirmGodcatCard(selectedCardType);
+        });
+    }
+
+    void onConfirmGodcatCard(CardType cardType) {
+        attempt(onError, () -> {
+            model.applyCardType(cardType);
+            view.hideGodcatOverlay();
         });
     }
 
