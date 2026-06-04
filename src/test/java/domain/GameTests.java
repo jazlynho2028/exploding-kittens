@@ -1214,7 +1214,7 @@ public class GameTests {
 
 		game.setIsGameOngoing(false);
 
-		Exception exception = assertThrows(IllegalStateException.class, () -> game.applyAttack());
+		Exception exception = assertThrows(IllegalStateException.class, game::applyAttack);
 		assertEquals("error.gameAlreadyEnded", exception.getMessage());
 	}
 
