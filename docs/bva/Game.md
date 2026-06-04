@@ -630,3 +630,61 @@
   - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
   - **Expected output**: return true
+
+### Method under test: `playDefuse(int drawPileIndex)`
+- **TC88: Empty hand** ( :x: )
+  - **Name of the test**: playDefuse_noDefuse_failed
+  - **State of the system**: getCurrentPlayer.getHand = []
+  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuse"
+
+- **TC88: Hand with one card type, no Defuse** ( :x: )
+  - **Name of the test**: playDefuse_noDefuse_failed
+  - **State of the system**: currentPlayerHandCardTypes = [ATTACK]
+  - **Expected output**: return false
+
+- **TC88: Hand with two different card types, no Defuse** ( :x: )
+  - **Name of the test**: playDefuse_noDefuse_failed
+  - **State of the system**: currentPlayerHandCardTypes = [ATTACK, SKIP]
+  - **Expected output**: return false
+
+- **TC88: Hand with two same card types, no Defuse** ( :x: )
+  - **Name of the test**: playDefuse_noDefuse_failed
+  - **State of the system**: currentPlayerHandCardTypes = [SKIP, SKIP]
+  - **Expected output**: return false
+
+- **TC88: Hand with one card type, has Defuse** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
+  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE]
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - discardPile.addCard with card1 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC88: Hand with two different card types, has Defuse at end** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
+  - **State of the system**: currentPlayerHandCardTypes = [SKIP, DEFUSE]
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card2) is called
+    - discardPile.addCard with card2 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC88: Hand with two different card types, has Defuse at front** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
+  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, SKIP]
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - discardPile.addCard with card1 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC88: Hand with two same card types, has Defuse** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
+  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - discardPile.addCard with card1 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC88: Invalid draw pile index** ( :x: )
+  - **Name of the test**: playDefuse_invalidDrawPileIndex_failed
+  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
+  - **Expected output**: throws IllegalArgumentException "error.invalidDeckIndex"
