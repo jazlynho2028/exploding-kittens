@@ -199,8 +199,8 @@ public class Game {
             case DOUBLE_UP:
                 applyDoubleUp();
                 break;
-            case MILD_DRAW:
-                applyMildDraw();
+            case MILD_SHUFFLE:
+                applyMildShuffle();
                 break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
@@ -381,7 +381,7 @@ public class Game {
         // TODO
     }
 
-    void applyMildDraw() {
+    void applyMildShuffle() {
         // TODO
     }
 

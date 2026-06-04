@@ -52,7 +52,7 @@
     ragebait: #C82014;
     recycle: #2EC7A1;
     double-up: #A05FAA;
-    mild-draw: #F97371;
+    mild-shuffle: #F97371;
 
     -fx-background-color: magenta-6;
 }
@@ -369,8 +369,8 @@
     -fx-border-color: double-up;
 }
 
-.card-front-content.milddraw {
-    -fx-border-color: mild-draw;
+.card-front-content.mildshuffle {
+    -fx-border-color: mild-shuffle;
 }
 
 .card-header {
@@ -462,8 +462,8 @@
     -fx-background-color: double-up;
 }
 
-.card-circle.milddraw {
-    -fx-background-color: mild-draw;
+.card-circle.mildshuffle {
+    -fx-background-color: mild-shuffle;
 }
 
 .card-title-section {

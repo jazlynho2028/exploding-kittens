@@ -222,9 +222,9 @@
   - **State of the system**: selectedCardTypes = [DOUBLE_UP]
   - **Expected output**: returns true
 
-- **TC40: One Mild Draw selected** ( :white_check_mark: )
+- **TC40: One Mild Shuffle selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: selectedCardTypes = [MILD_DRAW]
+  - **State of the system**: selectedCardTypes = [MILD_SHUFFLE]
   - **Expected output**: returns true
 
 ### Method under test: `playSelectedCards()`
@@ -394,15 +394,15 @@
     - applyDoubleUp is called
     - returns CardType.DOUBLE_UP
 
-- **TC59: Valid play with one Mild Draw** ( :white_check_mark: )
+- **TC59: Valid play with one Mild Shuffle** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [MILD_DRAW]
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [MILD_SHUFFLE]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCard(card1) is called
-    - applyMildDraw is called
-    - returns CardType.MILD_DRAW
+    - applyMildShuffle is called
+    - returns CardType.MILD_SHUFFLE
 
 ### Method under test: `getTopDiscardId()`
 - **TC60: Empty discard pile** ( :white_check_mark: )

@@ -23,5 +23,5 @@ public enum CardType {
     RAGEBAIT,
     RECYCLE,
     DOUBLE_UP,
-    MILD_DRAW
+    MILD_SHUFFLE
 }
