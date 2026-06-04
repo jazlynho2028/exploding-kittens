@@ -64,7 +64,7 @@ public final class GameConstants {
 			CardType.RAGEBAIT,
 			CardType.RECYCLE,
 			CardType.DOUBLE_UP,
-			CardType.MILD_DRAW
+			CardType.MILD_SHUFFLE
 	);
 
 }

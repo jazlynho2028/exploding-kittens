@@ -711,10 +711,10 @@
   - **State of the system**: drawPile.size = N, N = [0, 1, 2]
   - **Expected output**: returns drawPile.size
 
-### Method under test: `applyGodcat()`
+### Method under test: `applyCardType(CardType cardType)`
 - **TC111: Invalid card type** ( :white_check_mark: )
   - **Name of the test**: applyCardType_invalidCardType_throwsException
-  - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType
+  - **State of the system**: CardType.GODCAT passed as cardType
   - **Expected output**: throws IllegalArgumentException with message "error.cannotPlaySelectedCards"
 
 - **TC112: Valid card type Attack** ( :white_check_mark: )
@@ -733,9 +733,9 @@
   - **Expected output**: applySkip() is called
 
 - **TC115: Valid card type See the Future** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyCardType_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.SEE_THE_FUTURE passed as cardType
-  - **Expected output**: applySeeTheFuture() is called
+  - **Expected output**: N/A
 
 - **TC116: Valid card type Catomic Bomb** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
@@ -763,9 +763,9 @@
   - **Expected output**: applyDrawFromTheBottom() is called
 
 - **TC121: Valid card type Targeted Attack** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyCardType_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.TARGETED_ATTACK passed as cardType
-  - **Expected output**: applyTargetedAttack() is called
+  - **Expected output**: N/A
 
 - **TC122: Valid card type Winner Winner Catnip Dinner** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
@@ -787,7 +787,7 @@
   - **State of the system**: CardType.DOUBLE_UP passed as cardType
   - **Expected output**: applyDoubleUp() is called
 
-- **TC126: Valid card type Mild Draw** ( :white_check_mark: )
+- **TC126: Valid card type Mild Shuffle** ( :white_check_mark: )
   - **Name of the test**: applyCardType_validCardType_correctApplyCalled
-  - **State of the system**: CardType.MILD_DRAW passed as cardType
-  - **Expected output**: applyMildDraw() is called
+  - **State of the system**: CardType.MILD_SHUFFLE passed as cardType
+  - **Expected output**: applyMildShuffle() is called

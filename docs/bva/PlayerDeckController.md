@@ -222,6 +222,7 @@
     - rebindHandCards is called
     - view.renderTurnControlSection with model.canPlaySelected is called
     - model.canEndTurn is called
+    - view.bindGodcatConfirmButton is called
     - view.showGodcatOverlay is called
 
 - **TC22: Caught exception from model** ( :white_check_mark: )
@@ -313,7 +314,7 @@
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: 
     - model.applyCardType(CardType.ATTACK) is called
-    - view.hideGodcatOverlay() is called
+    - view.hideOverlay() is called
 
 - **TC27: Invalid card type** ( :white_check_mark: )
   - **Name of the test**: onConfirmGodcatCard_modelThrowsException_failed

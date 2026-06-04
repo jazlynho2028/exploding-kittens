@@ -1607,7 +1607,7 @@ public class GameTests {
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
 		Exception exception = assertThrows(IllegalStateException.class, () ->
-				game.applyCardType(CardType.EXPLODING_KITTEN));
+				game.applyCardType(CardType.GODCAT));
 
 		String expectedMsg = "error.cannotPlaySelectedCards";
 		String actualMsg = exception.getMessage();
@@ -1616,10 +1616,11 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideValidCardTypesAndMethods")
+	@MethodSource("provideValidPlaysAndMethods")
 	public void applyCardType_validCardType_correctApplyCalled(
 			CardType cardType, String applyMethodName,
 			Consumer<Game> applyMethod) {
+
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1642,49 +1643,28 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
-	private static Stream<Arguments> provideValidCardTypesAndMethods() {
+	@ParameterizedTest
+	@MethodSource("provideValidCardTypesForGodcatWithoutApplyMethod")
+	public void applyCardType_validPlayWithoutApplyMethod_noApplyCalled(
+			CardType cardType) {
+
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		game.applyCardType(cardType);
+	}
+
+	private static Stream<Arguments> provideValidCardTypesForGodcatWithoutApplyMethod() {
 		return Stream.of(
-				Arguments.of(CardType.ATTACK,
-						"applyAttack",
-						(Consumer<Game>) Game::applyAttack),
-				Arguments.of(CardType.SHUFFLE,
-						"applyShuffle",
-						(Consumer<Game>) Game::applyShuffle),
-				Arguments.of(CardType.SKIP,
-						"applySkip",
-						(Consumer<Game>) Game::applySkip),
-				Arguments.of(CardType.CATOMIC_BOMB,
-						"applyCatomicBomb",
-						(Consumer<Game>) Game::applyCatomicBomb),
-				Arguments.of(CardType.SUPER_SKIP,
-						"applySuperSkip",
-						(Consumer<Game>) Game::applySuperSkip),
-				Arguments.of(CardType.CLONE,
-						"applyClone",
-						(Consumer<Game>) Game::applyClone),
-				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM,
-						"applySwapTopAndBottom",
-						(Consumer<Game>) Game::applySwapTopAndBottom),
-				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM,
-						"applyDrawFromTheBottom",
-						(Consumer<Game>) Game::applyDrawFromTheBottom),
-				Arguments.of(CardType.WINNER_WINNER_CATNIP_DINNER,
-						"applyWinnerWinnerCatnipDinner",
-						(Consumer<Game>) Game::
-								applyWinnerWinnerCatnipDinner),
-				Arguments.of(CardType.RAGEBAIT,
-						"applyRagebait",
-						(Consumer<Game>) Game::applyRagebait),
-				Arguments.of(CardType.RECYCLE,
-						"applyRecycle",
-						(Consumer<Game>) Game::applyRecycle),
-				Arguments.of(CardType.DOUBLE_UP,
-						"applyDoubleUp",
-						(Consumer<Game>) Game::applyDoubleUp),
-				Arguments.of(CardType.MILD_SHUFFLE,
-						"applyMildDraw",
-						(Consumer<Game>) Game::applyMildShuffle)
-				);
+				Arguments.of(CardType.SEE_THE_FUTURE),
+				Arguments.of(CardType.TARGETED_ATTACK)
+		);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {

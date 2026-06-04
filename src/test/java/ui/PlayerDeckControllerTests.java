@@ -599,6 +599,9 @@ public class PlayerDeckControllerTests {
 		view.renderDiscardPile(canDrawFromDiscard, topDiscardId);
 		EasyMock.expectLastCall();
 
+		view.bindGodcatConfirmButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
 		view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
 		EasyMock.expectLastCall();
 
@@ -878,7 +881,7 @@ public class PlayerDeckControllerTests {
 		model.applyCardType(CardType.ATTACK);
 		EasyMock.expectLastCall();
 
-		view.hideGodcatOverlay();
+		view.hideOverlay();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view);

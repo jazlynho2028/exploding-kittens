@@ -262,7 +262,6 @@ public class PlayerDeckView {
 
     private VBox buildPlayerHeaderSection() {
         VBox playerHeaderSection = new VBox();
-        playerHeaderSection.setAlignment(Pos.CENTER);
         playerHeaderSection.getStyleClass().add("player-header-section");
 
         renderPlayerNamesContainer();
@@ -296,7 +295,6 @@ public class PlayerDeckView {
 
     private HBox buildCardPilesSection() {
         HBox cardPileSection = new HBox();
-        cardPileSection.setAlignment(Pos.CENTER);
         cardPileSection.getStyleClass().add("card-piles-section");
 
         VBox drawPileSection = buildDrawPileSection();
@@ -309,7 +307,6 @@ public class PlayerDeckView {
 
     private VBox buildDrawPileSection() {
         VBox drawPileSection = new VBox();
-        drawPileSection.setAlignment(Pos.CENTER);
         drawPileSection.getStyleClass().add("card-pile-section");
 
         StackPane drawPileContainer = buildDrawPileContainer();
@@ -348,7 +345,6 @@ public class PlayerDeckView {
 
     private VBox buildEmptyPile() {
         VBox discardPile = new VBox();
-        discardPile.setAlignment(Pos.CENTER);
         discardPile.getStyleClass().addAll(
 				"card", "empty");
 
@@ -357,7 +353,7 @@ public class PlayerDeckView {
 
     private VBox buildCardBack() {
         VBox drawPile = new VBox();
-        drawPile.setAlignment(Pos.CENTER);
+        drawPile.getStyleClass().add("draw-pile");
 
         ImageView cardBackIconView = buildCardBackIconView();
         VBox explodingKittensText = buildExplodingKittensText();
@@ -380,7 +376,6 @@ public class PlayerDeckView {
 
     private VBox buildExplodingKittensText() {
         VBox explodingKittensText = new VBox();
-        explodingKittensText.setAlignment(Pos.CENTER);
         explodingKittensText.getStyleClass().add("exploding-kittens-text");
 
         Text explodingText = buildExplodingText(
@@ -412,7 +407,6 @@ public class PlayerDeckView {
 
     private VBox buildDiscardPileSection() {
         VBox discardPileSection = new VBox();
-        discardPileSection.setAlignment(Pos.CENTER);
         discardPileSection.getStyleClass().add("card-pile-section");
 
         StackPane discardPileContainer = buildDiscardPileContainer();
@@ -458,7 +452,7 @@ public class PlayerDeckView {
 
     private VBox buildPlayerHandSection() {
         VBox playerHandSection = new VBox();
-        playerHandSection.setAlignment(Pos.CENTER);
+        playerHandSection.getStyleClass().add("player-hand-section");
 
         renderHandVisibilityToggle();
         ScrollPane handScrollPane = buildCardScrollPane(handCardsContainer);
@@ -479,22 +473,16 @@ public class PlayerDeckView {
     }
 
     private ScrollPane buildCardScrollPane(HBox content) {
-        ScrollPane handScrollPane = new ScrollPane(content);
-        handScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        handScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        handScrollPane.getStyleClass().add("scroll-pane");
+        ScrollPane cardScrollPane = new ScrollPane(content);
+        cardScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        cardScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        cardScrollPane.setFitToHeight(true);
+        cardScrollPane.getStyleClass().add("scroll-pane");
 
-        content.setAlignment(Pos.CENTER);
         content.setMinWidth(UIConstants.SCENE_WIDTH);
-        content.getStyleClass().add("hand-cards-container");
+        content.getStyleClass().add("card-options");
 
-        return handScrollPane;
-    }
-
-    private void renderHandCardsContainer() {
-        handCardsContainer.setAlignment(Pos.CENTER);
-        handCardsContainer.setMinWidth(UIConstants.SCENE_WIDTH);
-        handCardsContainer.getStyleClass().add("hand-cards-container");
+        return cardScrollPane;
     }
 
     private ToggleButton buildHandCardButton(
@@ -567,7 +555,6 @@ public class PlayerDeckView {
 
     private HBox buildCardHeader(String cardId) {
         HBox cardHeader = new HBox();
-        cardHeader.setAlignment(Pos.CENTER_LEFT);
         cardHeader.getStyleClass().add("card-header");
 
         StackPane cardCircle = buildCardCircle(cardId);
@@ -588,7 +575,6 @@ public class PlayerDeckView {
 
     private VBox buildCardTitleSection(String cardId) {
         VBox cardTitleSection = new VBox();
-        cardTitleSection.setAlignment(Pos.CENTER_LEFT);
         cardTitleSection.getStyleClass().add("card-title-section");
 
         CardMetadata cardMetadata = assetProvider.getCardMetadata(cardId);
@@ -659,7 +645,6 @@ public class PlayerDeckView {
 
     private HBox buildCardDescriptionSection(String description) {
         HBox cardDescriptionSection = new HBox();
-        cardDescriptionSection.setAlignment(Pos.BOTTOM_CENTER);
         cardDescriptionSection.getStyleClass().add("card-description-section");
 
         SVGPath leftBracketIcon = buildLeftBracketIcon();
@@ -699,7 +684,6 @@ public class PlayerDeckView {
     private void buildTurnControlSection(boolean isGameOngoing) {
         turnControlSection.getChildren().clear();
 
-        turnControlSection.setAlignment(Pos.CENTER_RIGHT);
         turnControlSection.getStyleClass().add("turn-control-section");
 
         if (isGameOngoing) {
@@ -730,7 +714,7 @@ public class PlayerDeckView {
     private void renderTurnControlButton(Button turnControlButton, String label) {
         turnControlButton.setText(label);
         turnControlButton.getStyleClass().addAll(
-				"button-secondary-button", "h5");
+				"turn-control-button", "h5");
     }
 
     private void buildOverlayLayer() {
@@ -746,7 +730,6 @@ public class PlayerDeckView {
     public void buildExplodeOverlay(boolean hasDefuse, String explodingCardId, int drawPileSize) {
         VBox content = new VBox();
         content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        content.setAlignment(Pos.CENTER);
         content.getStyleClass().add("overlay-content");
 
         Button explodingKittenCard = buildExplodingKittenCard(explodingCardId);
@@ -829,6 +812,72 @@ public class PlayerDeckView {
         button.getStyleClass().addAll(
                 "overlay-button", styleClass, "h4");
         content.getChildren().add(button);
+    }
+
+    public void buildGodcatOverlay(List<CardType> cardTypeOptions) {
+        buildCardSelectOverlay(cardTypeOptions, godcatConfirmButton,
+                assetProvider.getString("playerDeckScreen.godcatCaption"));
+    }
+
+    private void buildCardSelectOverlay(
+            List<CardType> cardTypes, Button confirmButton, String titleText) {
+
+        VBox overlayContent = new VBox();
+        overlayContent.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        overlayContent.getStyleClass().add("overlay-content");
+
+        Text title = buildOverlayTitle(titleText);
+        ScrollPane cardScrollPane = buildCardSelectScrollPane(cardTypes);
+
+        confirmButton.setText("Confirm");
+        confirmButton.setDisable(true);
+        confirmButton.getStyleClass().addAll("overlay-button", "confirm", "h5");
+
+        overlayContent.getChildren().addAll(title, cardScrollPane, confirmButton);
+        overlayLayer.getChildren().setAll(overlayContent);
+        showOverlay();
+    }
+
+    private Text buildOverlayTitle(String text) {
+        Text title = new Text(text);
+        title.getStyleClass().addAll("h3", "overlay-title");
+        return title;
+    }
+
+    private ScrollPane buildCardSelectScrollPane(List<CardType> cardTypes) {
+        HBox cardOptions = buildCardOptions(cardTypes);
+        return buildCardScrollPane(cardOptions);
+    }
+
+    private HBox buildCardOptions(List<CardType> cardTypes) {
+        HBox cardOptions = new HBox();
+
+        for (CardType cardType : cardTypes) {
+            ToggleButton cardButton = buildCardOptionButton(cardType, cardOptions);
+            cardOptions.getChildren().add(cardButton);
+        }
+
+        return cardOptions;
+    }
+
+    private ToggleButton buildCardOptionButton(CardType cardType, HBox cardOptions) {
+        String cardId = DeckBuilder.createCardId(cardType, 1);
+        ToggleButton cardButton = new ToggleButton();
+        cardButton.getStyleClass().addAll("card", "front");
+        cardButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+
+        VBox cardFront = buildCardFront(cardId);
+        cardButton.setGraphic(cardFront);
+
+        cardButton.setOnMouseClicked(e -> {
+            selectedGodcatCardType = cardType;
+            cardOptions.getChildren().forEach(button ->
+                    ((ToggleButton) button).setSelected(false));
+            cardButton.setSelected(true);
+            godcatConfirmButton.setDisable(false);
+        });
+
+        return cardButton;
     }
 
     private void showOverlay() {

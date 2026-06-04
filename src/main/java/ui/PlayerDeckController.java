@@ -70,7 +70,6 @@ public class PlayerDeckController {
         view.bindPlayCardsButton(this::onPlayCardsButton);
         view.bindEndTurnButton(this::onEndTurnButton);
         view.bindNameTags(this::onNameTag);
-        view.bindGodcatConfirmButton(this::onGodcatConfirm);
         bindHandCards();
     }
 
@@ -205,6 +204,7 @@ public class PlayerDeckController {
             updateTurnControls();
 
             if (cardType == CardType.GODCAT) {
+                view.bindGodcatConfirmButton(this::onGodcatConfirm);
                 view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
             }
         });
@@ -256,7 +256,7 @@ public class PlayerDeckController {
     void onConfirmGodcatCard(CardType cardType) {
         attempt(onError, () -> {
             model.applyCardType(cardType);
-            view.hideGodcatOverlay();
+            view.hideOverlay();
         });
     }
 

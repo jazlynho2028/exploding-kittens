@@ -323,19 +323,11 @@ public class Game {
         // TODO
     }
 
-    void applySeeTheFuture() {
-        // TODO
-    }
-
     void applyCatomicBomb() {
         // TODO
     }
 
     void applySuperSkip() {
-        // TODO
-    }
-
-    void applyGodcat() {
         // TODO
     }
 
