@@ -287,7 +287,7 @@ public class Game {
 
         int drawCount = turnManager.getDrawCount();
         if (drawCount > 1) {
-            turnManager.incrementDrawCount(drawCount);
+            turnManager.incrementDrawCount();
         }
     }
 

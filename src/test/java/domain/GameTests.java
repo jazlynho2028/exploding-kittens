@@ -1189,7 +1189,7 @@ public class GameTests {
 		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(drawCount);
 
 		if (drawCount > 1) {
-			mockTurnManager.incrementDrawCount(drawCount);
+			mockTurnManager.incrementDrawCount();
 			EasyMock.expectLastCall();
 		}
 
@@ -1214,7 +1214,7 @@ public class GameTests {
 		EasyMock.expectLastCall();
 
 		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(TWO_CARDS);
-		mockTurnManager.incrementDrawCount(TWO_CARDS);
+		mockTurnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(mockPlayerTwo, mockTurnManager);
