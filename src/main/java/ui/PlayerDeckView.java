@@ -1,5 +1,7 @@
 package ui;
 
+import domain.CardType;
+import domain.DeckBuilder;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -36,6 +38,10 @@ public class PlayerDeckView {
     private final StackPane root;
     private final HBox turnControlSection;
 
+    private final StackPane overlayLayer;
+    public final Button godcatConfirmButton;
+    private CardType selectedGodcatCardType;
+
     public PlayerDeckView(AssetProvider assetProvider) {
         this.assetProvider = assetProvider;
 
@@ -50,6 +56,9 @@ public class PlayerDeckView {
         playCardsButton = new Button();
         endTurnButton = new Button();
         turnControlSection = new HBox();
+        overlayLayer = new StackPane();
+        godcatConfirmButton = new Button();
+        selectedGodcatCardType = CardType.ATTACK;;
 
         buildUI();
     }
@@ -203,7 +212,7 @@ public class PlayerDeckView {
 
         ImageView backgroundImage = buildBackgroundImage(assetProvider);
         VBox contentSection = buildContentSection();
-        StackPane overlayLayer = buildOverlayLayer();
+        buildOverlayLayer();
 
         gameScreen.getChildren().addAll(
                 backgroundImage,
@@ -469,7 +478,7 @@ public class PlayerDeckView {
         playerHandSection.setAlignment(Pos.CENTER);
 
         renderHandVisibilityToggle();
-        ScrollPane handScrollPane = buildHandScrollPane();
+        ScrollPane handScrollPane = buildCardScrollPane(handCardsContainer);
         Text handCaption = buildCaption(
                 assetProvider.getString("playerDeckScreen.handCaption"));
 
@@ -491,14 +500,15 @@ public class PlayerDeckView {
         );
     }
 
-    private ScrollPane buildHandScrollPane() {
-        ScrollPane handScrollPane = new ScrollPane();
+    private ScrollPane buildCardScrollPane(HBox content) {
+        ScrollPane handScrollPane = new ScrollPane(content);
         handScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         handScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         handScrollPane.getStyleClass().add("scroll-pane");
 
-        renderHandCardsContainer();
-        handScrollPane.setContent(handCardsContainer);
+        content.setAlignment(Pos.CENTER);
+        content.setMinWidth(UIConstants.SCENE_WIDTH);
+        content.getStyleClass().add("hand-cards-container");
 
         return handScrollPane;
     }
@@ -757,16 +767,106 @@ public class PlayerDeckView {
     private void renderTurnControlButton(Button turnControlButton, String label) {
         turnControlButton.setText(label);
         turnControlButton.getStyleClass().addAll(
-                "turn-control-button",
+                "button-secondary",
                 "h5"
         );
     }
 
-    private StackPane buildOverlayLayer() {
-        StackPane overlayLayer = new StackPane();
-        overlayLayer.setPickOnBounds(false);
-
-        return overlayLayer;
+    private void buildOverlayLayer() {
+        overlayLayer.setAlignment(Pos.CENTER);
+        overlayLayer.getStyleClass().add("overlay");
+        overlayLayer.setVisible(false);
+        overlayLayer.setMouseTransparent(true);
     }
 
+    public void buildGodcatOverlay(List<CardType> cardTypeOptions) {
+        buildCardSelectOverlay(cardTypeOptions, godcatConfirmButton,
+                assetProvider.getString("playerDeckScreen.godcatCaption"));
+    }
+
+    private void buildCardSelectOverlay(
+            List<CardType> cardTypes, Button confirmButton, String titleText) {
+
+        VBox overlayContent = new VBox();
+        overlayContent.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        overlayContent.getStyleClass().add("overlay-content");
+
+        Text title = buildOverlayTitle(titleText);
+        ScrollPane cardScrollPane = buildCardSelectScrollPane(cardTypes);
+
+        confirmButton.setText("Confirm");
+        confirmButton.setDisable(true);
+        confirmButton.getStyleClass().addAll("overlay-button", "confirm", "h5");
+
+        overlayContent.getChildren().addAll(title, cardScrollPane, confirmButton);
+        overlayLayer.getChildren().setAll(overlayContent);
+        showOverlay();
+    }
+
+    private Text buildOverlayTitle(String text) {
+        Text title = new Text(text);
+        title.getStyleClass().addAll("h3", "overlay-title");
+        return title;
+    }
+
+    private ScrollPane buildCardSelectScrollPane(List<CardType> cardTypes) {
+        HBox cardOptions = buildCardOptions(cardTypes);
+        return buildCardScrollPane(cardOptions);
+    }
+
+    private HBox buildCardOptions(List<CardType> cardTypes) {
+        HBox cardOptions = new HBox();
+        cardOptions.getStyleClass().add("card-options");
+
+        for (CardType cardType : cardTypes) {
+            ToggleButton cardButton = buildCardOptionButton(cardType, cardOptions);
+            cardOptions.getChildren().add(cardButton);
+        }
+
+        return cardOptions;
+    }
+
+    private ToggleButton buildCardOptionButton(CardType cardType, HBox cardOptions) {
+        String cardId = DeckBuilder.createCardId(cardType, 1);
+        ToggleButton cardButton = new ToggleButton();
+        cardButton.getStyleClass().addAll("card", "front");
+        cardButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+
+        VBox cardFront = buildCardFront(cardId);
+        cardButton.setGraphic(cardFront);
+
+        cardButton.setOnMouseClicked(e -> {
+            selectedGodcatCardType = cardType;
+            cardOptions.getChildren().forEach(button ->
+                    ((ToggleButton) button).setSelected(false));
+            cardButton.setSelected(true);
+            godcatConfirmButton.setDisable(false);
+        });
+
+        return cardButton;
+    }
+
+    public void hideGodcatOverlay() {
+        selectedGodcatCardType = CardType.ATTACK;
+        hideOverlay();
+    }
+
+    private void showOverlay() {
+        overlayLayer.setVisible(true);
+        overlayLayer.setMouseTransparent(false);
+    }
+
+    public void hideOverlay() {
+        overlayLayer.setVisible(false);
+        overlayLayer.setMouseTransparent(true);
+        overlayLayer.getChildren().clear();
+    }
+
+    public CardType getSelectedGodcatCardType() {
+        return selectedGodcatCardType;
+    }
+
+    public void bindGodcatConfirmButton(Runnable handler) {
+        godcatConfirmButton.setOnMouseClicked(e -> handler.run());
+    }
 }
