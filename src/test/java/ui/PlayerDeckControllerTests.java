@@ -331,7 +331,8 @@ public class PlayerDeckControllerTests {
 
 		if (hasDefuse) {
 			view.bindDefuseButton(EasyMock.anyObject());
-		} else {
+		}
+		else {
 			view.bindExplodeButton(EasyMock.anyObject());
 		}
 		EasyMock.expectLastCall();
