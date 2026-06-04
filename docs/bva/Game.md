@@ -591,7 +591,7 @@
   - **State of the system**: draw pile has two cards ['CARD 1']
   - **Expected output**: draw pile has two cards; card order is ['CARD 1']
 
-- **TC92: Draw pile has more than one card** ( :x: )
+- **TC92: Draw pile has more than one card** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_moreThanOneCard_swapped
   - **State of the system**: draw pile has four cards ['CARD 1', 'CARD 2', 'CARD 3', 'CARD 4']
   - **Expected output**: 

@@ -1943,6 +1943,35 @@ public class GameTests {
 		EasyMock.verify(drawPile, explodingKitten1, card2, card3, explodingKitten2);
 	}
 
+	@Test
+	public void applySwapTopAndBottom_moreThanOneCard_swapped() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card card1 = new Card("SKIP_1", CardType.SKIP);
+		Card card4 = new Card("ATTACK_1", CardType.ATTACK);
+
+		final int drawPileSize = 4;
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.size()).andReturn(drawPileSize);
+		EasyMock.expect(drawPile.removeTop()).andReturn(card1);
+		EasyMock.expect(drawPile.removeBottom()).andReturn(card4);
+
+		drawPile.addCardToTop(EasyMock.anyObject(Card.class));
+		EasyMock.expectLastCall();
+		drawPile.addCardToBottom(EasyMock.anyObject(Card.class));
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applySwapTopAndBottom();
+
+		EasyMock.verify(drawPile);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
