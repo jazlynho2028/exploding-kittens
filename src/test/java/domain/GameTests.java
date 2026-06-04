@@ -935,29 +935,30 @@ public class GameTests {
 	}
 
 	@Test
-	public void drawFromPile_called_returnsDrawnCardType() {
+	public void drawFromPile_nonExplodingCard_returnsDrawnCard() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		CardType expectedCardType = CardType.DEFUSE;
-		String expectedCardId = "DEFUSE_1";
+		CardType expectedCardType = CardType.ATTACK;
+		String expectedCardId = "ATTACK_1";
 		Card expectedCard = EasyMock.createMock(Card.class);
 		EasyMock.expect(expectedCard.getType()).andStubReturn(expectedCardType);
 		EasyMock.expect(expectedCard.getId()).andStubReturn(expectedCardId);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 
+		EasyMock.expect(drawPile.peekTop()).andReturn(expectedCard);
 		EasyMock.expect(drawPile.removeTop()).andReturn(expectedCard);
+
+		currentPlayer.addCardToHand(expectedCard);
+		EasyMock.expectLastCall();
 
 		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
 
 		currentPlayer.deselectHandCards();
-		EasyMock.expectLastCall();
-
-		currentPlayer.addCardToHand(expectedCard);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager,

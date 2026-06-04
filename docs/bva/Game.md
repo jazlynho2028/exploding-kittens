@@ -520,7 +520,7 @@
   - **Expected output**: isFaceUp = false
 
 ### Method under test: `drawFromPile()`
-- **TC81: This method is called with non-exploding card** ( :x: )
+- **TC81: This method is called with non-exploding card** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_nonExplodingCard_returnsDrawnCard
   - **State of the system**: 
     - card = drawPile.peekTop
