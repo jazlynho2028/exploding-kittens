@@ -188,14 +188,14 @@
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onPlayCardsButton()`
-- **TC21: Cards play successfully, non-Godcat card** ( :white_check_mark: )
-  - **Name of the test**: onPlayCardsButton_called_success
+- **TC21: Cards play successfully, no additional UI change** ( :white_check_mark: )
+  - **Name of the test**: onPlayCardsButton_noAdditionalUIChange_success
   - **State of the system**: 
     - canDrawFromDiscard = true
-    - topDiscardId = "SKIP_1"
+    - topDiscardId = "SEETHEFUTURE_1"
     - canPlaySelected = true
     - canEndTurn = true
-    - playSelectedCards returns CardType.SKIP
+    - playSelectedCards returns CardType.SEE_THE_FUTURE
   - **Expected output**: 
     - model.playSelectedCards is called
     - view.renderDiscardPile with model.canDrawFromDiscard is called
@@ -204,7 +204,25 @@
     - rebindHandCards is called
     - view.renderTurnControlSection with model.canPlaySelected is called
     - model.canEndTurn is called
-    - view.showGodcatOverlay is NOT called
+
+- **TC21: Cards play successfully, Skip card** ( :white_check_mark: )
+  - **Name of the test**: onPlayCardsButton_skipPlayed_updatedPlayer
+  - **State of the system**:
+    - canDrawFromDiscard = true
+    - topDiscardId = "SKIP_1"
+    - canPlaySelected = true
+    - canEndTurn = true
+    - currentPlayerIndex = 0
+    - playSelectedCards returns CardType.SKIP
+  - **Expected output**:
+    - model.playSelectedCards is called
+    - view.renderDiscardPile with model.canDrawFromDiscard is called
+    - model.getTopDiscardId is called
+    - view.renderDrawPile is called
+    - rebindHandCards is called
+    - view.renderTurnControlSection with model.canPlaySelected is called
+    - model.canEndTurn is called
+    - handleChangeCurrentPlayer is called with currentPlayerIndex
 
 - **TC20: Cards play successfully, Godcat card** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_godcatPlayed_overlayShown

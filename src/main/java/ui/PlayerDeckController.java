@@ -203,9 +203,16 @@ public class PlayerDeckController {
             rebindHandCards();
             updateTurnControls();
 
-            if (cardType == CardType.GODCAT) {
-                view.bindGodcatConfirmButton(this::onGodcatConfirm);
-                view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+            switch (cardType) {
+                case SKIP:
+                    handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
+                    break;
+                case GODCAT:
+                    view.bindGodcatConfirmButton(this::onGodcatConfirm);
+                    view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+                    break;
+                default:
+                    break;
             }
         });
     }
