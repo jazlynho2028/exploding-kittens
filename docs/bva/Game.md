@@ -704,3 +704,9 @@
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
     - turnManager.incrementTurn is called
+
+### Method under test: `getDrawPileSize()`
+- **TC88: Empty draw pile** ( :x: )
+  - **Name of the test**: getDrawPileSize_called_returnDrawPileMethodCall
+  - **State of the system**: N/A
+  - **Expected output**: returns drawPile.size

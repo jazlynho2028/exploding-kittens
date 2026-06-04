@@ -1262,13 +1262,16 @@ public class GameTests {
 
 	@ParameterizedTest
 	@MethodSource("provideCurrentPlayerHandsWithNoDefuses")
-	public void currentPlayerHasDefuse_noDefuse_returnFalse(List<CardType> currentPlayerHandCardTypes) {
+	public void currentPlayerHasDefuse_noDefuse_returnFalse(
+			List<CardType> currentPlayerHandCardTypes) {
+
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(currentPlayerHandCardTypes);
+		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
@@ -1296,13 +1299,16 @@ public class GameTests {
 
 	@ParameterizedTest
 	@MethodSource("provideCurrentPlayerHandsWithDefuses")
-	public void currentPlayerHasDefuse_hasDefuse_returnTrue(List<CardType> currentPlayerHandCardTypes) {
+	public void currentPlayerHasDefuse_hasDefuse_returnTrue(
+			List<CardType> currentPlayerHandCardTypes) {
+
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(currentPlayerHandCardTypes);
+		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
@@ -1337,7 +1343,8 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		int drawPileIndex = 0;
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(currentPlayerHandCardTypes);
+		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
@@ -1372,7 +1379,8 @@ public class GameTests {
 
 		int drawPileIndex = 0;
 
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(currentPlayerHandCardTypes);
+		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
@@ -1391,7 +1399,8 @@ public class GameTests {
 		drawPile.insertCardAt(explodingKitten, drawPileIndex);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer, explodingKitten);
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				currentPlayer, explodingKitten);
 
 		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
@@ -1424,7 +1433,8 @@ public class GameTests {
 		String expectedMsg = "error.invalidDeckIndex";
 
 		List<CardType> currentPlayerHandCardTypes = List.of(CardType.DEFUSE);
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(currentPlayerHandCardTypes);
+		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
@@ -1445,7 +1455,8 @@ public class GameTests {
 				new IllegalArgumentException(expectedMsg)
 		);
 
-		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer, explodingKitten);
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				currentPlayer, explodingKitten);
 
 		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
