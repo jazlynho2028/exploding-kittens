@@ -134,8 +134,9 @@ public class PlayerDeckController {
             view.bindExplodeButton(this::onExplodeButton);
         }
 
+        int drawPileSizeAfterDraw = model.getDrawPileSize() - 1;
         view.buildExplodeOverlay(
-                hasDefuse, cardId, model.getDrawPileSize());
+                hasDefuse, cardId, drawPileSizeAfterDraw);
     }
 
     private void updateDrawPile() {
