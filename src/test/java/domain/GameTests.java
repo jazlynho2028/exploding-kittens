@@ -976,6 +976,43 @@ public class GameTests {
 	}
 
 	@Test
+	public void drawFromPile_explodingCard_returnsExplodingCard() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		CardType expectedCardType = CardType.EXPLODING_KITTEN;
+		String expectedCardId = "EXPLODINGKITTEN_1";
+		Card expectedCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(expectedCard.getType()).andStubReturn(expectedCardType);
+		EasyMock.expect(expectedCard.getId()).andStubReturn(expectedCardId);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		EasyMock.expect(drawPile.peekTop()).andReturn(expectedCard);
+
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall();
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				expectedCard, currentPlayer);
+
+		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		Card actualCard = game.drawFromPile();
+		assertEquals(expectedCard, actualCard);
+
+		EasyMock.verify(drawPile, turnManager, currentPlayer, game);
+	}
+
+	@Test
 	public void drawFromPile_drawPileException_failed() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
