@@ -280,7 +280,9 @@ public class Game {
     }
 
     public boolean currentPlayerHasDefuse() {
-        return true;
+        List<Card> currentPlayerHand = getCurrentPlayer().getHand();
+
+        return false;
     }
 
     void setIsGameOngoing(boolean isGameOngoing) {

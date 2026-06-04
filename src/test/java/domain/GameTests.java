@@ -1260,6 +1260,31 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
+	@Test
+	public void currentPlayerHasDefuse_noDefuse_returnFalse() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<CardType> currentPlayerHandCardTypes = List.of();
+		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(currentPlayerHandCardTypes);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		assertFalse(game.currentPlayerHasDefuse());
+
+		EasyMock.verify(game);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
