@@ -274,8 +274,7 @@ public class Game {
         getCurrentPlayer().deselectHandCards();
         turnManager.incrementTurn();
 
-        int drawCount = turnManager.getDrawCount();
-        if (drawCount > 1) {
+        if (turnManager.getDrawCount() > 1) {
             turnManager.incrementDrawCount();
         }
     }
