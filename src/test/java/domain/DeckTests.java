@@ -571,7 +571,7 @@ public class DeckTests {
 
     @ParameterizedTest(name = "{0}")
     @MethodSource("addCardCases")
-    public void addCard_validCard_addsCardToTop(
+    public void addCardToTop_validCard_addsCardToTop(
             String caseName,
             Deque<Card> cards,
             Card cardToAdd,

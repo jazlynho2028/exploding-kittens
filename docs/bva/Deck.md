@@ -200,30 +200,30 @@
     - Returns card1
     - deck becomes [card1]
 
-### Method under test: `addCard(Card card)`
+### Method under test: `addCardtoTop(Card card)`
 - **TC29: Add card to empty deck** ( :white_check_mark: )
-  - **Name of the test**: `addCard_validCard_addsCardToTop` with case `empty deck`
+  - **Name of the test**: `addCardToTop_validCard_addsCardToTop` with case `empty deck`
   - **State of the system**: Deck is empty: []; card = card1
   - **Expected output**: 
     - Deck becomes [card1]
     - deck size is 1
 
 - **TC30: Add card to deck with one card** ( :white_check_mark: )
-  - **Name of the test**: `addCard_validCard_addsCardToTop` with case `one-card deck`
+  - **Name of the test**: `addCardToTop_validCard_addsCardToTop` with case `one-card deck`
   - **State of the system**: Deck has exactly one card: [card1]; card = card2
   - **Expected output**: 
     - Deck becomes [card2, card1]
     - deck size is 2
 
 - **TC31: Add card to deck with multiple different cards** ( :white_check_mark: )
-  - **Name of the test**: `addCard_validCard_addsCardToTop` with case `multiple different cards`
+  - **Name of the test**: `addCardToTop_validCard_addsCardToTop` with case `multiple different cards`
   - **State of the system**: Deck has cards: [card1, card2]; card = card3
   - **Expected output**: 
     - Deck becomes [card3, card1, card2]
     - deck size is 3
 
 - **TC32: Add duplicate card to deck** ( :white_check_mark: )
-  - **Name of the test**: `addCard_validCard_addsCardToTop` with case `duplicate card`
+  - **Name of the test**: `addCardToTop_validCard_addsCardToTop` with case `duplicate card`
   - **State of the system**: Deck has cards: [card1, card2]; card = card1
   - **Expected output**: 
     - Deck becomes [card1, card1, card2]
