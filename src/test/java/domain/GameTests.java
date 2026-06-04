@@ -424,7 +424,7 @@ public class GameTests {
 				Arguments.of(List.of(CardType.RAGEBAIT)),
 				Arguments.of(List.of(CardType.RECYCLE)),
 				Arguments.of(List.of(CardType.DOUBLE_UP)),
-				Arguments.of(List.of(CardType.MILD_DRAW))
+				Arguments.of(List.of(CardType.MILD_SHUFFLE))
 		);
 	}
 
@@ -649,8 +649,8 @@ public class GameTests {
 						(Consumer<Game>) Game::applyRecycle),
 				Arguments.of(CardType.DOUBLE_UP, "applyDoubleUp",
 						(Consumer<Game>) Game::applyDoubleUp),
-				Arguments.of(CardType.MILD_DRAW, "applyMildDraw",
-						(Consumer<Game>) Game::applyMildDraw)
+				Arguments.of(CardType.MILD_SHUFFLE, "applyMildShuffle",
+						(Consumer<Game>) Game::applyMildShuffle)
 		);
 	}
 

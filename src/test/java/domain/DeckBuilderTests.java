@@ -88,7 +88,7 @@ public class DeckBuilderTests {
 
     @Test
     void initializeDeckWithoutDefuses_SingleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
-        verifyCardTypeGroup(baseCards, CardType.MILD_DRAW, NUM_MILD_DRAW_IN_GAME, "MILDDRAW");
+        verifyCardTypeGroup(baseCards, CardType.MILD_SHUFFLE, NUM_MILD_SHUFFLE_IN_GAME, "MILDSHUFFLE");
         verifyCardTypeGroup(baseCards, CardType.GODCAT, NUM_GODCAT_IN_GAME, "GODCAT");
         verifyCardTypeGroup(baseCards, CardType.WINNER_WINNER_CATNIP_DINNER,
                 NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME, "WINNERWINNERCATNIPDINNER");
@@ -131,9 +131,8 @@ public class DeckBuilderTests {
 
     @Test
     void calculateDefusesToAdd_NegativeDefuses_ThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DeckBuilder.calculateDefusesToAdd(NUM_DEFUSES_IN_GAME + 1);
-        });
+        assertThrows(IllegalArgumentException.class, () ->
+                DeckBuilder.calculateDefusesToAdd(NUM_DEFUSES_IN_GAME + 1));
     }
 
     @Test
@@ -162,9 +161,8 @@ public class DeckBuilderTests {
 
     @Test
     void createCardId_ZeroSequenceNumber_ThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            DeckBuilder.createCardId(CardType.MILD_DRAW, 0);
-        });
+        assertThrows(IllegalArgumentException.class, () ->
+                DeckBuilder.createCardId(CardType.MILD_SHUFFLE, 0));
     }
 
     private void verifyCardTypeGroup(List<Card> cards, CardType type,
@@ -181,7 +179,7 @@ public class DeckBuilderTests {
     }
 
     private static int getExpectedDeckSizeWithoutDefuses() {
-        return NUM_MILD_DRAW_IN_GAME
+        return NUM_MILD_SHUFFLE_IN_GAME
                 + NUM_GODCAT_IN_GAME
                 + NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME
                 + NUM_RAGEBAIT_IN_GAME
