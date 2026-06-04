@@ -207,10 +207,15 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             model.advanceTurn();
 
-            handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
-            updateDrawPile();
-            updateTurnControls();
+            renderNextTurn();
         });
+    }
+
+    private void renderNextTurn() {
+        int newPlayerIndex = model.getCurrentPlayerIndex();
+        handleChangeCurrentPlayer(newPlayerIndex);
+        updateDrawPile();
+        updateTurnControls();
     }
 
     void onDefuseButton() {
@@ -220,9 +225,7 @@ public class PlayerDeckController {
             view.hideOverlay();
             rebindHandCards();
 
-            handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
-            updateDrawPile();
-            updateTurnControls();
+            renderNextTurn();
         });
     }
 
@@ -232,9 +235,7 @@ public class PlayerDeckController {
 
             view.hideOverlay();
 
-            handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
-            updateDrawPile();
-            updateTurnControls();
+            renderNextTurn();
         });
     }
 
