@@ -88,7 +88,8 @@ public class DeckBuilderTests {
 
     @Test
     void initializeDeckWithoutDefuses_SingleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
-        verifyCardTypeGroup(baseCards, CardType.MILD_SHUFFLE, NUM_MILD_SHUFFLE_IN_GAME, "MILDSHUFFLE");
+        verifyCardTypeGroup(baseCards, CardType.MILD_SHUFFLE,
+                NUM_MILD_SHUFFLE_IN_GAME, "MILDSHUFFLE");
         verifyCardTypeGroup(baseCards, CardType.GODCAT, NUM_GODCAT_IN_GAME, "GODCAT");
         verifyCardTypeGroup(baseCards, CardType.WINNER_WINNER_CATNIP_DINNER,
                 NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME, "WINNERWINNERCATNIPDINNER");
