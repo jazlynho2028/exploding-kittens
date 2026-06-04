@@ -779,19 +779,26 @@ public class PlayerDeckView {
         overlayLayer.setMouseTransparent(true);
     }
 
-    public void showCardSelectOverlay(List<CardType> cardTypes) {
+    public void buildGodcatOverlay(List<CardType> cardTypeOptions) {
+        buildCardSelectOverlay(cardTypeOptions, godcatConfirmButton,
+                assetProvider.getString("playerDeckScreen.godcatCaption"));
+    }
+
+    private void buildCardSelectOverlay(
+            List<CardType> cardTypes, Button confirmButton, String titleText) {
+
         VBox overlayContent = new VBox();
         overlayContent.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         overlayContent.getStyleClass().add("overlay-content");
 
-        Text title = buildOverlayTitle(assetProvider.getString("playerDeckScreen.godcatCaption"));
+        Text title = buildOverlayTitle(titleText);
         ScrollPane cardScrollPane = buildCardSelectScrollPane(cardTypes);
 
-        godcatConfirmButton.setText("Confirm");
-        godcatConfirmButton.setDisable(true);
-        godcatConfirmButton.getStyleClass().addAll("overlay-button", "confirm", "h5");
+        confirmButton.setText("Confirm");
+        confirmButton.setDisable(true);
+        confirmButton.getStyleClass().addAll("overlay-button", "confirm", "h5");
 
-        overlayContent.getChildren().addAll(title, cardScrollPane, godcatConfirmButton);
+        overlayContent.getChildren().addAll(title, cardScrollPane, confirmButton);
         overlayLayer.getChildren().setAll(overlayContent);
         showOverlay();
     }

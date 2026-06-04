@@ -189,7 +189,7 @@ public class PlayerDeckController {
             updateTurnControls();
 
             if (cardType == CardType.GODCAT) {
-                view.showCardSelectOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+                view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
             }
         });
     }

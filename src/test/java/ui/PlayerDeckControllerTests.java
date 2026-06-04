@@ -560,7 +560,7 @@ public class PlayerDeckControllerTests {
 		view.renderDiscardPile(canDrawFromDiscard, topDiscardId);
 		EasyMock.expectLastCall();
 
-		view.showCardSelectOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+		view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
 		EasyMock.expectLastCall();
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(
