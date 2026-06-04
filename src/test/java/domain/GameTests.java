@@ -1407,7 +1407,8 @@ public class GameTests {
 	private static Stream<Arguments> provideCurrentPlayerHandsWithDefuseIndex() {
 		return Stream.of(
 				Arguments.of(List.of(CardType.DEFUSE), 0),
-				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE), 1)
+				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE), 1),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP), 0)
 		);
 	}
 
