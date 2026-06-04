@@ -2,7 +2,6 @@ package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import static domain.GameConstants.ONE_CARD;
 import static domain.GameConstants.STARTING_PLAYER_INDEX;
 
 public class TurnManager {
