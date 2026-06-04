@@ -686,5 +686,21 @@
 
 - **TC88: Invalid draw pile index** ( :white_check_mark: )
   - **Name of the test**: playDefuse_invalidDrawPileIndex_failed
-  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex throws IllegalArgumentException "error.invalidDeckIndex"
   - **Expected output**: throws IllegalArgumentException "error.invalidDeckIndex"
+
+### Method under test: `playExplode()`
+- **TC88: Empty draw pile** ( :x: )
+  - **Name of the test**: playExplode_emptyDrawPile_failed
+  - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
+  - **Expected output**: throws IllegalStateException "error.emptyDeck"
+
+- **TC88: This method is called successfully** ( :x: )
+  - **Name of the test**: playExplode_called_success
+  - **State of the system**: N/A
+  - **Expected output**:
+    - drawPile.removeTop is called
+    - getCurrentPlayer.deselectHandCards is called
+    - turnManager.incrementTurn is called
