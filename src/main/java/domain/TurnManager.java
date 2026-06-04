@@ -63,7 +63,7 @@ public class TurnManager {
     }
 
     public void incrementDrawCount() {
-        this.drawCount += 1;
+        this.drawCount++;
     }
 
     void setRoundCount(int roundCount) {
