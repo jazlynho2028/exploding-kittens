@@ -601,7 +601,7 @@
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK]
   - **Expected output**: return false
 
-- **TC88: Hand with two different card types, no Defuse** ( :x: )
+- **TC88: Hand with two different card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK, SKIP]
   - **Expected output**: return false

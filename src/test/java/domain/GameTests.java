@@ -1289,7 +1289,8 @@ public class GameTests {
 	private static Stream<Arguments> provideCurrentPlayerHandsWithNoDefuses() {
 		return Stream.of(
 				Arguments.of(List.of()),
-				Arguments.of(List.of(CardType.ATTACK))
+				Arguments.of(List.of(CardType.ATTACK)),
+				Arguments.of(List.of(CardType.ATTACK, CardType.SKIP))
 		);
 	}
 
