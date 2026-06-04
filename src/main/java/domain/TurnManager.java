@@ -71,7 +71,7 @@ public class TurnManager {
     }
 
     public void incrementDrawCount() {
-        this.drawCount = drawCount + 1;
+        this.drawCount += 1;
     }
 
 }
