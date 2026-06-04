@@ -234,11 +234,11 @@
 
 - **TC24: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_failed
-  - **State of the system**: model.playDefuse with view.getExplodingKittenInsertIndex RuntimeException "An error occurred."
+  - **State of the system**: model.playDefuse with view.getExplodingKittenInsertIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onExplodeButton()`
-- **TC23: Explode successfully** ( :x: )
+- **TC25: Explode successfully** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_called_success
   - **State of the system**:
     - currentPlayerIndex = 0
@@ -252,3 +252,8 @@
     - handleChangeCurrentPlayer is called with currentPlayerIndex
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.renderTurnControls is called with canPlaySelected and canEndTurn
+
+- **TC26: Caught exception from model** ( :x: )
+  - **Name of the test**: onExplodeButton_called_failed
+  - **State of the system**: model.playExplode throws RuntimeException "An error occurred."
+  - **Expected output**: onError accepts exception
