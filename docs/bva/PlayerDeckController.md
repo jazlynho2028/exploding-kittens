@@ -112,7 +112,7 @@
   - **Expected output**:
     - model.drawFromPile = EXPLODINGKITTEN_1
     - view.bindDefuseButton is called
-    - view.buildExplodeOverlay with hasDefuse, model.drawFromPile, and model.getDrawPileSize is called
+    - view.buildExplodeOverlay with hasDefuse, model.drawFromPile, and model.getDrawPileSize-1 is called
 
 - **TC12: Draw Exploding Kitten, no Defuse** ( :white_check_mark: )
   - **Name of the test**: onDrawPile_drawExplodingCard_buildExplodeOverlay
@@ -121,7 +121,7 @@
   - **Expected output**:
     - model.drawFromPile = EXPLODINGKITTEN_1
     - view.bindExplodeButton is called
-    - view.buildExplodeOverlay with hasDefuse, model.drawFromPile, and model.getDrawPileSize is called
+    - view.buildExplodeOverlay with hasDefuse, model.drawFromPile, and model.getDrawPileSize-1 is called
 
 - **TC13: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDrawPile_drawsCard_failed
