@@ -337,7 +337,7 @@ public class PlayerDeckControllerTests {
 		}
 		EasyMock.expectLastCall();
 
-		int drawPileSizeAfterDrawExplodingKitten = drawPileSize-1;
+		int drawPileSizeAfterDrawExplodingKitten = drawPileSize - 1;
 		view.buildExplodeOverlay(hasDefuse, drawnCardId,
 				drawPileSizeAfterDrawExplodingKitten);
 		EasyMock.expectLastCall();
