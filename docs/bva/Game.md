@@ -573,7 +573,7 @@
 - **TC87: Player method throws exception** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_indexZero_failed
   - **State of the system**: player.toggleSelectedPlayerCardAt throws InvalidArgumentException "error.handCardIndexOutOfBounds"
-  - **Expected output**: throw InvalidArgumentException "error.handCardIndexOutOfBounds"
+  - **Expected output**: throws InvalidArgumentException "error.handCardIndexOutOfBounds"
 
 ### Method under test: `advanceTurn()`
 - **TC88: Can end turn** ( :white_check_mark: )
@@ -589,3 +589,44 @@
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
   - **State of the system**: canEndTurn = false
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
+
+### Method under test: `currentPlayerHasDefuse()`
+- **TC88: Empty hand** ( :x: )
+  - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
+  - **State of the system**: currentPlayerHandCardTypes = []
+  - **Expected output**: return false
+
+- **TC88: Hand with one card type, no Defuse** ( :x: )
+  - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
+  - **State of the system**: currentPlayerHandCardTypes = [ATTACK]
+  - **Expected output**: return false
+
+- **TC88: Hand with two different card types, no Defuse** ( :x: )
+  - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
+  - **State of the system**: currentPlayerHandCardTypes = [ATTACK, SKIP]
+  - **Expected output**: return false
+
+- **TC88: Hand with two same card types, no Defuse** ( :x: )
+  - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
+  - **State of the system**: currentPlayerHandCardTypes = [SKIP, SKIP]
+  - **Expected output**: return false
+
+- **TC88: Hand with one card type, has Defuse** ( :x: )
+  - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
+  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE]
+  - **Expected output**: return true
+
+- **TC88: Hand with two different card types, has Defuse at end** ( :x: )
+  - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
+  - **State of the system**: currentPlayerHandCardTypes = [SKIP, DEFUSE]
+  - **Expected output**: return true
+
+- **TC88: Hand with two different card types, has Defuse at front** ( :x: )
+  - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
+  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, SKIP]
+  - **Expected output**: return true
+
+- **TC88: Hand with two same card types, has Defuse** ( :x: )
+  - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
+  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
+  - **Expected output**: return true
