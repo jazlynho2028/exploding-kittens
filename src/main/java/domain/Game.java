@@ -315,6 +315,10 @@ public class Game {
 
     public void playExplode() {
         drawPile.removeTop();
+
+        getCurrentPlayer().deselectHandCards();
+        turnManager.incrementTurn();
+        // TODO unalive current player
     }
 
     void applyAttack() {

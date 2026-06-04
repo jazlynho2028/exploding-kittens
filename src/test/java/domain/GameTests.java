@@ -1493,6 +1493,37 @@ public class GameTests {
 		EasyMock.verify(drawPile, game);
 	}
 
+	@Test
+	public void playExplode_called_success() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		Card explodingKitten = EasyMock.createMock(Card.class);
+
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten);
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		turnManager.incrementTurn();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				currentPlayer, explodingKitten);
+
+		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		game.playExplode();
+
+		EasyMock.verify(drawPile, turnManager, game, currentPlayer);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
