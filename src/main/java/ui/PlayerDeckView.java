@@ -42,24 +42,6 @@ public class PlayerDeckView {
     public final Button godcatConfirmButton;
     private CardType selectedGodcatCardType;
 
-    private static final List<CardType> GODCAT_CARD_OPTIONS = List.of(
-            CardType.ATTACK,
-            CardType.SHUFFLE,
-            CardType.SKIP,
-            CardType.SEE_THE_FUTURE,
-            CardType.CATOMIC_BOMB,
-            CardType.SUPER_SKIP,
-            CardType.CLONE,
-            CardType.SWAP_TOP_AND_BOTTOM,
-            CardType.DRAW_FROM_THE_BOTTOM,
-            CardType.TARGETED_ATTACK,
-            CardType.WINNER_WINNER_CATNIP_DINNER,
-            CardType.RAGEBAIT,
-            CardType.RECYCLE,
-            CardType.DOUBLE_UP,
-            CardType.MILD_DRAW
-    );
-
     public PlayerDeckView(AssetProvider assetProvider) {
         this.assetProvider = assetProvider;
 
@@ -855,10 +837,6 @@ public class PlayerDeckView {
         });
 
         return cardButton;
-    }
-
-    public void showGodcatOverlay() {
-        showCardSelectOverlay(GODCAT_CARD_OPTIONS);
     }
 
     public void hideGodcatOverlay() {
