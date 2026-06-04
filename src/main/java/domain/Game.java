@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static domain.DeckBuilder.createCardId;
-import static domain.GameConstants.*;
 
 public class Game {
 
@@ -17,16 +16,6 @@ public class Game {
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
-
-    private static final List<CardType> UNPLAYABLE_TYPES = List.of(
-            CardType.DEFUSE,
-            CardType.EXPLODING_KITTEN,
-            CardType.CAT_CARD_1,
-            CardType.CAT_CARD_2,
-            CardType.CAT_CARD_3,
-            CardType.CAT_CARD_4,
-            CardType.FERAL_CAT
-    );
 
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2"},
@@ -54,13 +43,13 @@ public class Game {
     }
 
     private void verifyMinPlayers(int numPlayers) {
-        if (numPlayers < MIN_PLAYERS) {
+        if (numPlayers < GameConstants.MIN_PLAYERS) {
             throw new IllegalArgumentException("error.minPlayers");
         }
     }
 
     private void verifyMaxPlayers(int numPlayers) {
-        if (numPlayers > MAX_PLAYERS) {
+        if (numPlayers > GameConstants.MAX_PLAYERS) {
             throw new IllegalArgumentException("error.maxPlayers");
         }
     }
@@ -73,7 +62,8 @@ public class Game {
 
     private void populateHandsWithDefuse() {
         for (int i = 0; i < players.size(); i++) {
-            String cardId = createCardId(CardType.DEFUSE, NUM_DEFUSES_IN_GAME - i);
+            String cardId = createCardId(
+                    CardType.DEFUSE, GameConstants.NUM_DEFUSES_IN_GAME - i);
             Card defuse = new Card(cardId, CardType.DEFUSE);
 
             players.get(i).addCardToHand(defuse);
@@ -82,7 +72,7 @@ public class Game {
 
     private void populateHandsWithNonDefuseStartingCards() {
         for (Player player : players) {
-            for (int i = 0; i < STARTING_HAND_SIZE - 1; i++) {
+            for (int i = 0; i < GameConstants.STARTING_HAND_SIZE - 1; i++) {
                 Card card = drawPile.removeTop();
                 player.addCardToHand(card);
             }
@@ -120,7 +110,7 @@ public class Game {
     }
 
     public int getStartingPlayerIndex() {
-        return STARTING_PLAYER_INDEX;
+        return GameConstants.STARTING_PLAYER_INDEX;
     }
 
     public Player getCurrentPlayer() {
@@ -138,7 +128,7 @@ public class Game {
         }
 
         CardType type = selectedCards.get(0).getType();
-        return !UNPLAYABLE_TYPES.contains(type);
+        return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type);
     }
 
     public CardType playSelectedCards() {

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import domain.GameConstants;
 
 public class PlayerDeckControllerTests {
 
@@ -559,7 +560,7 @@ public class PlayerDeckControllerTests {
 		view.renderDiscardPile(canDrawFromDiscard, topDiscardId);
 		EasyMock.expectLastCall();
 
-		view.showGodcatOverlay();
+		view.showCardSelectOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
 		EasyMock.expectLastCall();
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(

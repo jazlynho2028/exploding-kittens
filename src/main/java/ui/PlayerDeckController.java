@@ -2,10 +2,10 @@ package ui;
 
 import domain.CardType;
 import domain.Game;
+import domain.GameConstants;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 import static ui.ErrorHandler.attempt;
@@ -17,29 +17,11 @@ public class PlayerDeckController {
 
     private Consumer<String> onError;
 
-    private static final List<CardType> GODCAT_CARD_OPTIONS = List.of(
-            CardType.ATTACK,
-            CardType.SHUFFLE,
-            CardType.SKIP,
-            CardType.SEE_THE_FUTURE,
-            CardType.CATOMIC_BOMB,
-            CardType.SUPER_SKIP,
-            CardType.CLONE,
-            CardType.SWAP_TOP_AND_BOTTOM,
-            CardType.DRAW_FROM_THE_BOTTOM,
-            CardType.TARGETED_ATTACK,
-            CardType.WINNER_WINNER_CATNIP_DINNER,
-            CardType.RAGEBAIT,
-            CardType.RECYCLE,
-            CardType.DOUBLE_UP,
-            CardType.MILD_DRAW
-    );
-
     @SuppressFBWarnings(
-            value = "EI_EXPOSE_REP2",
-            justification = "View and model are injected by for compromise between MVC " +
-                    "pattern and testability, defensive copies are not applicable or not " +
-                    "desired for JavaFX components and Game objects."
+        value = "EI_EXPOSE_REP2",
+        justification = "View and model are injected by for compromise between MVC " +
+                "pattern and testability, defensive copies are not applicable or not " +
+                "desired for JavaFX components and Game objects."
     )
     public PlayerDeckController(Game model, PlayerDeckView view) {
         this.model = model;
@@ -207,7 +189,7 @@ public class PlayerDeckController {
             updateTurnControls();
 
             if (cardType == CardType.GODCAT) {
-                view.showCardSelectOverlay(GODCAT_CARD_OPTIONS);
+                view.showCardSelectOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
             }
         });
     }
