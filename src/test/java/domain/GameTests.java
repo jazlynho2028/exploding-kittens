@@ -174,7 +174,7 @@ public class GameTests {
 		EasyMock.expect(players.size()).andStubReturn(numPlayers);
 
 		for (int i = 1; i <= numKittens; i++) {
-			drawPile.addCard(mockSpecificCard(CardType.EXPLODING_KITTEN, i));
+			drawPile.addCardToTop(mockSpecificCard(CardType.EXPLODING_KITTEN, i));
 			EasyMock.expectLastCall();
 		}
 
@@ -508,7 +508,7 @@ public class GameTests {
 			currentPlayer.removeCardFromHand(selectedCard);
 			EasyMock.expectLastCall();
 
-			discardPile.addCard(selectedCard);
+			discardPile.addCardToTop(selectedCard);
 			EasyMock.expectLastCall();
 		}
 	}
@@ -1897,9 +1897,9 @@ public class GameTests {
 		EasyMock.expect(drawPile.removeTop()).andReturn(card1);
 		EasyMock.expect(drawPile.removeBottom()).andReturn(card4);
 
-		drawPile.addCard(card1);
+		drawPile.addCardToTop(card1);
 		EasyMock.expectLastCall();
-		drawPile.addCard(card4);
+		drawPile.addCardToTop(card4);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
@@ -1929,9 +1929,9 @@ public class GameTests {
 		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
 		EasyMock.expect(drawPile.removeBottom()).andReturn(explodingKitten2);
 
-		drawPile.addCard(explodingKitten1);
+		drawPile.addCardToTop(explodingKitten1);
 		EasyMock.expectLastCall();
-		drawPile.addCard(explodingKitten2);
+		drawPile.addCardToTop(explodingKitten2);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager,

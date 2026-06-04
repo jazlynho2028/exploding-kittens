@@ -95,7 +95,7 @@ public class Game {
         for (int i = 1; i <= numKittens; i++) {
             String cardId = createCardId(CardType.EXPLODING_KITTEN, i);
             Card kitten = new Card(cardId, CardType.EXPLODING_KITTEN);
-            drawPile.addCard(kitten);
+            drawPile.addCardToTop(kitten);
         }
     }
 
@@ -143,7 +143,7 @@ public class Game {
             card.toggleSelected();
 
             getCurrentPlayer().removeCardFromHand(card);
-            discardPile.addCard(card);
+            discardPile.addCardToTop(card);
         }
 
         switch (cardType) {
@@ -350,8 +350,8 @@ public class Game {
         Card top = drawPile.removeTop();
         Card bottom = drawPile.removeBottom();
 
-        drawPile.addCard(top);
-        drawPile.addCard(bottom);
+        drawPile.addCardToTop(top);
+        drawPile.addCardToTop(bottom);
     }
 
     void applyDrawFromTheBottom() {
