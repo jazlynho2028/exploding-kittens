@@ -367,7 +367,6 @@ public class Game {
 
     void applyWinnerWinnerCatnipDinner() {
         // TODO
-        // Make a WinnerWinnerCard extends Card with a turnsHeld field
     }
 
     void applyRagebait() {
