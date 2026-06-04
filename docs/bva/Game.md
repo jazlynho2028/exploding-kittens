@@ -581,7 +581,7 @@
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
 
 ### Method under test: `applyDoubleUp()`
-- **TC90: Double up once, relays drawCount increase to TurnManager** ( :x: )
+- **TC90: Double up once, relays drawCount increase to TurnManager** ( :white_check_mark: )
   - **Name of the test**: applyDoubleUp_standardCall_callsTurnManagerIncrementDrawCount
   - **State of the system**: drawCount = 1
   - **Expected output**: calls turn manager to increment drawCount to 2

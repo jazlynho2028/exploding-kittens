@@ -1169,6 +1169,24 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
+	@Test
+	public void applyDoubleUp_standardCall_callsTurnManagerIncrementDrawCount() {
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		turnManager.incrementDrawCount();
+		EasyMock.expectLastCall();
+		EasyMock.replay(turnManager);
+
+		Game game = new Game(
+				EasyMock.createMock(List.class),
+				EasyMock.createMock(Deck.class),
+				EasyMock.createMock(Deck.class),
+				turnManager
+		);
+
+		game.applyDoubleUp();
+		EasyMock.verify(turnManager);
+	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
