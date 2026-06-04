@@ -581,7 +581,7 @@
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
 
 ## Method under test: `applyAttack()`
-- **TC90: Non-stacked standard attack, ** ( :white_check_mark: )
+- **TC90: Non-stacked standard attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
     - drawCount = 1
@@ -590,7 +590,7 @@
     - increments turn
     - drawCount = 2
 
-- **TC91: One-time stacked attack, player turn index does not wrap around** ( :white_check_mark: )
+- **TC91: One-time stacked attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
     - drawCount = 2
@@ -599,7 +599,7 @@
     - increments turn
     - draCount = 4
 
-- **TC92: Two-time stacked attack, player turn index does not wrap around** ( :white_check_mark: )
+- **TC92: Two-time stacked attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
     - drawCount = 4
@@ -612,3 +612,14 @@
   - **Name of the test**: applyAttack_gameNotOngoing_throwsException
   - **State of the system**: isGameOngoing = false
   - **Expected output**: throws error.gameAlreadyEnded
+
+- **TC94: Partial-turn stacked attack** ( :x: )
+  - **Name of the test**: applyAttack_partialTurnCompletion_stacksCorrectlyForThirdPlayer
+  - **State of the system**:
+    - (starting) drawCount = 2
+    - current player draws 1 card, leaving 1 remaining attack turn, then 
+      plays an attack themselves
+  - **Expected output**:
+    - ends current player's turn
+    - increments turn
+    - next player's drawCount = 3
