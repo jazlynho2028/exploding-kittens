@@ -1020,7 +1020,7 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		String expectedMsg = "error.emptyDeck";
-		EasyMock.expect(drawPile.removeTop()).andThrow(
+		EasyMock.expect(drawPile.peekTop()).andThrow(
 				new IllegalStateException(expectedMsg)
 		);
 
@@ -1041,12 +1041,17 @@ public class GameTests {
 	@Test
 	public void drawFromPile_turnManagerException_failed() {
 		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+		TurnManager turnManager = EasyMock.createNiceMock(TurnManager.class);
 
-		Card card = EasyMock.createMock(Card.class);
-		EasyMock.expect(drawPile.removeTop()).andReturn(card);
+		Card card = EasyMock.createNiceMock(Card.class);
+		EasyMock.expect(card.getType()).andStubReturn(CardType.ATTACK);
+
+		EasyMock.expect(drawPile.peekTop()).andStubReturn(card);
+		EasyMock.expect(drawPile.removeTop()).andStubReturn(card);
+
+		Player currentPlayer = EasyMock.createNiceMock(Player.class);
 
 		String expectedMsg = "error.negativeDrawCount";
 
@@ -1055,9 +1060,13 @@ public class GameTests {
 				new IllegalStateException(expectedMsg)
 		);
 
-		EasyMock.replay(players, drawPile, discardPile, turnManager, card);
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				card, currentPlayer);
 
-		Game game = new Game(players, drawPile, discardPile, turnManager);
+		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
 
 		Exception exception = assertThrows(IllegalStateException.class,
 				game::drawFromPile);
@@ -1066,7 +1075,7 @@ public class GameTests {
 
 		assertEquals(expectedMsg, actualMsg);
 
-		EasyMock.verify(drawPile, turnManager);
+		EasyMock.verify(turnManager, game);
 	}
 
 	@ParameterizedTest
