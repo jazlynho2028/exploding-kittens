@@ -339,13 +339,7 @@ public class Game {
     }
 
     void applyDoubleUp() {
-        for (int i = 0; i < 2; i++) {
-            if (drawPile.isEmpty()) {
-                return;
-            }
-            Card topCard = drawPile.removeTop();
-            getCurrentPlayer().addCardToHand(topCard);
-        }
+        turnManager.incrementDrawCount();
     }
 
     void applyMildDraw() {
