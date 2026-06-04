@@ -58,7 +58,7 @@ public class PlayerDeckView {
         turnControlSection = new HBox();
         overlayLayer = new StackPane();
         godcatConfirmButton = new Button();
-        selectedGodcatCardType = null;
+        selectedGodcatCardType = CardType.ATTACK;;
 
         buildUI();
     }
@@ -840,7 +840,7 @@ public class PlayerDeckView {
     }
 
     public void hideGodcatOverlay() {
-        selectedGodcatCardType = null;
+        selectedGodcatCardType = CardType.ATTACK;
         hideOverlay();
     }
 
