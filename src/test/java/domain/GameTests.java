@@ -631,8 +631,6 @@ public class GameTests {
 						(Consumer<Game>) Game::applyCatomicBomb),
 				Arguments.of(CardType.SUPER_SKIP, "applySuperSkip",
 						(Consumer<Game>) Game::applySuperSkip),
-				Arguments.of(CardType.GODCAT, "applyGodcat",
-						(Consumer<Game>) Game::applyGodcat),
 				Arguments.of(CardType.CLONE, "applyClone",
 						(Consumer<Game>) Game::applyClone),
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM, "applySwapTopAndBottom",
@@ -658,6 +656,43 @@ public class GameTests {
 				Arguments.of(CardType.MILD_DRAW, "applyMildDraw",
 						(Consumer<Game>) Game::applyMildDraw)
 		);
+	}
+
+	@Test
+	public void playSelectedCards_godcatPlayed_returnsGodcat() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card card = EasyMock.createMock(Card.class);
+		EasyMock.expect(card.getType()).andStubReturn(CardType.GODCAT);
+
+		List<Card> selectedCards = List.of(card);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(selectedCards);
+
+		setMoveCardToDiscardExpectations(selectedCards, discardPile, currentPlayer);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canPlaySelected")
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		setGameExpectationsForPlaySelectedCards(game, currentPlayer);
+
+		EasyMock.replay(game);
+
+		CardType actualCardType = game.playSelectedCards();
+
+		assertEquals(CardType.GODCAT, actualCardType);
+
+		Object[] selectedCardsArray = selectedCards.toArray();
+		EasyMock.verify(selectedCardsArray);
+		EasyMock.verify(discardPile, currentPlayer, game);
 	}
 
 	@Test
@@ -1167,6 +1202,104 @@ public class GameTests {
 		assertEquals(expectedMsg, actualMsg);
 
 		EasyMock.verify(game);
+	}
+
+	@Test
+	public void applyCardType_invalidCardType_throwsException() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Exception exception = assertThrows(IllegalStateException.class, () ->
+				game.applyCardType(CardType.EXPLODING_KITTEN));
+
+		String expectedMsg = "error.cannotPlaySelectedCards";
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
+	}
+
+	@ParameterizedTest
+	@MethodSource("provideValidCardTypesAndMethods")
+	public void applyCardType_validCardType_correctApplyCalled(
+			CardType cardType, String applyMethodName,
+			Consumer<Game> applyMethod) {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod(applyMethodName)
+				.createMock();
+
+		applyMethod.accept(game);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(game);
+
+		game.applyCardType(cardType);
+
+		EasyMock.verify(game);
+	}
+
+	private static Stream<Arguments> provideValidCardTypesAndMethods() {
+		return Stream.of(
+				Arguments.of(CardType.ATTACK,
+						"applyAttack",
+						(Consumer<Game>) Game::applyAttack),
+				Arguments.of(CardType.SHUFFLE,
+						"applyShuffle",
+						(Consumer<Game>) Game::applyShuffle),
+				Arguments.of(CardType.SKIP,
+						"applySkip",
+						(Consumer<Game>) Game::applySkip),
+				Arguments.of(CardType.SEE_THE_FUTURE,
+						"applySeeTheFuture",
+						(Consumer<Game>) Game::applySeeTheFuture),
+				Arguments.of(CardType.CATOMIC_BOMB,
+						"applyCatomicBomb",
+						(Consumer<Game>) Game::applyCatomicBomb),
+				Arguments.of(CardType.SUPER_SKIP,
+						"applySuperSkip",
+						(Consumer<Game>) Game::applySuperSkip),
+				Arguments.of(CardType.CLONE,
+						"applyClone",
+						(Consumer<Game>) Game::applyClone),
+				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM,
+						"applySwapTopAndBottom",
+						(Consumer<Game>) Game::applySwapTopAndBottom),
+				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM,
+						"applyDrawFromTheBottom",
+						(Consumer<Game>) Game::applyDrawFromTheBottom),
+				Arguments.of(CardType.TARGETED_ATTACK,
+						"applyTargetedAttack",
+						(Consumer<Game>) Game::applyTargetedAttack),
+				Arguments.of(CardType.WINNER_WINNER_CATNIP_DINNER,
+						"applyWinnerWinnerCatnipDinner",
+						(Consumer<Game>) Game::
+								applyWinnerWinnerCatnipDinner),
+				Arguments.of(CardType.RAGEBAIT,
+						"applyRagebait",
+						(Consumer<Game>) Game::applyRagebait),
+				Arguments.of(CardType.RECYCLE,
+						"applyRecycle",
+						(Consumer<Game>) Game::applyRecycle),
+				Arguments.of(CardType.DOUBLE_UP,
+						"applyDoubleUp",
+						(Consumer<Game>) Game::applyDoubleUp),
+				Arguments.of(CardType.MILD_DRAW,
+						"applyMildDraw",
+						(Consumer<Game>) Game::applyMildDraw)
+				);
 	}
 
 	@ParameterizedTest
