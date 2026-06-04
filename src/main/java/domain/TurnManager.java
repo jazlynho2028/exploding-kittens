@@ -64,7 +64,7 @@ public class TurnManager {
     }
 
     public void incrementDrawCount(int drawCount) {
-        this.drawCount += ONE_CARD;
+        this.drawCount++;
     }
 
     void setRoundCount(int roundCount) {
