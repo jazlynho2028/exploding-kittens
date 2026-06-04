@@ -1,5 +1,6 @@
 package domain;
 
+import io.cucumber.java.an.E;
 import org.easymock.EasyMock;
 
 import org.easymock.IArgumentMatcher;
@@ -1326,6 +1327,37 @@ public class GameTests {
 				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP)),
 				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE))
 		);
+	}
+
+	@Test
+	public void playDefuse_noDefuse_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		int drawPileIndex = 0;
+		List<Card> currentPlayerHandCards = List.of();
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		Exception exception = assertThrows(IllegalStateException.class, () ->
+				game.playDefuse(drawPileIndex));
+
+		String expectedMsg = "error.currentPlayerNoDefuse";
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(game);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {

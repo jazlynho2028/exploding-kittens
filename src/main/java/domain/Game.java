@@ -295,7 +295,17 @@ public class Game {
     }
 
     public void playDefuse(int drawPileIndex) {
-        // TODO
+        Card defuse = getCurrentPlayerDefuse();
+    }
+
+    private Card getCurrentPlayerDefuse() {
+        for (Card card : getCurrentPlayer().getHand()) {
+            if (card.getType() == CardType.DEFUSE) {
+                return card;
+            }
+        }
+
+        throw new IllegalStateException("error.currentPlayerNoDefuse");
     }
 
     public void playExplode() {

@@ -632,7 +632,7 @@
   - **Expected output**: return true
 
 ### Method under test: `playDefuse(int drawPileIndex)`
-- **TC88: Empty hand** ( :x: )
+- **TC88: Empty hand** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuse_failed
   - **State of the system**: getCurrentPlayer.getHand = []
   - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuse"
