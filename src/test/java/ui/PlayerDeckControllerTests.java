@@ -576,7 +576,7 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
 		setUpRenderDrawPileExpectations();
-		setUpBuildAndRenderTurnControlSectionExpectations(canEndTurn);
+		setUpRenderTurnControlSectionExpectations(canEndTurn);
 
 		model.advanceTurn();
 		EasyMock.expectLastCall();
@@ -587,7 +587,7 @@ public class PlayerDeckControllerTests {
 		view.renderDrawPile(canDraw, isDrawPileEmpty);
 		EasyMock.expectLastCall();
 
-		view.buildAndRenderTurnControlSection(isGameOngoing, canPlaySelected, canEndTurn);
+		view.renderTurnControlSection(canPlaySelected, canEndTurn);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view, controller);

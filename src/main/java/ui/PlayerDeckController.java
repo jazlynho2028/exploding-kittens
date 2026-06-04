@@ -70,9 +70,6 @@ public class PlayerDeckController {
         view.bindEndTurnButton(this::onEndTurnButton);
         view.bindNameTags(this::onNameTag);
         bindHandCards();
-
-        view.bindDefuseButton(this::onDefuseButton);
-        view.bindExplodeButton(this::onExplodeButton);
     }
 
     private void bindHandCards() {
@@ -116,19 +113,29 @@ public class PlayerDeckController {
             Card drawnCard = model.drawFromPile();
             // TODO use ^ return value for UI changes if a card effect needs it
 
-            switch (drawnCard.getType()) {
-                case EXPLODING_KITTEN:
-                    view.buildExplodeOverlay(
-                            model.currentPlayerHasDefuse(), drawnCard.getId());
-                    break;
-                default:
-                    break;
+            if (drawnCard.getType() == CardType.EXPLODING_KITTEN) {
+                handleDrawExplodingKitten(drawnCard.getId());
             }
-
-            updateDrawPile();
-            rebindHandCards();
-            updateTurnControls();
+            else {
+                rebindHandCards();
+                updateDrawPile();
+                updateTurnControls();
+            }
         });
+    }
+
+    private void handleDrawExplodingKitten(String cardId) {
+        boolean hasDefuse = model.currentPlayerHasDefuse();
+
+        if (hasDefuse) {
+            view.bindDefuseButton(this::onDefuseButton);
+        }
+        else {
+            view.bindExplodeButton(this::onExplodeButton);
+        }
+
+        view.buildExplodeOverlay(
+                model.currentPlayerHasDefuse(), cardId, model.getDrawPileSize());
     }
 
     private void updateDrawPile() {
@@ -171,15 +178,10 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             model.startGame();
 
-            handleNewTurn(model.getStartingPlayerIndex());
+            handleChangeCurrentPlayer(model.getStartingPlayerIndex());
+            updateDrawPile();
+            rebuildTurnControl();
         });
-    }
-
-    private void handleNewTurn(int newPlayerIndex) {
-        handleChangeCurrentPlayer(newPlayerIndex);
-
-        updateDrawPile();
-        rebuildTurnControl();
     }
 
     private void rebuildTurnControl() {
@@ -205,23 +207,34 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             model.advanceTurn();
 
-            handleNewTurn(model.getCurrentPlayerIndex());
+            handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
+            updateDrawPile();
+            updateTurnControls();
         });
     }
 
     void onDefuseButton() {
         attempt(onError, () -> {
-            // TODO model.applyDefuse();
+            model.playDefuse(view.getExplodingKittenInsertIndex());
 
             view.hideOverlay();
+            rebindHandCards();
+
+            handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
+            updateDrawPile();
+            updateTurnControls();
         });
     }
 
     void onExplodeButton() {
         attempt(onError, () -> {
-            // TODO model.applyExplode();
+            model.playExplode();
 
             view.hideOverlay();
+
+            handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
+            updateDrawPile();
+            updateTurnControls();
         });
     }
 

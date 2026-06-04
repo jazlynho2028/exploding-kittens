@@ -1,5 +1,6 @@
 package ui;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,6 +34,7 @@ public class PlayerDeckView {
     private final Button endTurnButton;
     private final Button explodeButton;
     private final Button defuseButton;
+    private final Slider defuseSlider;
 
     private final StackPane root;
     private final HBox turnControlSection;
@@ -52,6 +54,7 @@ public class PlayerDeckView {
         endTurnButton = new Button();
         explodeButton = new Button();
         defuseButton = new Button();
+        defuseSlider = new Slider();
 
         turnControlSection = new HBox();
         overlayLayer = new StackPane();
@@ -94,20 +97,19 @@ public class PlayerDeckView {
     public void bindNameTags(Consumer<Integer> handler) {
         ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
 
-        for (int i = 0; i < nameTagButtons.size(); i++) {
-            int index = i;
-            nameTagButtons.get(i).setOnMouseClicked((e ->
-                    handler.accept(index)
-            ));
-        }
+        bindListOfNodes(handler, nameTagButtons);
     }
 
     public void bindPlayerHandCardButtons(Consumer<Integer> handler) {
         ObservableList<Node> handCards = handCardsContainer.getChildren();
 
-        for (int i = 0; i < handCards.size(); i++) {
+        bindListOfNodes(handler, handCards);
+    }
+
+    private void bindListOfNodes(Consumer<Integer> handler, ObservableList<Node> nodes) {
+        for (int i = 0; i < nodes.size(); i++) {
             int index = i;
-            handCards.get(i).setOnMouseClicked((e ->
+            nodes.get(i).setOnMouseClicked((e ->
                     handler.accept(index)
             ));
         }
@@ -206,27 +208,6 @@ public class PlayerDeckView {
         overlayLayer.setVisible(false);
         overlayLayer.setMouseTransparent(true);
         overlayLayer.getChildren().clear();
-    }
-
-    public void buildExplodeOverlay(boolean hasDefuse, String explodingCardId) {
-        VBox content = new VBox();
-        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        content.getStyleClass().add("overlay-content");
-
-        Button explodingKittenCard = buildExplodingKittenCard(explodingCardId);
-        content.getChildren().add(explodingKittenCard);
-
-        if (hasDefuse) {
-            buildAndAddExplodingOverlayButton(defuseButton,
-                    "playerDeckScreen.defuseLabel", "defuse", content);
-        }
-        else {
-            buildAndAddExplodingOverlayButton(explodeButton,
-                    "playerDeckScreen.explodeLabel", "explode", content);
-        }
-
-        overlayLayer.getChildren().setAll(content);
-        showOverlay();
     }
 
     private void buildUI() {
@@ -467,7 +448,7 @@ public class PlayerDeckView {
         playerHandSection.setAlignment(Pos.CENTER);
 
         renderHandVisibilityToggle();
-        ScrollPane handScrollPane = buildHandScrollPane();
+        ScrollPane handScrollPane = buildCardScrollPane(handCardsContainer);
         Text handCaption = buildCaption(
                 assetProvider.getString("playerDeckScreen.handCaption"));
 
@@ -484,22 +465,17 @@ public class PlayerDeckView {
                 "hand-visibility-toggle", "h6");
     }
 
-    private ScrollPane buildHandScrollPane() {
-        ScrollPane handScrollPane = new ScrollPane();
+    private ScrollPane buildCardScrollPane(HBox content) {
+        ScrollPane handScrollPane = new ScrollPane(content);
         handScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         handScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         handScrollPane.getStyleClass().add("scroll-pane");
 
-        renderHandCardsContainer();
-        handScrollPane.setContent(handCardsContainer);
+        content.setAlignment(Pos.CENTER);
+        content.setMinWidth(UIConstants.SCENE_WIDTH);
+        content.getStyleClass().add("hand-cards-container");
 
         return handScrollPane;
-    }
-
-    private void renderHandCardsContainer() {
-        handCardsContainer.setAlignment(Pos.CENTER);
-        handCardsContainer.setMinWidth(UIConstants.SCENE_WIDTH);
-        handCardsContainer.getStyleClass().add("hand-cards-container");
     }
 
     private ToggleButton buildHandCardButton(
@@ -734,16 +710,86 @@ public class PlayerDeckView {
     }
 
     private void buildOverlayLayer() {
-        overlayLayer.setAlignment(Pos.CENTER);
         overlayLayer.getStyleClass().add("overlay");
 
-        overlayLayer.setVisible(false);
-        overlayLayer.setMouseTransparent(true);
+        hideOverlay();
     }
 
     private void showOverlay() {
         overlayLayer.setVisible(true);
         overlayLayer.setMouseTransparent(false);
+    }
+
+    public int getExplodingKittenInsertIndex() {
+        return (int) defuseSlider.getValue();
+    }
+
+    public void buildExplodeOverlay(boolean hasDefuse, String explodingCardId, int drawPileSize) {
+        VBox content = new VBox();
+        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        content.setAlignment(Pos.CENTER);
+        content.getStyleClass().add("overlay-content");
+
+        Button explodingKittenCard = buildExplodingKittenCard(explodingCardId);
+        content.getChildren().add(explodingKittenCard);
+
+        if (hasDefuse) {
+            VBox defuseOptions = buildDefuseOptions(drawPileSize);
+            content.getChildren().add(defuseOptions);
+
+            buildAndAddExplodingOverlayButton(defuseButton,
+                    "playerDeckScreen.defuseLabel", "defuse", content);
+        }
+        else {
+            buildAndAddExplodingOverlayButton(explodeButton,
+                    "playerDeckScreen.explodeLabel", "explode", content);
+        }
+
+        overlayLayer.getChildren().setAll(content);
+        showOverlay();
+    }
+
+    private VBox buildDefuseOptions(int drawPileSize) {
+        VBox defuseOptions = new VBox();
+        defuseOptions.getStyleClass().add("defuse-options");
+
+        renderDrawPileIndexSlider(drawPileSize);
+        Text caption = buildDefuseSliderCaption(defuseSlider);
+
+        defuseOptions.getChildren().addAll(defuseSlider, caption);
+
+        return defuseOptions;
+    }
+
+    private Text buildDefuseSliderCaption(Slider slider) {
+        Text caption = new Text();
+        caption.getStyleClass().addAll("caption", "defuse-caption");
+
+        caption.textProperty().bind(
+                Bindings.createStringBinding(
+                        () -> formatDefuseCaption(slider),
+                        slider.valueProperty()
+                )
+        );
+
+        return caption;
+    }
+
+    private String formatDefuseCaption(Slider slider) {
+        return String.format(
+                assetProvider.getString("playerDeckScreen.defuseAtIndexCaption"),
+                (int) slider.getValue()
+        );
+    }
+
+    private void renderDrawPileIndexSlider(int drawPileSize) {
+        defuseSlider.setMin(0);
+        defuseSlider.setMax(drawPileSize);
+        defuseSlider.setValue(0);
+        defuseSlider.setMajorTickUnit(1);
+        defuseSlider.setMinorTickCount(0);
+        defuseSlider.setBlockIncrement(1);
+        defuseSlider.setSnapToTicks(true);
     }
 
     private Button buildExplodingKittenCard(String explodingCardId) {

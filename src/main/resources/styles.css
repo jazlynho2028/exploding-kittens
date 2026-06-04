@@ -3,7 +3,7 @@
     gray-1: #E4E3E9;
     gray-2: #B7B4BE;
     gray-4: #4E4E4E;
-    gray-6-tr: #01010190;
+    gray-6-tr: #01010195;
     gray-6: #010101;
 
     beige-2: #D2C3AA;
@@ -11,6 +11,7 @@
 
     yellow-0-tr-1: #FFFAF228;
     yellow-0-tr-2: #FFFAF250;
+    yellow-0-tr-3: #FFFAF275;
     yellow-0: #FFFAF2;
     yellow-1: #F0EAD3;
     yellow-2: #D0B95E;
@@ -641,14 +642,14 @@
 }
 
 .overlay-content {
-    -fx-spacing: 16px;
+    -fx-spacing: 24px;
 }
 
 .overlay-button {
     -fx-background-radius: 8;
     -fx-border-width: 2;
     -fx-border-radius: 16;
-    -fx-pref-width: 176px;
+    -fx-pref-width: 256px;
     -fx-padding: -2 0 -2 0;
 }
 
@@ -660,4 +661,25 @@
 .overlay-button.explode {
     -fx-background-color: linear-gradient(to bottom, yellow-3, red-3, orange-3);
     -fx-text-fill: magenta-6;
+}
+
+.defuse-options {
+    -fx-spacing: 8px;
+}
+
+.defuse-caption {
+    -fx-fill: yellow-1;
+}
+
+.slider .track {
+    -fx-background-color: yellow-0-tr-3;
+    -fx-background-radius: 4px;
+    -fx-pref-height: 6px;
+}
+
+.slider .thumb {
+    -fx-background-color: yellow-1;
+    -fx-background-radius: 16%;
+    -fx-pref-width: 8px;
+    -fx-pref-height: 16px;
 }

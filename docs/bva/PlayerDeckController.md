@@ -205,7 +205,7 @@
     - model.advanceTurn is called
     - handleChangeCurrentPlayer is called with newPlayerIndex
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
-    - view.buildAndRenderTurnControlSection is called with isGameOngoing, canPlaySelected, and canEndTurn
+    - view.renderTurnControlSection is called with canPlaySelected and canEndTurn
 
 - **TC22: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_failed
