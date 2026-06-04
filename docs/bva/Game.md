@@ -608,12 +608,7 @@
     - increments turn
     - drawCount = 6
 
-- **TC93: Attack is played while game is not ongoing** ( :white_check_mark: )
-  - **Name of the test**: applyAttack_gameNotOngoing_throwsException
-  - **State of the system**: isGameOngoing = false
-  - **Expected output**: throws error.gameAlreadyEnded
-
-- **TC94: Partial-turn stacked attack** ( :x: )
+- **TC93: Partial-turn stacked attack** ( :x: )
   - **Name of the test**: applyAttack_partialTurnCompletion_stacksCorrectlyForThirdPlayer
   - **State of the system**:
     - (starting) drawCount = 2
