@@ -925,16 +925,34 @@ public class DeckTests {
         );
     }
 
-    @Test
-    public void addCardToBottom_validCard_addsCardToBottom() {
-        Card card1 = new Card("SKIP_1", CardType.SKIP);
+    @ParameterizedTest
+    @MethodSource("provideAddCardToBottomCases")
+    public void addCardToBottom_validCard_addsCardToBottom(
+            List<Card> initialCards, Card cardToAdd, List<Card> expectedCards) {
 
-        Deque<Card> deque = new ArrayDeque<>();
+        Deque<Card> deque = new ArrayDeque<>(initialCards);
         Deck deck = new Deck(deque, new Random());
 
-        deck.addCardToBottom(card1);
+        deck.addCardToBottom(cardToAdd);
 
-        assertEquals(List.of(card1), deck.getCards());
-        assertEquals(1, deck.size());
+        assertEquals(expectedCards, deck.getCards());
+        assertEquals(expectedCards.size(), deck.size());
+    }
+
+    private static Stream<Arguments> provideAddCardToBottomCases() {
+        Card card1 = new Card("SKIP_1", CardType.SKIP);
+        Card card2 = new Card("ATTACK_1", CardType.ATTACK);
+        Card card3 = new Card("SHUFFLE_1", CardType.SHUFFLE);
+
+        return Stream.of(
+                Arguments.of(List.of(), card1,
+                        List.of(card1)),
+                Arguments.of(List.of(card1), card2,
+                        List.of(card1, card2)),
+                Arguments.of(List.of(card1, card2), card3,
+                        List.of(card1, card2, card3)),
+                Arguments.of(List.of(card1, card2), card1,
+                        List.of(card1, card2, card1))
+        );
     }
 }

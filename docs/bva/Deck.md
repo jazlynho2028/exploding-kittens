@@ -322,21 +322,21 @@
     - Deck becomes [card1]
     - deck size is 1
 
-- **TC30: Add card to deck with one card** ( :x: )
+- **TC30: Add card to deck with one card** ( :white_check_mark: )
   - **Name of the test**: `addCardToBottom_validCard_addsCardToBottom` with case `one-card deck`
   - **State of the system**: Deck has exactly one card: [card1]; card = card2
   - **Expected output**:
     - Deck becomes [card1, card2]
     - deck size is 2
 
-- **TC31: Add card to deck with multiple different cards** ( :x: )
+- **TC31: Add card to deck with multiple different cards** ( :white_check_mark: )
   - **Name of the test**: `addCardToBottom_validCard_addsCardToTop` with case `multiple different cards`
   - **State of the system**: Deck has cards: [card1, card2]; card = card3
   - **Expected output**:
     - Deck becomes [card1, card2, card3]
     - deck size is 3
 
-- **TC32: Add duplicate card to deck** ( :x: )
+- **TC32: Add duplicate card to deck** ( :white_check_mark: )
   - **Name of the test**: `addCardToTopBottom_validCard_addsCardToTop` with case `duplicate card`
   - **State of the system**: Deck has cards: [card1, card2]; card = card1
   - **Expected output**:
