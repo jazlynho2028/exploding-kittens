@@ -121,11 +121,13 @@
 }
 
 .start-content-section {
+    -fx-alignment: center;
     -fx-padding: 36px 16px 64px 16px;
     -fx-spacing: 480px;
 }
 
 .play-buttons-container {
+    -fx-alignment: center;
     -fx-spacing: 16px;
 }
 
@@ -141,6 +143,7 @@
 }
 
 .content-section {
+    -fx-alignment: center;
     -fx-padding: 16px;
     -fx-spacing: 24px;
 }
@@ -150,6 +153,7 @@
 }
 
 .player-fields-container {
+    -fx-alignment: center;
     -fx-spacing: inherit;
 }
 
@@ -168,6 +172,7 @@
 }
 
 .name-enter {
+    -fx-alignment: center-left;
     -fx-background-color: yellow-1;
     -fx-max-width: 600px;
     -fx-prompt-text-fill: beige-2;
@@ -203,6 +208,10 @@
 
 .add-player-button:hover {
     -fx-background-color: yellow-0-tr-2;
+}
+
+.player-create-overlay {
+    -fx-alignment: top-right;
 }
 
 .name-tag {
