@@ -205,7 +205,7 @@
     - view.renderTurnControlSection with model.canPlaySelected is called
     - model.canEndTurn is called
 
-- **TC21: Cards play successfully, Skip card** ( :white_check_mark: )
+- **TC22: Cards play successfully, Skip card** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_skipPlayed_updatedPlayer
   - **State of the system**:
     - canDrawFromDiscard = true
@@ -224,7 +224,7 @@
     - model.canEndTurn is called
     - handleChangeCurrentPlayer is called with currentPlayerIndex
 
-- **TC20: Cards play successfully, Godcat card** ( :white_check_mark: )
+- **TC23: Cards play successfully, Godcat card** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_godcatPlayed_overlayShown
   - **State of the system**:
     - canDrawFromDiscard = true
@@ -243,13 +243,13 @@
     - view.bindGodcatConfirmButton is called
     - view.showGodcatOverlay is called
 
-- **TC22: Caught exception from model** ( :white_check_mark: )
+- **TC24: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed
   - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onEndTurnButton()`
-- **TC23: Turn ends successfully** ( :white_check_mark: )
+- **TC25: Turn ends successfully** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_success
   - **State of the system**: 
     - currentPlayerIndex = 0
@@ -264,13 +264,13 @@
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.renderTurnControlSection is called with canPlaySelected and canEndTurn
 
-- **TC24: Caught exception from model** ( :white_check_mark: )
+- **TC26: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_failed
   - **State of the system**: model.advanceTurn throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onDefuseButton()`
-- **TC25: Defuse Exploding Kitten successfully** ( :white_check_mark: )
+- **TC27: Defuse Exploding Kitten successfully** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_success
   - **State of the system**: 
     - currentPlayerIndex = 0
@@ -289,13 +289,13 @@
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.renderTurnControls is called with canPlaySelected and canEndTurn
 
-- **TC26: Caught exception from model** ( :white_check_mark: )
+- **TC28: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_failed
   - **State of the system**: model.playDefuse with view.getExplodingKittenInsertIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onExplodeButton()`
-- **TC27: Explode successfully** ( :white_check_mark: )
+- **TC29: Explode successfully** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_called_success
   - **State of the system**:
     - currentPlayerIndex = 0
@@ -310,31 +310,31 @@
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.renderTurnControls is called with canPlaySelected and canEndTurn
 
-- **TC28: Caught exception from model** ( :white_check_mark: )
+- **TC30: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_called_failed
   - **State of the system**: model.playExplode throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onGodcatConfirm()`
-- **TC24: Confirm called successfully** ( :white_check_mark: )
+- **TC31: Confirm called successfully** ( :white_check_mark: )
   - **Name of the test**: onGodcatConfirm_validCardType_success
   - **State of the system**: view.getSelectedGodcatCardType returns CardType.ATTACK
   - **Expected output**: onConfirmGodcatCard() is called with CardType.ATTACK
 
-- **TC25: Caught exception** ( :white_check_mark: )
+- **TC32: Caught exception** ( :white_check_mark: )
   - **Name of the test**: 
   - **State of the system**: view.geonGodcatConfirm_modelThrowsException_failedtSelectedGodcatCardType throws RuntimeException with message "An error occurred."
   - **Expected output**: onError is called with the exception message
 
 ### Method under test: `onConfirmGodcatCard(CardType cardType)`
-- **TC26: Valid card type** ( :white_check_mark: )
+- **TC33: Valid card type** ( :white_check_mark: )
   - **Name of the test**: onConfirmGodcatCard_validCardType_applyCardTypeCalled
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: 
     - model.applyCardType(CardType.ATTACK) is called
     - view.hideOverlay() is called
 
-- **TC27: Invalid card type** ( :white_check_mark: )
+- **TC34: Invalid card type** ( :white_check_mark: )
   - **Name of the test**: onConfirmGodcatCard_modelThrowsException_failed
   - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType; model.applyCardType() throws exception
   - **Expected output**: onError is called with the exception message
