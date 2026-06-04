@@ -684,7 +684,7 @@
     - discardPile.addCard with card1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC88: Invalid draw pile index** ( :x: )
+- **TC88: Invalid draw pile index** ( :white_check_mark: )
   - **Name of the test**: playDefuse_invalidDrawPileIndex_failed
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
   - **Expected output**: throws IllegalArgumentException "error.invalidDeckIndex"

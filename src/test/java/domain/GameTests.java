@@ -1413,6 +1413,55 @@ public class GameTests {
 		);
 	}
 
+	@Test
+	public void playDefuse_invalidDrawPileIndex_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		int drawPileIndex = 0;
+		int defuseIndex = 0;
+		String expectedMsg = "error.invalidDeckIndex";
+
+		List<CardType> currentPlayerHandCardTypes = List.of(CardType.DEFUSE);
+		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(currentPlayerHandCardTypes);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
+
+		Card defuse = currentPlayerHandCards.get(defuseIndex);
+
+		currentPlayer.removeCardFromHand(defuse);
+		EasyMock.expectLastCall();
+
+		discardPile.addCard(defuse);
+		EasyMock.expectLastCall();
+
+		Card explodingKitten = EasyMock.createMock(Card.class);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten);
+
+		drawPile.insertCardAt(explodingKitten, drawPileIndex);
+		EasyMock.expectLastCall().andThrow(
+				new IllegalArgumentException(expectedMsg)
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer, explodingKitten);
+
+		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		Exception exception = assertThrows(IllegalArgumentException.class, () ->
+				game.playDefuse(drawPileIndex));
+
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(game, currentPlayer, drawPile, discardPile);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
