@@ -657,6 +657,12 @@
     -fx-text-fill: magenta-6;
 }
 
+.overlay-button.confirm:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: beige-2;
+    -fx-text-fill: beige-3;
+}
+
 .card-options {
     -fx-spacing: 8px;
     -fx-alignment: center;
