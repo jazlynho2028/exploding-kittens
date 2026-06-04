@@ -203,7 +203,7 @@
     - canEndTurn = true
   - **Expected output**:
     - model.advanceTurn is called
-    - handleChangeCurrentPlayer is called with newPlayerIndex
+    - handleChangeCurrentPlayer is called with currentPlayerIndex
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.renderTurnControlSection is called with canPlaySelected and canEndTurn
 
@@ -213,10 +213,10 @@
   - **Expected output**: onError accepts exception
   -
 ### Method under test: `onDefuseButton()`
-- **TC23: Defuse Exploding Kitten successfully** ( :x: )
+- **TC23: Defuse Exploding Kitten successfully** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_success
   - **State of the system**: 
-    - newPlayerIndex = 0
+    - currentPlayerIndex = 0
     - currentPlayerHandIds = []
     - isFaceUp = true
     - canDraw = true
@@ -228,7 +228,7 @@
     - view.hideOverlay is called
     - view.buildAndAddPlayerHandCards is called with currentPlayerHandIds, isFaceUp, and canDraw
     - view.bindPlayerHandCardButtons is called
-    - handleChangeCurrentPlayer is called with newPlayerIndex
+    - handleChangeCurrentPlayer is called with currentPlayerIndex
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.renderTurnControls is called with canPlaySelected and canEndTurn
 
