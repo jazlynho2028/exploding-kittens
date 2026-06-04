@@ -350,8 +350,8 @@ public class Game {
         Card top = drawPile.removeTop();
         Card bottom = drawPile.removeBottom();
 
-        drawPile.addCardToTop(top);
-        drawPile.addCardToBottom(bottom);
+        drawPile.addCardToTop(bottom);
+        drawPile.addCardToBottom(top);
     }
 
     void applyDrawFromTheBottom() {
