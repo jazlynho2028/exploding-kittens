@@ -1329,15 +1329,16 @@ public class GameTests {
 		);
 	}
 
-	@Test
-	public void playDefuse_noDefuse_failed() {
+	@ParameterizedTest
+	@MethodSource("provideCurrentPlayerHandsWithNoDefuses")
+	public void playDefuse_noDefuse_failed(List<CardType> currentPlayerHandCardTypes) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		int drawPileIndex = 0;
-		List<Card> currentPlayerHandCards = List.of();
+		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
