@@ -232,7 +232,7 @@
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.renderTurnControls is called with canPlaySelected and canEndTurn
 
-- **TC24: Caught exception from model** ( :x: )
+- **TC24: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_failed
   - **State of the system**: model.playDefuse with view.getExplodingKittenInsertIndex RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
