@@ -1198,24 +1198,34 @@ public class GameTests {
 		Game game = new Game(List.of(mockPlayer), EasyMock.createMock(Deck.class),
 				EasyMock.createMock(Deck.class), mockTurnManager);
 
-		game.setIsGameOngoing(true);
 		game.applyAttack();
 		EasyMock.verify(mockTurnManager, mockPlayer);
 	}
 
 	@Test
-	public void applyAttack_gameNotOngoing_throwsException() {
-		Player mockPlayer = EasyMock.createMock(Player.class);
+	public void applyAttack_partialTurnCompletion_stacksCorrectlyForThirdPlayer() {
+		Player mockPlayerTwo = EasyMock.createMock(Player.class);
 		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
-		EasyMock.replay(mockPlayer, mockTurnManager);
 
-		Game game = new Game(List.of(mockPlayer), EasyMock.createMock(Deck.class),
-				EasyMock.createMock(Deck.class), mockTurnManager);
+		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(1).anyTimes();
+		mockPlayerTwo.deselectHandCards();
+		EasyMock.expectLastCall();
+		mockTurnManager.incrementTurn();
+		EasyMock.expectLastCall();
 
-		game.setIsGameOngoing(false);
+		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(TWO_CARDS);
+		mockTurnManager.incrementDrawCount(TWO_CARDS);
+		EasyMock.expectLastCall();
 
-		Exception exception = assertThrows(IllegalStateException.class, game::applyAttack);
-		assertEquals("error.gameAlreadyEnded", exception.getMessage());
+		EasyMock.replay(mockPlayerTwo, mockTurnManager);
+
+		Game game = new Game(List.of(EasyMock.createMock(Player.class), mockPlayerTwo),
+				EasyMock.createMock(Deck.class),
+				EasyMock.createMock(Deck.class),
+				mockTurnManager);
+
+		game.applyAttack();
+		EasyMock.verify(mockTurnManager, mockPlayerTwo);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
