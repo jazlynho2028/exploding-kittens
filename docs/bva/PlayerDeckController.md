@@ -92,8 +92,8 @@
     - view.bindPlayerHandCardButtons is called
 
 ### Method under test: `onDrawPile()`
-- **TC10: This method is executed successfully** ( :white_check_mark: )
-    - **Name of the test**: onDrawPile_drawsCard_success
+- **TC10: Draw non-exploding card successfully** ( :white_check_mark: )
+    - **Name of the test**: onDrawPile_drawNonExplodingCard_success
     - **State of the system**: 
       - canDraw = true
       - isDrawPileEmpty = true
@@ -105,13 +105,31 @@
       - rebindHandCards is called
       - view.renderTurnControlSection is called with canPlaySelected and canEndTurn
 
-- **TC11: Caught exception from model** ( :white_check_mark: )
+- **TC11: Draw Exploding Kitten, has Defuse** ( :x: )
+  - **Name of the test**: onDrawPile_drawExplodingCardHasDefuse_buildExplodeOverlay
+  - **State of the system**:
+    - hasDefuse = true
+  - **Expected output**:
+    - model.drawFromPile = EXPLODINGKITTEN_1
+    - view.bindDefuseButton is called
+    - view.buildExplodeOverlay with hasDefuse, model.drawFromPile, and model.getDrawPileSize is called
+
+- **TC12: Draw Exploding Kitten, no Defuse** ( :x: )
+  - **Name of the test**: onDrawPile_drawExplodingCardNoDefuse_buildExplodeOverlay
+  - **State of the system**:
+    - hasDefuse = false
+  - **Expected output**:
+    - model.drawFromPile = EXPLODINGKITTEN_1
+    - view.bindExplodeButton is called
+    - view.buildExplodeOverlay with hasDefuse, model.drawFromPile, and model.getDrawPileSize is called
+
+- **TC13: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDrawPile_drawsCard_failed
   - **State of the system**: model.drawFromPile throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onHandVisibilityButton()`
-- **TC12: This method is executed successfully** ( :white_check_mark: )
+- **TC14: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: onHandVisibilityButton_called_success
     - **State of the system**: isFaceUp = true
     - **Expected output**: 
@@ -119,13 +137,13 @@
       - view.renderHandVisibilityButton is called with isFaceUp
       - rebindHandCards is called
 
-- **TC13: Caught exception from model** ( :white_check_mark: )
+- **TC15: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onHandVisibilityButton_called_failed
   - **State of the system**: model.toggleFaceUp throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onPlayerHandCardButton(int handCardIndex)`
-- **TC14: Cards are face up** ( :white_check_mark: )
+- **TC16: Cards are face up** ( :white_check_mark: )
   - **Name of the test**: onPlayerHandCardButton_cardsFaceUp_success
   - **State of the system**: 
     - handCardIndex = 0
@@ -136,20 +154,20 @@
     - model.toggleSelectedPlayerCardAt is called with handCardIndex
     - view.renderTurnControlSection is called with canPlaySelected and canEndTurn
 
-- **TC15: Cards are face down** ( :white_check_mark: )
+- **TC17: Cards are face down** ( :white_check_mark: )
     - **Name of the test**: onPlayerHandCardButton_cardsFaceDown_callsOnHandVisibility
     - **State of the system**: 
       - handCardIndex = 0
       - isFaceUp = false
     - **Expected output**: onHandVisibilityButton is called
 
-- **TC16: Caught exception from model** ( :white_check_mark: )
+- **TC18: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayerHandCardButton_called_failed
   - **State of the system**: model.getIsFaceUp throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onStartGameButton()`
-- **TC17: Game starts successfully** ( :white_check_mark: )
+- **TC19: Game starts successfully** ( :white_check_mark: )
   - **Name of the test**: onStartGameButton_called_success
   - **State of the system**: 
     - startingPlayerIndex = 0
@@ -164,13 +182,13 @@
     - view.renderDrawPile is called
     - view.buildAndRenderTurnControlSection is called
 
-- **TC18: Caught exception from model** ( :white_check_mark: )
+- **TC20: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onStartGameButton_called_failed
   - **State of the system**: model.startGame throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onPlayCardsButton()`
-- **TC19: Cards play successfully** ( :white_check_mark: )
+- **TC21: Cards play successfully** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_success
   - **State of the system**: 
     - canDrawFromDiscard = true
@@ -186,13 +204,13 @@
     - view.renderTurnControlSection with model.canPlaySelected is called
     - model.canEndTurn is called
 
-- **TC20: Caught exception from model** ( :white_check_mark: )
+- **TC22: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed
   - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onEndTurnButton()`
-- **TC21: Turn ends successfully** ( :white_check_mark: )
+- **TC23: Turn ends successfully** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_success
   - **State of the system**: 
     - currentPlayerIndex = 0
@@ -207,13 +225,13 @@
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.renderTurnControlSection is called with canPlaySelected and canEndTurn
 
-- **TC22: Caught exception from model** ( :white_check_mark: )
+- **TC24: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_failed
   - **State of the system**: model.advanceTurn throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onDefuseButton()`
-- **TC23: Defuse Exploding Kitten successfully** ( :white_check_mark: )
+- **TC25: Defuse Exploding Kitten successfully** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_success
   - **State of the system**: 
     - currentPlayerIndex = 0
@@ -232,13 +250,13 @@
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.renderTurnControls is called with canPlaySelected and canEndTurn
 
-- **TC24: Caught exception from model** ( :white_check_mark: )
+- **TC26: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_failed
   - **State of the system**: model.playDefuse with view.getExplodingKittenInsertIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onExplodeButton()`
-- **TC25: Explode successfully** ( :white_check_mark: )
+- **TC27: Explode successfully** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_called_success
   - **State of the system**:
     - currentPlayerIndex = 0
@@ -253,7 +271,7 @@
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.renderTurnControls is called with canPlaySelected and canEndTurn
 
-- **TC26: Caught exception from model** ( :white_check_mark: )
+- **TC28: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_called_failed
   - **State of the system**: model.playExplode throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception

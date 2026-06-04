@@ -268,7 +268,7 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
-	public void onDrawPile_drawsCard_success() {
+	public void onDrawPile_drawNonExplodingCard_success() {
 		boolean canEndTurn = true;
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 				PlayerDeckController.class
@@ -278,7 +278,7 @@ public class PlayerDeckControllerTests {
 				.createMock();
 
 		Card drawnCard = EasyMock.createMock(Card.class);
-		EasyMock.expect(drawnCard.getType()).andStubReturn(CardType.DEFUSE);
+		EasyMock.expect(drawnCard.getType()).andReturn(CardType.DEFUSE);
 		EasyMock.expect(model.drawFromPile()).andStubReturn(drawnCard);
 		EasyMock.expectLastCall();
 
@@ -297,7 +297,7 @@ public class PlayerDeckControllerTests {
 
 		controller.onDrawPile();
 
-		EasyMock.verify(model, view, controller);
+		EasyMock.verify(model, view, controller, drawnCard);
 	}
 
 	private void setUpRenderDrawPileExpectations() {
