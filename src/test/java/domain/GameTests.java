@@ -1323,7 +1323,8 @@ public class GameTests {
 		return Stream.of(
 				Arguments.of(List.of(CardType.DEFUSE)),
 				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE)),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP))
+				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP)),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE))
 		);
 	}
 

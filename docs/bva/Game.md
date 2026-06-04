@@ -626,7 +626,7 @@
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, SKIP]
   - **Expected output**: return true
 
-- **TC88: Hand with two same card types, has Defuse** ( :x: )
+- **TC88: Hand with two same card types, has Defuse** ( :white_check_mark: )
   - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
   - **Expected output**: return true
