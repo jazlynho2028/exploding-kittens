@@ -1290,7 +1290,8 @@ public class GameTests {
 		return Stream.of(
 				Arguments.of(List.of()),
 				Arguments.of(List.of(CardType.ATTACK)),
-				Arguments.of(List.of(CardType.ATTACK, CardType.SKIP))
+				Arguments.of(List.of(CardType.ATTACK, CardType.SKIP)),
+				Arguments.of(List.of(CardType.SKIP, CardType.SKIP))
 		);
 	}
 
