@@ -282,7 +282,8 @@ public class Game {
     public boolean currentPlayerHasDefuse() {
         List<Card> currentPlayerHand = getCurrentPlayer().getHand();
 
-        return false;
+        return currentPlayerHand.stream()
+                .anyMatch(card -> card.getType() == CardType.DEFUSE);
     }
 
     void setIsGameOngoing(boolean isGameOngoing) {
