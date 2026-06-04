@@ -574,7 +574,7 @@ public class GameTests {
 
 	@ParameterizedTest
 	@MethodSource("provideValidPlaysAndMethods")
-	public void playSelectedCards_validPlay_cardsMovedFromHandToDiscard(
+	public void playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard(
 			CardType expectedCardType, String applyMethodName,
 			Consumer<Game> applyMethod) {
 
@@ -625,14 +625,10 @@ public class GameTests {
 						(Consumer<Game>) Game::applyShuffle),
 				Arguments.of(CardType.SKIP, "applySkip",
 						(Consumer<Game>) Game::applySkip),
-				Arguments.of(CardType.SEE_THE_FUTURE, "applySeeTheFuture",
-						(Consumer<Game>) Game::applySeeTheFuture),
 				Arguments.of(CardType.CATOMIC_BOMB, "applyCatomicBomb",
 						(Consumer<Game>) Game::applyCatomicBomb),
 				Arguments.of(CardType.SUPER_SKIP, "applySuperSkip",
 						(Consumer<Game>) Game::applySuperSkip),
-				Arguments.of(CardType.GODCAT, "applyGodcat",
-						(Consumer<Game>) Game::applyGodcat),
 				Arguments.of(CardType.CLONE, "applyClone",
 						(Consumer<Game>) Game::applyClone),
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM, "applySwapTopAndBottom",
@@ -642,8 +638,6 @@ public class GameTests {
 						"applyDrawFromTheBottom",
 						(Consumer<Game>) Game::applyDrawFromTheBottom
 				),
-				Arguments.of(CardType.TARGETED_ATTACK, "applyTargetedAttack",
-						(Consumer<Game>) Game::applyTargetedAttack),
 				Arguments.of(
 						CardType.WINNER_WINNER_CATNIP_DINNER,
 						"applyWinnerWinnerCatnipDinner",
@@ -657,6 +651,54 @@ public class GameTests {
 						(Consumer<Game>) Game::applyDoubleUp),
 				Arguments.of(CardType.MILD_DRAW, "applyMildDraw",
 						(Consumer<Game>) Game::applyMildDraw)
+		);
+	}
+
+	@ParameterizedTest
+	@MethodSource("provideValidCardTypes")
+	public void playSelectedCards_validPlayWithoutApplyMethod_cardsMovedFromHandToDiscard(
+			CardType expectedCardType) {
+
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card card = EasyMock.createMock(Card.class);
+		EasyMock.expect(card.getType()).andStubReturn(expectedCardType);
+
+		List<Card> selectedCards = List.of(card);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(selectedCards);
+
+		setMoveCardToDiscardExpectations(selectedCards, discardPile, currentPlayer);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canPlaySelected")
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		setGameExpectationsForPlaySelectedCards(game, currentPlayer);
+
+		EasyMock.replay(game);
+
+		CardType actualCardType = game.playSelectedCards();
+
+		assertEquals(expectedCardType, actualCardType);
+
+		Object[] selectedCardsArray = selectedCards.toArray();
+		EasyMock.verify(selectedCardsArray);
+		EasyMock.verify(discardPile, currentPlayer, game);
+	}
+
+	private static Stream<Arguments> provideValidCardTypes() {
+		return Stream.of(
+				Arguments.of(CardType.SEE_THE_FUTURE),
+				Arguments.of(CardType.GODCAT),
+				Arguments.of(CardType.TARGETED_ATTACK)
 		);
 	}
 

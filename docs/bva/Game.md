@@ -277,7 +277,7 @@
     - applySkip is called
     - returns CardType.SKIP
 
-- **TC47: Valid play with one See The Future** ( :x: )
+- **TC47: Valid play with one See The Future** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithoutApplyMethod_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SEE_THE_FUTURE]
   - **Expected output**:
@@ -306,7 +306,7 @@
     - applySuperSkip is called
     - returns CardType.SUPER_SKIP
 
-- **TC50: Valid play with one Godcat** ( :x: )
+- **TC50: Valid play with one Godcat** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithoutApplyMethod_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [GODCAT]
   - **Expected output**:
@@ -345,7 +345,7 @@
     - applyDrawFromTheBottom is called
     - returns CardType.DRAW_FROM_THE_BOTTOM
 
-- **TC54: Valid play with one Targeted Attack** ( :x: )
+- **TC54: Valid play with one Targeted Attack** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithoutApplyMethod_cardsMovedFromHandToDiscard
   - **State of the system**: canPlaySelected returns true, selectedCardTypes = [TARGETED_ATTACK]
   - **Expected output**:

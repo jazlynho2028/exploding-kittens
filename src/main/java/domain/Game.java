@@ -167,7 +167,6 @@ public class Game {
                 applySkip();
                 break;
             case SEE_THE_FUTURE:
-                applySeeTheFuture();
                 break;
             case CATOMIC_BOMB:
                 applyCatomicBomb();
@@ -176,7 +175,6 @@ public class Game {
                 applySuperSkip();
                 break;
             case GODCAT:
-                applyGodcat();
                 break;
             case CLONE:
                 applyClone();
@@ -188,7 +186,6 @@ public class Game {
                 applyDrawFromTheBottom();
                 break;
             case TARGETED_ATTACK:
-                applyTargetedAttack();
                 break;
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
@@ -249,12 +246,21 @@ public class Game {
     }
 
     public Card drawFromPile() {
-        Card card = drawPile.removeTop();
+        Card card = drawPile.peekTop();
+
+        if (card.getType() != CardType.EXPLODING_KITTEN) {
+            drawPile.removeTop();
+            getCurrentPlayer().addCardToHand(card);
+        }
+
         turnManager.decrementDrawCount();
         getCurrentPlayer().deselectHandCards();
-        getCurrentPlayer().addCardToHand(card);
 
         return card;
+    }
+
+    public int getDrawPileSize() {
+        return drawPile.size();
     }
 
     public void toggleFaceUp() {
@@ -283,6 +289,14 @@ public class Game {
 
     void setIsFaceUp(boolean isFaceUp) {
         this.isFaceUp = isFaceUp;
+    }
+
+    public void playDefuse(int drawPileIndex) {
+        // TODO
+    }
+
+    public void playExplode() {
+        // TODO
     }
 
     void applyAttack() {
@@ -349,4 +363,5 @@ public class Game {
     void applyMildDraw() {
         // TODO
     }
+
 }
