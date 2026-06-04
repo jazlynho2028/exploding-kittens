@@ -211,7 +211,7 @@
   - **Name of the test**: onEndTurnButton_called_failed
   - **State of the system**: model.advanceTurn throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
-  -
+
 ### Method under test: `onDefuseButton()`
 - **TC23: Defuse Exploding Kitten successfully** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_success
@@ -236,3 +236,19 @@
   - **Name of the test**: onDefuseButton_called_failed
   - **State of the system**: model.playDefuse with view.getExplodingKittenInsertIndex RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
+
+### Method under test: `onExplodeButton()`
+- **TC23: Explode successfully** ( :x: )
+  - **Name of the test**: onExplodeButton_called_success
+  - **State of the system**:
+    - currentPlayerIndex = 0
+    - canDraw = true
+    - isDrawPileEmpty = true
+    - canPlaySelected = true
+    - canEndTurn = true
+  - **Expected output**:
+    - model.playExplode is called
+    - view.hideOverlay is called
+    - handleChangeCurrentPlayer is called with currentPlayerIndex
+    - view.renderDrawPile is called with canDraw and isDrawPileEmpty
+    - view.renderTurnControls is called with canPlaySelected and canEndTurn
