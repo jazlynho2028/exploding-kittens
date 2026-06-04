@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -247,57 +249,39 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
 	}
 
-	@Test
-	public void rebindHandCards_called_success() {
-		boolean isFaceUp = true;
-
-		setUpBuildAndAddPlayerHandCardsExpectations(isFaceUp);
-
-		view.buildAndAddPlayerHandCards(currentPlayerHandIds, isFaceUp, canDraw);
-		EasyMock.expectLastCall();
-
-		view.bindPlayerHandCardButtons(EasyMock.anyObject());
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(model, view);
-
-		PlayerDeckController controller = new PlayerDeckController(model, view);
-		controller.rebindHandCards();
-
-		EasyMock.verify(model, view);
-	}
-
-	@Test
-	public void onDrawPile_drawNonExplodingCard_success() {
-		boolean canEndTurn = true;
-		PlayerDeckController controller = EasyMock.createMockBuilder(
-				PlayerDeckController.class
-				)
-				.withConstructor(model, view)
-				.addMockedMethod("rebindHandCards")
-				.createMock();
+	@ParameterizedTest
+	@CsvSource({
+			"true",
+			"false"
+	})
+	public void onDrawPile_drawExplodingCard_buildExplodeOverlay(boolean hasDefuse) {
+		String drawnCardId = "EXPLODINGKITTEN_1";
+		int drawPileSize = 0;
 
 		Card drawnCard = EasyMock.createMock(Card.class);
-		EasyMock.expect(drawnCard.getType()).andReturn(CardType.DEFUSE);
+		EasyMock.expect(drawnCard.getType()).andReturn(CardType.EXPLODING_KITTEN);
+		EasyMock.expect(drawnCard.getId()).andReturn(drawnCardId);
+
+		EasyMock.expect(model.getDrawPileSize()).andReturn(drawPileSize);
 		EasyMock.expect(model.drawFromPile()).andReturn(drawnCard);
+		EasyMock.expect(model.currentPlayerHasDefuse()).andReturn(hasDefuse);
+
+		if (hasDefuse) {
+			view.bindDefuseButton(EasyMock.anyObject());
+		} else {
+			view.bindExplodeButton(EasyMock.anyObject());
+		}
 		EasyMock.expectLastCall();
 
-		setUpRenderDrawPileExpectations();
-		setUpRenderTurnControlSectionExpectations(canEndTurn);
-
-		view.renderDrawPile(canDraw, isDrawPileEmpty);
+		view.buildExplodeOverlay(hasDefuse, drawnCardId, drawPileSize);
 		EasyMock.expectLastCall();
 
-		controller.rebindHandCards();
-		EasyMock.expectLastCall();
+		EasyMock.replay(model, view, drawnCard);
 
-		view.renderTurnControlSection(canPlaySelected, canEndTurn);
-
-		EasyMock.replay(model, view, controller, drawnCard);
-
+		PlayerDeckController controller = new PlayerDeckController(model, view);
 		controller.onDrawPile();
 
-		EasyMock.verify(model, view, controller, drawnCard);
+		EasyMock.verify(model, view, drawnCard);
 	}
 
 	private void setUpRenderDrawPileExpectations() {
@@ -328,6 +312,38 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.currentPlayerHasDefuse()).andReturn(hasDefuse);
 
 		view.bindDefuseButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		view.buildExplodeOverlay(hasDefuse, drawnCardId, drawPileSize);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, drawnCard);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+
+		controller.onDrawPile();
+
+		EasyMock.verify(model, view, drawnCard);
+	}
+
+	@Test
+	public void onDrawPile_drawExplodingCardNoDefuse_buildExplodeOverlay() {
+		boolean hasDefuse = false;
+		String drawnCardId = "EXPLODINGKITTEN_1";
+		int drawPileSize = 0;
+
+		Card drawnCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(drawnCard.getType()).andReturn(CardType.EXPLODING_KITTEN);
+		EasyMock.expect(drawnCard.getId()).andReturn(drawnCardId);
+
+		EasyMock.expect(model.getDrawPileSize()).andReturn(drawPileSize);
+
+		EasyMock.expect(model.drawFromPile()).andReturn(drawnCard);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.currentPlayerHasDefuse()).andReturn(hasDefuse);
+
+		view.bindExplodeButton(EasyMock.anyObject());
 		EasyMock.expectLastCall();
 
 		view.buildExplodeOverlay(hasDefuse, drawnCardId, drawPileSize);

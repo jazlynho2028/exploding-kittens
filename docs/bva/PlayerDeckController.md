@@ -106,7 +106,7 @@
       - view.renderTurnControlSection is called with canPlaySelected and canEndTurn
 
 - **TC11: Draw Exploding Kitten, has Defuse** ( :white_check_mark: )
-  - **Name of the test**: onDrawPile_drawExplodingCardHasDefuse_buildExplodeOverlay
+  - **Name of the test**: onDrawPile_drawExplodingCard_buildExplodeOverlay
   - **State of the system**:
     - hasDefuse = true
   - **Expected output**:
@@ -114,8 +114,8 @@
     - view.bindDefuseButton is called
     - view.buildExplodeOverlay with hasDefuse, model.drawFromPile, and model.getDrawPileSize is called
 
-- **TC12: Draw Exploding Kitten, no Defuse** ( :x: )
-  - **Name of the test**: onDrawPile_drawExplodingCardNoDefuse_buildExplodeOverlay
+- **TC12: Draw Exploding Kitten, no Defuse** ( :white_check_mark: )
+  - **Name of the test**: onDrawPile_drawExplodingCard_buildExplodeOverlay
   - **State of the system**:
     - hasDefuse = false
   - **Expected output**:
