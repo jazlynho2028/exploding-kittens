@@ -105,7 +105,7 @@
       - rebindHandCards is called
       - view.renderTurnControlSection is called with canPlaySelected and canEndTurn
 
-- **TC11: Draw Exploding Kitten, has Defuse** ( :x: )
+- **TC11: Draw Exploding Kitten, has Defuse** ( :white_check_mark: )
   - **Name of the test**: onDrawPile_drawExplodingCardHasDefuse_buildExplodeOverlay
   - **State of the system**:
     - hasDefuse = true

@@ -279,7 +279,7 @@ public class PlayerDeckControllerTests {
 
 		Card drawnCard = EasyMock.createMock(Card.class);
 		EasyMock.expect(drawnCard.getType()).andReturn(CardType.DEFUSE);
-		EasyMock.expect(model.drawFromPile()).andStubReturn(drawnCard);
+		EasyMock.expect(model.drawFromPile()).andReturn(drawnCard);
 		EasyMock.expectLastCall();
 
 		setUpRenderDrawPileExpectations();
@@ -308,6 +308,38 @@ public class PlayerDeckControllerTests {
 	private void setUpRenderTurnControlSectionExpectations(boolean canEndTurn) {
 		EasyMock.expect(model.canPlaySelected()).andReturn(canPlaySelected);
 		EasyMock.expect(model.canEndTurn()).andReturn(canEndTurn);
+	}
+
+	@Test
+	public void onDrawPile_drawExplodingCardHasDefuse_buildExplodeOverlay() {
+		boolean hasDefuse = true;
+		String drawnCardId = "EXPLODINGKITTEN_1";
+		int drawPileSize = 0;
+
+		Card drawnCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(drawnCard.getType()).andReturn(CardType.EXPLODING_KITTEN);
+		EasyMock.expect(drawnCard.getId()).andReturn(drawnCardId);
+
+		EasyMock.expect(model.getDrawPileSize()).andReturn(drawPileSize);
+
+		EasyMock.expect(model.drawFromPile()).andReturn(drawnCard);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.currentPlayerHasDefuse()).andReturn(hasDefuse);
+
+		view.bindDefuseButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		view.buildExplodeOverlay(hasDefuse, drawnCardId, drawPileSize);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, drawnCard);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+
+		controller.onDrawPile();
+
+		EasyMock.verify(model, view, drawnCard);
 	}
 
 	@Test
