@@ -369,7 +369,7 @@ public class GameTests {
 		);
 	}
 
-	private List<Card> getCardMocksWithTypeExpectations(List<CardType> cardTypes) {
+	private static List<Card> getCardMocksWithTypeExpectations(List<CardType> cardTypes) {
 		List<Card> selectedCards = new ArrayList<>();
 
 		for (CardType cardType : cardTypes) {
