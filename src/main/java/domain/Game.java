@@ -314,7 +314,7 @@ public class Game {
     }
 
     public void playExplode() {
-        // TODO
+        drawPile.removeTop();
     }
 
     void applyAttack() {

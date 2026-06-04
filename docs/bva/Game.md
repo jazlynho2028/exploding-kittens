@@ -692,7 +692,7 @@
   - **Expected output**: throws IllegalArgumentException "error.invalidDeckIndex"
 
 ### Method under test: `playExplode()`
-- **TC88: Empty draw pile** ( :x: )
+- **TC88: Empty draw pile** ( :white_check_mark: )
   - **Name of the test**: playExplode_emptyDrawPile_failed
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
