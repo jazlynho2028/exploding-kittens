@@ -706,7 +706,7 @@
     - turnManager.incrementTurn is called
 
 ### Method under test: `getDrawPileSize()`
-- **TC88: Empty draw pile** ( :x: )
+- **TC88: This method is called** ( :white_check_mark: )
   - **Name of the test**: getDrawPileSize_called_returnDrawPileMethodCall
-  - **State of the system**: N/A
+  - **State of the system**: drawPile.size = N, N = [0, 1, 2]
   - **Expected output**: returns drawPile.size

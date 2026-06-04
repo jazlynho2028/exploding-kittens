@@ -1534,6 +1534,30 @@ public class GameTests {
 		EasyMock.verify(drawPile, turnManager, game, currentPlayer);
 	}
 
+	@ParameterizedTest
+	@CsvSource({
+			"0",
+			"1",
+			"2"
+	})
+	public void getDrawPileSize_called_returnDrawPileMethodCall(int expectedDrawPileSize) {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(drawPile.size()).andReturn(expectedDrawPileSize);
+
+		EasyMock.replay(drawPile);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		int actualDrawPileSize = game.getDrawPileSize();
+		assertEquals(expectedDrawPileSize, actualDrawPileSize);
+
+		EasyMock.verify(drawPile);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
