@@ -581,22 +581,7 @@
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
 
 ### Method under test: `applyDoubleUp()`
-- **TC90: Draw pile is empty** ( :white_check_mark: )
-  - **Name of the test**: applyDoubleUp_emptyDeck_remainsEmpty
-  - **State of the system**: draw pile has no cards
-  - **Expected output**: draw pile remains empty
-
-- **TC91: Draw pile only has one card** ( :white_check_mark: )
-  - **Name of the test**: applyDoubleUp_variousDeckSizes_drawsUpToTwoCards
-  - **State of the system**: draw pile has one card remaining
-  - **Expected output**: player draws the last remaining card
-
-- **TC92: Draw pile has 2 cards** ( :white_check_mark: )
-  - **Name of the test**: applyDoubleUp_variousDeckSizes_drawsUpToTwoCards
-  - **State of the system**: draw pile has exactly two cards remaining
-  - **Expected output**: player draws both remaining cards, deck is now empty
-
-- **TC93: Draw pile has 3 cards** ( :white_check_mark: )
-  - **Name of the test**: applyDoubleUp_variousDeckSizes_drawsUpToTwoCards
-  - **State of the system**: draw pile has three cards remaining
-  - **Expected output**: player draws two cards, deck has one card remaining
+- **TC90: Double up once, relays drawCount increase to TurnManager** ( :x: )
+  - **Name of the test**: applyDoubleUp_standardCall_callsTurnManagerIncrementDrawCount
+  - **State of the system**: drawCount = 1
+  - **Expected output**: calls turn manager to increment drawCount to 2

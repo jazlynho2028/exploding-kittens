@@ -1169,66 +1169,6 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
-	@Test
-	public void applyDoubleUp_emptyDeck_remainsEmpty() {
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
-
-		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.applyDoubleUp();
-
-		EasyMock.verify(drawPile);
-	}
-
-	@ParameterizedTest
-	@CsvSource({
-			"1",
-			"2",
-			"3"
-	})
-	public void applyDoubleUp_variousDeckSizes_drawsUpToTwoCards(int deckSize) {
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-		Player currentPlayer = EasyMock.createMock(Player.class);
-
-		List<Card> mockCards = new ArrayList<>();
-		int expectedDraws = Math.min(2, deckSize);
-
-		for (int i = 0; i < expectedDraws; i++) {
-			Card card = EasyMock.createMock(Card.class);
-			mockCards.add(card);
-
-			EasyMock.expect(drawPile.isEmpty()).andReturn(false);
-			EasyMock.expect(drawPile.removeTop()).andReturn(card);
-			currentPlayer.addCardToHand(card);
-			EasyMock.expectLastCall();
-		}
-
-		if (deckSize < 2) {
-			EasyMock.expect(drawPile.isEmpty()).andReturn(true);
-		}
-
-		Object[] cardsArray = mockCards.toArray();
-
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
-				players, drawPile, discardPile, turnManager, currentPlayer);
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer, game);
-		EasyMock.replay(cardsArray);
-
-		game.applyDoubleUp();
-
-		EasyMock.verify(drawPile, currentPlayer, game);
-		EasyMock.verify(cardsArray);
-	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
