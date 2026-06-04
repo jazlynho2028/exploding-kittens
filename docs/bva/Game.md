@@ -591,12 +591,12 @@
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
 
 ### Method under test: `currentPlayerHasDefuse()`
-- **TC88: Empty hand** ( :x: )
+- **TC88: Empty hand** ( :white_check_mark: )
   - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
   - **State of the system**: currentPlayerHandCardTypes = []
   - **Expected output**: return false
 
-- **TC88: Hand with one card type, no Defuse** ( :x: )
+- **TC88: Hand with one card type, no Defuse** ( :white_check_mark: )
   - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK]
   - **Expected output**: return false

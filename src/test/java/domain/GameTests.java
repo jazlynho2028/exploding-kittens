@@ -1260,7 +1260,8 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
-	@Test
+	@ParameterizedTest
+	@MethodSource("provideCurrentPlayerHandsWithNoDefuses")
 	public void currentPlayerHasDefuse_noDefuse_returnFalse() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
@@ -1283,6 +1284,13 @@ public class GameTests {
 		assertFalse(game.currentPlayerHasDefuse());
 
 		EasyMock.verify(game);
+	}
+
+	private static Stream<Arguments> provideCurrentPlayerHandsWithNoDefuses() {
+		return Stream.of(
+				Arguments.of(List.of()),
+				Arguments.of(List.of(CardType.ATTACK))
+		);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
