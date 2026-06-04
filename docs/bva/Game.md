@@ -676,7 +676,7 @@
     - discardPile.addCard with card1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC88: Hand with two same card types, has Defuse** ( :x: )
+- **TC88: Hand with two same card types, has Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
   - **Expected output**:
