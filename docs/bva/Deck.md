@@ -315,7 +315,7 @@
     - deck is still [card1, card2]
 
 ### Method under test: `addCardtoBottom(Card card)`
-- **TC29: Add card to empty deck** ( :x: )
+- **TC29: Add card to empty deck** ( :white_check_mark: )
   - **Name of the test**: `addCardToBottom_validCard_addsCardToBottom` with case `empty deck`
   - **State of the system**: Deck is empty: []; card = card1
   - **Expected output**:

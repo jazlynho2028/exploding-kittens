@@ -86,6 +86,10 @@ public class Deck {
         deck.addFirst(card);
     }
 
+    public void addCardToBottom(Card card) {
+        deck.addLast(card);
+    }
+
     public boolean isEmpty() {
         return deck.isEmpty();
     }

@@ -924,4 +924,17 @@ public class DeckTests {
                         })
         );
     }
+
+    @Test
+    public void addCardToBottom_validCard_addsCardToBottom() {
+        Card card1 = new Card("SKIP_1", CardType.SKIP);
+
+        Deque<Card> deque = new ArrayDeque<>();
+        Deck deck = new Deck(deque, new Random());
+
+        deck.addCardToBottom(card1);
+
+        assertEquals(List.of(card1), deck.getCards());
+        assertEquals(1, deck.size());
+    }
 }
