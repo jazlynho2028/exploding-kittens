@@ -253,7 +253,7 @@
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.renderTurnControls is called with canPlaySelected and canEndTurn
 
-- **TC26: Caught exception from model** ( :x: )
+- **TC26: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_called_failed
   - **State of the system**: model.playExplode throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception

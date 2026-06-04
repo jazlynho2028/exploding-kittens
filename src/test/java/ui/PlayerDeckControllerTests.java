@@ -730,4 +730,26 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, view, controller);
 	}
 
+	@Test
+	public void onExplodeButton_called_failed() {
+		Consumer<String> onError = EasyMock.createMock(Consumer.class);
+
+		model.playExplode();
+		EasyMock.expectLastCall().andThrow(
+				new RuntimeException(expectedMsg)
+		);
+
+		onError.accept(expectedMsg);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, onError);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.setOnError(onError);
+
+		controller.onExplodeButton();
+
+		EasyMock.verify(model, onError);
+	}
+
 }
