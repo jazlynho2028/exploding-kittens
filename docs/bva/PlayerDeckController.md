@@ -189,7 +189,7 @@
     - model.canEndTurn is called
     - view.showGodcatOverlay is NOT called
 
-- **TC20: Cards play successfully, Super Skip card** ( :x: )
+- **TC20: Cards play successfully, Super Skip card** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_superSkipPlayed_updatedPlayer
   - **State of the system**:
     - canDrawFromDiscard = true

@@ -164,7 +164,7 @@ public class PlayerDeckController {
         });
     }
 
-    private void handleNewTurn(int newPlayerIndex) {
+    void handleNewTurn(int newPlayerIndex) {
         handleChangeCurrentPlayer(newPlayerIndex);
 
         updateDrawPile();
@@ -185,8 +185,13 @@ public class PlayerDeckController {
             // TODO use ^ return value for UI changes if a card effect needs it
 
             view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
+
             rebindHandCards();
             updateTurnControls();
+
+            if (cardType == CardType.SUPER_SKIP) {
+                handleNewTurn(model.getCurrentPlayerIndex());
+            }
 
             if (cardType == CardType.GODCAT) {
                 view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
