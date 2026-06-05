@@ -158,7 +158,7 @@
 }
 
 .game-board-section {
-    -fx-spacing: 42px;
+    -fx-spacing: 36px;
 }
 
 .player-header-section {
@@ -256,8 +256,8 @@
 }
 
 .card {
-    -fx-pref-width: 176px;
-    -fx-pref-height: 230px;
+    -fx-pref-width: 180px;
+    -fx-pref-height: 234px;
     -fx-padding: 8px;
     -fx-background-radius: 8;
     -fx-border-radius: 4;
@@ -279,8 +279,8 @@
 }
 
 .card.front {
-    -fx-max-width: 176px;
-    -fx-max-height: 230px;
+    -fx-max-width: 180px;
+    -fx-max-height: 234px;
     -fx-background-color: gray-0;
 }
 
