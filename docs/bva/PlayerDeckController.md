@@ -225,14 +225,13 @@
     - --------------------------
     - handleChangeCurrentPlayer is called with currentPlayerIndex
 
-- **TC23: Cards play successfully, See The Future card** ( :x: )
+- **TC23: Cards play successfully, See The Future card** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_seeTheFuturePlayed_updatedPlayer
   - **State of the system**:
     - canDrawFromDiscard = true
     - topDiscardId = "SEETHEFUTURE_1"
     - canPlaySelected = true
     - canEndTurn = true
-    - currentPlayerIndex = 0
     - playSelectedCards returns CardType.SEE_THE_FUTURE
   - **Expected output**:
     - model.playSelectedCards is called

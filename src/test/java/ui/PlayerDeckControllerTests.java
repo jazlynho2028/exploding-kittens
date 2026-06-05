@@ -625,6 +625,49 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
+	public void onPlayCardsButton_seeTheFuturePlayed_updatedPlayer() {
+		boolean canDrawFromDiscard = true;
+		boolean canEndTurn = true;
+		String topDiscardId = "SEETHEFUTURE_1";
+		CardType topDiscardType = CardType.SEE_THE_FUTURE;
+		List<String> seeTheFutureCardIds = EasyMock.createMock(List.class);
+
+		EasyMock.expect(model.canDrawFromDiscard()).andReturn(canDrawFromDiscard);
+		EasyMock.expect(model.getTopDiscardId()).andReturn(topDiscardId);
+
+		setUpRenderTurnControlSectionExpectations(canEndTurn);
+
+		EasyMock.expect(model.playSelectedCards()).andReturn(topDiscardType);
+
+		view.renderDiscardPile(canDrawFromDiscard, topDiscardId);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.peekSeeTheFutureCardIds()).andReturn(seeTheFutureCardIds);
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("rebindHandCards")
+				.createMock();
+
+		controller.rebindHandCards();
+		EasyMock.expectLastCall();
+
+		view.renderTurnControlSection(canPlaySelected, canEndTurn);
+		EasyMock.expectLastCall();
+
+		view.buildSeeTheFutureOverlay(seeTheFutureCardIds);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onPlayCardsButton();
+
+		EasyMock.verify(model, view, controller);
+	}
+
+	@Test
 	public void onPlayCardsButton_godcatPlayed_overlayShown() {
 		boolean canDrawFromDiscard = true;
 		boolean canEndTurn = true;
