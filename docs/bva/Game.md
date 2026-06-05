@@ -735,6 +735,85 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
+- **TC98: Hand with one card type, has Clone** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
+
+- **TC99: Hand with two different card types, has Clone at end** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [SKIP, CLONE]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
+
+- **TC100: Hand with two different card types, has Clone at front** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE, SKIP]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
+
+- **TC101: Hand with two same card types, has Clone** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE, CLONE]
+    - topDiscardType = DEFUSE
+  - **Expected output**: return true
+
+- **TC100: Hand with Defuse and Clone** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [DEFUSE, CLONE]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
+
+- **TC100: Hand with Clone and Defuse** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE, DEFUSE]
+    - topDiscardType = ATTACK
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
+
+- **TC100: Hand with Clone and Godcat, use Godcat** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE, GODCAT]
+    - topDiscardType = ATTACK
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
+
+- **TC100: Hand with Godcat and Clone, use Clone** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [GODCAT, CLONE]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
+
+- **TC100: Hand with Godcat, Clone, Defuse** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [GODCAT, CLONE, DEFUSE]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
+
 ### Method under test: `playDefuse(int drawPileIndex)`
 - **TC102: Empty hand** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
