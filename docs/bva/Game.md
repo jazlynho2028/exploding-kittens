@@ -647,6 +647,24 @@
     - discardCard.peekTop returns topDiscardCard
     - return false
 
+- **TC97: Hand with Clone, top discard type is not Defuse** ( :x: )
+  - **Name of the test**: isDefusable_noDefuser_returnFalse
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE, SKIP]
+    - topDiscardType = ATTACK
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return false
+
+- **TC97: Hand with two Clones, top discard type is not Defuse** ( :x: )
+  - **Name of the test**: isDefusable_noDefuser_returnFalse
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE, CLONE]
+    - topDiscardType = ATTACK
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return false
+
 - **TC98: Hand with one card type, has Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**: 
