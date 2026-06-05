@@ -287,9 +287,16 @@ public class Game {
     }
 
     public boolean isDefusable() {
-        Card topDiscardCard = discardPile.peekTop();
         return currentPlayerHasCardType(CardType.DEFUSE) ||
+                canUseCloneAsDefuse() ||
                 currentPlayerHasCardType(CardType.GODCAT);
+    }
+
+    private boolean canUseCloneAsDefuse() {
+        Card topDiscardCard = discardPile.peekTop();
+
+        return currentPlayerHasCardType(CardType.CLONE) &&
+                (topDiscardCard.getType() == CardType.DEFUSE);
     }
 
     private boolean currentPlayerHasCardType(CardType cardType) {

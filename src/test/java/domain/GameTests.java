@@ -1386,7 +1386,7 @@ public class GameTests {
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
 
 		Card topDiscardCard = getCardMockWithTypeExpectation(topDiscardType);
-		EasyMock.expect(discardPile.peekTop()).andReturn(topDiscardCard);
+		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
@@ -1397,7 +1397,7 @@ public class GameTests {
 
 		assertFalse(game.isDefusable());
 
-		EasyMock.verify(game, discardPile);
+		EasyMock.verify(game);
 	}
 
 	private static Stream<Arguments> provideCurrentPlayerHandWithNoDefuserAndTopDiscardCard() {
@@ -1428,7 +1428,7 @@ public class GameTests {
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
 
 		Card topDiscardCard = getCardMockWithTypeExpectation(topDiscardType);
-		EasyMock.expect(discardPile.peekTop()).andReturn(topDiscardCard);
+		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
@@ -1439,7 +1439,7 @@ public class GameTests {
 
 		assertTrue(game.isDefusable());
 
-		EasyMock.verify(game, discardPile);
+		EasyMock.verify(game);
 	}
 
 	private static Stream<Arguments> provideCurrentPlayerHandWithDefuserAndTopDiscardCard() {
@@ -1453,7 +1453,8 @@ public class GameTests {
 				Arguments.of(List.of(CardType.GODCAT, CardType.SKIP), CardType.ATTACK),
 				Arguments.of(List.of(CardType.GODCAT, CardType.GODCAT), CardType.DEFUSE),
 				Arguments.of(List.of(CardType.DEFUSE, CardType.GODCAT), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.GODCAT, CardType.DEFUSE), CardType.ATTACK)
+				Arguments.of(List.of(CardType.GODCAT, CardType.DEFUSE), CardType.ATTACK),
+				Arguments.of(List.of(CardType.CLONE), CardType.DEFUSE)
 		);
 	}
 
