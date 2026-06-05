@@ -610,70 +610,100 @@
     - getCurrentPlayer.deselectHandCards is called
     - turnManager.incrementTurn is called
 
-### Method under test: `currentPlayerHasDefuse()`
+### Method under test: `isDefusable()`
 - **TC94: Empty hand** ( :white_check_mark: )
-  - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
+  - **Name of the test**: isDefusable_noDefuser_returnFalse
   - **State of the system**: currentPlayerHandCardTypes = []
   - **Expected output**: return false
 
 - **TC95: Hand with one card type, no Defuse** ( :white_check_mark: )
-  - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
+  - **Name of the test**: isDefusable_noDefuser_returnFalse
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK]
   - **Expected output**: return false
 
 - **TC96: Hand with two different card types, no Defuse** ( :white_check_mark: )
-  - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
+  - **Name of the test**: isDefusable_noDefuser_returnFalse
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK, SKIP]
   - **Expected output**: return false
 
 - **TC97: Hand with two same card types, no Defuse** ( :white_check_mark: )
-  - **Name of the test**: currentPlayerHasDefuse_noDefuse_returnFalse
+  - **Name of the test**: isDefusable_noDefuser_returnFalse
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, SKIP]
   - **Expected output**: return false
 
 - **TC98: Hand with one card type, has Defuse** ( :white_check_mark: )
-  - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
+  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE]
   - **Expected output**: return true
 
 - **TC99: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
-  - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
+  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, DEFUSE]
   - **Expected output**: return true
 
 - **TC100: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
-  - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
+  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, SKIP]
   - **Expected output**: return true
 
 - **TC101: Hand with two same card types, has Defuse** ( :white_check_mark: )
-  - **Name of the test**: currentPlayerHasDefuse_hasDefuse_returnTrue
+  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
+  - **Expected output**: return true
+
+- **TC98: Hand with one card type, has Godcat** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+  - **State of the system**: currentPlayerHandCardTypes = [GODCAT]
+  - **Expected output**: return true
+
+- **TC99: Hand with two different card types, has Godcat at end** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+  - **State of the system**: currentPlayerHandCardTypes = [SKIP, GODCAT]
+  - **Expected output**: return true
+
+- **TC100: Hand with two different card types, has Godcat at front** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+  - **State of the system**: currentPlayerHandCardTypes = [GODCAT, SKIP]
+  - **Expected output**: return true
+
+- **TC101: Hand with two same card types, has Godcat** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+  - **State of the system**: currentPlayerHandCardTypes = [GODCAT, GODCAT]
+  - **Expected output**: return true
+
+- **TC100: Hand with Defuse and Godcat** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, GODCAT]
+  - **Expected output**: return true
+
+- **TC100: Hand with Godcat and DEFUSE** ( :x: )
+  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, GODCAT]
   - **Expected output**: return true
 
 ### Method under test: `playDefuse(int drawPileIndex)`
 - **TC102: Empty hand** ( :white_check_mark: )
-  - **Name of the test**: playDefuse_noDefuse_failed
+  - **Name of the test**: playDefuse_noDefuser_failed
   - **State of the system**: getCurrentPlayer.getHand = []
   - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuse"
 
 - **TC103: Hand with one card type, no Defuse** ( :white_check_mark: )
-  - **Name of the test**: playDefuse_noDefuse_failed
+  - **Name of the test**: playDefuse_noDefuser_failed
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK]
   - **Expected output**: return false
 
 - **TC104: Hand with two different card types, no Defuse** ( :white_check_mark: )
-  - **Name of the test**: playDefuse_noDefuse_failed
+  - **Name of the test**: playDefuse_noDefuser_failed
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK, SKIP]
   - **Expected output**: return false
 
 - **TC105: Hand with two same card types, no Defuse** ( :white_check_mark: )
-  - **Name of the test**: playDefuse_noDefuse_failed
+  - **Name of the test**: playDefuse_noDefuser_failed
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, SKIP]
   - **Expected output**: return false
 
 - **TC106: Hand with one card type, has Defuse** ( :white_check_mark: )
-  - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE]
   - **Expected output**:
     - getCurrentPlayer.removeCardFromHand(card1) is called
@@ -681,7 +711,7 @@
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC107: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
-  - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, DEFUSE]
   - **Expected output**:
     - getCurrentPlayer.removeCardFromHand(card2) is called
@@ -689,7 +719,7 @@
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC108: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
-  - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, SKIP]
   - **Expected output**:
     - getCurrentPlayer.removeCardFromHand(card1) is called
@@ -697,7 +727,7 @@
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC109: Hand with two same card types, has Defuse** ( :white_check_mark: )
-  - **Name of the test**: playDefuse_hasDefuse_reinsertExplodingKitten
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
   - **Expected output**:
     - getCurrentPlayer.removeCardFromHand(card1) is called

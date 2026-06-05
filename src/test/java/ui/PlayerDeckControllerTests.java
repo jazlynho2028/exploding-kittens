@@ -398,7 +398,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.drawFromPile()).andReturn(drawnCard);
 		EasyMock.expect(drawnCard.getType()).andReturn(CardType.EXPLODING_KITTEN);
 		EasyMock.expect(drawnCard.getId()).andReturn(drawnCardId);
-		EasyMock.expect(model.currentPlayerHasDefuse()).andReturn(hasDefuse);
+		EasyMock.expect(model.isDefusable()).andReturn(hasDefuse);
 		EasyMock.expect(model.getDrawPileSize()).andReturn(drawPileSize);
 
 		if (hasDefuse) {

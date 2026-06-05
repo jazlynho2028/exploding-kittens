@@ -269,7 +269,7 @@ public class Game {
         turnManager.incrementTurn();
     }
 
-    public boolean currentPlayerHasDefuse() {
+    public boolean isDefusable() {
         List<Card> currentPlayerHand = getCurrentPlayer().getHand();
 
         return currentPlayerHand.stream()

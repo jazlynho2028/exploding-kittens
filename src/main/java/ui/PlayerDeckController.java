@@ -125,7 +125,7 @@ public class PlayerDeckController {
     }
 
     private void handleDrawExplodingKitten(String cardId) {
-        boolean isDefusable = model.currentPlayerHasDefuse();
+        boolean isDefusable = model.isDefusable();
 
         if (isDefusable) {
             view.bindDefuseButton(this::onDefuseButton);

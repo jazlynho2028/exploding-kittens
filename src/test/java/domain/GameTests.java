@@ -15,7 +15,6 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import static domain.DeckBuilder.createCardId;
 import static domain.GameConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -1372,7 +1371,7 @@ public class GameTests {
 
 	@ParameterizedTest
 	@MethodSource("provideCurrentPlayerHandsWithNoDefuses")
-	public void currentPlayerHasDefuse_noDefuse_returnFalse(
+	public void isDefusable_returnFalse(
 			List<CardType> currentPlayerHandCardTypes) {
 
 		List<Player> players = EasyMock.createMock(List.class);
@@ -1393,7 +1392,7 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		assertFalse(game.currentPlayerHasDefuse());
+		assertFalse(game.isDefusable());
 
 		EasyMock.verify(game);
 	}
@@ -1408,8 +1407,8 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithDefuses")
-	public void currentPlayerHasDefuse_hasDefuse_returnTrue(
+	@MethodSource("provideCurrentPlayerHandsWithDefuseOrGodcat")
+	public void isDefusable_hasDefuseOrGodcat_returnTrue(
 			List<CardType> currentPlayerHandCardTypes) {
 
 		List<Player> players = EasyMock.createMock(List.class);
@@ -1430,23 +1429,29 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		assertTrue(game.currentPlayerHasDefuse());
+		assertTrue(game.isDefusable());
 
 		EasyMock.verify(game);
 	}
 
-	private static Stream<Arguments> provideCurrentPlayerHandsWithDefuses() {
+	private static Stream<Arguments> provideCurrentPlayerHandsWithDefuseOrGodcat() {
 		return Stream.of(
 				Arguments.of(List.of(CardType.DEFUSE)),
 				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE)),
 				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP)),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE))
+				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE)),
+				Arguments.of(List.of(CardType.GODCAT)),
+				Arguments.of(List.of(CardType.SKIP, CardType.GODCAT)),
+				Arguments.of(List.of(CardType.GODCAT, CardType.SKIP)),
+				Arguments.of(List.of(CardType.GODCAT, CardType.GODCAT)),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.GODCAT)),
+				Arguments.of(List.of(CardType.GODCAT, CardType.DEFUSE))
 		);
 	}
 
 	@ParameterizedTest
 	@MethodSource("provideCurrentPlayerHandsWithNoDefuses")
-	public void playDefuse_noDefuse_failed(List<CardType> currentPlayerHandCardTypes) {
+	public void playDefuse_noDefuser_failed(List<CardType> currentPlayerHandCardTypes) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1479,7 +1484,7 @@ public class GameTests {
 
 	@ParameterizedTest
 	@MethodSource("provideCurrentPlayerHandsWithDefuseIndex")
-	public void playDefuse_hasDefuse_reinsertExplodingKitten(
+	public void playDefuse_hasDefuser_reinsertExplodingKitten(
 			List<CardType> currentPlayerHandCardTypes, int defuseIndex) {
 
 		List<Player> players = EasyMock.createMock(List.class);
