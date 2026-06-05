@@ -270,10 +270,15 @@ public class Game {
     }
 
     public boolean isDefusable() {
+        return currentPlayerHasCardType(CardType.DEFUSE) ||
+                currentPlayerHasCardType(CardType.GODCAT);
+    }
+
+    private boolean currentPlayerHasCardType(CardType cardType) {
         List<Card> currentPlayerHand = getCurrentPlayer().getHand();
 
         return currentPlayerHand.stream()
-                .anyMatch(card -> card.getType() == CardType.DEFUSE);
+                .anyMatch(card -> card.getType() == cardType);
     }
 
     void setIsGameOngoing(boolean isGameOngoing) {

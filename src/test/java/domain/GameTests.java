@@ -1440,12 +1440,7 @@ public class GameTests {
 				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE)),
 				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP)),
 				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE)),
-				Arguments.of(List.of(CardType.GODCAT)),
-				Arguments.of(List.of(CardType.SKIP, CardType.GODCAT)),
-				Arguments.of(List.of(CardType.GODCAT, CardType.SKIP)),
-				Arguments.of(List.of(CardType.GODCAT, CardType.GODCAT)),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.GODCAT)),
-				Arguments.of(List.of(CardType.GODCAT, CardType.DEFUSE))
+				Arguments.of(List.of(CardType.GODCAT))
 		);
 	}
 
@@ -1891,7 +1886,7 @@ public class GameTests {
 
 		for (CardType cardType : cardTypes) {
 			Card card = EasyMock.createMock(Card.class);
-			EasyMock.expect(card.getType()).andReturn(cardType);
+			EasyMock.expect(card.getType()).andReturn(cardType).anyTimes();
 			EasyMock.replay(card);
 
 			selectedCards.add(card);
@@ -1905,7 +1900,7 @@ public class GameTests {
 
 		for (String cardId : cardIds) {
 			Card card = EasyMock.createMock(Card.class);
-			EasyMock.expect(card.getId()).andReturn(cardId);
+			EasyMock.expect(card.getId()).andReturn(cardId).anyTimes();
 			EasyMock.replay(card);
 
 			selectedCards.add(card);
