@@ -1804,7 +1804,8 @@ public class GameTests {
 				Arguments.of(List.of()),
 				Arguments.of(List.of("SKIP_1")),
 				Arguments.of(List.of("SKIP_1", "SKIP_2")),
-				Arguments.of(List.of("SKIP_1", "ATTACK_1"))
+				Arguments.of(List.of("SKIP_1", "ATTACK_1")),
+				Arguments.of(List.of("SKIP_1", "SKIP_1"))
 		);
 	}
 
