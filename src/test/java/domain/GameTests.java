@@ -1405,7 +1405,8 @@ public class GameTests {
 				Arguments.of(List.of(), CardType.DEFUSE),
 				Arguments.of(List.of(CardType.ATTACK), CardType.ATTACK),
 				Arguments.of(List.of(CardType.ATTACK, CardType.SKIP), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.SKIP, CardType.SKIP), CardType.ATTACK)
+				Arguments.of(List.of(CardType.SKIP, CardType.SKIP), CardType.ATTACK),
+				Arguments.of(List.of(CardType.CLONE, CardType.SKIP), CardType.ATTACK)
 		);
 	}
 
