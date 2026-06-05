@@ -586,8 +586,8 @@
   - **State of the system**: draw pile is empty
   - **Expected output**: draw pile remains empty
 
-- **TC91: Draw pile has exactly one card** ( :x: )
-  - **Name of the test**: applySwapTopAndBottom_oneCard_swapped
+- **TC91: Draw pile has exactly one card** ( :white_check_mark: )
+  - **Name of the test**: applySwapTopAndBottom_oneCard_deckUnchanged
   - **State of the system**: draw pile has two cards ['CARD 1']
   - **Expected output**: draw pile has two cards; card order is ['CARD 1']
 
