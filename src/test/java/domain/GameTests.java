@@ -1803,6 +1803,7 @@ public class GameTests {
 		return Stream.of(
 				Arguments.of(List.of()),
 				Arguments.of(List.of("SKIP_1")),
+				Arguments.of(List.of("SKIP_1", "SKIP_2"))
 		);
 	}
 
