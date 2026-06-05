@@ -1370,7 +1370,7 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithNoDefuses")
+	@MethodSource("provideCurrentPlayerHandsWithNoDefuser")
 	public void isDefusable_returnFalse(
 			List<CardType> currentPlayerHandCardTypes) {
 
@@ -1397,7 +1397,7 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
-	private static Stream<Arguments> provideCurrentPlayerHandsWithNoDefuses() {
+	private static Stream<Arguments> provideCurrentPlayerHandsWithNoDefuser() {
 		return Stream.of(
 				Arguments.of(List.of()),
 				Arguments.of(List.of(CardType.ATTACK)),
@@ -1407,8 +1407,8 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithDefuseOrGodcat")
-	public void isDefusable_hasDefuseOrGodcat_returnTrue(
+	@MethodSource("provideCurrentPlayerHandsWithDefuser")
+	public void isDefusable_hasDefuser_returnTrue(
 			List<CardType> currentPlayerHandCardTypes) {
 
 		List<Player> players = EasyMock.createMock(List.class);
@@ -1434,7 +1434,7 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
-	private static Stream<Arguments> provideCurrentPlayerHandsWithDefuseOrGodcat() {
+	private static Stream<Arguments> provideCurrentPlayerHandsWithDefuser() {
 		return Stream.of(
 				Arguments.of(List.of(CardType.DEFUSE)),
 				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE)),
@@ -1450,7 +1450,7 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithNoDefuses")
+	@MethodSource("provideCurrentPlayerHandsWithNoDefuser")
 	public void playDefuse_noDefuser_failed(List<CardType> currentPlayerHandCardTypes) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
@@ -1483,7 +1483,7 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithDefuseIndex")
+	@MethodSource("provideCurrentPlayerHandsWithDefuserIndex")
 	public void playDefuse_hasDefuser_reinsertExplodingKitten(
 			List<CardType> currentPlayerHandCardTypes, int defuseIndex) {
 
@@ -1527,7 +1527,7 @@ public class GameTests {
 		EasyMock.verify(game, currentPlayer, drawPile, discardPile);
 	}
 
-	private static Stream<Arguments> provideCurrentPlayerHandsWithDefuseIndex() {
+	private static Stream<Arguments> provideCurrentPlayerHandsWithDefuserIndex() {
 		return Stream.of(
 				Arguments.of(List.of(CardType.DEFUSE), 0),
 				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE), 1),

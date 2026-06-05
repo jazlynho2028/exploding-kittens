@@ -632,52 +632,52 @@
   - **Expected output**: return false
 
 - **TC98: Hand with one card type, has Defuse** ( :white_check_mark: )
-  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE]
   - **Expected output**: return true
 
 - **TC99: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
-  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, DEFUSE]
   - **Expected output**: return true
 
 - **TC100: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
-  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, SKIP]
   - **Expected output**: return true
 
 - **TC101: Hand with two same card types, has Defuse** ( :white_check_mark: )
-  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
   - **Expected output**: return true
 
-- **TC98: Hand with one card type, has Godcat** ( :x: )
-  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+- **TC98: Hand with one card type, has Godcat** ( :white_check_mark: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT]
   - **Expected output**: return true
 
-- **TC99: Hand with two different card types, has Godcat at end** ( :x: )
-  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+- **TC99: Hand with two different card types, has Godcat at end** ( :white_check_mark: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, GODCAT]
   - **Expected output**: return true
 
-- **TC100: Hand with two different card types, has Godcat at front** ( :x: )
-  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+- **TC100: Hand with two different card types, has Godcat at front** ( :white_check_mark: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, SKIP]
   - **Expected output**: return true
 
-- **TC101: Hand with two same card types, has Godcat** ( :x: )
-  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+- **TC101: Hand with two same card types, has Godcat** ( :white_check_mark: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, GODCAT]
   - **Expected output**: return true
 
-- **TC100: Hand with Defuse and Godcat** ( :x: )
-  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+- **TC100: Hand with Defuse and Godcat** ( :white_check_mark: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, GODCAT]
   - **Expected output**: return true
 
-- **TC100: Hand with Godcat and DEFUSE** ( :x: )
-  - **Name of the test**: isDefusable_hasDefuseOrGodcat_returnTrue
+- **TC100: Hand with Godcat and Defuse** ( :white_check_mark: )
+  - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, GODCAT]
   - **Expected output**: return true
 
