@@ -608,32 +608,45 @@
     - draw pile has four cards; card order is ['EXPLODING KITTEN 2', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 1']
 
 ### Method under test: `applyCatomicBomb()`
-- **TC90: Draw pile is empty** ( :white_check_mark: )
+- **TC90: Draw pile is empty** ( :x: )
   - **Name of the test**: applyCatomicBomb_emptyDeck_remainsEmpty
   - **State of the system**: draw pile has no cards
   - **Expected output**: draw pile remains empty
 
-- **TC91: No Exploding Kittens in draw pile** ( :white_check_mark: )
+- **TC91: No Exploding Kittens in draw pile** ( :x: )
   - **Name of the test**: applyCatomicBomb_noExplodingKittens_deckUnchanged
   - **State of the system**: draw pile contains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1'], none are CardType 'EXPLODING_KITTEN'
-  - **Expected output**: draw pile order is unchanged and remains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
+  - **Expected output**: 
+    - addCardToBottom called for SKIP_1, ATTACK_1, SHUFFLE_1 in order
+    - draw pile order is unchanged and remains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
 
-- **TC92: One Exploding Kitten at top of draw pile** ( :white_check_mark: )
+- **TC92: One Exploding Kitten at top of draw pile** ( :x: )
   - **Name of the test**: applyCatomicBomb_oneExplodingKittenAlreadyOnTop_deckUnchanged
   - **State of the system**: top card of draw pile has one CardType 'EXPLODING_KITTEN' with order ['EXPLODING_KITTEN_1' , 'ATTACK_1', 'SHUFFLE_1']
-  - **Expected output**: draw pile order is unchanged and remains ['EXPLODING_KITTEN_1' , 'ATTACK_1', 'SHUFFLE_1']; top card remains the Exploding Kitten card
+  - **Expected output**:
+    - addCardToBottom called for ATTACK_1, SHUFFLE_1
+    - addCardToTop called for EXPLODINGKITTEN_1
+    - draw pile order remains ['EXPLODINGKITTEN_1', 'ATTACK_1', 'SHUFFLE_1']
 
-- **TC93: One Exploding Kitten in the middle of draw pile** ( :white_check_mark: )
+- **TC93: One Exploding Kitten in the middle of draw pile** ( :x: )
   - **Name of the test**: applyCatomicBomb_oneExplodingKittenInMiddle_movedToTop
   - **State of the system**: draw pile contains ['SKIP_1', 'ATTACK_1', 'EXPLODING_KITTEN_1', 'SHUFFLE_1']
-  - **Expected output**: draw pile order is now ['EXPLODING_KITTEN_1', 'SKIP_1', 'ATTACK_1', 'SHUFFLE_1'], non-Exploding Kitten cards maintain order
+  - **Expected output**: 
+    - addCardToBottom called for SKIP_1, ATTACK_1, SHUFFLE_1
+    - addCardToTop called for EXPLODINGKITTEN_1
+    - draw pile order is ['EXPLODINGKITTEN_1', 'SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
 
-- **TC94: Multiple Exploding Kittens scattered throughput draw pile** ( :white_check_mark: )
+- **TC94: Multiple Exploding Kittens scattered throughput draw pile** ( :x: )
   - **Name of the test**: applyCatomicBomb_multipleExplodingKittens_allMovedToTop
   - **State of the system**: draw pile contains ['SKIP_1', 'EXPLODING KITTEN_1', 'ATTACK_1', 'EXPLODING KITTEN_2', 'SHUFFLE_1']
-  - **Expected output**: draw pile order is now ['EXPLODING KITTEN_1', 'EXPLODING KITTEN_2', 'SKIP_1', 'ATTACK_1', 'SHUFFLE_1'], non-Exploding Kitten cards maintain order
+  - **Expected output**:
+    - addCardToBottom called for SKIP_1, ATTACK_1, SHUFFLE_1
+    - addCardToTop called for EXPLODINGKITTEN_1, EXPLODINGKITTEN_2
+    - draw pile order is ['EXPLODINGKITTEN_1', 'EXPLODINGKITTEN_2', 'SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
 
-- **TC95: All cards in draw pile are Exploding Kittens** ( :white_check_mark: )
+- **TC95: All cards in draw pile are Exploding Kittens** ( :x: )
   - **Name of the test**: applyCatomicBomb_allExplodingKittens_deckOrderUnchanged
   - **State of the system**: draw pile contains ['EXPLODING KITTEN_1', 'EXPLODING KITTEN_2', 'EXPLODING KITTEN_3']
-  - **Expected output**: draw pile order is unchanged and remains ['EXPLODING KITTEN_1', 'EXPLODING KITTEN_2', 'EXPLODING KITTEN_2']
+  - **Expected output**: 
+    - addCardToTop called for EXPLODINGKITTEN_1, EXPLODINGKITTEN_2, EXPLODINGKITTEN_3
+    - draw pile order unchanged
