@@ -1984,6 +1984,7 @@ public class GameTests {
 	private Card mockCardOfType(CardType cardType) {
 		Card card = EasyMock.createMock(Card.class);
 		EasyMock.expect(card.getType()).andStubReturn(cardType);
+		EasyMock.replay(card);
 		return card;
 	}
 
