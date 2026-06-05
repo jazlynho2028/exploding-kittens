@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Card;
 import domain.CardType;
 import domain.Game;
 import domain.GameConstants;
@@ -69,7 +70,6 @@ public class PlayerDeckController {
         view.bindPlayCardsButton(this::onPlayCardsButton);
         view.bindEndTurnButton(this::onEndTurnButton);
         view.bindNameTags(this::onNameTag);
-        view.bindGodcatConfirmButton(this::onGodcatConfirm);
         bindHandCards();
     }
 
@@ -111,13 +111,33 @@ public class PlayerDeckController {
 
     void onDrawPile() {
         attempt(onError, () -> {
-            CardType cardType = model.drawFromPile();
+            Card drawnCard = model.drawFromPile();
             // TODO use ^ return value for UI changes if a card effect needs it
 
-            updateDrawPile();
-            rebindHandCards();
-            updateTurnControls();
+            if (drawnCard.getType() == CardType.EXPLODING_KITTEN) {
+                handleDrawExplodingKitten(drawnCard.getId());
+            }
+            else {
+                rebindHandCards();
+                updateDrawPile();
+                updateTurnControls();
+            }
         });
+    }
+
+    private void handleDrawExplodingKitten(String cardId) {
+        boolean hasDefuse = model.currentPlayerHasDefuse();
+
+        if (hasDefuse) {
+            view.bindDefuseButton(this::onDefuseButton);
+        }
+        else {
+            view.bindExplodeButton(this::onExplodeButton);
+        }
+
+        int drawPileSizeAfterDraw = model.getDrawPileSize() - 1;
+        view.buildExplodeOverlay(
+                hasDefuse, cardId, drawPileSizeAfterDraw);
     }
 
     private void updateDrawPile() {
@@ -160,15 +180,10 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             model.startGame();
 
-            handleNewTurn(model.getStartingPlayerIndex());
+            handleChangeCurrentPlayer(model.getStartingPlayerIndex());
+            updateDrawPile();
+            rebuildTurnControl();
         });
-    }
-
-    private void handleNewTurn(int newPlayerIndex) {
-        handleChangeCurrentPlayer(newPlayerIndex);
-
-        updateDrawPile();
-        rebuildTurnControl();
     }
 
     private void rebuildTurnControl() {
@@ -188,8 +203,16 @@ public class PlayerDeckController {
             rebindHandCards();
             updateTurnControls();
 
-            if (cardType == CardType.GODCAT) {
-                view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+            switch (cardType) {
+                case SKIP:
+                    handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
+                    break;
+                case GODCAT:
+                    view.bindGodcatConfirmButton(this::onGodcatConfirm);
+                    view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+                    break;
+                default:
+                    break;
             }
         });
     }
@@ -198,7 +221,35 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             model.advanceTurn();
 
-            handleNewTurn(model.getCurrentPlayerIndex());
+            renderNextTurn();
+        });
+    }
+
+    private void renderNextTurn() {
+        int newPlayerIndex = model.getCurrentPlayerIndex();
+        handleChangeCurrentPlayer(newPlayerIndex);
+        updateDrawPile();
+        updateTurnControls();
+    }
+
+    void onDefuseButton() {
+        attempt(onError, () -> {
+            model.playDefuse(view.getExplodingKittenInsertIndex());
+
+            view.hideOverlay();
+            rebindHandCards();
+
+            renderNextTurn();
+        });
+    }
+
+    void onExplodeButton() {
+        attempt(onError, () -> {
+            model.playExplode();
+
+            view.hideOverlay();
+
+            renderNextTurn();
         });
     }
 
@@ -211,8 +262,8 @@ public class PlayerDeckController {
 
     void onConfirmGodcatCard(CardType cardType) {
         attempt(onError, () -> {
-            model.applyCardType(cardType);
-            view.hideGodcatOverlay();
+            model.applyGodcat(cardType);
+            view.hideOverlay();
         });
     }
 

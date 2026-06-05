@@ -58,14 +58,10 @@ public class ErrorView {
 
 		Text errorTitleText = buildText(
 				assetProvider.getString("error.title"),
-				"h1",
-				"title"
-		);
+				"h1", "title");
+
 		Text errorCaptionText = buildText(
-				message,
-				"h2",
-				"subtitle"
-		);
+				message, "h2", "subtitle");
 
 		errorTextContainer.getChildren().addAll(errorTitleText, errorCaptionText);
 
