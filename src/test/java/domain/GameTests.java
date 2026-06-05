@@ -1533,7 +1533,8 @@ public class GameTests {
 				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE), 1),
 				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP), 0),
 				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE), 0),
-				Arguments.of(List.of(CardType.GODCAT), 0)
+				Arguments.of(List.of(CardType.GODCAT), 0),
+				Arguments.of(List.of(CardType.SKIP, CardType.GODCAT), 1)
 		);
 	}
 
