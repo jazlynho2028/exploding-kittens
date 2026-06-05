@@ -206,7 +206,7 @@ public class PlayerDeckController {
                     handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
                     break;
                 case SEE_THE_FUTURE:
-                    view.buildSeeTheFutureOverlay(model.peekSeeTheFutureCardIds());
+                    view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
                     break;
                 case GODCAT:
                     view.bindGodcatConfirmButton(this::onGodcatConfirm);

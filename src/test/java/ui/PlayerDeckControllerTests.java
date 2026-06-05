@@ -689,7 +689,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expectLastCall();
 
 		expectUpdateTurnControls(canEndTurn);
-		EasyMock.expect(model.peekSeeTheFutureCardIds()).andReturn(seeTheFutureCardIds);
+		EasyMock.expect(model.getSeeTheFutureCardIds()).andReturn(seeTheFutureCardIds);
 
 		view.buildSeeTheFutureOverlay(seeTheFutureCardIds);
 		EasyMock.expectLastCall();

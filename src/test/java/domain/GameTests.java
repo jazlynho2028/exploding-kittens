@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import static domain.DeckBuilder.createCardId;
 import static domain.GameConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -367,20 +368,6 @@ public class GameTests {
 				Arguments.of(List.of(CardType.CAT_CARD_4)),
 				Arguments.of(List.of(CardType.FERAL_CAT))
 		);
-	}
-
-	private static List<Card> getCardMocksWithTypeExpectations(List<CardType> cardTypes) {
-		List<Card> selectedCards = new ArrayList<>();
-
-		for (CardType cardType : cardTypes) {
-			Card card = EasyMock.createMock(Card.class);
-			EasyMock.expect(card.getType()).andReturn(cardType);
-			EasyMock.replay(card);
-
-			selectedCards.add(card);
-		}
-
-		return selectedCards;
 	}
 
 	@ParameterizedTest
@@ -1789,6 +1776,30 @@ public class GameTests {
 	}
 
 	@Test
+	public void getSeeTheFutureCardIds_called_returnTopDrawPileCards() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<Card> cards = List.of();
+		List<String> expectedCardIds = List.of();
+
+		EasyMock.expect(drawPile.peekTopNCards(SEE_THE_FUTURE_PEEK_COUNT))
+				.andReturn(cards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		List<String> actualCardIds = game.getSeeTheFutureCardIds();
+
+		assertEquals(expectedCardIds, actualCardIds);
+
+		EasyMock.verify(drawPile);
+	}
+
+	@Test
 	public void applyGodcat_invalidGodcat_throwsException() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
@@ -1858,6 +1869,34 @@ public class GameTests {
 				Arguments.of(CardType.SEE_THE_FUTURE),
 				Arguments.of(CardType.TARGETED_ATTACK)
 		);
+	}
+
+	private static List<Card> getCardMocksWithTypeExpectations(List<CardType> cardTypes) {
+		List<Card> selectedCards = new ArrayList<>();
+
+		for (CardType cardType : cardTypes) {
+			Card card = EasyMock.createMock(Card.class);
+			EasyMock.expect(card.getType()).andReturn(cardType);
+			EasyMock.replay(card);
+
+			selectedCards.add(card);
+		}
+
+		return selectedCards;
+	}
+
+	private static List<Card> getCardMocksWithIdExpectations(List<String> cardIds) {
+		List<Card> selectedCards = new ArrayList<>();
+
+		for (String cardId : cardIds) {
+			Card card = EasyMock.createMock(Card.class);
+			EasyMock.expect(card.getId()).andReturn(cardId);
+			EasyMock.replay(card);
+
+			selectedCards.add(card);
+		}
+
+		return selectedCards;
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {

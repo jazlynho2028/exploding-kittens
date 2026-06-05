@@ -326,7 +326,10 @@ public class Game {
         }
     }
 
-    public List<String> peekSeeTheFutureCardIds() {
+    public List<String> getSeeTheFutureCardIds() {
+        List<Card> topCards = drawPile.peekTopNCards(
+                GameConstants.SEE_THE_FUTURE_PEEK_COUNT);
+
         return List.of();
     }
 
