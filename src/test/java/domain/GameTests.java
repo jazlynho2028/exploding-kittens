@@ -1904,7 +1904,8 @@ public class GameTests {
 		Card card1 = new Card("SKIP_1", CardType.SKIP);
 		Card card4 = new Card("ATTACK_1", CardType.ATTACK);
 
-		EasyMock.expect(drawPile.size()).andReturn(4);
+		final int drawPileSize = 4;
+		EasyMock.expect(drawPile.size()).andReturn(drawPileSize);
 		EasyMock.expect(drawPile.removeTop()).andReturn(card1);
 		EasyMock.expect(drawPile.removeBottom()).andReturn(card4);
 
@@ -1931,7 +1932,8 @@ public class GameTests {
 		Card explodingKitten1 = new Card("EXPLODINGKITTEN_1", CardType.EXPLODING_KITTEN);
 		Card explodingKitten2 = new Card("EXPLODINGKITTEN_2", CardType.EXPLODING_KITTEN);
 
-		EasyMock.expect(drawPile.size()).andReturn(4);
+		final int drawPileSize = 4;
+		EasyMock.expect(drawPile.size()).andReturn(drawPileSize);
 		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
 		EasyMock.expect(drawPile.removeBottom()).andReturn(explodingKitten2);
 
