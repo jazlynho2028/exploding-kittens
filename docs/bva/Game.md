@@ -762,7 +762,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC99: Hand with two different card types, has Clone at end** ( :x: )
+- **TC99: Hand with two different card types, has Clone at end** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [SKIP, CLONE]
