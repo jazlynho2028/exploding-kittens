@@ -1,6 +1,5 @@
 package ui;
 
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -58,7 +57,6 @@ public class StartView {
     private VBox buildContentSection() {
         VBox contentSection = new VBox();
         contentSection.getStyleClass().add("start-content-section");
-        contentSection.setAlignment(Pos.CENTER);
 
         Text titleText = buildTitleText(assetProvider);
 
@@ -74,7 +72,6 @@ public class StartView {
     private HBox buildPlayButtonsContainer() {
         HBox playButtonsContainer = new HBox();
         playButtonsContainer.getStyleClass().add("play-buttons-container");
-        playButtonsContainer.setAlignment(Pos.CENTER);
 
         renderPlayButton(playButtonEnglish, "English");
         renderPlayButton(playButtonSpanish, "Spanish");
