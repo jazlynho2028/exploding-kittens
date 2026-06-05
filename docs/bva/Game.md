@@ -758,7 +758,7 @@
     - discardPile.addCard with card1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC101: Hand with two same card types, has Godcat** ( :x: )
+- **TC101: Hand with two same card types, has Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, GODCAT]
   - **Expected output**: 
@@ -778,8 +778,8 @@
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, DEFUSE]
   - **Expected output**: 
-    - getCurrentPlayer.removeCardFromHand(card1) is called
-    - discardPile.addCard with card1 is called
+    - getCurrentPlayer.removeCardFromHand(card2) is called
+    - discardPile.addCard with card2 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC110: Invalid draw pile index** ( :white_check_mark: )
