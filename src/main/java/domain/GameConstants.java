@@ -18,6 +18,7 @@ public final class GameConstants {
 	public static final int FOUR_CARDS = 4;
 	public static final int FIVE_CARDS = 5;
 
+	public static final int NUM_SUPER_SKIP_DRAW_COUNT = 0;
 	public static final int NUM_MILD_DRAW_IN_GAME = 1;
 	public static final int NUM_GODCAT_IN_GAME = 1;
 	public static final int NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME = 1;
