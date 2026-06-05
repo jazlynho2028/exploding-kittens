@@ -550,8 +550,8 @@ public class PlayerDeckControllerTests {
 	public void onPlayCardsButton_noAdditionalUIChange_success() {
 		boolean canDrawFromDiscard = true;
 		boolean canEndTurn = true;
-		String topDiscardId = "SEETHEFUTURE_1";
-		CardType topDiscardType = CardType.SEE_THE_FUTURE;
+		String topDiscardId = "DOUBLEUP_1";
+		CardType topDiscardType = CardType.DOUBLE_UP;
 
 		EasyMock.expect(model.canDrawFromDiscard()).andReturn(canDrawFromDiscard);
 		EasyMock.expect(model.getTopDiscardId()).andReturn(topDiscardId);

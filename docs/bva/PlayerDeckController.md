@@ -192,10 +192,10 @@
   - **Name of the test**: onPlayCardsButton_noAdditionalUIChange_success
   - **State of the system**: 
     - canDrawFromDiscard = true
-    - topDiscardId = "SEETHEFUTURE_1"
+    - topDiscardId = "DOUBLEUP_1"
     - canPlaySelected = true
     - canEndTurn = true
-    - playSelectedCards returns CardType.SEE_THE_FUTURE
+    - playSelectedCards returns CardType.DOUBLE_UP
   - **Expected output**: 
     - model.playSelectedCards is called
     - view.renderDiscardPile with model.canDrawFromDiscard is called
@@ -222,7 +222,28 @@
     - rebindHandCards is called
     - view.renderTurnControlSection with model.canPlaySelected is called
     - model.canEndTurn is called
+    - --------------------------
     - handleChangeCurrentPlayer is called with currentPlayerIndex
+
+- **TC23: Cards play successfully, See The Future card** ( :x: )
+  - **Name of the test**: onPlayCardsButton_seeTheFuturePlayed_updatedPlayer
+  - **State of the system**:
+    - canDrawFromDiscard = true
+    - topDiscardId = "SEETHEFUTURE_1"
+    - canPlaySelected = true
+    - canEndTurn = true
+    - currentPlayerIndex = 0
+    - playSelectedCards returns CardType.SEE_THE_FUTURE
+  - **Expected output**:
+    - model.playSelectedCards is called
+    - view.renderDiscardPile with model.canDrawFromDiscard is called
+    - model.getTopDiscardId is called
+    - view.renderDrawPile is called
+    - rebindHandCards is called
+    - view.renderTurnControlSection with model.canPlaySelected is called
+    - model.canEndTurn is called
+    - --------------------------
+    - view.buildSeeTheFutureOverlay is called with model.peekSeeTheFutureCardIds
 
 - **TC23: Cards play successfully, Godcat card** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_godcatPlayed_overlayShown
@@ -240,6 +261,7 @@
     - rebindHandCards is called
     - view.renderTurnControlSection with model.canPlaySelected is called
     - model.canEndTurn is called
+    - --------------------------
     - view.bindGodcatConfirmButton is called
     - view.showGodcatOverlay is called
 
