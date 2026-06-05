@@ -678,7 +678,7 @@
 
 - **TC100: Hand with Godcat and Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, GODCAT]
+  - **State of the system**: currentPlayerHandCardTypes = [GODCAT, DEFUSE]
   - **Expected output**: return true
 
 ### Method under test: `playDefuse(int drawPileIndex)`
@@ -730,6 +730,54 @@
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
   - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - discardPile.addCard with card1 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC98: Hand with one card type, has Godcat** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**: currentPlayerHandCardTypes = [GODCAT]
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - discardPile.addCard with card1 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC99: Hand with two different card types, has Godcat at end** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**: currentPlayerHandCardTypes = [SKIP, GODCAT]
+  - **Expected output**: 
+    - getCurrentPlayer.removeCardFromHand(card2) is called
+    - discardPile.addCard with card2 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC100: Hand with two different card types, has Godcat at front** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**: currentPlayerHandCardTypes = [GODCAT, SKIP]
+  - **Expected output**: 
+    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - discardPile.addCard with card1 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC101: Hand with two same card types, has Godcat** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**: currentPlayerHandCardTypes = [GODCAT, GODCAT]
+  - **Expected output**: 
+    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - discardPile.addCard with card1 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC100: Hand with Defuse and Godcat** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, GODCAT]
+  - **Expected output**: 
+    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - discardPile.addCard with card1 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC100: Hand with Godcat and Defuse** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**: currentPlayerHandCardTypes = [GODCAT, DEFUSE]
+  - **Expected output**: 
     - getCurrentPlayer.removeCardFromHand(card1) is called
     - discardPile.addCard with card1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
