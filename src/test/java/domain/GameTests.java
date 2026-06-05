@@ -2012,14 +2012,14 @@ public class GameTests {
 		EasyMock.expect(drawPile.removeTop()).andReturn(shuffle1);
 		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
 
-		drawPile.addCard(shuffle1);
+		drawPile.addCardToTop(shuffle1);
 		EasyMock.expectLastCall();
-		drawPile.addCard(attack1);
+		drawPile.addCardToTop(attack1);
 		EasyMock.expectLastCall();
-		drawPile.addCard(skip1);
+		drawPile.addCardToTop(skip1);
 		EasyMock.expectLastCall();
 
-		drawPile.addCard(explodingKitten1);
+		drawPile.addCardToTop(explodingKitten1);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
@@ -2056,16 +2056,16 @@ public class GameTests {
 		EasyMock.expect(drawPile.removeTop()).andReturn(shuffle1);
 		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
 
-		drawPile.addCard(shuffle1);
+		drawPile.addCardToTop(shuffle1);
 		EasyMock.expectLastCall();
-		drawPile.addCard(attack1);
+		drawPile.addCardToTop(attack1);
 		EasyMock.expectLastCall();
-		drawPile.addCard(skip1);
+		drawPile.addCardToTop(skip1);
 		EasyMock.expectLastCall();
 
-		drawPile.addCard(explodingKitten2);
+		drawPile.addCardToTop(explodingKitten2);
 		EasyMock.expectLastCall();
-		drawPile.addCard(explodingKitten1);
+		drawPile.addCardToTop(explodingKitten1);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
@@ -2097,11 +2097,11 @@ public class GameTests {
 		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten3);
 		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
 
-		drawPile.addCard(explodingKitten3);
+		drawPile.addCardToTop(explodingKitten3);
 		EasyMock.expectLastCall();
-		drawPile.addCard(explodingKitten2);
+		drawPile.addCardToTop(explodingKitten2);
 		EasyMock.expectLastCall();
-		drawPile.addCard(explodingKitten1);
+		drawPile.addCardToTop(explodingKitten1);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
