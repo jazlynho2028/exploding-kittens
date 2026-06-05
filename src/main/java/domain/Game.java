@@ -287,7 +287,7 @@ public class Game {
     public void playDefuse(int drawPileIndex) {
         Card defuse = getCurrentPlayerDefuse();
         getCurrentPlayer().removeCardFromHand(defuse);
-        discardPile.addCard(defuse);
+        discardPile.addCardToTop(defuse);
 
         Card explodingKitten = drawPile.removeTop();
         drawPile.insertCardAt(explodingKitten, drawPileIndex);

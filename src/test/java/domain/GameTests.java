@@ -1513,7 +1513,7 @@ public class GameTests {
 		currentPlayer.removeCardFromHand(defuse);
 		EasyMock.expectLastCall();
 
-		discardPile.addCard(defuse);
+		discardPile.addCardToTop(defuse);
 		EasyMock.expectLastCall();
 
 		Card explodingKitten = EasyMock.createMock(Card.class);
@@ -1567,7 +1567,7 @@ public class GameTests {
 		currentPlayer.removeCardFromHand(defuse);
 		EasyMock.expectLastCall();
 
-		discardPile.addCard(defuse);
+		discardPile.addCardToTop(defuse);
 		EasyMock.expectLastCall();
 
 		Card explodingKitten = EasyMock.createMock(Card.class);

@@ -50,7 +50,7 @@
   - **Name of the test**: startGame_gameIsNotOngoing_startFirstRound
   - **State of the system**: players.size = 2, isGameOngoing = false
   - **Expected output**:
-    - drawPile.addCard called once (N-1=1) with EXPLODINGKITTEN_1
+    - drawPile.addCardToTop called once (N-1=1) with EXPLODINGKITTEN_1
     - drawPile.shuffle called
     - isGameOngoing = true
 
@@ -581,17 +581,17 @@
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
 
 ### Method under test: `applySwapTopAndBottom()`
-- **TC90: Draw pile has zero cards** ( :white_check_mark: )
+- **TC90: Draw pile has zero cards** ( :x: )
   - **Name of the test**: applySwapTopAndBottom_emptyDeck_remainsEmpty
   - **State of the system**: draw pile is empty
   - **Expected output**: draw pile remains empty
 
-- **TC91: Draw pile has exactly one card** ( :white_check_mark: )
+- **TC91: Draw pile has exactly one card** ( :x: )
   - **Name of the test**: applySwapTopAndBottom_oneCard_swapped
   - **State of the system**: draw pile has two cards ['CARD 1']
   - **Expected output**: draw pile has two cards; card order is ['CARD 1']
 
-- **TC92: Draw pile has more than one card** ( :white_check_mark: )
+- **TC92: Draw pile has more than one card** ( :x: )
   - **Name of the test**: applySwapTopAndBottom_moreThanOneCard_swapped
   - **State of the system**: draw pile has four cards ['CARD 1', 'CARD 2', 'CARD 3', 'CARD 4']
   - **Expected output**: 
@@ -599,7 +599,7 @@
     - drawPile.addCardToBottom(CARD_1) called
     - draw pile has four cards and card order is ['CARD 4', 'CARD 2', 'CARD 3', 'CARD']
 
-- **TC93: Top and bottom cards are the same type** ( :white_check_mark: )
+- **TC93: Top and bottom cards are the same type** ( :x: )
   - **Name of the test**: applySwapTopAndBottom_sameType_swapped
   - **State of the system**: draw pile has four cards ['EXPLODING KITTEN 1', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 2']
   - **Expected output**: 
