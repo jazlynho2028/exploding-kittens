@@ -919,8 +919,8 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
-	public void onConfirmGodcatCard_validCardType_applyCardTypeCalled() {
-		model.applyCardType(CardType.ATTACK);
+	public void onConfirmGodcatCard_validCardType_applyGodcatCalled() {
+		model.applyGodcat(CardType.ATTACK);
 		EasyMock.expectLastCall();
 
 		view.hideOverlay();
@@ -938,7 +938,7 @@ public class PlayerDeckControllerTests {
 	public void onConfirmGodcatCard_modelThrowsException_failed() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
-		model.applyCardType(CardType.EXPLODING_KITTEN);
+		model.applyGodcat(CardType.EXPLODING_KITTEN);
 		EasyMock.expectLastCall().andThrow(new RuntimeException(expectedMsg));
 
 		onError.accept(expectedMsg);

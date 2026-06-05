@@ -328,13 +328,13 @@
 
 ### Method under test: `onConfirmGodcatCard(CardType cardType)`
 - **TC33: Valid card type** ( :white_check_mark: )
-  - **Name of the test**: onConfirmGodcatCard_validCardType_applyCardTypeCalled
+  - **Name of the test**: onConfirmGodcatCard_validCardType_applyGodcatCalled
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: 
-    - model.applyCardType(CardType.ATTACK) is called
+    - model.applyGodcat(CardType.ATTACK) is called
     - view.hideOverlay() is called
 
 - **TC34: Invalid card type** ( :white_check_mark: )
   - **Name of the test**: onConfirmGodcatCard_modelThrowsException_failed
-  - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType; model.applyCardType() throws exception
+  - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType; model.applyGodcat() throws exception
   - **Expected output**: onError is called with the exception message

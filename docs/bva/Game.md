@@ -742,83 +742,83 @@
   - **State of the system:**  game is ongoing, drawCount = 1, 4 players, currentPlayerIndex = 0
   - **Expected output:** drawCount resets to 1 (from incrementTurn), currentPlayerIndex = 1, turn has advanced automatically
 
-### Method under test: `applyCardType(CardType cardType)`
+### Method under test: `applyGodcat(CardType cardType)`
 - **TC117: Invalid card type** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_invalidCardType_throwsException
+  - **Name of the test**: applyGodcat_invalidCardType_throwsException
   - **State of the system**: CardType.GODCAT passed as cardType
   - **Expected output**: throws IllegalArgumentException with message "error.cannotPlaySelectedCards"
 
 - **TC118: Valid card type Attack** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: applyAttack() is called
 
 - **TC119: Valid card type Shuffle** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SHUFFLE passed as cardType
   - **Expected output**: applyShuffle() is called
 
 - **TC120: Valid card type Skip** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SKIP passed as cardType
   - **Expected output**: applySkip() is called
 
 - **TC121: Valid card type See the Future** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validPlayWithoutApplyMethod_noApplyCalled
+  - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.SEE_THE_FUTURE passed as cardType
   - **Expected output**: N/A
 
 - **TC122: Valid card type Catomic Bomb** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.CATOMIC_BOMB passed as cardType
   - **Expected output**: applyCatomicBomb() is called
 
 - **TC123: Valid card type Super Skip** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SUPER_SKIP passed as cardType
   - **Expected output**: applySuperSkip() is called
 
 - **TC124: Valid card type Clone** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.CLONE passed as cardType
   - **Expected output**: applyClone() is called
 
 - **TC125: Valid card type Swap Top and Bottom** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SWAP_TOP_AND_BOTTOM passed as cardType
   - **Expected output**: applySwapTopAndBottom() is called
 
 - **TC126: Valid card type Draw From the Bottom** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.DRAW_FROM_THE_BOTTOM passed as cardType
   - **Expected output**: applyDrawFromTheBottom() is called
 
 - **TC127: Valid card type Targeted Attack** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validPlayWithoutApplyMethod_noApplyCalled
+  - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.TARGETED_ATTACK passed as cardType
   - **Expected output**: N/A
 
 - **TC128: Valid card type Winner Winner Catnip Dinner** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.WINNER_WINNER_CATNIP_DINNER passed as cardType
   - **Expected output**: applyWinnerWinnerCatnipDinner() is called
 
 - **TC129: Valid card type Ragebait** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.RAGEBAIT passed as cardType
   - **Expected output**: applyRagebait() is called
 
 - **TC130: Valid card type Recycle** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.RECYCLE passed as cardType
   - **Expected output**: applyRecycle() is called
 
 - **TC131: Valid card type Double Up** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.DOUBLE_UP passed as cardType
   - **Expected output**: applyDoubleUp() is called
 
 - **TC132: Valid card type Mild Shuffle** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.MILD_SHUFFLE passed as cardType
   - **Expected output**: applyMildShuffle() is called

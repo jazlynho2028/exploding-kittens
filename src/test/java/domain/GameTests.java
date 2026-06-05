@@ -1775,7 +1775,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyCardType_invalidCardType_throwsException() {
+	public void applyGodcat_invalidGodcat_throwsException() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1786,7 +1786,7 @@ public class GameTests {
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
 		Exception exception = assertThrows(IllegalStateException.class, () ->
-				game.applyCardType(CardType.GODCAT));
+				game.applyGodcat(CardType.GODCAT));
 
 		String expectedMsg = "error.cannotPlaySelectedCards";
 		String actualMsg = exception.getMessage();
@@ -1796,7 +1796,7 @@ public class GameTests {
 
 	@ParameterizedTest
 	@MethodSource("provideValidPlaysAndMethods")
-	public void applyCardType_validCardType_correctApplyCalled(
+	public void applyGodcate_validCardType_correctApplyCalled(
 			CardType cardType, String applyMethodName,
 			Consumer<Game> applyMethod) {
 
@@ -1817,14 +1817,14 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		game.applyCardType(cardType);
+		game.applyGodcat(cardType);
 
 		EasyMock.verify(game);
 	}
 
 	@ParameterizedTest
 	@MethodSource("provideValidCardTypesForGodcatWithoutApplyMethod")
-	public void applyCardType_validPlayWithoutApplyMethod_noApplyCalled(
+	public void applyGodcat_validPlayWithoutApplyMethod_noApplyCalled(
 			CardType cardType) {
 
 		List<Player> players = EasyMock.createMock(List.class);
@@ -1836,7 +1836,7 @@ public class GameTests {
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		game.applyCardType(cardType);
+		game.applyGodcat(cardType);
 	}
 
 	private static Stream<Arguments> provideValidCardTypesForGodcatWithoutApplyMethod() {

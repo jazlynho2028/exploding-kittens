@@ -370,7 +370,7 @@ public class Game {
         // TODO
     }
 
-    public void applyCardType(CardType cardType) {
+    public void applyGodcat(CardType cardType) {
         switch (cardType) {
             case ATTACK:
                 applyAttack();
