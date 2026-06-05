@@ -302,9 +302,7 @@ public class Game {
     }
 
     void applySuperSkip() {
-        while (turnManager.getDrawCount() > 0) {
-            turnManager.decrementDrawCount();
-        }
+        turnManager.setDrawCount(NUM_SUPER_SKIP_DRAW_COUNT);
         advanceTurn();
     }
 

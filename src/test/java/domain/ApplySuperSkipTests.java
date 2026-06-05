@@ -10,8 +10,7 @@ public class ApplySuperSkipTests {
 
     @Test
     public void applySuperSkip_drawCountOne_TurnAdvances() {
-        final int firstExpectedDrawCount = 1;
-        final int ExpectedIntZero = 0;
+        final int expectedIntZero = 0;
         Player mockPlayer1 = EasyMock.createMock(Player.class);
         Player mockPlayer2 = EasyMock.createMock(Player.class);
         List<Player> players = new ArrayList<>();
@@ -22,11 +21,9 @@ public class ApplySuperSkipTests {
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
         TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
 
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(firstExpectedDrawCount);
-        mockTurnManager.decrementDrawCount();
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(ExpectedIntZero);
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(ExpectedIntZero);
-        EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(ExpectedIntZero);
+        mockTurnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
+        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedIntZero);
+        EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectedIntZero);
         mockPlayer1.deselectHandCards();
         mockTurnManager.incrementTurn();
 
@@ -42,9 +39,7 @@ public class ApplySuperSkipTests {
 
     @Test
     public void applySuperSkip_drawCountTwo_TurnAdvances() {
-        final int expectIntTwo = 2;
-        final int expectIntOne = 1;
-        final int expectIntZero = 0;
+        final int expectedIntZero = 0;
         Player mockPlayer1 = EasyMock.createMock(Player.class);
         Player mockPlayer2 = EasyMock.createMock(Player.class);
         List<Player> players = new ArrayList<>();
@@ -55,13 +50,9 @@ public class ApplySuperSkipTests {
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
         TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
 
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntTwo );
-        mockTurnManager.decrementDrawCount();
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntOne);
-        mockTurnManager.decrementDrawCount();
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
-        EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectIntZero);
+        mockTurnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
+        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedIntZero);
+        EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectedIntZero);
         mockPlayer1.deselectHandCards();
         mockTurnManager.incrementTurn();
 
@@ -77,10 +68,7 @@ public class ApplySuperSkipTests {
 
     @Test
     public void applySuperSkip_drawCountThree_TurnAdvances() {
-        final int expectIntThree = 3;
-        final int expectIntTwo = 2;
-        final int expectIntOne = 1;
-        final int expectIntZero = 0;
+        final int expectedIntZero = 0;
         Player mockPlayer1 = EasyMock.createMock(Player.class);
         Player mockPlayer2 = EasyMock.createMock(Player.class);
         List<Player> players = new ArrayList<>();
@@ -91,15 +79,9 @@ public class ApplySuperSkipTests {
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
         TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
 
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntThree);
-        mockTurnManager.decrementDrawCount();
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntTwo);
-        mockTurnManager.decrementDrawCount();
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntOne);
-        mockTurnManager.decrementDrawCount();
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero );
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero );
-        EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectIntZero );
+        mockTurnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
+        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedIntZero);
+        EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectedIntZero);
         mockPlayer1.deselectHandCards();
         mockTurnManager.incrementTurn();
 
@@ -127,9 +109,7 @@ public class ApplySuperSkipTests {
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
         TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
 
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntOne);
-        mockTurnManager.decrementDrawCount();
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
+        mockTurnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
         EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
         EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectIntOne);
         mockPlayer2.deselectHandCards();
@@ -147,7 +127,6 @@ public class ApplySuperSkipTests {
 
     @Test
     public void applySuperSkip_twoPlayers_turnAdvances() {
-        final int expectIntOne = 1;
         final int expectIntZero = 0;
         Player mockPlayer1 = EasyMock.createMock(Player.class);
         Player mockPlayer2 = EasyMock.createMock(Player.class);
@@ -159,9 +138,7 @@ public class ApplySuperSkipTests {
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
         TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
 
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntOne);
-        mockTurnManager.decrementDrawCount();
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
+        mockTurnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
         EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
         EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectIntZero);
         mockPlayer1.deselectHandCards();
@@ -179,7 +156,6 @@ public class ApplySuperSkipTests {
 
     @Test
     public void applySuperSkip_fourPlayers_turnAdvances() {
-        final int expectIntOne = 1;
         final int expectIntZero = 0;
         Player mockPlayer1 = EasyMock.createMock(Player.class);
         Player mockPlayer2 = EasyMock.createMock(Player.class);
@@ -195,9 +171,7 @@ public class ApplySuperSkipTests {
         Deck mockDiscardPile = EasyMock.createMock(Deck.class);
         TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
 
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntOne);
-        mockTurnManager.decrementDrawCount();
-        EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
+        mockTurnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
         EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
         EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectIntZero);
         mockPlayer1.deselectHandCards();
