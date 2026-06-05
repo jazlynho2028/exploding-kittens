@@ -515,17 +515,7 @@ public class Game {
     }
 
     void applyRecycle() {
-        if (discardPile.isEmpty()) {
-            throw new IllegalStateException("error.emptyDiscardPile");
-        }
-
-        if (discardPile.size() > 1) {
-            discardPile.shuffle();
-        }
-
-        Card card = discardPile.removeBottom();
-        getCurrentPlayer().addCardToHand(card);
-        turnManager.decrementDrawCount();
+        canDrawFromDiscard = true;
     }
 
     void applyDoubleUp() {
