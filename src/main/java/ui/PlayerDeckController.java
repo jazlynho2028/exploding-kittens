@@ -125,9 +125,9 @@ public class PlayerDeckController {
     }
 
     private void handleDrawExplodingKitten(String cardId) {
-        boolean hasDefuse = model.currentPlayerHasDefuse();
+        boolean isDefusable = model.currentPlayerHasDefuse();
 
-        if (hasDefuse) {
+        if (isDefusable) {
             view.bindDefuseButton(this::onDefuseButton);
         }
         else {
@@ -136,7 +136,7 @@ public class PlayerDeckController {
 
         int drawPileSizeAfterDraw = model.getDrawPileSize() - 1;
         view.buildExplodeOverlay(
-                hasDefuse, cardId, drawPileSizeAfterDraw);
+                isDefusable, cardId, drawPileSizeAfterDraw);
     }
 
     private void updateDrawPile() {
@@ -197,13 +197,16 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             CardType cardType = model.playSelectedCards();
 
-            view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
+            updateDiscardPile();
             rebindHandCards();
             updateTurnControls();
 
             switch (cardType) {
                 case SKIP:
                     handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
+                    break;
+                case SEE_THE_FUTURE:
+                    view.buildSeeTheFutureOverlay(model.peekSeeTheFutureCardIds());
                     break;
                 case GODCAT:
                     view.bindGodcatConfirmButton(this::onGodcatConfirm);
@@ -213,6 +216,10 @@ public class PlayerDeckController {
                     break;
             }
         });
+    }
+
+    private void updateDiscardPile() {
+        view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
     }
 
     void onEndTurnButton() {
@@ -235,6 +242,7 @@ public class PlayerDeckController {
             model.playDefuse(view.getExplodingKittenInsertIndex());
 
             view.hideOverlay();
+            updateDiscardPile();
             rebindHandCards();
 
             renderNextTurn();
@@ -246,6 +254,7 @@ public class PlayerDeckController {
             model.playExplode();
 
             view.hideOverlay();
+            updateDrawPile();
 
             renderNextTurn();
         });

@@ -326,6 +326,10 @@ public class Game {
         }
     }
 
+    public List<String> peekSeeTheFutureCardIds() {
+        return List.of();
+    }
+
     void applyCatomicBomb() {
         // TODO
     }

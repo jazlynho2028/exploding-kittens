@@ -559,9 +559,9 @@
     -fx-opacity: 0;
 }
 
-.hand-cards-container {
-    -fx-alignment: center;
+.card-options {
     -fx-spacing: 8px;
+    -fx-alignment: center;
 }
 
 .turn-control-section {
@@ -664,25 +664,6 @@
     -fx-fill: yellow-0;
 }
 
-.overlay-button {
-    -fx-background-radius: 8;
-    -fx-border-width: 2;
-    -fx-border-radius: 16;
-    -fx-pref-width: 176px;
-    -fx-padding: -2 0 -2 0;
-}
-
-.overlay-button.confirm {
-    -fx-background-color: linear-gradient(to bottom, yellow-3, yellow-4);
-    -fx-text-fill: magenta-6;
-}
-
-.overlay-button.confirm:disabled {
-    -fx-opacity: 1;
-    -fx-background-color: beige-2;
-    -fx-text-fill: beige-3;
-}
-
 .card-options {
     -fx-spacing: 8px;
     -fx-alignment: center;
@@ -695,11 +676,19 @@
 }
 
 .overlay-button {
+    -fx-background-color: linear-gradient(to bottom, yellow-3, yellow-4);
+    -fx-text-fill: magenta-6;
     -fx-background-radius: 8;
     -fx-border-width: 2;
     -fx-border-radius: 16;
     -fx-pref-width: 256px;
     -fx-padding: -2 0 -2 0;
+}
+
+.overlay-button:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: beige-2;
+    -fx-text-fill: beige-3;
 }
 
 .overlay-button.defuse {
