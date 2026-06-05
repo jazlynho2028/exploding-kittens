@@ -294,7 +294,7 @@ public class Game {
     }
 
     void applySuperSkip() {
-        turnManager.setDrawCount(NUM_SUPER_SKIP_DRAW_COUNT);
+        turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
         advanceTurn();
     }
 
