@@ -3131,6 +3131,39 @@ public class GameTests {
 		EasyMock.verify(discardPile);
 	}
 
+	@Test
+	public void drawFromDiscard_turnManagerException_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card card = mockCardOfType(CardType.SKIP);
+
+		discardPile.shuffle();
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(discardPile.removeBottom()).andReturn(card);
+
+		String expectedMsg = "error.negativeDrawCount";
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall().andThrow(
+				new IllegalStateException(expectedMsg)
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, card);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Exception exception = assertThrows(IllegalStateException.class,
+				game::drawFromDiscard);
+
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(discardPile, turnManager);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
