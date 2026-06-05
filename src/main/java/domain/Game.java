@@ -339,11 +339,7 @@ public class Game {
     }
 
     void applySwapTopAndBottom() {
-        if (drawPile.isEmpty()) {
-            return;
-        }
-
-        if (drawPile.size() == 1) {
+        if (drawPile.size() <= 1) {
             return;
         }
 
