@@ -112,7 +112,6 @@ public class PlayerDeckController {
     void onDrawPile() {
         attempt(onError, () -> {
             Card drawnCard = model.drawFromPile();
-            // TODO use ^ return value for UI changes if a card effect needs it
 
             if (drawnCard.getType() == CardType.EXPLODING_KITTEN) {
                 handleDrawExplodingKitten(drawnCard.getId());
@@ -197,7 +196,6 @@ public class PlayerDeckController {
     void onPlayCardsButton() {
         attempt(onError, () -> {
             CardType cardType = model.playSelectedCards();
-            // TODO use ^ return value for UI changes if a card effect needs it
 
             view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
             rebindHandCards();
