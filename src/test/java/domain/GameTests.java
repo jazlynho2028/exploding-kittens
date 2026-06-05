@@ -1931,9 +1931,7 @@ public class GameTests {
 		Card explodingKitten1 = new Card("EXPLODINGKITTEN_1", CardType.EXPLODING_KITTEN);
 		Card explodingKitten2 = new Card("EXPLODINGKITTEN_2", CardType.EXPLODING_KITTEN);
 
-		final int deckSize = 4;
-		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
-		EasyMock.expect(drawPile.size()).andReturn(deckSize);
+		EasyMock.expect(drawPile.size()).andReturn(4);
 		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
 		EasyMock.expect(drawPile.removeBottom()).andReturn(explodingKitten2);
 
