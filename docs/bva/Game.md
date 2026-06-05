@@ -805,7 +805,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC100: Hand with Clone and Godcat, use Godcat** ( :x: )
+- **TC100: Hand with Clone and Godcat, use Godcat** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, GODCAT]
