@@ -208,7 +208,8 @@ public class PlayerDeckController {
                     handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
                     break;
                 case SUPER_SKIP:
-
+                    renderNextTurn();
+                    break;
                 case GODCAT:
                     view.bindGodcatConfirmButton(this::onGodcatConfirm);
                     view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
