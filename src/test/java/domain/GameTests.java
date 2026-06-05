@@ -1884,9 +1884,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		final int deckSize = 1;
-		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
-		EasyMock.expect(drawPile.size()).andReturn(deckSize);
+		EasyMock.expect(drawPile.size()).andReturn(1);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
