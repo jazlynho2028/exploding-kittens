@@ -774,7 +774,7 @@
     - discardPile.addCard with card1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC100: Hand with Godcat and Defuse** ( :x: )
+- **TC100: Hand with Godcat and Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, DEFUSE]
   - **Expected output**: 
