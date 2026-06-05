@@ -1402,12 +1402,18 @@ public class GameTests {
 
 	private static Stream<Arguments> provideCurrentPlayerHandWithNoDefuserAndTopDiscardCard() {
 		return Stream.of(
-				Arguments.of(List.of(), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.ATTACK), CardType.ATTACK),
-				Arguments.of(List.of(CardType.ATTACK, CardType.SKIP), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.SKIP, CardType.SKIP), CardType.ATTACK),
-				Arguments.of(List.of(CardType.CLONE, CardType.SKIP), CardType.ATTACK),
-				Arguments.of(List.of(CardType.CLONE, CardType.CLONE), CardType.ATTACK)
+				Arguments.of(List.of(),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.ATTACK),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.ATTACK, CardType.SKIP),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.SKIP, CardType.SKIP),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.CLONE, CardType.SKIP),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.CLONE, CardType.CLONE),
+						CardType.ATTACK)
 		);
 	}
 
@@ -1444,25 +1450,43 @@ public class GameTests {
 
 	private static Stream<Arguments> provideCurrentPlayerHandWithDefuserAndTopDiscardCard() {
 		return Stream.of(
-				Arguments.of(List.of(CardType.DEFUSE), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE), CardType.SKIP),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP), CardType.ATTACK),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE), CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE),
+						CardType.SKIP),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE),
+						CardType.DEFUSE),
 				Arguments.of(List.of(CardType.GODCAT), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.SKIP, CardType.GODCAT), CardType.SKIP),
-				Arguments.of(List.of(CardType.GODCAT, CardType.SKIP), CardType.ATTACK),
-				Arguments.of(List.of(CardType.GODCAT, CardType.GODCAT), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.GODCAT), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.GODCAT, CardType.DEFUSE), CardType.ATTACK),
+				Arguments.of(List.of(CardType.SKIP, CardType.GODCAT),
+						CardType.SKIP),
+				Arguments.of(List.of(CardType.GODCAT, CardType.SKIP),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.GODCAT, CardType.GODCAT),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.GODCAT),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.GODCAT, CardType.DEFUSE),
+						CardType.ATTACK),
 				Arguments.of(List.of(CardType.CLONE), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.SKIP, CardType.CLONE), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.CLONE, CardType.SKIP), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.CLONE, CardType.CLONE), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.CLONE), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.CLONE, CardType.DEFUSE), CardType.ATTACK),
-				Arguments.of(List.of(CardType.CLONE, CardType.GODCAT), CardType.ATTACK),
-				Arguments.of(List.of(CardType.GODCAT, CardType.CLONE), CardType.DEFUSE),
-				Arguments.of(List.of(CardType.GODCAT, CardType.CLONE, CardType.DEFUSE), CardType.DEFUSE)
+				Arguments.of(List.of(CardType.SKIP, CardType.CLONE),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.SKIP),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.CLONE),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.CLONE),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.DEFUSE),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.CLONE, CardType.GODCAT),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.GODCAT, CardType.CLONE),
+						CardType.DEFUSE),
+				Arguments.of(List.of(
+						CardType.GODCAT, CardType.CLONE, CardType.DEFUSE),
+						CardType.DEFUSE)
 		);
 	}
 
@@ -1507,7 +1531,8 @@ public class GameTests {
 	@ParameterizedTest
 	@MethodSource("provideCurrentPlayerHandWithDefuserIndex")
 	public void playDefuse_hasDefuser_reinsertExplodingKitten(
-			List<CardType> currentPlayerHandCardTypes, int defuseIndex, CardType topDiscardType) {
+			List<CardType> currentPlayerHandCardTypes, int defuseIndex,
+			CardType topDiscardType) {
 
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
@@ -1554,25 +1579,45 @@ public class GameTests {
 
 	private static Stream<Arguments> provideCurrentPlayerHandWithDefuserIndex() {
 		return Stream.of(
-				Arguments.of(List.of(CardType.DEFUSE), 0, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE), 1, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP), 0, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE), 0, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.GODCAT), 0, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.SKIP, CardType.GODCAT), 1, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.GODCAT, CardType.SKIP), 0, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.GODCAT, CardType.GODCAT), 0, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.GODCAT), 0, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.GODCAT, CardType.DEFUSE), 1, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.CLONE), 0, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.SKIP, CardType.CLONE), 1, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.CLONE, CardType.SKIP), 0, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.CLONE, CardType.CLONE), 0, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.CLONE), 0, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.CLONE, CardType.DEFUSE), 1, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.CLONE, CardType.GODCAT), 1, CardType.ATTACK),
-				Arguments.of(List.of(CardType.GODCAT, CardType.CLONE), 1, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.GODCAT, CardType.CLONE, CardType.DEFUSE), 2, CardType.DEFUSE)
+				Arguments.of(List.of(CardType.DEFUSE),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE),
+						1, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.GODCAT),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.SKIP, CardType.GODCAT),
+						1, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.GODCAT, CardType.SKIP),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.GODCAT, CardType.GODCAT),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.GODCAT),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.GODCAT, CardType.DEFUSE),
+						1, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.SKIP, CardType.CLONE),
+						1, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.SKIP),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.CLONE),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.CLONE),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.DEFUSE),
+						1, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.GODCAT),
+						1, CardType.ATTACK),
+				Arguments.of(List.of(CardType.GODCAT, CardType.CLONE),
+						1, CardType.DEFUSE),
+				Arguments.of(List.of(
+						CardType.GODCAT, CardType.CLONE, CardType.DEFUSE),
+						2, CardType.DEFUSE)
 		);
 	}
 
@@ -1822,7 +1867,9 @@ public class GameTests {
 
 	@ParameterizedTest
 	@MethodSource("provideCardIds")
-	public void getSeeTheFutureCardIds_called_returnTopDrawPileCards(List<String> expectedCardIds) {
+	public void getSeeTheFutureCardIds_called_returnTopDrawPileCards(
+			List<String> expectedCardIds) {
+
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);

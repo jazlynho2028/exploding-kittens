@@ -97,7 +97,8 @@ public class PlayerDeckControllerTests {
 		getCurrentPlayerIndexExpectation();
 		getIsGameOngoingExpectation();
 
-		view.buildAddRenderPlayerNameTags(PLAYER_NAMES, CURRENT_PLAYER_INDEX, IS_GAME_ONGOING);
+		view.buildAddRenderPlayerNameTags(
+				PLAYER_NAMES, CURRENT_PLAYER_INDEX, IS_GAME_ONGOING);
 		EasyMock.expectLastCall();
 	}
 
@@ -126,7 +127,8 @@ public class PlayerDeckControllerTests {
 	private void expectRebuildTurnControls(boolean canEndTurn) {
 		buildAndRenderTurnControlSectionExpectations(canEndTurn);
 
-		view.buildAndRenderTurnControlSection(IS_GAME_ONGOING, CAN_PLAY_SELECTED, canEndTurn);
+		view.buildAndRenderTurnControlSection(
+				IS_GAME_ONGOING, CAN_PLAY_SELECTED, canEndTurn);
 		EasyMock.expectLastCall();
 	}
 
