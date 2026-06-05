@@ -95,7 +95,7 @@ public class Game {
         for (int i = 1; i <= numKittens; i++) {
             String cardId = createCardId(CardType.EXPLODING_KITTEN, i);
             Card kitten = new Card(cardId, CardType.EXPLODING_KITTEN);
-            drawPile.addCard(kitten);
+            drawPile.addCardToTop(kitten);
         }
     }
 
@@ -143,7 +143,7 @@ public class Game {
             card.toggleSelected();
 
             getCurrentPlayer().removeCardFromHand(card);
-            discardPile.addCard(card);
+            discardPile.addCardToTop(card);
         }
 
         switch (cardType) {
@@ -300,7 +300,7 @@ public class Game {
     public void playDefuse(int drawPileIndex) {
         Card defuse = findDefuser();
         getCurrentPlayer().removeCardFromHand(defuse);
-        discardPile.addCard(defuse);
+        discardPile.addCardToTop(defuse);
 
         Card explodingKitten = drawPile.removeTop();
         drawPile.insertCardAt(explodingKitten, drawPileIndex);
@@ -375,7 +375,15 @@ public class Game {
     }
 
     void applySwapTopAndBottom() {
-        // TODO
+        if (drawPile.size() <= 1) {
+            return;
+        }
+
+        Card top = drawPile.removeTop();
+        Card bottom = drawPile.removeBottom();
+
+        drawPile.addCardToTop(bottom);
+        drawPile.addCardToBottom(top);
     }
 
     void applyDrawFromTheBottom() {
