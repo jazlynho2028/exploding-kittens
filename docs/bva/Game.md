@@ -787,7 +787,7 @@
     - topDiscardType = DEFUSE
   - **Expected output**: return true
 
-- **TC100: Hand with Defuse and Clone** ( :x: )
+- **TC100: Hand with Defuse and Clone** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [DEFUSE, CLONE]
