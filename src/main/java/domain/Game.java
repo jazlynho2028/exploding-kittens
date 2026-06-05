@@ -269,6 +269,23 @@ public class Game {
         turnManager.incrementTurn();
     }
 
+    void setIsGameOngoing(boolean isGameOngoing) {
+        this.isGameOngoing = isGameOngoing;
+    }
+
+    void setIsFaceUp(boolean isFaceUp) {
+        this.isFaceUp = isFaceUp;
+    }
+
+    public void playDefuse(int drawPileIndex) {
+        Card defuse = findDefuser();
+        getCurrentPlayer().removeCardFromHand(defuse);
+        discardPile.addCard(defuse);
+
+        Card explodingKitten = drawPile.removeTop();
+        drawPile.insertCardAt(explodingKitten, drawPileIndex);
+    }
+
     public boolean isDefusable() {
         return currentPlayerHasCardType(CardType.DEFUSE) ||
                 currentPlayerHasCardType(CardType.GODCAT);
@@ -281,31 +298,25 @@ public class Game {
                 .anyMatch(card -> card.getType() == cardType);
     }
 
-    void setIsGameOngoing(boolean isGameOngoing) {
-        this.isGameOngoing = isGameOngoing;
+    private Card findDefuser() {
+        if (currentPlayerHasCardType(CardType.DEFUSE)) {
+            return getCurrentPlayerCardOfType(CardType.DEFUSE);
+        }
+        else if (currentPlayerHasCardType(CardType.GODCAT)) {
+            return getCurrentPlayerCardOfType(CardType.GODCAT);
+        }
+
+        throw new IllegalStateException("error.currentPlayerNoDefuser");
     }
 
-    void setIsFaceUp(boolean isFaceUp) {
-        this.isFaceUp = isFaceUp;
-    }
-
-    public void playDefuse(int drawPileIndex) {
-        Card defuse = getCurrentPlayerDefuse();
-        getCurrentPlayer().removeCardFromHand(defuse);
-        discardPile.addCard(defuse);
-
-        Card explodingKitten = drawPile.removeTop();
-        drawPile.insertCardAt(explodingKitten, drawPileIndex);
-    }
-
-    private Card getCurrentPlayerDefuse() {
+    private Card getCurrentPlayerCardOfType(CardType cardType) {
         for (Card card : getCurrentPlayer().getHand()) {
-            if (card.getType() == CardType.DEFUSE) {
+            if (card.getType() == cardType) {
                 return card;
             }
         }
 
-        throw new IllegalStateException("error.currentPlayerNoDefuse");
+        throw new IllegalStateException("error.currentPlayerNoCardOfCardtype");
     }
 
     public void playExplode() {

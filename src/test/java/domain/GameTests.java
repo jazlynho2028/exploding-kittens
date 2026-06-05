@@ -1370,7 +1370,7 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithNoDefuser")
+	@MethodSource("provideCurrentPlayerHandWithNoDefuserAndTopDiscardCard")
 	public void isDefusable_returnFalse(
 			List<CardType> currentPlayerHandCardTypes) {
 
@@ -1397,7 +1397,7 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
-	private static Stream<Arguments> provideCurrentPlayerHandsWithNoDefuser() {
+	private static Stream<Arguments> provideCurrentPlayerHandWithNoDefuserAndTopDiscardCard() {
 		return Stream.of(
 				Arguments.of(List.of()),
 				Arguments.of(List.of(CardType.ATTACK)),
@@ -1407,7 +1407,7 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithDefuser")
+	@MethodSource("provideCurrentPlayerHandWithDefuserAndTopDiscardCard")
 	public void isDefusable_hasDefuser_returnTrue(
 			List<CardType> currentPlayerHandCardTypes) {
 
@@ -1434,7 +1434,7 @@ public class GameTests {
 		EasyMock.verify(game);
 	}
 
-	private static Stream<Arguments> provideCurrentPlayerHandsWithDefuser() {
+	private static Stream<Arguments> provideCurrentPlayerHandWithDefuserAndTopDiscardCard() {
 		return Stream.of(
 				Arguments.of(List.of(CardType.DEFUSE)),
 				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE)),
@@ -1450,7 +1450,7 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithNoDefuser")
+	@MethodSource("provideCurrentPlayerHandWithNoDefuserAndTopDiscardCard")
 	public void playDefuse_noDefuser_failed(List<CardType> currentPlayerHandCardTypes) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
@@ -1474,7 +1474,7 @@ public class GameTests {
 		Exception exception = assertThrows(IllegalStateException.class, () ->
 				game.playDefuse(drawPileIndex));
 
-		String expectedMsg = "error.currentPlayerNoDefuse";
+		String expectedMsg = "error.currentPlayerNoDefuser";
 		String actualMsg = exception.getMessage();
 
 		assertEquals(expectedMsg, actualMsg);
@@ -1483,7 +1483,7 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithDefuserIndex")
+	@MethodSource("provideCurrentPlayerHandWithDefuserIndex")
 	public void playDefuse_hasDefuser_reinsertExplodingKitten(
 			List<CardType> currentPlayerHandCardTypes, int defuseIndex) {
 
@@ -1527,12 +1527,13 @@ public class GameTests {
 		EasyMock.verify(game, currentPlayer, drawPile, discardPile);
 	}
 
-	private static Stream<Arguments> provideCurrentPlayerHandsWithDefuserIndex() {
+	private static Stream<Arguments> provideCurrentPlayerHandWithDefuserIndex() {
 		return Stream.of(
 				Arguments.of(List.of(CardType.DEFUSE), 0),
 				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE), 1),
 				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP), 0),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE), 0)
+				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE), 0),
+				Arguments.of(List.of(CardType.GODCAT), 0)
 		);
 	}
 
@@ -1891,7 +1892,7 @@ public class GameTests {
 
 		for (CardType cardType : cardTypes) {
 			Card card = EasyMock.createMock(Card.class);
-			EasyMock.expect(card.getType()).andReturn(cardType).anyTimes();
+			EasyMock.expect(card.getType()).andStubReturn(cardType);
 			EasyMock.replay(card);
 
 			selectedCards.add(card);
@@ -1905,7 +1906,7 @@ public class GameTests {
 
 		for (String cardId : cardIds) {
 			Card card = EasyMock.createMock(Card.class);
-			EasyMock.expect(card.getId()).andReturn(cardId).anyTimes();
+			EasyMock.expect(card.getId()).andStubReturn(cardId);
 			EasyMock.replay(card);
 
 			selectedCards.add(card);
