@@ -174,7 +174,7 @@ public class GameTests {
 		EasyMock.expect(players.size()).andStubReturn(numPlayers);
 
 		for (int i = 1; i <= numKittens; i++) {
-			drawPile.addCard(mockSpecificCard(CardType.EXPLODING_KITTEN, i));
+			drawPile.addCardToTop(mockSpecificCard(CardType.EXPLODING_KITTEN, i));
 			EasyMock.expectLastCall();
 		}
 
@@ -508,7 +508,7 @@ public class GameTests {
 			currentPlayer.removeCardFromHand(selectedCard);
 			EasyMock.expectLastCall();
 
-			discardPile.addCard(selectedCard);
+			discardPile.addCardToTop(selectedCard);
 			EasyMock.expectLastCall();
 		}
 	}
@@ -1513,7 +1513,7 @@ public class GameTests {
 		currentPlayer.removeCardFromHand(defuse);
 		EasyMock.expectLastCall();
 
-		discardPile.addCard(defuse);
+		discardPile.addCardToTop(defuse);
 		EasyMock.expectLastCall();
 
 		Card explodingKitten = EasyMock.createMock(Card.class);
@@ -1567,7 +1567,7 @@ public class GameTests {
 		currentPlayer.removeCardFromHand(defuse);
 		EasyMock.expectLastCall();
 
-		discardPile.addCard(defuse);
+		discardPile.addCardToTop(defuse);
 		EasyMock.expectLastCall();
 
 		Card explodingKitten = EasyMock.createMock(Card.class);
@@ -1860,6 +1860,96 @@ public class GameTests {
 		);
 	}
 
+	@Test
+	public void applySwapTopAndBottom_emptyDeck_remainsEmpty() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(drawPile.size()).andReturn(0);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applySwapTopAndBottom();
+
+		EasyMock.verify(drawPile);
+	}
+
+	@Test
+	public void applySwapTopAndBottom_oneCard_deckUnchanged() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(drawPile.size()).andReturn(1);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applySwapTopAndBottom();
+
+		EasyMock.verify(drawPile);
+	}
+
+	@Test
+	public void applySwapTopAndBottom_moreThanOneCard_swapped() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card card1 = new Card("SKIP_1", CardType.SKIP);
+		Card card4 = new Card("ATTACK_1", CardType.ATTACK);
+
+		final int drawPileSize = 4;
+		EasyMock.expect(drawPile.size()).andReturn(drawPileSize);
+		EasyMock.expect(drawPile.removeTop()).andReturn(card1);
+		EasyMock.expect(drawPile.removeBottom()).andReturn(card4);
+
+		drawPile.addCardToTop(mockSpecificCard(CardType.ATTACK, 1));
+		EasyMock.expectLastCall();
+		drawPile.addCardToBottom(mockSpecificCard(CardType.SKIP, 1));
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applySwapTopAndBottom();
+
+		EasyMock.verify(drawPile);
+	}
+
+	@Test
+	public void applySwapTopAndBottom_sameType_swapped() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card explodingKitten1 = new Card("EXPLODINGKITTEN_1", CardType.EXPLODING_KITTEN);
+		Card explodingKitten2 = new Card("EXPLODINGKITTEN_2", CardType.EXPLODING_KITTEN);
+
+		final int drawPileSize = 4;
+		EasyMock.expect(drawPile.size()).andReturn(drawPileSize);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
+		EasyMock.expect(drawPile.removeBottom()).andReturn(explodingKitten2);
+
+		drawPile.addCardToTop(mockSpecificCard(CardType.EXPLODING_KITTEN, 2));
+		EasyMock.expectLastCall();
+		drawPile.addCardToBottom(mockSpecificCard(CardType.EXPLODING_KITTEN, 1));
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applySwapTopAndBottom();
+
+		EasyMock.verify(drawPile);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
@@ -1891,6 +1981,13 @@ public class GameTests {
 		boolean matchesId = Objects.equals(card.getId(), expectedId);
 
 		return matchesType && matchesId;
+	}
+
+	private Card mockCardOfType(CardType cardType) {
+		Card card = EasyMock.createMock(Card.class);
+		EasyMock.expect(card.getType()).andStubReturn(cardType);
+		EasyMock.replay(card);
+		return card;
 	}
 
 }
