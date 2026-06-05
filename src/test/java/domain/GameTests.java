@@ -1904,9 +1904,7 @@ public class GameTests {
 		Card card1 = new Card("SKIP_1", CardType.SKIP);
 		Card card4 = new Card("ATTACK_1", CardType.ATTACK);
 
-		final int deckSize = 4;
-		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
-		EasyMock.expect(drawPile.size()).andReturn(deckSize);
+		EasyMock.expect(drawPile.size()).andReturn(4);
 		EasyMock.expect(drawPile.removeTop()).andReturn(card1);
 		EasyMock.expect(drawPile.removeBottom()).andReturn(card4);
 
