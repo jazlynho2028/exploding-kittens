@@ -581,7 +581,7 @@
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
 
 ### Method under test: `applySwapTopAndBottom()`
-- **TC90: Draw pile has zero cards** ( :x: )
+- **TC90: Draw pile has zero cards** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_emptyDeck_remainsEmpty
   - **State of the system**: draw pile is empty
   - **Expected output**: draw pile remains empty
