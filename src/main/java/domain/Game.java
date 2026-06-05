@@ -310,6 +310,9 @@ public class Game {
         if (currentPlayerHasCardType(CardType.DEFUSE)) {
             return getCurrentPlayerCardOfType(CardType.DEFUSE);
         }
+        else if (canUseCloneAsDefuse()) {
+            return getCurrentPlayerCardOfType(CardType.CLONE);
+        }
         else if (currentPlayerHasCardType(CardType.GODCAT)) {
             return getCurrentPlayerCardOfType(CardType.GODCAT);
         }
