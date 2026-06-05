@@ -1444,7 +1444,8 @@ public class GameTests {
 				Arguments.of(List.of(CardType.SKIP, CardType.GODCAT)),
 				Arguments.of(List.of(CardType.GODCAT, CardType.SKIP)),
 				Arguments.of(List.of(CardType.GODCAT, CardType.GODCAT)),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.GODCAT))
+				Arguments.of(List.of(CardType.DEFUSE, CardType.GODCAT)),
+				Arguments.of(List.of(CardType.GODCAT, CardType.DEFUSE))
 		);
 	}
 
