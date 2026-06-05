@@ -287,6 +287,7 @@ public class Game {
     }
 
     public boolean isDefusable() {
+        Card topDiscardCard = discardPile.peekTop();
         return currentPlayerHasCardType(CardType.DEFUSE) ||
                 currentPlayerHasCardType(CardType.GODCAT);
     }

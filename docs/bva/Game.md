@@ -613,73 +613,127 @@
 ### Method under test: `isDefusable()`
 - **TC94: Empty hand** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
-  - **State of the system**: currentPlayerHandCardTypes = []
-  - **Expected output**: return false
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = []
+    - topDiscardType = DEFUSE
+  - **Expected output**: 
+    - discardCard.peekTop returns topDiscardCard
+    - return false
 
 - **TC95: Hand with one card type, no Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
-  - **State of the system**: currentPlayerHandCardTypes = [ATTACK]
-  - **Expected output**: return false
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [ATTACK]
+    - topDiscardType = ATTACK
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return false
 
 - **TC96: Hand with two different card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
-  - **State of the system**: currentPlayerHandCardTypes = [ATTACK, SKIP]
-  - **Expected output**: return false
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [ATTACK, SKIP]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return false
 
 - **TC97: Hand with two same card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
-  - **State of the system**: currentPlayerHandCardTypes = [SKIP, SKIP]
-  - **Expected output**: return false
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [SKIP, SKIP]
+    - topDiscardType = ATTACK
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return false
 
 - **TC98: Hand with one card type, has Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE]
-  - **Expected output**: return true
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [DEFUSE]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
 
 - **TC99: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**: currentPlayerHandCardTypes = [SKIP, DEFUSE]
-  - **Expected output**: return true
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [SKIP, DEFUSE]
+    - topDiscardType = SKIP
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
 
 - **TC100: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, SKIP]
-  - **Expected output**: return true
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [DEFUSE, SKIP]
+    - topDiscardType = ATTACK
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
 
 - **TC101: Hand with two same card types, has Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
-  - **Expected output**: return true
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
 
 - **TC98: Hand with one card type, has Godcat** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**: currentPlayerHandCardTypes = [GODCAT]
-  - **Expected output**: return true
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [GODCAT]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
 
 - **TC99: Hand with two different card types, has Godcat at end** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**: currentPlayerHandCardTypes = [SKIP, GODCAT]
-  - **Expected output**: return true
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [SKIP, GODCAT]
+    - topDiscardType = SKIP
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
 
 - **TC100: Hand with two different card types, has Godcat at front** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**: currentPlayerHandCardTypes = [GODCAT, SKIP]
-  - **Expected output**: return true
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [GODCAT, SKIP]
+    - topDiscardType = ATTACK
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
 
 - **TC101: Hand with two same card types, has Godcat** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**: currentPlayerHandCardTypes = [GODCAT, GODCAT]
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [GODCAT, GODCAT]
+    - topDiscardType = DEFUSE
   - **Expected output**: return true
 
 - **TC100: Hand with Defuse and Godcat** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, GODCAT]
-  - **Expected output**: return true
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [DEFUSE, GODCAT]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
 
 - **TC100: Hand with Godcat and Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**: currentPlayerHandCardTypes = [GODCAT, DEFUSE]
-  - **Expected output**: return true
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [GODCAT, DEFUSE]
+    - topDiscardType = ATTACK
+  - **Expected output**:
+    - discardCard.peekTop returns topDiscardCard
+    - return true
 
 ### Method under test: `playDefuse(int drawPileIndex)`
 - **TC102: Empty hand** ( :white_check_mark: )
