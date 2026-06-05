@@ -742,6 +742,32 @@
   - **State of the system:**  game is ongoing, drawCount = 1, 4 players, currentPlayerIndex = 0
   - **Expected output:** drawCount resets to 1 (from incrementTurn), currentPlayerIndex = 1, turn has advanced automatically
 
+### Method under test: `getSeeTheFutureCardIds()`
+- **TC117: Empty list** ( :white_check_mark: )
+  - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
+  - **State of the system:** topCards = []
+  - **Expected output:** return []
+
+- **TC118: One card** ( :x: )
+  - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
+  - **State of the system:** topCards = [SKIP_1]
+  - **Expected output:** return ["SKIP_1"]
+
+- **TC119: Two different card ids** ( :x: )
+  - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
+  - **State of the system:** topCards = [SKIP_1, SKIP_2]
+  - **Expected output:** return ["SKIP_1", "SKIP_2"]
+
+- **TC120: Two different card types** ( :x: )
+  - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
+  - **State of the system:** topCards = [SKIP_1, ATTACK_1]
+  - **Expected output:** return ["SKIP_1", "ATTACK_1"]
+
+- **TC121: Two same cards** ( :x: )
+  - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
+  - **State of the system:** topCards = [SKIP_1, SKIP_1]
+  - **Expected output:** return ["SKIP_1", "SKIP_1"]
+
 ### Method under test: `applyGodcat(CardType cardType)`
 - **TC117: Invalid card type** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_invalidCardType_throwsException
