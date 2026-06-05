@@ -340,7 +340,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<Card> selectedCards = getCardMocksWithTypeExpectations(selectedCardTypes);
+		List<Card> selectedCards = mockCardsOfTypes(selectedCardTypes);
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(selectedCards);
 
@@ -377,7 +377,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<Card> selectedCards = getCardMocksWithTypeExpectations(selectedCardTypes);
+		List<Card> selectedCards = mockCardsOfTypes(selectedCardTypes);
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(selectedCards);
 
@@ -1379,13 +1379,13 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+		List<Card> currentPlayerHandCards = mockCardsOfTypes(
 				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
 
-		Card topDiscardCard = getCardMockWithTypeExpectation(topDiscardType);
+		Card topDiscardCard = mockCardOfType(topDiscardType);
 		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
@@ -1427,13 +1427,13 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+		List<Card> currentPlayerHandCards = mockCardsOfTypes(
 				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
 
-		Card topDiscardCard = getCardMockWithTypeExpectation(topDiscardType);
+		Card topDiscardCard = mockCardOfType(topDiscardType);
 		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
@@ -1501,13 +1501,13 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		int drawPileIndex = 0;
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+		List<Card> currentPlayerHandCards = mockCardsOfTypes(
 				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
 
-		Card topDiscardCard = getCardMockWithTypeExpectation(topDiscardType);
+		Card topDiscardCard = mockCardOfType(topDiscardType);
 		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
@@ -1541,13 +1541,13 @@ public class GameTests {
 
 		int drawPileIndex = 0;
 
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+		List<Card> currentPlayerHandCards = mockCardsOfTypes(
 				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
 
-		Card topDiscardCard = getCardMockWithTypeExpectation(topDiscardType);
+		Card topDiscardCard = mockCardOfType(topDiscardType);
 		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
 
 		Card defuse = currentPlayerHandCards.get(defuseIndex);
@@ -1633,7 +1633,7 @@ public class GameTests {
 		String expectedMsg = "error.invalidDeckIndex";
 
 		List<CardType> currentPlayerHandCardTypes = List.of(CardType.DEFUSE);
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+		List<Card> currentPlayerHandCards = mockCardsOfTypes(
 				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
@@ -1875,7 +1875,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<Card> cards = getCardMocksWithIdExpectations(expectedCardIds);
+		List<Card> cards = mockCardsWithIds(expectedCardIds);
 
 		EasyMock.expect(drawPile.peekTopNCards(SEE_THE_FUTURE_PEEK_COUNT))
 				.andReturn(cards);
@@ -1973,11 +1973,11 @@ public class GameTests {
 		);
 	}
 
-	private static List<Card> getCardMocksWithTypeExpectations(List<CardType> cardTypes) {
+	private static List<Card> mockCardsOfTypes(List<CardType> cardTypes) {
 		List<Card> selectedCards = new ArrayList<>();
 
 		for (CardType cardType : cardTypes) {
-			Card card = getCardMockWithTypeExpectation(cardType);
+			Card card = mockCardOfType(cardType);
 
 			selectedCards.add(card);
 		}
@@ -1985,7 +1985,7 @@ public class GameTests {
 		return selectedCards;
 	}
 
-	private static Card getCardMockWithTypeExpectation(CardType cardType) {
+	private static Card mockCardOfType(CardType cardType) {
 		Card card = EasyMock.createMock(Card.class);
 		EasyMock.expect(card.getType()).andStubReturn(cardType);
 		EasyMock.replay(card);
@@ -1993,11 +1993,11 @@ public class GameTests {
 		return card;
 	}
 
-	private static List<Card> getCardMocksWithIdExpectations(List<String> cardIds) {
+	private static List<Card> mockCardsWithIds(List<String> cardIds) {
 		List<Card> selectedCards = new ArrayList<>();
 
 		for (String cardId : cardIds) {
-			Card card = getCardMockWithIdExpectation(cardId);
+			Card card = mockCardWithId(cardId);
 
 			selectedCards.add(card);
 		}
@@ -2005,7 +2005,7 @@ public class GameTests {
 		return selectedCards;
 	}
 
-	private static Card getCardMockWithIdExpectation(String cardId) {
+	private static Card mockCardWithId(String cardId) {
 		Card card = EasyMock.createMock(Card.class);
 		EasyMock.expect(card.getId()).andStubReturn(cardId);
 		EasyMock.replay(card);

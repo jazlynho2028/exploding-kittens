@@ -196,8 +196,7 @@
     - expectUpdateDiscardPile is satisfied with canDrawFromDiscard and topDiscardId
     - rebindHandCards is called
     - expectUpdateTurnControls is satisfied with canEndTurn
-    - getCurrentPlayerIndexExpectation is satisfied
-    - handleChangeCurrentPlayer is called with currentPlayerIndex
+    - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
 - **TC23: Cards play successfully, See The Future card** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_seeTheFuturePlayed_updatedPlayer

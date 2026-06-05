@@ -657,10 +657,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expectLastCall();
 
 		expectUpdateTurnControls(canEndTurn);
-		getCurrentPlayerIndexExpectation();
-
-		controller.handleChangeCurrentPlayer(CURRENT_PLAYER_INDEX);
-		EasyMock.expectLastCall();
+		expectRenderNextTurn(controller, CURRENT_PLAYER_INDEX, canEndTurn);
 
 		EasyMock.replay(model, view, controller);
 

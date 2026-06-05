@@ -203,7 +203,7 @@ public class PlayerDeckController {
 
             switch (cardType) {
                 case SKIP:
-                    handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
+                    renderNextTurn();
                     break;
                 case SEE_THE_FUTURE:
                     view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
