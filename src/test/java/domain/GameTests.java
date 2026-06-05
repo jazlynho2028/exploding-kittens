@@ -1893,4 +1893,39 @@ public class GameTests {
 		return matchesType && matchesId;
 	}
 
+	@ParameterizedTest
+	@CsvSource({
+			"0, 1",
+			"1, 0",
+			"0, 3",
+			"3, 0"
+	})
+	public void applyTargetedAttack_validTargets_successfullyCalled(
+			 int currentPlayerIndex, int targetPlayerIndex) {
+
+		List<Player> players = EasyMock.createMock(List.class);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		EasyMock.expect(players.get(currentPlayerIndex)).andReturn(currentPlayer);
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		turnManager.setCurrentPlayerIndex(targetPlayerIndex);
+		EasyMock.expectLastCall();
+
+		turnManager.setDrawCount(GameConstants.NUM_TARGETED_ATTACK_DRAW_COUNT);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, currentPlayer, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applyTargetedAttack(targetPlayerIndex);
+
+		EasyMock.verify(players, currentPlayer, drawPile, discardPile, turnManager);
+	}
 }
+

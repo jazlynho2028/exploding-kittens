@@ -346,8 +346,10 @@ public class Game {
         // TODO
     }
 
-    void applyTargetedAttack() {
-        // TODO
+    public void applyTargetedAttack(int targetPlayerIndex) {
+        getCurrentPlayer().deselectHandCards();
+        turnManager.setCurrentPlayerIndex(targetPlayerIndex);
+        turnManager.setDrawCount(GameConstants.NUM_TARGETED_ATTACK_DRAW_COUNT);
     }
 
     void applyWinnerWinnerCatnipDinner() {
