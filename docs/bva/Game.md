@@ -836,7 +836,7 @@
 - **TC102: Empty hand** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
   - **State of the system**: getCurrentPlayer.getHand = []
-  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuse"
+  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
 
 - **TC103: Hand with one card type, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
@@ -931,6 +931,96 @@
   - **Expected output**: 
     - getCurrentPlayer.removeCardFromHand(card2) is called
     - discardPile.addCard with card2 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC98: Hand with one card type, has Clone** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - discardPile.addCard with card1 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC99: Hand with two different card types, has Clone at end** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [SKIP, CLONE]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card2) is called
+    - discardPile.addCard with card2 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC100: Hand with two different card types, has Clone at front** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE, SKIP]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - discardPile.addCard with card1 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC101: Hand with two same card types, has Clone** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE, CLONE]
+    - topDiscardType = DEFUSE
+  - **Expected output**: 
+    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - discardPile.addCard with card1 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC100: Hand with Defuse and Clone** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [DEFUSE, CLONE]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card1) is called
+    - discardPile.addCard with card1 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC100: Hand with Clone and Defuse** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE, DEFUSE]
+    - topDiscardType = ATTACK
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card2) is called
+    - discardPile.addCard with card2 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC100: Hand with Clone and Godcat, use Godcat** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE, GODCAT]
+    - topDiscardType = ATTACK
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card2) is called
+    - discardPile.addCard with card2 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC100: Hand with Godcat and Clone, use Clone** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [GODCAT, CLONE]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card2) is called
+    - discardPile.addCard with card2 is called
+    - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
+
+- **TC100: Hand with Godcat, Clone, Defuse** ( :x: )
+  - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [GODCAT, CLONE, DEFUSE]
+    - topDiscardType = DEFUSE
+  - **Expected output**:
+    - getCurrentPlayer.removeCardFromHand(card3) is called
+    - discardPile.addCard with card3 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC110: Invalid draw pile index** ( :white_check_mark: )

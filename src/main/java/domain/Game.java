@@ -277,19 +277,17 @@ public class Game {
         this.isFaceUp = isFaceUp;
     }
 
-    public void playDefuse(int drawPileIndex) {
-        Card defuse = findDefuser();
-        getCurrentPlayer().removeCardFromHand(defuse);
-        discardPile.addCard(defuse);
-
-        Card explodingKitten = drawPile.removeTop();
-        drawPile.insertCardAt(explodingKitten, drawPileIndex);
-    }
-
     public boolean isDefusable() {
         return currentPlayerHasCardType(CardType.DEFUSE) ||
                 canUseCloneAsDefuse() ||
                 currentPlayerHasCardType(CardType.GODCAT);
+    }
+
+    private boolean currentPlayerHasCardType(CardType cardType) {
+        List<Card> currentPlayerHand = getCurrentPlayer().getHand();
+
+        return currentPlayerHand.stream()
+                .anyMatch(card -> card.getType() == cardType);
     }
 
     private boolean canUseCloneAsDefuse() {
@@ -299,11 +297,13 @@ public class Game {
                 (topDiscardCard.getType() == CardType.DEFUSE);
     }
 
-    private boolean currentPlayerHasCardType(CardType cardType) {
-        List<Card> currentPlayerHand = getCurrentPlayer().getHand();
+    public void playDefuse(int drawPileIndex) {
+        Card defuse = findDefuser();
+        getCurrentPlayer().removeCardFromHand(defuse);
+        discardPile.addCard(defuse);
 
-        return currentPlayerHand.stream()
-                .anyMatch(card -> card.getType() == cardType);
+        Card explodingKitten = drawPile.removeTop();
+        drawPile.insertCardAt(explodingKitten, drawPileIndex);
     }
 
     private Card findDefuser() {
