@@ -330,7 +330,9 @@ public class Game {
         List<Card> topCards = drawPile.peekTopNCards(
                 GameConstants.SEE_THE_FUTURE_PEEK_COUNT);
 
-        return List.of();
+        return topCards.stream()
+                .map(Card::getId)
+                .collect(Collectors.toList());
     }
 
     void applyCatomicBomb() {

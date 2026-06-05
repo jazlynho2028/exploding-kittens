@@ -748,7 +748,7 @@
   - **State of the system:** topCards = []
   - **Expected output:** return []
 
-- **TC118: One card** ( :x: )
+- **TC118: One card** ( :white_check_mark: )
   - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
   - **State of the system:** topCards = [SKIP_1]
   - **Expected output:** return ["SKIP_1"]

@@ -1775,15 +1775,15 @@ public class GameTests {
 				mockDrawPile, mockDiscardPile, mockTurnManager);
 	}
 
-	@Test
-	public void getSeeTheFutureCardIds_called_returnTopDrawPileCards() {
+	@ParameterizedTest
+	@MethodSource("provideCardIds")
+	public void getSeeTheFutureCardIds_called_returnTopDrawPileCards(List<String> expectedCardIds) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<Card> cards = List.of();
-		List<String> expectedCardIds = List.of();
+		List<Card> cards = getCardMocksWithIdExpectations(expectedCardIds);
 
 		EasyMock.expect(drawPile.peekTopNCards(SEE_THE_FUTURE_PEEK_COUNT))
 				.andReturn(cards);
@@ -1797,6 +1797,13 @@ public class GameTests {
 		assertEquals(expectedCardIds, actualCardIds);
 
 		EasyMock.verify(drawPile);
+	}
+
+	private static Stream<Arguments> provideCardIds() {
+		return Stream.of(
+				Arguments.of(List.of()),
+				Arguments.of(List.of("SKIP_1")),
+		);
 	}
 
 	@Test
