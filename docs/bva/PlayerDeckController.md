@@ -189,7 +189,30 @@
     - model.canEndTurn is called
     - view.showGodcatOverlay is NOT called
 
-- **TC20: Cards play successfully, Godcat card** ( :white_check_mark: )
+- **TC20: Cards play successfully, Super Skip card** ( :x: )
+  - **Name of the test**: onPlayCardsButton_superSkipPlayed_updatedPlayer
+  - **State of the system**:
+    - canDrawFromDiscard = true
+    - topDiscardId = "SUPER_SKIP_1"
+    - canPlaySelected = true
+    - canEndTurn = true
+    - playSelectedCards returns CardType.SUPER_SKIP
+    - getCurrentPlayerIndex returns 0
+  - **Expected output**:
+    - model.playSelectedCards is called
+    - view.renderDiscardPile with model.canDrawFromDiscard and model.getTopDiscardId is called
+    - rebindHandCards is called
+    - view.renderTurnControlSection with model.canPlaySelected and model.canEndTurn is called
+    - handleNewTurn is called with model.getCurrentPlayerIndex:
+      - model.changeCurrentPlayerIndex is called
+      - model.setFaceUpToFalse is called
+      - view.renderPlayerNameTags is called
+      - view.renderHandVisibilityButton is called
+      - rebindHandCards is called
+      - view.renderDrawPile is called
+      - view.buildAndRenderTurnControlSection is called
+
+- **TC21: Cards play successfully, Godcat card** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_godcatPlayed_overlayShown
   - **State of the system**:
     - canDrawFromDiscard = true
@@ -207,13 +230,13 @@
     - model.canEndTurn is called
     - view.showGodcatOverlay is called
 
-- **TC21: Caught exception from model** ( :white_check_mark: )
+- **TC22: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed
   - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onEndTurnButton()`
-- **TC22: Turn ends successfully** ( :white_check_mark: )
+- **TC23: Turn ends successfully** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_success
   - **State of the system**: 
     - currentPlayerIndex = 0
@@ -228,31 +251,31 @@
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.buildAndRenderTurnControlSection is called with isGameOngoing, canPlaySelected, and canEndTurn
 
-- **TC23: Caught exception from model** ( :white_check_mark: )
+- **TC24: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_failed
   - **State of the system**: model.advanceTurn throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ### Method under test: `onGodcatConfirm()`
-- **TC24: Confirm called successfully** ( :white_check_mark: )
+- **TC25: Confirm called successfully** ( :white_check_mark: )
   - **Name of the test**: onGodcatConfirm_validCardType_success
   - **State of the system**: view.getSelectedGodcatCardType returns CardType.ATTACK
   - **Expected output**: onConfirmGodcatCard() is called with CardType.ATTACK
 
-- **TC25: Caught exception** ( :white_check_mark: )
+- **TC26: Caught exception** ( :white_check_mark: )
   - **Name of the test**: 
   - **State of the system**: view.geonGodcatConfirm_modelThrowsException_failedtSelectedGodcatCardType throws RuntimeException with message "An error occurred."
   - **Expected output**: onError is called with the exception message
 
 ### Method under test: `onConfirmGodcatCard(CardType cardType)`
-- **TC26: Valid card type** ( :white_check_mark: )
+- **TC27: Valid card type** ( :white_check_mark: )
   - **Name of the test**: onConfirmGodcatCard_validCardType_applyCardTypeCalled
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: 
     - model.applyCardType(CardType.ATTACK) is called
     - view.hideGodcatOverlay() is called
 
-- **TC27: Invalid card type** ( :white_check_mark: )
+- **TC28: Invalid card type** ( :white_check_mark: )
   - **Name of the test**: onConfirmGodcatCard_modelThrowsException_failed
   - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType; model.applyCardType() throws exception
   - **Expected output**: onError is called with the exception message
