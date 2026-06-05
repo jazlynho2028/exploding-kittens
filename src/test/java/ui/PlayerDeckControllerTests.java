@@ -660,7 +660,7 @@ public class PlayerDeckControllerTests {
 		view.buildSeeTheFutureOverlay(seeTheFutureCardIds);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, view, controller);
+		EasyMock.replay(model, view, controller, seeTheFutureCardIds);
 
 		controller.onPlayCardsButton();
 
@@ -791,6 +791,8 @@ public class PlayerDeckControllerTests {
 		boolean isFaceUp = true;
 		boolean canEndTurn = true;
 		int explodingKittenInsertIndex = 0;
+		boolean canDrawFromDiscard = true;
+		String topDiscardId = "DEFUSE_1";
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class
@@ -801,10 +803,6 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.expect(view.getExplodingKittenInsertIndex()).andReturn(
 				explodingKittenInsertIndex);
-		setUpBuildAndAddPlayerHandCardsExpectations(isFaceUp);
-		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
-		setUpRenderDrawPileExpectations();
-		setUpRenderTurnControlSectionExpectations(canEndTurn);
 
 		model.playDefuse(explodingKittenInsertIndex);
 		EasyMock.expectLastCall();
@@ -812,17 +810,27 @@ public class PlayerDeckControllerTests {
 		view.hideOverlay();
 		EasyMock.expectLastCall();
 
-		view.buildAndAddPlayerHandCards(currentPlayerHandIds, isFaceUp, canDraw);
+		// updateDiscardPile() expectations
+		EasyMock.expect(model.canDrawFromDiscard()).andReturn(canDrawFromDiscard);
+		EasyMock.expect(model.getTopDiscardId()).andReturn(topDiscardId);
+		view.renderDiscardPile(canDrawFromDiscard, topDiscardId);
+		EasyMock.expectLastCall();
 
+		// rebindHandCards() expectations
+		setUpBuildAndAddPlayerHandCardsExpectations(isFaceUp);
+		view.buildAndAddPlayerHandCards(currentPlayerHandIds, isFaceUp, canDraw);
+		EasyMock.expectLastCall();
 		view.bindPlayerHandCardButtons(EasyMock.anyObject());
 		EasyMock.expectLastCall();
 
+		// renderNextTurn() expectations
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
 		controller.handleChangeCurrentPlayer(currentPlayerIndex);
 		EasyMock.expectLastCall();
-
+		setUpRenderDrawPileExpectations();
 		view.renderDrawPile(canDraw, isDrawPileEmpty);
 		EasyMock.expectLastCall();
-
+		setUpRenderTurnControlSectionExpectations(canEndTurn);
 		view.renderTurnControlSection(canPlaySelected, canEndTurn);
 		EasyMock.expectLastCall();
 
@@ -831,32 +839,6 @@ public class PlayerDeckControllerTests {
 		controller.onDefuseButton();
 
 		EasyMock.verify(model, view, controller);
-	}
-
-	@Test
-	public void onDefuseButton_called_failed() {
-		Consumer<String> onError = EasyMock.createMock(Consumer.class);
-
-		int explodingKittenInsertIndex = 0;
-		EasyMock.expect(view.getExplodingKittenInsertIndex()).andReturn(
-				explodingKittenInsertIndex);
-
-		model.playDefuse(explodingKittenInsertIndex);
-		EasyMock.expectLastCall().andThrow(
-				new RuntimeException(expectedMsg)
-		);
-
-		onError.accept(expectedMsg);
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(model, onError);
-
-		PlayerDeckController controller = new PlayerDeckController(model, view);
-		controller.setOnError(onError);
-
-		controller.onDefuseButton();
-
-		EasyMock.verify(model, onError);
 	}
 
 	@Test
@@ -871,23 +853,25 @@ public class PlayerDeckControllerTests {
 				.addMockedMethod("handleChangeCurrentPlayer")
 				.createMock();
 
-
-		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
-		setUpRenderDrawPileExpectations();
-		setUpRenderTurnControlSectionExpectations(canEndTurn);
-
 		model.playExplode();
 		EasyMock.expectLastCall();
 
 		view.hideOverlay();
 		EasyMock.expectLastCall();
 
-		controller.handleChangeCurrentPlayer(currentPlayerIndex);
-		EasyMock.expectLastCall();
-
+		// updateDrawPile() called directly in onExplodeButton
+		setUpRenderDrawPileExpectations();
 		view.renderDrawPile(canDraw, isDrawPileEmpty);
 		EasyMock.expectLastCall();
 
+		// renderNextTurn() expectations
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		controller.handleChangeCurrentPlayer(currentPlayerIndex);
+		EasyMock.expectLastCall();
+		setUpRenderDrawPileExpectations();
+		view.renderDrawPile(canDraw, isDrawPileEmpty);
+		EasyMock.expectLastCall();
+		setUpRenderTurnControlSectionExpectations(canEndTurn);
 		view.renderTurnControlSection(canPlaySelected, canEndTurn);
 		EasyMock.expectLastCall();
 

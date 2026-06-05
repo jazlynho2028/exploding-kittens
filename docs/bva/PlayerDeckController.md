@@ -301,9 +301,12 @@
     - isDrawPileEmpty = true
     - canPlaySelected = true
     - canEndTurn = true
+    - canDrawFromDiscard = true
+    - topDiscardId = "DEFUSE_1"
   - **Expected output**:
     - model.playDefuse is called with view.getExplodingKittenInsertIndex
     - view.hideOverlay is called
+    - view.renderDiscardPile is called with canDrawFromDiscard and topDiscardId
     - view.buildAndAddPlayerHandCards is called with currentPlayerHandIds, isFaceUp, and canDraw
     - view.bindPlayerHandCardButtons is called
     - handleChangeCurrentPlayer is called with currentPlayerIndex
@@ -327,6 +330,7 @@
   - **Expected output**:
     - model.playExplode is called
     - view.hideOverlay is called
+    - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - handleChangeCurrentPlayer is called with currentPlayerIndex
     - view.renderDrawPile is called with canDraw and isDrawPileEmpty
     - view.renderTurnControls is called with canPlaySelected and canEndTurn
