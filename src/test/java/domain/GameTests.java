@@ -933,7 +933,7 @@ public class GameTests {
 			"1",
 			"2"
 	})
-	public void getCanDraw_called_returnTrue(int drawCount) {
+	public void getCanDraw_canDrawFalse_returnTrue(int drawCount) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
