@@ -857,80 +857,80 @@
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE]
   - **Expected output**:
-    - getCurrentPlayer.removeCardFromHand(card1) is called
-    - discardPile.addCard with card1 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 0 is called
+    - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC107: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, DEFUSE]
   - **Expected output**:
-    - getCurrentPlayer.removeCardFromHand(card2) is called
-    - discardPile.addCard with card2 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 1 is called
+    - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC108: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, SKIP]
   - **Expected output**:
-    - getCurrentPlayer.removeCardFromHand(card1) is called
-    - discardPile.addCard with card1 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 0 is called
+    - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC109: Hand with two same card types, has Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
   - **Expected output**:
-    - getCurrentPlayer.removeCardFromHand(card1) is called
-    - discardPile.addCard with card1 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 0 is called
+    - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC98: Hand with one card type, has Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT]
   - **Expected output**:
-    - getCurrentPlayer.removeCardFromHand(card1) is called
-    - discardPile.addCard with card1 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 0 is called
+    - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC99: Hand with two different card types, has Godcat at end** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, GODCAT]
   - **Expected output**: 
-    - getCurrentPlayer.removeCardFromHand(card2) is called
-    - discardPile.addCard with card2 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 1 is called
+    - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC100: Hand with two different card types, has Godcat at front** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, SKIP]
   - **Expected output**: 
-    - getCurrentPlayer.removeCardFromHand(card1) is called
-    - discardPile.addCard with card1 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 0 is called
+    - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC101: Hand with two same card types, has Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, GODCAT]
   - **Expected output**: 
-    - getCurrentPlayer.removeCardFromHand(card1) is called
-    - discardPile.addCard with card1 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 0 is called
+    - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC100: Hand with Defuse and Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, GODCAT]
   - **Expected output**: 
-    - getCurrentPlayer.removeCardFromHand(card1) is called
-    - discardPile.addCard with card1 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 0 is called
+    - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC100: Hand with Godcat and Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, DEFUSE]
   - **Expected output**: 
-    - getCurrentPlayer.removeCardFromHand(card2) is called
-    - discardPile.addCard with card2 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 1 is called
+    - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC98: Hand with one card type, has Clone** ( :white_check_mark: )
@@ -939,8 +939,8 @@
     - currentPlayerHandCardTypes = [CLONE]
     - topDiscardType = DEFUSE
   - **Expected output**:
-    - getCurrentPlayer.removeCardFromHand(card1) is called
-    - discardPile.addCard with card1 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 0 is called
+    - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC99: Hand with two different card types, has Clone at end** ( :white_check_mark: )
@@ -949,8 +949,8 @@
     - currentPlayerHandCardTypes = [SKIP, CLONE]
     - topDiscardType = DEFUSE
   - **Expected output**:
-    - getCurrentPlayer.removeCardFromHand(card2) is called
-    - discardPile.addCard with card2 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 1 is called
+    - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC100: Hand with two different card types, has Clone at front** ( :white_check_mark: )
@@ -959,8 +959,8 @@
     - currentPlayerHandCardTypes = [CLONE, SKIP]
     - topDiscardType = DEFUSE
   - **Expected output**:
-    - getCurrentPlayer.removeCardFromHand(card1) is called
-    - discardPile.addCard with card1 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 0 is called
+    - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC101: Hand with two same card types, has Clone** ( :white_check_mark: )
@@ -969,8 +969,8 @@
     - currentPlayerHandCardTypes = [CLONE, CLONE]
     - topDiscardType = DEFUSE
   - **Expected output**: 
-    - getCurrentPlayer.removeCardFromHand(card1) is called
-    - discardPile.addCard with card1 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 0 is called
+    - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC100: Hand with Defuse and Clone** ( :white_check_mark: )
@@ -979,8 +979,8 @@
     - currentPlayerHandCardTypes = [DEFUSE, CLONE]
     - topDiscardType = DEFUSE
   - **Expected output**:
-    - getCurrentPlayer.removeCardFromHand(card1) is called
-    - discardPile.addCard with card1 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 0 is called
+    - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC100: Hand with Clone and Defuse** ( :white_check_mark: )
@@ -990,17 +990,17 @@
     - topDiscardType = ATTACK
   - **Expected output**:
     - getCurrentPlayer.removeCardFromHand(card2) is called
-    - discardPile.addCard with card2 is called
+    - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC100: Hand with Clone and Godcat, use Godcat** ( :x: )
+- **TC100: Hand with Clone and Godcat, use Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, GODCAT]
     - topDiscardType = ATTACK
   - **Expected output**:
-    - getCurrentPlayer.removeCardFromHand(card2) is called
-    - discardPile.addCard with card2 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 1 is called
+    - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC100: Hand with Godcat and Clone, use Clone** ( :x: )
@@ -1009,8 +1009,8 @@
     - currentPlayerHandCardTypes = [GODCAT, CLONE]
     - topDiscardType = DEFUSE
   - **Expected output**:
-    - getCurrentPlayer.removeCardFromHand(card2) is called
-    - discardPile.addCard with card2 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 1 is called
+    - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC100: Hand with Godcat, Clone, Defuse** ( :x: )
@@ -1019,8 +1019,8 @@
     - currentPlayerHandCardTypes = [GODCAT, CLONE, DEFUSE]
     - topDiscardType = DEFUSE
   - **Expected output**:
-    - getCurrentPlayer.removeCardFromHand(card3) is called
-    - discardPile.addCard with card3 is called
+    - getCurrentPlayer.removeCardFromHand with card at index 2 is called
+    - discardPile.addCard with card at index 2 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
 - **TC110: Invalid draw pile index** ( :white_check_mark: )
