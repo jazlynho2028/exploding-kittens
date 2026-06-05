@@ -983,7 +983,7 @@
     - discardPile.addCard with card1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC100: Hand with Clone and Defuse** ( :x: )
+- **TC100: Hand with Clone and Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, DEFUSE]

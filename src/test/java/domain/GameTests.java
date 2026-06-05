@@ -1568,7 +1568,8 @@ public class GameTests {
 				Arguments.of(List.of(CardType.SKIP, CardType.CLONE), 1, CardType.DEFUSE),
 				Arguments.of(List.of(CardType.CLONE, CardType.SKIP), 0, CardType.DEFUSE),
 				Arguments.of(List.of(CardType.CLONE, CardType.CLONE), 0, CardType.DEFUSE),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.CLONE), 0, CardType.DEFUSE)
+				Arguments.of(List.of(CardType.DEFUSE, CardType.CLONE), 0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.DEFUSE), 1, CardType.DEFUSE)
 		);
 	}
 
