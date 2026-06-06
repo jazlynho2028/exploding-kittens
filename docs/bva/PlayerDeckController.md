@@ -171,52 +171,11 @@
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onPlayCardsButton()`
-- **TC21: Cards play successfully, no additional UI change** ( :white_check_mark: )
-  - **Name of the test**: onPlayCardsButton_noAdditionalUIChange_success
-  - **State of the system**:
-    - canDrawFromDiscard = true
-    - topDiscardId = "DOUBLEUP_1"
-    - canEndTurn = true
-    - selectedCards = [DOUBLE_UP]
-  - **Expected output**:
-    - model.playSelectedCards is called
-    - expectUpdateDiscardPile is satisfied with canDrawFromDiscard and topDiscardId
-    - rebindHandCards is called
-    - expectUpdateTurnControls is satisfied with canEndTurn
-
-- **TC22: Cards play successfully, Skip card** ( :white_check_mark: )
-  - **Name of the test**: onPlayCardsButton_skipPlayed_updatedPlayer
-  - **State of the system**:
-    - canDrawFromDiscard = true
-    - topDiscardId = "SKIP_1"
-    - canEndTurn = true
-    - selectedCards = [SKIP]
-  - **Expected output**:
-    - model.playSelectedCards is called
-    - expectUpdateDiscardPile is satisfied with canDrawFromDiscard and topDiscardId
-    - rebindHandCards is called
-    - expectUpdateTurnControls is satisfied with canEndTurn
-    - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
-
-- **TC23: Cards play successfully, See The Future card** ( :white_check_mark: )
-  - **Name of the test**: onPlayCardsButton_seeTheFuturePlayed_updatedPlayer
-  - **State of the system**:
-    - canDrawFromDiscard = true
-    - topDiscardId = "SEETHEFUTURE_1"
-    - canEndTurn = true
-    - selectedCards = [SEE_THE_FUTURE]
-  - **Expected output**:
-    - model.playSelectedCards is called
-    - expectUpdateDiscardPile is satisfied with canDrawFromDiscard and topDiscardId
-    - rebindHandCards is called
-    - expectUpdateTurnControls is satisfied with canEndTurn
-    - view.buildSeeTheFutureOverlay is called with model.peekSeeTheFutureCardIds
-
 - **TC24: Cards play successfully, Godcat card** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_godcatPlayed_overlayShown
   - **State of the system**:
     - canDrawFromDiscard = true
-    - topDiscardId = "GODCAT_1"
+    - playedCardId = "GODCAT_1"
     - canEndTurn = true
     - selectedCards = [GODCAT]
   - **Expected output**:
@@ -227,10 +186,55 @@
     - view.bindGodcatConfirmButton is called
     - view.buildGodcatOverlay is called with GameConstants.GODCAT_CARDTYPE_OPTIONS
 
+- **TC22: Non-Godcat card plays successfully** ( :white_check_mark: )
+  - **Name of the test**: onPlayCardsButton_skipPlayed_updateModel
+  - **State of the system**:
+    - canDrawFromDiscard = true
+    - playedCardId = "SKIP_1"
+    - canEndTurn = true
+    - selectedCards = [SKIP_1]
+  - **Expected output**:
+    - model.playSelectedCards is called
+    - expectUpdateDiscardPile is satisfied with canDrawFromDiscard and topDiscardId
+    - rebindHandCards is called
+    - expectUpdateTurnControls is satisfied with canEndTurn
+    - updateByCardType is called with card
+
 - **TC25: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed
   - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
+
+## Method under test: `updateByCardType(CardType cardType)`
+- **TC21: Cards play successfully, no additional UI change** ( :white_check_mark: )
+  - **Name of the test**: updateByCardType_noAdditionalUIChange_success
+  - **State of the system**: cardType =
+    - ATTACK
+    - SHUFFLE
+    - CATOMIC_BOMB
+    - SUPER_SKIP
+    - CLONE
+    - SWAP_TOP_AND_BOTTOM
+    - DRAW_FROM_THE_BOTTOM
+    - TARGETED_ATTACK
+    - WINNER_WINNER_CATNIP_DINNER
+    - RAGEBAIT
+    - RECYCLE
+    - DOUBLE_UP
+    - MILD_SHUFFLE 
+  - **Expected output**: N/A
+
+- **TC22: UI updated successfully, Skip card** ( :x: )
+  - **Name of the test**: updateByCardType_skipPlayed_updateUI
+  - **State of the system**: cardType = SKIP
+  - **Expected output**:
+    - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
+
+- **TC23: UI updated successfully, See The Future card** ( :x: )
+  - **Name of the test**: updateByCardType_seeTheFuturePlayed_updateUI
+  - **State of the system**: cardType = SEE_THE_FUTURE
+  - **Expected output**:
+    - view.buildSeeTheFutureOverlay is called with model.peekSeeTheFutureCardIds
 
 ## Method under test: `onEndTurnButton()`
 - **TC26: Turn ends successfully** ( :white_check_mark: )
@@ -285,26 +289,16 @@
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onGodcatConfirm()`
-- **TC32: Confirm called successfully** ( :white_check_mark: )
-  - **Name of the test**: onGodcatConfirm_validCardType_success
-  - **State of the system**: selectedGodcatCardType = ATTACK
-  - **Expected output**: onConfirmGodcatCard is called with view.getSelectedGodcatCardType
-
-- **TC33: Caught exception** ( :white_check_mark: )
-  - **Name of the test**: onGodcatConfirm_modelThrowsException_failed
-  - **State of the system**: view.getSelectedGodcatCardType throws RuntimeException "An error occurred."
-  - **Expected output**: onError accepts exception
-
-## Method under test: `onConfirmGodcatCard(CardType cardType)`
 - **TC34: Valid card type** ( :white_check_mark: )
-  - **Name of the test**: onConfirmGodcatCard_validCardType_applyGodcatCalled
+  - **Name of the test**: onGodcatConfirm_validCardType_applyGodcatCalled
   - **State of the system**: cardType = ATTACK
   - **Expected output**:
     - model.applyGodcat is called with CardType.ATTACK
     - view.hideOverlay is called
+    - expectUpdateTurnControls is satisfied
 
 - **TC35: Model throws on invalid card type** ( :white_check_mark: )
-  - **Name of the test**: onConfirmGodcatCard_modelThrowsException_failed
+  - **Name of the test**: onGodcatConfirm_modelThrowsException_failed
   - **State of the system**: 
     - cardType = EXPLODING_KITTEN
     - model.applyGodcat throws RuntimeException "An error occurred."
