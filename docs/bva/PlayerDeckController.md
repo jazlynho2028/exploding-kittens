@@ -281,6 +281,24 @@
   - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
+- **TC25: Targeted Attack card played** ( :x: )
+  - **Name of the test**: onPlayCardsButton_targetedAttackPlayed_targetSelectionEnabled
+  - **State of the system**:
+    - canDrawFromDiscard = true
+    - topDiscardId = "TARGETED_ATTACK_1"
+    - canPlaySelected = true
+    - canEndTurn = true
+    - currentPlayerIndex = 0
+    - playSelectedCards returns CardType.TARGETED_ATTACK
+  - **Expected output**:
+    - model.playSelectedCards is called
+    - view.renderDiscardPile(canDrawFromDiscard, topDiscardId) is called
+    - rebindHandCards is called
+    - view.renderTurnControlSection(canPlaySelected, canEndTurn) is called
+    - pendingTargetCard becomes CardType.TARGETED_ATTACK
+    - view.enableTargetSelectionMode(currentPlayerIndex) is called
+    - view.renderTurnControlSection(false, false) is called
+
 ### Method under test: `onEndTurnButton()`
 - **TC25: Turn ends successfully** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_success
