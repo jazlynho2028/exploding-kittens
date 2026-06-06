@@ -224,7 +224,7 @@
     - MILD_SHUFFLE 
   - **Expected output**: N/A
 
-- **TC22: UI updated successfully, Skip card** ( :x: )
+- **TC22: UI updated successfully, Skip card** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_skipPlayed_updateUI
   - **State of the system**: cardType = SKIP
   - **Expected output**:
