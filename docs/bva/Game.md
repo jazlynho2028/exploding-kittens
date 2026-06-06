@@ -1082,9 +1082,19 @@
   - **Expected output:** return ["SKIP_1", "SKIP_1"]
 
 ### Method under test: `applyGodcat(CardType cardType)`
-- **TC117: Invalid card type** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_invalidGodcat_throwsException
+- **TC117: Invalid card type Godcat** ( :white_check_mark: )
+  - **Name of the test**: applyGodcat_invalidCardType_throwsException
   - **State of the system**: CardType.GODCAT passed as cardType
+  - **Expected output**: throws exception "error.cannotPlaySelectedCards"
+
+- **TC117: Invalid card type Exploding Kitten** ( :x: )
+  - **Name of the test**: applyGodcat_invalidCardType_throwsException
+  - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType
+  - **Expected output**: throws exception "error.cannotPlaySelectedCards"
+
+- **TC117: Invalid card type Defuse** ( :x: )
+  - **Name of the test**: applyGodcat_invalidCardType_throwsException
+  - **State of the system**: CardType.DEFUSE passed as cardType
   - **Expected output**: throws exception "error.cannotPlaySelectedCards"
 
 - **TC118: Valid card type Attack** ( :white_check_mark: )

@@ -1888,8 +1888,9 @@ public class GameTests {
 		);
 	}
 
-	@Test
-	public void applyGodcat_invalidGodcat_throwsException() {
+	@ParameterizedTest
+	@MethodSource("provideInvalidGodcatCardTypes")
+	public void applyGodcat_invalidCardType_throwsException(CardType cardType) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1900,12 +1901,18 @@ public class GameTests {
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
 		Exception exception = assertThrows(IllegalArgumentException.class, () ->
-				game.applyGodcat(CardType.GODCAT));
+				game.applyGodcat(cardType));
 
 		String expectedMsg = "error.cannotPlaySelectedCards";
 		String actualMsg = exception.getMessage();
 
 		assertEquals(expectedMsg, actualMsg);
+	}
+
+	private static Stream<Arguments> provideInvalidGodcatCardTypes() {
+		return Stream.of(
+				Arguments.of(CardType.GODCAT)
+		);
 	}
 
 	@ParameterizedTest
