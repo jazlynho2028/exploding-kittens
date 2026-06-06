@@ -213,7 +213,7 @@
     - view.buildSeeTheFutureOverlay is called with model.peekSeeTheFutureCardIds
 
 - **TC24: Cards play successfully, Super Skip card** ( :white_check_mark: )
-    - **Name of the test**: onPlayCardsButton_superSkipPlayed_updatedPlayer
+    - **Name of the test**: onPlayCardsButton_skipPlayed_updatedPlayer
     - **State of the system**:
         - canDrawFromDiscard = true
         - topDiscardId = "SUPER_SKIP_1"

@@ -9,10 +9,13 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -635,12 +638,13 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, view, controller);
 	}
 
-	@Test
-	public void onPlayCardsButton_skipPlayed_updatedPlayer() {
+	@ParameterizedTest
+	@MethodSource("provideSkipAndSuperSkipTypeAndId")
+	public void onPlayCardsButton_skipPlayed_updatedPlayer(
+			String playedCardId, CardType playedCardType) {
+
 		boolean canDrawFromDiscard = true;
 		boolean canEndTurn = true;
-		String topDiscardId = "SKIP_1";
-		CardType topDiscardType = CardType.SKIP;
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class
@@ -650,8 +654,8 @@ public class PlayerDeckControllerTests {
 				.addMockedMethod("handleChangeCurrentPlayer")
 				.createMock();
 
-		EasyMock.expect(model.playSelectedCards()).andReturn(topDiscardType);
-		expectUpdateDiscardPile(canDrawFromDiscard, topDiscardId);
+		EasyMock.expect(model.playSelectedCards()).andReturn(playedCardType);
+		expectUpdateDiscardPile(canDrawFromDiscard, playedCardId);
 
 		controller.rebindHandCards();
 		EasyMock.expectLastCall();
@@ -664,6 +668,13 @@ public class PlayerDeckControllerTests {
 		controller.onPlayCardsButton();
 
 		EasyMock.verify(model, view, controller);
+	}
+
+	private static Stream<Arguments> provideSkipAndSuperSkipTypeAndId() {
+		return Stream.of(
+				Arguments.of("SKIP_1", CardType.SKIP),
+				Arguments.of("SUPERSKIP_1", CardType.SUPER_SKIP)
+		);
 	}
 
 	@Test
