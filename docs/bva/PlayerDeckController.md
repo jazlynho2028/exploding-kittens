@@ -65,30 +65,39 @@
     - model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
-- **TC8: Target selected during a Targeted Attack** ( :x: )
-  - **Name of the test**: onNameTag_awaitingTargetSelectionTrue_resolves
+- **TC8: pendingTargetCard is not null** ( :x: )
+  - **Name of the test**: onNameTag_pendingTargetCardNotNull_resolvesPendingCard
   - **State of the system**:
     - pendingTargetCard = CardType.TARGETED_ATTACK
     - playerIndex = 1
     - model.getCurrentPlayerIndex() returns 2
+    - model.getIsGameOngoing() returns true
+    - model.canPlaySelected() returns true
+    - model.canEndTurn() returns false
   - **Expected output**:
-    - model.applyTargetedAttack(1) is called
+    - applyPendingTargetCard(1) is called (mocked)
     - pendingTargetCard becomes null
     - view.disableTargetSelectionMode(2, true) is called
     - handleChangeCurrentPlayer(2) is called
     - view.renderTurnControlSection(true, false) is called
 
-- **TC9: Target selected for an unsupported pending card type** ( :x: )
-  - **Name of the test**: onNameTag_pendingTargetCardIsDefault_ignoresAttack
+## Method under test: `applyPendingTargetCard(int playerIndex)`
+- **TC9: pendingTargetCard is TARGETED_ATTACK** ( :x: )
+  - **Name of the test**: applyPendingTargetCard_targetedAttack_appliesAttack
   - **State of the system**:
-    - pendingTargetCard = any card which doesn't target Card.SKIP
+    - pendingTargetCard = CardType.TARGETED_ATTACK
     - playerIndex = 1
-    - model.getCurrentPlayerIndex() returns 0
   - **Expected output**:
-    - model.applyTargetedAttack(1) is not called
-    - pendingTargetCard becomes null
-    - view.disableTargetSelectionMode(0, true) is called
-    - handleChangeCurrentPlayer(2) is called
+    - model.applyTargetedAttack(1) is called
+
+- **TC10: pendingTargetCard is an unsupported card type** ( :x: )
+  - **Name of the test**: applyPendingTargetCard_defaultCard_doesNothing
+  - **State of the system**:
+    - pendingTargetCard = CardType.SKIP
+    - playerIndex = 1
+  - **Expected output**:
+    - model.applyTargetedAttack is not called
+
 ### Method under test: `handleChangeCurrentPlayer(int playerIndex)`
 - **TC8: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: handleChangeCurrentPlayer_playerChanges_success
