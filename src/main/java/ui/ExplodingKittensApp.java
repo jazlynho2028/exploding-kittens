@@ -81,8 +81,6 @@ public class ExplodingKittensApp extends Application {
         Game model = new Game(players, drawPile, discardPile, turnManager);
         model.setUp();
 
-        players.get(0).addCardToHand(new Card("CATOMICBOMB_1", CardType.CATOMIC_BOMB));
-
         showPlayerDeckScreen(model, stage);
     }
 
