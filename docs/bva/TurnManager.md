@@ -50,7 +50,7 @@
     - roundCount = 1
 
 
-- **TC8: Advance turn on boundary just before list wraps around** ( :x: )
+- **TC8: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
