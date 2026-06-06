@@ -525,6 +525,7 @@ public class Game {
     }
 
     void applyRecycle() {
+        discardPile.shuffle();
         canDrawFromDiscard = true;
     }
 
