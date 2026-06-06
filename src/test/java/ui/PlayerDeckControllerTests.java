@@ -730,7 +730,6 @@ public class PlayerDeckControllerTests {
 
 	@Test
 	public void updateByCardType_skipPlayed_updateUI() {
-		CardType cardType = CardType.SKIP;
 		boolean canEndTurn = true;
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(
@@ -744,9 +743,25 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.replay(model, view, controller);
 
-		controller.updateByCardType(cardType);
+		controller.updateByCardType(CardType.SKIP);
 
 		EasyMock.verify(model, view, controller);
+	}
+
+	@Test
+	public void updateByCardType_seeTheFuturePlayed_updateUI() {
+		EasyMock.expect(model.getSeeTheFutureCardIds()).andReturn(List.of());
+
+		view.buildSeeTheFutureOverlay(List.of());
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+
+		controller.updateByCardType(CardType.SEE_THE_FUTURE);
+
+		EasyMock.verify(model, view);
 	}
 
 	@Test

@@ -230,11 +230,11 @@
   - **Expected output**:
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
-- **TC23: UI updated successfully, See The Future card** ( :x: )
+- **TC23: UI updated successfully, See The Future card** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_seeTheFuturePlayed_updateUI
   - **State of the system**: cardType = SEE_THE_FUTURE
   - **Expected output**:
-    - view.buildSeeTheFutureOverlay is called with model.peekSeeTheFutureCardIds
+    - view.buildSeeTheFutureOverlay is called with model.getSeeTheFutureCardIds
 
 ## Method under test: `onEndTurnButton()`
 - **TC26: Turn ends successfully** ( :white_check_mark: )
