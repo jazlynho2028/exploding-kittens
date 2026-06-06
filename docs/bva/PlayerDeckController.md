@@ -65,6 +65,30 @@
     - model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
+- **TC8: Target selected during a Targeted Attack** ( :x: )
+  - **Name of the test**: onNameTag_awaitingTargetSelectionTrue_resolves
+  - **State of the system**:
+    - pendingTargetCard = CardType.TARGETED_ATTACK
+    - playerIndex = 1
+    - model.getCurrentPlayerIndex() returns 2
+  - **Expected output**:
+    - model.applyTargetedAttack(1) is called
+    - pendingTargetCard becomes null
+    - view.disableTargetSelectionMode(2, true) is called
+    - handleChangeCurrentPlayer(2) is called
+    - view.renderTurnControlSection(true, false) is called
+
+- **TC9: Target selected for an unsupported pending card type** ( :x: )
+  - **Name of the test**: onNameTag_pendingTargetCardIsDefault_ignoresAttack
+  - **State of the system**:
+    - pendingTargetCard = any card which doesn't target Card.SKIP
+    - playerIndex = 1
+    - model.getCurrentPlayerIndex() returns 0
+  - **Expected output**:
+    - model.applyTargetedAttack(1) is not called
+    - pendingTargetCard becomes null
+    - view.disableTargetSelectionMode(0, true) is called
+    - handleChangeCurrentPlayer(2) is called
 ### Method under test: `handleChangeCurrentPlayer(int playerIndex)`
 - **TC8: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: handleChangeCurrentPlayer_playerChanges_success
