@@ -3111,9 +3111,6 @@ public class GameTests {
 
 		String expectedMsg = "error.emptyDeck";
 
-		discardPile.shuffle();
-		EasyMock.expectLastCall();
-
 		EasyMock.expect(discardPile.removeBottom()).andThrow(
 				new IllegalStateException(expectedMsg)
 		);
