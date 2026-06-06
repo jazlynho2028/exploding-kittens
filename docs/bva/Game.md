@@ -1197,3 +1197,9 @@
         - drawPile.addCardToTop(EXPLODINGKITTEN_2) called
         - drawPile.addCardToBottom(EXPLODINGKITTEN_1) called;
         - draw pile has four cards; card order is ['EXPLODING KITTEN 2', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 1']
+
+### Method under test: `applyShuffle()`
+- **TC94: Apply shuffle card effect** ( :x: )
+  - **Name of the test**: `applyShuffle_called_shufflesDrawPile`
+  - **State of the system**: Shuffle card effect is applied
+  - **Expected output**: `drawPile.shuffle()` is called
