@@ -644,7 +644,7 @@
     - addCardToTop called for EXPLODINGKITTEN_1, EXPLODINGKITTEN_2
     - draw pile order is ['EXPLODINGKITTEN_1', 'EXPLODINGKITTEN_2', 'SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
 
-- **TC95: All cards in draw pile are Exploding Kittens** ( :x: )
+- **TC95: All cards in draw pile are Exploding Kittens** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_allExplodingKittens_deckOrderUnchanged
   - **State of the system**: draw pile contains ['EXPLODING KITTEN_1', 'EXPLODING KITTEN_2', 'EXPLODING KITTEN_3']
   - **Expected output**: 
