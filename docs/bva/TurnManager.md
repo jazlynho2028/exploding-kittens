@@ -60,7 +60,7 @@
     - currentPlayerIndex = N - 1
     - roundCount = 2
 
-- **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :x: )
+- **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
