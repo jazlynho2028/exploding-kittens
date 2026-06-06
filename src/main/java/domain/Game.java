@@ -95,7 +95,7 @@ public class Game {
         for (int i = 1; i <= numKittens; i++) {
             String cardId = createCardId(CardType.EXPLODING_KITTEN, i);
             Card kitten = new Card(cardId, CardType.EXPLODING_KITTEN);
-            drawPile.addCard(kitten);
+            drawPile.addCardToTop(kitten);
         }
     }
 
@@ -143,7 +143,7 @@ public class Game {
             card.toggleSelected();
 
             getCurrentPlayer().removeCardFromHand(card);
-            discardPile.addCard(card);
+            discardPile.addCardToTop(card);
         }
 
         switch (cardType) {
@@ -269,13 +269,6 @@ public class Game {
         turnManager.incrementTurn();
     }
 
-    public boolean currentPlayerHasDefuse() {
-        List<Card> currentPlayerHand = getCurrentPlayer().getHand();
-
-        return currentPlayerHand.stream()
-                .anyMatch(card -> card.getType() == CardType.DEFUSE);
-    }
-
     void setIsGameOngoing(boolean isGameOngoing) {
         this.isGameOngoing = isGameOngoing;
     }
@@ -284,23 +277,57 @@ public class Game {
         this.isFaceUp = isFaceUp;
     }
 
+    public boolean isDefusable() {
+        return currentPlayerHasCardType(CardType.DEFUSE) ||
+                canUseCloneAsDefuse() ||
+                currentPlayerHasCardType(CardType.GODCAT);
+    }
+
+    private boolean currentPlayerHasCardType(CardType cardType) {
+        List<Card> currentPlayerHand = getCurrentPlayer().getHand();
+
+        return currentPlayerHand.stream()
+                .anyMatch(card -> card.getType() == cardType);
+    }
+
+    private boolean canUseCloneAsDefuse() {
+        Card topDiscardCard = discardPile.peekTop();
+
+        return currentPlayerHasCardType(CardType.CLONE) &&
+                (topDiscardCard.getType() == CardType.DEFUSE);
+    }
+
     public void playDefuse(int drawPileIndex) {
-        Card defuse = getCurrentPlayerDefuse();
+        Card defuse = findDefuser();
         getCurrentPlayer().removeCardFromHand(defuse);
-        discardPile.addCard(defuse);
+        discardPile.addCardToTop(defuse);
 
         Card explodingKitten = drawPile.removeTop();
         drawPile.insertCardAt(explodingKitten, drawPileIndex);
     }
 
-    private Card getCurrentPlayerDefuse() {
+    private Card findDefuser() {
+        if (currentPlayerHasCardType(CardType.DEFUSE)) {
+            return getCurrentPlayerCardOfType(CardType.DEFUSE);
+        }
+        else if (canUseCloneAsDefuse()) {
+            return getCurrentPlayerCardOfType(CardType.CLONE);
+        }
+        else if (currentPlayerHasCardType(CardType.GODCAT)) {
+            return getCurrentPlayerCardOfType(CardType.GODCAT);
+        }
+
+        throw new IllegalStateException("error.currentPlayerNoDefuser");
+    }
+
+    private Card getCurrentPlayerCardOfType(CardType cardType) {
         for (Card card : getCurrentPlayer().getHand()) {
-            if (card.getType() == CardType.DEFUSE) {
+            if (card.getType() == cardType) {
                 return card;
             }
         }
 
-        throw new IllegalStateException("error.currentPlayerNoDefuse");
+        throw new IllegalStateException("error.currentPlayerNoCardOfCardtype");
     }
 
     public void playExplode() {
@@ -308,7 +335,7 @@ public class Game {
 
         getCurrentPlayer().deselectHandCards();
         turnManager.incrementTurn();
-        // TODO unalive current player
+        // TODO: unalive current player
     }
 
     void applyAttack() {
@@ -326,6 +353,15 @@ public class Game {
         }
     }
 
+    public List<String> getSeeTheFutureCardIds() {
+        List<Card> topCards = drawPile.peekTopNCards(
+                GameConstants.SEE_THE_FUTURE_PEEK_COUNT);
+
+        return topCards.stream()
+                .map(Card::getId)
+                .collect(Collectors.toList());
+    }
+
     void applyCatomicBomb() {
         // TODO
     }
@@ -340,7 +376,15 @@ public class Game {
     }
 
     void applySwapTopAndBottom() {
-        // TODO
+        if (drawPile.size() <= 1) {
+            return;
+        }
+
+        Card top = drawPile.removeTop();
+        Card bottom = drawPile.removeBottom();
+
+        drawPile.addCardToTop(bottom);
+        drawPile.addCardToBottom(top);
     }
 
     void applyDrawFromTheBottom() {
