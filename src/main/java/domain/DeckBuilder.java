@@ -29,7 +29,7 @@ public class DeckBuilder {
     List<Card> initializeDeckWithoutDefuses() {
         List<Card> cardsList = new ArrayList<>();
 
-        addCards(cardsList, CardType.MILD_DRAW, NUM_MILD_DRAW_IN_GAME);
+        addCards(cardsList, CardType.MILD_SHUFFLE, NUM_MILD_SHUFFLE_IN_GAME);
         addCards(cardsList, CardType.GODCAT, NUM_GODCAT_IN_GAME);
         addCards(cardsList, CardType.WINNER_WINNER_CATNIP_DINNER,
                 NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME);

@@ -82,8 +82,12 @@ public class Deck {
         return deck.removeLast();
     }
 
-    public void addCard(Card card) {
+    public void addCardToTop(Card card) {
         deck.addFirst(card);
+    }
+
+    public void addCardToBottom(Card card) {
+        deck.addLast(card);
     }
 
     public boolean isEmpty() {

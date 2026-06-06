@@ -6,64 +6,50 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static domain.DeckBuilder.createCardId;
-import static domain.GameConstants.*;
 
 public class Game {
 
-    private List<Player> players;
-    private Deck drawPile;
+    private final List<Player> players;
+    private final Deck drawPile;
+    private final Deck discardPile;
+    private final TurnManager turnManager;
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
 
-    private int roundCount;
-    private int drawCount;
-
-    private static final List<CardType> UNPLAYABLE_TYPES = List.of(
-            CardType.DEFUSE,
-            CardType.EXPLODING_KITTEN,
-            CardType.CAT_CARD_1,
-            CardType.CAT_CARD_2,
-            CardType.CAT_CARD_3,
-            CardType.CAT_CARD_4,
-            CardType.FERAL_CAT
-    );
-
-    private TurnManager turnManager;
-
     @SuppressFBWarnings(
-            value = {"EI_EXPOSE_REP2", "CT_CONSTRUCTOR_THROW"},
-            justification = "EI_EXPOSE_REP2: TurnManager is injected by for testability. " +
-                    "Defensive copy is not desired in this context. " +
-                    "CT_CONSTRUCTOR_THROW: Game is an internal domain object. Finalizer " +
-                    "attack is not a concern. It is Game's responsibility to " +
-                    "verify its inputs, and it cannot be made a final class for testability."
+            value = {"EI_EXPOSE_REP2"},
+            justification = "EI_EXPOSE_REP2: players, drawPile, discardPile, and turnManager " +
+                    "are injected by for testability and coverage. Defensive copy is not " +
+                    "desired in this context."
     )
     public Game(List<Player> players, Deck drawPile,
                 Deck discardPile, TurnManager turnManager) {
 
-        int numPlayers = players.size();
-        verifyMinPlayers(numPlayers);
-        verifyMaxPlayers(numPlayers);
-
-        this.players = List.copyOf(players);
+        this.players = players;
         this.drawPile = drawPile;
+        this.discardPile = discardPile;
         this.turnManager = turnManager;
 
         isGameOngoing = false;
         isFaceUp = false;
+    }
 
+    public void setUp() {
+        int numPlayers = players.size();
+        verifyMinPlayers(numPlayers);
+        verifyMaxPlayers(numPlayers);
         populatePlayerHands();
     }
 
     private void verifyMinPlayers(int numPlayers) {
-        if (numPlayers < MIN_PLAYERS) {
+        if (numPlayers < GameConstants.MIN_PLAYERS) {
             throw new IllegalArgumentException("error.minPlayers");
         }
     }
 
     private void verifyMaxPlayers(int numPlayers) {
-        if (numPlayers > MAX_PLAYERS) {
+        if (numPlayers > GameConstants.MAX_PLAYERS) {
             throw new IllegalArgumentException("error.maxPlayers");
         }
     }
@@ -76,7 +62,8 @@ public class Game {
 
     private void populateHandsWithDefuse() {
         for (int i = 0; i < players.size(); i++) {
-            String cardId = createCardId(CardType.DEFUSE, NUM_DEFUSES_IN_GAME - i);
+            String cardId = createCardId(
+                    CardType.DEFUSE, GameConstants.NUM_DEFUSES_IN_GAME - i);
             Card defuse = new Card(cardId, CardType.DEFUSE);
 
             players.get(i).addCardToHand(defuse);
@@ -85,7 +72,7 @@ public class Game {
 
     private void populateHandsWithNonDefuseStartingCards() {
         for (Player player : players) {
-            for (int i = 0; i < STARTING_HAND_SIZE - 1; i++) {
+            for (int i = 0; i < GameConstants.STARTING_HAND_SIZE - 1; i++) {
                 Card card = drawPile.removeTop();
                 player.addCardToHand(card);
             }
@@ -101,8 +88,6 @@ public class Game {
         drawPile.shuffle();
 
         isGameOngoing = true;
-        roundCount = 1;
-        drawCount = 1;
     }
 
     private void addExplodingKittens() {
@@ -110,7 +95,7 @@ public class Game {
         for (int i = 1; i <= numKittens; i++) {
             String cardId = createCardId(CardType.EXPLODING_KITTEN, i);
             Card kitten = new Card(cardId, CardType.EXPLODING_KITTEN);
-            drawPile.addCard(kitten);
+            drawPile.addCardToTop(kitten);
         }
     }
 
@@ -125,15 +110,15 @@ public class Game {
     }
 
     public int getStartingPlayerIndex() {
-        return STARTING_PLAYER_INDEX;
-    }
-
-    public List<String> getCurrentPlayerHandIds() {
-        return getCurrentPlayer().getHandIds();
+        return GameConstants.STARTING_PLAYER_INDEX;
     }
 
     public Player getCurrentPlayer() {
         return players.get(getCurrentPlayerIndex());
+    }
+
+    public List<String> getCurrentPlayerHandIds() {
+        return getCurrentPlayer().getHandIds();
     }
 
     public boolean canPlaySelected() {
@@ -141,12 +126,89 @@ public class Game {
         if (selectedCards.size() != 1) {
             return false;
         }
+
         CardType type = selectedCards.get(0).getType();
-        return !UNPLAYABLE_TYPES.contains(type);
+        return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type);
+    }
+
+    public CardType playSelectedCards() {
+        if (!canPlaySelected()) {
+            throw new IllegalStateException("error.cannotPlaySelectedCards");
+        }
+
+        List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
+        CardType cardType = selectedCards.get(0).getType();
+
+        for (Card card : selectedCards) {
+            card.toggleSelected();
+
+            getCurrentPlayer().removeCardFromHand(card);
+            discardPile.addCardToTop(card);
+        }
+
+        switch (cardType) {
+            case ATTACK:
+                applyAttack();
+                break;
+            case SHUFFLE:
+                applyShuffle();
+                break;
+            case SKIP:
+                applySkip();
+                break;
+            case SEE_THE_FUTURE:
+                break;
+            case CATOMIC_BOMB:
+                applyCatomicBomb();
+                break;
+            case SUPER_SKIP:
+                applySuperSkip();
+                break;
+            case GODCAT:
+                break;
+            case CLONE:
+                applyClone();
+                break;
+            case SWAP_TOP_AND_BOTTOM:
+                applySwapTopAndBottom();
+                break;
+            case DRAW_FROM_THE_BOTTOM:
+                applyDrawFromTheBottom();
+                break;
+            case TARGETED_ATTACK:
+                break;
+            case WINNER_WINNER_CATNIP_DINNER:
+                applyWinnerWinnerCatnipDinner();
+                break;
+            case RAGEBAIT:
+                applyRagebait();
+                break;
+            case RECYCLE:
+                applyRecycle();
+                break;
+            case DOUBLE_UP:
+                applyDoubleUp();
+                break;
+            case MILD_SHUFFLE:
+                applyMildShuffle();
+                break;
+            default:
+                throw new IllegalStateException("error.cannotPlaySelectedCards");
+        }
+
+        return cardType;
+    }
+
+    public String getTopDiscardId() {
+        return discardPile.peekTop().getId();
+    }
+
+    public boolean canDrawFromDiscard() {
+        return false;
     }
 
     public boolean canEndTurn() {
-        return getIsGameOngoing() && getDrawCount() == 0;
+        return isGameOngoing && turnManager.getDrawCount() == 0;
     }
 
     public boolean isDrawPileEmpty() {
@@ -158,7 +220,7 @@ public class Game {
     }
 
     public boolean getCanDraw() {
-        return getIsGameOngoing() && getDrawCount() > 0;
+        return isGameOngoing && turnManager.getDrawCount() > 0;
     }
 
     public boolean getIsFaceUp() {
@@ -173,9 +235,22 @@ public class Game {
         isFaceUp = false;
     }
 
-    public void drawFromPile() {
-        Card card = drawPile.removeTop();
-        getCurrentPlayer().addCardToHand(card);
+    public Card drawFromPile() {
+        Card card = drawPile.peekTop();
+
+        if (card.getType() != CardType.EXPLODING_KITTEN) {
+            drawPile.removeTop();
+            getCurrentPlayer().addCardToHand(card);
+        }
+
+        turnManager.decrementDrawCount();
+        getCurrentPlayer().deselectHandCards();
+
+        return card;
+    }
+
+    public int getDrawPileSize() {
+        return drawPile.size();
     }
 
     public void toggleFaceUp() {
@@ -190,19 +265,203 @@ public class Game {
         if (!canEndTurn()) {
             throw new IllegalStateException("error.cannotEndTurn");
         }
-        turnManager.advanceTurn();
         getCurrentPlayer().deselectHandCards();
+        turnManager.incrementTurn();
     }
 
-    int getRoundCount() {
-        return roundCount;
-    }
-
-    int getDrawCount() {
-        return drawCount;
+    void setIsGameOngoing(boolean isGameOngoing) {
+        this.isGameOngoing = isGameOngoing;
     }
 
     void setIsFaceUp(boolean isFaceUp) {
         this.isFaceUp = isFaceUp;
     }
+
+    public boolean isDefusable() {
+        return currentPlayerHasCardType(CardType.DEFUSE) ||
+                canUseCloneAsDefuse() ||
+                currentPlayerHasCardType(CardType.GODCAT);
+    }
+
+    private boolean currentPlayerHasCardType(CardType cardType) {
+        List<Card> currentPlayerHand = getCurrentPlayer().getHand();
+
+        return currentPlayerHand.stream()
+                .anyMatch(card -> card.getType() == cardType);
+    }
+
+    private boolean canUseCloneAsDefuse() {
+        Card topDiscardCard = discardPile.peekTop();
+
+        return currentPlayerHasCardType(CardType.CLONE) &&
+                (topDiscardCard.getType() == CardType.DEFUSE);
+    }
+
+    public void playDefuse(int drawPileIndex) {
+        Card defuse = findDefuser();
+        getCurrentPlayer().removeCardFromHand(defuse);
+        discardPile.addCardToTop(defuse);
+
+        Card explodingKitten = drawPile.removeTop();
+        drawPile.insertCardAt(explodingKitten, drawPileIndex);
+    }
+
+    private Card findDefuser() {
+        if (currentPlayerHasCardType(CardType.DEFUSE)) {
+            return getCurrentPlayerCardOfType(CardType.DEFUSE);
+        }
+        else if (canUseCloneAsDefuse()) {
+            return getCurrentPlayerCardOfType(CardType.CLONE);
+        }
+        else if (currentPlayerHasCardType(CardType.GODCAT)) {
+            return getCurrentPlayerCardOfType(CardType.GODCAT);
+        }
+
+        throw new IllegalStateException("error.currentPlayerNoDefuser");
+    }
+
+    private Card getCurrentPlayerCardOfType(CardType cardType) {
+        for (Card card : getCurrentPlayer().getHand()) {
+            if (card.getType() == cardType) {
+                return card;
+            }
+        }
+
+        throw new IllegalStateException("error.currentPlayerNoCardOfCardtype");
+    }
+
+    public void playExplode() {
+        drawPile.removeTop();
+
+        getCurrentPlayer().deselectHandCards();
+        turnManager.incrementTurn();
+        // TODO: unalive current player
+    }
+
+    void applyAttack() {
+        // TODO
+    }
+
+    void applyShuffle() {
+        // TODO
+    }
+
+    void applySkip() {
+        turnManager.decrementDrawCount();
+        if (canEndTurn()) {
+            advanceTurn();
+        }
+    }
+
+    public List<String> getSeeTheFutureCardIds() {
+        List<Card> topCards = drawPile.peekTopNCards(
+                GameConstants.SEE_THE_FUTURE_PEEK_COUNT);
+
+        return topCards.stream()
+                .map(Card::getId)
+                .collect(Collectors.toList());
+    }
+
+    void applyCatomicBomb() {
+        // TODO
+    }
+
+    void applySuperSkip() {
+        // TODO
+    }
+
+    void applyClone() {
+        // TODO
+    }
+
+    void applySwapTopAndBottom() {
+        if (drawPile.size() <= 1) {
+            return;
+        }
+
+        Card top = drawPile.removeTop();
+        Card bottom = drawPile.removeBottom();
+
+        drawPile.addCardToTop(bottom);
+        drawPile.addCardToBottom(top);
+    }
+
+    void applyDrawFromTheBottom() {
+        // TODO
+    }
+
+    void applyTargetedAttack() {
+        // TODO
+    }
+
+    void applyWinnerWinnerCatnipDinner() {
+        // TODO
+    }
+
+    void applyRagebait() {
+        // TODO
+    }
+
+    void applyRecycle() {
+        // TODO
+    }
+
+    void applyDoubleUp() {
+        // TODO
+    }
+
+    void applyMildShuffle() {
+        // TODO
+    }
+
+    public void applyGodcat(CardType cardType) {
+        switch (cardType) {
+            case ATTACK:
+                applyAttack();
+                break;
+            case SHUFFLE:
+                applyShuffle();
+                break;
+            case SKIP:
+                applySkip();
+                break;
+            case SEE_THE_FUTURE:
+                break;
+            case CATOMIC_BOMB:
+                applyCatomicBomb();
+                break;
+            case SUPER_SKIP:
+                applySuperSkip();
+                break;
+            case CLONE:
+                applyClone();
+                break;
+            case SWAP_TOP_AND_BOTTOM:
+                applySwapTopAndBottom();
+                break;
+            case DRAW_FROM_THE_BOTTOM:
+                applyDrawFromTheBottom();
+                break;
+            case TARGETED_ATTACK:
+                break;
+            case WINNER_WINNER_CATNIP_DINNER:
+                applyWinnerWinnerCatnipDinner();
+                break;
+            case RAGEBAIT:
+                applyRagebait();
+                break;
+            case RECYCLE:
+                applyRecycle();
+                break;
+            case DOUBLE_UP:
+                applyDoubleUp();
+                break;
+            case MILD_SHUFFLE:
+                applyMildShuffle();
+                break;
+            default:
+                throw new IllegalStateException("error.cannotPlaySelectedCards");
+        }
+    }
+
 }

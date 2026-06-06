@@ -1,6 +1,9 @@
 package ui;
 
+import domain.Card;
+import domain.CardType;
 import domain.Game;
+import domain.GameConstants;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
 
@@ -16,10 +19,10 @@ public class PlayerDeckController {
     private Consumer<String> onError;
 
     @SuppressFBWarnings(
-            value = "EI_EXPOSE_REP2",
-            justification = "View and model are injected by for compromise between MVC " +
-                    "pattern and testability, defensive copies are not applicable or not " +
-                    "desired for JavaFX components and Game objects."
+        value = "EI_EXPOSE_REP2",
+        justification = "View and model are injected by for compromise between MVC " +
+                "pattern and testability, defensive copies are not applicable or not " +
+                "desired for JavaFX components and Game objects."
     )
     public PlayerDeckController(Game model, PlayerDeckView view) {
         this.model = model;
@@ -64,6 +67,8 @@ public class PlayerDeckController {
         view.bindDrawPileButton(this::onDrawPile);
         view.bindHandVisibilityButton(this::onHandVisibilityButton);
         view.bindStartGameButton(this::onStartGameButton);
+        view.bindPlayCardsButton(this::onPlayCardsButton);
+        view.bindEndTurnButton(this::onEndTurnButton);
         view.bindNameTags(this::onNameTag);
         bindHandCards();
     }
@@ -106,12 +111,32 @@ public class PlayerDeckController {
 
     void onDrawPile() {
         attempt(onError, () -> {
-            model.drawFromPile();
+            Card drawnCard = model.drawFromPile();
 
-            updateDrawPile();
-            rebindHandCards();
-            updateTurnControls();
+            if (drawnCard.getType() == CardType.EXPLODING_KITTEN) {
+                handleDrawExplodingKitten(drawnCard.getId());
+            }
+            else {
+                rebindHandCards();
+                updateDrawPile();
+                updateTurnControls();
+            }
         });
+    }
+
+    private void handleDrawExplodingKitten(String cardId) {
+        boolean isDefusable = model.isDefusable();
+
+        if (isDefusable) {
+            view.bindDefuseButton(this::onDefuseButton);
+        }
+        else {
+            view.bindExplodeButton(this::onExplodeButton);
+        }
+
+        int drawPileSizeAfterDraw = model.getDrawPileSize() - 1;
+        view.buildExplodeOverlay(
+                isDefusable, cardId, drawPileSizeAfterDraw);
     }
 
     private void updateDrawPile() {
@@ -155,7 +180,6 @@ public class PlayerDeckController {
             model.startGame();
 
             handleChangeCurrentPlayer(model.getStartingPlayerIndex());
-
             updateDrawPile();
             rebuildTurnControl();
         });
@@ -167,6 +191,87 @@ public class PlayerDeckController {
                 model.canPlaySelected(),
                 model.canEndTurn()
         );
+    }
+
+    void onPlayCardsButton() {
+        attempt(onError, () -> {
+            CardType cardType = model.playSelectedCards();
+
+            updateDiscardPile();
+            rebindHandCards();
+            updateTurnControls();
+
+            switch (cardType) {
+                case SKIP:
+                    renderNextTurn();
+                    break;
+                case SEE_THE_FUTURE:
+                    view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
+                    break;
+                case GODCAT:
+                    view.bindGodcatConfirmButton(this::onGodcatConfirm);
+                    view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
+    private void updateDiscardPile() {
+        view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
+    }
+
+    void onEndTurnButton() {
+        attempt(onError, () -> {
+            model.advanceTurn();
+
+            renderNextTurn();
+        });
+    }
+
+    private void renderNextTurn() {
+        int newPlayerIndex = model.getCurrentPlayerIndex();
+        handleChangeCurrentPlayer(newPlayerIndex);
+        updateDrawPile();
+        updateTurnControls();
+    }
+
+    void onDefuseButton() {
+        attempt(onError, () -> {
+            model.playDefuse(view.getExplodingKittenInsertIndex());
+
+            view.hideOverlay();
+            updateDiscardPile();
+            rebindHandCards();
+
+            renderNextTurn();
+        });
+    }
+
+    void onExplodeButton() {
+        attempt(onError, () -> {
+            model.playExplode();
+
+            view.hideOverlay();
+            updateDrawPile();
+
+            renderNextTurn();
+        });
+    }
+
+    void onGodcatConfirm() {
+        attempt(onError, () -> {
+            CardType selectedCardType = view.getSelectedGodcatCardType();
+            onConfirmGodcatCard(selectedCardType);
+        });
+    }
+
+    void onConfirmGodcatCard(CardType cardType) {
+        attempt(onError, () -> {
+            model.applyGodcat(cardType);
+            view.hideOverlay();
+        });
     }
 
 }
