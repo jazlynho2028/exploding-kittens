@@ -645,7 +645,7 @@
     - turnManager.setDrawCount(0) is called 
     - advanceTurn() is called
 
-- **TC94: Multiple Exploding Kittens scattered throughput draw pile** ( :x: )
+- **TC94: Multiple Exploding Kittens scattered throughput draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_multipleExplodingKittens_allMovedToTop
   - **State of the system**: draw pile contains ['SKIP_1', 'EXPLODING KITTEN_1', 'ATTACK_1', 'EXPLODING KITTEN_2', 'SHUFFLE_1']
   - **Expected output**:
