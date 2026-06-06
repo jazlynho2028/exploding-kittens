@@ -750,7 +750,8 @@ public class PlayerDeckControllerTests {
 		boolean canEndTurn = true;
 		int currentPlayerIndex = 0;
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("rebindHandCards")
 				.createMock();
