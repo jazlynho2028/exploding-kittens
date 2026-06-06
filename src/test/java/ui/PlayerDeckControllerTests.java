@@ -613,7 +613,8 @@ public class PlayerDeckControllerTests {
 		view.renderTurnControlSection(canPlaySelected, canEndTurn);
 		EasyMock.expectLastCall();
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("rebindHandCards")
 				.addMockedMethod("handleChangeCurrentPlayer")
