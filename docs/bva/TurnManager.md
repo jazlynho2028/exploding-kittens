@@ -92,12 +92,12 @@
   - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"
 
 ### Method under test: `incrementDrawCount()`
-- **TC14: Decrementing from zero throws state exception** ( :x: )
-  - **Name of the test**: incrementDrawCount_fromZero_returnsOne
+- **TC14: Decrementing from zero throws state exception** ( :white_check_mark: )
+  - **Name of the test**: incrementDrawCount_validDrawCount_incrementedByOne
   - **State of the system**: drawCount = 0
   - **Expected output**: drawCount = 1
 
 - **TC15: incrementing from a positive value successfully increases count** ( :x: )
-  - **Name of the test**: incrementDrawCount_positiveDrawCount_incrementedByOne
+  - **Name of the test**: incrementDrawCount_validDrawCount_incrementedByOne
   - **State of the system**: drawCount = 1
   - **Expected output**: drawCount = 2

@@ -136,4 +136,22 @@ public class TurnManagerTests {
         assertEquals(expectedNewIndex, actualNewIndex);
     }
 
+    @ParameterizedTest
+    @CsvSource ({
+            "0, 1"
+    })
+    public void incrementDrawCount_validDrawCount_incrementedByOne(
+            int initialDrawCount, int expectedDrawCount
+    ) {
+        int numPlayers = 1;
+
+        TurnManager turnManager = new TurnManager(numPlayers);
+        turnManager.setDrawCount(initialDrawCount);
+
+        turnManager.incrementDrawCount();
+
+        int actualDrawCount = turnManager.getDrawCount();
+        assertEquals(expectedDrawCount, actualDrawCount);
+    }
+
 }
