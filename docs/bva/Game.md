@@ -655,7 +655,7 @@
     - turnManager.setDrawCount(0) is called 
     - advanceTurn() is called
 
-- **TC95: All cards in draw pile are Exploding Kittens** ( :x: )
+- **TC95: All cards in draw pile are Exploding Kittens** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_allExplodingKittens_deckOrderUnchanged
   - **State of the system**: draw pile contains ['EXPLODING KITTEN_1', 'EXPLODING KITTEN_2', 'EXPLODING KITTEN_3']
   - **Expected output**: 
