@@ -205,8 +205,6 @@ public class PlayerDeckController {
 
             switch (cardType) {
                 case SKIP:
-                    handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
-                    break;
                 case SUPER_SKIP:
                     renderNextTurn();
                     break;
