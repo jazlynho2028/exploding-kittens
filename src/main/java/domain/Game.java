@@ -146,55 +146,7 @@ public class Game {
             discardPile.addCardToTop(card);
         }
 
-        switch (cardType) {
-            case ATTACK:
-                applyAttack();
-                break;
-            case SHUFFLE:
-                applyShuffle();
-                break;
-            case SKIP:
-                applySkip();
-                break;
-            case SEE_THE_FUTURE:
-                break;
-            case CATOMIC_BOMB:
-                applyCatomicBomb();
-                break;
-            case SUPER_SKIP:
-                applySuperSkip();
-                break;
-            case GODCAT:
-                break;
-            case CLONE:
-                applyClone();
-                break;
-            case SWAP_TOP_AND_BOTTOM:
-                applySwapTopAndBottom();
-                break;
-            case DRAW_FROM_THE_BOTTOM:
-                applyDrawFromTheBottom();
-                break;
-            case TARGETED_ATTACK:
-                break;
-            case WINNER_WINNER_CATNIP_DINNER:
-                applyWinnerWinnerCatnipDinner();
-                break;
-            case RAGEBAIT:
-                applyRagebait();
-                break;
-            case RECYCLE:
-                applyRecycle();
-                break;
-            case DOUBLE_UP:
-                applyDoubleUp();
-                break;
-            case MILD_SHUFFLE:
-                applyMildShuffle();
-                break;
-            default:
-                throw new IllegalStateException("error.cannotPlaySelectedCards");
-        }
+        applyByCardType(cardType);
 
         return cardType;
     }
@@ -415,6 +367,10 @@ public class Game {
     }
 
     public void applyGodcat(CardType cardType) {
+        applyByCardType(cardType);
+    }
+
+    private void applyByCardType(CardType cardType) {
         switch (cardType) {
             case ATTACK:
                 applyAttack();
@@ -460,7 +416,7 @@ public class Game {
                 applyMildShuffle();
                 break;
             default:
-                throw new IllegalStateException("error.cannotPlaySelectedCards");
+                break;
         }
     }
 

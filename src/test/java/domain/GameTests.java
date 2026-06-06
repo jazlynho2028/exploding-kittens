@@ -450,9 +450,9 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		CardType cardType = CardType.DEFUSE;
+		CardType expectedCardType = CardType.DEFUSE;
 		Card card = EasyMock.createMock(Card.class);
-		EasyMock.expect(card.getType()).andStubReturn(cardType);
+		EasyMock.expect(card.getType()).andStubReturn(expectedCardType);
 
 		List<Card> selectedCards = List.of(card);
 		Player currentPlayer = EasyMock.createMock(Player.class);
@@ -470,13 +470,8 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		Exception exception = assertThrows(
-				IllegalStateException.class, game::playSelectedCards);
-
-		String expectedMsg = "error.cannotPlaySelectedCards";
-		String actualMsg = exception.getMessage();
-
-		assertEquals(expectedMsg, actualMsg);
+		CardType actualCardType = game.playSelectedCards();
+		assertEquals(expectedCardType, actualCardType);
 
 		Object[] selectedCardsArray = selectedCards.toArray();
 		EasyMock.verify(selectedCardsArray);
@@ -1894,7 +1889,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyGodcat_invalidGodcat_throwsException() {
+	public void applyGodcat_godcat_noEffect() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1904,13 +1899,7 @@ public class GameTests {
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		Exception exception = assertThrows(IllegalStateException.class, () ->
-				game.applyGodcat(CardType.GODCAT));
-
-		String expectedMsg = "error.cannotPlaySelectedCards";
-		String actualMsg = exception.getMessage();
-
-		assertEquals(expectedMsg, actualMsg);
+		game.applyGodcat(CardType.GODCAT);
 	}
 
 	@ParameterizedTest

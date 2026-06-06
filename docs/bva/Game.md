@@ -235,8 +235,14 @@
 
 - **TC42: Valid play with unknown card type** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithUnknownCardType_failed
-  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DEFUSE]
-  - **Expected output**: throws IllegalStateException "error.cannotPlaySelectedCards"
+  - **State of the system**: 
+    - canPlaySelected returns true
+    - selectedCardTypes = [DEFUSE]
+  - **Expected output**: 
+    - card1.toggleSelected is called
+    - player.removeCardFromHand with card1 is called
+    - discardPile.addCardToTop(card1) is called
+    - returns CardType.DEFUSE
 
 - **TC43: Player method throws exception** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_failed
@@ -1077,9 +1083,9 @@
 
 ### Method under test: `applyGodcat(CardType cardType)`
 - **TC117: Invalid card type** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_invalidCardType_throwsException
+  - **Name of the test**: applyGodcat_godcat_noEffect
   - **State of the system**: CardType.GODCAT passed as cardType
-  - **Expected output**: throws IllegalArgumentException with message "error.cannotPlaySelectedCards"
+  - **Expected output**: no effect applied
 
 - **TC118: Valid card type Attack** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
