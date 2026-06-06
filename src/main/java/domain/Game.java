@@ -367,7 +367,15 @@ public class Game {
     }
 
     public void applyGodcat(CardType cardType) {
-        applyByCardType(cardType);
+        boolean isValidGodcatPlay = cardType != CardType.GODCAT &&
+                !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(cardType);
+
+        if (isValidGodcatPlay) {
+            applyByCardType(cardType);
+        }
+        else {
+            throw new IllegalArgumentException("error.cannotPlaySelectedCards");
+        }
     }
 
     private void applyByCardType(CardType cardType) {

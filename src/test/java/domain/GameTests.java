@@ -1889,7 +1889,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyGodcat_godcat_noEffect() {
+	public void applyGodcat_invalidGodcat_throwsException() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1899,7 +1899,13 @@ public class GameTests {
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		game.applyGodcat(CardType.GODCAT);
+		Exception exception = assertThrows(IllegalArgumentException.class, () ->
+				game.applyGodcat(CardType.GODCAT));
+
+		String expectedMsg = "error.cannotPlaySelectedCards";
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
 	}
 
 	@ParameterizedTest

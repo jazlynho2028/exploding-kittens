@@ -1083,9 +1083,9 @@
 
 ### Method under test: `applyGodcat(CardType cardType)`
 - **TC117: Invalid card type** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_godcat_noEffect
+  - **Name of the test**: applyGodcat_invalidGodcat_throwsException
   - **State of the system**: CardType.GODCAT passed as cardType
-  - **Expected output**: no effect applied
+  - **Expected output**: throws exception "error.cannotPlaySelectedCards"
 
 - **TC118: Valid card type Attack** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
