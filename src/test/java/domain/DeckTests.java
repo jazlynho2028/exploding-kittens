@@ -451,7 +451,7 @@ public class DeckTests {
         tooLargeCountDeck.addLast(tooLargeCountCard2);
 
         Card duplicateCard1 = EasyMock.createMock(Card.class);
-        Card duplicateCard2 = duplicateCard1;  // same reference = duplicate
+        Card duplicateCard2 = duplicateCard1;
         Card duplicateCard3 = EasyMock.createMock(Card.class);
         EasyMock.replay(duplicateCard1, duplicateCard3);
         Deque<Card> duplicateDeck = new ArrayDeque<>();

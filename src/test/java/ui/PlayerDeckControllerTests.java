@@ -930,7 +930,9 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.replay(model, view);
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class
+				)
 				.withConstructor(model, view)
 				.addMockedMethod("updateByCardType")
 				.createMock();
