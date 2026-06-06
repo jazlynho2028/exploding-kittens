@@ -267,6 +267,7 @@ public class Game {
         }
         getCurrentPlayer().deselectHandCards();
         turnManager.incrementTurn();
+        turnManager.incrementDrawCount();
     }
 
     public boolean currentPlayerHasDefuse() {

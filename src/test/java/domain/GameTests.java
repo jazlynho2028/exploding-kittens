@@ -1249,6 +1249,7 @@ public class GameTests {
 		EasyMock.expectLastCall();
 
 		turnManager.incrementTurn();
+		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
@@ -1615,6 +1616,7 @@ public class GameTests {
 				.andReturn(expectedReturnValue);
 		mockPlayer1.deselectHandCards();
 		mockTurnManager.incrementTurn();
+		mockTurnManager.incrementDrawCount();
 
 		EasyMock.replay(mockPlayer1, mockPlayer2,
 				mockDrawPile, mockDiscardPile, mockTurnManager);
@@ -1705,6 +1707,7 @@ public class GameTests {
 				.andReturn(expectedPlayerIndex);
 		mockPlayer2.deselectHandCards();
 		mockTurnManager.incrementTurn();
+		mockTurnManager.incrementDrawCount();
 
 		EasyMock.replay(mockPlayer1, mockPlayer2,
 				mockDrawPile, mockDiscardPile, mockTurnManager);
@@ -1738,6 +1741,7 @@ public class GameTests {
 				.andReturn(expectedReturnZero);
 		mockPlayer1.deselectHandCards();
 		mockTurnManager.incrementTurn();
+		mockTurnManager.incrementDrawCount();
 
 		EasyMock.replay(mockPlayer1, mockPlayer2,
 				mockDrawPile, mockDiscardPile, mockTurnManager);
@@ -1775,6 +1779,7 @@ public class GameTests {
 				.andReturn(expectedReturnZero);
 		mockPlayer1.deselectHandCards();
 		mockTurnManager.incrementTurn();
+		mockTurnManager.incrementDrawCount();
 
 		EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3, mockPlayer4,
 				mockDrawPile, mockDiscardPile, mockTurnManager);
