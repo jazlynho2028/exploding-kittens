@@ -335,7 +335,8 @@ public class Game {
             Card card = drawPile.removeTop();
             if (card.getType() == CardType.EXPLODING_KITTEN) {
                 explodingKittens.add(card);
-            } else {
+            }
+            else {
                 others.add(card);
             }
         }
