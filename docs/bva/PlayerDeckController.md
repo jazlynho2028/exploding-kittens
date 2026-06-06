@@ -276,12 +276,7 @@
     - view.bindGodcatConfirmButton is called
     - view.showGodcatOverlay is called
 
-- **TC24: Caught exception from model** ( :white_check_mark: )
-  - **Name of the test**: onPlayCardsButton_called_failed
-  - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
-  - **Expected output**: onError accepts exception
-
-- **TC25: Targeted Attack card played** ( :x: )
+- **TC24: Targeted Attack card played** ( :x: )
   - **Name of the test**: onPlayCardsButton_targetedAttackPlayed_targetSelectionEnabled
   - **State of the system**:
     - canDrawFromDiscard = true
@@ -298,6 +293,11 @@
     - pendingTargetCard becomes CardType.TARGETED_ATTACK
     - view.enableTargetSelectionMode(currentPlayerIndex) is called
     - view.renderTurnControlSection(false, false) is called
+
+- **TC25: Caught exception from model** ( :white_check_mark: )
+  - **Name of the test**: onPlayCardsButton_called_failed
+  - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
+  - **Expected output**: onError accepts exception
 
 ### Method under test: `onEndTurnButton()`
 - **TC25: Turn ends successfully** ( :white_check_mark: )
