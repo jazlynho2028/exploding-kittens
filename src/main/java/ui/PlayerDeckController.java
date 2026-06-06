@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Card;
 import domain.CardType;
 import domain.Game;
 import domain.GameConstants;
@@ -69,7 +70,6 @@ public class PlayerDeckController {
         view.bindPlayCardsButton(this::onPlayCardsButton);
         view.bindEndTurnButton(this::onEndTurnButton);
         view.bindNameTags(this::onNameTag);
-        view.bindGodcatConfirmButton(this::onGodcatConfirm);
         bindHandCards();
     }
 
@@ -111,13 +111,32 @@ public class PlayerDeckController {
 
     void onDrawPile() {
         attempt(onError, () -> {
-            CardType cardType = model.drawFromPile();
-            // TODO use ^ return value for UI changes if a card effect needs it
+            Card drawnCard = model.drawFromPile();
 
-            updateDrawPile();
-            rebindHandCards();
-            updateTurnControls();
+            if (drawnCard.getType() == CardType.EXPLODING_KITTEN) {
+                handleDrawExplodingKitten(drawnCard.getId());
+            }
+            else {
+                rebindHandCards();
+                updateDrawPile();
+                updateTurnControls();
+            }
         });
+    }
+
+    private void handleDrawExplodingKitten(String cardId) {
+        boolean isDefusable = model.isDefusable();
+
+        if (isDefusable) {
+            view.bindDefuseButton(this::onDefuseButton);
+        }
+        else {
+            view.bindExplodeButton(this::onExplodeButton);
+        }
+
+        int drawPileSizeAfterDraw = model.getDrawPileSize() - 1;
+        view.buildExplodeOverlay(
+                isDefusable, cardId, drawPileSizeAfterDraw);
     }
 
     private void updateDrawPile() {
@@ -160,15 +179,10 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             model.startGame();
 
-            handleNewTurn(model.getStartingPlayerIndex());
+            handleChangeCurrentPlayer(model.getStartingPlayerIndex());
+            updateDrawPile();
+            rebuildTurnControl();
         });
-    }
-
-    private void handleNewTurn(int newPlayerIndex) {
-        handleChangeCurrentPlayer(newPlayerIndex);
-
-        updateDrawPile();
-        rebuildTurnControl();
     }
 
     private void rebuildTurnControl() {
@@ -182,23 +196,67 @@ public class PlayerDeckController {
     void onPlayCardsButton() {
         attempt(onError, () -> {
             CardType cardType = model.playSelectedCards();
-            // TODO use ^ return value for UI changes if a card effect needs it
 
-            view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
+            updateDiscardPile();
             rebindHandCards();
             updateTurnControls();
 
-            if (cardType == CardType.GODCAT) {
-                view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+            switch (cardType) {
+                case SKIP:
+                    renderNextTurn();
+                    break;
+                case SEE_THE_FUTURE:
+                    view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
+                    break;
+                case GODCAT:
+                    view.bindGodcatConfirmButton(this::onGodcatConfirm);
+                    view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+                    break;
+                default:
+                    break;
             }
         });
+    }
+
+    private void updateDiscardPile() {
+        view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
     }
 
     void onEndTurnButton() {
         attempt(onError, () -> {
             model.advanceTurn();
 
-            handleNewTurn(model.getCurrentPlayerIndex());
+            renderNextTurn();
+        });
+    }
+
+    private void renderNextTurn() {
+        int newPlayerIndex = model.getCurrentPlayerIndex();
+        handleChangeCurrentPlayer(newPlayerIndex);
+        updateDrawPile();
+        updateTurnControls();
+    }
+
+    void onDefuseButton() {
+        attempt(onError, () -> {
+            model.playDefuse(view.getExplodingKittenInsertIndex());
+
+            view.hideOverlay();
+            updateDiscardPile();
+            rebindHandCards();
+
+            renderNextTurn();
+        });
+    }
+
+    void onExplodeButton() {
+        attempt(onError, () -> {
+            model.playExplode();
+
+            view.hideOverlay();
+            updateDrawPile();
+
+            renderNextTurn();
         });
     }
 
@@ -211,8 +269,8 @@ public class PlayerDeckController {
 
     void onConfirmGodcatCard(CardType cardType) {
         attempt(onError, () -> {
-            model.applyCardType(cardType);
-            view.hideGodcatOverlay();
+            model.applyGodcat(cardType);
+            view.hideOverlay();
         });
     }
 

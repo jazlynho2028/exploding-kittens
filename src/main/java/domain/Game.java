@@ -95,7 +95,7 @@ public class Game {
         for (int i = 1; i <= numKittens; i++) {
             String cardId = createCardId(CardType.EXPLODING_KITTEN, i);
             Card kitten = new Card(cardId, CardType.EXPLODING_KITTEN);
-            drawPile.addCard(kitten);
+            drawPile.addCardToTop(kitten);
         }
     }
 
@@ -143,7 +143,7 @@ public class Game {
             card.toggleSelected();
 
             getCurrentPlayer().removeCardFromHand(card);
-            discardPile.addCard(card);
+            discardPile.addCardToTop(card);
         }
 
         switch (cardType) {
@@ -157,7 +157,6 @@ public class Game {
                 applySkip();
                 break;
             case SEE_THE_FUTURE:
-                applySeeTheFuture();
                 break;
             case CATOMIC_BOMB:
                 applyCatomicBomb();
@@ -177,7 +176,6 @@ public class Game {
                 applyDrawFromTheBottom();
                 break;
             case TARGETED_ATTACK:
-                applyTargetedAttack();
                 break;
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
@@ -191,8 +189,8 @@ public class Game {
             case DOUBLE_UP:
                 applyDoubleUp();
                 break;
-            case MILD_DRAW:
-                applyMildDraw();
+            case MILD_SHUFFLE:
+                applyMildShuffle();
                 break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
@@ -237,13 +235,22 @@ public class Game {
         isFaceUp = false;
     }
 
-    public CardType drawFromPile() {
-        Card card = drawPile.removeTop();
+    public Card drawFromPile() {
+        Card card = drawPile.peekTop();
+
+        if (card.getType() != CardType.EXPLODING_KITTEN) {
+            drawPile.removeTop();
+            getCurrentPlayer().addCardToHand(card);
+        }
+
         turnManager.decrementDrawCount();
         getCurrentPlayer().deselectHandCards();
-        getCurrentPlayer().addCardToHand(card);
 
-        return card.getType();
+        return card;
+    }
+
+    public int getDrawPileSize() {
+        return drawPile.size();
     }
 
     public void toggleFaceUp() {
@@ -270,6 +277,67 @@ public class Game {
         this.isFaceUp = isFaceUp;
     }
 
+    public boolean isDefusable() {
+        return currentPlayerHasCardType(CardType.DEFUSE) ||
+                canUseCloneAsDefuse() ||
+                currentPlayerHasCardType(CardType.GODCAT);
+    }
+
+    private boolean currentPlayerHasCardType(CardType cardType) {
+        List<Card> currentPlayerHand = getCurrentPlayer().getHand();
+
+        return currentPlayerHand.stream()
+                .anyMatch(card -> card.getType() == cardType);
+    }
+
+    private boolean canUseCloneAsDefuse() {
+        Card topDiscardCard = discardPile.peekTop();
+
+        return currentPlayerHasCardType(CardType.CLONE) &&
+                (topDiscardCard.getType() == CardType.DEFUSE);
+    }
+
+    public void playDefuse(int drawPileIndex) {
+        Card defuse = findDefuser();
+        getCurrentPlayer().removeCardFromHand(defuse);
+        discardPile.addCardToTop(defuse);
+
+        Card explodingKitten = drawPile.removeTop();
+        drawPile.insertCardAt(explodingKitten, drawPileIndex);
+    }
+
+    private Card findDefuser() {
+        if (currentPlayerHasCardType(CardType.DEFUSE)) {
+            return getCurrentPlayerCardOfType(CardType.DEFUSE);
+        }
+        else if (canUseCloneAsDefuse()) {
+            return getCurrentPlayerCardOfType(CardType.CLONE);
+        }
+        else if (currentPlayerHasCardType(CardType.GODCAT)) {
+            return getCurrentPlayerCardOfType(CardType.GODCAT);
+        }
+
+        throw new IllegalStateException("error.currentPlayerNoDefuser");
+    }
+
+    private Card getCurrentPlayerCardOfType(CardType cardType) {
+        for (Card card : getCurrentPlayer().getHand()) {
+            if (card.getType() == cardType) {
+                return card;
+            }
+        }
+
+        throw new IllegalStateException("error.currentPlayerNoCardOfCardtype");
+    }
+
+    public void playExplode() {
+        drawPile.removeTop();
+
+        getCurrentPlayer().deselectHandCards();
+        turnManager.incrementTurn();
+        // TODO: unalive current player
+    }
+
     void applyAttack() {
         // TODO
     }
@@ -279,11 +347,19 @@ public class Game {
     }
 
     void applySkip() {
-        // TODO
+        turnManager.decrementDrawCount();
+        if (canEndTurn()) {
+            advanceTurn();
+        }
     }
 
-    void applySeeTheFuture() {
-        // TODO
+    public List<String> getSeeTheFutureCardIds() {
+        List<Card> topCards = drawPile.peekTopNCards(
+                GameConstants.SEE_THE_FUTURE_PEEK_COUNT);
+
+        return topCards.stream()
+                .map(Card::getId)
+                .collect(Collectors.toList());
     }
 
     void applyCatomicBomb() {
@@ -294,16 +370,20 @@ public class Game {
         // TODO
     }
 
-    void applyGodcat() {
-        // TODO
-    }
-
     void applyClone() {
         // TODO
     }
 
     void applySwapTopAndBottom() {
-        // TODO
+        if (drawPile.size() <= 1) {
+            return;
+        }
+
+        Card top = drawPile.removeTop();
+        Card bottom = drawPile.removeBottom();
+
+        drawPile.addCardToTop(bottom);
+        drawPile.addCardToBottom(top);
     }
 
     void applyDrawFromTheBottom() {
@@ -316,7 +396,6 @@ public class Game {
 
     void applyWinnerWinnerCatnipDinner() {
         // TODO
-        // Make a WinnerWinnerCard extends Card with a turnsHeld field
     }
 
     void applyRagebait() {
@@ -331,11 +410,11 @@ public class Game {
         turnManager.incrementDrawCount();
     }
 
-    void applyMildDraw() {
+    void applyMildShuffle() {
         // TODO
     }
 
-    public void applyCardType(CardType cardType) {
+    public void applyGodcat(CardType cardType) {
         switch (cardType) {
             case ATTACK:
                 applyAttack();
@@ -347,7 +426,6 @@ public class Game {
                 applySkip();
                 break;
             case SEE_THE_FUTURE:
-                applySeeTheFuture();
                 break;
             case CATOMIC_BOMB:
                 applyCatomicBomb();
@@ -365,7 +443,6 @@ public class Game {
                 applyDrawFromTheBottom();
                 break;
             case TARGETED_ATTACK:
-                applyTargetedAttack();
                 break;
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
@@ -379,8 +456,8 @@ public class Game {
             case DOUBLE_UP:
                 applyDoubleUp();
                 break;
-            case MILD_DRAW:
-                applyMildDraw();
+            case MILD_SHUFFLE:
+                applyMildShuffle();
                 break;
             default:
                 throw new IllegalStateException("error.cannotPlaySelectedCards");
