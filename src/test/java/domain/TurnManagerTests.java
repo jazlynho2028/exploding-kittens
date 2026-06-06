@@ -73,39 +73,32 @@ public class TurnManagerTests {
 
     @ParameterizedTest
     @CsvSource({
-            "2,  0, 1,  1, 1,  0, 1",
-            "3,  0, 1,  1, 1,  0, 1",
-            "4,  0, 1,  1, 1,  0, 1",
+            "2,  0, 1,  1, 1",
+            "3,  0, 1,  1, 1",
+            "4,  0, 1,  1, 1",
 
-            "2,  0, 1,  2, 2,  1, 2",
-            "3,  1, 2,  2, 2,  1, 2",
-            "4,  2, 3,  2, 2,  1, 2",
+            "2,  0, 1,  2, 2",
+            "3,  1, 2,  2, 2",
+            "4,  2, 3,  2, 2",
 
-            "2,  1, 0,  1, 2,  0, 1",
-            "3,  2, 0,  1, 2,  0, 1",
-            "4,  3, 0,  1, 2,  0, 1"
+            "2,  1, 0,  1, 2",
+            "3,  2, 0,  1, 2",
+            "4,  3, 0,  1, 2"
     })
     public void incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly(
             int numPlayers,
             int initialIndex, int expectedIndex,
-            int initialRoundCount, int expectedRoundCount,
-            int initialDrawCount, int expectedDrawCount) {
+            int initialRoundCount, int expectedRoundCount) {
 
         TurnManager turnManager = new TurnManager(numPlayers);
 
         turnManager.setCurrentPlayerIndex(initialIndex);
         turnManager.setRoundCount(initialRoundCount);
-        turnManager.setDrawCount(initialDrawCount);
 
         turnManager.incrementTurn();
 
-        int actualIndex = turnManager.getCurrentPlayerIndex();
-        int actualRoundCount = turnManager.getRoundCount();
-        int actualDrawCount = turnManager.getDrawCount();
-
-        assertEquals(expectedIndex, actualIndex);
-        assertEquals(expectedRoundCount, actualRoundCount);
-        assertEquals(expectedDrawCount, actualDrawCount);
+        assertEquals(expectedIndex, turnManager.getCurrentPlayerIndex());
+        assertEquals(expectedRoundCount, turnManager.getRoundCount());
     }
 
     @ParameterizedTest

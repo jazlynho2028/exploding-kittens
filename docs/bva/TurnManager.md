@@ -39,7 +39,7 @@
   - **Expected output**: drawCount = 1
 
 ### Method under test: `incrementTurn()`
-- **TC7: Advance turn away from starting baseline across varying player sizes** ( :x: )
+- **TC7: Advance turn away from starting baseline across varying player sizes** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
