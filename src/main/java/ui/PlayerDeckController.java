@@ -211,6 +211,9 @@ public class PlayerDeckController {
                     view.bindGodcatConfirmButton(this::onGodcatConfirm);
                     view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
                     break;
+                case CATOMIC_BOMB:
+                    handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
+                    break;
                 default:
                     break;
             }

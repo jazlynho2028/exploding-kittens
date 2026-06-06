@@ -348,6 +348,9 @@ public class Game {
         for (Card card : explodingKittens) {
             drawPile.addCardToTop(card);
         }
+
+        turnManager.setDrawCount(0);
+        advanceTurn();
     }
 
     void applySuperSkip() {
