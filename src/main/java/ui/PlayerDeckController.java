@@ -201,21 +201,27 @@ public class PlayerDeckController {
             rebindHandCards();
             updateTurnControls();
 
-            switch (cardType) {
-                case SKIP:
-                    renderNextTurn();
-                    break;
-                case SEE_THE_FUTURE:
-                    view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
-                    break;
-                case GODCAT:
-                    view.bindGodcatConfirmButton(this::onGodcatConfirm);
-                    view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
-                    break;
-                default:
-                    break;
+            if (cardType == CardType.GODCAT) {
+                view.bindGodcatConfirmButton(this::onGodcatConfirm);
+                view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+            }
+            else {
+                updateByCardType(cardType);
             }
         });
+    }
+
+    void updateByCardType(CardType cardType) {
+        switch (cardType) {
+            case SKIP:
+                renderNextTurn();
+                break;
+            case SEE_THE_FUTURE:
+                view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
+                break;
+            default:
+                break;
+        }
     }
 
     private void updateDiscardPile() {
@@ -262,15 +268,14 @@ public class PlayerDeckController {
 
     void onGodcatConfirm() {
         attempt(onError, () -> {
-            CardType selectedCardType = view.getSelectedGodcatCardType();
-            onConfirmGodcatCard(selectedCardType);
-        });
-    }
+            CardType cardType = view.getSelectedGodcatCardType();
 
-    void onConfirmGodcatCard(CardType cardType) {
-        attempt(onError, () -> {
             model.applyGodcat(cardType);
             view.hideOverlay();
+
+            updateTurnControls();
+
+            updateByCardType(cardType);
         });
     }
 
