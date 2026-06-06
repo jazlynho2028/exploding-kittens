@@ -219,7 +219,8 @@ public class PlayerDeckControllerTests {
 		boolean canPlaySelected = true;
 		boolean canEndTurn = false;
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("applyPendingTargetCard")
 				.addMockedMethod("handleChangeCurrentPlayer")
@@ -251,6 +252,23 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.verify(model, view, controller);
 		assertNull(controller.pendingTargetCard);
+	}
+
+	@Test
+	public void applyPendingTargetCard_targetedAttack_appliesAttack() {
+		int playerIndex = 1;
+
+		model.applyTargetedAttack(playerIndex);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.pendingTargetCard = CardType.TARGETED_ATTACK;
+
+		controller.applyPendingTargetCard(playerIndex);
+
+		EasyMock.verify(model);
 	}
 
 	@Test

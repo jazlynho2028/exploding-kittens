@@ -89,7 +89,8 @@ public class PlayerDeckController {
 
                 pendingTargetCard = null;
 
-                view.disableTargetSelectionMode(model.getCurrentPlayerIndex(), model.getIsGameOngoing());
+                view.disableTargetSelectionMode(model.getCurrentPlayerIndex(),
+                        model.getIsGameOngoing());
 
                 handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
                 updateTurnControls();
@@ -101,7 +102,13 @@ public class PlayerDeckController {
     }
 
     void applyPendingTargetCard(int playerIndex) {
-
+        switch (pendingTargetCard) {
+            case TARGETED_ATTACK:
+                model.applyTargetedAttack(playerIndex);
+                break;
+            default:
+                break;
+        }
     }
 
     void handleChangeCurrentPlayer(int playerIndex) {

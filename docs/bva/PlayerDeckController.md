@@ -82,7 +82,7 @@
     - view.renderTurnControlSection(true, false) is called
 
 ## Method under test: `applyPendingTargetCard(int playerIndex)`
-- **TC9: pendingTargetCard is TARGETED_ATTACK** ( :x: )
+- **TC9: pendingTargetCard is TARGETED_ATTACK** ( :white_check_mark: )
   - **Name of the test**: applyPendingTargetCard_targetedAttack_appliesAttack
   - **State of the system**:
     - pendingTargetCard = CardType.TARGETED_ATTACK
