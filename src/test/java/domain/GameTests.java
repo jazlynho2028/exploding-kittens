@@ -787,27 +787,20 @@ public class GameTests {
 
 	@ParameterizedTest
 	@CsvSource({
-			"false, 0",
-			"false, 1",
-			"false, 2",
-			"true, 1",
-			"true, 2"
+			"1",
+			"2"
 	})
-	public void canEndTurn_called_returnFalse(boolean isGameOngoing, int drawCount) {
+	public void canEndTurn_positiveDrawCount_returnFalse(int drawCount) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		if (isGameOngoing) {
-			EasyMock.expect(turnManager.getDrawCount()).andReturn(drawCount);
-		}
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(drawCount);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
-
-		game.setIsGameOngoing(isGameOngoing);
 
 		assertFalse(game.canEndTurn());
 
@@ -815,7 +808,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue() {
+	public void canEndTurn_drawCountZero_returnTrue() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -826,7 +819,6 @@ public class GameTests {
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.setIsGameOngoing(true);
 
 		assertTrue(game.canEndTurn());
 

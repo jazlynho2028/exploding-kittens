@@ -208,7 +208,7 @@ public class Game {
     }
 
     public boolean canEndTurn() {
-        return isGameOngoing && turnManager.getDrawCount() == 0;
+        return turnManager.getDrawCount() == 0;
     }
 
     public boolean isDrawPileEmpty() {

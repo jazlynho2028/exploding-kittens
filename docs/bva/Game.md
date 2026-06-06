@@ -425,35 +425,20 @@
   - **Expected output**: returns false
 
 ### Method under test: `canEndTurn()`
-- **TC63: Game is not ongoing, draw count is 0** ( :white_check_mark: )
-  - **Name of the test**: canEndTurn_called_returnFalse
-  - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 0
-  - **Expected output**: returns false
-
-- **TC64: Game is not ongoing, draw count is 1** ( :white_check_mark: )
-  - **Name of the test**: canEndTurn_called_returnFalse
-  - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 1
-  - **Expected output**: returns false
-
-- **TC65: Game is not ongoing, draw count is 2** ( :white_check_mark: )
-  - **Name of the test**: canEndTurn_called_returnFalse
-  - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 2
-  - **Expected output**: returns false
-
-- **TC66: Game is ongoing, draw count is 1** ( :white_check_mark: )
-  - **Name of the test**: canEndTurn_called_returnFalse
-  - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 1
-  - **Expected output**: returns false
-
-- **TC67: Game is ongoing, draw count is 2** ( :white_check_mark: )
-  - **Name of the test**: canEndTurn_called_returnFalse
-  - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 1
-  - **Expected output**: returns false
-
-- **TC68: Game is ongoing, draw count is 0** ( :white_check_mark: )
-  - **Name of the test**: canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue
-  - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 0
+- **TC63: Draw count is 0** ( :white_check_mark: )
+  - **Name of the test**: canEndTurn_drawCountZero_returnTrue
+  - **State of the system**: turnManager.getDrawCount = 0
   - **Expected output**: returns true
+
+- **TC64: Draw count is 1** ( :white_check_mark: )
+  - **Name of the test**: canEndTurn_positiveDrawCount_returnFalse
+  - **State of the system**: turnManager.getDrawCount = 1
+  - **Expected output**: returns false
+
+- **TC65: Draw count is 2** ( :white_check_mark: )
+  - **Name of the test**: canEndTurn_positiveDrawCount_returnFalse
+  - **State of the system**: turnManager.getDrawCount = 2
+  - **Expected output**: returns false
 
 ### Method under test: `isDrawPileEmpty()`
 - **TC69: Empty draw pile** ( :white_check_mark: )
