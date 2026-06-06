@@ -639,35 +639,12 @@ public class PlayerDeckControllerTests {
 	public void onPlayCardsButton_skipPlayed_updatedPlayer() {
 		boolean canDrawFromDiscard = true;
 		boolean canEndTurn = true;
-		boolean canDraw = true;
-		boolean isDrawPileEmpty = false;
 		String topDiscardId = "SKIP_1";
 		CardType topDiscardType = CardType.SKIP;
 
-		EasyMock.expect(model.playSelectedCards()).andReturn(topDiscardType);
-		EasyMock.expect(model.canDrawFromDiscard()).andReturn(canDrawFromDiscard);
-		EasyMock.expect(model.getTopDiscardId()).andReturn(topDiscardId);
-
-		view.renderDiscardPile(canDrawFromDiscard, topDiscardId);
-		EasyMock.expectLastCall();
-
-		setUpRenderTurnControlSectionExpectations(canEndTurn);
-		view.renderTurnControlSection(canPlaySelected, canEndTurn);
-		EasyMock.expectLastCall();
-
-		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
-
-		EasyMock.expect(model.getCanDraw()).andReturn(canDraw);
-		EasyMock.expect(model.isDrawPileEmpty()).andReturn(isDrawPileEmpty);
-		view.renderDrawPile(canDraw, isDrawPileEmpty);
-		EasyMock.expectLastCall();
-
-		setUpRenderTurnControlSectionExpectations(canEndTurn);
-		view.renderTurnControlSection(canPlaySelected, canEndTurn);
-		EasyMock.expectLastCall();
-
 		PlayerDeckController controller = EasyMock.createMockBuilder(
-				PlayerDeckController.class)
+						PlayerDeckController.class
+				)
 				.withConstructor(model, view)
 				.addMockedMethod("rebindHandCards")
 				.addMockedMethod("handleChangeCurrentPlayer")
@@ -676,8 +653,11 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.playSelectedCards()).andReturn(topDiscardType);
 		expectUpdateDiscardPile(canDrawFromDiscard, topDiscardId);
 
-		controller.handleChangeCurrentPlayer(currentPlayerIndex);
+		controller.rebindHandCards();
 		EasyMock.expectLastCall();
+
+		expectUpdateTurnControls(canEndTurn);
+		expectRenderNextTurn(controller, CURRENT_PLAYER_INDEX, canEndTurn);
 
 		EasyMock.replay(model, view, controller);
 

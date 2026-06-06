@@ -206,6 +206,9 @@ public class PlayerDeckController {
                 case SUPER_SKIP:
                     renderNextTurn();
                     break;
+                case SEE_THE_FUTURE:
+                    view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
+                    break;
                 case GODCAT:
                     view.bindGodcatConfirmButton(this::onGodcatConfirm);
                     view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
