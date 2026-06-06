@@ -65,7 +65,7 @@
     - model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
-- **TC8: pendingTargetCard is not null** ( :x: )
+- **TC8: pendingTargetCard is not null** ( :white_check_mark: )
   - **Name of the test**: onNameTag_pendingTargetCardNotNull_resolvesPendingCard
   - **State of the system**:
     - pendingTargetCard = CardType.TARGETED_ATTACK

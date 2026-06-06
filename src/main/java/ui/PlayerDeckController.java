@@ -15,14 +15,15 @@ public class PlayerDeckController {
 
     private final PlayerDeckView view;
     private final Game model;
+    CardType pendingTargetCard = null;
 
     private Consumer<String> onError;
 
     @SuppressFBWarnings(
-        value = "EI_EXPOSE_REP2",
-        justification = "View and model are injected by for compromise between MVC " +
-                "pattern and testability, defensive copies are not applicable or not " +
-                "desired for JavaFX components and Game objects."
+            value = "EI_EXPOSE_REP2",
+            justification = "View and model are injected by for compromise between MVC " +
+                    "pattern and testability, defensive copies are not applicable or not " +
+                    "desired for JavaFX components and Game objects."
     )
     public PlayerDeckController(Game model, PlayerDeckView view) {
         this.model = model;
@@ -83,10 +84,24 @@ public class PlayerDeckController {
 
     void onNameTag(int playerIndex) {
         attempt(onError, () -> {
-            if (model.getCurrentPlayerIndex() != playerIndex) {
+            if (pendingTargetCard != null) {
+                applyPendingTargetCard(playerIndex);
+
+                pendingTargetCard = null;
+
+                view.disableTargetSelectionMode(model.getCurrentPlayerIndex(), model.getIsGameOngoing());
+
+                handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
+                updateTurnControls();
+            }
+            else if (model.getCurrentPlayerIndex() != playerIndex) {
                 handleChangeCurrentPlayer(playerIndex);
             }
         });
+    }
+
+    void applyPendingTargetCard(int playerIndex) {
+
     }
 
     void handleChangeCurrentPlayer(int playerIndex) {
@@ -112,7 +127,6 @@ public class PlayerDeckController {
     void onDrawPile() {
         attempt(onError, () -> {
             Card drawnCard = model.drawFromPile();
-            // TODO use ^ return value for UI changes if a card effect needs it
 
             if (drawnCard.getType() == CardType.EXPLODING_KITTEN) {
                 handleDrawExplodingKitten(drawnCard.getId());
@@ -197,7 +211,6 @@ public class PlayerDeckController {
     void onPlayCardsButton() {
         attempt(onError, () -> {
             CardType cardType = model.playSelectedCards();
-            // TODO use ^ return value for UI changes if a card effect needs it
 
             view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
             rebindHandCards();
@@ -210,6 +223,11 @@ public class PlayerDeckController {
                 case GODCAT:
                     view.bindGodcatConfirmButton(this::onGodcatConfirm);
                     view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+                    break;
+                case TARGETED_ATTACK:
+                    pendingTargetCard = cardType;
+                    view.enableTargetSelectionMode(model.getCurrentPlayerIndex());
+                    view.renderTurnControlSection(false, false);
                     break;
                 default:
                     break;

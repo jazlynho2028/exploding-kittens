@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import domain.GameConstants;
 
 public class PlayerDeckControllerTests {
@@ -207,6 +209,48 @@ public class PlayerDeckControllerTests {
 		controller.onNameTag(playerIndex);
 
 		EasyMock.verify(model, onError);
+	}
+
+	@Test
+	public void onNameTag_pendingTargetCardNotNull_resolvesPendingCard() {
+		int playerIndex = 1;
+		int newPlayerIndex = 2;
+		boolean isGameOngoing = true;
+		boolean canPlaySelected = true;
+		boolean canEndTurn = false;
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("applyPendingTargetCard")
+				.addMockedMethod("handleChangeCurrentPlayer")
+				.createMock();
+
+		controller.pendingTargetCard = CardType.TARGETED_ATTACK;
+
+		controller.applyPendingTargetCard(playerIndex);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(newPlayerIndex).times(2);
+		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
+
+		view.disableTargetSelectionMode(newPlayerIndex, isGameOngoing);
+		EasyMock.expectLastCall();
+
+		controller.handleChangeCurrentPlayer(newPlayerIndex);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.canPlaySelected()).andReturn(canPlaySelected);
+		EasyMock.expect(model.canEndTurn()).andReturn(canEndTurn);
+
+		view.renderTurnControlSection(canPlaySelected, canEndTurn);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onNameTag(playerIndex);
+
+		EasyMock.verify(model, view, controller);
+		assertNull(controller.pendingTargetCard);
 	}
 
 	@Test
