@@ -616,7 +616,7 @@
     - turnManager.setDrawCount(0) is called 
     - advanceTurn() is called
 
-- **TC91: No Exploding Kittens in draw pile** ( :x: )
+- **TC91: No Exploding Kittens in draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_noExplodingKittens_deckUnchanged
   - **State of the system**: draw pile contains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1'], none are CardType 'EXPLODING_KITTEN'
   - **Expected output**: 
