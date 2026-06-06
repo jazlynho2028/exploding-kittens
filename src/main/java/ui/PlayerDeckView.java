@@ -451,7 +451,7 @@ public class PlayerDeckView {
         buildDiscardPileButton();
 
         discardPileContainer.getChildren().addAll(
-                discardPileButton, emptyCard);
+                emptyCard, discardPileButton);
 
         return discardPileContainer;
     }

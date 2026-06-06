@@ -81,6 +81,8 @@ public class ExplodingKittensApp extends Application {
         Game model = new Game(players, drawPile, discardPile, turnManager);
         model.setUp();
 
+        players.get(0).addCardToHand(new Card("RECYCLE_1", CardType.RECYCLE));
+
         showPlayerDeckScreen(model, stage);
     }
 
