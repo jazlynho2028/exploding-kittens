@@ -39,41 +39,36 @@
   - **Expected output**: drawCount = 1
 
 ### Method under test: `incrementTurn()`
-- **TC7: Advance turn away from starting baseline across varying player sizes** ( :white_check_mark: )
+- **TC7: Advance turn away from starting baseline across varying player sizes** ( :x: )
   - **Name of the test**: incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = 0
     - roundCount = 1
-    - drawCount = 0
   - **Expected output**: 
     - currentPlayerIndex = 1
     - roundCount = 1
-    - drawCount = 1
 
-- **TC8: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
+
+- **TC8: Advance turn on boundary just before list wraps around** ( :x: )
   - **Name of the test**: incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = N - 2
     - roundCount = 2
-    - drawCount = 1
   - **Expected output**: 
     - currentPlayerIndex = N - 1
     - roundCount = 2
-    - drawCount = 2
 
-- **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :white_check_mark: )
+- **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :x: )
   - **Name of the test**: incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = N - 1
     - roundCount = 1
-    - drawCount = 0
   - **Expected output**: 
     - currentPlayerIndex = 0
     - roundCount = 2
-    - drawCount = 1
 
 ### Method under test: `setCurrentPlayerIndex(int newPlayerIndex)`
 - **TC10: Negative index** ( :white_check_mark: )
