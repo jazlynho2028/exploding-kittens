@@ -636,7 +636,7 @@
     - addCardToTop called for EXPLODINGKITTEN_1
     - draw pile order is ['EXPLODINGKITTEN_1', 'SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
 
-- **TC94: Multiple Exploding Kittens scattered throughput draw pile** ( :x: )
+- **TC94: Multiple Exploding Kittens scattered throughput draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_multipleExplodingKittens_allMovedToTop
   - **State of the system**: draw pile contains ['SKIP_1', 'EXPLODING KITTEN_1', 'ATTACK_1', 'EXPLODING KITTEN_2', 'SHUFFLE_1']
   - **Expected output**:
