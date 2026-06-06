@@ -635,7 +635,7 @@
     - turnManager.setDrawCount(0) is called 
     - advanceTurn() is called
 
-- **TC93: One Exploding Kitten in the middle of draw pile** ( :x: )
+- **TC93: One Exploding Kitten in the middle of draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_oneExplodingKittenInMiddle_movedToTop
   - **State of the system**: draw pile contains ['SKIP_1', 'ATTACK_1', 'EXPLODING_KITTEN_1', 'SHUFFLE_1']
   - **Expected output**: 
