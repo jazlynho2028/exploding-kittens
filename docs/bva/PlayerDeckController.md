@@ -90,7 +90,7 @@
   - **Expected output**:
     - model.applyTargetedAttack(1) is called
 
-- **TC10: pendingTargetCard is an unsupported card type** ( :x: )
+- **TC10: pendingTargetCard is an unsupported card type** ( :white_check_mark: )
   - **Name of the test**: applyPendingTargetCard_defaultCard_doesNothing
   - **State of the system**:
     - pendingTargetCard = CardType.SKIP

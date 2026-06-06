@@ -272,6 +272,20 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
+	public void applyPendingTargetCard_defaultCard_doesNothing() {
+		int playerIndex = 1;
+
+		EasyMock.replay(model);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+		controller.pendingTargetCard = CardType.SKIP;
+
+		controller.applyPendingTargetCard(playerIndex);
+
+		EasyMock.verify(model);
+	}
+
+	@Test
 	public void handleChangeCurrentPlayer_playerChanges_success() {
 		int playerIndex = 0;
 		boolean isFaceUp = true;
