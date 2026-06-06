@@ -1901,7 +1901,7 @@ public class GameTests {
 			"3, 0"
 	})
 	public void applyTargetedAttack_validTargets_successfullyCalled(
-			 int currentPlayerIndex, int targetPlayerIndex) {
+			int currentPlayerIndex, int targetPlayerIndex) {
 
 		List<Player> players = EasyMock.createMock(List.class);
 		Player currentPlayer = EasyMock.createMock(Player.class);
