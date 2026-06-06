@@ -1911,7 +1911,9 @@ public class GameTests {
 
 	private static Stream<Arguments> provideInvalidGodcatCardTypes() {
 		return Stream.of(
-				Arguments.of(CardType.GODCAT)
+				Arguments.of(CardType.GODCAT),
+				Arguments.of(CardType.EXPLODING_KITTEN),
+				Arguments.of(CardType.DEFUSE)
 		);
 	}
 
