@@ -59,7 +59,6 @@ public class TurnManager {
             roundCount++;
         }
 
-        drawCount++;
     }
 
     void setRoundCount(int roundCount) {
