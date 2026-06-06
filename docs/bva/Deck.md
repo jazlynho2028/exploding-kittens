@@ -120,16 +120,16 @@
 - **TC17: Peek top N cards from empty deck when n is zero** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_zeroCount_returnsEmptyList` with case `empty deck`
   - **State of the system**: Deck is empty: []; n = 0
-  - **Expected output**: 
+  - **Expected output**:
     - Returns empty list []
-    - deck is still empty: []
+    - Deck is still empty: []
 
 - **TC18: Peek top N cards from empty deck when n is positive** ( :white_check_mark: )
-  - **Name of the test**: `peekTopNCards_invalidCount_throwsException` with case `empty deck and positive count`
+  - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `empty deck and positive count`
   - **State of the system**: Deck is empty: []; n = 1
-  - **Expected output**: 
-    - Throws IllegalStateException with message `error.notEnoughCards`
-    - deck is still empty: []
+  - **Expected output**:
+    - Returns empty list []
+    - Deck is still empty: []
 
 - **TC19: Peek top N cards when n is negative** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_invalidCount_throwsException` with case `negative count`
@@ -139,37 +139,37 @@
 - **TC20: Peek top N cards when n is zero** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_zeroCount_returnsEmptyList` with case `non-empty deck`
   - **State of the system**: Deck has cards: [card1, card2]; n = 0
-  - **Expected output**: 
+  - **Expected output**:
     - Returns empty list []
-    - deck is still [card1, card2]
+    - Deck is still [card1, card2]
 
 - **TC21: Peek top N cards when n is one** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `one-card count`
   - **State of the system**: Deck has cards: [card1, card2]; n = 1
-  - **Expected output**: 
+  - **Expected output**:
     - Returns [card1]
-    - deck is still [card1, card2]
+    - Deck is still [card1, card2]
 
 - **TC22: Peek top N cards when n equals deck size** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `count equals deck size`
   - **State of the system**: Deck has cards: [card1, card2]; n = 2
-  - **Expected output**: 
+  - **Expected output**:
     - Returns [card1, card2]
-    - deck is still [card1, card2]
+    - Deck is still [card1, card2]
 
 - **TC23: Peek top N cards when n is greater than deck size** ( :white_check_mark: )
-  - **Name of the test**: `peekTopNCards_invalidCount_throwsException` with case `count greater than deck size`
+  - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `count greater than deck size`
   - **State of the system**: Deck has cards: [card1, card2]; n = 3
-  - **Expected output**: 
-    - Throws IllegalStateException with message `error.notEnoughCards`
-    - deck is still [card1, card2]
+  - **Expected output**:
+    - Returns [card1, card2]
+    - Deck is still [card1, card2]
 
 - **TC24: Peek top N cards with duplicate cards** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `duplicate cards`
   - **State of the system**: Deck has cards with duplicates: [card1, card1, card2]; n = 2
-  - **Expected output**: 
+  - **Expected output**:
     - Returns [card1, card1]
-    - deck is still [card1, card1, card2]
+    - Deck is still [card1, card1, card2]
 
 ### Method under test: `removeBottom()`
 - **TC25: Remove bottom from empty deck** ( :white_check_mark: )
