@@ -138,7 +138,8 @@ public class TurnManagerTests {
 
     @ParameterizedTest
     @CsvSource ({
-            "0, 1"
+            "0, 1",
+            "1, 2"
     })
     public void incrementDrawCount_validDrawCount_incrementedByOne(
             int initialDrawCount, int expectedDrawCount
