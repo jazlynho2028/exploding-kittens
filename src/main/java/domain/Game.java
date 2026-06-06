@@ -386,7 +386,6 @@ public class Game {
     }
 
     public CardType drawFromDiscard() {
-        discardPile.shuffle();
         Card card = discardPile.removeBottom();
         turnManager.decrementDrawCount();
         getCurrentPlayer().deselectHandCards();
