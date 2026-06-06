@@ -1199,7 +1199,7 @@
         - draw pile has four cards; card order is ['EXPLODING KITTEN 2', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 1']
 
 ### Method under test: `applyShuffle()`
-- **TC94: Apply shuffle card effect** ( :x: )
+- **TC94: Apply shuffle card effect** ( :white_check_mark: )
   - **Name of the test**: `applyShuffle_called_shufflesDrawPile`
   - **State of the system**: Shuffle card effect is applied
   - **Expected output**: `drawPile.shuffle()` is called
