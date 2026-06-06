@@ -608,7 +608,7 @@
     - draw pile has four cards; card order is ['EXPLODING KITTEN 2', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 1']
 
 ### Method under test: `applyCatomicBomb()`
-- **TC90: Draw pile is empty** ( :x: )
+- **TC90: Draw pile is empty** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_emptyDeck_remainsEmpty
   - **State of the system**: draw pile has no cards
   - **Expected output**: 
