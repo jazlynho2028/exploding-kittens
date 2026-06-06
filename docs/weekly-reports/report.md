@@ -97,21 +97,21 @@
 3. [not started] Ejean: Game rules documentation
 4. [50% Done] Luke: README.md special cases documentation
 5. [50% Done] DJ: Design documentation
-6. [not started] Jazlyn: Exploding Kitten implementation
-7. [not started] Jazlyn: Defuse implementation
-8. [not started] Jazlyn: See The Future implementation
+6. [Done] Jazlyn: Exploding Kitten implementation
+7. [Done] Jazlyn: Defuse implementation
+8. [Done] Jazlyn: See The Future implementation
 9. [not started] Jazlyn: Winner Winner Catnip Dinner implementation
 10. [not started] Ejean: Attack implementation
 11. [not started] Ejean: Feral Cat implementation
 12. [not started] Ejean: Cat Cards 1-4 implementation
 13. [not started] Ejean: Double Up implementation
-14. [not started] Luke: Skip implementation
+14. [Done] Luke: Skip implementation
 15. [not started] Luke: Super Skip implementation
 16. [not started] Luke: Targeted Attack implementation
 17. [not started] Luke: Ragebait implementation
 18. [not started] DJ: Catomic Bomb implementation
 19. [not started] DJ: Godcat implementation
-20. [not started] DJ: Swap Top And Bottom implementation
+20. [Done] DJ: Swap Top And Bottom implementation
 21. [not started] DJ: Recycle implementation
 22. [not started] Irene: Shuffle implementation
 23. [not started] Irene: Clone implementation
