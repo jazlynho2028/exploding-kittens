@@ -44,6 +44,7 @@ public class PlayerDeckView {
     private final Button godcatConfirmButton;
     private CardType selectedGodcatCardType;
 
+
     public PlayerDeckView(AssetProvider assetProvider) {
         this.assetProvider = assetProvider;
 
@@ -891,6 +892,32 @@ public class PlayerDeckView {
 
     public CardType getSelectedGodcatCardType() {
         return selectedGodcatCardType;
+    }
+
+    public void enableTargetSelectionMode(int currentPlayerIndex) {
+        ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
+
+        for (int i = 0; i < nameTagButtons.size(); i++) {
+            ToggleButton nameTagButton = (ToggleButton) nameTagButtons.get(i);
+            boolean isAtCurrentPlayerIndex = (i == currentPlayerIndex);
+
+            nameTagButton.setDisable(isAtCurrentPlayerIndex);
+
+            if (!isAtCurrentPlayerIndex) {
+                nameTagButton.setStyle("-fx-border-color: #ffcc00;" +
+                        " -fx-border-width: 2px; -fx-cursor: hand;");
+            }
+        }
+    }
+
+    public void disableTargetSelectionMode(int currentPlayerIndex, boolean isGameOngoing) {
+        ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
+
+        for (Node node : nameTagButtons) {
+            node.setStyle("");
+        }
+
+        renderPlayerNameTags(currentPlayerIndex, isGameOngoing);
     }
 
 }
