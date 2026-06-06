@@ -335,18 +335,17 @@ public class Game {
             Card card = drawPile.removeTop();
             if (card.getType() == CardType.EXPLODING_KITTEN) {
                 explodingKittens.add(card);
-            }
-            else {
+            } else {
                 others.add(card);
             }
         }
 
-        for (int i = others.size() - 1; i >= 0; i--) {
-            drawPile.addCard(others.get(i));
+        for (Card card : others) {
+            drawPile.addCardToBottom(card);
         }
 
-        for (int i = explodingKittens.size() - 1; i >= 0; i--) {
-            drawPile.addCard(explodingKittens.get(i));
+        for (Card card : explodingKittens) {
+            drawPile.addCardToTop(card);
         }
     }
 
