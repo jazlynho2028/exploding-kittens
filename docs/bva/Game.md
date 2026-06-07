@@ -846,14 +846,14 @@
   - **Expected output**: deselectHandCards() called on player 3, setCurrentPlayerIndex(0) called, addAttackDrawCount() called
 
 ### Method under test: `addAttackDrawCount()`
-- **TC92: Draw count is below the attack threshold** ( :white_check_mark: )
+- **TC137: Draw count is below the attack threshold** ( :white_check_mark: )
   - **Name of the test**: addAttackDrawCount_drawCountZero_SetTwo
   - **State of the system**:
     - turnManager.drawCount = 1
   - **Expected output**:
     - turnManager.drawCount = 2
 
-- **TC93: Draw count is at or above the attack threshold** ( :x: )
+- **TC138: Draw count is at or above the attack threshold** ( :x: )
   - **Name of the test**: addAttackDrawCount_drawCountTwo_addsTwo
   - **State of the system**:
     - turnManager.drawCount = 2
