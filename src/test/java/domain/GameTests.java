@@ -2064,7 +2064,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyDrawFromTheBottom_drawCountBecomesZero_drawsBottomCardAndAdvancesTurn() {
+	public void applyDrawFromTheBottom_drawCountZero_drawsBottomAndAdvancesTurn() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -2106,7 +2106,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyDrawFromTheBottom_drawCountRemainsPositive_drawsBottomCardWithoutAdvancingTurn() {
+	public void applyDrawFromTheBottom_drawCountPositive_drawsBottomNoAdvance() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);

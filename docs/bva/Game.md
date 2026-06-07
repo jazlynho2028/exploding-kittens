@@ -1200,7 +1200,7 @@
 
 ### Method under test: `applyDrawFromTheBottom()`
 - **TC137: Draw bottom card when draw count becomes zero** ( :white_check_mark: )
-  - **Name of the test**: `applyDrawFromTheBottom_drawCountBecomesZero_drawsBottomCardAndAdvancesTurn`
+  - **Name of the test**: `applyDrawFromTheBottom_drawCountZero_drawsBottomAndAdvancesTurn`
   - **State of the system**:
     - drawPile.removeBottom returns card1
     - getCurrentPlayer returns player
@@ -1212,7 +1212,7 @@
     - advanceTurn is called
 
 - **TC138: Draw bottom card when draw count remains positive** ( :white_check_mark: )
-  - **Name of the test**: `applyDrawFromTheBottom_drawCountRemainsPositive_drawsBottomCardWithoutAdvancingTurn`
+  - **Name of the test**: `applyDrawFromTheBottom_drawCountPositive_drawsBottomNoAdvance`
   - **State of the system**:
     - drawPile.removeBottom returns card1
     - getCurrentPlayer returns player
