@@ -84,6 +84,7 @@
     - numPlayers = 2
     - currentPlayerIndex = 0
     - isAlive.test(1) = false
+    - isAlive.test(0) = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -91,12 +92,13 @@
     - roundCount = 2
     - drawCount = 1
 
-- **TC11: Current player at 1, 2 players, next player is dead** ( :x: )
+- **TC11: Current player at 1, 2 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 2
     - currentPlayerIndex = 1
     - isAlive.test(0) = false
+    - isAlive.test(1) = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:

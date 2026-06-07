@@ -55,15 +55,14 @@ public class TurnManager {
     }
 
     public void incrementTurn(IntPredicate isAlive) {
-        incrementCurrentPlayerIndex();
+		do {
+			incrementCurrentPlayerIndex();
 
-        while (!isAlive.test(currentPlayerIndex)) {
-            incrementCurrentPlayerIndex();
-        }
+            if (currentPlayerIndex == STARTING_PLAYER_INDEX) {
+                roundCount++;
+            }
 
-        if (currentPlayerIndex == STARTING_PLAYER_INDEX) {
-            roundCount++;
-        }
+		} while (!isAlive.test(currentPlayerIndex));
 
         drawCount++;
     }
