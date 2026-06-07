@@ -194,12 +194,12 @@
   - **Expected output**: return false
 
 ### Method under test: `eliminate()`
-- **TC38: Player is alive** ( :x: )
-  - **Name of the test**: eliminate_playerCreated_setIsAliveToFalse
+- **TC38: Player is alive** ( implemented in TC37 )
+  - **Name of the test**: isAlive_playerIsDead_returnFalse
   - **State of the system**: Player is alive
   - **Expected output**: Player is dead
 
-- **TC39: Player is dead** ( :x: )
+- **TC39: Player is dead** ( :white_check_mark: )
   - **Name of the test**: eliminatePlayer_playerCreated_setIsAliveToFalse
   - **State of the system**: Player is dead
   - **Expected output**: Player is dead

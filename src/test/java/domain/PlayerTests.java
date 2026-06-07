@@ -612,4 +612,14 @@ public class PlayerTests {
         assertFalse(isAlive);
     }
 
+    @Test
+    public void eliminatePlayer_playerCreated_setIsAliveToFalse() {
+        Player player = new Player("Audrey");
+        player.eliminate();
+        player.eliminate();
+
+        boolean isAlive = player.isAlive();
+        assertFalse(isAlive);
+    }
+
 }
