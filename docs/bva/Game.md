@@ -1082,7 +1082,7 @@
   - **Expected output:** return ["SKIP_1", "SKIP_1"]
 
 ### Method under test: `applyCatomicBomb()`
-- **TC90: Draw pile is empty** ( :white_check_mark: )
+- **TC90: Draw pile is empty** ( :x: )
   - **Name of the test**: applyCatomicBomb_emptyDeck_remainsEmpty
   - **State of the system**: 
     - draw pile has no cards
@@ -1092,7 +1092,7 @@
     - turnManager.decrementDrawCount is called
     - advanceTurn is called
 
-- **TC91: No Exploding Kittens in draw pile** ( :white_check_mark: )
+- **TC91: No Exploding Kittens in draw pile** ( :x: )
   - **Name of the test**: applyCatomicBomb_noExplodingKittens_deckUnchanged
   - **State of the system**: 
     - draw pile contains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1'], none are CardType 'EXPLODING_KITTEN'
@@ -1102,7 +1102,7 @@
     - draw pile order is unchanged and remains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
     - turnManager.decrementDrawCount is called
 
-- **TC92: One Exploding Kitten at top of draw pile** ( :white_check_mark: )
+- **TC92: One Exploding Kitten at top of draw pile** ( :x: )
   - **Name of the test**: applyCatomicBomb_oneExplodingKittenAlreadyOnTop_deckUnchanged
   - **State of the system**: 
     - top card of draw pile has one CardType 'EXPLODING_KITTEN' with order ['EXPLODING_KITTEN_1' , 'ATTACK_1', 'SHUFFLE_1']
@@ -1114,7 +1114,7 @@
     - turnManager.decrementDrawCount is called
     - advanceTurn is called
 
-- **TC93: One Exploding Kitten in the middle of draw pile** ( :white_check_mark: )
+- **TC93: One Exploding Kitten in the middle of draw pile** ( :x: )
   - **Name of the test**: applyCatomicBomb_oneExplodingKittenInMiddle_movedToTop
   - **State of the system**: 
     - draw pile contains ['SKIP_1', 'ATTACK_1', 'EXPLODING_KITTEN_1', 'SHUFFLE_1']
@@ -1125,7 +1125,7 @@
     - draw pile order is ['EXPLODINGKITTEN_1', 'SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
     - turnManager.decrementDrawCount is called
 
-- **TC94: Multiple Exploding Kittens scattered throughput draw pile** ( :white_check_mark: )
+- **TC94: Multiple Exploding Kittens scattered throughput draw pile** ( :x: )
   - **Name of the test**: applyCatomicBomb_multipleExplodingKittens_allMovedToTop
   - **State of the system**: 
     - draw pile contains ['SKIP_1', 'EXPLODING KITTEN_1', 'ATTACK_1', 'EXPLODING KITTEN_2', 'SHUFFLE_1']
@@ -1137,7 +1137,7 @@
     - turnManager.decrementDrawCount is called
     - advanceTurn is called
 
-- **TC95: All cards in draw pile are Exploding Kittens** ( :white_check_mark: )
+- **TC95: All cards in draw pile are Exploding Kittens** ( :x: )
   - **Name of the test**: applyCatomicBomb_allExplodingKittens_deckOrderUnchanged
   - **State of the system**: 
     - draw pile contains ['EXPLODING KITTEN_1', 'EXPLODING KITTEN_2', 'EXPLODING KITTEN_3']
