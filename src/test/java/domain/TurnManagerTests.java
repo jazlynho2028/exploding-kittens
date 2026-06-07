@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.IntPredicate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -94,10 +96,9 @@ public class TurnManagerTests {
             int initialRoundCount, int expectedRoundCount,
             int initialDrawCount, int expectedDrawCount) {
 
-        IntPredicate isAlive = EasyMock.createMock(IntPredicate.class);
-        EasyMock.expect(isAlive.test(expectedIndex)).andReturn(true);
-
-        EasyMock.replay(isAlive);
+        List<Player> players = createPlayersWithExpectations(
+                numPlayers, List.of()
+        );
 
         TurnManager turnManager = new TurnManager(numPlayers);
 
@@ -105,7 +106,7 @@ public class TurnManagerTests {
         turnManager.setRoundCount(initialRoundCount);
         turnManager.setDrawCount(initialDrawCount);
 
-        turnManager.incrementTurn(isAlive);
+        turnManager.incrementTurn(players);
 
         int actualIndex = turnManager.getCurrentPlayerIndex();
         int actualRoundCount = turnManager.getRoundCount();
@@ -114,8 +115,24 @@ public class TurnManagerTests {
         assertEquals(expectedIndex, actualIndex);
         assertEquals(expectedRoundCount, actualRoundCount);
         assertEquals(expectedDrawCount, actualDrawCount);
+    }
 
-        EasyMock.verify(isAlive);
+    private List<Player> createPlayersWithExpectations(
+            int numPlayers, List<Integer> deadIndices) {
+
+        List<Player> players = new ArrayList<>();
+
+        for (int i = 0; i < numPlayers; i++) {
+            Player player = EasyMock.createMock(Player.class);
+            EasyMock.expect(player.isAlive()).andStubReturn(
+                    !deadIndices.contains(i)
+            );
+            EasyMock.replay(player);
+
+            players.add(player);
+        }
+
+        return players;
     }
 
     @ParameterizedTest
@@ -135,11 +152,9 @@ public class TurnManagerTests {
             int initialRoundCount, int expectedRoundCount,
             int initialDrawCount, int expectedDrawCount) {
 
-        IntPredicate isAlive = EasyMock.createMock(IntPredicate.class);
-        EasyMock.expect(isAlive.test(deadIndex)).andReturn(false);
-        EasyMock.expect(isAlive.test(expectedIndex)).andReturn(true);
-
-        EasyMock.replay(isAlive);
+        List<Player> players = createPlayersWithExpectations(
+                numPlayers, List.of(deadIndex)
+        );
 
         TurnManager turnManager = new TurnManager(numPlayers);
 
@@ -147,7 +162,7 @@ public class TurnManagerTests {
         turnManager.setRoundCount(initialRoundCount);
         turnManager.setDrawCount(initialDrawCount);
 
-        turnManager.incrementTurn(isAlive);
+        turnManager.incrementTurn(players);
 
         int actualIndex = turnManager.getCurrentPlayerIndex();
         int actualRoundCount = turnManager.getRoundCount();
@@ -156,18 +171,16 @@ public class TurnManagerTests {
         assertEquals(expectedIndex, actualIndex);
         assertEquals(expectedRoundCount, actualRoundCount);
         assertEquals(expectedDrawCount, actualDrawCount);
-
-        EasyMock.verify(isAlive);
     }
 
     @Test
     public void incrementTurn_nextTwoPlayersAreDead_updatesPlayerIndexCorrectly() {
-        IntPredicate isAlive = EasyMock.createMock(IntPredicate.class);
-        EasyMock.expect(isAlive.test(3)).andReturn(false);
-        EasyMock.expect(isAlive.test(0)).andReturn(false);
-        EasyMock.expect(isAlive.test(1)).andReturn(true);
+        int numPlayers = 4;
+        List<Integer> deadIndices = List.of(3, 0);
 
-        EasyMock.replay(isAlive);
+        List<Player> players = createPlayersWithExpectations(
+                numPlayers, deadIndices
+        );
 
         TurnManager turnManager = new TurnManager(4);
 
@@ -175,7 +188,7 @@ public class TurnManagerTests {
         turnManager.setRoundCount(1);
         turnManager.setDrawCount(0);
 
-        turnManager.incrementTurn(isAlive);
+        turnManager.incrementTurn(players);
 
         int actualIndex = turnManager.getCurrentPlayerIndex();
         int actualRoundCount = turnManager.getRoundCount();
@@ -184,19 +197,16 @@ public class TurnManagerTests {
         assertEquals(1, actualIndex);
         assertEquals(2, actualRoundCount);
         assertEquals(1, actualDrawCount);
-
-        EasyMock.verify(isAlive);
     }
 
     @Test
     public void incrementTurn_nextThreePlayersAreDead_updatesPlayerIndexCorrectly() {
-        IntPredicate isAlive = EasyMock.createMock(IntPredicate.class);
-        EasyMock.expect(isAlive.test(3)).andReturn(false);
-        EasyMock.expect(isAlive.test(0)).andReturn(false);
-        EasyMock.expect(isAlive.test(1)).andReturn(false);
-        EasyMock.expect(isAlive.test(2)).andReturn(true);
+        int numPlayers = 4;
+        List<Integer> deadIndices = List.of(3, 0, 1);
 
-        EasyMock.replay(isAlive);
+        List<Player> players = createPlayersWithExpectations(
+                numPlayers, deadIndices
+        );
 
         TurnManager turnManager = new TurnManager(4);
 
@@ -204,7 +214,7 @@ public class TurnManagerTests {
         turnManager.setRoundCount(1);
         turnManager.setDrawCount(0);
 
-        turnManager.incrementTurn(isAlive);
+        turnManager.incrementTurn(players);
 
         int actualIndex = turnManager.getCurrentPlayerIndex();
         int actualRoundCount = turnManager.getRoundCount();
@@ -213,8 +223,6 @@ public class TurnManagerTests {
         assertEquals(2, actualIndex);
         assertEquals(2, actualRoundCount);
         assertEquals(1, actualDrawCount);
-
-        EasyMock.verify(isAlive);
     }
 
     @ParameterizedTest

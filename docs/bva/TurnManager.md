@@ -39,7 +39,7 @@
   - **Expected output**: drawCount = 1
 
 ### Method under test: `incrementTurn(IntPredicate isAlive)`
-- **TC7: Advance turn away from starting baseline across varying player sizes** ( :x: )
+- **TC7: Advance turn away from starting baseline across varying player sizes** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsAlive_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
@@ -52,7 +52,7 @@
     - roundCount = 1
     - drawCount = 1
 
-- **TC8: Advance turn on boundary just before list wraps around** ( :x: )
+- **TC8: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsAlive_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
@@ -65,7 +65,7 @@
     - roundCount = 2
     - drawCount = 2
 
-- **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :x: )
+- **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsAlive_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
@@ -78,7 +78,7 @@
     - roundCount = 2
     - drawCount = 1
 
-- **TC10: Current player at 0, 2 players, next player is dead** ( :x: )
+- **TC10: Current player at 0, 2 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 2
@@ -92,7 +92,7 @@
     - roundCount = 2
     - drawCount = 1
 
-- **TC11: Current player at 1, 2 players, next player is dead** ( :x: )
+- **TC11: Current player at 1, 2 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 2
@@ -106,7 +106,7 @@
     - roundCount = 2
     - drawCount = 1
 
-- **TC12: Current player at 0, 3 players, next player is dead** ( :x: )
+- **TC12: Current player at 0, 3 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 3
@@ -120,7 +120,7 @@
     - roundCount = 1
     - drawCount = 1
 
-- **TC13: Current player at 1, 3 players, next player is dead** ( :x: )
+- **TC13: Current player at 1, 3 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 3
@@ -134,7 +134,7 @@
     - roundCount = 3
     - drawCount = 2
 
-- **TC14: Current player at 2, 3 players, next player is dead** ( :x: )
+- **TC14: Current player at 2, 3 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 3
@@ -148,7 +148,7 @@
     - roundCount = 2
     - drawCount = 2
 
-- **TC15: Current player at 0, 4 players, next player is dead** ( :x: )
+- **TC15: Current player at 0, 4 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 4
@@ -162,7 +162,7 @@
     - roundCount = 1
     - drawCount = 1
 
-- **TC16: Current player at 2, 4 players, next two players are dead** ( :x: )
+- **TC16: Current player at 2, 4 players, next two players are dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextTwoPlayersAreDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 4
@@ -177,7 +177,7 @@
     - roundCount = 2
     - drawCount = 1
 
-- **TC17: Current player at 2, 4 players, next three players are dead** ( :x: )
+- **TC17: Current player at 2, 4 players, next three players are dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextThreePlayersAreDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 4
