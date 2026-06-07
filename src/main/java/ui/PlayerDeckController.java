@@ -214,6 +214,7 @@ public class PlayerDeckController {
     void updateByCardType(CardType cardType) {
         switch (cardType) {
             case SKIP:
+			case SUPER_SKIP:
 			case CATOMIC_BOMB:
 				renderNextTurn();
                 break;
