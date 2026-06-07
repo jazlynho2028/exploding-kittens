@@ -847,14 +847,14 @@
 
 ### Method under test: `addAttackDrawCount()`
 - **TC92: Draw count is below the attack threshold** ( :x: )
-  - **Name of the test**: addAttackDrawCount_drawCountBelowThreshold_setsToAttackDrawCount
+  - **Name of the test**: addAttackDrawCount_drawCountZero_SetTwo
   - **State of the system**:
     - turnManager.drawCount = 1
   - **Expected output**:
     - turnManager.drawCount = 2
 
 - **TC93: Draw count is at or above the attack threshold** ( :x: )
-  - **Name of the test**: addAttackDrawCount_drawCountAtThreshold_addsTwo
+  - **Name of the test**: addAttackDrawCount_drawCountTwo_addsTwo
   - **State of the system**:
     - turnManager.drawCount = 2
   - **Expected output**:
