@@ -1172,17 +1172,17 @@
     - **Expected output**: applyMildShuffle() is called
 
 ### Method under test: `applySwapTopAndBottom()`
-- **TC90: Draw pile has zero cards** ( :white_check_mark: )
+- **TC133: Draw pile has zero cards** ( :white_check_mark: )
     - **Name of the test**: applySwapTopAndBottom_emptyDeck_remainsEmpty
     - **State of the system**: draw pile is empty
     - **Expected output**: draw pile remains empty
 
-- **TC91: Draw pile has exactly one card** ( :white_check_mark: )
+- **TC134: Draw pile has exactly one card** ( :white_check_mark: )
     - **Name of the test**: applySwapTopAndBottom_oneCard_deckUnchanged
     - **State of the system**: draw pile has two cards ['CARD 1']
     - **Expected output**: draw pile has two cards; card order is ['CARD 1']
 
-- **TC92: Draw pile has more than one card** ( :white_check_mark: )
+- **TC135: Draw pile has more than one card** ( :white_check_mark: )
     - **Name of the test**: applySwapTopAndBottom_moreThanOneCard_swapped
     - **State of the system**: draw pile has four cards ['CARD 1', 'CARD 2', 'CARD 3', 'CARD 4']
     - **Expected output**:
@@ -1190,10 +1190,35 @@
         - drawPile.addCardToBottom(CARD_1) called
         - draw pile has four cards and card order is ['CARD 4', 'CARD 2', 'CARD 3', 'CARD']
 
-- **TC93: Top and bottom cards are the same type** ( :white_check_mark: )
+- **TC136: Top and bottom cards are the same type** ( :white_check_mark: )
     - **Name of the test**: applySwapTopAndBottom_sameType_swapped
     - **State of the system**: draw pile has four cards ['EXPLODING KITTEN 1', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 2']
     - **Expected output**:
         - drawPile.addCardToTop(EXPLODINGKITTEN_2) called
         - drawPile.addCardToBottom(EXPLODINGKITTEN_1) called;
         - draw pile has four cards; card order is ['EXPLODING KITTEN 2', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 1']
+
+### Method under test: `applyDrawFromTheBottom()`
+- **TC137: Draw bottom card when draw count becomes zero** ( :x: )
+  - **Name of the test**: `applyDrawFromTheBottom_drawCountBecomesZero_drawsBottomCardAndAdvancesTurn`
+  - **State of the system**:
+    - drawPile.removeBottom returns card1
+    - getCurrentPlayer returns player
+    - turnManager.decrementDrawCount is called
+    - canEndTurn returns true
+  - **Expected output**:
+    - player.addCardToHand is called with card1
+    - player.deselectHandCards is called
+    - advanceTurn is called
+
+- **TC138: Draw bottom card when draw count remains positive** ( :x: )
+  - **Name of the test**: `applyDrawFromTheBottom_drawCountRemainsPositive_drawsBottomCardWithoutAdvancingTurn`
+  - **State of the system**:
+    - drawPile.removeBottom returns card1
+    - getCurrentPlayer returns player
+    - turnManager.decrementDrawCount is called
+    - canEndTurn returns false
+  - **Expected output**:
+    - player.addCardToHand is called with card1
+    - player.deselectHandCards is called
+    - advanceTurn is not called
