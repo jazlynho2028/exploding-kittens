@@ -65,18 +65,18 @@
     - model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
-- **TC8: pendingTargetCard is not null** ( :white_check_mark: )
-  - **Name of the test**: onNameTag_pendingTargetCardNotNull_resolvesPendingCard
+- **TC8: pendingTargetAction is present** ( :x: )
+  - **Name of the test**: onNameTag_pendingTargetActionPresent_executesAction
   - **State of the system**:
-    - pendingTargetCard = CardType.TARGETED_ATTACK
+    - pendingTargetAction = Optional.of(mockAction)
     - playerIndex = 1
     - model.getCurrentPlayerIndex() returns 2
     - model.getIsGameOngoing() returns true
     - model.canPlaySelected() returns true
     - model.canEndTurn() returns false
   - **Expected output**:
-    - applyPendingTargetCard(1) is called (mocked)
-    - pendingTargetCard becomes null
+    - mockAction.accept(1) is called
+    - pendingTargetAction becomes empty
     - view.disableTargetSelectionMode(2, true) is called
     - handleChangeCurrentPlayer(2) is called
     - view.renderTurnControlSection(true, false) is called
