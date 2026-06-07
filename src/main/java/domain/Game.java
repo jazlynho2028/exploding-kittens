@@ -383,8 +383,7 @@ public class Game {
             drawPile.addCardToTop(card);
         }
 
-        turnManager.setDrawCount(0);
-        advanceTurn();
+        applySkip();
     }
 
     void applySuperSkip() {
