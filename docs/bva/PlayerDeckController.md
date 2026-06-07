@@ -276,7 +276,7 @@
     - view.bindGodcatConfirmButton is called
     - view.showGodcatOverlay is called
 
-- **TC24: Targeted Attack card played** ( :white_check_mark: )
+- **TC24: Targeted Attack card played** ( :x: )
   - **Name of the test**: onPlayCardsButton_targetedAttackPlayed_targetSelectionEnabled
   - **State of the system**:
     - canDrawFromDiscard = true
@@ -290,7 +290,7 @@
     - view.renderDiscardPile(canDrawFromDiscard, topDiscardId) is called
     - rebindHandCards is called
     - view.renderTurnControlSection(canPlaySelected, canEndTurn) is called
-    - pendingTargetCard becomes CardType.TARGETED_ATTACK
+    - pendingTargetAction becomes present
     - view.enableTargetSelectionMode(currentPlayerIndex) is called
     - view.renderTurnControlSection(false, false) is called
 
