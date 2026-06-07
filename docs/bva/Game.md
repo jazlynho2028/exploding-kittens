@@ -584,6 +584,7 @@
   - **Expected output**: 
     - player.deselectHandCards is called
     - turnManager.incrementTurn is called
+    - turnManager.incrementDrawCount is called
 
 - **TC90: Cannot end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
@@ -715,7 +716,7 @@
 - **TC111: Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
   - **Name of the test:** applySkip_drawCountOne_TurnAdvances
   - **State of the system:** game is ongoing, drawCount = 1 (normal, unattacked turn)
-  - **Expected output:** drawCount resets to 1 (from incrementTurn), currentPlayerIndex becomes 1, turn has advanced automatically
+  - **Expected output:** drawCount resets to 1 (from incrementDrawCount), currentPlayerIndex becomes 1, turn has advanced automatically
 
 - **TC112: Skip while under attack (drawCount = 2)** ( :white_check_mark: )
   - **Name of the test:** applySkip_drawCountTwo_TurnNotAdvanced
@@ -730,7 +731,7 @@
 - **TC114: Skip completes turn for the last player in order (wraparound)** ( :white_check_mark: )
   - **Name of the test:** applySkip_lastPlayer_turnWraps
   - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
-  - **Expected output:** currentPlayerIndex wraps to 0, drawCount resets to 1 (from incrementTurn)
+  - **Expected output:** currentPlayerIndex wraps to 0, drawCount resets to 1 (from incremetDrawCount)
 
 - **TC115: Skip with minimum player count (2 players)** ( :white_check_mark: )
   - **Name of the test:** applySkip_twoPlayers_turnAdvances
@@ -740,7 +741,7 @@
 - **TC116: Skip on a standard single turn with maximum players (4 players)** ( :white_check_mark: )
   - **Name of the test:** applySkip_fourPlayers_turnAdvances
   - **State of the system:**  game is ongoing, drawCount = 1, 4 players, currentPlayerIndex = 0
-  - **Expected output:** drawCount resets to 1 (from incrementTurn), currentPlayerIndex = 1, turn has advanced automatically
+  - **Expected output:** drawCount resets to 1 (from incrementDrawCount), currentPlayerIndex = 1, turn has advanced automatically
 
 ### Method under test: `applyGodcat(CardType cardType)`
 - **TC117: Invalid card type** ( :white_check_mark: )
@@ -824,22 +825,37 @@
   - **Expected output**: applyMildShuffle() is called
 
 ### Method under test: `applyTargetedAttack(int targetPlayerIndex)`
-- **TC133: Targeted Attack with minimum players (2), first player targets last player** ( :white_check_mark: )
+- **TC133: Targeted Attack with minimum players (2), first player targets last player** ( :x: )
   - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
   - **State of the system**: game is ongoing, 2 players, currentPlayerIndex = 0, targetPlayerIndex = 1
-  - **Expected output**: deselectHandCards() called on player 0, setCurrentPlayerIndex(1) called, setDrawCount(NUM_TARGETED_ATTACK_DRAW_COUNT) called
+  - **Expected output**: deselectHandCards() called on player 0, setCurrentPlayerIndex(1) called, addAttackDrawCount() called
 
-- **TC134: Targeted Attack with minimum players (2), last player targets first player** ( :white_check_mark: )
+- **TC134: Targeted Attack with minimum players (2), last player targets first player** ( :x: )
   - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
   - **State of the system**: game is ongoing, 2 players, currentPlayerIndex = 1, targetPlayerIndex = 0
-  - **Expected output**: deselectHandCards() called on player 1, setCurrentPlayerIndex(0) called, setDrawCount(NUM_TARGETED_ATTACK_DRAW_COUNT) called
+  - **Expected output**: deselectHandCards() called on player 1, setCurrentPlayerIndex(0) called, addAttackDrawCount() called
 
-- **TC135: Targeted Attack with maximum players (4), first player targets last player** ( :white_check_mark: )
+- **TC135: Targeted Attack with maximum players (4), first player targets last player** ( :x: )
   - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
   - **State of the system**: game is ongoing, 4 players, currentPlayerIndex = 0, targetPlayerIndex = 3
-  - **Expected output**: deselectHandCards() called on player 0, setCurrentPlayerIndex(3) called, setDrawCount(NUM_TARGETED_ATTACK_DRAW_COUNT) called
+  - **Expected output**: deselectHandCards() called on player 0, setCurrentPlayerIndex(3) called, addAttackDrawCount() called
 
-- **TC136: Targeted Attack with maximum players (4), last player targets first player** ( :white_check_mark: )
+- **TC136: Targeted Attack with maximum players (4), last player targets first player** ( :x: )
   - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
   - **State of the system**: game is ongoing, 4 players, currentPlayerIndex = 3, targetPlayerIndex = 0
-  - **Expected output**: deselectHandCards() called on player 3, setCurrentPlayerIndex(0) called, setDrawCount(NUM_TARGETED_ATTACK_DRAW_COUNT) called
+  - **Expected output**: deselectHandCards() called on player 3, setCurrentPlayerIndex(0) called, addAttackDrawCount() called
+
+### Method under test: `addAttackDrawCount()`
+- **TC92: Draw count is below the attack threshold** ( :x: )
+  - **Name of the test**: addAttackDrawCount_drawCountBelowThreshold_setsToAttackDrawCount
+  - **State of the system**:
+    - turnManager.drawCount = 1
+  - **Expected output**:
+    - turnManager.drawCount = 2
+
+- **TC93: Draw count is at or above the attack threshold** ( :x: )
+  - **Name of the test**: addAttackDrawCount_drawCountAtThreshold_addsTwo
+  - **State of the system**:
+    - turnManager.drawCount = 2
+  - **Expected output**:
+    - turnManager.drawCount = 4
