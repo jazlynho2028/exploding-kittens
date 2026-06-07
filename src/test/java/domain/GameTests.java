@@ -2135,18 +2135,17 @@ public class GameTests {
 		drawPile.addCardToTop(explodingKitten3);
 		EasyMock.expectLastCall();
 
-		turnManager.setDrawCount(0);
+		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("advanceTurn")
+				.addMockedMethod("canEndTurn")
 				.createMock();
 
-		game.advanceTurn();
-		EasyMock.expectLastCall();
+		EasyMock.expect(game.canEndTurn()).andReturn(false);
 		EasyMock.replay(game);
 		game.applyCatomicBomb();
 
