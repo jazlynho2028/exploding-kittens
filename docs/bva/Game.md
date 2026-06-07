@@ -853,7 +853,7 @@
   - **Expected output**:
     - turnManager.drawCount = 2
 
-- **TC138: Draw count is at or above the attack threshold** ( :x: )
+- **TC138: Draw count is at or above the attack threshold** ( :white_check_mark: )
   - **Name of the test**: addAttackDrawCount_drawCountTwo_addsTwo
   - **State of the system**:
     - turnManager.drawCount = 2
