@@ -181,3 +181,25 @@
   - **Name of the test**: getName_validName_returnsExactString
   - **State of the system**: Player initialized with a specific name string (e.g., "Alice")
   - **Expected output**: getName() returns exactly "Alice"
+
+### Method under test: `getIsAlive()`
+- **TC36: Player is alive** ( :x: )
+  - **Name of the test**: getIsAlive_playerIsAlive_returnTrue
+  - **State of the system**: Player is alive
+  - **Expected output**: return true
+
+- **TC37: Player is dead** ( :x: )
+  - **Name of the test**: getIsAlive_playerIsDead_returnFalse
+  - **State of the system**: Player is dead
+  - **Expected output**: return false
+
+### Method under test: `eliminatePlayer()`
+- **TC38: Player is alive** ( :x: )
+  - **Name of the test**: eliminatePlayer_playerCreated_setIsAliveToFalse
+  - **State of the system**: Player is alive
+  - **Expected output**: Player is dead
+
+- **TC39: Player is dead** ( :x: )
+  - **Name of the test**: eliminatePlayer_playerCreated_setIsAliveToFalse
+  - **State of the system**: Player is dead
+  - **Expected output**: Player is dead
