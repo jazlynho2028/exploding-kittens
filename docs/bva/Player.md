@@ -188,14 +188,14 @@
   - **State of the system**: Player is alive
   - **Expected output**: return true
 
-- **TC37: Player is dead** ( :x: )
+- **TC37: Player is dead** ( :white_check_mark: )
   - **Name of the test**: isAlive_playerIsDead_returnFalse
   - **State of the system**: Player is dead
   - **Expected output**: return false
 
-### Method under test: `eliminatePlayer()`
+### Method under test: `eliminate()`
 - **TC38: Player is alive** ( :x: )
-  - **Name of the test**: eliminatePlayer_playerCreated_setIsAliveToFalse
+  - **Name of the test**: eliminate_playerCreated_setIsAliveToFalse
   - **State of the system**: Player is alive
   - **Expected output**: Player is dead
 

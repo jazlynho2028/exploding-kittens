@@ -598,9 +598,18 @@ public class PlayerTests {
     @Test
     public void isAlive_playerIsAlive_returnTrue() {
         Player player = new Player("Audrey");
-        boolean isAlive = player.isAlive();
 
+        boolean isAlive = player.isAlive();
         assertTrue(isAlive);
+    }
+
+    @Test
+    public void isAlive_playerIsDead_returnFalse() {
+        Player player = new Player("Audrey");
+        player.eliminate();
+
+        boolean isAlive = player.isAlive();
+        assertFalse(isAlive);
     }
 
 }
