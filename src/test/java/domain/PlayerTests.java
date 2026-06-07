@@ -594,4 +594,13 @@ public class PlayerTests {
 
         EasyMock.verify(mockCard);
     }
+
+    @Test
+    public void isAlive_playerIsAlive_returnTrue() {
+        Player player = new Player("Audrey");
+        boolean isAlive = player.isAlive();
+
+        assertTrue(isAlive);
+    }
+
 }

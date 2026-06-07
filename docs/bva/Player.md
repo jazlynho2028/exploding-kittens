@@ -182,14 +182,14 @@
   - **State of the system**: Player initialized with a specific name string (e.g., "Alice")
   - **Expected output**: getName() returns exactly "Alice"
 
-### Method under test: `getIsAlive()`
-- **TC36: Player is alive** ( :x: )
-  - **Name of the test**: getIsAlive_playerIsAlive_returnTrue
+### Method under test: `isAlive()`
+- **TC36: Player is alive** ( :white_check_mark: )
+  - **Name of the test**: isAlive_playerIsAlive_returnTrue
   - **State of the system**: Player is alive
   - **Expected output**: return true
 
 - **TC37: Player is dead** ( :x: )
-  - **Name of the test**: getIsAlive_playerIsDead_returnFalse
+  - **Name of the test**: isAlive_playerIsDead_returnFalse
   - **State of the system**: Player is dead
   - **Expected output**: return false
 

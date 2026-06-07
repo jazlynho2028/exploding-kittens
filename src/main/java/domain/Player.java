@@ -63,4 +63,9 @@ public class Player {
                 .map(Card::getId)
                 .collect(Collectors.toList());
     }
+
+    public boolean isAlive() {
+        return true;
+    }
+
 }
