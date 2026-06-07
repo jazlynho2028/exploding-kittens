@@ -232,7 +232,7 @@ public class PlayerDeckController {
                     view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
                     break;
                 case TARGETED_ATTACK:
-                    pendingTargetCard = cardType;
+                    pendingTargetAction = Optional.of(model::applyTargetedAttack);
                     view.enableTargetSelectionMode(model.getCurrentPlayerIndex());
                     view.renderTurnControlSection(false, false);
                     break;

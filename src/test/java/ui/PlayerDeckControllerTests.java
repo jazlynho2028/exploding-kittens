@@ -751,8 +751,7 @@ public class PlayerDeckControllerTests {
 		boolean canEndTurn = true;
 		int currentPlayerIndex = 0;
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(
-				PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("rebindHandCards")
 				.createMock();
@@ -786,7 +785,7 @@ public class PlayerDeckControllerTests {
 		controller.onPlayCardsButton();
 
 		EasyMock.verify(model, view, controller);
-		assertEquals(CardType.TARGETED_ATTACK, controller.pendingTargetCard);
+		assertTrue(controller.pendingTargetAction.isPresent());
 	}
 
 	@Test
