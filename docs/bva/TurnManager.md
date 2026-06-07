@@ -119,7 +119,7 @@
     - roundCount = 1
     - drawCount = 1
 
-- **TC13: Current player at 1, 3 players, next player is dead** ( :x: )
+- **TC13: Current player at 1, 3 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 3
