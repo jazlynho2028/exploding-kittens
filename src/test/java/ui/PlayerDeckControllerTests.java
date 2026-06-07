@@ -9,14 +9,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 import java.util.List;
 import java.util.function.Consumer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import domain.GameConstants;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerDeckControllerTests {
 
@@ -212,23 +213,23 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
-	public void onNameTag_pendingTargetCardNotNull_resolvesPendingCard() {
+	public void onNameTag_pendingTargetActionPresent_executesAction() {
 		int playerIndex = 1;
 		int newPlayerIndex = 2;
 		boolean isGameOngoing = true;
 		boolean canPlaySelected = true;
 		boolean canEndTurn = false;
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(
-				PlayerDeckController.class)
+		Consumer<Integer> mockAction = EasyMock.createMock(Consumer.class);
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
 				.withConstructor(model, view)
-				.addMockedMethod("applyPendingTargetCard")
 				.addMockedMethod("handleChangeCurrentPlayer")
 				.createMock();
 
-		controller.pendingTargetCard = CardType.TARGETED_ATTACK;
+		controller.pendingTargetAction = Optional.of(mockAction);
 
-		controller.applyPendingTargetCard(playerIndex);
+		mockAction.accept(playerIndex);
 		EasyMock.expectLastCall();
 
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(newPlayerIndex).times(2);
@@ -246,12 +247,12 @@ public class PlayerDeckControllerTests {
 		view.renderTurnControlSection(canPlaySelected, canEndTurn);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, view, controller);
+		EasyMock.replay(model, view, mockAction, controller);
 
 		controller.onNameTag(playerIndex);
 
-		EasyMock.verify(model, view, controller);
-		assertNull(controller.pendingTargetCard);
+		EasyMock.verify(model, view, mockAction, controller);
+		assertFalse(controller.pendingTargetAction.isPresent());
 	}
 
 	@Test

@@ -7,6 +7,7 @@ import domain.GameConstants;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import static ui.ErrorHandler.attempt;
@@ -18,6 +19,7 @@ public class PlayerDeckController {
     CardType pendingTargetCard = null;
 
     private Consumer<String> onError;
+    Optional<Consumer<Integer>> pendingTargetAction = Optional.empty();
 
     @SuppressFBWarnings(
             value = "EI_EXPOSE_REP2",
@@ -84,14 +86,12 @@ public class PlayerDeckController {
 
     void onNameTag(int playerIndex) {
         attempt(onError, () -> {
-            if (pendingTargetCard != null) {
-                applyPendingTargetCard(playerIndex);
-
-                pendingTargetCard = null;
+            if (pendingTargetAction.isPresent()) {
+                pendingTargetAction.get().accept(playerIndex);
+                pendingTargetAction = Optional.empty();
 
                 view.disableTargetSelectionMode(model.getCurrentPlayerIndex(),
                         model.getIsGameOngoing());
-
                 handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
                 updateTurnControls();
             }

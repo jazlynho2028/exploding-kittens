@@ -65,7 +65,7 @@
     - model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
-- **TC8: pendingTargetAction is present** ( :x: )
+- **TC8: pendingTargetAction is present** ( :white_check_mark: )
   - **Name of the test**: onNameTag_pendingTargetActionPresent_executesAction
   - **State of the system**:
     - pendingTargetAction = Optional.of(mockAction)
