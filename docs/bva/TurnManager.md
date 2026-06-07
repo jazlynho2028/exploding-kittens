@@ -112,6 +112,7 @@
     - numPlayers = 3
     - currentPlayerIndex = 0
     - isAlive.test(1) = false
+    - isAlive.test(2) = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -125,6 +126,7 @@
     - numPlayers = 3
     - currentPlayerIndex = 1
     - isAlive.test(2) = false
+    - isAlive.test(0) = true
     - roundCount = 2
     - drawCount = 1
   - **Expected output**:
@@ -132,12 +134,13 @@
     - roundCount = 3
     - drawCount = 2
 
-- **TC14: Current player at 2, 3 players, next player is dead** ( :x: )
+- **TC14: Current player at 2, 3 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 3
     - currentPlayerIndex = 2
     - isAlive.test(0) = false
+    - isAlive.test(1) = true
     - roundCount = 1
     - drawCount = 1
   - **Expected output**:
@@ -145,12 +148,13 @@
     - roundCount = 2
     - drawCount = 2
 
-- **TC15: Current player at 0, 4 players, next player is dead** ( :x: )
+- **TC15: Current player at 0, 4 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 4
     - currentPlayerIndex = 0
     - isAlive.test(1) = false
+    - isAlive.test(2) = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -158,13 +162,14 @@
     - roundCount = 1
     - drawCount = 1
 
-- **TC16: Current player at 2, 4 players, next two players are dead** ( :x: )
-  - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
+- **TC16: Current player at 2, 4 players, next two players are dead** ( :white_check_mark: )
+  - **Name of the test**: incrementTurn_nextTwoPlayersAreDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 4
     - currentPlayerIndex = 2
     - isAlive.test(3) = false
-    - isAlive.test(4) = false
+    - isAlive.test(0) = false
+    - isAlive.test(1) = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -172,23 +177,39 @@
     - roundCount = 2
     - drawCount = 1
 
+- **TC17: Current player at 2, 4 players, next three players are dead** ( :x: )
+  - **Name of the test**: incrementTurn_nextThreePlayersAreDead_updatesPlayerIndexCorrectly
+  - **State of the system**:
+    - numPlayers = 4
+    - currentPlayerIndex = 2
+    - isAlive.test(3) = false
+    - isAlive.test(0) = false
+    - isAlive.test(1) = false
+    - isAlive.test(2) = true
+    - roundCount = 1
+    - drawCount = 0
+  - **Expected output**:
+    - currentPlayerIndex = 3
+    - roundCount = 2
+    - drawCount = 1
+
 ### Method under test: `setCurrentPlayerIndex(int newPlayerIndex)`
-- **TC17: Negative index** ( :white_check_mark: )
+- **TC18: Negative index** ( :white_check_mark: )
   - **Name of the test**: setCurrentPlayerIndex_invalidIndex_failed
   - **State of the system**: TurnManager constructed with 1 player, newPlayerIndex = 0
   - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"
 
-- **TC18: Minimum valid index** ( :white_check_mark: )
+- **TC19: Minimum valid index** ( :white_check_mark: )
   - **Name of the test**: setCurrentPlayerIndex_validIndex_setNewIndex
   - **State of the system**: TurnManager constructed with 2 players, newPlayerIndex = 0
   - **Expected output**: currentPlayerIndex = newPlayerIndex
 
-- **TC19: Maximum valid index** ( :white_check_mark: )
+- **TC20: Maximum valid index** ( :white_check_mark: )
   - **Name of the test**: setCurrentPlayerIndex_validIndex_setNewIndex
   - **State of the system**: TurnManager constructed with 2 players, newPlayerIndex = 1
   - **Expected output**: currentPlayerIndex = newPlayerIndex
 
-- **TC20: One above maximum valid index** ( :white_check_mark: )
+- **TC21: One above maximum valid index** ( :white_check_mark: )
   - **Name of the test**: setCurrentPlayerIndex_invalidIndex_failed
   - **State of the system**: TurnManager constructed with 1 player, newPlayerIndex = 1
   - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"

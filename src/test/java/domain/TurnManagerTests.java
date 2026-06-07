@@ -125,7 +125,9 @@ public class TurnManagerTests {
 
             "3, 1,  0, 2,  1, 1,  0, 1",
             "3, 2,  1, 0,  2, 3,  1, 2",
-            "3, 0,  2, 1,  1, 2,  1, 2"
+            "3, 0,  2, 1,  1, 2,  1, 2",
+
+            "4, 1,  0, 2,  1, 1,  0, 1"
     })
     public void incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly(
             int numPlayers, int deadIndex,
@@ -154,6 +156,34 @@ public class TurnManagerTests {
         assertEquals(expectedIndex, actualIndex);
         assertEquals(expectedRoundCount, actualRoundCount);
         assertEquals(expectedDrawCount, actualDrawCount);
+
+        EasyMock.verify(isAlive);
+    }
+
+    @Test
+    public void incrementTurn_nextTwoPlayersAreDead_updatesPlayerIndexCorrectly() {
+        IntPredicate isAlive = EasyMock.createMock(IntPredicate.class);
+        EasyMock.expect(isAlive.test(3)).andReturn(false);
+        EasyMock.expect(isAlive.test(0)).andReturn(false);
+        EasyMock.expect(isAlive.test(1)).andReturn(true);
+
+        EasyMock.replay(isAlive);
+
+        TurnManager turnManager = new TurnManager(4);
+
+        turnManager.setCurrentPlayerIndex(2);
+        turnManager.setRoundCount(1);
+        turnManager.setDrawCount(0);
+
+        turnManager.incrementTurn(isAlive);
+
+        int actualIndex = turnManager.getCurrentPlayerIndex();
+        int actualRoundCount = turnManager.getRoundCount();
+        int actualDrawCount = turnManager.getDrawCount();
+
+        assertEquals(1, actualIndex);
+        assertEquals(2, actualRoundCount);
+        assertEquals(1, actualDrawCount);
 
         EasyMock.verify(isAlive);
     }
