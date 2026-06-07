@@ -387,7 +387,15 @@ public class Game {
     }
 
     void applyDrawFromTheBottom() {
-        // TODO
+        Card card = drawPile.removeBottom();
+
+        getCurrentPlayer().addCardToHand(card);
+        turnManager.decrementDrawCount();
+        getCurrentPlayer().deselectHandCards();
+
+        if (canEndTurn()) {
+            advanceTurn();
+        }
     }
 
     void applyTargetedAttack() {

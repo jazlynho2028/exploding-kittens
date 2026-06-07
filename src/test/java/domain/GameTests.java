@@ -2063,6 +2063,48 @@ public class GameTests {
 		EasyMock.verify(drawPile);
 	}
 
+	@Test
+	public void applyDrawFromTheBottom_drawCountBecomesZero_drawsBottomCardAndAdvancesTurn() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		Card card = EasyMock.createMock(Card.class);
+
+		EasyMock.expect(drawPile.removeBottom()).andReturn(card);
+
+		currentPlayer.addCardToHand(card);
+		EasyMock.expectLastCall();
+
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall();
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer, card);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getCurrentPlayer")
+				.addMockedMethod("canEndTurn")
+				.addMockedMethod("advanceTurn")
+				.createMock();
+
+		EasyMock.expect(game.getCurrentPlayer()).andReturn(currentPlayer).times(2);
+		EasyMock.expect(game.canEndTurn()).andReturn(true);
+
+		game.advanceTurn();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(game);
+
+		game.applyDrawFromTheBottom();
+
+		EasyMock.verify(drawPile, turnManager, currentPlayer, game);
+	}
+
 	private static List<Card> mockCardsOfTypes(List<CardType> cardTypes) {
 		List<Card> selectedCards = new ArrayList<>();
 

@@ -1199,7 +1199,7 @@
         - draw pile has four cards; card order is ['EXPLODING KITTEN 2', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 1']
 
 ### Method under test: `applyDrawFromTheBottom()`
-- **TC137: Draw bottom card when draw count becomes zero** ( :x: )
+- **TC137: Draw bottom card when draw count becomes zero** ( :white_check_mark: )
   - **Name of the test**: `applyDrawFromTheBottom_drawCountBecomesZero_drawsBottomCardAndAdvancesTurn`
   - **State of the system**:
     - drawPile.removeBottom returns card1
