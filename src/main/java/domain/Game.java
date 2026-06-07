@@ -348,7 +348,9 @@ public class Game {
     }
 
     public void applyTargetedAttack(int targetPlayerIndex) {
-
+        getCurrentPlayer().deselectHandCards();
+        turnManager.setCurrentPlayerIndex(targetPlayerIndex);
+        addAttackDrawCount();
     }
 
     void addAttackDrawCount() {

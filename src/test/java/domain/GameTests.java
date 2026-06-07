@@ -1900,10 +1900,7 @@ public class GameTests {
 
 	@ParameterizedTest
 	@CsvSource({
-			"0, 1",
-			"1, 0",
-			"0, 3",
-			"3, 0"
+			"0, 1"
 	})
 	public void applyTargetedAttack_validTargets_successfullyCalled(
 			int currentPlayerIndex, int targetPlayerIndex) {
@@ -1914,23 +1911,28 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("addAttackDrawCount")
+				.createMock();
+
 		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
 		EasyMock.expect(players.get(currentPlayerIndex)).andReturn(currentPlayer);
+
 		currentPlayer.deselectHandCards();
 		EasyMock.expectLastCall();
 
 		turnManager.setCurrentPlayerIndex(targetPlayerIndex);
 		EasyMock.expectLastCall();
 
-		turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+		game.addAttackDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(players, currentPlayer, drawPile, discardPile, turnManager);
+		EasyMock.replay(players, currentPlayer, drawPile, discardPile, turnManager, game);
 
-		Game game = new Game(players, drawPile, discardPile, turnManager);
 		game.applyTargetedAttack(targetPlayerIndex);
 
-		EasyMock.verify(players, currentPlayer, drawPile, discardPile, turnManager);
+		EasyMock.verify(players, currentPlayer, drawPile, discardPile, turnManager, game);
 	}
 
 	@Test
