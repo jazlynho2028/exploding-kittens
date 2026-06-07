@@ -16,7 +16,6 @@ public class PlayerDeckController {
 
     private final PlayerDeckView view;
     private final Game model;
-    CardType pendingTargetCard = null;
 
     private Consumer<String> onError;
     Optional<Consumer<Integer>> pendingTargetAction = Optional.empty();
