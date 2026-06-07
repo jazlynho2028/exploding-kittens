@@ -101,16 +101,6 @@ public class PlayerDeckController {
         });
     }
 
-    void applyPendingTargetCard(int playerIndex) {
-        switch (pendingTargetCard) {
-            case TARGETED_ATTACK:
-                model.applyTargetedAttack(playerIndex);
-                break;
-            default:
-                break;
-        }
-    }
-
     void handleChangeCurrentPlayer(int playerIndex) {
         model.changeCurrentPlayerIndex(playerIndex);
         model.setFaceUpToFalse();

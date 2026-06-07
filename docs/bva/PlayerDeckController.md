@@ -81,23 +81,6 @@
     - handleChangeCurrentPlayer(2) is called
     - view.renderTurnControlSection(true, false) is called
 
-## Method under test: `applyPendingTargetCard(int playerIndex)`
-- **TC9: pendingTargetCard is TARGETED_ATTACK** ( :white_check_mark: )
-  - **Name of the test**: applyPendingTargetCard_targetedAttack_appliesAttack
-  - **State of the system**:
-    - pendingTargetCard = CardType.TARGETED_ATTACK
-    - playerIndex = 1
-  - **Expected output**:
-    - model.applyTargetedAttack(1) is called
-
-- **TC10: pendingTargetCard is an unsupported card type** ( :white_check_mark: )
-  - **Name of the test**: applyPendingTargetCard_defaultCard_doesNothing
-  - **State of the system**:
-    - pendingTargetCard = CardType.SKIP
-    - playerIndex = 1
-  - **Expected output**:
-    - model.applyTargetedAttack is not called
-
 ### Method under test: `handleChangeCurrentPlayer(int playerIndex)`
 - **TC8: This method is executed successfully** ( :white_check_mark: )
     - **Name of the test**: handleChangeCurrentPlayer_playerChanges_success
