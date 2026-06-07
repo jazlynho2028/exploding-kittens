@@ -577,7 +577,7 @@
     - player = getCurrentPlayer
   - **Expected output**:
     - player.deselectHandCards is called
-    - turnManager.incrementTurn is called
+    - turnManager.incrementTurn is called with players
 
 - **TC87: Cannot end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
@@ -602,7 +602,7 @@
   - **Expected output**:
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
-    - turnManager.incrementTurn is called
+    - turnManager.incrementTurn is called with players
     - getCurrentPlayer.eliminate is called
 
 ### Method under test: `isDefusable()`

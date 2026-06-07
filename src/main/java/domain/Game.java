@@ -265,7 +265,12 @@ public class Game {
             throw new IllegalStateException("error.cannotEndTurn");
         }
         getCurrentPlayer().deselectHandCards();
-        turnManager.incrementTurn();
+
+        turnManager.incrementTurn(players);
+    }
+
+    private boolean isPlayerAlive(int playerIndex) {
+        return players.get(playerIndex).isAlive();
     }
 
     void setIsGameOngoing(boolean isGameOngoing) {
@@ -333,8 +338,9 @@ public class Game {
         drawPile.removeTop();
 
         getCurrentPlayer().deselectHandCards();
-        turnManager.incrementTurn();
         getCurrentPlayer().eliminate();
+
+        turnManager.incrementTurn(players);
     }
 
     void applyAttack() {
