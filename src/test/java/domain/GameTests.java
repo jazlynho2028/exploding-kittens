@@ -1962,6 +1962,7 @@ public class GameTests {
 	@Test
 	public void addAttackDrawCount_drawCountTwo_addsTwo() {
 		final int expectedDrawCount = 2;
+		final int finalDrawCount = 4;
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1969,7 +1970,7 @@ public class GameTests {
 
 		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount).times(2);
 
-		turnManager.setDrawCount(4);
+		turnManager.setDrawCount(finalDrawCount);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
