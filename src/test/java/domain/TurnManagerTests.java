@@ -121,7 +121,9 @@ public class TurnManagerTests {
     @ParameterizedTest
     @CsvSource({
             "2, 1,  0, 0,  1, 2,  0, 1",
-            "2, 0,  1, 1,  1, 2,  0, 1"
+            "2, 0,  1, 1,  1, 2,  0, 1",
+
+            "3, 1,  0, 2,  1, 1,  0, 1"
     })
     public void incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly(
             int numPlayers, int deadIndex,
