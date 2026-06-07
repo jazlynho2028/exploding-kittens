@@ -1211,7 +1211,7 @@
     - player.deselectHandCards is called
     - advanceTurn is called
 
-- **TC138: Draw bottom card when draw count remains positive** ( :x: )
+- **TC138: Draw bottom card when draw count remains positive** ( :white_check_mark: )
   - **Name of the test**: `applyDrawFromTheBottom_drawCountRemainsPositive_drawsBottomCardWithoutAdvancingTurn`
   - **State of the system**:
     - drawPile.removeBottom returns card1
