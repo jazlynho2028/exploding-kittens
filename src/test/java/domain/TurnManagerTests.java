@@ -1,8 +1,11 @@
 package domain;
 
+import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.function.IntPredicate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -85,11 +88,16 @@ public class TurnManagerTests {
             "3,  2, 0,  1, 2,  0, 1",
             "4,  3, 0,  1, 2,  0, 1"
     })
-    public void incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly(
+    public void incrementTurn_nextPlayerIsAlive_updatesPlayerIndexCorrectly(
             int numPlayers,
             int initialIndex, int expectedIndex,
             int initialRoundCount, int expectedRoundCount,
             int initialDrawCount, int expectedDrawCount) {
+
+        IntPredicate isAlive = EasyMock.createMock(IntPredicate.class);
+        EasyMock.expect(isAlive.test(expectedIndex)).andReturn(true);
+
+        EasyMock.replay(isAlive);
 
         TurnManager turnManager = new TurnManager(numPlayers);
 
@@ -97,7 +105,7 @@ public class TurnManagerTests {
         turnManager.setRoundCount(initialRoundCount);
         turnManager.setDrawCount(initialDrawCount);
 
-        turnManager.incrementTurn();
+        turnManager.incrementTurn(isAlive);
 
         int actualIndex = turnManager.getCurrentPlayerIndex();
         int actualRoundCount = turnManager.getRoundCount();
@@ -106,6 +114,8 @@ public class TurnManagerTests {
         assertEquals(expectedIndex, actualIndex);
         assertEquals(expectedRoundCount, actualRoundCount);
         assertEquals(expectedDrawCount, actualDrawCount);
+
+        EasyMock.verify(isAlive);
     }
 
     @ParameterizedTest

@@ -52,7 +52,7 @@
     - roundCount = 1
     - drawCount = 1
 
-- **TC8: Advance turn on boundary just before list wraps around** ( :x: )
+- **TC8: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsAlive_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
@@ -65,7 +65,7 @@
     - roundCount = 2
     - drawCount = 2
 
-- **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :x: )
+- **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsAlive_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)

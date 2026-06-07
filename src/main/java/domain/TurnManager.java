@@ -2,6 +2,8 @@ package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import java.util.function.IntPredicate;
+
 import static domain.GameConstants.STARTING_PLAYER_INDEX;
 
 public class TurnManager {
@@ -52,14 +54,22 @@ public class TurnManager {
         drawCount--;
     }
 
-    public void incrementTurn() {
-        currentPlayerIndex = (currentPlayerIndex + 1) % numPlayers;
+    public void incrementTurn(IntPredicate isAlive) {
+        incrementCurrentPlayerIndex();
+
+        while (!isAlive.test(currentPlayerIndex)) {
+            incrementCurrentPlayerIndex();
+        }
 
         if (currentPlayerIndex == STARTING_PLAYER_INDEX) {
             roundCount++;
         }
 
         drawCount++;
+    }
+
+    private void incrementCurrentPlayerIndex() {
+        currentPlayerIndex = (currentPlayerIndex + 1) % numPlayers;
     }
 
     void setRoundCount(int roundCount) {
