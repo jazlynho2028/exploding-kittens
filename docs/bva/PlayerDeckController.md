@@ -223,7 +223,7 @@
   - **Expected output**: N/A
 
 - **TC25: UI updated successfully, Skip card** ( :white_check_mark: )
-  - **Name of the test**: updateByCardType_skipPlayed_updateUI
+  - **Name of the test**: updateByCardType_skipOrSuperSkipPlayed_updateUI
   - **State of the system**: cardType = SKIP
   - **Expected output**:
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
@@ -241,7 +241,7 @@
       - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
 - **TC28: Cards play successfully, Super Skip card** ( :white_check_mark: )
-  - **Name of the test**: onPlayCardsButton_skipPlayed_updatedPlayer
+  - **Name of the test**: updateByCardType_skipOrSuperSkipPlayed_updateUI
   - **State of the system**:
     - canDrawFromDiscard = true
     - topDiscardId = "SUPER_SKIP_1"

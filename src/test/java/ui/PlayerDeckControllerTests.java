@@ -651,8 +651,6 @@ public class PlayerDeckControllerTests {
 
 		boolean canDrawFromDiscard = true;
 		boolean canEndTurn = true;
-		String playedCardId = "SKIP_1";
-		CardType playedCardType = CardType.SKIP;
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class
@@ -724,7 +722,6 @@ public class PlayerDeckControllerTests {
 		return Stream.of(
 				Arguments.of(CardType.ATTACK),
 				Arguments.of(CardType.SHUFFLE),
-				Arguments.of(CardType.SUPER_SKIP),
 				Arguments.of(CardType.CLONE),
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM),
 				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM),
@@ -737,8 +734,12 @@ public class PlayerDeckControllerTests {
 		);
 	}
 
-	@Test
-	public void updateByCardType_skipPlayed_updateUI() {
+	@ParameterizedTest
+	@CsvSource({
+			"SKIP",
+			"SUPER_SKIP"
+	})
+	public void updateByCardType_skipOrSuperSkipPlayed_updateUI(CardType cardType) {
 		boolean canEndTurn = true;
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(
@@ -752,7 +753,7 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.replay(model, view, controller);
 
-		controller.updateByCardType(CardType.SKIP);
+		controller.updateByCardType(cardType);
 
 		EasyMock.verify(model, view, controller);
 	}
