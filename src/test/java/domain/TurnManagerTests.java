@@ -225,6 +225,26 @@ public class TurnManagerTests {
         assertEquals(1, actualDrawCount);
     }
 
+    @Test
+    public void incrementTurn_allPlayersAreDead_failed() {
+        int numPlayers = 2;
+        List<Integer> deadIndices = List.of(0, 1);
+
+        List<Player> players = createPlayersWithExpectations(
+                numPlayers, deadIndices
+        );
+
+        TurnManager turnManager = new TurnManager(4);
+
+        Exception exception = assertThrows(IllegalStateException.class, () ->
+                turnManager.incrementTurn(players));
+
+        String expectedMsg = "error.noAlivePlayers";
+        String actualMsg = exception.getMessage();
+
+        assertEquals(expectedMsg, actualMsg);
+    }
+
     @ParameterizedTest
     @CsvSource({
             "-1",

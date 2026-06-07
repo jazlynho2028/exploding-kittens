@@ -193,15 +193,12 @@
     - roundCount = 2
     - drawCount = 1
 
-- **TC18: Current player at 0, 2 players, all dead** ( :x: )
+- **TC18: Current player at 0, 2 players, all dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_allPlayersAreDead_failed
   - **State of the system**:
     - numPlayers = 2
-    - currentPlayerIndex = 0
     - players.get(0).isAlive() = false
     - players.get(1).isAlive() = false
-    - roundCount = 1
-    - drawCount = 0
   - **Expected output**: throw IllegalStateException "error.noAlivePlayers"
 
 ### Method under test: `setCurrentPlayerIndex(int newPlayerIndex)`
