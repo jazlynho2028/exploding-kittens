@@ -1102,7 +1102,7 @@
     - draw pile order is unchanged and remains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
     - turnManager.decrementDrawCount is called
 
-- **TC92: One Exploding Kitten at top of draw pile** ( :x: )
+- **TC92: One Exploding Kitten at top of draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_oneExplodingKittenAlreadyOnTop_deckUnchanged
   - **State of the system**: 
     - top card of draw pile has one CardType 'EXPLODING_KITTEN' with order ['EXPLODING_KITTEN_1' , 'ATTACK_1', 'SHUFFLE_1']
