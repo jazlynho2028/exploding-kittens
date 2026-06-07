@@ -334,7 +334,7 @@ public class Game {
 
         getCurrentPlayer().deselectHandCards();
         turnManager.incrementTurn();
-        // TODO: unalive current player
+        getCurrentPlayer().eliminate();
     }
 
     void applyAttack() {
