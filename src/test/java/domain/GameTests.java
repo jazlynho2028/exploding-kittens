@@ -340,7 +340,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<Card> selectedCards = getCardMocksWithTypeExpectations(selectedCardTypes);
+		List<Card> selectedCards = mockCardsOfTypes(selectedCardTypes);
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(selectedCards);
 
@@ -369,20 +369,6 @@ public class GameTests {
 		);
 	}
 
-	private static List<Card> getCardMocksWithTypeExpectations(List<CardType> cardTypes) {
-		List<Card> selectedCards = new ArrayList<>();
-
-		for (CardType cardType : cardTypes) {
-			Card card = EasyMock.createMock(Card.class);
-			EasyMock.expect(card.getType()).andReturn(cardType);
-			EasyMock.replay(card);
-
-			selectedCards.add(card);
-		}
-
-		return selectedCards;
-	}
-
 	@ParameterizedTest
 	@MethodSource("provideValidCardSelections")
 	public void canPlaySelected_validCards_returnTrue(List<CardType> selectedCardTypes) {
@@ -391,7 +377,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<Card> selectedCards = getCardMocksWithTypeExpectations(selectedCardTypes);
+		List<Card> selectedCards = mockCardsOfTypes(selectedCardTypes);
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(selectedCards);
 
@@ -464,9 +450,9 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		CardType cardType = CardType.DEFUSE;
+		CardType expectedCardType = CardType.DEFUSE;
 		Card card = EasyMock.createMock(Card.class);
-		EasyMock.expect(card.getType()).andStubReturn(cardType);
+		EasyMock.expect(card.getType()).andStubReturn(expectedCardType);
 
 		List<Card> selectedCards = List.of(card);
 		Player currentPlayer = EasyMock.createMock(Player.class);
@@ -484,13 +470,8 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		Exception exception = assertThrows(
-				IllegalStateException.class, game::playSelectedCards);
-
-		String expectedMsg = "error.cannotPlaySelectedCards";
-		String actualMsg = exception.getMessage();
-
-		assertEquals(expectedMsg, actualMsg);
+		CardType actualCardType = game.playSelectedCards();
+		assertEquals(expectedCardType, actualCardType);
 
 		Object[] selectedCardsArray = selectedCards.toArray();
 		EasyMock.verify(selectedCardsArray);
@@ -801,27 +782,20 @@ public class GameTests {
 
 	@ParameterizedTest
 	@CsvSource({
-			"false, 0",
-			"false, 1",
-			"false, 2",
-			"true, 1",
-			"true, 2"
+			"1",
+			"2"
 	})
-	public void canEndTurn_called_returnFalse(boolean isGameOngoing, int drawCount) {
+	public void canEndTurn_positiveDrawCount_returnFalse(int drawCount) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		if (isGameOngoing) {
-			EasyMock.expect(turnManager.getDrawCount()).andReturn(drawCount);
-		}
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(drawCount);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
-
-		game.setIsGameOngoing(isGameOngoing);
 
 		assertFalse(game.canEndTurn());
 
@@ -829,7 +803,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue() {
+	public void canEndTurn_drawCountZero_returnTrue() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -840,7 +814,6 @@ public class GameTests {
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.setIsGameOngoing(true);
 
 		assertTrue(game.canEndTurn());
 
@@ -1384,20 +1357,23 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithNoDefuses")
-	public void currentPlayerHasDefuse_noDefuse_returnFalse(
-			List<CardType> currentPlayerHandCardTypes) {
+	@MethodSource("provideCurrentPlayerHandWithNoDefuserAndTopDiscardCard")
+	public void isDefusable_noDefuser_returnFalse(
+			List<CardType> currentPlayerHandCardTypes, CardType topDiscardType) {
 
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+		List<Card> currentPlayerHandCards = mockCardsOfTypes(
 				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
+
+		Card topDiscardCard = mockCardOfType(topDiscardType);
+		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
@@ -1406,35 +1382,46 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		assertFalse(game.currentPlayerHasDefuse());
+		assertFalse(game.isDefusable());
 
 		EasyMock.verify(game);
 	}
 
-	private static Stream<Arguments> provideCurrentPlayerHandsWithNoDefuses() {
+	private static Stream<Arguments> provideCurrentPlayerHandWithNoDefuserAndTopDiscardCard() {
 		return Stream.of(
-				Arguments.of(List.of()),
-				Arguments.of(List.of(CardType.ATTACK)),
-				Arguments.of(List.of(CardType.ATTACK, CardType.SKIP)),
-				Arguments.of(List.of(CardType.SKIP, CardType.SKIP))
+				Arguments.of(List.of(),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.ATTACK),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.ATTACK, CardType.SKIP),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.SKIP, CardType.SKIP),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.CLONE, CardType.SKIP),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.CLONE, CardType.CLONE),
+						CardType.ATTACK)
 		);
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithDefuses")
-	public void currentPlayerHasDefuse_hasDefuse_returnTrue(
-			List<CardType> currentPlayerHandCardTypes) {
+	@MethodSource("provideCurrentPlayerHandWithDefuserAndTopDiscardCard")
+	public void isDefusable_hasDefuser_returnTrue(
+			List<CardType> currentPlayerHandCardTypes, CardType topDiscardType) {
 
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+		List<Card> currentPlayerHandCards = mockCardsOfTypes(
 				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
+
+		Card topDiscardCard = mockCardOfType(topDiscardType);
+		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
@@ -1443,34 +1430,72 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		assertTrue(game.currentPlayerHasDefuse());
+		assertTrue(game.isDefusable());
 
 		EasyMock.verify(game);
 	}
 
-	private static Stream<Arguments> provideCurrentPlayerHandsWithDefuses() {
+	private static Stream<Arguments> provideCurrentPlayerHandWithDefuserAndTopDiscardCard() {
 		return Stream.of(
-				Arguments.of(List.of(CardType.DEFUSE)),
-				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE)),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP)),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE))
+				Arguments.of(List.of(CardType.DEFUSE),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE),
+						CardType.SKIP),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.GODCAT), CardType.DEFUSE),
+				Arguments.of(List.of(CardType.SKIP, CardType.GODCAT),
+						CardType.SKIP),
+				Arguments.of(List.of(CardType.GODCAT, CardType.SKIP),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.GODCAT, CardType.GODCAT),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.GODCAT),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.GODCAT, CardType.DEFUSE),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.CLONE), CardType.DEFUSE),
+				Arguments.of(List.of(CardType.SKIP, CardType.CLONE),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.SKIP),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.CLONE),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.CLONE),
+						CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.DEFUSE),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.CLONE, CardType.GODCAT),
+						CardType.ATTACK),
+				Arguments.of(List.of(CardType.GODCAT, CardType.CLONE),
+						CardType.DEFUSE),
+				Arguments.of(List.of(
+						CardType.GODCAT, CardType.CLONE, CardType.DEFUSE),
+						CardType.DEFUSE)
 		);
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithNoDefuses")
-	public void playDefuse_noDefuse_failed(List<CardType> currentPlayerHandCardTypes) {
+	@MethodSource("provideCurrentPlayerHandWithNoDefuserAndTopDiscardCard")
+	public void playDefuse_noDefuser_failed(
+			List<CardType> currentPlayerHandCardTypes, CardType topDiscardType) {
+
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		int drawPileIndex = 0;
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+		List<Card> currentPlayerHandCards = mockCardsOfTypes(
 				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
+
+		Card topDiscardCard = mockCardOfType(topDiscardType);
+		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
@@ -1482,7 +1507,7 @@ public class GameTests {
 		Exception exception = assertThrows(IllegalStateException.class, () ->
 				game.playDefuse(drawPileIndex));
 
-		String expectedMsg = "error.currentPlayerNoDefuse";
+		String expectedMsg = "error.currentPlayerNoDefuser";
 		String actualMsg = exception.getMessage();
 
 		assertEquals(expectedMsg, actualMsg);
@@ -1491,9 +1516,10 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideCurrentPlayerHandsWithDefuseIndex")
-	public void playDefuse_hasDefuse_reinsertExplodingKitten(
-			List<CardType> currentPlayerHandCardTypes, int defuseIndex) {
+	@MethodSource("provideCurrentPlayerHandWithDefuserIndex")
+	public void playDefuse_hasDefuser_reinsertExplodingKitten(
+			List<CardType> currentPlayerHandCardTypes, int defuseIndex,
+			CardType topDiscardType) {
 
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
@@ -1502,11 +1528,14 @@ public class GameTests {
 
 		int drawPileIndex = 0;
 
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+		List<Card> currentPlayerHandCards = mockCardsOfTypes(
 				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getHand()).andStubReturn(currentPlayerHandCards);
+
+		Card topDiscardCard = mockCardOfType(topDiscardType);
+		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
 
 		Card defuse = currentPlayerHandCards.get(defuseIndex);
 
@@ -1535,12 +1564,47 @@ public class GameTests {
 		EasyMock.verify(game, currentPlayer, drawPile, discardPile);
 	}
 
-	private static Stream<Arguments> provideCurrentPlayerHandsWithDefuseIndex() {
+	private static Stream<Arguments> provideCurrentPlayerHandWithDefuserIndex() {
 		return Stream.of(
-				Arguments.of(List.of(CardType.DEFUSE), 0),
-				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE), 1),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP), 0),
-				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE), 0)
+				Arguments.of(List.of(CardType.DEFUSE),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE),
+						1, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.SKIP),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.GODCAT),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.SKIP, CardType.GODCAT),
+						1, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.GODCAT, CardType.SKIP),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.GODCAT, CardType.GODCAT),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.GODCAT),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.GODCAT, CardType.DEFUSE),
+						1, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.SKIP, CardType.CLONE),
+						1, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.SKIP),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.CLONE),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.CLONE),
+						0, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.DEFUSE),
+						1, CardType.DEFUSE),
+				Arguments.of(List.of(CardType.CLONE, CardType.GODCAT),
+						1, CardType.ATTACK),
+				Arguments.of(List.of(CardType.GODCAT, CardType.CLONE),
+						1, CardType.DEFUSE),
+				Arguments.of(List.of(
+						CardType.GODCAT, CardType.CLONE, CardType.DEFUSE),
+						2, CardType.DEFUSE)
 		);
 	}
 
@@ -1556,7 +1620,7 @@ public class GameTests {
 		String expectedMsg = "error.invalidDeckIndex";
 
 		List<CardType> currentPlayerHandCardTypes = List.of(CardType.DEFUSE);
-		List<Card> currentPlayerHandCards = getCardMocksWithTypeExpectations(
+		List<Card> currentPlayerHandCards = mockCardsOfTypes(
 				currentPlayerHandCardTypes);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
@@ -1788,166 +1852,40 @@ public class GameTests {
 				mockDrawPile, mockDiscardPile, mockTurnManager);
 	}
 
-	@Test
-	public void applyGodcat_invalidGodcat_throwsException() {
+	@ParameterizedTest
+	@MethodSource("provideCardIds")
+	public void getSeeTheFutureCardIds_called_returnTopDrawPileCards(
+			List<String> expectedCardIds) {
+
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<Card> cards = mockCardsWithIds(expectedCardIds);
+
+		EasyMock.expect(drawPile.peekTopNCards(SEE_THE_FUTURE_PEEK_COUNT))
+				.andReturn(cards);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		Exception exception = assertThrows(IllegalStateException.class, () ->
-				game.applyGodcat(CardType.GODCAT));
+		List<String> actualCardIds = game.getSeeTheFutureCardIds();
 
-		String expectedMsg = "error.cannotPlaySelectedCards";
-		String actualMsg = exception.getMessage();
+		assertEquals(expectedCardIds, actualCardIds);
 
-		assertEquals(expectedMsg, actualMsg);
+		EasyMock.verify(drawPile);
 	}
 
-	@ParameterizedTest
-	@MethodSource("provideValidPlaysAndMethods")
-	public void applyGodcate_validCardType_correctApplyCalled(
-			CardType cardType, String applyMethodName,
-			Consumer<Game> applyMethod) {
-
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
-
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod(applyMethodName)
-				.createMock();
-
-		applyMethod.accept(game);
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(game);
-
-		game.applyGodcat(cardType);
-
-		EasyMock.verify(game);
-	}
-
-	@ParameterizedTest
-	@MethodSource("provideValidCardTypesForGodcatWithoutApplyMethod")
-	public void applyGodcat_validPlayWithoutApplyMethod_noApplyCalled(
-			CardType cardType) {
-
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
-
-		Game game = new Game(players, drawPile, discardPile, turnManager);
-
-		game.applyGodcat(cardType);
-	}
-
-	private static Stream<Arguments> provideValidCardTypesForGodcatWithoutApplyMethod() {
+	private static Stream<Arguments> provideCardIds() {
 		return Stream.of(
-				Arguments.of(CardType.SEE_THE_FUTURE),
-				Arguments.of(CardType.TARGETED_ATTACK)
+				Arguments.of(List.of()),
+				Arguments.of(List.of("SKIP_1")),
+				Arguments.of(List.of("SKIP_1", "SKIP_2")),
+				Arguments.of(List.of("SKIP_1", "ATTACK_1")),
+				Arguments.of(List.of("SKIP_1", "SKIP_1"))
 		);
-	}
-
-	@Test
-	public void applySwapTopAndBottom_emptyDeck_remainsEmpty() {
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		EasyMock.expect(drawPile.size()).andReturn(0);
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
-
-		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.applySwapTopAndBottom();
-
-		EasyMock.verify(drawPile);
-	}
-
-	@Test
-	public void applySwapTopAndBottom_oneCard_deckUnchanged() {
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		EasyMock.expect(drawPile.size()).andReturn(1);
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
-
-		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.applySwapTopAndBottom();
-
-		EasyMock.verify(drawPile);
-	}
-
-	@Test
-	public void applySwapTopAndBottom_moreThanOneCard_swapped() {
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		Card card1 = new Card("SKIP_1", CardType.SKIP);
-		Card card4 = new Card("ATTACK_1", CardType.ATTACK);
-
-		final int drawPileSize = 4;
-		EasyMock.expect(drawPile.size()).andReturn(drawPileSize);
-		EasyMock.expect(drawPile.removeTop()).andReturn(card1);
-		EasyMock.expect(drawPile.removeBottom()).andReturn(card4);
-
-		drawPile.addCardToTop(mockSpecificCard(CardType.ATTACK, 1));
-		EasyMock.expectLastCall();
-		drawPile.addCardToBottom(mockSpecificCard(CardType.SKIP, 1));
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
-
-		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.applySwapTopAndBottom();
-
-		EasyMock.verify(drawPile);
-	}
-
-	@Test
-	public void applySwapTopAndBottom_sameType_swapped() {
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		Card explodingKitten1 = new Card("EXPLODINGKITTEN_1", CardType.EXPLODING_KITTEN);
-		Card explodingKitten2 = new Card("EXPLODINGKITTEN_2", CardType.EXPLODING_KITTEN);
-
-		final int drawPileSize = 4;
-		EasyMock.expect(drawPile.size()).andReturn(drawPileSize);
-		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
-		EasyMock.expect(drawPile.removeBottom()).andReturn(explodingKitten2);
-
-		drawPile.addCardToTop(mockSpecificCard(CardType.EXPLODING_KITTEN, 2));
-		EasyMock.expectLastCall();
-		drawPile.addCardToBottom(mockSpecificCard(CardType.EXPLODING_KITTEN, 1));
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
-
-		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.applySwapTopAndBottom();
-
-		EasyMock.verify(drawPile);
 	}
 
 	@Test
@@ -2211,6 +2149,217 @@ public class GameTests {
 		EasyMock.verify(drawPile, turnManager, game);
 	}
 
+	@ParameterizedTest
+	@MethodSource("provideInvalidGodcatCardTypes")
+	public void applyGodcat_invalidCardType_throwsException(CardType cardType) {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Exception exception = assertThrows(IllegalArgumentException.class, () ->
+				game.applyGodcat(cardType));
+
+		String expectedMsg = "error.cannotPlaySelectedCards";
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
+	}
+
+	private static Stream<Arguments> provideInvalidGodcatCardTypes() {
+		return Stream.of(
+				Arguments.of(CardType.GODCAT),
+				Arguments.of(CardType.EXPLODING_KITTEN),
+				Arguments.of(CardType.DEFUSE)
+		);
+	}
+
+	@ParameterizedTest
+	@MethodSource("provideValidPlaysAndMethods")
+	public void applyGodcat_validCardType_correctApplyCalled(
+			CardType cardType, String applyMethodName,
+			Consumer<Game> applyMethod) {
+
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod(applyMethodName)
+				.createMock();
+
+		applyMethod.accept(game);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(game);
+
+		game.applyGodcat(cardType);
+
+		EasyMock.verify(game);
+	}
+
+	@ParameterizedTest
+	@MethodSource("provideValidCardTypesForGodcatWithoutApplyMethod")
+	public void applyGodcat_validPlayWithoutApplyMethod_noApplyCalled(
+			CardType cardType) {
+
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		game.applyGodcat(cardType);
+	}
+
+	private static Stream<Arguments> provideValidCardTypesForGodcatWithoutApplyMethod() {
+		return Stream.of(
+				Arguments.of(CardType.SEE_THE_FUTURE),
+				Arguments.of(CardType.TARGETED_ATTACK)
+		);
+	}
+
+	@Test
+	public void applySwapTopAndBottom_emptyDeck_remainsEmpty() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(drawPile.size()).andReturn(0);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applySwapTopAndBottom();
+
+		EasyMock.verify(drawPile);
+	}
+
+	@Test
+	public void applySwapTopAndBottom_oneCard_deckUnchanged() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(drawPile.size()).andReturn(1);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applySwapTopAndBottom();
+
+		EasyMock.verify(drawPile);
+	}
+
+	@Test
+	public void applySwapTopAndBottom_moreThanOneCard_swapped() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card card1 = new Card("SKIP_1", CardType.SKIP);
+		Card card4 = new Card("ATTACK_1", CardType.ATTACK);
+
+		final int drawPileSize = 4;
+		EasyMock.expect(drawPile.size()).andReturn(drawPileSize);
+		EasyMock.expect(drawPile.removeTop()).andReturn(card1);
+		EasyMock.expect(drawPile.removeBottom()).andReturn(card4);
+
+		drawPile.addCardToTop(mockSpecificCard(CardType.ATTACK, 1));
+		EasyMock.expectLastCall();
+		drawPile.addCardToBottom(mockSpecificCard(CardType.SKIP, 1));
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applySwapTopAndBottom();
+
+		EasyMock.verify(drawPile);
+	}
+
+	@Test
+	public void applySwapTopAndBottom_sameType_swapped() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card explodingKitten1 = new Card("EXPLODINGKITTEN_1", CardType.EXPLODING_KITTEN);
+		Card explodingKitten2 = new Card("EXPLODINGKITTEN_2", CardType.EXPLODING_KITTEN);
+
+		final int drawPileSize = 4;
+		EasyMock.expect(drawPile.size()).andReturn(drawPileSize);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
+		EasyMock.expect(drawPile.removeBottom()).andReturn(explodingKitten2);
+
+		drawPile.addCardToTop(mockSpecificCard(CardType.EXPLODING_KITTEN, 2));
+		EasyMock.expectLastCall();
+		drawPile.addCardToBottom(mockSpecificCard(CardType.EXPLODING_KITTEN, 1));
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applySwapTopAndBottom();
+
+		EasyMock.verify(drawPile);
+	}
+
+	private static List<Card> mockCardsOfTypes(List<CardType> cardTypes) {
+		List<Card> selectedCards = new ArrayList<>();
+
+		for (CardType cardType : cardTypes) {
+			Card card = mockCardOfType(cardType);
+
+			selectedCards.add(card);
+		}
+
+		return selectedCards;
+	}
+
+	private static Card mockCardOfType(CardType cardType) {
+		Card card = EasyMock.createMock(Card.class);
+		EasyMock.expect(card.getType()).andStubReturn(cardType);
+		EasyMock.replay(card);
+
+		return card;
+	}
+
+	private static List<Card> mockCardsWithIds(List<String> cardIds) {
+		List<Card> selectedCards = new ArrayList<>();
+
+		for (String cardId : cardIds) {
+			Card card = mockCardWithId(cardId);
+
+			selectedCards.add(card);
+		}
+
+		return selectedCards;
+	}
+
+	private static Card mockCardWithId(String cardId) {
+		Card card = EasyMock.createMock(Card.class);
+		EasyMock.expect(card.getId()).andStubReturn(cardId);
+		EasyMock.replay(card);
+
+		return card;
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
@@ -2244,10 +2393,4 @@ public class GameTests {
 		return matchesType && matchesId;
 	}
 
-	private Card mockCardOfType(CardType cardType) {
-		Card card = EasyMock.createMock(Card.class);
-		EasyMock.expect(card.getType()).andStubReturn(cardType);
-		EasyMock.replay(card);
-		return card;
-	}
 }

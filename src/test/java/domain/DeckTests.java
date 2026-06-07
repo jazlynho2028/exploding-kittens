@@ -344,8 +344,6 @@ public class DeckTests {
     }
 
     private static Stream<Arguments> peekTopNCardsInvalidCountCases() {
-        Deque<Card> emptyDeck = new ArrayDeque<>();
-
         Card negativeCountCard1 = EasyMock.createMock(Card.class);
         Card negativeCountCard2 = EasyMock.createMock(Card.class);
         EasyMock.replay(negativeCountCard1, negativeCountCard2);
@@ -353,22 +351,7 @@ public class DeckTests {
         negativeCountDeck.addLast(negativeCountCard1);
         negativeCountDeck.addLast(negativeCountCard2);
 
-        Card tooLargeCountCard1 = EasyMock.createMock(Card.class);
-        Card tooLargeCountCard2 = EasyMock.createMock(Card.class);
-        EasyMock.replay(tooLargeCountCard1, tooLargeCountCard2);
-        Deque<Card> tooLargeCountDeck = new ArrayDeque<>();
-        tooLargeCountDeck.addLast(tooLargeCountCard1);
-        tooLargeCountDeck.addLast(tooLargeCountCard2);
-
         return Stream.of(
-                Arguments.of(
-                        "empty deck and positive count",
-                        emptyDeck,
-                        ONE_CARD,
-                        IllegalStateException.class,
-                        "error.notEnoughCards",
-                        List.of(),
-                        new Card[] {}),
                 Arguments.of(
                         "negative count",
                         negativeCountDeck,
@@ -376,15 +359,7 @@ public class DeckTests {
                         IllegalArgumentException.class,
                         "error.peekNegativeCards",
                         List.of(negativeCountCard1, negativeCountCard2),
-                        new Card[] {negativeCountCard1, negativeCountCard2}),
-                Arguments.of(
-                        "count greater than deck size",
-                        tooLargeCountDeck,
-                        THREE_CARDS,
-                        IllegalStateException.class,
-                        "error.notEnoughCards",
-                        List.of(tooLargeCountCard1, tooLargeCountCard2),
-                        new Card[] {tooLargeCountCard1, tooLargeCountCard2})
+                        new Card[] {negativeCountCard1, negativeCountCard2})
         );
     }
 
@@ -463,10 +438,22 @@ public class DeckTests {
         fullDeck.addLast(fullDeckCard1);
         fullDeck.addLast(fullDeckCard2);
 
+        Card emptyDeckCard1 = EasyMock.createMock(Card.class);
+        Card emptyDeckCard2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(emptyDeckCard1, emptyDeckCard2);
+        Deque<Card> emptyDeckPositiveCount = new ArrayDeque<>();
+
+        Card tooLargeCountCard1 = EasyMock.createMock(Card.class);
+        Card tooLargeCountCard2 = EasyMock.createMock(Card.class);
+        EasyMock.replay(tooLargeCountCard1, tooLargeCountCard2);
+        Deque<Card> tooLargeCountDeck = new ArrayDeque<>();
+        tooLargeCountDeck.addLast(tooLargeCountCard1);
+        tooLargeCountDeck.addLast(tooLargeCountCard2);
+
         Card duplicateCard1 = EasyMock.createMock(Card.class);
-        Card duplicateCard2 = EasyMock.createMock(Card.class);
+        Card duplicateCard2 = duplicateCard1;
         Card duplicateCard3 = EasyMock.createMock(Card.class);
-        EasyMock.replay(duplicateCard1, duplicateCard2, duplicateCard3);
+        EasyMock.replay(duplicateCard1, duplicateCard3);
         Deque<Card> duplicateDeck = new ArrayDeque<>();
         duplicateDeck.addLast(duplicateCard1);
         duplicateDeck.addLast(duplicateCard2);
@@ -487,6 +474,20 @@ public class DeckTests {
                         List.of(fullDeckCard1, fullDeckCard2),
                         List.of(fullDeckCard1, fullDeckCard2),
                         new Card[] {fullDeckCard1, fullDeckCard2}),
+                Arguments.of(
+                        "empty deck and positive count",
+                        emptyDeckPositiveCount,
+                        ONE_CARD,
+                        List.of(),
+                        List.of(),
+                        new Card[] {}),
+                Arguments.of(
+                        "count greater than deck size",
+                        tooLargeCountDeck,
+                        THREE_CARDS,
+                        List.of(tooLargeCountCard1, tooLargeCountCard2),
+                        List.of(tooLargeCountCard1, tooLargeCountCard2),
+                        new Card[] {tooLargeCountCard1, tooLargeCountCard2}),
                 Arguments.of(
                         "duplicate cards",
                         duplicateDeck,
