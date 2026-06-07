@@ -94,26 +94,28 @@
 **Planning and Progress Tracking**:
 1. [Done] Jazlyn: Refactored game, turnManager, and main app (including BVA and test rewrites) to only pass in numPlayers to turnManager to store
 2. [Done] Jazlyn: Changed return type of game playSelectedCards and drawFromPile methods from void to CardType for controller card effect display
-3. [not started] Ejean: Game rules documentation
-4. [50% Done] Luke: README.md special cases documentation
-5. [50% Done] DJ: Design documentation
-6. [Done] Jazlyn: Exploding Kitten implementation
-7. [Done] Jazlyn: Defuse implementation
-8. [Done] Jazlyn: See The Future implementation
-9. [not started] Jazlyn: Winner Winner Catnip Dinner implementation
-10. [not started] Ejean: Attack implementation
-11. [not started] Ejean: Feral Cat implementation
-12. [not started] Ejean: Cat Cards 1-4 implementation
-13. [not started] Ejean: Double Up implementation
-14. [Done] Luke: Skip implementation
-15. [not started] Luke: Super Skip implementation
-16. [not started] Luke: Targeted Attack implementation
-17. [not started] Luke: Ragebait implementation
-18. [not started] DJ: Catomic Bomb implementation
-19. [not started] DJ: Godcat implementation
-20. [Done] DJ: Swap Top And Bottom implementation
-21. [not started] DJ: Recycle implementation
-22. [not started] Irene: Shuffle implementation
-23. [not started] Irene: Clone implementation
-24. [not started] Irene: Draw From The Bottom implementation
-25. [not started] Irene: Mild Draw implementation
+3. [Done] Jazlyn: Refactored controller tests to use helper expectation methods
+4. [not started] Ejean: Game rules documentation
+5. [50% Done] Luke: README.md special cases documentation
+6. [50% Done] DJ: Design documentation
+7. [Done] Jazlyn: Exploding Kitten implementation
+8. [Done] Jazlyn: Defuse implementation
+9. [Done] Jazlyn: See The Future implementation
+10. [not started] Jazlyn: Winner Winner Catnip Dinner implementation
+11. [not started] Ejean: Attack implementation
+12. [not started] Ejean: Feral Cat implementation
+13. [not started] Ejean: Cat Cards 1-4 implementation
+14. [not started] Ejean: Double Up implementation
+15. [Done] Luke: Skip implementation
+16. [Done] Luke: Super Skip implementation
+17. [not started] Luke: Targeted Attack implementation
+18. [not started] Luke: Ragebait implementation
+19. [Done] DJ: Catomic Bomb implementation
+20. [Done] DJ: Godcat implementation
+21. [Done] Jazlyn: Resolve Godcat implementation bugs
+22. [Done] DJ: Swap Top And Bottom implementation
+23. [not started] DJ: Recycle implementation
+24. [not started] Irene: Shuffle implementation
+25. [not started] Irene: Clone implementation
+26. [not started] Irene: Draw From The Bottom implementation
+27. [not started] Irene: Mild Draw implementation
