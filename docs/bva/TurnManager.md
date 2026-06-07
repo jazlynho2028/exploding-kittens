@@ -39,12 +39,12 @@
   - **Expected output**: drawCount = 1
 
 ### Method under test: `incrementTurn(IntPredicate isAlive)`
-- **TC7: Advance turn away from starting baseline across varying player sizes** ( :white_check_mark: )
+- **TC7: Advance turn away from starting baseline across varying player sizes** ( :x: )
   - **Name of the test**: incrementTurn_nextPlayerIsAlive_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = 0
-    - isAlive.test(1) = true
+    - players.get(1).isAlive() = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**: 
@@ -52,12 +52,12 @@
     - roundCount = 1
     - drawCount = 1
 
-- **TC8: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
+- **TC8: Advance turn on boundary just before list wraps around** ( :x: )
   - **Name of the test**: incrementTurn_nextPlayerIsAlive_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = N - 2
-    - isAlive.test(N - 1) = true
+    - players.get(N - 1).isAlive() = true
     - roundCount = 2
     - drawCount = 1
   - **Expected output**: 
@@ -65,12 +65,12 @@
     - roundCount = 2
     - drawCount = 2
 
-- **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :white_check_mark: )
+- **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :x: )
   - **Name of the test**: incrementTurn_nextPlayerIsAlive_updatesPlayerIndexCorrectly
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = N - 1
-    - isAlive.test(0) = true
+    - players.get(0).isAlive() = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**: 
@@ -78,13 +78,13 @@
     - roundCount = 2
     - drawCount = 1
 
-- **TC10: Current player at 0, 2 players, next player is dead** ( :white_check_mark: )
+- **TC10: Current player at 0, 2 players, next player is dead** ( :x: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 2
     - currentPlayerIndex = 0
-    - isAlive.test(1) = false
-    - isAlive.test(0) = true
+    - players.get(1).isAlive() = false
+    - players.get(0).isAlive() = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -92,13 +92,13 @@
     - roundCount = 2
     - drawCount = 1
 
-- **TC11: Current player at 1, 2 players, next player is dead** ( :white_check_mark: )
+- **TC11: Current player at 1, 2 players, next player is dead** ( :x: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 2
     - currentPlayerIndex = 1
-    - isAlive.test(0) = false
-    - isAlive.test(1) = true
+    - players.get(0).isAlive() = false
+    - players.get(1).isAlive() = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -106,13 +106,13 @@
     - roundCount = 2
     - drawCount = 1
 
-- **TC12: Current player at 0, 3 players, next player is dead** ( :white_check_mark: )
+- **TC12: Current player at 0, 3 players, next player is dead** ( :x: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 3
     - currentPlayerIndex = 0
-    - isAlive.test(1) = false
-    - isAlive.test(2) = true
+    - players.get(1).isAlive() = false
+    - players.get(2).isAlive() = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -120,13 +120,13 @@
     - roundCount = 1
     - drawCount = 1
 
-- **TC13: Current player at 1, 3 players, next player is dead** ( :white_check_mark: )
+- **TC13: Current player at 1, 3 players, next player is dead** ( :x: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 3
     - currentPlayerIndex = 1
-    - isAlive.test(2) = false
-    - isAlive.test(0) = true
+    - players.get(2).isAlive() = false
+    - players.get(0).isAlive() = true
     - roundCount = 2
     - drawCount = 1
   - **Expected output**:
@@ -134,13 +134,13 @@
     - roundCount = 3
     - drawCount = 2
 
-- **TC14: Current player at 2, 3 players, next player is dead** ( :white_check_mark: )
+- **TC14: Current player at 2, 3 players, next player is dead** ( :x: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 3
     - currentPlayerIndex = 2
-    - isAlive.test(0) = false
-    - isAlive.test(1) = true
+    - players.get(0).isAlive() = false
+    - players.get(1).isAlive() = true
     - roundCount = 1
     - drawCount = 1
   - **Expected output**:
@@ -148,13 +148,13 @@
     - roundCount = 2
     - drawCount = 2
 
-- **TC15: Current player at 0, 4 players, next player is dead** ( :white_check_mark: )
+- **TC15: Current player at 0, 4 players, next player is dead** ( :x: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 4
     - currentPlayerIndex = 0
-    - isAlive.test(1) = false
-    - isAlive.test(2) = true
+    - players.get(1).isAlive() = false
+    - players.get(2).isAlive() = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -162,14 +162,14 @@
     - roundCount = 1
     - drawCount = 1
 
-- **TC16: Current player at 2, 4 players, next two players are dead** ( :white_check_mark: )
+- **TC16: Current player at 2, 4 players, next two players are dead** ( :x: )
   - **Name of the test**: incrementTurn_nextTwoPlayersAreDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 4
     - currentPlayerIndex = 2
-    - isAlive.test(3) = false
-    - isAlive.test(0) = false
-    - isAlive.test(1) = true
+    - players.get(3).isAlive() = false
+    - players.get(0).isAlive() = false
+    - players.get(1).isAlive() = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -182,16 +182,27 @@
   - **State of the system**:
     - numPlayers = 4
     - currentPlayerIndex = 2
-    - isAlive.test(3) = false
-    - isAlive.test(0) = false
-    - isAlive.test(1) = false
-    - isAlive.test(2) = true
+    - players.get(3).isAlive() = false
+    - players.get(0).isAlive() = false
+    - players.get(1).isAlive() = false
+    - players.get(2).isAlive() = true
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
     - currentPlayerIndex = 2
     - roundCount = 2
     - drawCount = 1
+
+- **TC18: Current player at 0, 2 players, all dead** ( :x: )
+  - **Name of the test**: incrementTurn_allPlayersAreDead_failed
+  - **State of the system**:
+    - numPlayers = 2
+    - currentPlayerIndex = 0
+    - players.get(0).isAlive() = false
+    - players.get(1).isAlive() = false
+    - roundCount = 1
+    - drawCount = 0
+  - **Expected output**: throw IllegalStateException "error.noAlivePlayers"
 
 ### Method under test: `setCurrentPlayerIndex(int newPlayerIndex)`
 - **TC18: Negative index** ( :white_check_mark: )
