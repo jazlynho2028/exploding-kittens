@@ -235,7 +235,7 @@
   - **Expected output**:
     - view.buildSeeTheFutureOverlay is called with model.getSeeTheFutureCardIds
 
-- **TC27: UI updated successfully, Catomic Bomb card** ( :x: )
+- **TC27: UI updated successfully, Catomic Bomb card** ( :white_check_mark: )
     - **Name of the test**: updateByCardType_catomicBombPlayed_updateUI
     - **State of the system**: cardType = CATOMIC_BOMB
     - **Expected output**:

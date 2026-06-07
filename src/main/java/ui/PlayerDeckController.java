@@ -214,14 +214,13 @@ public class PlayerDeckController {
     void updateByCardType(CardType cardType) {
         switch (cardType) {
             case SKIP:
-                renderNextTurn();
+			case CATOMIC_BOMB:
+				renderNextTurn();
                 break;
             case SEE_THE_FUTURE:
                 view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
                 break;
-			case CATOMIC_BOMB:
-				renderNextTurn();
-            default:
+			default:
                 break;
         }
     }

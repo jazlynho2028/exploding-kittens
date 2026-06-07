@@ -679,47 +679,6 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
-	public void onPlayCardsButton_catomicBombPlayed_turnAdvanced() {
-		boolean canDrawFromDiscard = false;
-		boolean canEndTurn = true;
-		String topDiscardId = "CATOMICBOMB_1";
-		CardType topDiscardType = CardType.CATOMIC_BOMB;
-
-		EasyMock.expect(model.canDrawFromDiscard()).andReturn(canDrawFromDiscard);
-		EasyMock.expect(model.getTopDiscardId()).andReturn(topDiscardId);
-		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
-
-		setUpRenderTurnControlSectionExpectations(canEndTurn);
-
-		EasyMock.expect(model.playSelectedCards()).andReturn(topDiscardType);
-
-		view.renderDiscardPile(canDrawFromDiscard, topDiscardId);
-		EasyMock.expectLastCall();
-
-		PlayerDeckController controller = EasyMock.createMockBuilder(
-						PlayerDeckController.class)
-				.withConstructor(model, view)
-				.addMockedMethod("rebindHandCards")
-				.addMockedMethod("handleChangeCurrentPlayer")
-				.createMock();
-
-		controller.rebindHandCards();
-		EasyMock.expectLastCall();
-
-		view.renderTurnControlSection(canPlaySelected, canEndTurn);
-		EasyMock.expectLastCall();
-
-		controller.handleChangeCurrentPlayer(currentPlayerIndex);
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(model, view, controller);
-
-		controller.onPlayCardsButton();
-
-		EasyMock.verify(model, view, controller);
-	}
-
-	@Test
 	public void onPlayCardsButton_called_failed() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
@@ -755,7 +714,6 @@ public class PlayerDeckControllerTests {
 		return Stream.of(
 				Arguments.of(CardType.ATTACK),
 				Arguments.of(CardType.SHUFFLE),
-				Arguments.of(CardType.CATOMIC_BOMB),
 				Arguments.of(CardType.SUPER_SKIP),
 				Arguments.of(CardType.CLONE),
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM),
@@ -803,6 +761,26 @@ public class PlayerDeckControllerTests {
 		controller.updateByCardType(CardType.SEE_THE_FUTURE);
 
 		EasyMock.verify(model, view);
+	}
+
+	@Test
+	public void updateByCardType_catomicBombPlayed_updateUI() {
+		boolean canEndTurn = true;
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("handleChangeCurrentPlayer")
+				.createMock();
+
+		expectRenderNextTurn(controller, CURRENT_PLAYER_INDEX, canEndTurn);
+
+		EasyMock.replay(model, view, controller);
+
+		controller.updateByCardType(CardType.CATOMIC_BOMB);
+
+		EasyMock.verify(model, view, controller);
 	}
 
 	@Test
