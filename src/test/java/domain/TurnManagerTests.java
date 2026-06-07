@@ -188,6 +188,35 @@ public class TurnManagerTests {
         EasyMock.verify(isAlive);
     }
 
+    @Test
+    public void incrementTurn_nextThreePlayersAreDead_updatesPlayerIndexCorrectly() {
+        IntPredicate isAlive = EasyMock.createMock(IntPredicate.class);
+        EasyMock.expect(isAlive.test(3)).andReturn(false);
+        EasyMock.expect(isAlive.test(0)).andReturn(false);
+        EasyMock.expect(isAlive.test(1)).andReturn(false);
+        EasyMock.expect(isAlive.test(2)).andReturn(true);
+
+        EasyMock.replay(isAlive);
+
+        TurnManager turnManager = new TurnManager(4);
+
+        turnManager.setCurrentPlayerIndex(2);
+        turnManager.setRoundCount(1);
+        turnManager.setDrawCount(0);
+
+        turnManager.incrementTurn(isAlive);
+
+        int actualIndex = turnManager.getCurrentPlayerIndex();
+        int actualRoundCount = turnManager.getRoundCount();
+        int actualDrawCount = turnManager.getDrawCount();
+
+        assertEquals(2, actualIndex);
+        assertEquals(2, actualRoundCount);
+        assertEquals(1, actualDrawCount);
+
+        EasyMock.verify(isAlive);
+    }
+
     @ParameterizedTest
     @CsvSource({
             "-1",

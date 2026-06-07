@@ -189,7 +189,7 @@
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
-    - currentPlayerIndex = 3
+    - currentPlayerIndex = 2
     - roundCount = 2
     - drawCount = 1
 
