@@ -175,14 +175,14 @@ public class TurnManagerTests {
 
     @Test
     public void incrementTurn_nextTwoPlayersAreDead_updatesPlayerIndexCorrectly() {
-        int numPlayers = 4;
-        List<Integer> deadIndices = List.of(3, 0);
+        int numPlayers = GameConstants.MAX_PLAYERS;
+        List<Integer> deadIndices = List.of(numPlayers - 1, 0);
 
         List<Player> players = createPlayersWithExpectations(
                 numPlayers, deadIndices
         );
 
-        TurnManager turnManager = new TurnManager(4);
+        TurnManager turnManager = new TurnManager(numPlayers);
 
         turnManager.setCurrentPlayerIndex(2);
         turnManager.setRoundCount(1);
@@ -201,14 +201,14 @@ public class TurnManagerTests {
 
     @Test
     public void incrementTurn_nextThreePlayersAreDead_updatesPlayerIndexCorrectly() {
-        int numPlayers = 4;
-        List<Integer> deadIndices = List.of(3, 0, 1);
+        int numPlayers = GameConstants.MAX_PLAYERS;
+        List<Integer> deadIndices = List.of(numPlayers - 1, 0, 1);
 
         List<Player> players = createPlayersWithExpectations(
                 numPlayers, deadIndices
         );
 
-        TurnManager turnManager = new TurnManager(4);
+        TurnManager turnManager = new TurnManager(numPlayers);
 
         turnManager.setCurrentPlayerIndex(2);
         turnManager.setRoundCount(1);
@@ -234,7 +234,7 @@ public class TurnManagerTests {
                 numPlayers, deadIndices
         );
 
-        TurnManager turnManager = new TurnManager(4);
+        TurnManager turnManager = new TurnManager(numPlayers);
 
         Exception exception = assertThrows(IllegalStateException.class, () ->
                 turnManager.incrementTurn(players));
