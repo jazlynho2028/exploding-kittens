@@ -396,6 +396,18 @@ public class Game {
         advanceTurn();
     }
 
+    public void applyGodcat(CardType cardType) {
+        boolean isValidGodcatPlay = cardType != CardType.GODCAT &&
+                !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(cardType);
+
+        if (isValidGodcatPlay) {
+            applyByCardType(cardType);
+        }
+        else {
+            throw new IllegalArgumentException("error.cannotPlaySelectedCards");
+        }
+    }
+
     void applyClone() {
         // TODO
     }
@@ -438,18 +450,6 @@ public class Game {
 
     void applyMildShuffle() {
         // TODO
-    }
-
-    public void applyGodcat(CardType cardType) {
-        boolean isValidGodcatPlay = cardType != CardType.GODCAT &&
-                !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(cardType);
-
-        if (isValidGodcatPlay) {
-            applyByCardType(cardType);
-        }
-        else {
-            throw new IllegalArgumentException("error.cannotPlaySelectedCards");
-        }
     }
 
 }
