@@ -1082,7 +1082,7 @@
   - **Expected output:** return ["SKIP_1", "SKIP_1"]
 
 ### Method under test: `applyCatomicBomb()`
-- **TC90: Draw pile is empty** ( :x: )
+- **TC90: Draw pile is empty** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_emptyDeck_remainsEmpty
   - **State of the system**: 
     - draw pile has no cards
