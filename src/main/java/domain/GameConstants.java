@@ -21,7 +21,7 @@ public final class GameConstants {
 	public static final int FIVE_CARDS = 5;
 
 	public static final int NUM_MILD_SHUFFLE_IN_GAME = 1;
-	static final int NUM_TARGETED_ATTACK_DRAW_COUNT = 2;
+	public static final int ATTACK_DRAW_COUNT = 2;
 	public static final int NUM_GODCAT_IN_GAME = 1;
 	public static final int NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME = 1;
 	public static final int NUM_RAGEBAIT_IN_GAME = 1;
