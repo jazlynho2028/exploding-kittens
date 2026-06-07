@@ -714,7 +714,6 @@ public class PlayerDeckControllerTests {
 		return Stream.of(
 				Arguments.of(CardType.ATTACK),
 				Arguments.of(CardType.SHUFFLE),
-				Arguments.of(CardType.CATOMIC_BOMB),
 				Arguments.of(CardType.SUPER_SKIP),
 				Arguments.of(CardType.CLONE),
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM),
@@ -762,6 +761,26 @@ public class PlayerDeckControllerTests {
 		controller.updateByCardType(CardType.SEE_THE_FUTURE);
 
 		EasyMock.verify(model, view);
+	}
+
+	@Test
+	public void updateByCardType_catomicBombPlayed_updateUI() {
+		boolean canEndTurn = true;
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("handleChangeCurrentPlayer")
+				.createMock();
+
+		expectRenderNextTurn(controller, CURRENT_PLAYER_INDEX, canEndTurn);
+
+		EasyMock.replay(model, view, controller);
+
+		controller.updateByCardType(CardType.CATOMIC_BOMB);
+
+		EasyMock.verify(model, view, controller);
 	}
 
 	@Test

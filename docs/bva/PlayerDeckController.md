@@ -171,7 +171,7 @@
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onPlayCardsButton()`
-- **TC24: Cards play successfully, Godcat card** ( :white_check_mark: )
+- **TC21: Cards play successfully, Godcat card** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_godcatPlayed_overlayShown
   - **State of the system**:
     - canDrawFromDiscard = true
@@ -200,18 +200,17 @@
     - expectUpdateTurnControls is satisfied with canEndTurn
     - updateByCardType is called with card
 
-- **TC25: Caught exception from model** ( :white_check_mark: )
+- **TC23: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed
   - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `updateByCardType(CardType cardType)`
-- **TC21: Cards play successfully, no additional UI change** ( :white_check_mark: )
+- **TC24: Cards play successfully, no additional UI change** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_noAdditionalUIChange_success
   - **State of the system**: cardType =
     - ATTACK
     - SHUFFLE
-    - CATOMIC_BOMB
     - SUPER_SKIP
     - CLONE
     - SWAP_TOP_AND_BOTTOM
@@ -224,20 +223,26 @@
     - MILD_SHUFFLE 
   - **Expected output**: N/A
 
-- **TC22: UI updated successfully, Skip card** ( :white_check_mark: )
+- **TC25: UI updated successfully, Skip card** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_skipPlayed_updateUI
   - **State of the system**: cardType = SKIP
   - **Expected output**:
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
-- **TC23: UI updated successfully, See The Future card** ( :white_check_mark: )
+- **TC26: UI updated successfully, See The Future card** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_seeTheFuturePlayed_updateUI
   - **State of the system**: cardType = SEE_THE_FUTURE
   - **Expected output**:
     - view.buildSeeTheFutureOverlay is called with model.getSeeTheFutureCardIds
 
+- **TC27: UI updated successfully, Catomic Bomb card** ( :white_check_mark: )
+    - **Name of the test**: updateByCardType_catomicBombPlayed_updateUI
+    - **State of the system**: cardType = CATOMIC_BOMB
+    - **Expected output**:
+        - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
+
 ## Method under test: `onEndTurnButton()`
-- **TC26: Turn ends successfully** ( :white_check_mark: )
+- **TC28: Turn ends successfully** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_success
   - **State of the system**:
     - canEndTurn = true
@@ -245,13 +250,13 @@
     - model.advanceTurn is called
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
-- **TC27: Caught exception from model** ( :white_check_mark: )
+- **TC29: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_failed
   - **State of the system**: model.advanceTurn throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onDefuseButton()`
-- **TC28: Defuse Exploding Kitten successfully** ( :white_check_mark: )
+- **TC30: Defuse Exploding Kitten successfully** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_success
   - **State of the system**:
     - explodingKittenInsertIndex = 0
@@ -267,13 +272,13 @@
     - expectRebindHandCards is satisfied with isFaceUp
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
-- **TC29: Caught exception from model** ( :white_check_mark: )
+- **TC31: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_failed
   - **State of the system**: model.playDefuse throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onExplodeButton()`
-- **TC30: Explode successfully** ( :white_check_mark: )
+- **TC32: Explode successfully** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_called_success
   - **State of the system**:
     - canEndTurn = true
@@ -283,7 +288,7 @@
     - expectUpdateDrawPile is satisfied
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
-- **TC31: Caught exception from model** ( :white_check_mark: )
+- **TC33: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_called_failed
   - **State of the system**: model.playExplode throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
