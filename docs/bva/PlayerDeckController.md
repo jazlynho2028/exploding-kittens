@@ -211,7 +211,6 @@
   - **State of the system**: cardType =
     - ATTACK
     - SHUFFLE
-    - SUPER_SKIP
     - CLONE
     - SWAP_TOP_AND_BOTTOM
     - DRAW_FROM_THE_BOTTOM
@@ -224,7 +223,7 @@
   - **Expected output**: N/A
 
 - **TC25: UI updated successfully, Skip card** ( :white_check_mark: )
-  - **Name of the test**: updateByCardType_skipPlayed_updateUI
+  - **Name of the test**: updateByCardType_skipOrSuperSkipPlayed_updateUI
   - **State of the system**: cardType = SKIP
   - **Expected output**:
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
@@ -236,13 +235,56 @@
     - view.buildSeeTheFutureOverlay is called with model.getSeeTheFutureCardIds
 
 - **TC27: UI updated successfully, Catomic Bomb card** ( :white_check_mark: )
-    - **Name of the test**: updateByCardType_catomicBombPlayed_updateUI
-    - **State of the system**: cardType = CATOMIC_BOMB
-    - **Expected output**:
-        - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
+  - **Name of the test**: updateByCardType_catomicBombPlayed_updateUI
+  - **State of the system**: cardType = CATOMIC_BOMB
+  - **Expected output**:
+      - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
+
+- **TC28: Cards play successfully, Super Skip card** ( :white_check_mark: )
+  - **Name of the test**: updateByCardType_skipOrSuperSkipPlayed_updateUI
+  - **State of the system**:
+    - canDrawFromDiscard = true
+    - topDiscardId = "SUPER_SKIP_1"
+    - canPlaySelected = true
+    - canEndTurn = true
+    - playSelectedCards returns CardType.SUPER_SKIP
+    - getCurrentPlayerIndex returns 0
+  - **Expected output**:
+    - model.playSelectedCards is called
+    - view.renderDiscardPile with model.canDrawFromDiscard and model.getTopDiscardId is called
+    - rebindHandCards is called
+    - view.renderTurnControlSection with model.canPlaySelected and model.canEndTurn is called
+    - handleNewTurn is called with model.getCurrentPlayerIndex:
+      - model.changeCurrentPlayerIndex is called
+      - model.setFaceUpToFalse is called
+      - view.renderPlayerNameTags is called
+      - view.renderHandVisibilityButton is called
+      - rebindHandCards is called
+      - view.renderDrawPile is called
+      - view.buildAndRenderTurnControlSection is called
+
+- **TC29: Cards play successfully, Godcat card** ( :white_check_mark: )
+  - **Name of the test**: onPlayCardsButton_godcatPlayed_overlayShown
+  - **State of the system**:
+    - canDrawFromDiscard = true
+    - topDiscardId = "GODCAT_1"
+    - canEndTurn = true
+    - selectedCards = [GODCAT]
+  - **Expected output**:
+    - model.playSelectedCards is called
+    - expectUpdateDiscardPile is satisfied with canDrawFromDiscard and topDiscardId
+    - rebindHandCards is called
+    - expectUpdateTurnControls is satisfied with canEndTurn
+    - view.bindGodcatConfirmButton is called
+    - view.buildGodcatOverlay is called with GameConstants.GODCAT_CARDTYPE_OPTIONS
+
+- **TC30: Caught exception from model** ( :white_check_mark: )
+  - **Name of the test**: onPlayCardsButton_called_failed
+  - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
+  - **Expected output**: onError accepts exception
 
 ## Method under test: `onEndTurnButton()`
-- **TC28: Turn ends successfully** ( :white_check_mark: )
+- **TC31: Turn ends successfully** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_success
   - **State of the system**:
     - canEndTurn = true
@@ -250,13 +292,13 @@
     - model.advanceTurn is called
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
-- **TC29: Caught exception from model** ( :white_check_mark: )
+- **TC32: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_failed
   - **State of the system**: model.advanceTurn throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onDefuseButton()`
-- **TC30: Defuse Exploding Kitten successfully** ( :white_check_mark: )
+- **TC33: Defuse Exploding Kitten successfully** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_success
   - **State of the system**:
     - explodingKittenInsertIndex = 0
@@ -272,13 +314,13 @@
     - expectRebindHandCards is satisfied with isFaceUp
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
-- **TC31: Caught exception from model** ( :white_check_mark: )
+- **TC34: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_failed
   - **State of the system**: model.playDefuse throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onExplodeButton()`
-- **TC32: Explode successfully** ( :white_check_mark: )
+- **TC35: Explode successfully** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_called_success
   - **State of the system**:
     - canEndTurn = true
@@ -288,13 +330,13 @@
     - expectUpdateDrawPile is satisfied
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
-- **TC33: Caught exception from model** ( :white_check_mark: )
+- **TC36: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_called_failed
   - **State of the system**: model.playExplode throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onGodcatConfirm()`
-- **TC34: Valid card type** ( :white_check_mark: )
+- **TC37: Valid card type** ( :white_check_mark: )
   - **Name of the test**: onGodcatConfirm_validCardType_applyGodcatCalled
   - **State of the system**: cardType = ATTACK
   - **Expected output**:
@@ -302,7 +344,7 @@
     - view.hideOverlay is called
     - expectUpdateTurnControls is satisfied
 
-- **TC35: Model throws on invalid card type** ( :white_check_mark: )
+- **TC38: Model throws on invalid card type** ( :white_check_mark: )
   - **Name of the test**: onGodcatConfirm_modelThrowsException_failed
   - **State of the system**: 
     - cardType = EXPLODING_KITTEN

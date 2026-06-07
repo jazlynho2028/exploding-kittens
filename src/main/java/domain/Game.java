@@ -163,8 +163,6 @@ public class Game {
             case SKIP:
                 applySkip();
                 break;
-            case SEE_THE_FUTURE:
-                break;
             case CATOMIC_BOMB:
                 applyCatomicBomb();
                 break;
@@ -179,8 +177,6 @@ public class Game {
                 break;
             case DRAW_FROM_THE_BOTTOM:
                 applyDrawFromTheBottom();
-                break;
-            case TARGETED_ATTACK:
                 break;
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
@@ -392,7 +388,20 @@ public class Game {
     }
 
     void applySuperSkip() {
-        // TODO
+        turnManager.setDrawCount(0);
+        advanceTurn();
+    }
+
+    public void applyGodcat(CardType cardType) {
+        boolean isValidGodcatPlay = cardType != CardType.GODCAT &&
+                !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(cardType);
+
+        if (isValidGodcatPlay) {
+            applyByCardType(cardType);
+        }
+        else {
+            throw new IllegalArgumentException("error.cannotPlaySelectedCards");
+        }
     }
 
     void applyClone() {
@@ -437,18 +446,6 @@ public class Game {
 
     void applyMildShuffle() {
         // TODO
-    }
-
-    public void applyGodcat(CardType cardType) {
-        boolean isValidGodcatPlay = cardType != CardType.GODCAT &&
-                !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(cardType);
-
-        if (isValidGodcatPlay) {
-            applyByCardType(cardType);
-        }
-        else {
-            throw new IllegalArgumentException("error.cannotPlaySelectedCards");
-        }
     }
 
 }

@@ -1082,7 +1082,7 @@
   - **Expected output:** return ["SKIP_1", "SKIP_1"]
 
 ### Method under test: `applyCatomicBomb()`
-- **TC90: Draw pile is empty** ( :white_check_mark: )
+- **TC151: Draw pile is empty** ( :white_check_mark: )
     - **Name of the test**: applyCatomicBomb_emptyDeck_remainsEmpty
     - **State of the system**: draw pile has no cards
     - **Expected output**:
@@ -1090,7 +1090,7 @@
         - turnManager.setDrawCount(0) is called
         - advanceTurn() is called
 
-- **TC91: No Exploding Kittens in draw pile** ( :white_check_mark: )
+- **TC152: No Exploding Kittens in draw pile** ( :white_check_mark: )
     - **Name of the test**: applyCatomicBomb_noExplodingKittens_deckUnchanged
     - **State of the system**: draw pile contains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1'], none are CardType 'EXPLODING_KITTEN'
     - **Expected output**:
@@ -1099,7 +1099,7 @@
         - turnManager.setDrawCount(0) is called
         - advanceTurn() is called
 
-- **TC92: One Exploding Kitten at top of draw pile** ( :white_check_mark: )
+- **TC153: One Exploding Kitten at top of draw pile** ( :white_check_mark: )
     - **Name of the test**: applyCatomicBomb_oneExplodingKittenAlreadyOnTop_deckUnchanged
     - **State of the system**: top card of draw pile has one CardType 'EXPLODING_KITTEN' with order ['EXPLODING_KITTEN_1' , 'ATTACK_1', 'SHUFFLE_1']
     - **Expected output**:
@@ -1109,7 +1109,7 @@
         - turnManager.setDrawCount(0) is called
         - advanceTurn() is called
 
-- **TC93: One Exploding Kitten in the middle of draw pile** ( :white_check_mark: )
+- **TC154: One Exploding Kitten in the middle of draw pile** ( :white_check_mark: )
     - **Name of the test**: applyCatomicBomb_oneExplodingKittenInMiddle_movedToTop
     - **State of the system**: draw pile contains ['SKIP_1', 'ATTACK_1', 'EXPLODING_KITTEN_1', 'SHUFFLE_1']
     - **Expected output**:
@@ -1119,7 +1119,7 @@
         - turnManager.setDrawCount(0) is called
         - advanceTurn() is called
 
-- **TC94: Multiple Exploding Kittens scattered throughput draw pile** ( :white_check_mark: )
+- **TC155: Multiple Exploding Kittens scattered throughput draw pile** ( :white_check_mark: )
     - **Name of the test**: applyCatomicBomb_multipleExplodingKittens_allMovedToTop
     - **State of the system**: draw pile contains ['SKIP_1', 'EXPLODING KITTEN_1', 'ATTACK_1', 'EXPLODING KITTEN_2', 'SHUFFLE_1']
     - **Expected output**:
@@ -1129,7 +1129,7 @@
         - turnManager.setDrawCount(0) is called
         - advanceTurn() is called
 
-- **TC95: All cards in draw pile are Exploding Kittens** ( :white_check_mark: )
+- **TC156: All cards in draw pile are Exploding Kittens** ( :white_check_mark: )
     - **Name of the test**: applyCatomicBomb_allExplodingKittens_deckOrderUnchanged
     - **State of the system**: draw pile contains ['EXPLODING KITTEN_1', 'EXPLODING KITTEN_2', 'EXPLODING KITTEN_3']
     - **Expected output**:
@@ -1138,109 +1138,140 @@
         - turnManager.setDrawCount(0) is called
         - advanceTurn() is called
 
+### Method under test: `applySuperSkip()`
+- **TC157: Super Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
+    - **Name of the test:** applySuperSkip_drawCountOne_TurnAdvances
+    - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = 0
+    - **Expected output:** decrementDrawCount() called once, turn advances to currentPlayerIndex = 1
+
+- **TC158: Super Skip while under attack (drawCount = 2)** ( :white_check_mark: )
+    - **Name of the test:** applySuperSkip_drawCountTwo_TurnAdvances
+    - **State of the system:** game is ongoing, drawCount = 2, currentPlayerIndex = 0
+    - **Expected output:** decrementDrawCount() called twice, turn advances to currentPlayerIndex = 1
+
+- **TC159: Super Skip under stacked attacks (drawCount = 3+)** ( :white_check_mark: )
+    - **Name of the test:** applySuperSkip_drawCountThree_TurnAdvances
+    - **State of the system:** game is ongoing, drawCount = 3, currentPlayerIndex = 0
+    - **Expected output:** decrementDrawCount() called three times, turn advances to currentPlayerIndex = 1
+
+- **TC160: Super Skip completes turn for the last player in order (wraparound)** ( :white_check_mark: )
+    - **Name of the test:** applySuperSkip_lastPlayer_turnWraps
+    - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
+    - **Expected output:** decrementDrawCount() called once, currentPlayerIndex wraps to 0
+
+- **TC161: Super Skip with minimum player count (2 players)** ( :white_check_mark: )
+    - **Name of the test:** applySuperSkip_twoPlayers_turnAdvances
+    - **State of the system:** game is ongoing, 2 players, drawCount = 1, currentPlayerIndex = 0
+    - **Expected output:** decrementDrawCount() called once, currentPlayerIndex wraps to 0
+
+- **TC162: Super Skip with maximum player count (4 players)** ( :white_check_mark: )
+    - **Name of the test:** applySuperSkip_fourPlayers_turnAdvances
+    - **State of the system:**  game is ongoing, 4 players, drawCount = 1, currentPlayerIndex = 0
+    - **Expected output:** decrementDrawCount() called once, turn advances to currentPlayerIndex = 1
+
 ### Method under test: `applyGodcat(CardType cardType)`
-- **TC151: Invalid card type Godcat** ( :white_check_mark: )
+- **TC163: Invalid card type Godcat** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_invalidCardType_throwsException
   - **State of the system**: CardType.GODCAT passed as cardType
   - **Expected output**: throws exception "error.cannotPlaySelectedCards"
 
-- **TC152: Invalid card type Exploding Kitten** ( :white_check_mark: )
+- **TC164: Invalid card type Exploding Kitten** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_invalidCardType_throwsException
   - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType
   - **Expected output**: throws exception "error.cannotPlaySelectedCards"
 
-- **TC153: Invalid card type Defuse** ( :white_check_mark: )
+- **TC165: Invalid card type Defuse** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_invalidCardType_throwsException
   - **State of the system**: CardType.DEFUSE passed as cardType
   - **Expected output**: throws exception "error.cannotPlaySelectedCards"
 
-- **TC154: Valid card type Attack** ( :white_check_mark: )
+- **TC166: Valid card type Attack** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: applyAttack() is called
 
-- **TC155: Valid card type Shuffle** ( :white_check_mark: )
+- **TC167: Valid card type Shuffle** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SHUFFLE passed as cardType
   - **Expected output**: applyShuffle() is called
 
-- **TC156: Valid card type Skip** ( :white_check_mark: )
+- **TC168: Valid card type Skip** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SKIP passed as cardType
   - **Expected output**: applySkip() is called
 
-- **TC157: Valid card type See the Future** ( :white_check_mark: )
+- **TC169: Valid card type See the Future** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.SEE_THE_FUTURE passed as cardType
   - **Expected output**: N/A
 
-- **TC158: Valid card type Catomic Bomb** ( :white_check_mark: )
+- **TC170: Valid card type Catomic Bomb** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.CATOMIC_BOMB passed as cardType
   - **Expected output**: applyCatomicBomb() is called
 
-- **TC159: Valid card type Super Skip** ( :white_check_mark: )
+- **TC171: Valid card type Super Skip** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SUPER_SKIP passed as cardType
   - **Expected output**: applySuperSkip() is called
 
-- **TC160: Valid card type Clone** ( :white_check_mark: )
+- **TC172: Valid card type Clone** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.CLONE passed as cardType
   - **Expected output**: applyClone() is called
 
-- **TC161: Valid card type Swap Top and Bottom** ( :white_check_mark: )
+- **TC173: Valid card type Swap Top and Bottom** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SWAP_TOP_AND_BOTTOM passed as cardType
   - **Expected output**: applySwapTopAndBottom() is called
 
-- **TC162: Valid card type Draw From the Bottom** ( :white_check_mark: )
+- **TC174: Valid card type Draw From the Bottom** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.DRAW_FROM_THE_BOTTOM passed as cardType
   - **Expected output**: applyDrawFromTheBottom() is called
 
-- **TC163: Valid card type Targeted Attack** ( :white_check_mark: )
+- **TC175: Valid card type Targeted Attack** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.TARGETED_ATTACK passed as cardType
   - **Expected output**: N/A
 
-- **TC164: Valid card type Winner Winner Catnip Dinner** ( :white_check_mark: )
+- **TC176: Valid card type Winner Winner Catnip Dinner** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.WINNER_WINNER_CATNIP_DINNER passed as cardType
   - **Expected output**: applyWinnerWinnerCatnipDinner() is called
 
-- **TC165: Valid card type Ragebait** ( :white_check_mark: )
+- **TC177: Valid card type Ragebait** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.RAGEBAIT passed as cardType
   - **Expected output**: applyRagebait() is called
 
-- **TC166: Valid card type Recycle** ( :white_check_mark: )
+- **TC178: Valid card type Recycle** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.RECYCLE passed as cardType
   - **Expected output**: applyRecycle() is called
 
-- **TC167: Valid card type Double Up** ( :white_check_mark: )
+- **TC179: Valid card type Double Up** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.DOUBLE_UP passed as cardType
   - **Expected output**: applyDoubleUp() is called
 
-- **TC168: Valid card type Mild Shuffle** ( :white_check_mark: )
+- **TC180: Valid card type Mild Shuffle** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.MILD_SHUFFLE passed as cardType
   - **Expected output**: applyMildShuffle() is called
 
 ### Method under test: `applySwapTopAndBottom()`
-- **TC169: Draw pile has zero cards** ( :white_check_mark: )
+- **TC181: Draw pile has zero cards** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_emptyDeck_remainsEmpty
   - **State of the system**: draw pile is empty
   - **Expected output**: draw pile remains empty
 
-- **TC170: Draw pile has exactly one card** ( :white_check_mark: )
+- **TC182: Draw pile has exactly one card** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_oneCard_deckUnchanged
   - **State of the system**: draw pile has two cards ['CARD 1']
   - **Expected output**: draw pile has two cards; card order is ['CARD 1']
 
-- **TC171: Draw pile has more than one card** ( :white_check_mark: )
+- **TC183: Draw pile has more than one card** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_moreThanOneCard_swapped
   - **State of the system**: draw pile has four cards ['CARD 1', 'CARD 2', 'CARD 3', 'CARD 4']
   - **Expected output**:
@@ -1248,7 +1279,7 @@
     - drawPile.addCardToBottom(CARD_1) called
     - draw pile has four cards and card order is ['CARD 4', 'CARD 2', 'CARD 3', 'CARD']
 
-- **TC172: Top and bottom cards are the same type** ( :white_check_mark: )
+- **TC184: Top and bottom cards are the same type** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_sameType_swapped
   - **State of the system**: draw pile has four cards ['EXPLODING KITTEN 1', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 2']
   - **Expected output**:
