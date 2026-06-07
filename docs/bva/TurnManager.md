@@ -138,7 +138,7 @@
     - numPlayers = 3
     - currentPlayerIndex = 2
     - isAlive.test(0) = false
-    - roundCount = 2
+    - roundCount = 1
     - drawCount = 1
   - **Expected output**:
     - currentPlayerIndex = 1
