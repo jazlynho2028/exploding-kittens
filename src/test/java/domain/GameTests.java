@@ -1922,7 +1922,7 @@ public class GameTests {
 		turnManager.setCurrentPlayerIndex(targetPlayerIndex);
 		EasyMock.expectLastCall();
 
-		turnManager.setDrawCount(GameConstants.NUM_TARGETED_ATTACK_DRAW_COUNT);
+		turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, currentPlayer, drawPile, discardPile, turnManager);
@@ -1931,6 +1931,26 @@ public class GameTests {
 		game.applyTargetedAttack(targetPlayerIndex);
 
 		EasyMock.verify(players, currentPlayer, drawPile, discardPile, turnManager);
+	}
+
+	@Test
+	public void addAttackDrawCount_drawCountZero_SetTwo() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(1);
+
+		turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.addAttackDrawCount();
+
+		EasyMock.verify(players, drawPile, discardPile, turnManager);
 	}
 }
 

@@ -348,9 +348,18 @@ public class Game {
     }
 
     public void applyTargetedAttack(int targetPlayerIndex) {
-        getCurrentPlayer().deselectHandCards();
-        turnManager.setCurrentPlayerIndex(targetPlayerIndex);
-        turnManager.setDrawCount(GameConstants.NUM_TARGETED_ATTACK_DRAW_COUNT);
+
+    }
+
+    void addAttackDrawCount() {
+        if (turnManager.getDrawCount() >= 2) {
+            turnManager.setDrawCount(
+                    turnManager.getDrawCount() + 2);
+        }
+        else {
+            turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+        }
+
     }
 
     void applyWinnerWinnerCatnipDinner() {
