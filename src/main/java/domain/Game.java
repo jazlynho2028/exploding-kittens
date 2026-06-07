@@ -2,6 +2,7 @@ package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -146,6 +147,12 @@ public class Game {
             discardPile.addCardToTop(card);
         }
 
+        applyByCardType(cardType);
+
+        return cardType;
+    }
+
+    private void applyByCardType(CardType cardType) {
         switch (cardType) {
             case ATTACK:
                 applyAttack();
@@ -163,8 +170,6 @@ public class Game {
                 break;
             case SUPER_SKIP:
                 applySuperSkip();
-                break;
-            case GODCAT:
                 break;
             case CLONE:
                 applyClone();
@@ -193,10 +198,8 @@ public class Game {
                 applyMildShuffle();
                 break;
             default:
-                throw new IllegalStateException("error.cannotPlaySelectedCards");
+                break;
         }
-
-        return cardType;
     }
 
     public String getTopDiscardId() {
@@ -208,7 +211,7 @@ public class Game {
     }
 
     public boolean canEndTurn() {
-        return isGameOngoing && turnManager.getDrawCount() == 0;
+        return turnManager.getDrawCount() == 0;
     }
 
     public boolean isDrawPileEmpty() {
@@ -363,7 +366,29 @@ public class Game {
     }
 
     void applyCatomicBomb() {
-        // TODO
+        List<Card> explodingKittens = new ArrayList<>();
+        List<Card> others = new ArrayList<>();
+
+        while (!drawPile.isEmpty()) {
+            Card card = drawPile.removeTop();
+            if (card.getType() == CardType.EXPLODING_KITTEN) {
+                explodingKittens.add(card);
+            }
+            else {
+                others.add(card);
+            }
+        }
+
+        for (Card card : others) {
+            drawPile.addCardToBottom(card);
+        }
+
+        for (Card card : explodingKittens) {
+            drawPile.addCardToTop(card);
+        }
+
+        turnManager.setDrawCount(0);
+        advanceTurn();
     }
 
     void applySuperSkip() {
@@ -416,52 +441,14 @@ public class Game {
     }
 
     public void applyGodcat(CardType cardType) {
-        switch (cardType) {
-            case ATTACK:
-                applyAttack();
-                break;
-            case SHUFFLE:
-                applyShuffle();
-                break;
-            case SKIP:
-                applySkip();
-                break;
-            case SEE_THE_FUTURE:
-                break;
-            case CATOMIC_BOMB:
-                applyCatomicBomb();
-                break;
-            case SUPER_SKIP:
-                applySuperSkip();
-                break;
-            case CLONE:
-                applyClone();
-                break;
-            case SWAP_TOP_AND_BOTTOM:
-                applySwapTopAndBottom();
-                break;
-            case DRAW_FROM_THE_BOTTOM:
-                applyDrawFromTheBottom();
-                break;
-            case TARGETED_ATTACK:
-                break;
-            case WINNER_WINNER_CATNIP_DINNER:
-                applyWinnerWinnerCatnipDinner();
-                break;
-            case RAGEBAIT:
-                applyRagebait();
-                break;
-            case RECYCLE:
-                applyRecycle();
-                break;
-            case DOUBLE_UP:
-                applyDoubleUp();
-                break;
-            case MILD_SHUFFLE:
-                applyMildShuffle();
-                break;
-            default:
-                throw new IllegalStateException("error.cannotPlaySelectedCards");
+        boolean isValidGodcatPlay = cardType != CardType.GODCAT &&
+                !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(cardType);
+
+        if (isValidGodcatPlay) {
+            applyByCardType(cardType);
+        }
+        else {
+            throw new IllegalArgumentException("error.cannotPlaySelectedCards");
         }
     }
 

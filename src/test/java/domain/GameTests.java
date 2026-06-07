@@ -450,9 +450,9 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		CardType cardType = CardType.DEFUSE;
+		CardType expectedCardType = CardType.DEFUSE;
 		Card card = EasyMock.createMock(Card.class);
-		EasyMock.expect(card.getType()).andStubReturn(cardType);
+		EasyMock.expect(card.getType()).andStubReturn(expectedCardType);
 
 		List<Card> selectedCards = List.of(card);
 		Player currentPlayer = EasyMock.createMock(Player.class);
@@ -470,13 +470,8 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		Exception exception = assertThrows(
-				IllegalStateException.class, game::playSelectedCards);
-
-		String expectedMsg = "error.cannotPlaySelectedCards";
-		String actualMsg = exception.getMessage();
-
-		assertEquals(expectedMsg, actualMsg);
+		CardType actualCardType = game.playSelectedCards();
+		assertEquals(expectedCardType, actualCardType);
 
 		Object[] selectedCardsArray = selectedCards.toArray();
 		EasyMock.verify(selectedCardsArray);
@@ -988,27 +983,20 @@ public class GameTests {
 
 	@ParameterizedTest
 	@CsvSource({
-			"false, 0",
-			"false, 1",
-			"false, 2",
-			"true, 1",
-			"true, 2"
+			"1",
+			"2"
 	})
-	public void canEndTurn_called_returnFalse(boolean isGameOngoing, int drawCount) {
+	public void canEndTurn_positiveDrawCount_returnFalse(int drawCount) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		if (isGameOngoing) {
-			EasyMock.expect(turnManager.getDrawCount()).andReturn(drawCount);
-		}
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(drawCount);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
-
-		game.setIsGameOngoing(isGameOngoing);
 
 		assertFalse(game.canEndTurn());
 
@@ -1016,7 +1004,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue() {
+	public void canEndTurn_drawCountZero_returnTrue() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1027,7 +1015,6 @@ public class GameTests {
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.setIsGameOngoing(true);
 
 		assertTrue(game.canEndTurn());
 
@@ -2103,7 +2090,269 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyGodcat_invalidGodcat_throwsException() {
+	public void applyCatomicBomb_emptyDeck_remainsEmpty() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
+
+		turnManager.setDrawCount(0);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("advanceTurn")
+				.createMock();
+
+		game.advanceTurn();
+		EasyMock.expectLastCall();
+		EasyMock.replay(game);
+		game.applyCatomicBomb();
+
+		EasyMock.verify(drawPile, turnManager, game);
+	}
+
+	@Test
+	public void applyCatomicBomb_noExplodingKittens_deckUnchanged() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card skip1 = mockCardOfType(CardType.SKIP);
+		Card attack1 = mockCardOfType(CardType.ATTACK);
+		Card shuffle1 = mockCardOfType(CardType.SHUFFLE);
+
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(skip1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(attack1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(shuffle1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
+
+		drawPile.addCardToBottom(skip1);
+		EasyMock.expectLastCall();
+		drawPile.addCardToBottom(attack1);
+		EasyMock.expectLastCall();
+		drawPile.addCardToBottom(shuffle1);
+		EasyMock.expectLastCall();
+
+		turnManager.setDrawCount(0);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("advanceTurn")
+				.createMock();
+
+		game.advanceTurn();
+		EasyMock.expectLastCall();
+		EasyMock.replay(game);
+		game.applyCatomicBomb();
+
+		EasyMock.verify(drawPile, turnManager, game);
+	}
+
+	@Test
+	public void applyCatomicBomb_oneExplodingKittenAlreadyOnTop_deckUnchanged() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card explodingKitten1 = mockCardOfType(CardType.EXPLODING_KITTEN);
+		Card attack1 = mockCardOfType(CardType.ATTACK);
+		Card shuffle1 = mockCardOfType(CardType.SHUFFLE);
+
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(attack1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(shuffle1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
+
+		drawPile.addCardToBottom(attack1);
+		EasyMock.expectLastCall();
+		drawPile.addCardToBottom(shuffle1);
+		EasyMock.expectLastCall();
+		drawPile.addCardToTop(explodingKitten1);
+		EasyMock.expectLastCall();
+
+		turnManager.setDrawCount(0);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("advanceTurn")
+				.createMock();
+
+		game.advanceTurn();
+		EasyMock.expectLastCall();
+		EasyMock.replay(game);
+		game.applyCatomicBomb();
+
+		EasyMock.verify(drawPile, turnManager, game);
+	}
+
+	@Test
+	public void applyCatomicBomb_oneExplodingKittenInMiddle_movedToTop() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card skip1 = mockCardOfType(CardType.SKIP);
+		Card attack1 = mockCardOfType(CardType.ATTACK);
+		Card explodingKitten1 = mockCardOfType(CardType.EXPLODING_KITTEN);
+		Card shuffle1 = mockCardOfType(CardType.SHUFFLE);
+
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(skip1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(attack1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(shuffle1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
+
+		drawPile.addCardToBottom(skip1);
+		EasyMock.expectLastCall();
+		drawPile.addCardToBottom(attack1);
+		EasyMock.expectLastCall();
+		drawPile.addCardToBottom(shuffle1);
+		EasyMock.expectLastCall();
+		drawPile.addCardToTop(explodingKitten1);
+		EasyMock.expectLastCall();
+
+		turnManager.setDrawCount(0);
+		EasyMock.expectLastCall();
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("advanceTurn")
+				.createMock();
+
+		game.advanceTurn();
+		EasyMock.expectLastCall();
+		EasyMock.replay(game);
+		game.applyCatomicBomb();
+
+		EasyMock.verify(drawPile, turnManager, game);
+	}
+
+	@Test
+	public void applyCatomicBomb_multipleExplodingKittens_allMovedToTop() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card skip1 = mockCardOfType(CardType.SKIP);
+		Card explodingKitten1 = mockCardOfType(CardType.EXPLODING_KITTEN);
+		Card attack1 = mockCardOfType(CardType.ATTACK);
+		Card explodingKitten2 = mockCardOfType(CardType.EXPLODING_KITTEN);
+		Card shuffle1 = mockCardOfType(CardType.SHUFFLE);
+
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(skip1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(attack1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten2);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(shuffle1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
+
+		drawPile.addCardToBottom(skip1);
+		EasyMock.expectLastCall();
+		drawPile.addCardToBottom(attack1);
+		EasyMock.expectLastCall();
+		drawPile.addCardToBottom(shuffle1);
+		EasyMock.expectLastCall();
+		drawPile.addCardToTop(explodingKitten1);
+		EasyMock.expectLastCall();
+		drawPile.addCardToTop(explodingKitten2);
+		EasyMock.expectLastCall();
+
+		turnManager.setDrawCount(0);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("advanceTurn")
+				.createMock();
+
+		game.advanceTurn();
+		EasyMock.expectLastCall();
+		EasyMock.replay(game);
+		game.applyCatomicBomb();
+
+		EasyMock.verify(drawPile, turnManager, game);
+	}
+
+	@Test
+	public void applyCatomicBomb_allExplodingKittens_deckOrderUnchanged() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card explodingKitten1 = mockCardOfType(CardType.EXPLODING_KITTEN);
+		Card explodingKitten2 = mockCardOfType(CardType.EXPLODING_KITTEN);
+		Card explodingKitten3 = mockCardOfType(CardType.EXPLODING_KITTEN);
+
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten1);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten2);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(false);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten3);
+		EasyMock.expect(drawPile.isEmpty()).andReturn(true);
+
+		drawPile.addCardToTop(explodingKitten1);
+		EasyMock.expectLastCall();
+		drawPile.addCardToTop(explodingKitten2);
+		EasyMock.expectLastCall();
+		drawPile.addCardToTop(explodingKitten3);
+		EasyMock.expectLastCall();
+
+		turnManager.setDrawCount(0);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("advanceTurn")
+				.createMock();
+
+		game.advanceTurn();
+		EasyMock.expectLastCall();
+		EasyMock.replay(game);
+		game.applyCatomicBomb();
+
+		EasyMock.verify(drawPile, turnManager, game);
+	}
+
+	@ParameterizedTest
+	@MethodSource("provideInvalidGodcatCardTypes")
+	public void applyGodcat_invalidCardType_throwsException(CardType cardType) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -2113,8 +2362,8 @@ public class GameTests {
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		Exception exception = assertThrows(IllegalStateException.class, () ->
-				game.applyGodcat(CardType.GODCAT));
+		Exception exception = assertThrows(IllegalArgumentException.class, () ->
+				game.applyGodcat(cardType));
 
 		String expectedMsg = "error.cannotPlaySelectedCards";
 		String actualMsg = exception.getMessage();
@@ -2122,9 +2371,17 @@ public class GameTests {
 		assertEquals(expectedMsg, actualMsg);
 	}
 
+	private static Stream<Arguments> provideInvalidGodcatCardTypes() {
+		return Stream.of(
+				Arguments.of(CardType.GODCAT),
+				Arguments.of(CardType.EXPLODING_KITTEN),
+				Arguments.of(CardType.DEFUSE)
+		);
+	}
+
 	@ParameterizedTest
 	@MethodSource("provideValidPlaysAndMethods")
-	public void applyGodcate_validCardType_correctApplyCalled(
+	public void applyGodcat_validCardType_correctApplyCalled(
 			CardType cardType, String applyMethodName,
 			Consumer<Game> applyMethod) {
 
