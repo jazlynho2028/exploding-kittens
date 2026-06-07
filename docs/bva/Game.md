@@ -840,7 +840,7 @@
   - **State of the system**: game is ongoing, 4 players, currentPlayerIndex = 0, targetPlayerIndex = 3
   - **Expected output**: deselectHandCards() called on player 0, setCurrentPlayerIndex(3) called, addAttackDrawCount() called
 
-- **TC136: Targeted Attack with maximum players (4), last player targets first player** ( :x: )
+- **TC136: Targeted Attack with maximum players (4), last player targets first player** ( :white_check_mark: )
   - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
   - **State of the system**: game is ongoing, 4 players, currentPlayerIndex = 3, targetPlayerIndex = 0
   - **Expected output**: deselectHandCards() called on player 3, setCurrentPlayerIndex(0) called, addAttackDrawCount() called

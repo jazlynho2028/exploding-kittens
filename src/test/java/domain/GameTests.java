@@ -1902,7 +1902,8 @@ public class GameTests {
 	@CsvSource({
 			"0, 1",
 			"1, 0",
-			"0, 3"
+			"0, 3",
+			"3, 0"
 	})
 	public void applyTargetedAttack_validTargets_successfullyCalled(
 			int currentPlayerIndex, int targetPlayerIndex) {
