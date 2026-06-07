@@ -163,8 +163,6 @@ public class Game {
             case SKIP:
                 applySkip();
                 break;
-            case SEE_THE_FUTURE:
-                break;
             case CATOMIC_BOMB:
                 applyCatomicBomb();
                 break;
@@ -179,8 +177,6 @@ public class Game {
                 break;
             case DRAW_FROM_THE_BOTTOM:
                 applyDrawFromTheBottom();
-                break;
-            case TARGETED_ATTACK:
                 break;
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
