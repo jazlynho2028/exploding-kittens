@@ -1901,7 +1901,8 @@ public class GameTests {
 	@ParameterizedTest
 	@CsvSource({
 			"0, 1",
-			"1, 0"
+			"1, 0",
+			"0, 3"
 	})
 	public void applyTargetedAttack_validTargets_successfullyCalled(
 			int currentPlayerIndex, int targetPlayerIndex) {
