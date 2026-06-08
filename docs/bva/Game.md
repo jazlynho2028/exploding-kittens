@@ -603,7 +603,7 @@
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
 
-- **TC93: This method is called successfully** ( :x: )
+- **TC93: This method is called successfully** ( :white_check_mark: )
   - **Name of the test**: playExplode_called_success
   - **State of the system**: N/A
   - **Expected output**:

@@ -309,6 +309,7 @@ public class Game {
 
         getCurrentPlayer().deselectHandCards();
         turnManager.incrementTurn();
+        turnManager.incrementDrawCount();
         // TODO unalive current player
     }
 
@@ -356,7 +357,7 @@ public class Game {
     void addAttackDrawCount() {
         if (turnManager.getDrawCount() >= 2) {
             turnManager.setDrawCount(
-                    turnManager.getDrawCount() + 2);
+                    turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
         }
         else {
             turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);

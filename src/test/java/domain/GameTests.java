@@ -1371,6 +1371,9 @@ public class GameTests {
 		turnManager.incrementTurn();
 		EasyMock.expectLastCall();
 
+		turnManager.incrementDrawCount();
+		EasyMock.expectLastCall();
+
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
 				currentPlayer, explodingKitten);
 
