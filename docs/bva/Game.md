@@ -826,7 +826,7 @@
   - **Expected output**: applyMildShuffle() is called
 
 # Method under test: `applyTargetedAttack(int targetPlayerIndex)`
-- **TC133: Targeted Attack with minimum players (2), first player targets next player** ( :x: )
+- **TC133: Targeted Attack with minimum players (2), first player targets next player** ( :white_check_mark: )
   - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
   - **State of the system**: 2 players, currentPlayerIndex = 0, targetPlayerIndex = 1
   - **Expected output**:

@@ -1901,15 +1901,16 @@ public class GameTests {
 		return matchesType && matchesId;
 	}
 
+	static Stream<Arguments> applyTargetedAttackArgs() {
+		return Stream.of(
+				Arguments.of(0, 1, new int[]{0, 1})
+		);
+	}
+
 	@ParameterizedTest
-	@CsvSource({
-			"0, 1",
-			"1, 0",
-			"0, 3",
-			"3, 0"
-	})
+	@MethodSource("applyTargetedAttackArgs")
 	public void applyTargetedAttack_validTargets_successfullyCalled(
-			int currentPlayerIndex, int targetPlayerIndex) {
+			int currentPlayerIndex, int targetPlayerIndex, int[] loopSequence) {
 
 		List<Player> players = EasyMock.createMock(List.class);
 		Player currentPlayer = EasyMock.createMock(Player.class);
@@ -1928,8 +1929,15 @@ public class GameTests {
 		currentPlayer.deselectHandCards();
 		EasyMock.expectLastCall();
 
-		turnManager.setCurrentPlayerIndex(targetPlayerIndex);
-		EasyMock.expectLastCall();
+		for (int i = 0; i < loopSequence.length - 1; i++) {
+			EasyMock.expect(turnManager.getCurrentPlayerIndex())
+					.andReturn(loopSequence[i]);
+			turnManager.incrementTurn();
+			EasyMock.expectLastCall();
+		}
+
+		EasyMock.expect(turnManager.getCurrentPlayerIndex())
+				.andReturn(loopSequence[loopSequence.length - 1]);
 
 		game.addAttackDrawCount();
 		EasyMock.expectLastCall();

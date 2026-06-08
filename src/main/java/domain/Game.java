@@ -350,7 +350,9 @@ public class Game {
 
     public void applyTargetedAttack(int targetPlayerIndex) {
         getCurrentPlayer().deselectHandCards();
-        turnManager.setCurrentPlayerIndex(targetPlayerIndex);
+        while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
+            turnManager.incrementTurn();
+        }
         addAttackDrawCount();
     }
 
