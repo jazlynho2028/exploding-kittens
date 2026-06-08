@@ -23,7 +23,7 @@
     - roundCount = 1
 
 ### Method under test: `decrementDrawCount()`
-- **TC4: Decrementing from zero throws state exception*** ( :white_check_mark: )
+- **TC4: Decrementing from zero throws state exception** ( :white_check_mark: )
   - **Name of the test**: decrementDrawCount_fromZero_throwsIllegalStateException
   - **State of the system**: drawCount = 0
   - **Expected output**: IllegalStateException("error.negativeDrawCount")
@@ -45,11 +45,10 @@
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = 0
     - roundCount = 1
-    - drawCount = 0
   - **Expected output**: 
     - currentPlayerIndex = 1
     - roundCount = 1
-    - drawCount = 1
+
 
 - **TC8: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly
@@ -57,11 +56,9 @@
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = N - 2
     - roundCount = 2
-    - drawCount = 1
   - **Expected output**: 
     - currentPlayerIndex = N - 1
     - roundCount = 2
-    - drawCount = 2
 
 - **TC9: Advance that hits upper boundary, wrapping index back to zero** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_boundaryScenarios_updatesPlayerIndexCorrectly
@@ -69,11 +66,9 @@
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = N - 1
     - roundCount = 1
-    - drawCount = 0
   - **Expected output**: 
     - currentPlayerIndex = 0
     - roundCount = 2
-    - drawCount = 1
 
 ### Method under test: `setCurrentPlayerIndex(int newPlayerIndex)`
 - **TC10: Negative index** ( :white_check_mark: )
@@ -95,3 +90,14 @@
   - **Name of the test**: setCurrentPlayerIndex_invalidIndex_failed
   - **State of the system**: TurnManager constructed with 1 player, newPlayerIndex = 1
   - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"
+
+### Method under test: `incrementDrawCount()`
+- **TC14: Decrementing from zero throws state exception** ( :white_check_mark: )
+  - **Name of the test**: incrementDrawCount_validDrawCount_incrementedByOne
+  - **State of the system**: drawCount = 0
+  - **Expected output**: drawCount = 1
+
+- **TC15: incrementing from a positive value successfully increases count** ( :white_check_mark: )
+  - **Name of the test**: incrementDrawCount_validDrawCount_incrementedByOne
+  - **State of the system**: drawCount = 1
+  - **Expected output**: drawCount = 2

@@ -578,6 +578,7 @@
   - **Expected output**:
     - player.deselectHandCards is called
     - turnManager.incrementTurn is called
+    - turnManager.incrementDrawCount is called
 
 - **TC87: Cannot end turn** ( :white_check_mark: )
   - **Name of the test**: advanceTurn_cannotEndTurn_failed
@@ -603,6 +604,7 @@
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
     - turnManager.incrementTurn is called
+    - turnManager.incrementDrawCount is called
 
 ### Method under test: `isDefusable()`
 - **TC91: Empty hand** ( :white_check_mark: )
@@ -1028,7 +1030,7 @@
 - **TC140: Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
   - **Name of the test:** applySkip_drawCountOne_TurnAdvances
   - **State of the system:** game is ongoing, drawCount = 1 (normal, unattacked turn)
-  - **Expected output:** drawCount resets to 1 (from incrementTurn), currentPlayerIndex becomes 1, turn has advanced automatically
+  - **Expected output:** drawCount resets to 1 (from incrementDrawCount), currentPlayerIndex becomes 1, turn has advanced automatically
 
 - **TC141: Skip while under attack (drawCount = 2)** ( :white_check_mark: )
   - **Name of the test:** applySkip_drawCountTwo_TurnNotAdvanced
@@ -1043,7 +1045,7 @@
 - **TC143: Skip completes turn for the last player in order (wraparound)** ( :white_check_mark: )
   - **Name of the test:** applySkip_lastPlayer_turnWraps
   - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
-  - **Expected output:** currentPlayerIndex wraps to 0, drawCount resets to 1 (from incrementTurn)
+  - **Expected output:** currentPlayerIndex wraps to 0, drawCount resets to 1 (from incremetDrawCount)
 
 - **TC144: Skip with minimum player count (2 players)** ( :white_check_mark: )
   - **Name of the test:** applySkip_twoPlayers_turnAdvances
@@ -1053,7 +1055,7 @@
 - **TC145: Skip on a standard single turn with maximum players (4 players)** ( :white_check_mark: )
   - **Name of the test:** applySkip_fourPlayers_turnAdvances
   - **State of the system:**  game is ongoing, drawCount = 1, 4 players, currentPlayerIndex = 0
-  - **Expected output:** drawCount resets to 1 (from incrementTurn), currentPlayerIndex = 1, turn has advanced automatically
+  - **Expected output:** drawCount resets to 1 (from incrementDrawCount), currentPlayerIndex = 1, turn has advanced automatically
 
 ### Method under test: `getSeeTheFutureCardIds()`
 - **TC146: Empty list** ( :white_check_mark: )
@@ -1269,18 +1271,66 @@
   - **State of the system**: CardType.MILD_SHUFFLE passed as cardType
   - **Expected output**: applyMildShuffle() is called
 
+# Method under test: `applyTargetedAttack(int targetPlayerIndex)`
+- **TC181: Targeted Attack with minimum players (2), first player targets next player** ( :white_check_mark: )
+  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
+  - **State of the system**: 2 players, currentPlayerIndex = 0, targetPlayerIndex = 1
+  - **Expected output**:
+    - deselectHandCards() called on player 0
+    - incrementTurn() called 1 time
+    - addAttackDrawCount() called
+
+- **TC182: Targeted Attack with minimum players (2), last player targets first player (wrap)** ( :white_check_mark: )
+  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
+  - **State of the system**: 2 players, currentPlayerIndex = 1, targetPlayerIndex = 0
+  - **Expected output**:
+    - deselectHandCards() called on player 1
+    - incrementTurn() called 1 time
+    - addAttackDrawCount() called
+
+- **TC183: Targeted Attack with maximum players (4), first player targets last player** ( :white_check_mark: )
+  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
+  - **State of the system**: 4 players, currentPlayerIndex = 0, targetPlayerIndex = 3
+  - **Expected output**:
+    - deselectHandCards() called on player 0
+    - incrementTurn() called 3 times
+    - addAttackDrawCount() called
+
+- **TC84: Targeted Attack with maximum players (4), last player targets first player (wrap)** ( :white_check_mark: )
+  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
+  - **State of the system**: 4 players, currentPlayerIndex = 3, targetPlayerIndex = 0
+  - **Expected output**:
+    - deselectHandCards() called on player 3
+    - incrementTurn() called 1 time
+    - addAttackDrawCount() called
+
+### Method under test: `addAttackDrawCount()`
+- **TC185: Draw count is below the attack threshold** ( :white_check_mark: )
+  - **Name of the test**: addAttackDrawCount_drawCountZero_SetTwo
+  - **State of the system**:
+    - turnManager.drawCount = 1
+  - **Expected output**:
+    - turnManager.drawCount = 2
+
+- **TC186: Draw count is at or above the attack threshold** ( :white_check_mark: )
+  - **Name of the test**: addAttackDrawCount_drawCountTwo_addsTwo
+  - **State of the system**:
+    - turnManager.drawCount = 2
+  - **Expected output**:
+    - turnManager.drawCount = 4
+
 ### Method under test: `applySwapTopAndBottom()`
-- **TC181: Draw pile has zero cards** ( :white_check_mark: )
+- **TC187: Draw pile has zero cards** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_emptyDeck_remainsEmpty
   - **State of the system**: draw pile is empty
   - **Expected output**: draw pile remains empty
 
-- **TC182: Draw pile has exactly one card** ( :white_check_mark: )
+- **TC188: Draw pile has exactly one card** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_oneCard_deckUnchanged
   - **State of the system**: draw pile has two cards ['CARD 1']
   - **Expected output**: draw pile has two cards; card order is ['CARD 1']
 
-- **TC183: Draw pile has more than one card** ( :white_check_mark: )
+- **TC189: Draw pile has more than one card** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_moreThanOneCard_swapped
   - **State of the system**: draw pile has four cards ['CARD 1', 'CARD 2', 'CARD 3', 'CARD 4']
   - **Expected output**:
@@ -1288,7 +1338,7 @@
     - drawPile.addCardToBottom(CARD_1) called
     - draw pile has four cards and card order is ['CARD 4', 'CARD 2', 'CARD 3', 'CARD']
 
-- **TC184: Top and bottom cards are the same type** ( :white_check_mark: )
+- **TC190: Top and bottom cards are the same type** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_sameType_swapped
   - **State of the system**: draw pile has four cards ['EXPLODING KITTEN 1', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 2']
   - **Expected output**:
