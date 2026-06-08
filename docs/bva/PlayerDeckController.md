@@ -365,7 +365,7 @@
     - expectUpdateDrawPile is satisfied
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
-- **TC36: Explode successfully, game over** ( :x: )
+- **TC36: Explode successfully, game over** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_gameOver_showWinOverlay
   - **State of the system**:
     - canEndTurn = true

@@ -1045,6 +1045,44 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
+	public void onExplodeButton_gameOver_showWinOverlay() {
+		boolean canEndTurn = true;
+		boolean isGameOngoing = false;
+		String winnerName = "Audrey";
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class
+				)
+				.withConstructor(model, view)
+				.addMockedMethod("handleChangeCurrentPlayer")
+				.createMock();
+
+		model.playExplode();
+		EasyMock.expectLastCall();
+
+		view.hideOverlay();
+		EasyMock.expectLastCall();
+
+		expectUpdateDrawPile();
+		expectRenderNextTurn(controller, CURRENT_PLAYER_INDEX, canEndTurn);
+
+		getIsGameOngoingExpectation(isGameOngoing);
+
+		EasyMock.expect(model.getWinnerName()).andReturn(winnerName);
+		view.buildWinOverlay(winnerName);
+		EasyMock.expectLastCall();
+
+		view.bindPlayAgainButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onExplodeButton();
+
+		EasyMock.verify(model, view, controller);
+	}
+
+	@Test
 	public void onExplodeButton_called_failed() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
