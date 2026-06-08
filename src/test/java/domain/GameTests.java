@@ -2692,79 +2692,6 @@ public class GameTests {
 		EasyMock.verify(drawPile);
 	}
 
-	private static List<Card> mockCardsOfTypes(List<CardType> cardTypes) {
-		List<Card> selectedCards = new ArrayList<>();
-
-		for (CardType cardType : cardTypes) {
-			Card card = mockCardOfType(cardType);
-
-			selectedCards.add(card);
-		}
-
-		return selectedCards;
-	}
-
-	private static Card mockCardOfType(CardType cardType) {
-		Card card = EasyMock.createMock(Card.class);
-		EasyMock.expect(card.getType()).andStubReturn(cardType);
-		EasyMock.replay(card);
-
-		return card;
-	}
-
-	private static List<Card> mockCardsWithIds(List<String> cardIds) {
-		List<Card> selectedCards = new ArrayList<>();
-
-		for (String cardId : cardIds) {
-			Card card = mockCardWithId(cardId);
-
-			selectedCards.add(card);
-		}
-
-		return selectedCards;
-	}
-
-	private static Card mockCardWithId(String cardId) {
-		Card card = EasyMock.createMock(Card.class);
-		EasyMock.expect(card.getId()).andStubReturn(cardId);
-		EasyMock.replay(card);
-
-		return card;
-	}
-
-	private static Card mockSpecificCard(CardType cardType, int idNum) {
-		EasyMock.reportMatcher(new IArgumentMatcher() {
-			@Override
-			public boolean matches(Object argument) {
-				if (!(argument instanceof Card)) {
-					return false;
-				}
-
-				Card card = (Card) argument;
-				return hasSameCardFields(card, cardType, idNum);
-			}
-
-			@Override
-			public void appendTo(StringBuffer buffer) {
-				buffer.append(
-						String.format("isCardOfTypeAndId(%s, %d)",
-								cardType,
-								idNum));
-			}
-		});
-		return new Card("INVALID_CARD_MOCK", cardType);
-	}
-
-	private static boolean hasSameCardFields(Card card, CardType cardType, int idNum) {
-		boolean matchesType = (card.getType() == cardType);
-		String normalizedTypeName = cardType.name().replace("_", "");
-		String expectedId = String.format("%s_%d", normalizedTypeName, idNum);
-
-		boolean matchesId = Objects.equals(card.getId(), expectedId);
-
-		return matchesType && matchesId;
-	}
-
 	@ParameterizedTest
 	@MethodSource("applyTargetedAttackArgs")
 	public void applyTargetedAttack_validTargets_successfullyCalled(
@@ -2865,4 +2792,78 @@ public class GameTests {
 
 		EasyMock.verify(players, drawPile, discardPile, turnManager);
 	}
+
+	private static List<Card> mockCardsOfTypes(List<CardType> cardTypes) {
+		List<Card> selectedCards = new ArrayList<>();
+
+		for (CardType cardType : cardTypes) {
+			Card card = mockCardOfType(cardType);
+
+			selectedCards.add(card);
+		}
+
+		return selectedCards;
+	}
+
+	private static Card mockCardOfType(CardType cardType) {
+		Card card = EasyMock.createMock(Card.class);
+		EasyMock.expect(card.getType()).andStubReturn(cardType);
+		EasyMock.replay(card);
+
+		return card;
+	}
+
+	private static List<Card> mockCardsWithIds(List<String> cardIds) {
+		List<Card> selectedCards = new ArrayList<>();
+
+		for (String cardId : cardIds) {
+			Card card = mockCardWithId(cardId);
+
+			selectedCards.add(card);
+		}
+
+		return selectedCards;
+	}
+
+	private static Card mockCardWithId(String cardId) {
+		Card card = EasyMock.createMock(Card.class);
+		EasyMock.expect(card.getId()).andStubReturn(cardId);
+		EasyMock.replay(card);
+
+		return card;
+	}
+
+	private static Card mockSpecificCard(CardType cardType, int idNum) {
+		EasyMock.reportMatcher(new IArgumentMatcher() {
+			@Override
+			public boolean matches(Object argument) {
+				if (!(argument instanceof Card)) {
+					return false;
+				}
+
+				Card card = (Card) argument;
+				return hasSameCardFields(card, cardType, idNum);
+			}
+
+			@Override
+			public void appendTo(StringBuffer buffer) {
+				buffer.append(
+						String.format("isCardOfTypeAndId(%s, %d)",
+								cardType,
+								idNum));
+			}
+		});
+		return new Card("INVALID_CARD_MOCK", cardType);
+	}
+
+	private static boolean hasSameCardFields(Card card, CardType cardType, int idNum) {
+		boolean matchesType = (card.getType() == cardType);
+		String normalizedTypeName = cardType.name().replace("_", "");
+		String expectedId = String.format("%s_%d", normalizedTypeName, idNum);
+
+		boolean matchesId = Objects.equals(card.getId(), expectedId);
+
+		return matchesType && matchesId;
+	}
+
 }
