@@ -1057,6 +1057,9 @@ public class PlayerDeckControllerTests {
 				.addMockedMethod("handleChangeCurrentPlayer")
 				.createMock();
 
+		Runnable onRestart = EasyMock.createMock(Runnable.class);
+		controller.setOnRestart(onRestart);
+
 		model.playExplode();
 		EasyMock.expectLastCall();
 
@@ -1072,10 +1075,10 @@ public class PlayerDeckControllerTests {
 		view.buildWinOverlay(winnerName);
 		EasyMock.expectLastCall();
 
-		view.bindPlayAgainButton(EasyMock.anyObject());
+		view.bindPlayAgainButton(onRestart);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, view, controller);
+		EasyMock.replay(model, view, controller, onRestart);
 
 		controller.onExplodeButton();
 
