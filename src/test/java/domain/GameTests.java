@@ -303,7 +303,7 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -313,20 +313,6 @@ public class GameTests {
 		assertEquals(expectedHandIds, actualHandIds);
 
 		EasyMock.verify(currentPlayer, game);
-	}
-
-	private Game createAndSetGameExpectationsWithGetCurrentPlayer(
-			List<Player> players, Deck drawPile, Deck discardPile,
-			TurnManager turnManager, Player currentPlayer) {
-
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getCurrentPlayer")
-				.createMock();
-
-		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
-
-		return game;
 	}
 
 	@ParameterizedTest
@@ -343,7 +329,7 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -380,7 +366,7 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -459,11 +445,9 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = createGameForPlaySelectedCardsExceptionCase(
-				players, drawPile, discardPile, turnManager
+		Game game = mockGameWithGetCurrentPlayerAndCanPlaySelected(
+				players, drawPile, discardPile, turnManager, currentPlayer
 		);
-
-		setGameExpectationsForPlaySelectedCards(game, currentPlayer);
 
 		EasyMock.replay(game);
 
@@ -491,24 +475,6 @@ public class GameTests {
 		}
 	}
 
-	private Game createGameForPlaySelectedCardsExceptionCase(
-			List<Player> players, Deck drawPile, Deck discardPile,
-			TurnManager turnManager) {
-
-		return EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("canPlaySelected")
-				.addMockedMethod("getCurrentPlayer")
-				.createMock();
-	}
-
-	private void setGameExpectationsForPlaySelectedCards(
-			Game game, Player currentPlayer) {
-
-		EasyMock.expect(game.canPlaySelected()).andReturn(true);
-		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
-	}
-
 	@Test
 	public void playSelectedCards_validPlay_failed() {
 		List<Player> players = EasyMock.createMock(List.class);
@@ -531,11 +497,9 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer, card);
 
-		Game game = createGameForPlaySelectedCardsExceptionCase(
-				players, drawPile, discardPile, turnManager
+		Game game = mockGameWithGetCurrentPlayerAndCanPlaySelected(
+				players, drawPile, discardPile, turnManager, currentPlayer
 		);
-
-		setGameExpectationsForPlaySelectedCards(game, currentPlayer);
 
 		EasyMock.replay(game);
 
@@ -579,7 +543,8 @@ public class GameTests {
 				.addMockedMethod(applyMethodName)
 				.createMock();
 
-		setGameExpectationsForPlaySelectedCards(game, currentPlayer);
+		EasyMock.expect(game.canPlaySelected()).andStubReturn(true);
+		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
 
 		applyMethod.accept(game);
 		EasyMock.expectLastCall();
@@ -653,13 +618,9 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("canPlaySelected")
-				.addMockedMethod("getCurrentPlayer")
-				.createMock();
-
-		setGameExpectationsForPlaySelectedCards(game, currentPlayer);
+		Game game = mockGameWithGetCurrentPlayerAndCanPlaySelected(
+				players, drawPile, discardPile, turnManager, currentPlayer
+		);
 
 		EasyMock.replay(game);
 
@@ -984,13 +945,9 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("canPlaySelected")
-				.addMockedMethod("getCurrentPlayer")
-				.createMock();
-
-		setGameExpectationsForPlaySelectedCards(game, currentPlayer);
+		Game game = mockGameWithGetCurrentPlayerAndCanPlaySelected(
+				players, drawPile, discardPile, turnManager, currentPlayer
+		);
 
 		EasyMock.replay(game);
 
@@ -1299,7 +1256,7 @@ public class GameTests {
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
 				expectedCard, currentPlayer);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -1336,7 +1293,7 @@ public class GameTests {
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
 				expectedCard, currentPlayer);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -1398,7 +1355,7 @@ public class GameTests {
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
 				card, currentPlayer);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -1450,7 +1407,7 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -1478,7 +1435,7 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -1603,7 +1560,7 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -1621,7 +1578,7 @@ public class GameTests {
 	public void playExplode_twoAlivePlayers_oneWins(
 			int numPlayers, int currentPlayerIndex, Set<Integer> expectedDeadIndices) {
 
-		List<Player> players = getPlayersWithExplodingExpectations(
+		List<Player> players = mockPlayersWithExplodingExpectations(
 				numPlayers, currentPlayerIndex, expectedDeadIndices);
 
 		Deck drawPile = EasyMock.createMock(Deck.class);
@@ -1658,38 +1615,12 @@ public class GameTests {
 		);
 	}
 
-	private List<Player> getPlayersWithExplodingExpectations(
-			int numPlayers, int currentPlayerIndex, Set<Integer> expectedDeadIndices) {
-
-		List<Player> players = new ArrayList<>();
-
-		for (int i = 0; i < numPlayers; i++) {
-			Player player = EasyMock.createMock(Player.class);
-
-			boolean isAlive = !expectedDeadIndices.contains(i);
-			EasyMock.expect(player.isAlive()).andReturn(isAlive).atLeastOnce();
-
-			if (i == currentPlayerIndex) {
-				player.deselectHandCards();
-				EasyMock.expectLastCall();
-
-				player.eliminate();
-				EasyMock.expectLastCall();
-			}
-
-			players.add(player);
-			EasyMock.replay(player);
-		}
-
-		return players;
-	}
-
 	@ParameterizedTest
 	@MethodSource("provideExplodeGameContinuesConditions")
 	public void playExplode_atLeastThreeAlive_gameContinues(
 			int numPlayers, int currentPlayerIndex, Set<Integer> expectedDeadIndices) {
 
-		List<Player> players = getPlayersWithExplodingExpectations(
+		List<Player> players = mockPlayersWithExplodingExpectations(
 				numPlayers, currentPlayerIndex, expectedDeadIndices);
 
 		Deck drawPile = EasyMock.createMock(Deck.class);
@@ -1756,7 +1687,7 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -1804,7 +1735,7 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -1878,7 +1809,7 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -1933,7 +1864,7 @@ public class GameTests {
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
 				currentPlayer, explodingKitten);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -2024,7 +1955,7 @@ public class GameTests {
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
 				currentPlayer, explodingKitten);
 
-		Game game = createAndSetGameExpectationsWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
@@ -2970,7 +2901,7 @@ public class GameTests {
 		Set<Integer> expectedDeadIndices = Set.of(0, 1);
 		String expectedMsg = "error.noWinner";
 
-		List<Player> players = getPlayersWithNameAndDeadExpectations(
+		List<Player> players = mockPlayersWithNamesAndIsAlive(
 				playerNames, expectedDeadIndices);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -2989,7 +2920,37 @@ public class GameTests {
 		players.forEach(EasyMock::verify);
 	}
 
-	private List<Player> getPlayersWithNameAndDeadExpectations(
+	private Game mockGameWithGetCurrentPlayer(
+			List<Player> players, Deck drawPile, Deck discardPile,
+			TurnManager turnManager, Player currentPlayer) {
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
+
+		return game;
+	}
+
+	private Game mockGameWithGetCurrentPlayerAndCanPlaySelected(
+			List<Player> players, Deck drawPile, Deck discardPile,
+			TurnManager turnManager, Player currentPlayer) {
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canPlaySelected")
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.canPlaySelected()).andStubReturn(true);
+		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
+
+		return game;
+	}
+
+	private List<Player> mockPlayersWithNamesAndIsAlive(
 			List<String> playerNames, Set<Integer> expectedDeadIndices) {
 
 		List<Player> players = new ArrayList<>();
@@ -3002,6 +2963,32 @@ public class GameTests {
 
 			String name = playerNames.get(i);
 			EasyMock.expect(player.getName()).andStubReturn(name);
+
+			players.add(player);
+			EasyMock.replay(player);
+		}
+
+		return players;
+	}
+
+	private List<Player> mockPlayersWithExplodingExpectations(
+			int numPlayers, int currentPlayerIndex, Set<Integer> expectedDeadIndices) {
+
+		List<Player> players = new ArrayList<>();
+
+		for (int i = 0; i < numPlayers; i++) {
+			Player player = EasyMock.createMock(Player.class);
+
+			boolean isAlive = !expectedDeadIndices.contains(i);
+			EasyMock.expect(player.isAlive()).andReturn(isAlive).atLeastOnce();
+
+			if (i == currentPlayerIndex) {
+				player.deselectHandCards();
+				EasyMock.expectLastCall();
+
+				player.eliminate();
+				EasyMock.expectLastCall();
+			}
 
 			players.add(player);
 			EasyMock.replay(player);
