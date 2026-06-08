@@ -235,7 +235,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(newPlayerIndex).times(2);
 		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
 
-		view.disableTargetSelectionMode(newPlayerIndex, isGameOngoing);
+		view.renderPlayerNameTags(newPlayerIndex, isGameOngoing);
 		EasyMock.expectLastCall();
 
 		controller.handleChangeCurrentPlayer(newPlayerIndex);
@@ -719,6 +719,7 @@ public class PlayerDeckControllerTests {
 		boolean canPlaySelected = true;
 		boolean canEndTurn = true;
 		int currentPlayerIndex = 0;
+		boolean isGameOngoing = false;
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
 				.withConstructor(model, view)
@@ -743,7 +744,7 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
 
-		view.enableTargetSelectionMode(currentPlayerIndex);
+		view.renderPlayerNameTags(currentPlayerIndex, isGameOngoing);
 		EasyMock.expectLastCall();
 
 		view.renderTurnControlSection(false, false);

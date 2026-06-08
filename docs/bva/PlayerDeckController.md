@@ -259,7 +259,7 @@
     - view.bindGodcatConfirmButton is called
     - view.showGodcatOverlay is called
 
-- **TC24: Targeted Attack card played** ( :x: )
+- **TC24: Targeted Attack card played** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_targetedAttackPlayed_targetSelectionEnabled
   - **State of the system**:
     - canDrawFromDiscard = true
