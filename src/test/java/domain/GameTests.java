@@ -686,34 +686,34 @@ public class GameTests {
 	@Test
 	public void applySuperSkip_drawCountOne_TurnAdvances() {
 		final int expectedIntZero = 0;
-		Player mockPlayer1 = EasyMock.createMock(Player.class);
-		Player mockPlayer2 = EasyMock.createMock(Player.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
 		List<Player> players = new ArrayList<>();
-		players.add(mockPlayer1);
-		players.add(mockPlayer2);
+		players.add(player1);
+		players.add(player2);
 
 		Set<Integer> deadIndices = EasyMock.createMock(Set.class);
 
-		Deck mockDrawPile = EasyMock.createMock(Deck.class);
-		Deck mockDiscardPile = EasyMock.createMock(Deck.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		mockTurnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
+		turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
 		EasyMock.expectLastCall();
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedIntZero);
-		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectedIntZero);
-		mockPlayer1.deselectHandCards();
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedIntZero);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(expectedIntZero);
+		player1.deselectHandCards();
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementTurn(deadIndices);
+		turnManager.incrementTurn(deadIndices);
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementDrawCount();
+		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(mockPlayer1, mockPlayer2, deadIndices,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.replay(player1, player2, deadIndices,
+				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, mockDrawPile, mockDiscardPile, mockTurnManager)
+				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getDeadIndices")
 				.createMock();
 
@@ -725,42 +725,42 @@ public class GameTests {
 
 		game.applySuperSkip();
 
-		EasyMock.verify(mockPlayer1,
-				mockPlayer2, mockDrawPile,
-				mockDiscardPile, mockTurnManager, game);
+		EasyMock.verify(player1,
+				player2, drawPile,
+				discardPile, turnManager, game);
 	}
 
 	@Test
 	public void applySuperSkip_drawCountTwo_TurnAdvances() {
 		final int expectedIntZero = 0;
-		Player mockPlayer1 = EasyMock.createMock(Player.class);
-		Player mockPlayer2 = EasyMock.createMock(Player.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
 		List<Player> players = new ArrayList<>();
-		players.add(mockPlayer1);
-		players.add(mockPlayer2);
+		players.add(player1);
+		players.add(player2);
 
 		Set<Integer> deadIndices = EasyMock.createMock(Set.class);
 
-		Deck mockDrawPile = EasyMock.createMock(Deck.class);
-		Deck mockDiscardPile = EasyMock.createMock(Deck.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		mockTurnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
+		turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
 		EasyMock.expectLastCall();
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedIntZero);
-		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectedIntZero);
-		mockPlayer1.deselectHandCards();
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedIntZero);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(expectedIntZero);
+		player1.deselectHandCards();
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementTurn(deadIndices);
+		turnManager.incrementTurn(deadIndices);
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementDrawCount();
+		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(mockPlayer1, mockPlayer2, deadIndices,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.replay(player1, player2, deadIndices,
+				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, mockDrawPile, mockDiscardPile, mockTurnManager)
+				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getDeadIndices")
 				.createMock();
 
@@ -772,42 +772,42 @@ public class GameTests {
 
 		game.applySuperSkip();
 
-		EasyMock.verify(mockPlayer1,
-				mockPlayer2, mockDrawPile,
-				mockDiscardPile, mockTurnManager, game);
+		EasyMock.verify(player1,
+				player2, drawPile,
+				discardPile, turnManager, game);
 	}
 
 	@Test
 	public void applySuperSkip_drawCountThree_TurnAdvances() {
 		final int expectedIntZero = 0;
-		Player mockPlayer1 = EasyMock.createMock(Player.class);
-		Player mockPlayer2 = EasyMock.createMock(Player.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
 		List<Player> players = new ArrayList<>();
-		players.add(mockPlayer1);
-		players.add(mockPlayer2);
+		players.add(player1);
+		players.add(player2);
 
 		Set<Integer> deadIndices = EasyMock.createMock(Set.class);
 
-		Deck mockDrawPile = EasyMock.createMock(Deck.class);
-		Deck mockDiscardPile = EasyMock.createMock(Deck.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		mockTurnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
+		turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
 		EasyMock.expectLastCall();
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedIntZero);
-		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectedIntZero);
-		mockPlayer1.deselectHandCards();
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedIntZero);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(expectedIntZero);
+		player1.deselectHandCards();
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementTurn(deadIndices);
+		turnManager.incrementTurn(deadIndices);
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementDrawCount();
+		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(mockPlayer1, mockPlayer2, deadIndices,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.replay(player1, player2, deadIndices,
+				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, mockDrawPile, mockDiscardPile, mockTurnManager)
+				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getDeadIndices")
 				.createMock();
 
@@ -819,43 +819,43 @@ public class GameTests {
 
 		game.applySuperSkip();
 
-		EasyMock.verify(mockPlayer1,
-				mockPlayer2, mockDrawPile,
-				mockDiscardPile, mockTurnManager, game);
+		EasyMock.verify(player1,
+				player2, drawPile,
+				discardPile, turnManager, game);
 	}
 
 	@Test
 	public void applySuperSkip_lastPlayer_turnWraps() {
 		final int expectIntOne = 1;
 		final int expectIntZero = 0;
-		Player mockPlayer1 = EasyMock.createMock(Player.class);
-		Player mockPlayer2 = EasyMock.createMock(Player.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
 		List<Player> players = new ArrayList<>();
-		players.add(mockPlayer1);
-		players.add(mockPlayer2);
+		players.add(player1);
+		players.add(player2);
 
 		Set<Integer> deadIndices = EasyMock.createMock(Set.class);
 
-		Deck mockDrawPile = EasyMock.createMock(Deck.class);
-		Deck mockDiscardPile = EasyMock.createMock(Deck.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		mockTurnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
+		turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
 		EasyMock.expectLastCall();
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
-		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectIntOne);
-		mockPlayer2.deselectHandCards();
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectIntZero);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(expectIntOne);
+		player2.deselectHandCards();
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementTurn(deadIndices);
+		turnManager.incrementTurn(deadIndices);
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementDrawCount();
+		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(mockPlayer1, mockPlayer2, deadIndices,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.replay(player1, player2, deadIndices,
+				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, mockDrawPile, mockDiscardPile, mockTurnManager)
+				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getDeadIndices")
 				.createMock();
 
@@ -867,42 +867,42 @@ public class GameTests {
 
 		game.applySuperSkip();
 
-		EasyMock.verify(mockPlayer1,
-				mockPlayer2, mockDrawPile,
-				mockDiscardPile, mockTurnManager, game);
+		EasyMock.verify(player1,
+				player2, drawPile,
+				discardPile, turnManager, game);
 	}
 
 	@Test
 	public void applySuperSkip_twoPlayers_turnAdvances() {
 		final int expectIntZero = 0;
-		Player mockPlayer1 = EasyMock.createMock(Player.class);
-		Player mockPlayer2 = EasyMock.createMock(Player.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
 		List<Player> players = new ArrayList<>();
-		players.add(mockPlayer1);
-		players.add(mockPlayer2);
+		players.add(player1);
+		players.add(player2);
 
 		Set<Integer> deadIndices = EasyMock.createMock(Set.class);
 
-		Deck mockDrawPile = EasyMock.createMock(Deck.class);
-		Deck mockDiscardPile = EasyMock.createMock(Deck.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		mockTurnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
+		turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
 		EasyMock.expectLastCall();
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
-		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectIntZero);
-		mockPlayer1.deselectHandCards();
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectIntZero);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(expectIntZero);
+		player1.deselectHandCards();
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementTurn(deadIndices);
+		turnManager.incrementTurn(deadIndices);
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementDrawCount();
+		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(mockPlayer1, mockPlayer2, deadIndices,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.replay(player1, player2, deadIndices,
+				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, mockDrawPile, mockDiscardPile, mockTurnManager)
+				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getDeadIndices")
 				.createMock();
 
@@ -914,46 +914,46 @@ public class GameTests {
 
 		game.applySuperSkip();
 
-		EasyMock.verify(mockPlayer1,
-				mockPlayer2, mockDrawPile,
-				mockDiscardPile, mockTurnManager, game);
+		EasyMock.verify(player1,
+				player2, drawPile,
+				discardPile, turnManager, game);
 	}
 
 	@Test
 	public void applySuperSkip_fourPlayers_turnAdvances() {
 		final int expectIntZero = 0;
-		Player mockPlayer1 = EasyMock.createMock(Player.class);
-		Player mockPlayer2 = EasyMock.createMock(Player.class);
-		Player mockPlayer3 = EasyMock.createMock(Player.class);
-		Player mockPlayer4 = EasyMock.createMock(Player.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Player player3 = EasyMock.createMock(Player.class);
+		Player player4 = EasyMock.createMock(Player.class);
 		List<Player> players = new ArrayList<>();
-		players.add(mockPlayer1);
-		players.add(mockPlayer2);
-		players.add(mockPlayer3);
-		players.add(mockPlayer4);
+		players.add(player1);
+		players.add(player2);
+		players.add(player3);
+		players.add(player4);
 
 		Set<Integer> deadIndices = EasyMock.createMock(Set.class);
 
-		Deck mockDrawPile = EasyMock.createMock(Deck.class);
-		Deck mockDiscardPile = EasyMock.createMock(Deck.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		mockTurnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
+		turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
 		EasyMock.expectLastCall();
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectIntZero);
-		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(expectIntZero);
-		mockPlayer1.deselectHandCards();
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectIntZero);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(expectIntZero);
+		player1.deselectHandCards();
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementTurn(deadIndices);
+		turnManager.incrementTurn(deadIndices);
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementDrawCount();
+		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3, mockPlayer4, deadIndices,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.replay(player1, player2, player3, player4, deadIndices,
+				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, mockDrawPile, mockDiscardPile, mockTurnManager)
+				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getDeadIndices")
 				.createMock();
 
@@ -965,8 +965,8 @@ public class GameTests {
 
 		game.applySuperSkip();
 
-		EasyMock.verify(mockPlayer1, mockPlayer2, mockPlayer3, mockPlayer4,
-				mockDrawPile, mockDiscardPile, mockTurnManager, game);
+		EasyMock.verify(player1, player2, player3, player4,
+				drawPile, discardPile, turnManager, game);
 	}
 
 	@Test
@@ -1970,36 +1970,36 @@ public class GameTests {
 	@Test
 	public void applySkip_drawCountOne_TurnAdvances() {
 		final int expectedReturnValue = 0;
-		Player mockPlayer1 = EasyMock.createMock(Player.class);
-		Player mockPlayer2 = EasyMock.createMock(Player.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
 		List<Player> players = new ArrayList<>();
-		players.add(mockPlayer1);
-		players.add(mockPlayer2);
+		players.add(player1);
+		players.add(player2);
 
 		Set<Integer> deadIndices = EasyMock.createMock(Set.class);
 
-		Deck mockDrawPile = EasyMock.createMock(Deck.class);
-		Deck mockDiscardPile = EasyMock.createMock(Deck.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		mockTurnManager.decrementDrawCount();
+		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedReturnValue);
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedReturnValue);
-		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex())
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedReturnValue);
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedReturnValue);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex())
 				.andReturn(expectedReturnValue);
-		mockPlayer1.deselectHandCards();
+		player1.deselectHandCards();
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementTurn(deadIndices);
+		turnManager.incrementTurn(deadIndices);
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementDrawCount();
+		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(mockPlayer1, mockPlayer2, deadIndices,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.replay(player1, player2, deadIndices,
+				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, mockDrawPile, mockDiscardPile, mockTurnManager)
+				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getDeadIndices")
 				.createMock();
 
@@ -2011,100 +2011,100 @@ public class GameTests {
 
 		game.applySkip();
 
-		EasyMock.verify(mockPlayer1, mockPlayer2,
-				mockDrawPile, mockDiscardPile, mockTurnManager, game);
+		EasyMock.verify(player1, player2,
+				drawPile, discardPile, turnManager, game);
 	}
 
 	@Test
 	public void applySkip_drawCountTwo_TurnNotAdvanced() {
 		final int expectedDrawCount = 1;
-		Player mockPlayer1 = EasyMock.createMock(Player.class);
-		Player mockPlayer2 = EasyMock.createMock(Player.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
 		List<Player> players = new ArrayList<>();
-		players.add(mockPlayer1);
-		players.add(mockPlayer2);
+		players.add(player1);
+		players.add(player2);
 
-		Deck mockDrawPile = EasyMock.createMock(Deck.class);
-		Deck mockDiscardPile = EasyMock.createMock(Deck.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		mockTurnManager.decrementDrawCount();
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedDrawCount);
+		turnManager.decrementDrawCount();
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount);
 
-		EasyMock.replay(mockPlayer1, mockPlayer2,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.replay(player1, player2,
+				drawPile, discardPile, turnManager);
 
-		Game game = new Game(players, mockDrawPile, mockDiscardPile, mockTurnManager);
+		Game game = new Game(players, drawPile, discardPile, turnManager);
 		game.setIsGameOngoing(true);
 
 		game.applySkip();
 
-		EasyMock.verify(mockPlayer1, mockPlayer2,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.verify(player1, player2,
+				drawPile, discardPile, turnManager);
 	}
 
 	@Test
 	public void applySkip_drawCountThree_TurnNotAdvanced() {
 		final int expectedDrawCount = 2;
-		Player mockPlayer1 = EasyMock.createMock(Player.class);
-		Player mockPlayer2 = EasyMock.createMock(Player.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
 		List<Player> players = new ArrayList<>();
-		players.add(mockPlayer1);
-		players.add(mockPlayer2);
+		players.add(player1);
+		players.add(player2);
 
-		Deck mockDrawPile = EasyMock.createMock(Deck.class);
-		Deck mockDiscardPile = EasyMock.createMock(Deck.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		mockTurnManager.decrementDrawCount();
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedDrawCount);
+		turnManager.decrementDrawCount();
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount);
 
-		EasyMock.replay(mockPlayer1, mockPlayer2,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.replay(player1, player2,
+				drawPile, discardPile, turnManager);
 
-		Game game = new Game(players, mockDrawPile, mockDiscardPile, mockTurnManager);
+		Game game = new Game(players, drawPile, discardPile, turnManager);
 		game.setIsGameOngoing(true);
 
 		game.applySkip();
 
-		EasyMock.verify(mockPlayer1, mockPlayer2,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.verify(player1, player2,
+				drawPile, discardPile, turnManager);
 	}
 
 	@Test
 	public void applySkip_lastPlayer_turnWraps() {
 		final int expectedDrawCount = 0;
 		final int expectedPlayerIndex = 1;
-		Player mockPlayer1 = EasyMock.createMock(Player.class);
-		Player mockPlayer2 = EasyMock.createMock(Player.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
 		List<Player> players = new ArrayList<>();
-		players.add(mockPlayer1);
-		players.add(mockPlayer2);
+		players.add(player1);
+		players.add(player2);
 
 		Set<Integer> deadIndices = EasyMock.createMock(Set.class);
 
-		Deck mockDrawPile = EasyMock.createMock(Deck.class);
-		Deck mockDiscardPile = EasyMock.createMock(Deck.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		mockTurnManager.decrementDrawCount();
+		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedDrawCount);
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedDrawCount);
-		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex())
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount);
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex())
 				.andReturn(expectedPlayerIndex);
-		mockPlayer2.deselectHandCards();
+		player2.deselectHandCards();
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementTurn(deadIndices);
+		turnManager.incrementTurn(deadIndices);
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementDrawCount();
+		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(mockPlayer1, mockPlayer2, deadIndices,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.replay(player1, player2, deadIndices,
+				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, mockDrawPile, mockDiscardPile, mockTurnManager)
+				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getDeadIndices")
 				.createMock();
 
@@ -2116,43 +2116,43 @@ public class GameTests {
 
 		game.applySkip();
 
-		EasyMock.verify(mockPlayer1, mockPlayer2,
-				mockDrawPile, mockDiscardPile, mockTurnManager, game);
+		EasyMock.verify(player1, player2,
+				drawPile, discardPile, turnManager, game);
 	}
 
 	@Test
 	public void applySkip_twoPlayers_turnAdvances() {
 		final int expectedReturnZero = 0;
-		Player mockPlayer1 = EasyMock.createMock(Player.class);
-		Player mockPlayer2 = EasyMock.createMock(Player.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
 		List<Player> players = new ArrayList<>();
-		players.add(mockPlayer1);
-		players.add(mockPlayer2);
+		players.add(player1);
+		players.add(player2);
 
 		Set<Integer> deadIndices = EasyMock.createMock(Set.class);
 
-		Deck mockDrawPile = EasyMock.createMock(Deck.class);
-		Deck mockDiscardPile = EasyMock.createMock(Deck.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		mockTurnManager.decrementDrawCount();
+		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedReturnZero);
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedReturnZero);
-		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex())
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedReturnZero);
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedReturnZero);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex())
 				.andReturn(expectedReturnZero);
-		mockPlayer1.deselectHandCards();
+		player1.deselectHandCards();
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementTurn(deadIndices);
+		turnManager.incrementTurn(deadIndices);
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementDrawCount();
+		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(mockPlayer1, mockPlayer2, deadIndices,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.replay(player1, player2, deadIndices,
+				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, mockDrawPile, mockDiscardPile, mockTurnManager)
+				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getDeadIndices")
 				.createMock();
 
@@ -2164,47 +2164,47 @@ public class GameTests {
 
 		game.applySkip();
 
-		EasyMock.verify(mockPlayer1, mockPlayer2,
-				mockDrawPile, mockDiscardPile, mockTurnManager, game);
+		EasyMock.verify(player1, player2,
+				drawPile, discardPile, turnManager, game);
 	}
 
 	@Test
 	public void applySkip_fourPlayers_turnAdvances() {
 		final int expectedReturnZero = 0;
-		Player mockPlayer1 = EasyMock.createMock(Player.class);
-		Player mockPlayer2 = EasyMock.createMock(Player.class);
-		Player mockPlayer3 = EasyMock.createMock(Player.class);
-		Player mockPlayer4 = EasyMock.createMock(Player.class);
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Player player3 = EasyMock.createMock(Player.class);
+		Player player4 = EasyMock.createMock(Player.class);
 		List<Player> players = new ArrayList<>();
-		players.add(mockPlayer1);
-		players.add(mockPlayer2);
-		players.add(mockPlayer3);
-		players.add(mockPlayer4);
+		players.add(player1);
+		players.add(player2);
+		players.add(player3);
+		players.add(player4);
 
 		Set<Integer> deadIndices = EasyMock.createMock(Set.class);
 
-		Deck mockDrawPile = EasyMock.createMock(Deck.class);
-		Deck mockDiscardPile = EasyMock.createMock(Deck.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		mockTurnManager.decrementDrawCount();
+		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedReturnZero);
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(expectedReturnZero);
-		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex())
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedReturnZero);
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedReturnZero);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex())
 				.andReturn(expectedReturnZero);
-		mockPlayer1.deselectHandCards();
+		player1.deselectHandCards();
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementTurn(deadIndices);
+		turnManager.incrementTurn(deadIndices);
 		EasyMock.expectLastCall();
-		mockTurnManager.incrementDrawCount();
+		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3, mockPlayer4, deadIndices,
-				mockDrawPile, mockDiscardPile, mockTurnManager);
+		EasyMock.replay(player1, player2, player3, player4, deadIndices,
+				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, mockDrawPile, mockDiscardPile, mockTurnManager)
+				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getDeadIndices")
 				.createMock();
 
@@ -2216,8 +2216,8 @@ public class GameTests {
 
 		game.applySkip();
 
-		EasyMock.verify(mockPlayer1, mockPlayer2, mockPlayer3, mockPlayer4,
-				mockDrawPile, mockDiscardPile, mockTurnManager, game);
+		EasyMock.verify(player1, player2, player3, player4,
+				drawPile, discardPile, turnManager, game);
 	}
 
 	@ParameterizedTest
