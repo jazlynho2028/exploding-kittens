@@ -753,9 +753,7 @@ public class PlayerDeckView {
     }
 
     public void buildExplodeOverlay(boolean hasDefuse, String explodingCardId, int drawPileSize) {
-        VBox content = new VBox();
-        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        content.getStyleClass().add("overlay-content");
+        VBox content = buildOverlayContent();
 
         Button explodingKittenCard = buildExplodingKittenCard(explodingCardId);
         content.getChildren().add(explodingKittenCard);
@@ -778,6 +776,14 @@ public class PlayerDeckView {
 
         overlayLayer.getChildren().setAll(content);
         showOverlay();
+    }
+
+    private VBox buildOverlayContent() {
+        VBox content = new VBox();
+        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        content.getStyleClass().add("overlay-content");
+
+        return content;
     }
 
     private VBox buildDefuseOptions(int drawPileSize) {
@@ -842,9 +848,7 @@ public class PlayerDeckView {
     }
 
     public void buildSeeTheFutureOverlay(List<String> topCardIds) {
-        VBox content = new VBox();
-        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        content.getStyleClass().add("overlay-content");
+        VBox content = buildOverlayContent();
 
         HBox topCardsContainer = buildTopCardsContainer(topCardIds);
         topCardsContainer.getStyleClass().add("card-options");
@@ -890,9 +894,7 @@ public class PlayerDeckView {
     private void buildCardSelectOverlay(
             List<CardType> cardTypes, Button confirmButton, String titleText) {
 
-        VBox content = new VBox();
-        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        content.getStyleClass().add("overlay-content");
+        VBox content = buildOverlayContent();
 
         Text title = buildOverlayTitle(titleText);
         ScrollPane cardScrollPane = buildCardSelectScrollPane(cardTypes);
@@ -949,9 +951,7 @@ public class PlayerDeckView {
     }
 
     public void buildWinOverlay(String winnerName) {
-        VBox content = new VBox();
-        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        content.getStyleClass().add("overlay-content");
+        VBox content = buildOverlayContent();
 
         String winMsg = String.format(
                 assetProvider.getString("playerDeckScreen.winTitle"), winnerName);
