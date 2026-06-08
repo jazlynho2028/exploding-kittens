@@ -85,17 +85,17 @@ public class PlayerDeckController {
 
     void onNameTag(int playerIndex) {
         attempt(onError, () -> {
-            if (pendingTargetAction.isPresent()) {
-                pendingTargetAction.get().accept(playerIndex);
-                pendingTargetAction = Optional.empty();
+            if (model.getCurrentPlayerIndex() != playerIndex) {
+                if (pendingTargetAction.isPresent()) {
+                    pendingTargetAction.get().accept(playerIndex);
+                    pendingTargetAction = Optional.empty();
 
-                view.renderPlayerNameTags(model.getCurrentPlayerIndex(),
-                        model.getIsGameOngoing());
-                handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
-                updateTurnControls();
-            }
-            else if (model.getCurrentPlayerIndex() != playerIndex) {
+                    view.renderPlayerNameTags(model.getCurrentPlayerIndex(),
+                            model.getIsGameOngoing());
+                }
+
                 handleChangeCurrentPlayer(playerIndex);
+                updateTurnControls();
             }
         });
     }
