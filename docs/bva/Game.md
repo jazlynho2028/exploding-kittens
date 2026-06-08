@@ -825,26 +825,38 @@
   - **State of the system**: CardType.MILD_SHUFFLE passed as cardType
   - **Expected output**: applyMildShuffle() is called
 
-### Method under test: `applyTargetedAttack(int targetPlayerIndex)`
-- **TC133: Targeted Attack with minimum players (2), first player targets last player** ( :white_check_mark: )
-  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-  - **State of the system**: game is ongoing, 2 players, currentPlayerIndex = 0, targetPlayerIndex = 1
-  - **Expected output**: deselectHandCards() called on player 0, setCurrentPlayerIndex(1) called, addAttackDrawCount() called
+# Method under test: `applyTargetedAttack(int targetPlayerIndex)`
+- **TC133: Targeted Attack with minimum players (2), first player targets next player** ( :x: )
+  - **Name of the test**: applyTargetedAttack_targetOneStepAhead_incrementsOnce
+  - **State of the system**: 2 players, currentPlayerIndex = 0, targetPlayerIndex = 1
+  - **Expected output**:
+    - deselectHandCards() called on player 0
+    - incrementTurn() called 1 time
+    - addAttackDrawCount() called
 
-- **TC134: Targeted Attack with minimum players (2), last player targets first player** ( :white_check_mark: )
-  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-  - **State of the system**: game is ongoing, 2 players, currentPlayerIndex = 1, targetPlayerIndex = 0
-  - **Expected output**: deselectHandCards() called on player 1, setCurrentPlayerIndex(0) called, addAttackDrawCount() called
+- **TC134: Targeted Attack with minimum players (2), last player targets first player (wrap)** ( :x: )
+  - **Name of the test**: applyTargetedAttack_targetOneStepAhead_incrementsOnce
+  - **State of the system**: 2 players, currentPlayerIndex = 1, targetPlayerIndex = 0
+  - **Expected output**:
+    - deselectHandCards() called on player 1
+    - incrementTurn() called 1 time
+    - addAttackDrawCount() called
 
-- **TC135: Targeted Attack with maximum players (4), first player targets last player** ( :white_check_mark: )
-  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-  - **State of the system**: game is ongoing, 4 players, currentPlayerIndex = 0, targetPlayerIndex = 3
-  - **Expected output**: deselectHandCards() called on player 0, setCurrentPlayerIndex(3) called, addAttackDrawCount() called
+- **TC135: Targeted Attack with maximum players (4), first player targets last player** ( :x: )
+  - **Name of the test**: applyTargetedAttack_targetMultipleStepsAhead_incrementsMultipleTimes
+  - **State of the system**: 4 players, currentPlayerIndex = 0, targetPlayerIndex = 3
+  - **Expected output**:
+    - deselectHandCards() called on player 0
+    - incrementTurn() called 3 times
+    - addAttackDrawCount() called
 
-- **TC136: Targeted Attack with maximum players (4), last player targets first player** ( :white_check_mark: )
-  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-  - **State of the system**: game is ongoing, 4 players, currentPlayerIndex = 3, targetPlayerIndex = 0
-  - **Expected output**: deselectHandCards() called on player 3, setCurrentPlayerIndex(0) called, addAttackDrawCount() called
+- **TC136: Targeted Attack with maximum players (4), last player targets first player (wrap)** ( :x: )
+  - **Name of the test**: applyTargetedAttack_targetOneStepAhead_incrementsOnce
+  - **State of the system**: 4 players, currentPlayerIndex = 3, targetPlayerIndex = 0
+  - **Expected output**:
+    - deselectHandCards() called on player 3
+    - incrementTurn() called 1 time
+    - addAttackDrawCount() called
 
 ### Method under test: `addAttackDrawCount()`
 - **TC137: Draw count is below the attack threshold** ( :white_check_mark: )
