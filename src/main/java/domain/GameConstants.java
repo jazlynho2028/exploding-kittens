@@ -8,6 +8,7 @@ public final class GameConstants {
 
 	public static final int MIN_PLAYERS = 2;
 	public static final int MAX_PLAYERS = 4;
+	public static final int MAX_PLAYER_INDEX = 3;
 
 	public static final int STARTING_HAND_SIZE = 6;
 	public static final int STARTING_PLAYER_INDEX = 0;
@@ -39,7 +40,6 @@ public final class GameConstants {
 	public static final int NUM_SHUFFLE_IN_GAME = 4;
 	public static final int NUM_TARGETED_ATTACK_IN_GAME = 4;
 	public static final int NUM_CAT_CARD_IN_GAME = 4;
-	public static final int MAX_PLAYER_INDEX = 3;
 
 	public static final List<CardType> CONDITIONAL_PLAY_CARDTYPES = List.of(
 			CardType.DEFUSE,
