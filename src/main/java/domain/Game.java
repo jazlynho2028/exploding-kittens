@@ -341,8 +341,9 @@ public class Game {
         getCurrentPlayer().deselectHandCards();
 		getCurrentPlayer().eliminate();
 
-        turnManager.incrementTurn(getDeadIndices());
-        turnManager.incrementDrawCount();
+        boolean hasWinner = (getDeadIndices().size() >= players.size() - 1);
+
+        isGameOngoing = false;
     }
 
     void applyAttack() {

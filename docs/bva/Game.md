@@ -597,27 +597,23 @@
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
 
-- **TC90: All two alive, kill one player** ( :x: )
-  - **Name of the test**: playExplode_allAlive_oneDead
+- **TC90: All two alive, kill one player** ( :white_check_mark: )
+  - **Name of the test**: playExplode_allTwoAlive_oneWins
   - **State of the system**: 
     - 2 players
     - currentPlayerIndex = 0
-    - deadIndices = {}
   - **Expected output**:
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
     - getCurrentPlayer.eliminate is called
     - deadIndices = {0}
-    - isGameOngoing = true
-    - turnManager.incrementTurn is called with getDeadIndices
-    - turnManager.incrementDrawCount is called
+    - isGameOngoing = false
 
 - **TC91: All three alive, kill one player** ( :x: )
-  - **Name of the test**: playExplode_allAlive_oneDead
+  - **Name of the test**: playExplode_allThreeAlive_oneDead
   - **State of the system**:
     - 3 players
     - currentPlayerIndex = 2
-    - deadIndices = {}
   - **Expected output**:
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
@@ -632,7 +628,6 @@
   - **State of the system**:
     - 4 players
     - currentPlayerIndex = 3
-    - deadIndices = {0}
   - **Expected output**:
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
@@ -647,7 +642,6 @@
   - **State of the system**:
     - 3 players
     - currentPlayerIndex = 0
-    - deadIndices = {1}
   - **Expected output**:
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
@@ -660,7 +654,6 @@
   - **State of the system**:
     - 3 players
     - currentPlayerIndex = 0
-    - deadIndices = {}
     - turnManager.incrementTurn is called with deadIndices and throws IllegalStateException "error.noAlivePlayers"
   - **Expected output**:
     - throws IllegalStateException "error.noAlivePlayers"

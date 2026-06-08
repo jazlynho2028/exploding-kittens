@@ -9,10 +9,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -1620,33 +1617,28 @@ public class GameTests {
 	}
 
 	@Test
-	public void playExplode_called_success() {
+	public void playExplode_allAlive_oneDead_twoPlayers() {
 		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck drawPile = EasyMock.createNiceMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		Set<Integer> deadIndices = EasyMock.createMock(Set.class);
+		EasyMock.expect(players.size()).andStubReturn(GameConstants.MIN_PLAYERS);
 
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		Card explodingKitten = EasyMock.createMock(Card.class);
+		Set<Integer> deadIndices = Set.of(0);
 
 		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten);
 
 		currentPlayer.deselectHandCards();
 		EasyMock.expectLastCall();
 
-		turnManager.incrementTurn(deadIndices);
-		EasyMock.expectLastCall();
-
 		currentPlayer.eliminate();
 		EasyMock.expectLastCall();
 
-		turnManager.incrementDrawCount();
-		EasyMock.expectLastCall();
-
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
-				currentPlayer, explodingKitten, deadIndices);
+				currentPlayer, explodingKitten);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
@@ -1659,8 +1651,10 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
+		game.startGame();
 		game.playExplode();
 
+		assertFalse(game.getIsGameOngoing());
 		EasyMock.verify(drawPile, turnManager, game, currentPlayer);
 	}
 
