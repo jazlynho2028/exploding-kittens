@@ -471,7 +471,10 @@ public class Game {
     }
 
     public Set<Integer> getDeadIndices() {
-        return Set.of();
+        return players.stream()
+                .filter(player -> !player.isAlive())
+                .map(players::indexOf)
+                .collect(Collectors.toSet());
     }
 
 }

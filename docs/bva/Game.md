@@ -1348,7 +1348,7 @@
     - turnManager.drawCount = 4
 
 ### Method under test: `getDeadIndices()`
-- **TC191: No dead players** ( :x: )
+- **TC191: No dead players** ( :white_check_mark: )
   - **Name of the test**: getDeadIndices_noDeadPlayers_returnEmptySet
   - **State of the system**: 2 alive players
   - **Expected output**: return empty set
