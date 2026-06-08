@@ -1418,3 +1418,39 @@
   - **State of the system**:
     - 4 dead players at indices 0, 1, 2, 3
   - **Expected output**: return {0, 1, 2, 3}
+
+### Method under test: `getWinnerName()`
+- **TC198: All players are dead** ( :x: )
+  - **Name of the test**: getWinnerName_allDead_failed
+  - **State of the system**: 
+    - playerNames = ["Alice", "Bob"]
+    - 2 dead players
+  - **Expected output**: throw IllegalStateException "error.noWinner"
+
+- **TC199: One player is dead** ( :x: )
+  - **Name of the test**: getWinnerName_oneOfThreeDead_failed
+  - **State of the system**: 
+    - playerNames = ["Alice", "Bob", "Bob"]
+    - one dead player at index 2 
+  - **Expected output**: throw IllegalStateException "error.noWinner"
+
+- **TC200: All players alive** ( :x: )
+  - **Name of the test**: getWinnerName_allAlive_failed
+  - **State of the system**:
+    - playerNames = ["Alice", "Bob", "Alice", "Steve"]
+    - 4 alive players
+  - **Expected output**: throw IllegalStateException "error.noWinner"
+
+- **TC201: Two players, has winner** ( :x: )
+  - **Name of the test**: getWinnerName_twoPlayersOneAlive_returnWinnerName
+  - **State of the system**: 
+    - playerNames = ["Jeff", "Jeff"]
+    - winner at index 1
+  - **Expected output**: return "Jeff"
+
+- **TC202: Three players, has winner** ( :x: )
+  - **Name of the test**: getWinnerName_twoPlayersOneAlive_returnWinnerName
+  - **State of the system**:
+    - playerNames = ["Audrey", "Jeff", "Chicken"]
+    - winner at index 0
+  - **Expected output**: return "Audrey"
