@@ -2931,6 +2931,35 @@ public class GameTests {
 		);
 	}
 
+	@ParameterizedTest
+	@MethodSource("provideGetWinnerNameSuccessConditions")
+	public void getWinnerName_oneAlive_returnWinnerName(
+			List<String> playerNames, Set<Integer> expectedDeadIndices,
+			String expectedWinnerName) {
+
+		List<Player> players = mockPlayersWithNamesAndIsAlive(
+				playerNames, expectedDeadIndices);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		String actualWinnerName = game.getWinnerName();
+
+		assertEquals(expectedWinnerName, actualWinnerName);
+
+		players.forEach(EasyMock::verify);
+	}
+
+	private static Stream<Arguments> provideGetWinnerNameSuccessConditions() {
+		return Stream.of(
+				Arguments.of(List.of("Jeff", "Jeff"), Set.of(0), "Jeff")
+		);
+	}
+
 	private Game mockGameWithGetCurrentPlayer(
 			List<Player> players, Deck drawPile, Deck discardPile,
 			TurnManager turnManager, Player currentPlayer) {

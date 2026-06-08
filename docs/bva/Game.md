@@ -1441,15 +1441,15 @@
     - 4 alive players
   - **Expected output**: throw IllegalStateException "error.noWinner"
 
-- **TC201: Two players, has winner** ( :x: )
-  - **Name of the test**: getWinnerName_twoPlayersOneAlive_returnWinnerName
+- **TC201: Two players, has winner** ( :white_check_mark: )
+  - **Name of the test**: getWinnerName_oneAlive_returnWinnerName
   - **State of the system**: 
     - playerNames = ["Jeff", "Jeff"]
     - winner at index 1
   - **Expected output**: return "Jeff"
 
 - **TC202: Three players, has winner** ( :x: )
-  - **Name of the test**: getWinnerName_twoPlayersOneAlive_returnWinnerName
+  - **Name of the test**: getWinnerName_oneAlive_returnWinnerName
   - **State of the system**:
     - playerNames = ["Audrey", "Jeff", "Chicken"]
     - winner at index 0

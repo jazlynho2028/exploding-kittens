@@ -488,6 +488,10 @@ public class Game {
                 .map(Player::getName)
                 .collect(Collectors.toList());
 
+        if (aliveNames.size() == 1) {
+            return aliveNames.get(0);
+        }
+
         throw new IllegalStateException("error.noWinner");
     }
 
