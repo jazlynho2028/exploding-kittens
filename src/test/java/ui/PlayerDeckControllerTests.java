@@ -58,6 +58,11 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getPlayerNames()).andReturn(PLAYER_NAMES);
 	}
 
+	private void getDeadIndicesExpectation() {
+		EasyMock.expect(model.getDeadIndices()).andReturn(DEAD_INDICES);
+	}
+
+
 	private void getCurrentPlayerIndexExpectation() {
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(CURRENT_PLAYER_INDEX);
 	}
@@ -99,6 +104,7 @@ public class PlayerDeckControllerTests {
 
 	private void expectRebuildNameTags() {
 		getPlayerNamesExpectation();
+		getDeadIndicesExpectation();
 		getCurrentPlayerIndexExpectation();
 		getIsGameOngoingExpectation();
 
@@ -109,6 +115,7 @@ public class PlayerDeckControllerTests {
 
 	private void expectUpdateNameTags() {
 		getCurrentPlayerIndexExpectation();
+		getDeadIndicesExpectation();
 		getIsGameOngoingExpectation();
 
 		view.renderPlayerNameTags(CURRENT_PLAYER_INDEX, IS_GAME_ONGOING, DEAD_INDICES);
