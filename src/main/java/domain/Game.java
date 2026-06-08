@@ -266,6 +266,7 @@ public class Game {
         }
         getCurrentPlayer().deselectHandCards();
         turnManager.incrementTurn();
+        turnManager.incrementDrawCount();
     }
 
     void setIsGameOngoing(boolean isGameOngoing) {
@@ -334,7 +335,8 @@ public class Game {
 
         getCurrentPlayer().deselectHandCards();
         turnManager.incrementTurn();
-        // TODO: unalive current player
+        turnManager.incrementDrawCount();
+        // TODO unalive current player
     }
 
     void applyAttack() {
@@ -423,8 +425,23 @@ public class Game {
         // TODO
     }
 
-    void applyTargetedAttack() {
-        // TODO
+    public void applyTargetedAttack(int targetPlayerIndex) {
+        getCurrentPlayer().deselectHandCards();
+        while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
+            turnManager.incrementTurn();
+        }
+        addAttackDrawCount();
+    }
+
+    void addAttackDrawCount() {
+        if (turnManager.getDrawCount() >= 2) {
+            turnManager.setDrawCount(
+                    turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
+        }
+        else {
+            turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+        }
+
     }
 
     void applyWinnerWinnerCatnipDinner() {

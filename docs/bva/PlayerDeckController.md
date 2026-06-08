@@ -51,14 +51,30 @@
   - **State of the system**:
     - playerIndex = 1
     - currentPlayerIndex = 0
-  - **Expected output**:
-    - getCurrentPlayerIndexExpectation is satisfied
-    - handleChangeCurrentPlayer is called with playerIndex
+  - **Expected output**: 
+    - called handleChangeCurrentPlayer with playerIndex
+    - calls updateTurnControls
 
 - **TC7: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onNameTag_called_failed
   - **State of the system**: model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
+
+- **TC8: pendingTargetAction is present** ( :white_check_mark: )
+  - **Name of the test**: onNameTag_pendingTargetActionPresent_executesAction
+  - **State of the system**:
+    - pendingTargetAction = Optional.of(mockAction)
+    - playerIndex = 1
+    - model.getCurrentPlayerIndex() returns 2
+    - model.getIsGameOngoing() returns true
+    - model.canPlaySelected() returns true
+    - model.canEndTurn() returns false
+  - **Expected output**:
+    - mockAction.accept(1) is called
+    - pendingTargetAction becomes empty
+    - view.renderPlayerNameTags(2, true) is called
+    - handleChangeCurrentPlayer(2) is called
+    - view.renderTurnControlSection(true, false) is called
 
 ## Method under test: `handleChangeCurrentPlayer(int playerIndex)`
 - **TC8: This method is executed successfully** ( :white_check_mark: )
@@ -277,6 +293,24 @@
     - expectUpdateTurnControls is satisfied with canEndTurn
     - view.bindGodcatConfirmButton is called
     - view.buildGodcatOverlay is called with GameConstants.GODCAT_CARDTYPE_OPTIONS
+
+- **TC24: Targeted Attack card played** ( :white_check_mark: )
+  - **Name of the test**: onPlayCardsButton_targetedAttackPlayed_targetSelectionEnabled
+  - **State of the system**:
+    - canDrawFromDiscard = true
+    - topDiscardId = "TARGETED_ATTACK_1"
+    - canPlaySelected = true
+    - canEndTurn = true
+    - currentPlayerIndex = 0
+    - playSelectedCards returns CardType.TARGETED_ATTACK
+  - **Expected output**:
+    - model.playSelectedCards is called
+    - view.renderDiscardPile(canDrawFromDiscard, topDiscardId) is called
+    - rebindHandCards is called
+    - view.renderTurnControlSection(canPlaySelected, canEndTurn) is called
+    - pendingTargetAction becomes present
+    - view.renderPlayerNameTags(currentPlayerIndex, false) is called
+    - view.renderTurnControlSection(false, false) is called
 
 - **TC30: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed

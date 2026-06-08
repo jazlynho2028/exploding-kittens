@@ -44,6 +44,7 @@ public class PlayerDeckView {
     private final Button godcatConfirmButton;
     private CardType selectedGodcatCardType;
 
+
     public PlayerDeckView(AssetProvider assetProvider) {
         this.assetProvider = assetProvider;
 
@@ -146,7 +147,7 @@ public class PlayerDeckView {
         }
     }
 
-    public void renderPlayerNameTags(int currentPlayerIndex, boolean isGameOngoing) {
+    public void renderPlayerNameTags(int currentPlayerIndex, boolean disableOtherPlayers) {
         ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
 
         for (int i = 0; i < nameTagButtons.size(); i++) {
@@ -155,7 +156,7 @@ public class PlayerDeckView {
             boolean isAtCurrentPlayerIndex = (i == currentPlayerIndex);
             nameTagButton.setSelected(isAtCurrentPlayerIndex);
 
-            nameTagButton.setDisable(isAtCurrentPlayerIndex || isGameOngoing);
+            nameTagButton.setDisable(isAtCurrentPlayerIndex || disableOtherPlayers);
         }
     }
 

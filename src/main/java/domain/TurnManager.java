@@ -52,6 +52,10 @@ public class TurnManager {
         drawCount--;
     }
 
+    public void incrementDrawCount() {
+        drawCount++;
+    }
+
     public void incrementTurn() {
         currentPlayerIndex = (currentPlayerIndex + 1) % numPlayers;
 
@@ -59,7 +63,6 @@ public class TurnManager {
             roundCount++;
         }
 
-        drawCount++;
     }
 
     void setRoundCount(int roundCount) {
