@@ -97,7 +97,7 @@
   - **State of the system**: drawCount = 0
   - **Expected output**: drawCount = 1
 
-- **TC15: incrementing from a positive value successfully increases count** ( :x: )
+- **TC15: incrementing from a positive value successfully increases count** ( :white_check_mark: )
   - **Name of the test**: incrementDrawCount_validDrawCount_incrementedByOne
   - **State of the system**: drawCount = 1
   - **Expected output**: drawCount = 2
