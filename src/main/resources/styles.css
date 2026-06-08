@@ -735,3 +735,7 @@
     -fx-pref-width: 8px;
     -fx-pref-height: 16px;
 }
+
+.win-title {
+    -fx-fill: linear-gradient(to bottom, yellow-3, red-3, orange-3);
+}

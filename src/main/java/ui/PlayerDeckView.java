@@ -44,6 +44,7 @@ public class PlayerDeckView {
 	private final Slider defuseSlider;
     private final Button godcatConfirmButton;
     private CardType selectedGodcatCardType;
+    private final Button playAgainButton;
 
     public PlayerDeckView(AssetProvider assetProvider) {
         this.assetProvider = assetProvider;
@@ -65,6 +66,7 @@ public class PlayerDeckView {
 		defuseSlider = new Slider();
         godcatConfirmButton = new Button();
         selectedGodcatCardType = CardType.ATTACK;;
+        playAgainButton = new Button();
 
         buildUI();
     }
@@ -125,6 +127,10 @@ public class PlayerDeckView {
 	public void bindGodcatConfirmButton(Runnable handler) {
 		godcatConfirmButton.setOnMouseClicked(e -> handler.run());
 	}
+
+    public void bindPlayAgainButton(Runnable handler) {
+        playAgainButton.setOnMouseClicked(e -> handler.run());
+    }
 
     public Scene createPlayerDeckScene() {
         return new Scene(root, UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
@@ -940,6 +946,26 @@ public class PlayerDeckView {
         });
 
         return cardButton;
+    }
+
+    public void buildWinOverlay(String winnerName) {
+        VBox content = new VBox();
+        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        content.getStyleClass().add("overlay-content");
+
+        String winMsg = String.format(
+                assetProvider.getString("playerDeckScreen.winTitle"), winnerName);
+        Text winTitle= new Text(winMsg);
+        winTitle.getStyleClass().addAll("win-title", "h1");
+
+        playAgainButton.setText(
+                assetProvider.getString("playerDeckScreen.playAgainLabel"));
+        playAgainButton.getStyleClass().addAll("play-button", "h2");
+
+        content.getChildren().addAll(winTitle, playAgainButton);
+
+        overlayLayer.getChildren().setAll(content);
+        showOverlay();
     }
 
     private void showOverlay() {
