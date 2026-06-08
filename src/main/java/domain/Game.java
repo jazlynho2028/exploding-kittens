@@ -355,7 +355,7 @@ public class Game {
     }
 
     void applyShuffle() {
-        // TODO
+        drawPile.shuffle();
     }
 
     void applySkip() {

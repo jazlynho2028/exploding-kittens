@@ -730,9 +730,8 @@ public class GameTests {
 
 		game.applySuperSkip();
 
-		EasyMock.verify(player1,
-				player2, drawPile,
-				discardPile, turnManager, game);
+		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager,
+				game);
 	}
 
 	@Test
@@ -777,9 +776,8 @@ public class GameTests {
 
 		game.applySuperSkip();
 
-		EasyMock.verify(player1,
-				player2, drawPile,
-				discardPile, turnManager, game);
+		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager,
+				game);
 	}
 
 	@Test
@@ -825,9 +823,8 @@ public class GameTests {
 
 		game.applySuperSkip();
 
-		EasyMock.verify(player1,
-				player2, drawPile,
-				discardPile, turnManager, game);
+		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager,
+				game);
 	}
 
 	@Test
@@ -872,9 +869,8 @@ public class GameTests {
 
 		game.applySuperSkip();
 
-		EasyMock.verify(player1,
-				player2, drawPile,
-				discardPile, turnManager, game);
+		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager,
+				game);
 	}
 
 	@Test
@@ -1970,6 +1966,24 @@ public class GameTests {
 	}
 
 	@Test
+	public void applyShuffle_called_shufflesDrawPile() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		drawPile.shuffle();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applyShuffle();
+
+		EasyMock.verify(drawPile);
+	}
+
+	@Test
 	public void applySkip_drawCountOne_TurnAdvances() {
 		final int expectedReturnValue = 0;
 		Player player1 = EasyMock.createMock(Player.class);
@@ -2041,8 +2055,7 @@ public class GameTests {
 
 		game.applySkip();
 
-		EasyMock.verify(player1, player2,
-				drawPile, discardPile, turnManager);
+		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager);
 	}
 
 	@Test
@@ -2069,8 +2082,7 @@ public class GameTests {
 
 		game.applySkip();
 
-		EasyMock.verify(player1, player2,
-				drawPile, discardPile, turnManager);
+		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager);
 	}
 
 	@Test
@@ -2166,8 +2178,8 @@ public class GameTests {
 
 		game.applySkip();
 
-		EasyMock.verify(player1, player2,
-				drawPile, discardPile, turnManager, game);
+		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager,
+				game);
 	}
 
 	@Test
