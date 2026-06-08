@@ -18,6 +18,7 @@ public class PlayerDeckController {
     private final Game model;
 
     private Consumer<String> onError;
+    private Runnable onRestart;
     Optional<Consumer<Integer>> pendingTargetAction = Optional.empty();
 
     @SuppressFBWarnings(
@@ -30,6 +31,7 @@ public class PlayerDeckController {
         this.model = model;
         this.view = view;
         this.onError = message -> { };
+        this.onRestart = () -> { };
     }
 
     public Scene buildPlayerDeckScene() {
@@ -284,6 +286,11 @@ public class PlayerDeckController {
             updateDrawPile();
 
             renderNextTurn();
+
+            if (!model.getIsGameOngoing()) {
+                view.buildWinOverlay(model.getWinnerName());
+                view.bindPlayAgainButton(onRestart);
+            }
         });
     }
 
@@ -298,6 +305,10 @@ public class PlayerDeckController {
 
             updateByCardType(cardType);
         });
+    }
+
+    public void setOnRestart(Runnable handler) {
+        onRestart = handler;
     }
 
 }
