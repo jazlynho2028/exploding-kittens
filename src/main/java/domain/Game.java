@@ -343,7 +343,13 @@ public class Game {
 
         boolean hasWinner = (getDeadIndices().size() >= players.size() - 1);
 
-        isGameOngoing = false;
+        if (hasWinner) {
+            isGameOngoing = false;
+        }
+        else {
+            turnManager.incrementTurn(getDeadIndices());
+            turnManager.incrementDrawCount();
+        }
     }
 
     void applyAttack() {

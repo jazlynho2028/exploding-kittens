@@ -610,7 +610,7 @@
     - deadIndices = {0}
     - isGameOngoing = false
 
-- **TC91: All three alive, kill one player** ( :x: )
+- **TC91: All three alive, kill one player** ( :white_check_mark: )
   - **Name of the test**: playExplode_allThreeAlive_oneDead
   - **State of the system**:
     - 3 players, all alive

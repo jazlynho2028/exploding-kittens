@@ -1659,6 +1659,57 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile);
 	}
 
+	@Test
+	public void playExplode_allThreeAlive_oneDead() {
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Player player3 = EasyMock.createMock(Player.class);
+
+		EasyMock.expect(player1.isAlive()).andReturn(true).atLeastOnce();
+		EasyMock.expect(player2.isAlive()).andReturn(true).atLeastOnce();
+		EasyMock.expect(player3.isAlive()).andReturn(false).atLeastOnce();
+
+		int currentPlayerIndex = 2;
+		Set<Integer> expectedDeadIndices = Set.of(2);
+
+		List<Player> players = List.of(player1, player2, player3);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andStubReturn(currentPlayerIndex);
+
+		Card explodingKitten = EasyMock.createMock(Card.class);
+		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten);
+
+		players.get(currentPlayerIndex).deselectHandCards();
+		EasyMock.expectLastCall();
+
+		players.get(currentPlayerIndex).eliminate();
+		EasyMock.expectLastCall();
+
+		turnManager.incrementTurn(expectedDeadIndices);
+		EasyMock.expectLastCall();
+
+		turnManager.incrementDrawCount();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(player1, player2, player3, drawPile, discardPile, turnManager,
+				explodingKitten);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.setIsGameOngoing(true);
+
+		game.playExplode();
+
+		Set<Integer> actualDeadIndices = game.getDeadIndices();
+		assertEquals(expectedDeadIndices, actualDeadIndices);
+
+		assertTrue(game.getIsGameOngoing());
+
+		EasyMock.verify(player1, player2, player3, drawPile, turnManager);
+	}
+
 	@ParameterizedTest
 	@MethodSource("provideCurrentPlayerHandWithNoDefuserAndTopDiscardCard")
 	public void isDefusable_noDefuser_returnFalse(
