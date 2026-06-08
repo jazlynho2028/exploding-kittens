@@ -734,17 +734,21 @@ public class PlayerDeckView {
         Button explodingKittenCard = buildExplodingKittenCard(explodingCardId);
         content.getChildren().add(explodingKittenCard);
 
+        Button overlayButton;
+
         if (hasDefuse) {
             VBox defuseOptions = buildDefuseOptions(drawPileSize);
             content.getChildren().add(defuseOptions);
 
-            buildAndAddExplodingOverlayButton(defuseButton,
-                    "playerDeckScreen.defuseLabel", "defuse", content);
+            overlayButton = renderExplodingOverlayButton(defuseButton,
+                    "playerDeckScreen.defuseLabel", "defuse");
         }
         else {
-            buildAndAddExplodingOverlayButton(explodeButton,
-                    "playerDeckScreen.explodeLabel", "explode", content);
+            overlayButton = renderExplodingOverlayButton(explodeButton,
+                    "playerDeckScreen.explodeLabel", "explode");
         }
+
+        content.getChildren().add(overlayButton);
 
         overlayLayer.getChildren().setAll(content);
         showOverlay();
@@ -804,13 +808,52 @@ public class PlayerDeckView {
         return explodingKittenCard;
     }
 
-    private void buildAndAddExplodingOverlayButton(
-            Button button, String key, String styleClass, VBox content) {
-
+    private Button renderExplodingOverlayButton(Button button, String key, String styleClass) {
         button.setText(assetProvider.getString(key));
         button.getStyleClass().addAll(
                 "overlay-button", styleClass, "h4");
-        content.getChildren().add(button);
+        return button;
+    }
+
+    public void buildSeeTheFutureOverlay(List<String> topCardIds) {
+        VBox content = new VBox();
+        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        content.getStyleClass().add("overlay-content");
+
+        HBox topCardsContainer = buildTopCardsContainer(topCardIds);
+        topCardsContainer.getStyleClass().add("card-options");
+
+        Button closeButton = buildAndBindCloseButton();
+
+        content.getChildren().addAll(topCardsContainer, closeButton);
+
+        overlayLayer.getChildren().setAll(content);
+        showOverlay();
+    }
+
+    private HBox buildTopCardsContainer(List<String> topCardIds) {
+        HBox topCardsContainer = new HBox();
+
+        for (String cardId : topCardIds) {
+            ToggleButton handCardButton = buildHandCardButton(
+                    cardId,
+                    true,
+                    false
+            );
+            topCardsContainer.getChildren().add(handCardButton);
+        }
+
+        return topCardsContainer;
+    }
+
+    private Button buildAndBindCloseButton() {
+        Button closeButton = new Button();
+
+        closeButton.setText(assetProvider.getString("playerDeckScreen.closeLabel"));
+        closeButton.getStyleClass().addAll("overlay-button", "h5");
+        closeButton.setOnMouseClicked(e -> hideOverlay());
+
+        return closeButton;
     }
 
     public void buildGodcatOverlay(List<CardType> cardTypeOptions) {
@@ -821,19 +864,19 @@ public class PlayerDeckView {
     private void buildCardSelectOverlay(
             List<CardType> cardTypes, Button confirmButton, String titleText) {
 
-        VBox overlayContent = new VBox();
-        overlayContent.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        overlayContent.getStyleClass().add("overlay-content");
+        VBox content = new VBox();
+        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        content.getStyleClass().add("overlay-content");
 
         Text title = buildOverlayTitle(titleText);
         ScrollPane cardScrollPane = buildCardSelectScrollPane(cardTypes);
 
-        confirmButton.setText("Confirm");
+        confirmButton.setText(assetProvider.getString("playerDeckScreen.confirmLabel"));
         confirmButton.setDisable(true);
-        confirmButton.getStyleClass().addAll("overlay-button", "confirm", "h5");
+        confirmButton.getStyleClass().addAll("overlay-button", "h5");
 
-        overlayContent.getChildren().addAll(title, cardScrollPane, confirmButton);
-        overlayLayer.getChildren().setAll(overlayContent);
+        content.getChildren().addAll(title, cardScrollPane, confirmButton);
+        overlayLayer.getChildren().setAll(content);
         showOverlay();
     }
 

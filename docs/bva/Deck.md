@@ -120,16 +120,16 @@
 - **TC17: Peek top N cards from empty deck when n is zero** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_zeroCount_returnsEmptyList` with case `empty deck`
   - **State of the system**: Deck is empty: []; n = 0
-  - **Expected output**: 
+  - **Expected output**:
     - Returns empty list []
-    - deck is still empty: []
+    - Deck is still empty: []
 
 - **TC18: Peek top N cards from empty deck when n is positive** ( :white_check_mark: )
-  - **Name of the test**: `peekTopNCards_invalidCount_throwsException` with case `empty deck and positive count`
+  - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `empty deck and positive count`
   - **State of the system**: Deck is empty: []; n = 1
-  - **Expected output**: 
-    - Throws IllegalStateException with message `error.notEnoughCards`
-    - deck is still empty: []
+  - **Expected output**:
+    - Returns empty list []
+    - Deck is still empty: []
 
 - **TC19: Peek top N cards when n is negative** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_invalidCount_throwsException` with case `negative count`
@@ -139,37 +139,37 @@
 - **TC20: Peek top N cards when n is zero** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_zeroCount_returnsEmptyList` with case `non-empty deck`
   - **State of the system**: Deck has cards: [card1, card2]; n = 0
-  - **Expected output**: 
+  - **Expected output**:
     - Returns empty list []
-    - deck is still [card1, card2]
+    - Deck is still [card1, card2]
 
 - **TC21: Peek top N cards when n is one** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `one-card count`
   - **State of the system**: Deck has cards: [card1, card2]; n = 1
-  - **Expected output**: 
+  - **Expected output**:
     - Returns [card1]
-    - deck is still [card1, card2]
+    - Deck is still [card1, card2]
 
 - **TC22: Peek top N cards when n equals deck size** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `count equals deck size`
   - **State of the system**: Deck has cards: [card1, card2]; n = 2
-  - **Expected output**: 
+  - **Expected output**:
     - Returns [card1, card2]
-    - deck is still [card1, card2]
+    - Deck is still [card1, card2]
 
 - **TC23: Peek top N cards when n is greater than deck size** ( :white_check_mark: )
-  - **Name of the test**: `peekTopNCards_invalidCount_throwsException` with case `count greater than deck size`
+  - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `count greater than deck size`
   - **State of the system**: Deck has cards: [card1, card2]; n = 3
-  - **Expected output**: 
-    - Throws IllegalStateException with message `error.notEnoughCards`
-    - deck is still [card1, card2]
+  - **Expected output**:
+    - Returns [card1, card2]
+    - Deck is still [card1, card2]
 
 - **TC24: Peek top N cards with duplicate cards** ( :white_check_mark: )
   - **Name of the test**: `peekTopNCards_validCount_returnsTopCardsInOrder` with case `duplicate cards`
   - **State of the system**: Deck has cards with duplicates: [card1, card1, card2]; n = 2
-  - **Expected output**: 
+  - **Expected output**:
     - Returns [card1, card1]
-    - deck is still [card1, card1, card2]
+    - Deck is still [card1, card1, card2]
 
 ### Method under test: `removeBottom()`
 - **TC25: Remove bottom from empty deck** ( :white_check_mark: )
@@ -200,30 +200,30 @@
     - Returns card1
     - deck becomes [card1]
 
-### Method under test: `addCard(Card card)`
+### Method under test: `addCardtoTop(Card card)`
 - **TC29: Add card to empty deck** ( :white_check_mark: )
-  - **Name of the test**: `addCard_validCard_addsCardToTop` with case `empty deck`
+  - **Name of the test**: `addCardToTop_validCard_addsCardToTop` with case `empty deck`
   - **State of the system**: Deck is empty: []; card = card1
   - **Expected output**: 
     - Deck becomes [card1]
     - deck size is 1
 
 - **TC30: Add card to deck with one card** ( :white_check_mark: )
-  - **Name of the test**: `addCard_validCard_addsCardToTop` with case `one-card deck`
+  - **Name of the test**: `addCardToTop_validCard_addsCardToTop` with case `one-card deck`
   - **State of the system**: Deck has exactly one card: [card1]; card = card2
   - **Expected output**: 
     - Deck becomes [card2, card1]
     - deck size is 2
 
 - **TC31: Add card to deck with multiple different cards** ( :white_check_mark: )
-  - **Name of the test**: `addCard_validCard_addsCardToTop` with case `multiple different cards`
+  - **Name of the test**: `addCardToTop_validCard_addsCardToTop` with case `multiple different cards`
   - **State of the system**: Deck has cards: [card1, card2]; card = card3
   - **Expected output**: 
     - Deck becomes [card3, card1, card2]
     - deck size is 3
 
 - **TC32: Add duplicate card to deck** ( :white_check_mark: )
-  - **Name of the test**: `addCard_validCard_addsCardToTop` with case `duplicate card`
+  - **Name of the test**: `addCardToTop_validCard_addsCardToTop` with case `duplicate card`
   - **State of the system**: Deck has cards: [card1, card2]; card = card1
   - **Expected output**: 
     - Deck becomes [card1, card1, card2]
@@ -313,3 +313,32 @@
   - **Expected output**: 
     - Throws IllegalArgumentException with message `error.invalidDeckIndex`
     - deck is still [card1, card2]
+
+### Method under test: `addCardtoBottom(Card card)`
+- **TC47: Add card to empty deck** ( :white_check_mark: )
+  - **Name of the test**: `addCardToBottom_validCard_addsCardToBottom` with case `empty deck`
+  - **State of the system**: Deck is empty: []; card = card1
+  - **Expected output**:
+    - Deck becomes [card1]
+    - deck size is 1
+
+- **TC48: Add card to deck with one card** ( :white_check_mark: )
+  - **Name of the test**: `addCardToBottom_validCard_addsCardToBottom` with case `one-card deck`
+  - **State of the system**: Deck has exactly one card: [card1]; card = card2
+  - **Expected output**:
+    - Deck becomes [card1, card2]
+    - deck size is 2
+
+- **TC49: Add card to deck with multiple different cards** ( :white_check_mark: )
+  - **Name of the test**: `addCardToBottom_validCard_addsCardToTop` with case `multiple different cards`
+  - **State of the system**: Deck has cards: [card1, card2]; card = card3
+  - **Expected output**:
+    - Deck becomes [card1, card2, card3]
+    - deck size is 3
+
+- **TC50: Add duplicate card to deck** ( :white_check_mark: )
+  - **Name of the test**: `addCardToTopBottom_validCard_addsCardToTop` with case `duplicate card`
+  - **State of the system**: Deck has cards: [card1, card2]; card = card1
+  - **Expected output**:
+    - Deck becomes [card1, card2, card1]
+    - deck size is 3

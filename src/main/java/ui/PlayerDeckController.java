@@ -136,9 +136,9 @@ public class PlayerDeckController {
     }
 
     private void handleDrawExplodingKitten(String cardId) {
-        boolean hasDefuse = model.currentPlayerHasDefuse();
+        boolean isDefusable = model.isDefusable();
 
-        if (hasDefuse) {
+        if (isDefusable) {
             view.bindDefuseButton(this::onDefuseButton);
         }
         else {
@@ -147,7 +147,7 @@ public class PlayerDeckController {
 
         int drawPileSizeAfterDraw = model.getDrawPileSize() - 1;
         view.buildExplodeOverlay(
-                hasDefuse, cardId, drawPileSizeAfterDraw);
+                isDefusable, cardId, drawPileSizeAfterDraw);
     }
 
     private void updateDrawPile() {
@@ -208,27 +208,42 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             CardType cardType = model.playSelectedCards();
 
-            view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
+            updateDiscardPile();
             rebindHandCards();
             updateTurnControls();
 
-            switch (cardType) {
-                case SKIP:
-                    handleChangeCurrentPlayer(model.getCurrentPlayerIndex());
-                    break;
-                case GODCAT:
-                    view.bindGodcatConfirmButton(this::onGodcatConfirm);
-                    view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
-                    break;
-                case TARGETED_ATTACK:
-                    pendingTargetAction = Optional.of(model::applyTargetedAttack);
-                    view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false);
-                    view.renderTurnControlSection(false, false);
-                    break;
-                default:
-                    break;
+            if (cardType == CardType.GODCAT) {
+                view.bindGodcatConfirmButton(this::onGodcatConfirm);
+                view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+            }
+            else {
+                updateByCardType(cardType);
             }
         });
+    }
+
+    void updateByCardType(CardType cardType) {
+        switch (cardType) {
+            case SKIP:
+			case SUPER_SKIP:
+			case CATOMIC_BOMB:
+				renderNextTurn();
+                break;
+            case SEE_THE_FUTURE:
+                view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
+                break;
+            case TARGETED_ATTACK:
+                pendingTargetAction = Optional.of(model::applyTargetedAttack);
+                view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false);
+                view.renderTurnControlSection(false, false);
+                break;
+			default:
+                break;
+        }
+    }
+
+    private void updateDiscardPile() {
+        view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
     }
 
     void onEndTurnButton() {
@@ -251,6 +266,7 @@ public class PlayerDeckController {
             model.playDefuse(view.getExplodingKittenInsertIndex());
 
             view.hideOverlay();
+            updateDiscardPile();
             rebindHandCards();
 
             renderNextTurn();
@@ -262,6 +278,7 @@ public class PlayerDeckController {
             model.playExplode();
 
             view.hideOverlay();
+            updateDrawPile();
 
             renderNextTurn();
         });
@@ -269,15 +286,14 @@ public class PlayerDeckController {
 
     void onGodcatConfirm() {
         attempt(onError, () -> {
-            CardType selectedCardType = view.getSelectedGodcatCardType();
-            onConfirmGodcatCard(selectedCardType);
-        });
-    }
+            CardType cardType = view.getSelectedGodcatCardType();
 
-    void onConfirmGodcatCard(CardType cardType) {
-        attempt(onError, () -> {
             model.applyGodcat(cardType);
             view.hideOverlay();
+
+            updateTurnControls();
+
+            updateByCardType(cardType);
         });
     }
 

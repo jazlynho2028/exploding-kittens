@@ -68,12 +68,10 @@ public class Deck {
             throw new IllegalArgumentException("error.peekNegativeCards");
         }
 
-        if (n > deck.size()) {
-            throw new IllegalStateException("error.notEnoughCards");
-        }
+        int numCards = Math.min(n, deck.size());
 
         List<Card> cards = new ArrayList<>(deck);
-        return new ArrayList<>(cards.subList(0, n));
+        return new ArrayList<>(cards.subList(0, numCards));
     }
 
     public Card removeBottom() {
@@ -82,8 +80,12 @@ public class Deck {
         return deck.removeLast();
     }
 
-    public void addCard(Card card) {
+    public void addCardToTop(Card card) {
         deck.addFirst(card);
+    }
+
+    public void addCardToBottom(Card card) {
+        deck.addLast(card);
     }
 
     public boolean isEmpty() {
