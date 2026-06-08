@@ -108,14 +108,14 @@
 14. [not started] Ejean: Double Up implementation
 15. [Done] Luke: Skip implementation
 16. [Done] Luke: Super Skip implementation
-17. [not started] Luke: Targeted Attack implementation
+17. [Done] Luke: Targeted Attack implementation
 18. [not started] Luke: Ragebait implementation
 19. [Done] DJ: Catomic Bomb implementation
 20. [Done] DJ: Godcat implementation
 21. [Done] Jazlyn: Resolve Godcat implementation bugs
 22. [Done] DJ: Swap Top And Bottom implementation
 23. [not started] DJ: Recycle implementation
-24. [not started] Irene: Shuffle implementation
+24. [Done] Irene: Shuffle implementation
 25. [not started] Irene: Clone implementation
 26. [not started] Irene: Draw From The Bottom implementation
 27. [not started] Irene: Mild Draw implementation
