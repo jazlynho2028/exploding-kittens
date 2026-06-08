@@ -44,7 +44,7 @@
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = 0
-    - players.get(1).isAlive() = true
+    - deadIndices = []
     - roundCount = 1
   - **Expected output**: 
     - currentPlayerIndex = 1
@@ -56,7 +56,7 @@
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = N - 2
-    - players.get(N - 1).isAlive() = true
+    - deadIndices = []
     - roundCount = 2
   - **Expected output**: 
     - currentPlayerIndex = N - 1
@@ -67,7 +67,7 @@
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = N - 1
-    - players.get(0).isAlive() = true
+    - deadIndices = []
     - roundCount = 1
   - **Expected output**: 
     - currentPlayerIndex = 0
@@ -78,8 +78,7 @@
   - **State of the system**:
     - numPlayers = 2
     - currentPlayerIndex = 0
-    - players.get(1).isAlive() = false
-    - players.get(0).isAlive() = true
+    - deadIndices = [1]
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -92,8 +91,7 @@
   - **State of the system**:
     - numPlayers = 2
     - currentPlayerIndex = 1
-    - players.get(0).isAlive() = false
-    - players.get(1).isAlive() = true
+    - deadIndices = [0]
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -106,8 +104,7 @@
   - **State of the system**:
     - numPlayers = 3
     - currentPlayerIndex = 0
-    - players.get(1).isAlive() = false
-    - players.get(2).isAlive() = true
+    - deadIndices = [1]
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -120,8 +117,7 @@
   - **State of the system**:
     - numPlayers = 3
     - currentPlayerIndex = 1
-    - players.get(2).isAlive() = false
-    - players.get(0).isAlive() = true
+    - deadIndices = [2]
     - roundCount = 2
     - drawCount = 1
   - **Expected output**:
@@ -134,8 +130,7 @@
   - **State of the system**:
     - numPlayers = 3
     - currentPlayerIndex = 2
-    - players.get(0).isAlive() = false
-    - players.get(1).isAlive() = true
+    - deadIndices = [0]
     - roundCount = 1
     - drawCount = 1
   - **Expected output**:
@@ -148,8 +143,7 @@
   - **State of the system**:
     - numPlayers = 4
     - currentPlayerIndex = 0
-    - players.get(1).isAlive() = false
-    - players.get(2).isAlive() = true
+    - deadIndices = [1]
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -162,9 +156,7 @@
   - **State of the system**:
     - numPlayers = 4
     - currentPlayerIndex = 2
-    - players.get(3).isAlive() = false
-    - players.get(0).isAlive() = false
-    - players.get(1).isAlive() = true
+    - deadIndices = [0, 3]
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -177,10 +169,7 @@
   - **State of the system**:
     - numPlayers = 4
     - currentPlayerIndex = 2
-    - players.get(3).isAlive() = false
-    - players.get(0).isAlive() = false
-    - players.get(1).isAlive() = false
-    - players.get(2).isAlive() = true
+    - deadIndices = [0, 1, 3]
     - roundCount = 1
     - drawCount = 0
   - **Expected output**:
@@ -192,8 +181,7 @@
   - **Name of the test**: incrementTurn_allPlayersAreDead_failed
   - **State of the system**:
     - numPlayers = 2
-    - players.get(0).isAlive() = false
-    - players.get(1).isAlive() = false
+    - deadIndices = [0, 1]
   - **Expected output**: throw IllegalStateException "error.noAlivePlayers"
 
 ### Method under test: `setCurrentPlayerIndex(int newPlayerIndex)`
