@@ -166,10 +166,11 @@ public class PlayerDeckView {
             boolean isAtCurrentPlayerIndex = (i == currentPlayerIndex);
             nameTagButton.setSelected(isAtCurrentPlayerIndex);
 
-            nameTagButton.setDisable(
-					isAtCurrentPlayerIndex || disableOtherPlayers);
-
             boolean isDead = deadIndices.contains(i);
+
+            nameTagButton.setDisable(
+					isAtCurrentPlayerIndex || disableOtherPlayers || isDead);
+
             if (isDead) {
                 renderDeadPlayerNameTag(nameTagButton);
             }
