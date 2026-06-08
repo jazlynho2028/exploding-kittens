@@ -1621,7 +1621,7 @@ public class GameTests {
 	public void playExplode_twoAlivePlayers_oneWins(
 			int numPlayers, int currentPlayerIndex, Set<Integer> expectedDeadIndices) {
 
-		List<Player> players = setPlayersIsAliveExpectations(
+		List<Player> players = getPlayersWithExplodingExpectations(
 				numPlayers, currentPlayerIndex, expectedDeadIndices);
 
 		Deck drawPile = EasyMock.createMock(Deck.class);
@@ -1658,7 +1658,7 @@ public class GameTests {
 		);
 	}
 
-	private List<Player> setPlayersIsAliveExpectations(
+	private List<Player> getPlayersWithExplodingExpectations(
 			int numPlayers, int currentPlayerIndex, Set<Integer> expectedDeadIndices) {
 
 		List<Player> players = new ArrayList<>();
@@ -1689,7 +1689,7 @@ public class GameTests {
 	public void playExplode_atLeastThreeAlive_gameContinues(
 			int numPlayers, int currentPlayerIndex, Set<Integer> expectedDeadIndices) {
 
-		List<Player> players = setPlayersIsAliveExpectations(
+		List<Player> players = getPlayersWithExplodingExpectations(
 				numPlayers, currentPlayerIndex, expectedDeadIndices);
 
 		Deck drawPile = EasyMock.createMock(Deck.class);
@@ -2962,6 +2962,11 @@ public class GameTests {
 		Set<Integer> actualDeadIndices = game.getDeadIndices();
 
 		assertEquals(expectedDeadIndices, actualDeadIndices);
+	}
+
+	@Test
+	public void getWinnerName_allDead_failed() {
+
 	}
 
 	private static List<Card> mockCardsOfTypes(List<CardType> cardTypes) {
