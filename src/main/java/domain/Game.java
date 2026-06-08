@@ -482,4 +482,13 @@ public class Game {
                 .collect(Collectors.toSet());
     }
 
+    public String getWinnerName() {
+        List<String> aliveNames = players.stream()
+                .filter(Player::isAlive)
+                .map(Player::getName)
+                .collect(Collectors.toList());
+
+        throw new IllegalStateException("error.noWinner");
+    }
+
 }

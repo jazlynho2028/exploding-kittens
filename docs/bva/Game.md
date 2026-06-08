@@ -1420,7 +1420,7 @@
   - **Expected output**: return {0, 1, 2, 3}
 
 ### Method under test: `getWinnerName()`
-- **TC198: All players are dead** ( :x: )
+- **TC198: All players are dead** ( :white_check_mark: )
   - **Name of the test**: getWinnerName_allDead_failed
   - **State of the system**: 
     - playerNames = ["Alice", "Bob"]

@@ -2966,7 +2966,48 @@ public class GameTests {
 
 	@Test
 	public void getWinnerName_allDead_failed() {
+		List<String> playerNames = List.of("Alice", "Bob");
+		Set<Integer> expectedDeadIndices = Set.of(0, 1);
+		String expectedMsg = "error.noWinner";
 
+		List<Player> players = getPlayersWithNameAndDeadExpectations(
+				playerNames, expectedDeadIndices);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Exception exception = assertThrows(IllegalStateException.class,
+				game::getWinnerName);
+
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
+
+		players.forEach(EasyMock::verify);
+	}
+
+	private List<Player> getPlayersWithNameAndDeadExpectations(
+			List<String> playerNames, Set<Integer> expectedDeadIndices) {
+
+		List<Player> players = new ArrayList<>();
+
+		for (int i = 0; i < playerNames.size(); i++) {
+			Player player = EasyMock.createMock(Player.class);
+
+			boolean isAlive = !expectedDeadIndices.contains(i);
+			EasyMock.expect(player.isAlive()).andReturn(isAlive).atLeastOnce();
+
+			String name = playerNames.get(i);
+			EasyMock.expect(player.getName()).andStubReturn(name);
+
+			players.add(player);
+			EasyMock.replay(player);
+		}
+
+		return players;
 	}
 
 	private static List<Card> mockCardsOfTypes(List<CardType> cardTypes) {
