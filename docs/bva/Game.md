@@ -1353,7 +1353,7 @@
   - **State of the system**: 2 alive players
   - **Expected output**: return empty set
 
-- **TC192: One dead player** ( :x: )
+- **TC192: One dead player** ( :white_check_mark: )
   - **Name of the test**: getDeadIndices_oneDeadPlayer_returnDeadIndices
   - **State of the system**: 
     - 2 alive players
