@@ -149,7 +149,8 @@ public class PlayerDeckView {
     }
 
     public void renderPlayerNameTags(
-			int currentPlayerIndex, boolean disableOtherPlayers, Set<Integer> deadIndices) {
+			int currentPlayerIndex, boolean disableOtherPlayers,
+            Set<Integer> deadIndices) {
 
         ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
 
