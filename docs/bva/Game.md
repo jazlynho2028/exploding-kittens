@@ -1421,21 +1421,21 @@
 
 ### Method under test: `getWinnerName()`
 - **TC198: All players are dead** ( :white_check_mark: )
-  - **Name of the test**: getWinnerName_allDead_failed
+  - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
   - **State of the system**: 
     - playerNames = ["Alice", "Bob"]
     - 2 dead players
   - **Expected output**: throw IllegalStateException "error.noWinner"
 
-- **TC199: One player is dead** ( :x: )
-  - **Name of the test**: getWinnerName_oneOfThreeDead_failed
+- **TC199: One player is dead** ( :white_check_mark: )
+  - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
   - **State of the system**: 
     - playerNames = ["Alice", "Bob", "Bob"]
     - one dead player at index 2 
   - **Expected output**: throw IllegalStateException "error.noWinner"
 
 - **TC200: All players alive** ( :x: )
-  - **Name of the test**: getWinnerName_allAlive_failed
+  - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
   - **State of the system**:
     - playerNames = ["Alice", "Bob", "Alice", "Steve"]
     - 4 alive players

@@ -2895,10 +2895,11 @@ public class GameTests {
 		assertEquals(expectedDeadIndices, actualDeadIndices);
 	}
 
-	@Test
-	public void getWinnerName_allDead_failed() {
-		List<String> playerNames = List.of("Alice", "Bob");
-		Set<Integer> expectedDeadIndices = Set.of(0, 1);
+	@ParameterizedTest
+	@MethodSource("provideGetWinnerNameConditions")
+	public void getWinnerName_notExactlyOneAlive_failed(
+			List<String> playerNames, Set<Integer> expectedDeadIndices) {
+
 		String expectedMsg = "error.noWinner";
 
 		List<Player> players = mockPlayersWithNamesAndIsAlive(
@@ -2918,6 +2919,14 @@ public class GameTests {
 		assertEquals(expectedMsg, actualMsg);
 
 		players.forEach(EasyMock::verify);
+	}
+
+	private static Stream<Arguments> provideGetWinnerNameConditions() {
+		return Stream.of(
+				Arguments.of(List.of("Alice", "Bob"), Set.of(0, 1)),
+				Arguments.of(List.of("Alice", "Alice", "Audrey", "Turkey"),
+						Set.of(2))
+		);
 	}
 
 	private Game mockGameWithGetCurrentPlayer(
