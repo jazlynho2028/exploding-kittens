@@ -1301,48 +1301,48 @@
 
 # Method under test: `applyTargetedAttack(int targetPlayerIndex)`
 - **TC185: Targeted Attack with minimum players (2), first player targets next player** ( :white_check_mark: )
-    - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-    - **State of the system**: 2 players, currentPlayerIndex = 0, targetPlayerIndex = 1
-    - **Expected output**:
-        - deselectHandCards() called on player 0
-        - incrementTurn() called 1 time with getDeadIndices
-        - addAttackDrawCount() called
+  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
+  - **State of the system**: 2 players, currentPlayerIndex = 0, targetPlayerIndex = 1
+  - **Expected output**:
+    - deselectHandCards() called on player 0
+    - incrementTurn() called 1 time with getDeadIndices
+    - addAttackDrawCount() called
 
 - **TC186: Targeted Attack with minimum players (2), last player targets first player (wrap)** ( :white_check_mark: )
-    - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-    - **State of the system**: 2 players, currentPlayerIndex = 1, targetPlayerIndex = 0
-    - **Expected output**:
-        - deselectHandCards() called on player 1
-        - incrementTurn() called 1 time with getDeadIndices
-        - addAttackDrawCount() called
+  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
+  - **State of the system**: 2 players, currentPlayerIndex = 1, targetPlayerIndex = 0
+  - **Expected output**:
+    - deselectHandCards() called on player 1
+    - incrementTurn() called 1 time with getDeadIndices
+    - addAttackDrawCount() called
 
 - **TC187: Targeted Attack with maximum players (4), first player targets last player** ( :white_check_mark: )
-    - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-    - **State of the system**: 4 players, currentPlayerIndex = 0, targetPlayerIndex = 3
-    - **Expected output**:
-        - deselectHandCards() called on player 0
-        - incrementTurn() called 3 times with getDeadIndices
-        - addAttackDrawCount() called
+  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
+  - **State of the system**: 4 players, currentPlayerIndex = 0, targetPlayerIndex = 3
+  - **Expected output**:
+    - deselectHandCards() called on player 0
+    - incrementTurn() called 3 times with getDeadIndices
+    - addAttackDrawCount() called
 
 - **TC188: Targeted Attack with maximum players (4), last player targets first player (wrap)** ( :white_check_mark: )
-    - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-    - **State of the system**: 4 players, currentPlayerIndex = 3, targetPlayerIndex = 0
-    - **Expected output**:
-        - deselectHandCards() called on player 3
-        - incrementTurn() called 1 time with getDeadIndices
-        - addAttackDrawCount() called
+  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
+  - **State of the system**: 4 players, currentPlayerIndex = 3, targetPlayerIndex = 0
+  - **Expected output**:
+    - deselectHandCards() called on player 3
+    - incrementTurn() called 1 time with getDeadIndices
+    - addAttackDrawCount() called
 
 ### Method under test: `addAttackDrawCount()`
 - **TC189: Draw count is below the attack threshold** ( :white_check_mark: )
-    - **Name of the test**: addAttackDrawCount_drawCountZero_SetTwo
-    - **State of the system**:
-        - turnManager.drawCount = 1
-    - **Expected output**:
-        - turnManager.drawCount = 2
+  - **Name of the test**: addAttackDrawCount_drawCountZero_SetTwo
+  - **State of the system**:
+    - turnManager.drawCount = 1
+  - **Expected output**:
+    - turnManager.drawCount = 2
 
 - **TC190: Draw count is at or above the attack threshold** ( :white_check_mark: )
-    - **Name of the test**: addAttackDrawCount_drawCountTwo_addsTwo
-    - **State of the system**:
-        - turnManager.drawCount = 2
-    - **Expected output**:
-        - turnManager.drawCount = 4
+  - **Name of the test**: addAttackDrawCount_drawCountTwo_addsTwo
+  - **State of the system**:
+    - turnManager.drawCount = 2
+  - **Expected output**:
+    - turnManager.drawCount = 4
