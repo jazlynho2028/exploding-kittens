@@ -174,7 +174,8 @@ public class PlayerDeckControllerTests {
 		boolean canPlaySelected = true;
 		boolean canEndTurn = true;
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("handleChangeCurrentPlayer")
 				.createMock();
@@ -229,7 +230,8 @@ public class PlayerDeckControllerTests {
 
 		Consumer<Integer> mockAction = EasyMock.createMock(Consumer.class);
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("handleChangeCurrentPlayer")
 				.createMock();
@@ -730,7 +732,8 @@ public class PlayerDeckControllerTests {
 		int currentPlayerIndex = 0;
 		boolean isGameOngoing = false;
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("rebindHandCards")
 				.createMock();
