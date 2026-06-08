@@ -955,7 +955,7 @@ public class PlayerDeckView {
 
         String winMsg = String.format(
                 assetProvider.getString("playerDeckScreen.winTitle"), winnerName);
-        Text winTitle= new Text(winMsg);
+        Text winTitle = new Text(winMsg);
         winTitle.getStyleClass().addAll("win-title", "h1");
 
         playAgainButton.setText(
