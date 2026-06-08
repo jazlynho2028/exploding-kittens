@@ -75,10 +75,6 @@ public class PlayerDeckView {
         drawPileButton.setOnMouseClicked(e -> handler.run());
     }
 
-    public void bindDiscardPileButton(Runnable handler) {
-        discardPileButton.setOnMouseClicked(e -> handler.run());
-    }
-
     public void bindHandVisibilityButton(Runnable handler) {
         handVisibilityButton.setOnMouseClicked(e -> handler.run());
     }
