@@ -737,5 +737,5 @@
 }
 
 .win-title {
-    -fx-fill: linear-gradient(to bottom, yellow-3, red-3, orange-3);
+    -fx-fill: linear-gradient(to bottom, yellow-1, yellow-4);
 }
