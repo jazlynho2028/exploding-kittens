@@ -2822,20 +2822,45 @@ public class GameTests {
 		Player player2 = EasyMock.createMock(Player.class);
 		Player player3 = EasyMock.createMock(Player.class);
 
-		List<Player> players = List.of(player1, player2);
+		List<Player> players = List.of(player1, player2, player3);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		EasyMock.expect(player1.isAlive()).andStubReturn(false);
 		EasyMock.expect(player2.isAlive()).andStubReturn(true);
-		EasyMock.expect(player2.isAlive()).andStubReturn(true);
+		EasyMock.expect(player3.isAlive()).andStubReturn(true);
 
 		EasyMock.replay(player1, player2, player3, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
 		Set<Integer> expectedDeadIndices = Set.of(0);
+		Set<Integer> actualDeadIndices = game.getDeadIndices();
+
+		assertEquals(expectedDeadIndices, actualDeadIndices);
+	}
+
+	@Test
+	public void getDeadIndices_twoDeadPlayers_returnDeadIndices() {
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Player player3 = EasyMock.createMock(Player.class);
+
+		List<Player> players = List.of(player1, player2, player3);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(player1.isAlive()).andStubReturn(false);
+		EasyMock.expect(player2.isAlive()).andStubReturn(true);
+		EasyMock.expect(player3.isAlive()).andStubReturn(false);
+
+		EasyMock.replay(player1, player2, player3, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Set<Integer> expectedDeadIndices = Set.of(0, 2);
 		Set<Integer> actualDeadIndices = game.getDeadIndices();
 
 		assertEquals(expectedDeadIndices, actualDeadIndices);

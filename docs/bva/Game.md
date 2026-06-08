@@ -1360,7 +1360,7 @@
     - 1 dead player at index 0
   - **Expected output**: return {0}
 
-- **TC193: Two dead players** ( :x: )
+- **TC193: Two dead players** ( :white_check_mark: )
   - **Name of the test**: getDeadIndices_twoDeadPlayers_returnDeadIndices
   - **State of the system**:
     - 1 alive player
