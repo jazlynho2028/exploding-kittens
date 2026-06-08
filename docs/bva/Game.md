@@ -1026,65 +1026,96 @@
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex throws IllegalArgumentException "error.invalidDeckIndex"
   - **Expected output**: throws IllegalArgumentException "error.invalidDeckIndex"
 
+### Method under test: `applyShuffle()`
+- **TC140: Apply shuffle card effect** ( :white_check_mark: )
+  - **Name of the test**: `applyShuffle_called_shufflesDrawPile`
+  - **State of the system**: Shuffle card effect is applied
+  - **Expected output**: `drawPile.shuffle()` is called
+- **TC141: Draw pile has zero cards** ( :white_check_mark: )
+  - **Name of the test**: applySwapTopAndBottom_emptyDeck_remainsEmpty
+  - **State of the system**: draw pile is empty
+  - **Expected output**: draw pile remains empty
+
+- **TC142: Draw pile has exactly one card** ( :white_check_mark: )
+  - **Name of the test**: applySwapTopAndBottom_oneCard_deckUnchanged
+  - **State of the system**: draw pile has two cards ['CARD 1']
+  - **Expected output**: draw pile has two cards; card order is ['CARD 1']
+
+- **TC143: Draw pile has more than one card** ( :white_check_mark: )
+  - **Name of the test**: applySwapTopAndBottom_moreThanOneCard_swapped
+  - **State of the system**: draw pile has four cards ['CARD 1', 'CARD 2', 'CARD 3', 'CARD 4']
+  - **Expected output**:
+    - drawPile.addCardToTop(CARD_4) called
+    - drawPile.addCardToBottom(CARD_1) called
+    - draw pile has four cards and card order is ['CARD 4', 'CARD 2', 'CARD 3', 'CARD']
+
+- **TC144: Top and bottom cards are the same type** ( :white_check_mark: )
+  - **Name of the test**: applySwapTopAndBottom_sameType_swapped
+  - **State of the system**: draw pile has four cards ['EXPLODING KITTEN 1', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 2']
+  - **Expected output**:
+    - drawPile.addCardToTop(EXPLODINGKITTEN_2) called
+    - drawPile.addCardToBottom(EXPLODINGKITTEN_1) called;
+    - draw pile has four cards; card order is ['EXPLODING KITTEN 2', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 1']
+
 ### Method under test: `applySkip()`
-- **TC140: Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
+- **TC145: Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
   - **Name of the test:** applySkip_drawCountOne_TurnAdvances
   - **State of the system:** game is ongoing, drawCount = 1 (normal, unattacked turn)
   - **Expected output:** drawCount resets to 1 (from incrementDrawCount), currentPlayerIndex becomes 1, turn has advanced automatically
 
-- **TC141: Skip while under attack (drawCount = 2)** ( :white_check_mark: )
+- **TC146: Skip while under attack (drawCount = 2)** ( :white_check_mark: )
   - **Name of the test:** applySkip_drawCountTwo_TurnNotAdvanced
   - **State of the system:** game is ongoing, drawCount = 2, currentPlayerIndex = 0
   - **Expected output:** drawCount becomes 1, currentPlayerIndex remains 0, turn is NOT advanced, player must still draw a card
 
-- **TC142: Skip under stacked attacks (drawCount = 3+)** ( :white_check_mark: )
+- **TC147: Skip under stacked attacks (drawCount = 3+)** ( :white_check_mark: )
   - **Name of the test:** applySkip_drawCountThree_TurnNotAdvanced
   - **State of the system:** game is ongoing, drawCount = 3, currentPlayerIndex = 0
   - **Expected output:** drawCount becomes 2, currentPlayerIndex remains 0, turn is NOT advanced
 
-- **TC143: Skip completes turn for the last player in order (wraparound)** ( :white_check_mark: )
+- **TC148: Skip completes turn for the last player in order (wraparound)** ( :white_check_mark: )
   - **Name of the test:** applySkip_lastPlayer_turnWraps
   - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
-  - **Expected output:** currentPlayerIndex wraps to 0, drawCount resets to 1 (from incremetDrawCount)
+  - **Expected output:** currentPlayerIndex wraps to 0, drawCount resets to 1 (from incrementDrawCount)
 
-- **TC144: Skip with minimum player count (2 players)** ( :white_check_mark: )
+- **TC149: Skip with minimum player count (2 players)** ( :white_check_mark: )
   - **Name of the test:** applySkip_twoPlayers_turnAdvances
   - **State of the system:**  game is ongoing, 2 players, drawCount = 1, currentPlayerIndex = 0
   - **Expected output:** currentPlayerIndex becomes 1, drawCount resets to 1, the single other player is now active
 
-- **TC145: Skip on a standard single turn with maximum players (4 players)** ( :white_check_mark: )
+- **TC150: Skip on a standard single turn with maximum players (4 players)** ( :white_check_mark: )
   - **Name of the test:** applySkip_fourPlayers_turnAdvances
   - **State of the system:**  game is ongoing, drawCount = 1, 4 players, currentPlayerIndex = 0
   - **Expected output:** drawCount resets to 1 (from incrementDrawCount), currentPlayerIndex = 1, turn has advanced automatically
 
 ### Method under test: `getSeeTheFutureCardIds()`
-- **TC146: Empty list** ( :white_check_mark: )
+- **TC151: Empty list** ( :white_check_mark: )
   - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
   - **State of the system:** topCards = []
   - **Expected output:** return []
 
-- **TC147: One card** ( :white_check_mark: )
+- **TC152: One card** ( :white_check_mark: )
   - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
   - **State of the system:** topCards = [SKIP_1]
   - **Expected output:** return ["SKIP_1"]
 
-- **TC148: Two different card ids** ( :white_check_mark: )
+- **TC153: Two different card ids** ( :white_check_mark: )
   - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
   - **State of the system:** topCards = [SKIP_1, SKIP_2]
   - **Expected output:** return ["SKIP_1", "SKIP_2"]
 
-- **TC149: Two different card types** ( :white_check_mark: )
+- **TC154: Two different card types** ( :white_check_mark: )
   - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
   - **State of the system:** topCards = [SKIP_1, ATTACK_1]
   - **Expected output:** return ["SKIP_1", "ATTACK_1"]
 
-- **TC150: Two same cards** ( :white_check_mark: )
+- **TC155: Two same cards** ( :white_check_mark: )
   - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
   - **State of the system:** topCards = [SKIP_1, SKIP_1]
   - **Expected output:** return ["SKIP_1", "SKIP_1"]
 
 ### Method under test: `applyCatomicBomb()`
-- **TC90: Draw pile is empty** ( :white_check_mark: )
+- **TC156: Draw pile is empty** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_emptyDeck_remainsEmpty
   - **State of the system**: 
     - draw pile has no cards
@@ -1094,7 +1125,7 @@
     - turnManager.decrementDrawCount is called
     - advanceTurn is called
 
-- **TC91: No Exploding Kittens in draw pile** ( :white_check_mark: )
+- **TC157: No Exploding Kittens in draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_noExplodingKittens_deckUnchanged
   - **State of the system**: 
     - draw pile contains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1'], none are CardType 'EXPLODING_KITTEN'
@@ -1104,7 +1135,7 @@
     - draw pile order is unchanged and remains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
     - turnManager.decrementDrawCount is called
 
-- **TC92: One Exploding Kitten at top of draw pile** ( :white_check_mark: )
+- **TC158: One Exploding Kitten at top of draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_oneExplodingKittenAlreadyOnTop_deckUnchanged
   - **State of the system**: 
     - top card of draw pile has one CardType 'EXPLODING_KITTEN' with order ['EXPLODING_KITTEN_1' , 'ATTACK_1', 'SHUFFLE_1']
@@ -1116,7 +1147,7 @@
     - turnManager.decrementDrawCount is called
     - advanceTurn is called
 
-- **TC93: One Exploding Kitten in the middle of draw pile** ( :white_check_mark: )
+- **TC159: One Exploding Kitten in the middle of draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_oneExplodingKittenInMiddle_movedToTop
   - **State of the system**: 
     - draw pile contains ['SKIP_1', 'ATTACK_1', 'EXPLODING_KITTEN_1', 'SHUFFLE_1']
@@ -1127,7 +1158,7 @@
     - draw pile order is ['EXPLODINGKITTEN_1', 'SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
     - turnManager.decrementDrawCount is called
 
-- **TC94: Multiple Exploding Kittens scattered throughput draw pile** ( :white_check_mark: )
+- **TC160: Multiple Exploding Kittens scattered throughput draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_multipleExplodingKittens_allMovedToTop
   - **State of the system**: 
     - draw pile contains ['SKIP_1', 'EXPLODING KITTEN_1', 'ATTACK_1', 'EXPLODING KITTEN_2', 'SHUFFLE_1']
@@ -1139,7 +1170,7 @@
     - turnManager.decrementDrawCount is called
     - advanceTurn is called
 
-- **TC95: All cards in draw pile are Exploding Kittens** ( :white_check_mark: )
+- **TC161: All cards in draw pile are Exploding Kittens** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_allExplodingKittens_deckOrderUnchanged
   - **State of the system**: 
     - draw pile contains ['EXPLODING KITTEN_1', 'EXPLODING KITTEN_2', 'EXPLODING KITTEN_3']
@@ -1150,187 +1181,139 @@
     - turnManager.decrementDrawCount is called
 
 ### Method under test: `applySuperSkip()`
-- **TC157: Super Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
-    - **Name of the test:** applySuperSkip_drawCountOne_TurnAdvances
-    - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = 0
-    - **Expected output:** decrementDrawCount() called once, turn advances to currentPlayerIndex = 1
+- **TC162: Super Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
+  - **Name of the test:** applySuperSkip_drawCountOne_TurnAdvances
+  - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = 0
+  - **Expected output:** decrementDrawCount() called once, turn advances to currentPlayerIndex = 1
 
-- **TC158: Super Skip while under attack (drawCount = 2)** ( :white_check_mark: )
-    - **Name of the test:** applySuperSkip_drawCountTwo_TurnAdvances
-    - **State of the system:** game is ongoing, drawCount = 2, currentPlayerIndex = 0
-    - **Expected output:** decrementDrawCount() called twice, turn advances to currentPlayerIndex = 1
+- **TC163: Super Skip while under attack (drawCount = 2)** ( :white_check_mark: )
+  - **Name of the test:** applySuperSkip_drawCountTwo_TurnAdvances
+  - **State of the system:** game is ongoing, drawCount = 2, currentPlayerIndex = 0
+  - **Expected output:** decrementDrawCount() called twice, turn advances to currentPlayerIndex = 1
 
-- **TC159: Super Skip under stacked attacks (drawCount = 3+)** ( :white_check_mark: )
-    - **Name of the test:** applySuperSkip_drawCountThree_TurnAdvances
-    - **State of the system:** game is ongoing, drawCount = 3, currentPlayerIndex = 0
-    - **Expected output:** decrementDrawCount() called three times, turn advances to currentPlayerIndex = 1
+- **TC164: Super Skip under stacked attacks (drawCount = 3+)** ( :white_check_mark: )
+  - **Name of the test:** applySuperSkip_drawCountThree_TurnAdvances
+  - **State of the system:** game is ongoing, drawCount = 3, currentPlayerIndex = 0
+  - **Expected output:** decrementDrawCount() called three times, turn advances to currentPlayerIndex = 1
 
-- **TC160: Super Skip completes turn for the last player in order (wraparound)** ( :white_check_mark: )
-    - **Name of the test:** applySuperSkip_lastPlayer_turnWraps
-    - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
-    - **Expected output:** decrementDrawCount() called once, currentPlayerIndex wraps to 0
+- **TC165: Super Skip completes turn for the last player in order (wraparound)** ( :white_check_mark: )
+  - **Name of the test:** applySuperSkip_lastPlayer_turnWraps
+  - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
+  - **Expected output:** decrementDrawCount() called once, currentPlayerIndex wraps to 0
 
-- **TC161: Super Skip with minimum player count (2 players)** ( :white_check_mark: )
-    - **Name of the test:** applySuperSkip_twoPlayers_turnAdvances
-    - **State of the system:** game is ongoing, 2 players, drawCount = 1, currentPlayerIndex = 0
-    - **Expected output:** decrementDrawCount() called once, currentPlayerIndex wraps to 0
+- **TC166: Super Skip with minimum player count (2 players)** ( :white_check_mark: )
+  - **Name of the test:** applySuperSkip_twoPlayers_turnAdvances
+  - **State of the system:** game is ongoing, 2 players, drawCount = 1, currentPlayerIndex = 0
+  - **Expected output:** decrementDrawCount() called once, currentPlayerIndex wraps to 0
 
-- **TC162: Super Skip with maximum player count (4 players)** ( :white_check_mark: )
-    - **Name of the test:** applySuperSkip_fourPlayers_turnAdvances
-    - **State of the system:**  game is ongoing, 4 players, drawCount = 1, currentPlayerIndex = 0
-    - **Expected output:** decrementDrawCount() called once, turn advances to currentPlayerIndex = 1
+- **TC167: Super Skip with maximum player count (4 players)** ( :white_check_mark: )
+  - **Name of the test:** applySuperSkip_fourPlayers_turnAdvances
+  - **State of the system:**  game is ongoing, 4 players, drawCount = 1, currentPlayerIndex = 0
+  - **Expected output:** decrementDrawCount() called once, turn advances to currentPlayerIndex = 1
 
 ### Method under test: `applyGodcat(CardType cardType)`
-- **TC163: Invalid card type Godcat** ( :white_check_mark: )
+- **TC168: Invalid card type Godcat** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_invalidCardType_throwsException
   - **State of the system**: CardType.GODCAT passed as cardType
   - **Expected output**: throws exception "error.cannotPlaySelectedCards"
 
-- **TC164: Invalid card type Exploding Kitten** ( :white_check_mark: )
+- **TC169: Invalid card type Exploding Kitten** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_invalidCardType_throwsException
   - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType
   - **Expected output**: throws exception "error.cannotPlaySelectedCards"
 
-- **TC165: Invalid card type Defuse** ( :white_check_mark: )
+- **TC170: Invalid card type Defuse** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_invalidCardType_throwsException
   - **State of the system**: CardType.DEFUSE passed as cardType
   - **Expected output**: throws exception "error.cannotPlaySelectedCards"
 
-- **TC166: Valid card type Attack** ( :white_check_mark: )
+- **TC171: Valid card type Attack** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: applyAttack() is called
 
-- **TC167: Valid card type Shuffle** ( :white_check_mark: )
+- **TC172: Valid card type Shuffle** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SHUFFLE passed as cardType
   - **Expected output**: applyShuffle() is called
 
-- **TC168: Valid card type Skip** ( :white_check_mark: )
+- **TC173: Valid card type Skip** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SKIP passed as cardType
   - **Expected output**: applySkip() is called
 
-- **TC169: Valid card type See the Future** ( :white_check_mark: )
+- **TC174: Valid card type See the Future** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.SEE_THE_FUTURE passed as cardType
   - **Expected output**: N/A
 
-- **TC170: Valid card type Catomic Bomb** ( :white_check_mark: )
+- **TC175: Valid card type Catomic Bomb** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.CATOMIC_BOMB passed as cardType
   - **Expected output**: applyCatomicBomb() is called
 
-- **TC171: Valid card type Super Skip** ( :white_check_mark: )
+- **TC176: Valid card type Super Skip** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SUPER_SKIP passed as cardType
   - **Expected output**: applySuperSkip() is called
 
-- **TC172: Valid card type Clone** ( :white_check_mark: )
+- **TC177: Valid card type Clone** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.CLONE passed as cardType
   - **Expected output**: applyClone() is called
 
-- **TC173: Valid card type Swap Top and Bottom** ( :white_check_mark: )
+- **TC178: Valid card type Swap Top and Bottom** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SWAP_TOP_AND_BOTTOM passed as cardType
   - **Expected output**: applySwapTopAndBottom() is called
 
-- **TC174: Valid card type Draw From the Bottom** ( :white_check_mark: )
+- **TC179: Valid card type Draw From the Bottom** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.DRAW_FROM_THE_BOTTOM passed as cardType
   - **Expected output**: applyDrawFromTheBottom() is called
 
-- **TC175: Valid card type Targeted Attack** ( :white_check_mark: )
+- **TC180: Valid card type Targeted Attack** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.TARGETED_ATTACK passed as cardType
   - **Expected output**: N/A
 
-- **TC176: Valid card type Winner Winner Catnip Dinner** ( :white_check_mark: )
+- **TC181: Valid card type Winner Winner Catnip Dinner** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.WINNER_WINNER_CATNIP_DINNER passed as cardType
   - **Expected output**: applyWinnerWinnerCatnipDinner() is called
 
-- **TC177: Valid card type Ragebait** ( :white_check_mark: )
+- **TC182: Valid card type Ragebait** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.RAGEBAIT passed as cardType
   - **Expected output**: applyRagebait() is called
 
-- **TC178: Valid card type Recycle** ( :white_check_mark: )
+- **TC183: Valid card type Recycle** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.RECYCLE passed as cardType
   - **Expected output**: applyRecycle() is called
 
-- **TC179: Valid card type Double Up** ( :white_check_mark: )
+- **TC184: Valid card type Double Up** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.DOUBLE_UP passed as cardType
   - **Expected output**: applyDoubleUp() is called
 
-- **TC180: Valid card type Mild Shuffle** ( :white_check_mark: )
+- **TC185: Valid card type Mild Shuffle** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.MILD_SHUFFLE passed as cardType
   - **Expected output**: applyMildShuffle() is called
 
-# Method under test: `applyTargetedAttack(int targetPlayerIndex)`
-- **TC181: Targeted Attack with minimum players (2), first player targets next player** ( :white_check_mark: )
-  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-  - **State of the system**: 2 players, currentPlayerIndex = 0, targetPlayerIndex = 1
-  - **Expected output**:
-    - deselectHandCards() called on player 0
-    - incrementTurn() called 1 time
-    - addAttackDrawCount() called
-
-- **TC182: Targeted Attack with minimum players (2), last player targets first player (wrap)** ( :white_check_mark: )
-  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-  - **State of the system**: 2 players, currentPlayerIndex = 1, targetPlayerIndex = 0
-  - **Expected output**:
-    - deselectHandCards() called on player 1
-    - incrementTurn() called 1 time
-    - addAttackDrawCount() called
-
-- **TC183: Targeted Attack with maximum players (4), first player targets last player** ( :white_check_mark: )
-  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-  - **State of the system**: 4 players, currentPlayerIndex = 0, targetPlayerIndex = 3
-  - **Expected output**:
-    - deselectHandCards() called on player 0
-    - incrementTurn() called 3 times
-    - addAttackDrawCount() called
-
-- **TC84: Targeted Attack with maximum players (4), last player targets first player (wrap)** ( :white_check_mark: )
-  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-  - **State of the system**: 4 players, currentPlayerIndex = 3, targetPlayerIndex = 0
-  - **Expected output**:
-    - deselectHandCards() called on player 3
-    - incrementTurn() called 1 time
-    - addAttackDrawCount() called
-
-### Method under test: `addAttackDrawCount()`
-- **TC185: Draw count is below the attack threshold** ( :white_check_mark: )
-  - **Name of the test**: addAttackDrawCount_drawCountZero_SetTwo
-  - **State of the system**:
-    - turnManager.drawCount = 1
-  - **Expected output**:
-    - turnManager.drawCount = 2
-
-- **TC186: Draw count is at or above the attack threshold** ( :white_check_mark: )
-  - **Name of the test**: addAttackDrawCount_drawCountTwo_addsTwo
-  - **State of the system**:
-    - turnManager.drawCount = 2
-  - **Expected output**:
-    - turnManager.drawCount = 4
-
 ### Method under test: `applySwapTopAndBottom()`
-- **TC187: Draw pile has zero cards** ( :white_check_mark: )
+- **TC186: Draw pile has zero cards** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_emptyDeck_remainsEmpty
   - **State of the system**: draw pile is empty
   - **Expected output**: draw pile remains empty
 
-- **TC188: Draw pile has exactly one card** ( :white_check_mark: )
+- **TC187: Draw pile has exactly one card** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_oneCard_deckUnchanged
   - **State of the system**: draw pile has two cards ['CARD 1']
   - **Expected output**: draw pile has two cards; card order is ['CARD 1']
 
-- **TC189: Draw pile has more than one card** ( :white_check_mark: )
+- **TC188: Draw pile has more than one card** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_moreThanOneCard_swapped
   - **State of the system**: draw pile has four cards ['CARD 1', 'CARD 2', 'CARD 3', 'CARD 4']
   - **Expected output**:
@@ -1338,10 +1321,69 @@
     - drawPile.addCardToBottom(CARD_1) called
     - draw pile has four cards and card order is ['CARD 4', 'CARD 2', 'CARD 3', 'CARD']
 
-- **TC190: Top and bottom cards are the same type** ( :white_check_mark: )
+- **TC189: Top and bottom cards are the same type** ( :white_check_mark: )
   - **Name of the test**: applySwapTopAndBottom_sameType_swapped
   - **State of the system**: draw pile has four cards ['EXPLODING KITTEN 1', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 2']
   - **Expected output**:
     - drawPile.addCardToTop(EXPLODINGKITTEN_2) called
     - drawPile.addCardToBottom(EXPLODINGKITTEN_1) called;
     - draw pile has four cards; card order is ['EXPLODING KITTEN 2', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 1']
+
+# Method under test: `applyTargetedAttack(int targetPlayerIndex)`
+- **TC190: Targeted Attack with minimum players (2), first player targets next player** ( :white_check_mark: )
+  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
+  - **State of the system**: 
+    - 2 players
+    - currentPlayerIndex = 0
+    - targetPlayerIndex = 1
+  - **Expected output**:
+    - deselectHandCards() called on player 0
+    - incrementTurn() called 1 time
+    - addAttackDrawCount() called
+
+- **TC191: Targeted Attack with minimum players (2), last player targets first player (wrap)** ( :white_check_mark: )
+  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
+  - **State of the system**: 
+    - 2 players
+    - currentPlayerIndex = 1
+    - targetPlayerIndex = 0
+  - **Expected output**:
+    - deselectHandCards() called on player 1
+    - incrementTurn() called 1 time
+    - addAttackDrawCount() called
+
+- **TC192: Targeted Attack with maximum players (4), first player targets last player** ( :white_check_mark: )
+  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
+  - **State of the system**: 
+    - 4 players
+    - currentPlayerIndex = 0
+    - targetPlayerIndex = 3
+  - **Expected output**:
+    - deselectHandCards() called on player 0
+    - incrementTurn() called 3 times
+    - addAttackDrawCount() called
+
+- **TC193: Targeted Attack with maximum players (4), last player targets first player (wrap)** ( :white_check_mark: )
+  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
+  - **State of the system**: 
+    - 4 players, currentPlayerIndex = 3
+    - targetPlayerIndex = 0
+  - **Expected output**:
+    - deselectHandCards() called on player 3
+    - incrementTurn() called 1 time
+    - addAttackDrawCount() called
+
+### Method under test: `addAttackDrawCount()`
+- **TC194: Draw count is below the attack threshold** ( :white_check_mark: )
+  - **Name of the test**: addAttackDrawCount_drawCountZero_SetTwo
+  - **State of the system**:
+    - turnManager.drawCount = 1
+  - **Expected output**:
+    - turnManager.drawCount = 2
+
+- **TC195: Draw count is at or above the attack threshold** ( :white_check_mark: )
+  - **Name of the test**: addAttackDrawCount_drawCountTwo_addsTwo
+  - **State of the system**:
+    - turnManager.drawCount = 2
+  - **Expected output**:
+    - turnManager.drawCount = 4

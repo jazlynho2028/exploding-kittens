@@ -2538,6 +2538,24 @@ public class GameTests {
 		EasyMock.verify(drawPile);
 	}
 
+	@Test
+	public void applyShuffle_called_shufflesDrawPile() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		drawPile.shuffle();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applyShuffle();
+
+		EasyMock.verify(drawPile);
+	}
+
 	private static List<Card> mockCardsOfTypes(List<CardType> cardTypes) {
 		List<Card> selectedCards = new ArrayList<>();
 
