@@ -1367,8 +1367,8 @@
     - 2 dead players at indices 0 and 2
   - **Expected output**: return {0, 2}
 
-- **TC194: All dead players** ( :x: )
-  - **Name of the test**: getDeadIndices_twoDeadPlayers_returnDeadIndices
+- **TC194: All dead players** ( :white_check_mark: )
+  - **Name of the test**: getDeadIndices_allDeadPlayers_returnDeadIndices
   - **State of the system**:
     - 4 dead players at indices 0, 1, 2, 3
   - **Expected output**: return {0, 1, 2, 3}

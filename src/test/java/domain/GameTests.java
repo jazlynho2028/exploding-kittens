@@ -2866,6 +2866,33 @@ public class GameTests {
 		assertEquals(expectedDeadIndices, actualDeadIndices);
 	}
 
+	@Test
+	public void getDeadIndices_allDeadPlayers_returnDeadIndices() {
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Player player3 = EasyMock.createMock(Player.class);
+		Player player4 = EasyMock.createMock(Player.class);
+
+		List<Player> players = List.of(player1, player2, player3, player4);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(player1.isAlive()).andStubReturn(false);
+		EasyMock.expect(player2.isAlive()).andStubReturn(false);
+		EasyMock.expect(player3.isAlive()).andStubReturn(false);
+		EasyMock.expect(player4.isAlive()).andStubReturn(false);
+
+		EasyMock.replay(player1, player2, player3, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Set<Integer> expectedDeadIndices = Set.of(0, 1, 2, 3);
+		Set<Integer> actualDeadIndices = game.getDeadIndices();
+
+		assertEquals(expectedDeadIndices, actualDeadIndices);
+	}
+
 	private static List<Card> mockCardsOfTypes(List<CardType> cardTypes) {
 		List<Card> selectedCards = new ArrayList<>();
 
