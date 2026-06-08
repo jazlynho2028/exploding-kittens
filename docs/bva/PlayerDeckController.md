@@ -354,23 +354,37 @@
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onExplodeButton()`
-- **TC35: Explode successfully** ( :white_check_mark: )
-  - **Name of the test**: onExplodeButton_called_success
+- **TC35: Explode successfully, game continues** ( :white_check_mark: )
+  - **Name of the test**: onExplodeButton_gameOngoing_continueNextTurn
   - **State of the system**:
     - canEndTurn = true
+    - model.getIsGamOngoing = true
   - **Expected output**:
     - model.playExplode is called
     - view.hideOverlay is called
     - expectUpdateDrawPile is satisfied
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
-- **TC36: Caught exception from model** ( :white_check_mark: )
+- **TC36: Explode successfully, game over** ( :white_check_mark: )
+  - **Name of the test**: onExplodeButton_gameOver_showWinOverlay
+  - **State of the system**:
+    - canEndTurn = true
+    - model.getIsGamOngoing = false
+  - **Expected output**:
+    - model.playExplode is called
+    - view.hideOverlay is called
+    - expectUpdateDrawPile is satisfied
+    - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
+    - view.buildWinOverlay is called with model.getWinnerName()
+    - view.bindPlayAgainButton is called
+
+- **TC37: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_called_failed
   - **State of the system**: model.playExplode throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onGodcatConfirm()`
-- **TC37: Valid card type** ( :white_check_mark: )
+- **TC38: Valid card type** ( :white_check_mark: )
   - **Name of the test**: onGodcatConfirm_validCardType_applyGodcatCalled
   - **State of the system**: cardType = ATTACK
   - **Expected output**:
@@ -378,7 +392,7 @@
     - view.hideOverlay is called
     - expectUpdateTurnControls is satisfied
 
-- **TC38: Model throws on invalid card type** ( :white_check_mark: )
+- **TC39: Model throws on invalid card type** ( :white_check_mark: )
   - **Name of the test**: onGodcatConfirm_modelThrowsException_failed
   - **State of the system**: 
     - cardType = EXPLODING_KITTEN

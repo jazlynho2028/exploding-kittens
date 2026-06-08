@@ -4,6 +4,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static domain.DeckBuilder.createCardId;
@@ -265,7 +266,7 @@ public class Game {
             throw new IllegalStateException("error.cannotEndTurn");
         }
         getCurrentPlayer().deselectHandCards();
-        turnManager.incrementTurn();
+		turnManager.incrementTurn(getDeadIndices());
         turnManager.incrementDrawCount();
     }
 
@@ -334,9 +335,19 @@ public class Game {
         drawPile.removeTop();
 
         getCurrentPlayer().deselectHandCards();
-        turnManager.incrementTurn();
-        turnManager.incrementDrawCount();
-        // TODO unalive current player
+		getCurrentPlayer().eliminate();
+
+        if (hasWinner()) {
+            isGameOngoing = false;
+        }
+        else {
+            turnManager.incrementTurn(getDeadIndices());
+            turnManager.incrementDrawCount();
+        }
+    }
+
+    private boolean hasWinner() {
+        return getDeadIndices().size() >= players.size() - 1;
     }
 
     void applyAttack() {
@@ -428,7 +439,7 @@ public class Game {
     public void applyTargetedAttack(int targetPlayerIndex) {
         getCurrentPlayer().deselectHandCards();
         while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
-            turnManager.incrementTurn();
+            turnManager.incrementTurn(getDeadIndices());
         }
         addAttackDrawCount();
     }
@@ -462,6 +473,26 @@ public class Game {
 
     void applyMildShuffle() {
         // TODO
+    }
+
+    public Set<Integer> getDeadIndices() {
+        return players.stream()
+                .filter(player -> !player.isAlive())
+                .map(players::indexOf)
+                .collect(Collectors.toSet());
+    }
+
+    public String getWinnerName() {
+        List<String> aliveNames = players.stream()
+                .filter(Player::isAlive)
+                .map(Player::getName)
+                .collect(Collectors.toList());
+
+        if (aliveNames.size() == 1) {
+            return aliveNames.get(0);
+        }
+
+        throw new IllegalStateException("error.noWinner");
     }
 
 }

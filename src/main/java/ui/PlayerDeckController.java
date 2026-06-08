@@ -18,6 +18,7 @@ public class PlayerDeckController {
     private final Game model;
 
     private Consumer<String> onError;
+    private Runnable onRestart;
     Optional<Consumer<Integer>> pendingTargetAction = Optional.empty();
 
     @SuppressFBWarnings(
@@ -30,6 +31,7 @@ public class PlayerDeckController {
         this.model = model;
         this.view = view;
         this.onError = message -> { };
+        this.onRestart = () -> { };
     }
 
     public Scene buildPlayerDeckScene() {
@@ -61,7 +63,8 @@ public class PlayerDeckController {
         view.buildAddRenderPlayerNameTags(
                 model.getPlayerNames(),
                 model.getCurrentPlayerIndex(),
-                model.getIsGameOngoing()
+                model.getIsGameOngoing(),
+                model.getDeadIndices()
         );
     }
 
@@ -91,7 +94,7 @@ public class PlayerDeckController {
                     pendingTargetAction = Optional.empty();
 
                     view.renderPlayerNameTags(model.getCurrentPlayerIndex(),
-                            model.getIsGameOngoing());
+                            model.getIsGameOngoing(), model.getDeadIndices());
                 }
 
                 handleChangeCurrentPlayer(playerIndex);
@@ -112,7 +115,8 @@ public class PlayerDeckController {
     private void updateNameTags() {
         view.renderPlayerNameTags(
                 model.getCurrentPlayerIndex(),
-                model.getIsGameOngoing()
+                model.getIsGameOngoing(),
+                model.getDeadIndices()
         );
     }
 
@@ -234,7 +238,8 @@ public class PlayerDeckController {
                 break;
             case TARGETED_ATTACK:
                 pendingTargetAction = Optional.of(model::applyTargetedAttack);
-                view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false);
+                view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
+                        model.getDeadIndices());
                 view.renderTurnControlSection(false, false);
                 break;
 			default:
@@ -281,6 +286,11 @@ public class PlayerDeckController {
             updateDrawPile();
 
             renderNextTurn();
+
+            if (!model.getIsGameOngoing()) {
+                view.buildWinOverlay(model.getWinnerName());
+                view.bindPlayAgainButton(onRestart);
+            }
         });
     }
 
@@ -295,6 +305,10 @@ public class PlayerDeckController {
 
             updateByCardType(cardType);
         });
+    }
+
+    public void setOnRestart(Runnable handler) {
+        onRestart = handler;
     }
 
 }

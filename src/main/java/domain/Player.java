@@ -8,10 +8,12 @@ public class Player {
 
     private final String name;
     private final List<Card> hand;
+    private boolean isAlive;
 
     public Player(String name) {
         this.name = name;
         this.hand = new ArrayList<>();
+        this.isAlive = true;
     }
 
     int getHandSize() {
@@ -63,4 +65,13 @@ public class Player {
                 .map(Card::getId)
                 .collect(Collectors.toList());
     }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void eliminate() {
+        isAlive = false;
+    }
+
 }

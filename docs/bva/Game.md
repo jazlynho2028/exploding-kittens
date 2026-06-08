@@ -577,7 +577,7 @@
     - player = getCurrentPlayer
   - **Expected output**:
     - player.deselectHandCards is called
-    - turnManager.incrementTurn is called
+    - turnManager.incrementTurn is called with getDeadIndices
     - turnManager.incrementDrawCount is called
 
 - **TC87: Cannot end turn** ( :white_check_mark: )
@@ -597,17 +597,64 @@
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
 
-- **TC90: This method is called successfully** ( :white_check_mark: )
-  - **Name of the test**: playExplode_called_success
-  - **State of the system**: N/A
+- **TC90: All two alive, kill one player** ( :white_check_mark: )
+  - **Name of the test**: playExplode_twoAlivePlayers_oneWins
+  - **State of the system**: 
+    - 2 players, both alive
+    - currentPlayerIndex = 0
+    - isGameOngoing = true
   - **Expected output**:
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
-    - turnManager.incrementTurn is called
+    - getCurrentPlayer.eliminate is called
+    - deadIndices = {0}
+    - isGameOngoing = false
+
+- **TC91: All three alive, kill one player** ( :white_check_mark: )
+  - **Name of the test**: playExplode_atLeastThreeAlive_gameContinues
+  - **State of the system**:
+    - 3 players, all alive
+    - currentPlayerIndex = 2
+    - isGameOngoing = true
+  - **Expected output**:
+    - drawPile.removeTop is called
+    - getCurrentPlayer.deselectHandCards is called
+    - getCurrentPlayer.eliminate is called
+    - deadIndices = {2}
+    - isGameOngoing = true
+    - turnManager.incrementTurn is called with getDeadIndices
     - turnManager.incrementDrawCount is called
 
+- **TC92: One player is dead, kill a second** ( :white_check_mark: )
+  - **Name of the test**: playExplode_atLeastThreeAlive_gameContinues
+  - **State of the system**:
+    - 4 players, index 0 is dead
+    - currentPlayerIndex = 3
+    - isGameOngoing = true
+  - **Expected output**:
+    - drawPile.removeTop is called
+    - getCurrentPlayer.deselectHandCards is called
+    - getCurrentPlayer.eliminate is called
+    - deadIndices = {0, 3}
+    - isGameOngoing = true
+    - turnManager.incrementTurn is called with getDeadIndices
+    - turnManager.incrementDrawCount is called
+
+- **TC93: Three players, one wins** ( :white_check_mark: )
+  - **Name of the test**: playExplode_twoAlivePlayers_oneWins
+  - **State of the system**:
+    - 3 players, index 1 is dead
+    - currentPlayerIndex = 0
+    - isGameOngoing = true
+  - **Expected output**:
+    - drawPile.removeTop is called
+    - getCurrentPlayer.deselectHandCards is called
+    - getCurrentPlayer.eliminate is called
+    - deadIndices = {0, 1}
+    - isGameOngoing = false;
+
 ### Method under test: `isDefusable()`
-- **TC91: Empty hand** ( :white_check_mark: )
+- **TC94: Empty hand** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
   - **State of the system**:
     - currentPlayerHandCardTypes = []
@@ -616,7 +663,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return false
 
-- **TC92: Hand with one card type, no Defuse** ( :white_check_mark: )
+- **TC95: Hand with one card type, no Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
   - **State of the system**:
     - currentPlayerHandCardTypes = [ATTACK]
@@ -625,7 +672,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return false
 
-- **TC93: Hand with two different card types, no Defuse** ( :white_check_mark: )
+- **TC96: Hand with two different card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
   - **State of the system**:
     - currentPlayerHandCardTypes = [ATTACK, SKIP]
@@ -634,7 +681,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return false
 
-- **TC94: Hand with two same card types, no Defuse** ( :white_check_mark: )
+- **TC97: Hand with two same card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
   - **State of the system**:
     - currentPlayerHandCardTypes = [SKIP, SKIP]
@@ -643,7 +690,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return false
 
-- **TC95: Hand with Clone, top discard type is not Defuse** ( :white_check_mark: )
+- **TC98: Hand with Clone, top discard type is not Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, SKIP]
@@ -652,7 +699,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return false
 
-- **TC96: Hand with two Clones, top discard type is not Defuse** ( :white_check_mark: )
+- **TC99: Hand with two Clones, top discard type is not Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, CLONE]
@@ -661,7 +708,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return false
 
-- **TC97: Hand with one card type, has Defuse** ( :white_check_mark: )
+- **TC100: Hand with one card type, has Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [DEFUSE]
@@ -670,7 +717,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC98: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
+- **TC101: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [SKIP, DEFUSE]
@@ -679,7 +726,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC99: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
+- **TC102: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [DEFUSE, SKIP]
@@ -688,7 +735,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC100: Hand with two same card types, has Defuse** ( :white_check_mark: )
+- **TC103: Hand with two same card types, has Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
@@ -697,7 +744,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC101: Hand with one card type, has Godcat** ( :white_check_mark: )
+- **TC104: Hand with one card type, has Godcat** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [GODCAT]
@@ -706,7 +753,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC102: Hand with two different card types, has Godcat at end** ( :white_check_mark: )
+- **TC105: Hand with two different card types, has Godcat at end** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [SKIP, GODCAT]
@@ -715,7 +762,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC103: Hand with two different card types, has Godcat at front** ( :white_check_mark: )
+- **TC106: Hand with two different card types, has Godcat at front** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [GODCAT, SKIP]
@@ -724,14 +771,14 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC104: Hand with two same card types, has Godcat** ( :white_check_mark: )
+- **TC107: Hand with two same card types, has Godcat** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [GODCAT, GODCAT]
     - topDiscardType = DEFUSE
   - **Expected output**: return true
 
-- **TC105: Hand with Defuse and Godcat** ( :white_check_mark: )
+- **TC108: Hand with Defuse and Godcat** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [DEFUSE, GODCAT]
@@ -740,7 +787,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC106: Hand with Godcat and Defuse** ( :white_check_mark: )
+- **TC109: Hand with Godcat and Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [GODCAT, DEFUSE]
@@ -749,7 +796,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC107: Hand with one card type, has Clone** ( :white_check_mark: )
+- **TC110: Hand with one card type, has Clone** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE]
@@ -758,7 +805,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC108: Hand with two different card types, has Clone at end** ( :white_check_mark: )
+- **TC111: Hand with two different card types, has Clone at end** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [SKIP, CLONE]
@@ -767,7 +814,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC109: Hand with two different card types, has Clone at front** ( :white_check_mark: )
+- **TC112: Hand with two different card types, has Clone at front** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, SKIP]
@@ -776,14 +823,14 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC110: Hand with two same card types, has Clone** ( :white_check_mark: )
+- **TC113: Hand with two same card types, has Clone** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, CLONE]
     - topDiscardType = DEFUSE
   - **Expected output**: return true
 
-- **TC111: Hand with Defuse and Clone** ( :white_check_mark: )
+- **TC114: Hand with Defuse and Clone** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [DEFUSE, CLONE]
@@ -792,7 +839,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC112: Hand with Clone and Defuse** ( :white_check_mark: )
+- **TC115: Hand with Clone and Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, DEFUSE]
@@ -801,7 +848,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC113: Hand with Clone and Godcat, use Godcat** ( :white_check_mark: )
+- **TC116: Hand with Clone and Godcat, use Godcat** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, GODCAT]
@@ -810,7 +857,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC114: Hand with Godcat and Clone, use Clone** ( :white_check_mark: )
+- **TC117: Hand with Godcat and Clone, use Clone** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [GODCAT, CLONE]
@@ -819,7 +866,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC115: Hand with Godcat, Clone, Defuse** ( :white_check_mark: )
+- **TC118: Hand with Godcat, Clone, Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [GODCAT, CLONE, DEFUSE]
@@ -829,27 +876,27 @@
     - return true
 
 ### Method under test: `playDefuse(int drawPileIndex)`
-- **TC116: Empty hand** ( :white_check_mark: )
+- **TC119: Empty hand** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
   - **State of the system**: getCurrentPlayer.getHand = []
   - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
 
-- **TC117: Hand with one card type, no Defuse** ( :white_check_mark: )
+- **TC120: Hand with one card type, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK]
   - **Expected output**: return false
 
-- **TC118: Hand with two different card types, no Defuse** ( :white_check_mark: )
+- **TC121: Hand with two different card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
   - **State of the system**: currentPlayerHandCardTypes = [ATTACK, SKIP]
   - **Expected output**: return false
 
-- **TC119: Hand with two same card types, no Defuse** ( :white_check_mark: )
+- **TC122: Hand with two same card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, SKIP]
   - **Expected output**: return false
 
-- **TC120: Hand with one card type, has Defuse** ( :white_check_mark: )
+- **TC123: Hand with one card type, has Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE]
   - **Expected output**:
@@ -857,7 +904,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC121: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
+- **TC124: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, DEFUSE]
   - **Expected output**:
@@ -865,7 +912,7 @@
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC122: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
+- **TC125: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, SKIP]
   - **Expected output**:
@@ -873,7 +920,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC123: Hand with two same card types, has Defuse** ( :white_check_mark: )
+- **TC126: Hand with two same card types, has Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
   - **Expected output**:
@@ -881,7 +928,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC124: Hand with one card type, has Godcat** ( :white_check_mark: )
+- **TC127: Hand with one card type, has Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT]
   - **Expected output**:
@@ -889,7 +936,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC125: Hand with two different card types, has Godcat at end** ( :white_check_mark: )
+- **TC128: Hand with two different card types, has Godcat at end** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, GODCAT]
   - **Expected output**:
@@ -897,7 +944,7 @@
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC126: Hand with two different card types, has Godcat at front** ( :white_check_mark: )
+- **TC129: Hand with two different card types, has Godcat at front** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, SKIP]
   - **Expected output**:
@@ -905,7 +952,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC127: Hand with two same card types, has Godcat** ( :white_check_mark: )
+- **TC130: Hand with two same card types, has Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, GODCAT]
   - **Expected output**:
@@ -913,7 +960,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC128: Hand with Defuse and Godcat** ( :white_check_mark: )
+- **TC131: Hand with Defuse and Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, GODCAT]
   - **Expected output**:
@@ -921,7 +968,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC129: Hand with Godcat and Defuse** ( :white_check_mark: )
+- **TC132: Hand with Godcat and Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, DEFUSE]
   - **Expected output**:
@@ -929,7 +976,7 @@
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC130: Hand with one card type, has Clone** ( :white_check_mark: )
+- **TC133: Hand with one card type, has Clone** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE]
@@ -939,7 +986,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC131: Hand with two different card types, has Clone at end** ( :white_check_mark: )
+- **TC134: Hand with two different card types, has Clone at end** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [SKIP, CLONE]
@@ -949,7 +996,7 @@
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC132: Hand with two different card types, has Clone at front** ( :white_check_mark: )
+- **TC135: Hand with two different card types, has Clone at front** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, SKIP]
@@ -959,7 +1006,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC133: Hand with two same card types, has Clone** ( :white_check_mark: )
+- **TC136: Hand with two same card types, has Clone** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, CLONE]
@@ -969,7 +1016,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC134: Hand with Defuse and Clone** ( :white_check_mark: )
+- **TC137: Hand with Defuse and Clone** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [DEFUSE, CLONE]
@@ -979,7 +1026,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC135: Hand with Clone and Defuse** ( :white_check_mark: )
+- **TC138: Hand with Clone and Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, DEFUSE]
@@ -989,7 +1036,7 @@
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC136: Hand with Clone and Godcat, use Godcat** ( :white_check_mark: )
+- **TC139: Hand with Clone and Godcat, use Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, GODCAT]
@@ -999,7 +1046,7 @@
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC137: Hand with Godcat and Clone, use Clone** ( :white_check_mark: )
+- **TC140: Hand with Godcat and Clone, use Clone** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [GODCAT, CLONE]
@@ -1009,7 +1056,7 @@
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC138: Hand with Godcat, Clone, Defuse** ( :white_check_mark: )
+- **TC141: Hand with Godcat, Clone, Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [GODCAT, CLONE, DEFUSE]
@@ -1019,7 +1066,7 @@
     - discardPile.addCard with card at index 2 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC139: Invalid draw pile index** ( :white_check_mark: )
+- **TC142: Invalid draw pile index** ( :white_check_mark: )
   - **Name of the test**: playDefuse_invalidDrawPileIndex_failed
   - **State of the system**:
     - currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
@@ -1117,7 +1164,7 @@
 ### Method under test: `applyCatomicBomb()`
 - **TC156: Draw pile is empty** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_emptyDeck_remainsEmpty
-  - **State of the system**: 
+  - **State of the system**:
     - draw pile has no cards
     - canEndTurn returns true
   - **Expected output**:
@@ -1127,7 +1174,7 @@
 
 - **TC157: No Exploding Kittens in draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_noExplodingKittens_deckUnchanged
-  - **State of the system**: 
+  - **State of the system**:
     - draw pile contains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1'], none are CardType 'EXPLODING_KITTEN'
     - canEndTurn returns false
   - **Expected output**:
@@ -1137,7 +1184,7 @@
 
 - **TC158: One Exploding Kitten at top of draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_oneExplodingKittenAlreadyOnTop_deckUnchanged
-  - **State of the system**: 
+  - **State of the system**:
     - top card of draw pile has one CardType 'EXPLODING_KITTEN' with order ['EXPLODING_KITTEN_1' , 'ATTACK_1', 'SHUFFLE_1']
     - canEndTurn returns true
   - **Expected output**:
@@ -1149,7 +1196,7 @@
 
 - **TC159: One Exploding Kitten in the middle of draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_oneExplodingKittenInMiddle_movedToTop
-  - **State of the system**: 
+  - **State of the system**:
     - draw pile contains ['SKIP_1', 'ATTACK_1', 'EXPLODING_KITTEN_1', 'SHUFFLE_1']
     - canEndTurn returns false
   - **Expected output**:
@@ -1160,7 +1207,7 @@
 
 - **TC160: Multiple Exploding Kittens scattered throughput draw pile** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_multipleExplodingKittens_allMovedToTop
-  - **State of the system**: 
+  - **State of the system**:
     - draw pile contains ['SKIP_1', 'EXPLODING KITTEN_1', 'ATTACK_1', 'EXPLODING KITTEN_2', 'SHUFFLE_1']
     - canEndTurn returns true
   - **Expected output**:
@@ -1172,7 +1219,7 @@
 
 - **TC161: All cards in draw pile are Exploding Kittens** ( :white_check_mark: )
   - **Name of the test**: applyCatomicBomb_allExplodingKittens_deckOrderUnchanged
-  - **State of the system**: 
+  - **State of the system**:
     - draw pile contains ['EXPLODING KITTEN_1', 'EXPLODING KITTEN_2', 'EXPLODING KITTEN_3']
     - canEndTurn returns false
   - **Expected output**:
@@ -1338,7 +1385,7 @@
     - targetPlayerIndex = 1
   - **Expected output**:
     - deselectHandCards() called on player 0
-    - incrementTurn() called 1 time
+    - incrementTurn() called 1 time with getDeadIndices
     - addAttackDrawCount() called
 
 - **TC191: Targeted Attack with minimum players (2), last player targets first player (wrap)** ( :white_check_mark: )
@@ -1349,7 +1396,7 @@
     - targetPlayerIndex = 0
   - **Expected output**:
     - deselectHandCards() called on player 1
-    - incrementTurn() called 1 time
+    - incrementTurn() called 1 time with getDeadIndices
     - addAttackDrawCount() called
 
 - **TC192: Targeted Attack with maximum players (4), first player targets last player** ( :white_check_mark: )
@@ -1360,7 +1407,7 @@
     - targetPlayerIndex = 3
   - **Expected output**:
     - deselectHandCards() called on player 0
-    - incrementTurn() called 3 times
+    - incrementTurn() called 3 times with getDeadIndices
     - addAttackDrawCount() called
 
 - **TC193: Targeted Attack with maximum players (4), last player targets first player (wrap)** ( :white_check_mark: )
@@ -1370,7 +1417,7 @@
     - targetPlayerIndex = 0
   - **Expected output**:
     - deselectHandCards() called on player 3
-    - incrementTurn() called 1 time
+    - incrementTurn() called 1 time with getDeadIndices
     - addAttackDrawCount() called
 
 ### Method under test: `addAttackDrawCount()`
@@ -1387,3 +1434,65 @@
     - turnManager.drawCount = 2
   - **Expected output**:
     - turnManager.drawCount = 4
+
+### Method under test: `getDeadIndices()`
+- **TC194: No dead players** ( :white_check_mark: )
+  - **Name of the test**: getDeadIndices_noDeadPlayers_returnEmptySet
+  - **State of the system**: 2 alive players
+  - **Expected output**: return empty set
+
+- **TC195: One dead player** ( :white_check_mark: )
+  - **Name of the test**: getDeadIndices_oneDeadPlayer_returnDeadIndices
+  - **State of the system**:
+    - 2 alive players
+    - 1 dead player at index 0
+  - **Expected output**: return {0}
+
+- **TC196: Two dead players** ( :white_check_mark: )
+  - **Name of the test**: getDeadIndices_twoDeadPlayers_returnDeadIndices
+  - **State of the system**:
+    - 1 alive player
+    - 2 dead players at indices 0 and 2
+  - **Expected output**: return {0, 2}
+
+- **TC197: All dead players** ( :white_check_mark: )
+  - **Name of the test**: getDeadIndices_allDeadPlayers_returnDeadIndices
+  - **State of the system**:
+    - 4 dead players at indices 0, 1, 2, 3
+  - **Expected output**: return {0, 1, 2, 3}
+
+### Method under test: `getWinnerName()`
+- **TC198: All players are dead** ( :white_check_mark: )
+  - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
+  - **State of the system**: 
+    - playerNames = ["Alice", "Bob"]
+    - 2 dead players
+  - **Expected output**: throw IllegalStateException "error.noWinner"
+
+- **TC199: One player is dead** ( :white_check_mark: )
+  - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
+  - **State of the system**: 
+    - playerNames = ["Alice", "Bob", "Bob"]
+    - one dead player at index 2 
+  - **Expected output**: throw IllegalStateException "error.noWinner"
+
+- **TC200: All players alive** ( :white_check_mark: )
+  - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
+  - **State of the system**:
+    - playerNames = ["Alice", "Bob", "Alice", "Steve"]
+    - 4 alive players
+  - **Expected output**: throw IllegalStateException "error.noWinner"
+
+- **TC201: Two players, has winner** ( :white_check_mark: )
+  - **Name of the test**: getWinnerName_oneAlive_returnWinnerName
+  - **State of the system**: 
+    - playerNames = ["Jeff", "Jeff"]
+    - winner at index 1
+  - **Expected output**: return "Jeff"
+
+- **TC202: Three players, has winner** ( :white_check_mark: )
+  - **Name of the test**: getWinnerName_oneAlive_returnWinnerName
+  - **State of the system**:
+    - playerNames = ["Audrey", "Jeff", "Chicken"]
+    - winner at index 0
+  - **Expected output**: return "Audrey"
