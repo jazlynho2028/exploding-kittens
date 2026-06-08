@@ -337,15 +337,17 @@ public class Game {
         getCurrentPlayer().deselectHandCards();
 		getCurrentPlayer().eliminate();
 
-        boolean hasWinner = (getDeadIndices().size() >= players.size() - 1);
-
-        if (hasWinner) {
+        if (hasWinner()) {
             isGameOngoing = false;
         }
         else {
             turnManager.incrementTurn(getDeadIndices());
             turnManager.incrementDrawCount();
         }
+    }
+
+    private boolean hasWinner() {
+        return getDeadIndices().size() >= players.size() - 1;
     }
 
     void applyAttack() {
