@@ -1904,7 +1904,9 @@ public class GameTests {
 	static Stream<Arguments> applyTargetedAttackArgs() {
 		return Stream.of(
 				Arguments.of(0, 1, new int[]{0, 1}),
-				Arguments.of(1, 0, new int[]{1, 0})
+				Arguments.of(1, 0, new int[]{1, 0}),
+				Arguments.of(0, MAX_PLAYER_INDEX,
+						new int[]{0, 1, 2, MAX_PLAYER_INDEX})
 		);
 	}
 
