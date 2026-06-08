@@ -834,7 +834,7 @@
     - incrementTurn() called 1 time
     - addAttackDrawCount() called
 
-- **TC134: Targeted Attack with minimum players (2), last player targets first player (wrap)** ( :x: )
+- **TC134: Targeted Attack with minimum players (2), last player targets first player (wrap)** ( :white_check_mark: )
   - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
   - **State of the system**: 2 players, currentPlayerIndex = 1, targetPlayerIndex = 0
   - **Expected output**:
