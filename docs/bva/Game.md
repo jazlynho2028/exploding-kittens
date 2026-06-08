@@ -640,7 +640,7 @@
     - turnManager.incrementTurn is called with getDeadIndices
     - turnManager.incrementDrawCount is called
 
-- **TC93: Three players, one wins** ( :x: )
+- **TC93: Three players, one wins** ( :white_check_mark: )
   - **Name of the test**: playExplode_twoAlivePlayers_oneWins
   - **State of the system**:
     - 3 players, index 1 is dead

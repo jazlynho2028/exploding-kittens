@@ -1616,18 +1616,14 @@ public class GameTests {
 		EasyMock.verify(drawPile, game);
 	}
 
-	@Test
-	public void playExplode_twoAlivePlayers_oneWins() {
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
+	@ParameterizedTest
+	@MethodSource("provideExplodeGameEndsConditions")
+	public void playExplode_twoAlivePlayers_oneWins(
+			int numPlayers, int currentPlayerIndex, Set<Integer> expectedDeadIndices) {
 
-		EasyMock.expect(player1.isAlive()).andReturn(false).atLeastOnce();
-		EasyMock.expect(player2.isAlive()).andReturn(true).atLeastOnce();
+		List<Player> players = setPlayersIsAliveExpectations(
+				numPlayers, currentPlayerIndex, expectedDeadIndices);
 
-		int currentPlayerIndex = 0;
-		Set<Integer> expectedDeadIndices = Set.of(0);
-
-		List<Player> players = List.of(player1, player2);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
@@ -1637,13 +1633,7 @@ public class GameTests {
 		Card explodingKitten = EasyMock.createMock(Card.class);
 		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten);
 
-		players.get(currentPlayerIndex).deselectHandCards();
-		EasyMock.expectLastCall();
-
-		players.get(currentPlayerIndex).eliminate();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(player1, player2, drawPile, discardPile, turnManager,
+		EasyMock.replay(drawPile, discardPile, turnManager,
 				explodingKitten);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
@@ -1656,12 +1646,18 @@ public class GameTests {
 
 		assertFalse(game.getIsGameOngoing());
 
-		EasyMock.verify(player1, player2, drawPile);
+		players.forEach(EasyMock::verify);
+		EasyMock.verify(drawPile);
 	}
 
-	@ParameterizedTest
-	@MethodSource("provideExplodeGameContinuesConditions")
-	public void playExplode_atLeastThreeAlive_gameContinues(
+	private static Stream<Arguments> provideExplodeGameEndsConditions() {
+		return Stream.of(
+				Arguments.of(2, 0, Set.of(0)),
+				Arguments.of(3, 0, Set.of(0, 1))
+		);
+	}
+
+	private List<Player> setPlayersIsAliveExpectations(
 			int numPlayers, int currentPlayerIndex, Set<Integer> expectedDeadIndices) {
 
 		List<Player> players = new ArrayList<>();
@@ -1683,6 +1679,17 @@ public class GameTests {
 			players.add(player);
 			EasyMock.replay(player);
 		}
+
+		return players;
+	}
+
+	@ParameterizedTest
+	@MethodSource("provideExplodeGameContinuesConditions")
+	public void playExplode_atLeastThreeAlive_gameContinues(
+			int numPlayers, int currentPlayerIndex, Set<Integer> expectedDeadIndices) {
+
+		List<Player> players = setPlayersIsAliveExpectations(
+				numPlayers, currentPlayerIndex, expectedDeadIndices);
 
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
