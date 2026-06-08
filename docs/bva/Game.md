@@ -1434,7 +1434,7 @@
     - one dead player at index 2 
   - **Expected output**: throw IllegalStateException "error.noWinner"
 
-- **TC200: All players alive** ( :x: )
+- **TC200: All players alive** ( :white_check_mark: )
   - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
   - **State of the system**:
     - playerNames = ["Alice", "Bob", "Alice", "Steve"]

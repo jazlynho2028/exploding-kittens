@@ -2896,7 +2896,7 @@ public class GameTests {
 	}
 
 	@ParameterizedTest
-	@MethodSource("provideGetWinnerNameConditions")
+	@MethodSource("provideGetWinnerNameFailedConditions")
 	public void getWinnerName_notExactlyOneAlive_failed(
 			List<String> playerNames, Set<Integer> expectedDeadIndices) {
 
@@ -2921,11 +2921,13 @@ public class GameTests {
 		players.forEach(EasyMock::verify);
 	}
 
-	private static Stream<Arguments> provideGetWinnerNameConditions() {
+	private static Stream<Arguments> provideGetWinnerNameFailedConditions() {
 		return Stream.of(
 				Arguments.of(List.of("Alice", "Bob"), Set.of(0, 1)),
 				Arguments.of(List.of("Alice", "Alice", "Audrey", "Turkey"),
-						Set.of(2))
+						Set.of(2)),
+				Arguments.of(List.of("Alice", "Alice", "Alive", "Steve"),
+						Set.of())
 		);
 	}
 
