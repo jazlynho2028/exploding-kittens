@@ -597,11 +597,12 @@
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
 
-- **TC90: All two alive, kill one player** ( :x: )
+- **TC90: All two alive, kill one player** ( :white_check_mark: )
   - **Name of the test**: playExplode_allTwoAlive_oneWins
   - **State of the system**: 
     - 2 players, both alive
     - currentPlayerIndex = 0
+    - isGameOngoing = true
   - **Expected output**:
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
@@ -614,6 +615,7 @@
   - **State of the system**:
     - 3 players, all alive
     - currentPlayerIndex = 2
+    - isGameOngoing = true
   - **Expected output**:
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
@@ -628,6 +630,7 @@
   - **State of the system**:
     - 4 players, index 0 is dead
     - currentPlayerIndex = 3
+    - isGameOngoing = true
   - **Expected output**:
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
@@ -642,6 +645,7 @@
   - **State of the system**:
     - 3 players, index 1 is dead
     - currentPlayerIndex = 0
+    - isGameOngoing = true
   - **Expected output**:
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
@@ -654,6 +658,7 @@
   - **State of the system**:
     - 3 players, all alive
     - currentPlayerIndex = 0
+    - isGameOngoing = true
     - turnManager.incrementTurn is called with deadIndices and throws IllegalStateException "error.noAlivePlayers"
   - **Expected output**:
     - throws IllegalStateException "error.noAlivePlayers"
