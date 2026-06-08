@@ -116,6 +116,6 @@
 22. [Done] DJ: Swap Top And Bottom implementation
 23. [not started] DJ: Recycle implementation
 24. [Done] Irene: Shuffle implementation
-25. [not started] Irene: Clone implementation
-26. [not started] Irene: Draw From The Bottom implementation
-27. [not started] Irene: Mild Draw implementation
+25. [30%] Irene: Clone implementation
+26. [50%] Irene: Draw From The Bottom implementation
+27. [30%] Irene: Mild Draw implementation
