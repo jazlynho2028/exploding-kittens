@@ -270,10 +270,6 @@ public class Game {
         turnManager.incrementDrawCount();
     }
 
-    private boolean isPlayerAlive(int playerIndex) {
-        return players.get(playerIndex).isAlive();
-    }
-
     void setIsGameOngoing(boolean isGameOngoing) {
         this.isGameOngoing = isGameOngoing;
     }
