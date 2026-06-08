@@ -1628,7 +1628,8 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andStubReturn(currentPlayerIndex);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex())
+				.andStubReturn(currentPlayerIndex);
 
 		Card explodingKitten = EasyMock.createMock(Card.class);
 		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten);
@@ -1653,7 +1654,7 @@ public class GameTests {
 	private static Stream<Arguments> provideExplodeGameEndsConditions() {
 		return Stream.of(
 				Arguments.of(2, 0, Set.of(0)),
-				Arguments.of(3, 0, Set.of(0, 1))
+				Arguments.of(GameConstants.MAX_PLAYERS - 1, 0, Set.of(0, 1))
 		);
 	}
 
@@ -1695,7 +1696,8 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andStubReturn(currentPlayerIndex);
+		EasyMock.expect(turnManager.getCurrentPlayerIndex())
+				.andStubReturn(currentPlayerIndex);
 
 		Card explodingKitten = EasyMock.createMock(Card.class);
 		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten);
@@ -1725,8 +1727,11 @@ public class GameTests {
 
 	private static Stream<Arguments> provideExplodeGameContinuesConditions() {
 		return Stream.of(
-				Arguments.of(3, 2, Set.of(2)),
-				Arguments.of(4, 3, Set.of(0, 3))
+				Arguments.of(GameConstants.MAX_PLAYERS - 1, 2, Set.of(2)),
+				Arguments.of(
+						GameConstants.MAX_PLAYERS,
+						GameConstants.MAX_PLAYER_INDEX,
+						Set.of(0, GameConstants.MAX_PLAYER_INDEX))
 		);
 	}
 
@@ -2953,7 +2958,7 @@ public class GameTests {
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		Set<Integer> expectedDeadIndices = Set.of(0, 1, 2, 3);
+		Set<Integer> expectedDeadIndices = Set.of(0, 1, 2, GameConstants.MAX_PLAYER_INDEX);
 		Set<Integer> actualDeadIndices = game.getDeadIndices();
 
 		assertEquals(expectedDeadIndices, actualDeadIndices);
