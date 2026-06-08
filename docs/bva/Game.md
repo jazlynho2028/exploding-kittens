@@ -597,10 +597,10 @@
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
 
-- **TC90: All two alive, kill one player** ( :white_check_mark: )
+- **TC90: All two alive, kill one player** ( :x: )
   - **Name of the test**: playExplode_allTwoAlive_oneWins
   - **State of the system**: 
-    - 2 players
+    - 2 players, both alive
     - currentPlayerIndex = 0
   - **Expected output**:
     - drawPile.removeTop is called
@@ -612,7 +612,7 @@
 - **TC91: All three alive, kill one player** ( :x: )
   - **Name of the test**: playExplode_allThreeAlive_oneDead
   - **State of the system**:
-    - 3 players
+    - 3 players, all alive
     - currentPlayerIndex = 2
   - **Expected output**:
     - drawPile.removeTop is called
@@ -626,7 +626,7 @@
 - **TC92: One player is dead, kill a second** ( :x: )
   - **Name of the test**: playExplode_oneDead_TwoDead
   - **State of the system**:
-    - 4 players
+    - 4 players, index 0 is dead
     - currentPlayerIndex = 3
   - **Expected output**:
     - drawPile.removeTop is called
@@ -640,7 +640,7 @@
 - **TC93: Three players, one wins** ( :x: )
   - **Name of the test**: playExplode_twoDead_oneWins
   - **State of the system**:
-    - 3 players
+    - 3 players, index 1 is dead
     - currentPlayerIndex = 0
   - **Expected output**:
     - drawPile.removeTop is called
@@ -652,7 +652,7 @@
 - **TC94: Turn manager throws exception** ( :x: )
   - **Name of the test**: playExplode_turnManagerThrows_failed
   - **State of the system**:
-    - 3 players
+    - 3 players, all alive
     - currentPlayerIndex = 0
     - turnManager.incrementTurn is called with deadIndices and throws IllegalStateException "error.noAlivePlayers"
   - **Expected output**:
