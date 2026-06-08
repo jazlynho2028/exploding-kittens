@@ -28,7 +28,6 @@ public class PlayerDeckControllerTests {
 	private static final List<String> PLAYER_NAMES = List.of();
 	private static final boolean CAN_DRAW = true;
 	private static final int CURRENT_PLAYER_INDEX = 0;
-	private static final boolean IS_GAME_ONGOING = true;
 	private static final boolean IS_DRAW_PILE_EMPTY = true;
 	private static final boolean CAN_PLAY_SELECTED = true;
 	private static final Set<Integer> DEAD_INDICES = Set.of();
@@ -69,8 +68,8 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(CURRENT_PLAYER_INDEX);
 	}
 
-	private void getIsGameOngoingExpectation() {
-		EasyMock.expect(model.getIsGameOngoing()).andReturn(IS_GAME_ONGOING);
+	private void getIsGameOngoingExpectation(boolean isGameOngoing) {
+		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
 	}
 
 	private void renderDrawPileExpectations() {
@@ -83,8 +82,9 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.canEndTurn()).andReturn(canEndTurn);
 	}
 
-	private void buildAndRenderTurnControlSectionExpectations(boolean canEndTurn) {
-		getIsGameOngoingExpectation();
+	private void buildAndRenderTurnControlSectionExpectations(
+			boolean isGameOngoing, boolean canEndTurn) {
+		getIsGameOngoingExpectation(isGameOngoing);
 		renderTurnControlSectionExpectations(canEndTurn);
 	}
 
@@ -104,23 +104,23 @@ public class PlayerDeckControllerTests {
 		EasyMock.expectLastCall();
 	}
 
-	private void expectRebuildNameTags() {
+	private void expectRebuildNameTags(boolean isGameOngoing) {
 		getPlayerNamesExpectation();
 		getDeadIndicesExpectation();
 		getCurrentPlayerIndexExpectation();
-		getIsGameOngoingExpectation();
+		getIsGameOngoingExpectation(isGameOngoing);
 
 		view.buildAddRenderPlayerNameTags(
-				PLAYER_NAMES, CURRENT_PLAYER_INDEX, IS_GAME_ONGOING, DEAD_INDICES);
+				PLAYER_NAMES, CURRENT_PLAYER_INDEX, isGameOngoing, DEAD_INDICES);
 		EasyMock.expectLastCall();
 	}
 
-	private void expectUpdateNameTags() {
+	private void expectUpdateNameTags(boolean isGameOngoing) {
 		getCurrentPlayerIndexExpectation();
 		getDeadIndicesExpectation();
-		getIsGameOngoingExpectation();
+		getIsGameOngoingExpectation(isGameOngoing);
 
-		view.renderPlayerNameTags(CURRENT_PLAYER_INDEX, IS_GAME_ONGOING, DEAD_INDICES);
+		view.renderPlayerNameTags(CURRENT_PLAYER_INDEX, isGameOngoing, DEAD_INDICES);
 		EasyMock.expectLastCall();
 	}
 
@@ -138,11 +138,11 @@ public class PlayerDeckControllerTests {
 		EasyMock.expectLastCall();
 	}
 
-	private void expectRebuildTurnControls(boolean canEndTurn) {
-		buildAndRenderTurnControlSectionExpectations(canEndTurn);
+	private void expectRebuildTurnControls(boolean isGameOngoing, boolean canEndTurn) {
+		buildAndRenderTurnControlSectionExpectations(isGameOngoing, canEndTurn);
 
 		view.buildAndRenderTurnControlSection(
-				IS_GAME_ONGOING, CAN_PLAY_SELECTED, canEndTurn);
+				isGameOngoing, CAN_PLAY_SELECTED, canEndTurn);
 		EasyMock.expectLastCall();
 	}
 
@@ -227,8 +227,10 @@ public class PlayerDeckControllerTests {
 	@Test
 	public void buildDependentUI_called_success() {
 		boolean isFaceUp = true;
+		boolean isGameOngoing = true;
+
 		expectRebuildHandCards(isFaceUp);
-		expectRebuildNameTags();
+		expectRebuildNameTags(isGameOngoing);
 
 		EasyMock.replay(model, view);
 
@@ -385,6 +387,8 @@ public class PlayerDeckControllerTests {
 	public void handleChangeCurrentPlayer_playerChanges_success() {
 		int playerIndex = 0;
 		boolean isFaceUp = true;
+		boolean isGameOngoing = true;
+
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class
 				)
@@ -398,7 +402,7 @@ public class PlayerDeckControllerTests {
 		model.setFaceUpToFalse();
 		EasyMock.expectLastCall();
 
-		expectUpdateNameTags();
+		expectUpdateNameTags(isGameOngoing);
 		getIsFaceUpExpectation(isFaceUp);
 
 		view.renderHandVisibilityButton(isFaceUp);
@@ -630,6 +634,8 @@ public class PlayerDeckControllerTests {
 	public void onStartGameButton_called_success() {
 		int startingPlayerIndex = 0;
 		boolean canEndTurn = true;
+		boolean isGameOngoing = true;
+
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class
 				)
@@ -646,7 +652,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expectLastCall();
 
 		expectUpdateDrawPile();
-		expectRebuildTurnControls(canEndTurn);
+		expectRebuildTurnControls(isGameOngoing, canEndTurn);
 
 		EasyMock.replay(model, view, controller);
 
@@ -1009,8 +1015,9 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
-	public void onExplodeButton_called_success() {
+	public void onExplodeButton_gameOngoing_continueNextTurn() {
 		boolean canEndTurn = true;
+		boolean isGameOngoing = true;
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class
@@ -1027,6 +1034,8 @@ public class PlayerDeckControllerTests {
 
 		expectUpdateDrawPile();
 		expectRenderNextTurn(controller, CURRENT_PLAYER_INDEX, canEndTurn);
+		
+		getIsGameOngoingExpectation(isGameOngoing);
 
 		EasyMock.replay(model, view, controller);
 

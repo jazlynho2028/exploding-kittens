@@ -354,7 +354,7 @@
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onExplodeButton()`
-- **TC35: Explode successfully, game continues** ( :x: )
+- **TC35: Explode successfully, game continues** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_gameOngoing_continueNextTurn
   - **State of the system**:
     - canEndTurn = true
@@ -365,7 +365,6 @@
     - expectUpdateDrawPile is satisfied
     - expectRenderNextTurn is satisfied with CURRENT_PLAYER_INDEX and canEndTurn
 
-## Method under test: `onExplodeButton()`
 - **TC36: Explode successfully, game over** ( :x: )
   - **Name of the test**: onExplodeButton_gameOver_showWinOverlay
   - **State of the system**:
