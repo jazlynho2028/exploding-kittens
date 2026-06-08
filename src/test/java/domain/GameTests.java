@@ -1617,7 +1617,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void playExplode_allTwoAlive_oneWins() {
+	public void playExplode_twoAlivePlayers_oneWins() {
 		Player player1 = EasyMock.createMock(Player.class);
 		Player player2 = EasyMock.createMock(Player.class);
 
@@ -1659,20 +1659,31 @@ public class GameTests {
 		EasyMock.verify(player1, player2, drawPile);
 	}
 
-	@Test
-	public void playExplode_allThreeAlive_oneDead() {
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		Player player3 = EasyMock.createMock(Player.class);
+	@ParameterizedTest
+	@MethodSource("provideExplodeGameContinuesConditions")
+	public void playExplode_atLeastThreeAlive_gameContinues(
+			int numPlayers, int currentPlayerIndex, Set<Integer> expectedDeadIndices) {
 
-		EasyMock.expect(player1.isAlive()).andReturn(true).atLeastOnce();
-		EasyMock.expect(player2.isAlive()).andReturn(true).atLeastOnce();
-		EasyMock.expect(player3.isAlive()).andReturn(false).atLeastOnce();
+		List<Player> players = new ArrayList<>();
 
-		int currentPlayerIndex = 2;
-		Set<Integer> expectedDeadIndices = Set.of(2);
+		for (int i = 0; i < numPlayers; i++) {
+			Player player = EasyMock.createMock(Player.class);
 
-		List<Player> players = List.of(player1, player2, player3);
+			boolean isAlive = !expectedDeadIndices.contains(i);
+			EasyMock.expect(player.isAlive()).andReturn(isAlive).atLeastOnce();
+
+			if (i == currentPlayerIndex) {
+				player.deselectHandCards();
+				EasyMock.expectLastCall();
+
+				player.eliminate();
+				EasyMock.expectLastCall();
+			}
+
+			players.add(player);
+			EasyMock.replay(player);
+		}
+
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
@@ -1682,19 +1693,13 @@ public class GameTests {
 		Card explodingKitten = EasyMock.createMock(Card.class);
 		EasyMock.expect(drawPile.removeTop()).andReturn(explodingKitten);
 
-		players.get(currentPlayerIndex).deselectHandCards();
-		EasyMock.expectLastCall();
-
-		players.get(currentPlayerIndex).eliminate();
-		EasyMock.expectLastCall();
-
 		turnManager.incrementTurn(expectedDeadIndices);
 		EasyMock.expectLastCall();
 
 		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(player1, player2, player3, drawPile, discardPile, turnManager,
+		EasyMock.replay(drawPile, discardPile, turnManager,
 				explodingKitten);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
@@ -1707,7 +1712,15 @@ public class GameTests {
 
 		assertTrue(game.getIsGameOngoing());
 
-		EasyMock.verify(player1, player2, player3, drawPile, turnManager);
+		players.forEach(EasyMock::verify);
+		EasyMock.verify(drawPile, turnManager);
+	}
+
+	private static Stream<Arguments> provideExplodeGameContinuesConditions() {
+		return Stream.of(
+				Arguments.of(3, 2, Set.of(2)),
+				Arguments.of(4, 3, Set.of(0, 3))
+		);
 	}
 
 	@ParameterizedTest

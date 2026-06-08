@@ -598,7 +598,7 @@
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
 
 - **TC90: All two alive, kill one player** ( :white_check_mark: )
-  - **Name of the test**: playExplode_allTwoAlive_oneWins
+  - **Name of the test**: playExplode_twoAlivePlayers_oneWins
   - **State of the system**: 
     - 2 players, both alive
     - currentPlayerIndex = 0
@@ -611,7 +611,7 @@
     - isGameOngoing = false
 
 - **TC91: All three alive, kill one player** ( :white_check_mark: )
-  - **Name of the test**: playExplode_allThreeAlive_oneDead
+  - **Name of the test**: playExplode_atLeastThreeAlive_gameContinues
   - **State of the system**:
     - 3 players, all alive
     - currentPlayerIndex = 2
@@ -625,8 +625,8 @@
     - turnManager.incrementTurn is called with getDeadIndices
     - turnManager.incrementDrawCount is called
 
-- **TC92: One player is dead, kill a second** ( :x: )
-  - **Name of the test**: playExplode_oneDead_TwoDead
+- **TC92: One player is dead, kill a second** ( :white_check_mark: )
+  - **Name of the test**: playExplode_atLeastThreeAlive_gameContinues
   - **State of the system**:
     - 4 players, index 0 is dead
     - currentPlayerIndex = 3
@@ -641,7 +641,7 @@
     - turnManager.incrementDrawCount is called
 
 - **TC93: Three players, one wins** ( :x: )
-  - **Name of the test**: playExplode_twoDead_oneWins
+  - **Name of the test**: playExplode_twoAlivePlayers_oneWins
   - **State of the system**:
     - 3 players, index 1 is dead
     - currentPlayerIndex = 0
