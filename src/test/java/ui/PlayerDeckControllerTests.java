@@ -14,6 +14,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -28,6 +29,7 @@ public class PlayerDeckControllerTests {
 	private static final boolean IS_GAME_ONGOING = true;
 	private static final boolean IS_DRAW_PILE_EMPTY = true;
 	private static final boolean CAN_PLAY_SELECTED = true;
+	private static final Set<Integer> DEAD_INDICES = Set.of();
 	private static final String EXPECTED_ERROR_MSG = "An error occurred.";
 
 	private Game model;
@@ -101,7 +103,7 @@ public class PlayerDeckControllerTests {
 		getIsGameOngoingExpectation();
 
 		view.buildAddRenderPlayerNameTags(
-				PLAYER_NAMES, CURRENT_PLAYER_INDEX, IS_GAME_ONGOING);
+				PLAYER_NAMES, CURRENT_PLAYER_INDEX, IS_GAME_ONGOING, DEAD_INDICES);
 		EasyMock.expectLastCall();
 	}
 
@@ -109,7 +111,7 @@ public class PlayerDeckControllerTests {
 		getCurrentPlayerIndexExpectation();
 		getIsGameOngoingExpectation();
 
-		view.renderPlayerNameTags(CURRENT_PLAYER_INDEX, IS_GAME_ONGOING);
+		view.renderPlayerNameTags(CURRENT_PLAYER_INDEX, IS_GAME_ONGOING, DEAD_INDICES);
 		EasyMock.expectLastCall();
 	}
 

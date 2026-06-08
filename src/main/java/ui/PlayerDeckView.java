@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import static ui.PlayerCreateView.buildBackgroundImage;
@@ -132,10 +133,11 @@ public class PlayerDeckView {
     public void buildAddRenderPlayerNameTags(
             List<String> playerNames,
             int currentPlayerIndex,
-            boolean isGameOngoing
+            boolean isGameOngoing,
+            Set<Integer> deadIndices
     ) {
         buildAndAddPlayerNameTags(playerNames);
-        renderPlayerNameTags(currentPlayerIndex, isGameOngoing);
+        renderPlayerNameTags(currentPlayerIndex, isGameOngoing, deadIndices);
     }
 
     public void buildAndAddPlayerNameTags(List<String> playerNames) {
@@ -146,7 +148,9 @@ public class PlayerDeckView {
         }
     }
 
-    public void renderPlayerNameTags(int currentPlayerIndex, boolean isGameOngoing) {
+    public void renderPlayerNameTags(
+			int currentPlayerIndex, boolean isGameOngoing, Set<Integer> deadIndices) {
+
         ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
 
         for (int i = 0; i < nameTagButtons.size(); i++) {
@@ -156,6 +160,21 @@ public class PlayerDeckView {
             nameTagButton.setSelected(isAtCurrentPlayerIndex);
 
             nameTagButton.setDisable(isAtCurrentPlayerIndex || isGameOngoing);
+
+            boolean isDead = deadIndices.contains(i);
+            if (isDead) {
+                renderDeadPlayerNameTag(nameTagButton);
+            }
+        }
+    }
+
+    private void renderDeadPlayerNameTag(ToggleButton nameTagButton) {
+        if (!nameTagButton.getStyleClass().contains("dead")) {
+            nameTagButton.getStyleClass().add("dead");
+
+            SVGPath skullIcon = buildIcon(assetProvider, "skull");
+            nameTagButton.setGraphic(skullIcon);
+            nameTagButton.setContentDisplay(ContentDisplay.LEFT);
         }
     }
 

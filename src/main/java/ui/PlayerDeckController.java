@@ -59,7 +59,8 @@ public class PlayerDeckController {
         view.buildAddRenderPlayerNameTags(
                 model.getPlayerNames(),
                 model.getCurrentPlayerIndex(),
-                model.getIsGameOngoing()
+                model.getIsGameOngoing(),
+                model.getDeadIndices()
         );
     }
 
@@ -101,7 +102,8 @@ public class PlayerDeckController {
     private void updateNameTags() {
         view.renderPlayerNameTags(
                 model.getCurrentPlayerIndex(),
-                model.getIsGameOngoing()
+                model.getIsGameOngoing(),
+                model.getDeadIndices()
         );
     }
 
