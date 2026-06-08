@@ -20,8 +20,7 @@ import java.util.function.Consumer;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerDeckControllerTests {
 
@@ -354,6 +353,7 @@ public class PlayerDeckControllerTests {
 		controller.pendingTargetAction = Optional.of(mockAction);
 
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(CURRENT_PLAYER_INDEX);
+		EasyMock.expect(model.getDeadIndices()).andReturn(DEAD_INDICES);
 
 		mockAction.accept(playerIndex);
 		EasyMock.expectLastCall();
@@ -361,7 +361,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(newPlayerIndex);
 		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
 
-		view.renderPlayerNameTags(newPlayerIndex, isGameOngoing);
+		view.renderPlayerNameTags(newPlayerIndex, isGameOngoing, DEAD_INDICES);
 		EasyMock.expectLastCall();
 
 		controller.handleChangeCurrentPlayer(playerIndex);
@@ -784,8 +784,9 @@ public class PlayerDeckControllerTests {
 		EasyMock.expectLastCall();
 
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		EasyMock.expect(model.getDeadIndices()).andReturn(DEAD_INDICES);
 
-		view.renderPlayerNameTags(currentPlayerIndex, isGameOngoing);
+		view.renderPlayerNameTags(currentPlayerIndex, isGameOngoing, DEAD_INDICES);
 		EasyMock.expectLastCall();
 
 		view.renderTurnControlSection(false, false);

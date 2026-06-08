@@ -577,7 +577,7 @@
     - player = getCurrentPlayer
   - **Expected output**:
     - player.deselectHandCards is called
-    - turnManager.incrementTurn is called with players
+    - turnManager.incrementTurn is called with getDeadIndices
     - turnManager.incrementDrawCount is called
 
 - **TC87: Cannot end turn** ( :white_check_mark: )
@@ -604,7 +604,7 @@
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
     - getCurrentPlayer.eliminate is called
-    - turnManager.incrementTurn is called with players
+    - turnManager.incrementTurn is called with getDeadIndices
     - turnManager.incrementDrawCount is called
 
 ### Method under test: `isDefusable()`
@@ -1305,7 +1305,7 @@
     - **State of the system**: 2 players, currentPlayerIndex = 0, targetPlayerIndex = 1
     - **Expected output**:
         - deselectHandCards() called on player 0
-        - incrementTurn() called 1 time
+        - incrementTurn() called 1 time with getDeadIndices
         - addAttackDrawCount() called
 
 - **TC186: Targeted Attack with minimum players (2), last player targets first player (wrap)** ( :white_check_mark: )
@@ -1313,7 +1313,7 @@
     - **State of the system**: 2 players, currentPlayerIndex = 1, targetPlayerIndex = 0
     - **Expected output**:
         - deselectHandCards() called on player 1
-        - incrementTurn() called 1 time
+        - incrementTurn() called 1 time with getDeadIndices
         - addAttackDrawCount() called
 
 - **TC187: Targeted Attack with maximum players (4), first player targets last player** ( :white_check_mark: )
@@ -1321,7 +1321,7 @@
     - **State of the system**: 4 players, currentPlayerIndex = 0, targetPlayerIndex = 3
     - **Expected output**:
         - deselectHandCards() called on player 0
-        - incrementTurn() called 3 times
+        - incrementTurn() called 3 times with getDeadIndices
         - addAttackDrawCount() called
 
 - **TC188: Targeted Attack with maximum players (4), last player targets first player (wrap)** ( :white_check_mark: )
@@ -1329,7 +1329,7 @@
     - **State of the system**: 4 players, currentPlayerIndex = 3, targetPlayerIndex = 0
     - **Expected output**:
         - deselectHandCards() called on player 3
-        - incrementTurn() called 1 time
+        - incrementTurn() called 1 time with getDeadIndices
         - addAttackDrawCount() called
 
 ### Method under test: `addAttackDrawCount()`

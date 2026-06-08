@@ -92,7 +92,7 @@ public class PlayerDeckController {
                     pendingTargetAction = Optional.empty();
 
                     view.renderPlayerNameTags(model.getCurrentPlayerIndex(),
-                            model.getIsGameOngoing());
+                            model.getIsGameOngoing(), model.getDeadIndices());
                 }
 
                 handleChangeCurrentPlayer(playerIndex);
@@ -236,7 +236,8 @@ public class PlayerDeckController {
                 break;
             case TARGETED_ATTACK:
                 pendingTargetAction = Optional.of(model::applyTargetedAttack);
-                view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false);
+                view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
+                        model.getDeadIndices());
                 view.renderTurnControlSection(false, false);
                 break;
 			default:

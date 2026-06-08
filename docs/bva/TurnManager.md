@@ -50,7 +50,6 @@
     - currentPlayerIndex = 1
     - roundCount = 1
 
-
 - **TC8: Advance turn on boundary just before list wraps around** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsAlive_updatesPlayerIndexCorrectly
   - **State of the system**: 
@@ -80,11 +79,9 @@
     - currentPlayerIndex = 0
     - deadIndices = [1]
     - roundCount = 1
-    - drawCount = 0
   - **Expected output**:
     - currentPlayerIndex = 0
     - roundCount = 2
-    - drawCount = 1
 
 - **TC11: Current player at 1, 2 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
@@ -93,11 +90,9 @@
     - currentPlayerIndex = 1
     - deadIndices = [0]
     - roundCount = 1
-    - drawCount = 0
   - **Expected output**:
     - currentPlayerIndex = 1
     - roundCount = 2
-    - drawCount = 1
 
 - **TC12: Current player at 0, 3 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
@@ -106,11 +101,9 @@
     - currentPlayerIndex = 0
     - deadIndices = [1]
     - roundCount = 1
-    - drawCount = 0
   - **Expected output**:
     - currentPlayerIndex = 2
     - roundCount = 1
-    - drawCount = 1
 
 - **TC13: Current player at 1, 3 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
@@ -119,11 +112,9 @@
     - currentPlayerIndex = 1
     - deadIndices = [2]
     - roundCount = 2
-    - drawCount = 1
   - **Expected output**:
     - currentPlayerIndex = 0
     - roundCount = 3
-    - drawCount = 2
 
 - **TC14: Current player at 2, 3 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
@@ -132,11 +123,9 @@
     - currentPlayerIndex = 2
     - deadIndices = [0]
     - roundCount = 1
-    - drawCount = 1
   - **Expected output**:
     - currentPlayerIndex = 1
     - roundCount = 2
-    - drawCount = 2
 
 - **TC15: Current player at 0, 4 players, next player is dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
@@ -145,11 +134,9 @@
     - currentPlayerIndex = 0
     - deadIndices = [1]
     - roundCount = 1
-    - drawCount = 0
   - **Expected output**:
     - currentPlayerIndex = 2
     - roundCount = 1
-    - drawCount = 1
 
 - **TC16: Current player at 2, 4 players, next two players are dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextTwoPlayersAreDead_updatesPlayerIndexCorrectly
@@ -158,11 +145,9 @@
     - currentPlayerIndex = 2
     - deadIndices = [0, 3]
     - roundCount = 1
-    - drawCount = 0
   - **Expected output**:
     - currentPlayerIndex = 1
     - roundCount = 2
-    - drawCount = 1
 
 - **TC17: Current player at 2, 4 players, next three players are dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextThreePlayersAreDead_updatesPlayerIndexCorrectly
@@ -171,11 +156,9 @@
     - currentPlayerIndex = 2
     - deadIndices = [0, 1, 3]
     - roundCount = 1
-    - drawCount = 0
   - **Expected output**:
     - currentPlayerIndex = 2
     - roundCount = 2
-    - drawCount = 1
 
 - **TC18: Current player at 0, 2 players, all dead** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_allPlayersAreDead_failed

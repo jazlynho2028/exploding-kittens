@@ -266,7 +266,7 @@ public class Game {
             throw new IllegalStateException("error.cannotEndTurn");
         }
         getCurrentPlayer().deselectHandCards();
-		turnManager.incrementTurn(players);
+		turnManager.incrementTurn(getDeadIndices());
         turnManager.incrementDrawCount();
     }
 
@@ -341,7 +341,7 @@ public class Game {
         getCurrentPlayer().deselectHandCards();
 		getCurrentPlayer().eliminate();
 
-        turnManager.incrementTurn(players);
+        turnManager.incrementTurn(getDeadIndices());
         turnManager.incrementDrawCount();
     }
 
@@ -434,7 +434,7 @@ public class Game {
     public void applyTargetedAttack(int targetPlayerIndex) {
         getCurrentPlayer().deselectHandCards();
         while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
-            turnManager.incrementTurn();
+            turnManager.incrementTurn(getDeadIndices());
         }
         addAttackDrawCount();
     }
