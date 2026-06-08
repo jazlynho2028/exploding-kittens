@@ -2956,7 +2956,9 @@ public class GameTests {
 
 	private static Stream<Arguments> provideGetWinnerNameSuccessConditions() {
 		return Stream.of(
-				Arguments.of(List.of("Jeff", "Jeff"), Set.of(0), "Jeff")
+				Arguments.of(List.of("Jeff", "Jeff"), Set.of(0), "Jeff"),
+				Arguments.of(List.of("Audrey", "Jeff", "Chicken"),
+						Set.of(1, 2), "Audrey")
 		);
 	}
 

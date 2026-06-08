@@ -1448,7 +1448,7 @@
     - winner at index 1
   - **Expected output**: return "Jeff"
 
-- **TC202: Three players, has winner** ( :x: )
+- **TC202: Three players, has winner** ( :white_check_mark: )
   - **Name of the test**: getWinnerName_oneAlive_returnWinnerName
   - **State of the system**:
     - playerNames = ["Audrey", "Jeff", "Chicken"]
