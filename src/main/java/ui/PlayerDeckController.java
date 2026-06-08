@@ -7,6 +7,7 @@ import domain.GameConstants;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import static ui.ErrorHandler.attempt;
@@ -17,12 +18,13 @@ public class PlayerDeckController {
     private final Game model;
 
     private Consumer<String> onError;
+    Optional<Consumer<Integer>> pendingTargetAction = Optional.empty();
 
     @SuppressFBWarnings(
-        value = "EI_EXPOSE_REP2",
-        justification = "View and model are injected by for compromise between MVC " +
-                "pattern and testability, defensive copies are not applicable or not " +
-                "desired for JavaFX components and Game objects."
+            value = "EI_EXPOSE_REP2",
+            justification = "View and model are injected by for compromise between MVC " +
+                    "pattern and testability, defensive copies are not applicable or not " +
+                    "desired for JavaFX components and Game objects."
     )
     public PlayerDeckController(Game model, PlayerDeckView view) {
         this.model = model;
@@ -85,7 +87,16 @@ public class PlayerDeckController {
     void onNameTag(int playerIndex) {
         attempt(onError, () -> {
             if (model.getCurrentPlayerIndex() != playerIndex) {
+                if (pendingTargetAction.isPresent()) {
+                    pendingTargetAction.get().accept(playerIndex);
+                    pendingTargetAction = Optional.empty();
+
+                    view.renderPlayerNameTags(model.getCurrentPlayerIndex(),
+                            model.getIsGameOngoing());
+                }
+
                 handleChangeCurrentPlayer(playerIndex);
+                updateTurnControls();
             }
         });
     }
@@ -222,6 +233,11 @@ public class PlayerDeckController {
                 break;
             case SEE_THE_FUTURE:
                 view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
+                break;
+            case TARGETED_ATTACK:
+                pendingTargetAction = Optional.of(model::applyTargetedAttack);
+                view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false);
+                view.renderTurnControlSection(false, false);
                 break;
 			default:
                 break;

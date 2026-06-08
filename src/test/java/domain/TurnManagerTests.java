@@ -78,23 +78,22 @@ public class TurnManagerTests {
 
     @ParameterizedTest
     @CsvSource({
-            "2,  0, 1,  1, 1,  0, 1",
-            "3,  0, 1,  1, 1,  0, 1",
-            "4,  0, 1,  1, 1,  0, 1",
+            "2,  0, 1,  1, 1",
+            "3,  0, 1,  1, 1",
+            "4,  0, 1,  1, 1",
 
-            "2,  0, 1,  2, 2,  1, 2",
-            "3,  1, 2,  2, 2,  1, 2",
-            "4,  2, 3,  2, 2,  1, 2",
+            "2,  0, 1,  2, 2",
+            "3,  1, 2,  2, 2",
+            "4,  2, 3,  2, 2",
 
-            "2,  1, 0,  1, 2,  0, 1",
-            "3,  2, 0,  1, 2,  0, 1",
-            "4,  3, 0,  1, 2,  0, 1"
+            "2,  1, 0,  1, 2",
+            "3,  2, 0,  1, 2",
+            "4,  3, 0,  1, 2"
     })
     public void incrementTurn_nextPlayerIsAlive_updatesPlayerIndexCorrectly(
             int numPlayers,
             int initialIndex, int expectedIndex,
-            int initialRoundCount, int expectedRoundCount,
-            int initialDrawCount, int expectedDrawCount) {
+            int initialRoundCount, int expectedRoundCount) {
 
         List<Player> players = createPlayersWithExpectations(
                 numPlayers, List.of()
@@ -104,17 +103,11 @@ public class TurnManagerTests {
 
         turnManager.setCurrentPlayerIndex(initialIndex);
         turnManager.setRoundCount(initialRoundCount);
-        turnManager.setDrawCount(initialDrawCount);
 
         turnManager.incrementTurn(players);
 
-        int actualIndex = turnManager.getCurrentPlayerIndex();
-        int actualRoundCount = turnManager.getRoundCount();
-        int actualDrawCount = turnManager.getDrawCount();
-
-        assertEquals(expectedIndex, actualIndex);
-        assertEquals(expectedRoundCount, actualRoundCount);
-        assertEquals(expectedDrawCount, actualDrawCount);
+        assertEquals(expectedIndex, turnManager.getCurrentPlayerIndex());
+        assertEquals(expectedRoundCount, turnManager.getRoundCount());
     }
 
     private List<Player> createPlayersWithExpectations(
@@ -278,6 +271,25 @@ public class TurnManagerTests {
 
         int actualNewIndex = turnManager.getCurrentPlayerIndex();
         assertEquals(expectedNewIndex, actualNewIndex);
+    }
+
+    @ParameterizedTest
+    @CsvSource ({
+            "0, 1",
+            "1, 2"
+    })
+    public void incrementDrawCount_validDrawCount_incrementedByOne(
+            int initialDrawCount, int expectedDrawCount
+    ) {
+        int numPlayers = 1;
+
+        TurnManager turnManager = new TurnManager(numPlayers);
+        turnManager.setDrawCount(initialDrawCount);
+
+        turnManager.incrementDrawCount();
+
+        int actualDrawCount = turnManager.getDrawCount();
+        assertEquals(expectedDrawCount, actualDrawCount);
     }
 
 }

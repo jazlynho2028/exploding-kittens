@@ -13,10 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.function.IntPredicate;
 import java.util.stream.Stream;
 
-import static domain.GameConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTests {
@@ -74,7 +72,7 @@ public class GameTests {
 			players.add(player);
 
 			player.addCardToHand(mockSpecificCard(
-					CardType.DEFUSE, NUM_DEFUSES_IN_GAME - i));
+					CardType.DEFUSE, GameConstants.NUM_DEFUSES_IN_GAME - i));
 			EasyMock.expectLastCall();
 		}
 
@@ -83,7 +81,7 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		for (Player player : players) {
-			for (int i = 0; i < STARTING_HAND_SIZE - 1; i++) {
+			for (int i = 0; i < GameConstants.STARTING_HAND_SIZE - 1; i++) {
 				Card card = EasyMock.createMock(Card.class);
 				EasyMock.expect(drawPile.removeTop()).andReturn(card);
 
@@ -263,7 +261,7 @@ public class GameTests {
 
 		int actualStartingPlayerIndex = game.getStartingPlayerIndex();
 
-		assertEquals(STARTING_PLAYER_INDEX, actualStartingPlayerIndex);
+		assertEquals(GameConstants.STARTING_PLAYER_INDEX, actualStartingPlayerIndex);
 	}
 
 	@ParameterizedTest
@@ -705,6 +703,8 @@ public class GameTests {
 		EasyMock.expectLastCall();
 		mockTurnManager.incrementTurn(players);
 		EasyMock.expectLastCall();
+		mockTurnManager.incrementDrawCount();
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(mockPlayer1,
 				mockPlayer2, mockDrawPile,
@@ -741,6 +741,8 @@ public class GameTests {
 		EasyMock.expectLastCall();
 		mockTurnManager.incrementTurn(players);
 		EasyMock.expectLastCall();
+		mockTurnManager.incrementDrawCount();
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(mockPlayer1,
 				mockPlayer2, mockDrawPile,
@@ -776,6 +778,10 @@ public class GameTests {
 		mockPlayer1.deselectHandCards();
 		EasyMock.expectLastCall();
 		mockTurnManager.incrementTurn(players);
+		EasyMock.expectLastCall();
+		mockTurnManager.incrementDrawCount();
+		EasyMock.expectLastCall();
+		mockTurnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(mockPlayer1,
@@ -814,6 +820,8 @@ public class GameTests {
 		EasyMock.expectLastCall();
 		mockTurnManager.incrementTurn(players);
 		EasyMock.expectLastCall();
+		mockTurnManager.incrementDrawCount();
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(mockPlayer1,
 				mockPlayer2, mockDrawPile,
@@ -849,6 +857,8 @@ public class GameTests {
 		mockPlayer1.deselectHandCards();
 		EasyMock.expectLastCall();
 		mockTurnManager.incrementTurn(players);
+		EasyMock.expectLastCall();
+		mockTurnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(mockPlayer1,
@@ -889,6 +899,8 @@ public class GameTests {
 		mockPlayer1.deselectHandCards();
 		EasyMock.expectLastCall();
 		mockTurnManager.incrementTurn(players);
+		EasyMock.expectLastCall();
+		mockTurnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3, mockPlayer4,
@@ -1444,6 +1456,9 @@ public class GameTests {
 		turnManager.incrementTurn(players);
 		EasyMock.expectLastCall();
 
+		turnManager.incrementDrawCount();
+		EasyMock.expectLastCall();
+
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
@@ -1564,6 +1579,9 @@ public class GameTests {
 		EasyMock.expectLastCall();
 
 		currentPlayer.eliminate();
+		EasyMock.expectLastCall();
+
+		turnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager,
@@ -1905,6 +1923,8 @@ public class GameTests {
 		EasyMock.expectLastCall();
 		mockTurnManager.incrementTurn(players);
 		EasyMock.expectLastCall();
+		mockTurnManager.incrementDrawCount();
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(mockPlayer1, mockPlayer2,
 				mockDrawPile, mockDiscardPile, mockTurnManager);
@@ -1998,6 +2018,8 @@ public class GameTests {
 		EasyMock.expectLastCall();
 		mockTurnManager.incrementTurn(players);
 		EasyMock.expectLastCall();
+		mockTurnManager.incrementDrawCount();
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(mockPlayer1, mockPlayer2,
 				mockDrawPile, mockDiscardPile, mockTurnManager);
@@ -2033,6 +2055,8 @@ public class GameTests {
 		mockPlayer1.deselectHandCards();
 		EasyMock.expectLastCall();
 		mockTurnManager.incrementTurn(players);
+		EasyMock.expectLastCall();
+		mockTurnManager.incrementDrawCount();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(mockPlayer1, mockPlayer2,
@@ -2074,6 +2098,8 @@ public class GameTests {
 		EasyMock.expectLastCall();
 		mockTurnManager.incrementTurn(players);
 		EasyMock.expectLastCall();
+		mockTurnManager.incrementDrawCount();
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(mockPlayer1, mockPlayer2, mockPlayer3, mockPlayer4,
 				mockDrawPile, mockDiscardPile, mockTurnManager);
@@ -2099,7 +2125,8 @@ public class GameTests {
 
 		List<Card> cards = mockCardsWithIds(expectedCardIds);
 
-		EasyMock.expect(drawPile.peekTopNCards(SEE_THE_FUTURE_PEEK_COUNT))
+		EasyMock.expect(
+				drawPile.peekTopNCards(GameConstants.SEE_THE_FUTURE_PEEK_COUNT))
 				.andReturn(cards);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
@@ -2631,4 +2658,99 @@ public class GameTests {
 		return matchesType && matchesId;
 	}
 
+	@ParameterizedTest
+	@MethodSource("applyTargetedAttackArgs")
+	public void applyTargetedAttack_validTargets_successfullyCalled(
+			int currentPlayerIndex, int targetPlayerIndex, int[] loopSequence) {
+
+		List<Player> players = EasyMock.createMock(List.class);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("addAttackDrawCount")
+				.createMock();
+
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		EasyMock.expect(players.get(currentPlayerIndex)).andReturn(currentPlayer);
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		for (int i = 0; i < loopSequence.length - 1; i++) {
+			EasyMock.expect(turnManager.getCurrentPlayerIndex())
+					.andReturn(loopSequence[i]);
+			turnManager.incrementTurn();
+			EasyMock.expectLastCall();
+		}
+
+		EasyMock.expect(turnManager.getCurrentPlayerIndex())
+				.andReturn(loopSequence[loopSequence.length - 1]);
+
+		game.addAttackDrawCount();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, currentPlayer, drawPile, discardPile, turnManager, game);
+
+		game.applyTargetedAttack(targetPlayerIndex);
+
+		EasyMock.verify(players, currentPlayer, drawPile, discardPile, turnManager, game);
+	}
+
+	private static Stream<Arguments> applyTargetedAttackArgs() {
+		return Stream.of(
+				Arguments.of(0, 1, new int[]{0, 1}),
+				Arguments.of(1, 0, new int[]{1, 0}),
+				Arguments.of(0, GameConstants.MAX_PLAYER_INDEX,
+						new int[]{0, 1, 2, GameConstants.MAX_PLAYER_INDEX}),
+				Arguments.of(MAX_PLAYER_INDEX, 0,
+						new int[]{GameConstants.MAX_PLAYER_INDEX, 0})
+		);
+	}
+
+	@Test
+	public void addAttackDrawCount_drawCountZero_SetTwo() {
+		final int expectedDrawCount = 1;
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount);
+
+		turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.addAttackDrawCount();
+
+		EasyMock.verify(players, drawPile, discardPile, turnManager);
+	}
+
+	@Test
+	public void addAttackDrawCount_drawCountTwo_addsTwo() {
+		final int expectedDrawCount = 2;
+		final int finalDrawCount = 4;
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount).times(2);
+
+		turnManager.setDrawCount(finalDrawCount);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.addAttackDrawCount();
+
+		EasyMock.verify(players, drawPile, discardPile, turnManager);
+	}
 }

@@ -266,8 +266,8 @@ public class Game {
             throw new IllegalStateException("error.cannotEndTurn");
         }
         getCurrentPlayer().deselectHandCards();
-
-        turnManager.incrementTurn(players);
+		turnManager.incrementTurn(players);
+        turnManager.incrementDrawCount();
     }
 
     private boolean isPlayerAlive(int playerIndex) {
@@ -339,9 +339,10 @@ public class Game {
         drawPile.removeTop();
 
         getCurrentPlayer().deselectHandCards();
-        getCurrentPlayer().eliminate();
+		getCurrentPlayer().eliminate();
 
         turnManager.incrementTurn(players);
+        turnManager.incrementDrawCount();
     }
 
     void applyAttack() {
@@ -430,8 +431,23 @@ public class Game {
         // TODO
     }
 
-    void applyTargetedAttack() {
-        // TODO
+    public void applyTargetedAttack(int targetPlayerIndex) {
+        getCurrentPlayer().deselectHandCards();
+        while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
+            turnManager.incrementTurn();
+        }
+        addAttackDrawCount();
+    }
+
+    void addAttackDrawCount() {
+        if (turnManager.getDrawCount() >= 2) {
+            turnManager.setDrawCount(
+                    turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
+        }
+        else {
+            turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+        }
+
     }
 
     void applyWinnerWinnerCatnipDinner() {
