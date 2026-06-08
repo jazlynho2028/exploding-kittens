@@ -1346,3 +1346,29 @@
     - turnManager.drawCount = 2
   - **Expected output**:
     - turnManager.drawCount = 4
+
+### Method under test: `getDeadIndices()`
+- **TC191: No dead players** ( :x: )
+  - **Name of the test**: getDeadIndices_noDeadPlayers_returnEmptySet
+  - **State of the system**: 2 alive players
+  - **Expected output**: return empty set
+
+- **TC192: One dead player** ( :x: )
+  - **Name of the test**: getDeadIndices_oneDeadPlayer_returnDeadIndices
+  - **State of the system**: 
+    - 2 alive players
+    - 1 dead player at index 0
+  - **Expected output**: return {0}
+
+- **TC193: Two dead players** ( :x: )
+  - **Name of the test**: getDeadIndices_twoDeadPlayers_returnDeadIndices
+  - **State of the system**:
+    - 1 alive player
+    - 2 dead players at indices 0 and 2
+  - **Expected output**: return {0, 2}
+
+- **TC194: All dead players** ( :x: )
+  - **Name of the test**: getDeadIndices_twoDeadPlayers_returnDeadIndices
+  - **State of the system**:
+    - 4 dead players at indices 0, 1, 2, 3
+  - **Expected output**: return {0, 1, 2, 3}
