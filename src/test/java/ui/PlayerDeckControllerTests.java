@@ -236,16 +236,18 @@ public class PlayerDeckControllerTests {
 
 		controller.pendingTargetAction = Optional.of(mockAction);
 
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+
 		mockAction.accept(playerIndex);
 		EasyMock.expectLastCall();
 
-		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(newPlayerIndex).times(2);
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(newPlayerIndex);
 		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
 
 		view.renderPlayerNameTags(newPlayerIndex, isGameOngoing);
 		EasyMock.expectLastCall();
 
-		controller.handleChangeCurrentPlayer(newPlayerIndex);
+		controller.handleChangeCurrentPlayer(playerIndex);
 		EasyMock.expectLastCall();
 
 		EasyMock.expect(model.canPlaySelected()).andReturn(canPlaySelected);
