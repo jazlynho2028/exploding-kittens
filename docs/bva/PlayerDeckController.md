@@ -49,13 +49,14 @@
     - currentPlayerIndex = 0
   - **Expected output**: no model method is called
 
-- **TC6: Player index is different from current player index** ( :white_check_mark: )
+- **TC6: Player index is different from current player index** ( :x: )
   - **Name of the test**: onNameTag_playerChanges_success
   - **State of the system**: 
     - playerIndex = 1
     - currentPlayerIndex = 0
   - **Expected output**: 
     - called handleChangeCurrentPlayer with playerIndex
+    - calls updateTurnControls
 
 - **TC7: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onNameTag_called_failed
@@ -65,7 +66,7 @@
     - model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
-- **TC8: pendingTargetAction is present** ( :white_check_mark: )
+- **TC8: pendingTargetAction is present** ( :x: )
   - **Name of the test**: onNameTag_pendingTargetActionPresent_executesAction
   - **State of the system**:
     - pendingTargetAction = Optional.of(mockAction)
@@ -77,7 +78,7 @@
   - **Expected output**:
     - mockAction.accept(1) is called
     - pendingTargetAction becomes empty
-    - view.disableTargetSelectionMode(2, true) is called
+    - view.renderPlayerNameTags(2, true) is called
     - handleChangeCurrentPlayer(2) is called
     - view.renderTurnControlSection(true, false) is called
 

@@ -603,13 +603,14 @@
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
 
-- **TC93: This method is called successfully** ( :white_check_mark: )
+- **TC93: This method is called successfully** ( :x: )
   - **Name of the test**: playExplode_called_success
   - **State of the system**: N/A
   - **Expected output**:
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
     - turnManager.incrementTurn is called
+    - turnManager.incrementDrawCount is called
 
 ### Method under test: `currentPlayerHasDefuse()`
 - **TC94: Empty hand** ( :white_check_mark: )
