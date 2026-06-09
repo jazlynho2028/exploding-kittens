@@ -2,9 +2,7 @@ package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import java.util.List;
 import java.util.Set;
-import java.util.function.IntPredicate;
 
 import static domain.GameConstants.STARTING_PLAYER_INDEX;
 
@@ -60,19 +58,21 @@ public class TurnManager {
         drawCount++;
     }
 
-    public void incrementTurn(Set<Integer> deadIndices) {
-        if (deadIndices.size() == numPlayers) {
+    public void incrementTurn(Set<Integer> aliveIndices) {
+        if (aliveIndices.isEmpty()) {
             throw new IllegalStateException("error.noAlivePlayers");
         }
 
 		do {
-            currentPlayerIndex = (currentPlayerIndex + 1) % numPlayers;
+            int newPlayerIndex = (currentPlayerIndex + 1) % numPlayers;
 
-            if (currentPlayerIndex == STARTING_PLAYER_INDEX) {
+            if (newPlayerIndex == STARTING_PLAYER_INDEX) {
                 roundCount++;
             }
+
+            setCurrentPlayerIndex(newPlayerIndex);
 		}
-        while (deadIndices.contains(currentPlayerIndex));
+        while (!aliveIndices.contains(currentPlayerIndex));
     }
 
     void setRoundCount(int roundCount) {

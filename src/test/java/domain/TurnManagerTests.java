@@ -1,16 +1,14 @@
 package domain;
 
-import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
-import java.util.function.IntPredicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -104,48 +102,52 @@ public class TurnManagerTests {
         turnManager.setCurrentPlayerIndex(initialIndex);
         turnManager.setRoundCount(initialRoundCount);
 
-        turnManager.incrementTurn(Set.of());
+        Set<Integer> aliveIndices = getAllIndicesFor(numPlayers);
+
+        turnManager.incrementTurn(aliveIndices);
 
         assertEquals(expectedIndex, turnManager.getCurrentPlayerIndex());
         assertEquals(expectedRoundCount, turnManager.getRoundCount());
     }
 
+    private Set<Integer> getAllIndicesFor(int numPlayers) {
+        return IntStream.range(0, numPlayers)
+                .boxed().collect(Collectors.toSet());
+    }
 
     @ParameterizedTest
-    @CsvSource({
-            "2, 1,  0, 0,  1, 2",
-            "2, 0,  1, 1,  1, 2",
-
-            "3, 1,  0, 2,  1, 1",
-            "3, 2,  1, 0,  2, 3",
-            "3, 0,  2, 1,  1, 2",
-
-            "4, 1,  0, 2,  1, 1"
-    })
+    @MethodSource("provideIncrementTurnCases")
     public void incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly(
-            int numPlayers, int deadIndex,
+            int numPlayers,
             int initialIndex, int expectedIndex,
-            int initialRoundCount, int expectedRoundCount) {
+            int initialRoundCount, int expectedRoundCount,
+            Set<Integer> aliveIndices) {
 
         TurnManager turnManager = new TurnManager(numPlayers);
-
         turnManager.setCurrentPlayerIndex(initialIndex);
         turnManager.setRoundCount(initialRoundCount);
 
-        Set<Integer> deadIndices = Set.of(deadIndex);
-        turnManager.incrementTurn(deadIndices);
+        turnManager.incrementTurn(aliveIndices);
 
-        int actualIndex = turnManager.getCurrentPlayerIndex();
-        int actualRoundCount = turnManager.getRoundCount();
+        assertEquals(expectedIndex, turnManager.getCurrentPlayerIndex());
+        assertEquals(expectedRoundCount, turnManager.getRoundCount());
+    }
 
-        assertEquals(expectedIndex, actualIndex);
-        assertEquals(expectedRoundCount, actualRoundCount);
+    private static Stream<Arguments> provideIncrementTurnCases() {
+        return Stream.of(
+                Arguments.of(2,  0, 0,  1, 2, Set.of(0)),
+                Arguments.of(2,  1, 1,  1, 2,  Set.of(1)),
+                Arguments.of(3,  0, 2,  1, 1, Set.of(0, 2)),
+                Arguments.of(3,  1, 0,  2, 3, Set.of(0)),
+                Arguments.of(3,  2, 1,  1, 2, Set.of(1)),
+                Arguments.of(4,  0, 2,  1, 1, Set.of(0, 2, 3))
+        );
     }
 
     @Test
     public void incrementTurn_nextTwoPlayersAreDead_updatesPlayerIndexCorrectly() {
         int numPlayers = GameConstants.MAX_PLAYERS;
-        Set<Integer> deadIndices = Set.of(numPlayers - 1, 0);
+        Set<Integer> deadIndices = Set.of(1, 2);
 
         TurnManager turnManager = new TurnManager(numPlayers);
 
@@ -164,7 +166,7 @@ public class TurnManagerTests {
     @Test
     public void incrementTurn_nextThreePlayersAreDead_updatesPlayerIndexCorrectly() {
         int numPlayers = GameConstants.MAX_PLAYERS;
-        Set<Integer> deadIndices = Set.of(numPlayers - 1, 0, 1);
+        Set<Integer> deadIndices = Set.of(2);
 
         TurnManager turnManager = new TurnManager(numPlayers);
 
@@ -184,7 +186,7 @@ public class TurnManagerTests {
     @Test
     public void incrementTurn_allPlayersAreDead_failed() {
         int numPlayers = 2;
-        Set<Integer> deadIndices = Set.of(0, 1);
+        Set<Integer> deadIndices = Set.of();
 
         TurnManager turnManager = new TurnManager(numPlayers);
 

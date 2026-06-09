@@ -228,7 +228,7 @@ public class Game {
     }
 
     public void changeCurrentPlayerIndex(int newPlayerIndex) {
-        if (getDeadIndices().contains(newPlayerIndex)) {
+        if (!getAliveIndices().contains(newPlayerIndex)) {
             throw new IllegalStateException("error.playerIsDead");
         }
 
@@ -270,7 +270,7 @@ public class Game {
             throw new IllegalStateException("error.cannotEndTurn");
         }
         getCurrentPlayer().deselectHandCards();
-		turnManager.incrementTurn(getDeadIndices());
+		turnManager.incrementTurn(getAliveIndices());
         turnManager.incrementDrawCount();
     }
 
@@ -345,13 +345,13 @@ public class Game {
             isGameOngoing = false;
         }
         else {
-            turnManager.incrementTurn(getDeadIndices());
+            turnManager.incrementTurn(getAliveIndices());
             turnManager.incrementDrawCount();
         }
     }
 
     private boolean hasWinner() {
-        return getDeadIndices().size() >= players.size() - 1;
+        return getAliveIndices().size() == 1;
     }
 
     void applyAttack() {
@@ -443,7 +443,7 @@ public class Game {
     public void applyTargetedAttack(int targetPlayerIndex) {
         getCurrentPlayer().deselectHandCards();
         while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
-            turnManager.incrementTurn(getDeadIndices());
+            turnManager.incrementTurn(getAliveIndices());
         }
         addAttackDrawCount();
     }
@@ -479,9 +479,9 @@ public class Game {
         // TODO
     }
 
-    public Set<Integer> getDeadIndices() {
+    public Set<Integer> getAliveIndices() {
         return players.stream()
-                .filter(player -> !player.isAlive())
+                .filter(Player::isAlive)
                 .map(players::indexOf)
                 .collect(Collectors.toSet());
     }

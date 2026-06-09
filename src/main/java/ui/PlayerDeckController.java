@@ -64,7 +64,7 @@ public class PlayerDeckController {
                 model.getPlayerNames(),
                 model.getCurrentPlayerIndex(),
                 model.getIsGameOngoing(),
-                model.getDeadIndices()
+                model.getAliveIndices()
         );
     }
 
@@ -94,17 +94,17 @@ public class PlayerDeckController {
                     pendingTargetAction = Optional.empty();
 
                     view.renderPlayerNameTags(model.getCurrentPlayerIndex(),
-                            model.getIsGameOngoing(), model.getDeadIndices());
+                            model.getIsGameOngoing(), model.getAliveIndices());
                 }
 
-                handleChangeCurrentPlayer(playerIndex);
+                model.changeCurrentPlayerIndex(playerIndex);
+                updatePlayerUI();
                 updateTurnControls();
             }
         });
     }
 
-    void handleChangeCurrentPlayer(int playerIndex) {
-        model.changeCurrentPlayerIndex(playerIndex);
+    void updatePlayerUI() {
         model.setFaceUpToFalse();
 
         updateNameTags();
@@ -116,7 +116,7 @@ public class PlayerDeckController {
         view.renderPlayerNameTags(
                 model.getCurrentPlayerIndex(),
                 model.getIsGameOngoing(),
-                model.getDeadIndices()
+                model.getAliveIndices()
         );
     }
 
@@ -194,7 +194,8 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             model.startGame();
 
-            handleChangeCurrentPlayer(model.getStartingPlayerIndex());
+            model.changeCurrentPlayerIndex(model.getStartingPlayerIndex());
+            updatePlayerUI();
             updateDrawPile();
             rebuildTurnControl();
         });
@@ -239,7 +240,7 @@ public class PlayerDeckController {
             case TARGETED_ATTACK:
                 pendingTargetAction = Optional.of(model::applyTargetedAttack);
                 view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
-                        model.getDeadIndices());
+                        model.getAliveIndices());
                 view.renderTurnControlSection(false, false);
                 break;
 			default:
@@ -260,8 +261,7 @@ public class PlayerDeckController {
     }
 
     private void renderNextTurn() {
-        int newPlayerIndex = model.getCurrentPlayerIndex();
-        handleChangeCurrentPlayer(newPlayerIndex);
+        updatePlayerUI();
         updateDrawPile();
         updateTurnControls();
     }

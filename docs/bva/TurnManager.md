@@ -44,7 +44,7 @@
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = 0
-    - deadIndices = []
+    - aliveIndices = [0, 1] [0, 1, 2] [0, 1, 2, 3]
     - roundCount = 1
   - **Expected output**: 
     - currentPlayerIndex = 1
@@ -55,7 +55,7 @@
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = N - 2
-    - deadIndices = []
+    - aliveIndices = [0, 1] [0, 1, 2] [0, 1, 2, 3]
     - roundCount = 2
   - **Expected output**: 
     - currentPlayerIndex = N - 1
@@ -66,7 +66,7 @@
   - **State of the system**: 
     - numPlayers = N (N = 2, 3, 4)
     - currentPlayerIndex = N - 1
-    - deadIndices = []
+    - aliveIndices = [0, 1] [0, 1, 2] [0, 1, 2, 3]
     - roundCount = 1
   - **Expected output**: 
     - currentPlayerIndex = 0
@@ -77,18 +77,18 @@
   - **State of the system**:
     - numPlayers = 2
     - currentPlayerIndex = 0
-    - deadIndices = [1]
+    - aliveIndices = [0]
     - roundCount = 1
   - **Expected output**:
     - currentPlayerIndex = 0
     - roundCount = 2
 
-- **TC11: Current player at 1, 2 players, next player is dead** ( :white_check_mark: )
+- **TC11: Current player at 1, 2 players, next player is alive** ( :white_check_mark: )
   - **Name of the test**: incrementTurn_nextPlayerIsDead_updatesPlayerIndexCorrectly
   - **State of the system**:
     - numPlayers = 2
     - currentPlayerIndex = 1
-    - deadIndices = [0]
+    - aliveIndices = [1]
     - roundCount = 1
   - **Expected output**:
     - currentPlayerIndex = 1
@@ -99,7 +99,7 @@
   - **State of the system**:
     - numPlayers = 3
     - currentPlayerIndex = 0
-    - deadIndices = [1]
+    - aliveIndices = [0, 2]
     - roundCount = 1
   - **Expected output**:
     - currentPlayerIndex = 2
@@ -110,7 +110,7 @@
   - **State of the system**:
     - numPlayers = 3
     - currentPlayerIndex = 1
-    - deadIndices = [2]
+    - aliveIndices = [0]
     - roundCount = 2
   - **Expected output**:
     - currentPlayerIndex = 0
@@ -121,7 +121,7 @@
   - **State of the system**:
     - numPlayers = 3
     - currentPlayerIndex = 2
-    - deadIndices = [0]
+    - aliveIndices = [1]
     - roundCount = 1
   - **Expected output**:
     - currentPlayerIndex = 1
@@ -132,7 +132,7 @@
   - **State of the system**:
     - numPlayers = 4
     - currentPlayerIndex = 0
-    - deadIndices = [1]
+    - aliveIndices = [0, 2, 3]
     - roundCount = 1
   - **Expected output**:
     - currentPlayerIndex = 2
@@ -143,7 +143,7 @@
   - **State of the system**:
     - numPlayers = 4
     - currentPlayerIndex = 2
-    - deadIndices = [0, 3]
+    - aliveIndices = [1, 2]
     - roundCount = 1
   - **Expected output**:
     - currentPlayerIndex = 1
@@ -154,7 +154,7 @@
   - **State of the system**:
     - numPlayers = 4
     - currentPlayerIndex = 2
-    - deadIndices = [0, 1, 3]
+    - aliveIndices = [2]
     - roundCount = 1
   - **Expected output**:
     - currentPlayerIndex = 2
@@ -164,7 +164,7 @@
   - **Name of the test**: incrementTurn_allPlayersAreDead_failed
   - **State of the system**:
     - numPlayers = 2
-    - deadIndices = [0, 1]
+    - aliveIndices = []
   - **Expected output**: throw IllegalStateException "error.noAlivePlayers"
 
 ### Method under test: `setCurrentPlayerIndex(int newPlayerIndex)`

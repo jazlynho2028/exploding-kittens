@@ -133,13 +133,11 @@ public class PlayerDeckView {
     }
 
     public void buildAddRenderPlayerNameTags(
-            List<String> playerNames,
-            int currentPlayerIndex,
-            boolean isGameOngoing,
-            Set<Integer> deadIndices
-    ) {
+            List<String> playerNames, int currentPlayerIndex,
+            boolean isGameOngoing, Set<Integer> aliveIndices) {
+
         buildAndAddPlayerNameTags(playerNames);
-        renderPlayerNameTags(currentPlayerIndex, isGameOngoing, deadIndices);
+        renderPlayerNameTags(currentPlayerIndex, isGameOngoing, aliveIndices);
     }
 
     public void buildAndAddPlayerNameTags(List<String> playerNames) {
@@ -152,7 +150,7 @@ public class PlayerDeckView {
 
     public void renderPlayerNameTags(
 			int currentPlayerIndex, boolean disableOtherPlayers,
-            Set<Integer> deadIndices) {
+            Set<Integer> aliveIndices) {
 
         ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
 
@@ -162,7 +160,7 @@ public class PlayerDeckView {
             boolean isAtCurrentPlayerIndex = (i == currentPlayerIndex);
             nameTagButton.setSelected(isAtCurrentPlayerIndex);
 
-            boolean isDead = deadIndices.contains(i);
+            boolean isDead = !aliveIndices.contains(i);
 
             nameTagButton.setDisable(
 					isAtCurrentPlayerIndex || disableOtherPlayers || isDead);

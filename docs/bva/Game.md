@@ -493,21 +493,21 @@
   - **Name of the test**: changeCurrentPlayerIndex_called_callsTurnManager
   - **State of the system**: 
     - newPlayerIndex = 0
-    - deadIndices = {}
+    - aliveIndices = {0}
   - **Expected output**: calls turnManager.setCurrentPlayerIndex with newPlayerIndex
 
-- **TC75: This method is called successfully** ( :white_check_mark: )
-  - **Name of the test**: changeCurrentPlayerIndex_deadPlayerIndex_failed
+- **TC75: Player at index is dead** ( :white_check_mark: )
+  - **Name of the test**: changeCurrentPlayerIndex_alivePlayerIndex_failed
   - **State of the system**: 
     - newPlayerIndex = 0
-    - deadIndices = {0}
+    - aliveIndices = {1}
   - **Expected output**: throw IllegalStateException "error.playerIsDead"
 
 - **TC76: Turn manager method throws exception** ( :white_check_mark: )
   - **Name of the test**: changeCurrentPlayerIndex_called_failed
   - **State of the system**: 
     - newPlayerIndex = 1
-    - deadIndices = {0}
+    - aliveIndices = {0, 1}
     - turnManager.setCurrentPlayerIndex with newPlayerIndex throws IllegalArgumentException "error.invalidPlayerIndex"
   - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"
 
@@ -589,7 +589,7 @@
     - player = getCurrentPlayer
   - **Expected output**:
     - player.deselectHandCards is called
-    - turnManager.incrementTurn is called with getDeadIndices
+    - turnManager.incrementTurn is called with getAliveIndices
     - turnManager.incrementDrawCount is called
 
 - **TC88: Cannot end turn** ( :white_check_mark: )
@@ -619,40 +619,10 @@
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
     - getCurrentPlayer.eliminate is called
-    - deadIndices = {0}
+    - aliveIndices = {1}
     - isGameOngoing = false
 
-- **TC92: All three alive, kill one player** ( :white_check_mark: )
-  - **Name of the test**: playExplode_atLeastThreeAlive_gameContinues
-  - **State of the system**:
-    - 3 players, all alive
-    - currentPlayerIndex = 2
-    - isGameOngoing = true
-  - **Expected output**:
-    - drawPile.removeTop is called
-    - getCurrentPlayer.deselectHandCards is called
-    - getCurrentPlayer.eliminate is called
-    - deadIndices = {2}
-    - isGameOngoing = true
-    - turnManager.incrementTurn is called with getDeadIndices
-    - turnManager.incrementDrawCount is called
-
-- **TC93: One player is dead, kill a second** ( :white_check_mark: )
-  - **Name of the test**: playExplode_atLeastThreeAlive_gameContinues
-  - **State of the system**:
-    - 4 players, index 0 is dead
-    - currentPlayerIndex = 3
-    - isGameOngoing = true
-  - **Expected output**:
-    - drawPile.removeTop is called
-    - getCurrentPlayer.deselectHandCards is called
-    - getCurrentPlayer.eliminate is called
-    - deadIndices = {0, 3}
-    - isGameOngoing = true
-    - turnManager.incrementTurn is called with getDeadIndices
-    - turnManager.incrementDrawCount is called
-
-- **TC94: Three players, one wins** ( :white_check_mark: )
+- **TC92: Three players, one wins** ( :white_check_mark: )
   - **Name of the test**: playExplode_twoAlivePlayers_oneWins
   - **State of the system**:
     - 3 players, index 1 is dead
@@ -662,8 +632,38 @@
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
     - getCurrentPlayer.eliminate is called
-    - deadIndices = {0, 1}
+    - aliveIndices = {2}
     - isGameOngoing = false;
+
+- **TC93: All three alive, kill one player** ( :white_check_mark: )
+  - **Name of the test**: playExplode_threeAlive_gameContinues
+  - **State of the system**:
+    - 3 players, all alive
+    - currentPlayerIndex = 2
+    - isGameOngoing = true
+  - **Expected output**:
+    - drawPile.removeTop is called
+    - getCurrentPlayer.deselectHandCards is called
+    - getCurrentPlayer.eliminate is called
+    - aliveIndices = {0, 1}
+    - isGameOngoing = true
+    - turnManager.incrementTurn is called with getAliveIndices
+    - turnManager.incrementDrawCount is called
+
+- **TC94: One player is alive, kill one player** ( :white_check_mark: )
+  - **Name of the test**: playExplode_atLeastTwoAlive_gameContinues
+  - **State of the system**:
+    - 4 players, index 0 is dead
+    - currentPlayerIndex = 3
+    - isGameOngoing = true
+  - **Expected output**:
+    - drawPile.removeTop is called
+    - getCurrentPlayer.deselectHandCards is called
+    - getCurrentPlayer.eliminate is called
+    - aliveIndices = {1, 2}
+    - isGameOngoing = true
+    - turnManager.incrementTurn is called with getAliveIndices
+    - turnManager.incrementDrawCount is called
 
 ### Method under test: `isDefusable()`
 - **TC95: Empty hand** ( :white_check_mark: )
@@ -1398,7 +1398,7 @@
     - targetPlayerIndex = 1
   - **Expected output**:
     - deselectHandCards() called on player 0
-    - incrementTurn() called 1 time with getDeadIndices
+    - incrementTurn() called 1 time with getAliveIndices
     - addAttackDrawCount() called
 
 - **TC195: Targeted Attack with minimum players (2), last player targets first player (wrap)** ( :white_check_mark: )
@@ -1409,7 +1409,7 @@
     - targetPlayerIndex = 0
   - **Expected output**:
     - deselectHandCards() called on player 1
-    - incrementTurn() called 1 time with getDeadIndices
+    - incrementTurn() called 1 time with getAliveIndices
     - addAttackDrawCount() called
 
 - **TC196: Targeted Attack with maximum players (4), first player targets last player** ( :white_check_mark: )
@@ -1420,7 +1420,7 @@
     - targetPlayerIndex = 3
   - **Expected output**:
     - deselectHandCards() called on player 0
-    - incrementTurn() called 3 times with getDeadIndices
+    - incrementTurn() called 3 times with getAliveIndices
     - addAttackDrawCount() called
 
 - **TC197: Targeted Attack with maximum players (4), last player targets first player (wrap)** ( :white_check_mark: )
@@ -1430,7 +1430,7 @@
     - targetPlayerIndex = 0
   - **Expected output**:
     - deselectHandCards() called on player 3
-    - incrementTurn() called 1 time with getDeadIndices
+    - incrementTurn() called 1 time with getAliveIndices
     - addAttackDrawCount() called
 
 ### Method under test: `addAttackDrawCount()`
@@ -1448,45 +1448,45 @@
   - **Expected output**:
     - turnManager.drawCount = 4
 
-### Method under test: `getDeadIndices()`
-- **TC200: No dead players** ( :white_check_mark: )
-  - **Name of the test**: getDeadIndices_noDeadPlayers_returnEmptySet
-  - **State of the system**: 2 alive players
-  - **Expected output**: return empty set
+### Method under test: `getAliveIndices()`
+- **TC200: No alive players** ( :white_check_mark: )
+  - **Name of the test**: getAliveIndices_noAlivePlayers_returnEmptySet
+  - **State of the system**: 2 dead players
+  - **Expected output**: return {}
 
-- **TC201: One dead player** ( :white_check_mark: )
-  - **Name of the test**: getDeadIndices_oneDeadPlayer_returnDeadIndices
+- **TC201: One alive player** ( :white_check_mark: )
+  - **Name of the test**: getAliveIndices_oneAlivePlayer_returnAliveIndices
   - **State of the system**:
-    - 2 alive players
-    - 1 dead player at index 0
+    - 2 dead players
+    - 1 alive player at index 0
   - **Expected output**: return {0}
 
-- **TC202: Two dead players** ( :white_check_mark: )
-  - **Name of the test**: getDeadIndices_twoDeadPlayers_returnDeadIndices
+- **TC202: Two alive players** ( :white_check_mark: )
+  - **Name of the test**: getAliveIndices_twoAlivePlayers_returnAliveIndices
   - **State of the system**:
-    - 1 alive player
-    - 2 dead players at indices 0 and 2
+    - 1 dead player
+    - 2 alive players at indices 0 and 2
   - **Expected output**: return {0, 2}
 
-- **TC203: All dead players** ( :white_check_mark: )
-  - **Name of the test**: getDeadIndices_allDeadPlayers_returnDeadIndices
+- **TC203: All alive players** ( :white_check_mark: )
+  - **Name of the test**: getAliveIndices_allAlivePlayers_returnAliveIndices
   - **State of the system**:
-    - 4 dead players at indices 0, 1, 2, 3
+    - 4 alive players at indices 0, 1, 2, 3
   - **Expected output**: return {0, 1, 2, 3}
 
 ### Method under test: `getWinnerName()`
-- **TC204: All players are dead** ( :white_check_mark: )
+- **TC204: All players are alive** ( :white_check_mark: )
   - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
   - **State of the system**: 
     - playerNames = ["Alice", "Bob"]
-    - 2 dead players
+    - 2 alive players
   - **Expected output**: throw IllegalStateException "error.noWinner"
 
-- **TC205: One player is dead** ( :white_check_mark: )
+- **TC205: One player is alive** ( :white_check_mark: )
   - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
   - **State of the system**: 
     - playerNames = ["Alice", "Bob", "Bob"]
-    - one dead player at index 2 
+    - one alive player at index 2 
   - **Expected output**: throw IllegalStateException "error.noWinner"
 
 - **TC206: All players alive** ( :white_check_mark: )

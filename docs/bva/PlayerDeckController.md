@@ -44,7 +44,7 @@
     - currentPlayerIndex = 0
   - **Expected output**:
     - getCurrentPlayerIndexExpectation is satisfied
-    - handleChangeCurrentPlayer is not called
+    - updatePlayerUI is not called
 
 - **TC6: Player index is different from current player index** ( :white_check_mark: )
   - **Name of the test**: onNameTag_playerChanges_success
@@ -52,7 +52,8 @@
     - playerIndex = 1
     - currentPlayerIndex = 0
   - **Expected output**: 
-    - called handleChangeCurrentPlayer with playerIndex
+    - called model.changeCurrentPlayer with playerIndex
+    - called updatePlayerUI
     - calls updateTurnControls
 
 - **TC7: Caught exception from model** ( :white_check_mark: )
@@ -73,12 +74,13 @@
     - mockAction.accept(1) is called
     - pendingTargetAction becomes empty
     - view.renderPlayerNameTags(2, true) is called
-    - handleChangeCurrentPlayer(2) is called
+    - model.changeCurrentPlayer(2) is called
+    - updatePlayerUI is called
     - view.renderTurnControlSection(true, false) is called
 
-## Method under test: `handleChangeCurrentPlayer(int playerIndex)`
+## Method under test: `updatePlayerUI(int playerIndex)`
 - **TC8: This method is executed successfully** ( :white_check_mark: )
-  - **Name of the test**: handleChangeCurrentPlayer_playerChanges_success
+  - **Name of the test**: updatePlayerUI_playerChanges_success
   - **State of the system**:
     - playerIndex = 0
     - isFaceUp = true
@@ -177,7 +179,8 @@
     - canEndTurn = true
   - **Expected output**:
     - model.startGame is called
-    - handleChangeCurrentPlayer is called with startingPlayerIndex
+    - model.changeCurrentPlayer is called with startingPlayerIndex
+    - updatePlayerUI is called
     - expectUpdateDrawPile is satisfied
     - expectRebuildTurnControls is satisfied with canEndTurn
 
