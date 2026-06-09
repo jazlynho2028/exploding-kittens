@@ -659,4 +659,13 @@ public class PlayerTests {
         assertFalse(player.isWinnerWinnerActivated());
     }
 
+    @Test
+    public void isWinnerWinnerActivated_roundOne_returnTrue() {
+        Player player = new Player("Audrey");
+        int round = 1;
+        player.activateWinnerWinnerFromRound(round);
+
+        assertTrue(player.isWinnerWinnerActivated());
+    }
+
 }

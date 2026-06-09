@@ -88,7 +88,7 @@ public class Player {
     }
 
     public boolean isWinnerWinnerActivated() {
-        return false;
+        return winnerWinnerActivatedRound > 0;
     }
 
     public void resetWinnerWinner() {

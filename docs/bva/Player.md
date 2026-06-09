@@ -226,7 +226,7 @@
   - **State of the system**: winnerWinnerActivatedRound = 0
   - **Expected output**: return false
 
-- **TC44: Round 1** ( :x: )
+- **TC44: Round 1** ( :white_check_mark: )
   - **Name of the test**: isWinnerWinnerActivated_roundOne_returnTrue
   - **State of the system**: winnerWinnerActivatedRound = 1
   - **Expected output**: return true
