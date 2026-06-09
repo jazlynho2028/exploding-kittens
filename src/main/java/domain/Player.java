@@ -92,7 +92,7 @@ public class Player {
     }
 
     public void resetWinnerWinner() {
-
+        winnerWinnerActivatedRound = 0;
     }
 
 }

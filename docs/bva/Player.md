@@ -232,12 +232,12 @@
   - **Expected output**: return true
 
 ### Method under test: `resetWinnerWinner()`
-- **TC45: No change** ( :x: )
-  - **Name of the test**: resetWinnerWinner_winnerwinnerActivatedRoundAnyValue_setToZero
+- **TC45: No change** ( :white_check_mark: )
+  - **Name of the test**: resetWinnerWinner_winnerwinnerActivatedRoundAtZero_setToZero
   - **State of the system**: winnerWinnerActivatedRound = 0
   - **Expected output**: winnerWinnerActivatedRound = 0
 
-- **TC46: Set to zero** ( :x: )
-  - **Name of the test**: resetWinnerWinner_winnerwinnerActivatedRoundAnyValue_setToZero
+- **TC46: Set to zero** ( :white_check_mark: )
+  - **Name of the test**: resetWinnerWinner_winnerwinnerActivatedRoundAtOne_setToZero
   - **State of the system**: winnerWinnerActivatedRound = 1
   - **Expected output**: winnerWinnerActivatedRound = 0

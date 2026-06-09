@@ -668,4 +668,30 @@ public class PlayerTests {
         assertTrue(player.isWinnerWinnerActivated());
     }
 
+    @Test
+    public void resetWinnerWinner_winnerwinnerActivatedRoundAtZero_setToZero() {
+        Player player = new Player("Audrey");
+
+        player.resetWinnerWinner();
+
+        int expectedActivatedRound = 0;
+        int actualActivatedRound = player.getWinnerWinnerActivatedRound();
+
+        assertEquals(expectedActivatedRound, actualActivatedRound);
+    }
+
+    @Test
+    public void resetWinnerWinner_winnerwinnerActivatedRoundAtOne_setToZero() {
+        Player player = new Player("Audrey");
+        int round = 1;
+        player.activateWinnerWinnerFromRound(round);
+
+        player.resetWinnerWinner();
+
+        int expectedActivatedRound = 0;
+        int actualActivatedRound = player.getWinnerWinnerActivatedRound();
+
+        assertEquals(expectedActivatedRound, actualActivatedRound);
+    }
+
 }
