@@ -271,6 +271,17 @@ public class Game {
         return card;
     }
 
+    private Card drawCard(Supplier<Card> peek, Runnable remove) {
+        Card card = peek.get();
+        if (card.getType() != CardType.EXPLODING_KITTEN) {
+            remove.run();
+            getCurrentPlayer().addCardToHand(card);
+        }
+        turnManager.decrementDrawCount();
+        getCurrentPlayer().deselectHandCards();
+        return card;
+    }
+
     public int getDrawPileSize() {
         return drawPile.size();
     }
