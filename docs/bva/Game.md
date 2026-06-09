@@ -1436,7 +1436,7 @@
     - turnManager.drawCount = 4
 
 ### Method under test: `applyRagebait(int targetPlayerIndex)`
-- **TC196: First player targets adjacent player** ( :x: )
+- **TC196: First player targets adjacent player** ( :white_check_mark: )
   - **Name of the test**: applyRagebait_validTargets_swapsHands
   - **State of the system**: currentPlayerIndex = 0, targetPlayerIndex = 1
   - **Expected output**: currentPlayer.swapHandWith(targetPlayer) is called
