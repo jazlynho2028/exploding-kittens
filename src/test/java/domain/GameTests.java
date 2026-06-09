@@ -2808,7 +2808,8 @@ public class GameTests {
 	static Stream<Arguments> applyRagebaitArgs() {
 		return Stream.of(
 				Arguments.of(0, 1),
-				Arguments.of(0, GameConstants.MAX_PLAYER_INDEX)
+				Arguments.of(0, GameConstants.MAX_PLAYER_INDEX),
+				Arguments.of(GameConstants.MAX_PLAYER_INDEX, 0)
 		);
 	}
 

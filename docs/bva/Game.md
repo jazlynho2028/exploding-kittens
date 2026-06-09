@@ -1446,7 +1446,7 @@
   - **State of the system**: currentPlayerIndex = 0, targetPlayerIndex = LAST_PLAYER_INDEX
   - **Expected output**: currentPlayer.swapHandWith(targetPlayer) is called
 
-- **TC198: Last player targets first player** ( :x: )
+- **TC198: Last player targets first player** ( :white_check_mark: )
   - **Name of the test**: applyRagebait_validTargets_swapsHands
   - **State of the system**: currentPlayerIndex = LAST_PLAYER_INDEX, targetPlayerIndex = 0
   - **Expected output**: currentPlayer.swapHandWith(targetPlayer) is called
