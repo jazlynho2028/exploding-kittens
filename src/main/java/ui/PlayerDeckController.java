@@ -97,7 +97,8 @@ public class PlayerDeckController {
 
                     view.renderPlayerNameTags(model.getCurrentPlayerIndex(),
                             model.getIsGameOngoing(), model.getDeadIndices());
-                } else {
+                }
+                else {
                     handleChangeCurrentPlayer(playerIndex);
                     updateTurnControls();
                 }
