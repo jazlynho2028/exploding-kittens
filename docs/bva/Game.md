@@ -240,7 +240,6 @@
     - selectedCardTypes = [DEFUSE]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -252,7 +251,6 @@
     - canPlaySelected returns true
     - selectedCardTypes = [ATTACK]
     - getCurrentPlayer = player
-    - player.resetWinnerWinner is called
     - player.removeCardFromHand with card1 throws IllegalStateException "error.cardNotInHand"
   - **Expected output**: throw IllegalStateException "error.cardNotInHand"
 
@@ -263,7 +261,6 @@
     - selectedCardTypes = [ATTACK]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -277,7 +274,6 @@
     - selectedCardTypes = [SHUFFLE]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -291,7 +287,6 @@
     - selectedCardTypes = [SKIP]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -305,7 +300,6 @@
     - selectedCardTypes = [SEE_THE_FUTURE]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -319,7 +313,6 @@
     - selectedCardTypes = [CATOMIC_BOMB]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -333,7 +326,6 @@
     - selectedCardTypes = [SUPER_SKIP]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -347,7 +339,6 @@
     - selectedCardTypes = [GODCAT]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -360,7 +351,6 @@
     - canPlaySelected returns trueselectedCardTypes = [CLONE]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -374,7 +364,6 @@
     - selectedCardTypes = [SWAP_TOP_AND_BOTTOM]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -388,7 +377,6 @@
     - selectedCardTypes = [DRAW_FROM_THE_BOTTOM]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -402,7 +390,6 @@
     - selectedCardTypes = [TARGETED_ATTACK]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -416,7 +403,6 @@
     - selectedCardTypes = [WINNER_WINNER_CATNIP_DINNER]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -430,7 +416,6 @@
     - selectedCardTypes = [RAGEBAIT]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -444,7 +429,6 @@
     - selectedCardTypes = [RECYCLE]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -458,7 +442,6 @@
     - selectedCardTypes = [DOUBLE_UP]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -472,7 +455,6 @@
     - selectedCardTypes = [MILD_SHUFFLE]
     - getCurrentPlayer = player
   - **Expected output**:
-    - player.resetWinnerWinner is called
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
@@ -956,23 +938,45 @@
 ### Method under test: `playDefuse(int drawPileIndex)`
 - **TC120: Empty hand** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
-  - **State of the system**: getCurrentPlayer.getHand = []
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = []
+    - topDiscardType = DEFUSE
   - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
 
 - **TC121: Hand with one card type, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
-  - **State of the system**: currentPlayerHandCardTypes = [ATTACK]
-  - **Expected output**: return false
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [ATTACK]
+    - topDiscardType = ATTACK
+  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
 
 - **TC122: Hand with two different card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
-  - **State of the system**: currentPlayerHandCardTypes = [ATTACK, SKIP]
-  - **Expected output**: return false
+  - **State of the system**: 
+    - currentPlayerHandCardTypes = [ATTACK, SKIP]
+    - topDiscardType = DEFUSE
+  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
 
 - **TC123: Hand with two same card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
-  - **State of the system**: currentPlayerHandCardTypes = [SKIP, SKIP]
-  - **Expected output**: return false
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [SKIP, SKIP]
+    - topDiscardType = ATTACK
+  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
+
+- **TC123: Hand with Clone, top discard type is not Defuse** ( :white_check_mark: )
+  - **Name of the test**: playDefuse_noDefuser_failed
+  - **State of the system**:
+    -  currentPlayerHandCardTypes = [CLONE, SKIP]
+    - topDiscardType = ATTACK
+  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
+
+- **TC123: Hand with two Clones, top discard type is not Defuse** ( :white_check_mark: )
+  - **Name of the test**: playDefuse_noDefuser_failed
+  - **State of the system**:
+    - currentPlayerHandCardTypes = [CLONE, CLONE]
+    - topDiscardType = ATTACK
+  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
 
 - **TC124: Hand with one card type, has Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
