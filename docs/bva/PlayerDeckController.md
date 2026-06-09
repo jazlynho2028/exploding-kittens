@@ -302,13 +302,31 @@
     - currentPlayerIndex = 0
     - playSelectedCards returns CardType.TARGETED_ATTACK
   - **Expected output**:
-    - model.playSelectedCards is called
-    - view.renderDiscardPile(canDrawFromDiscard, topDiscardId) is called
-    - rebindHandCards is called
-    - view.renderTurnControlSection(canPlaySelected, canEndTurn) is called
-    - pendingTargetAction becomes present
-    - view.renderPlayerNameTags(currentPlayerIndex, false) is called
-    - view.renderTurnControlSection(false, false) is called
+    - pendingTargetAction becomes present.
+    - view.renderPlayerNameTags(0, false, DEAD_INDICES) is called.
+    - view.renderTurnControlSection(false, false) is called.
+    - Lambda action execution behavior
+      - model.applyTargetedAttack(target) 
+      - handleChangeCurrentPlayer(target) 
+      - updateTurnControls()
+
+- **TC25: Ragebait card played** ( :x: )
+  - **Name of the test**: onPlayCardsButton_ragebaitPlayed_targetSelectionEnabled
+  - **State of the system**:
+    - canDrawFromDiscard = true
+    - topDiscardId = "RAGEBAIT_1"
+    - canPlaySelected = true
+    - canEndTurn = true
+    - currentPlayerIndex = 0
+    - playSelectedCards returns CardType.RAGEBAIT
+  - **Expected output**:
+    - pendingTargetAction becomes present.
+    - view.renderPlayerNameTags(0, false, DEAD_INDICES) is called.
+    - view.renderTurnControlSection(false, false) is called.
+    - Lambda action execution behavior
+      - model.applyRagebait(target)
+      - rebindHandCards()
+      - updateTurnControls()
 
 - **TC30: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed
