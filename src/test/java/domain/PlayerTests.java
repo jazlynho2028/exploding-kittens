@@ -637,11 +637,16 @@ public class PlayerTests {
         assertEquals(expectedMsg, actualMsg);
     }
 
-    @Test
-    public void activateWinnerWinnerFromRound_validRound_setWinnerWinnerActivatedRound() {
+    @ParameterizedTest
+    @CsvSource({
+            "1",
+            "2"
+    })
+    public void activateWinnerWinnerFromRound_validRound_setWinnerWinnerActivatedRound(
+            int expectedActivatedRound) {
+
         Player player = new Player("Audrey");
 
-        int expectedActivatedRound = 1;
         player.activateWinnerWinnerFromRound(expectedActivatedRound);
 
         int actualActivatedRound = player.getWinnerWinnerActivatedRound();

@@ -215,7 +215,7 @@
   - **State of the system**: round = 1
   - **Expected output**: winnerWinnerActivatedRound = 1
 
-- **TC42: Round 2** ( :x: )
+- **TC42: Round 2** ( :white_check_mark: )
   - **Name of the test**: activateWinnerWinnerFromRound_validRound_setWinnerWinnerActivatedRound
   - **State of the system**: round = 2
   - **Expected output**: winnerWinnerActivatedRound = 2
