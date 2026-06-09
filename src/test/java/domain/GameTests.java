@@ -3033,6 +3033,32 @@ public class GameTests {
 		EasyMock.verify(discardPile, turnManager, currentPlayer, game);
 	}
 
+	@Test
+	public void drawFromRecycle_emptyDiscard_throwsException() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		String expectedMsg = "error.emptyDeck";
+
+		EasyMock.expect(discardPile.peekBottom()).andThrow(
+				new IllegalStateException(expectedMsg)
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Exception exception = assertThrows(IllegalStateException.class,
+				game::drawFromRecycle);
+
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(discardPile);
+	}
+
 	private Game mockGameWithGetCurrentPlayer(
 			List<Player> players, Deck drawPile, Deck discardPile,
 			TurnManager turnManager, Player currentPlayer) {

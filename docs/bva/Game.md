@@ -1741,7 +1741,7 @@
     - getCurrentPlayer().deselectHandCards() is called 
     - returns exploding kitten card
 
-- **TC206: discardPile.peekBottom() throws exception** ( :x: )
+- **TC206: discardPile.peekBottom() throws exception** ( :white_check_mark: )
   - **Name of the test**: drawFromRecycle_emptyDiscard_throwsException
   - **State of the system**: discardPile.peekBottom() throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
