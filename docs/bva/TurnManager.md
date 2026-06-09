@@ -205,7 +205,7 @@
   - **State of the system**: player1 has [card1], player2 has [card2]
   - **Expected output**: player1 has [card2], player2 has [card1]
 
-- **TC17: One player has empty hand** ( :x: )
+- **TC17: One player has empty hand** ( :white_check_mark: )
   - **Name of the test**: swapHandWith_oneEmptyHand_handsSwapped
   - **State of the system**: player1 has [card1], player2 has []
   - **Expected output**: player1 has [], player2 has [card1]
