@@ -45,6 +45,7 @@ public class Player {
             throw new IllegalStateException("error.cardNotInHand");
         }
         hand.remove(card);
+        winnerWinnerActivatedRound = 0;
     }
 
     public void deselectHandCards() {
@@ -89,10 +90,6 @@ public class Player {
 
     public boolean isWinnerWinnerActivated() {
         return winnerWinnerActivatedRound > 0;
-    }
-
-    public void resetWinnerWinner() {
-        winnerWinnerActivatedRound = 0;
     }
 
 }

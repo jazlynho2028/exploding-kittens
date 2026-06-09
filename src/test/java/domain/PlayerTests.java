@@ -141,6 +141,7 @@ public class PlayerTests {
 
         assertEquals(0, player.getHand().size());
         assertFalse(player.getHand().contains(mockExistingCard));
+        assertEquals(0, player.getWinnerWinnerActivatedRound());
 
         EasyMock.verify(mockExistingCard);
     }
@@ -181,6 +182,7 @@ public class PlayerTests {
         assertEquals(maintainHandSize, player.getHand().size());
         assertFalse(player.getHand().contains(mockCardToRemove));
         assertSame(mockCardToKeep, player.getHand().get(0));
+        assertEquals(0, player.getWinnerWinnerActivatedRound());
 
         EasyMock.verify(mockCardToRemove, mockCardToKeep);
     }
@@ -217,6 +219,7 @@ public class PlayerTests {
 
         assertEquals(expectedFinalSize, player.getHandSize());
         assertSame(mockDuplicateCard, player.getHand().get(0));
+        assertEquals(0, player.getWinnerWinnerActivatedRound());
 
         EasyMock.verify(mockDuplicateCard);
     }
@@ -666,32 +669,6 @@ public class PlayerTests {
         player.activateWinnerWinnerFromRound(round);
 
         assertTrue(player.isWinnerWinnerActivated());
-    }
-
-    @Test
-    public void resetWinnerWinner_winnerwinnerActivatedRoundAtZero_setToZero() {
-        Player player = new Player("Audrey");
-
-        player.resetWinnerWinner();
-
-        int expectedActivatedRound = 0;
-        int actualActivatedRound = player.getWinnerWinnerActivatedRound();
-
-        assertEquals(expectedActivatedRound, actualActivatedRound);
-    }
-
-    @Test
-    public void resetWinnerWinner_winnerwinnerActivatedRoundAtOne_setToZero() {
-        Player player = new Player("Audrey");
-        int round = 1;
-        player.activateWinnerWinnerFromRound(round);
-
-        player.resetWinnerWinner();
-
-        int expectedActivatedRound = 0;
-        int actualActivatedRound = player.getWinnerWinnerActivatedRound();
-
-        assertEquals(expectedActivatedRound, actualActivatedRound);
     }
 
 }
