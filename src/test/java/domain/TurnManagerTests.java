@@ -251,4 +251,21 @@ public class TurnManagerTests {
         assertEquals(expectedDrawCount, actualDrawCount);
     }
 
+    @Test
+    public void swapHandWith_bothPlayersHaveCards_handsSwapped() {
+        Card card1 = new Card("SKIP_1", CardType.SKIP);
+        Card card2 = new Card("ATTACK_1", CardType.ATTACK);
+
+        Player player1 = new Player("Alice");
+        Player player2 = new Player("Bob");
+
+        player1.addCardToHand(card1);
+        player2.addCardToHand(card2);
+
+        player1.swapHandWith(player2);
+
+        assertEquals(List.of(card2), player1.getHand());
+        assertEquals(List.of(card1), player2.getHand());
+    }
+
 }

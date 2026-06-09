@@ -200,7 +200,7 @@
   - **Expected output**: drawCount = 2
 
 ### Method under test: `swapHandWith(Player other)`
-- **TC16: Both players have cards** ( :x: )
+- **TC16: Both players have cards** ( :white_check_mark: )
   - **Name of the test**: swapHandWith_bothPlayersHaveCards_handsSwapped
   - **State of the system**: player1 has [card1], player2 has [card2]
   - **Expected output**: player1 has [card2], player2 has [card1]
