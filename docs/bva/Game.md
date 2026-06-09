@@ -1730,7 +1730,7 @@
     - getCurrentPlayer().deselectHandCards() is called 
     - returns card
 
-- **TC205: Drawn card is Exploding Kitten** ( :x: )
+- **TC205: Drawn card is Exploding Kitten** ( :white_check_mark: )
   - **Name of the test**: drawFromRecycle_explodingKitten_cardNotAddedToHand
   - **State of the system**: discard pile bottom card is EXPLODING_KITTEN
   - **Expected output**: 
