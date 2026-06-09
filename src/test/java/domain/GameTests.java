@@ -2832,12 +2832,16 @@ public class GameTests {
 		currentPlayer.swapHandWith(targetPlayer);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(players, currentPlayer, targetPlayer, drawPile, discardPile, turnManager);
+		EasyMock.replay(players, currentPlayer,
+				targetPlayer, drawPile,
+				discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 		game.applyRagebait(targetPlayerIndex);
 
-		EasyMock.verify(players, currentPlayer, targetPlayer, drawPile, discardPile, turnManager);
+		EasyMock.verify(players, currentPlayer,
+				targetPlayer, drawPile,
+				discardPile, turnManager);
 	}
 
 	@Test
