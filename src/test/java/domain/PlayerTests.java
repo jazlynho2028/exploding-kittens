@@ -637,4 +637,15 @@ public class PlayerTests {
         assertEquals(expectedMsg, actualMsg);
     }
 
+    @Test
+    public void activateWinnerWinnerFromRound_validRound_setWinnerWinnerActivatedRound() {
+        Player player = new Player("Audrey");
+
+        int expectedActivatedRound = 1;
+        player.activateWinnerWinnerFromRound(expectedActivatedRound);
+
+        int actualActivatedRound = player.getWinnerWinnerActivatedRound();
+        assertEquals(expectedActivatedRound, actualActivatedRound);
+    }
+
 }

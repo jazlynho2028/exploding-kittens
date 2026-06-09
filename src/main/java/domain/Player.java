@@ -80,7 +80,11 @@ public class Player {
     }
 
     public void activateWinnerWinnerFromRound(int round) {
-        throw new IllegalArgumentException("error.invalidRound");
+        if (round < 1) {
+            throw new IllegalArgumentException("error.invalidRound");
+        }
+
+        winnerWinnerActivatedRound = round;
     }
 
     public boolean isWinnerWinnerActivated() {

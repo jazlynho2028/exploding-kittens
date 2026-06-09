@@ -210,7 +210,7 @@
   - **State of the system**: round = 0
   - **Expected output**: throw IllegalArgumentException "error.invalidRound"
 
-- **TC41: Round 1** ( :x: )
+- **TC41: Round 1** ( :white_check_mark: )
   - **Name of the test**: activateWinnerWinnerFromRound_validRound_setWinnerWinnerActivatedRound
   - **State of the system**: round = 1
   - **Expected output**: winnerWinnerActivatedRound = 1
