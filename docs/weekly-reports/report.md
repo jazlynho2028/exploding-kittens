@@ -114,7 +114,7 @@
 20. [Done] DJ: Godcat implementation
 21. [Done] Jazlyn: Resolve Godcat implementation bugs
 22. [Done] DJ: Swap Top And Bottom implementation
-23. [not started] DJ: Recycle implementation
+23. [50% Done] DJ: Recycle implementation
 24. [Done] Irene: Shuffle implementation
 25. [30%] Irene: Clone implementation
 26. [50%] Irene: Draw From The Bottom implementation
