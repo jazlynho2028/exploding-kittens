@@ -2945,7 +2945,8 @@ public class GameTests {
 		EasyMock.expect(player3.isAlive()).andStubReturn(true);
 		EasyMock.expect(player4.isAlive()).andStubReturn(true);
 
-		EasyMock.replay(player1, player2, player3, player4, drawPile, discardPile, turnManager);
+		EasyMock.replay(player1, player2, player3, player4,
+				drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 

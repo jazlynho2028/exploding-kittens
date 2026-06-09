@@ -137,10 +137,20 @@ public class TurnManagerTests {
         return Stream.of(
                 Arguments.of(2,  0, 0,  1, 2, Set.of(0)),
                 Arguments.of(2,  1, 1,  1, 2,  Set.of(1)),
-                Arguments.of(3,  0, 2,  1, 1, Set.of(0, 2)),
-                Arguments.of(3,  1, 0,  2, 3, Set.of(0)),
-                Arguments.of(3,  2, 1,  1, 2, Set.of(1)),
-                Arguments.of(4,  0, 2,  1, 1, Set.of(0, 2, 3))
+                Arguments.of(
+                        GameConstants.MAX_PLAYERS - 1,
+                        0, 2,  1, 1, Set.of(0, 2)),
+                Arguments.of(
+                        GameConstants.MAX_PLAYERS - 1,
+                        1, 0,  2, GameConstants.MAX_PLAYER_INDEX,
+                        Set.of(0)),
+                Arguments.of(
+                        GameConstants.MAX_PLAYERS - 1,
+                        2, 1,  1, 2, Set.of(1)),
+                Arguments.of(
+                        GameConstants.MAX_PLAYERS,
+                        0, 2,  1, 1,
+                        Set.of(0, 2, GameConstants.MAX_PLAYER_INDEX))
         );
     }
 
