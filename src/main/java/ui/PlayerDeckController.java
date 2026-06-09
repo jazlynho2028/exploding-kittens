@@ -185,7 +185,7 @@ public class PlayerDeckController {
         });
     }
 
-    private void updateTurnControls() {
+    void updateTurnControls() {
         view.renderTurnControlSection(
                 model.canPlaySelected(),
                 model.canEndTurn()
@@ -231,26 +231,34 @@ public class PlayerDeckController {
     void updateByCardType(CardType cardType) {
         switch (cardType) {
             case SKIP:
-			case SUPER_SKIP:
-			case CATOMIC_BOMB:
-				renderNextTurn();
+            case SUPER_SKIP:
+            case CATOMIC_BOMB:
+                renderNextTurn();
                 break;
             case SEE_THE_FUTURE:
                 view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
                 break;
             case TARGETED_ATTACK:
-                pendingTargetAction = Optional.of(model::applyTargetedAttack);
+                pendingTargetAction = Optional.of(targetIndex -> {
+                    model.applyTargetedAttack(targetIndex);
+                    handleChangeCurrentPlayer(targetIndex);
+                    updateTurnControls();
+                });
                 view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
                         model.getDeadIndices());
                 view.renderTurnControlSection(false, false);
                 break;
             case RAGEBAIT:
-                pendingTargetAction = Optional.of(model::applyRagebait);
+                pendingTargetAction = Optional.of(targetIndex -> {
+                    model.applyRagebait(targetIndex);
+                    rebindHandCards();
+                    updateTurnControls();
+                });
                 view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
                         model.getDeadIndices());
                 view.renderTurnControlSection(false, false);
                 break;
-			default:
+            default:
                 break;
         }
     }

@@ -743,9 +743,6 @@ public class PlayerDeckControllerTests {
 	}
 
 	private void expectTargetCardPlaySetup(PlayerDeckController controller, CardType cardType, String discardId, int currentPlayerIndex) {
-		boolean canPlaySelected = true;
-		boolean canEndTurn = true;
-
 		EasyMock.expect(model.playSelectedCards()).andReturn(cardType);
 		EasyMock.expect(model.canDrawFromDiscard()).andReturn(true);
 		EasyMock.expect(model.getTopDiscardId()).andReturn(discardId);
@@ -754,9 +751,8 @@ public class PlayerDeckControllerTests {
 
 		controller.rebindHandCards();
 		EasyMock.expectLastCall();
-		EasyMock.expect(model.canPlaySelected()).andReturn(canPlaySelected);
-		EasyMock.expect(model.canEndTurn()).andReturn(canEndTurn);
-		view.renderTurnControlSection(canPlaySelected, canEndTurn);
+
+		controller.updateTurnControls();
 		EasyMock.expectLastCall();
 
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
@@ -784,6 +780,37 @@ public class PlayerDeckControllerTests {
 		EasyMock.expectLastCall();
 
 		controller.handleChangeCurrentPlayer(targetPlayerIndex);
+		EasyMock.expectLastCall();
+
+		controller.updateTurnControls();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onPlayCardsButton();
+
+		assertTrue(controller.pendingTargetAction.isPresent());
+		controller.pendingTargetAction.get().accept(targetPlayerIndex);
+
+		EasyMock.verify(model, view, controller);
+	}
+
+	@Test
+	public void onPlayCardsButton_ragebaitPlayed_targetSelectionEnabled() {
+		int targetPlayerIndex = 3;
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("rebindHandCards")
+				.addMockedMethod("updateTurnControls")
+				.createMock();
+
+		expectTargetCardPlaySetup(controller, CardType.RAGEBAIT, "RAGEBAIT_1", 0);
+
+		model.applyRagebait(targetPlayerIndex);
+		EasyMock.expectLastCall();
+
+		controller.rebindHandCards();
 		EasyMock.expectLastCall();
 
 		controller.updateTurnControls();
