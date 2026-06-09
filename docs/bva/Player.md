@@ -221,7 +221,7 @@
   - **Expected output**: winnerWinnerActivatedRound = 2
 
 ### Method under test: `isWinnerWinnerActivated()`
-- **TC43: Round 0** ( :x: )
+- **TC43: Round 0** ( :white_check_mark: )
   - **Name of the test**: isWinnerWinnerActivated_roundZero_returnFalse
   - **State of the system**: winnerWinnerActivatedRound = 0
   - **Expected output**: return false

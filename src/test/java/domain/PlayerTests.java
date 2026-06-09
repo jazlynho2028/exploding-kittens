@@ -653,4 +653,10 @@ public class PlayerTests {
         assertEquals(expectedActivatedRound, actualActivatedRound);
     }
 
+    @Test
+    public void isWinnerWinnerActivated_roundZero_returnFalse() {
+        Player player = new Player("Audrey");
+        assertFalse(player.isWinnerWinnerActivated());
+    }
+
 }
