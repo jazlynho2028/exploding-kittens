@@ -9,6 +9,7 @@ public class Player {
     private final String name;
     private final List<Card> hand;
     private boolean isAlive;
+    private int winnerWinnerActivatedRound;
 
     public Player(String name) {
         this.name = name;
@@ -72,6 +73,22 @@ public class Player {
 
     public void eliminate() {
         isAlive = false;
+    }
+
+    public int getWinnerWinnerActivatedRound() {
+        return winnerWinnerActivatedRound;
+    }
+
+    public void activateWinnerWinnerFromRound(int round) {
+
+    }
+
+    public boolean isWinnerWinnerActivated() {
+        return true;
+    }
+
+    public void resetWinnerWinner() {
+
     }
 
 }
