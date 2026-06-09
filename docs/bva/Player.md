@@ -203,3 +203,41 @@
   - **Name of the test**: eliminatePlayer_playerCreated_setIsAliveToFalse
   - **State of the system**: Player is dead
   - **Expected output**: Player is dead
+
+### Method under test: `activateWinnerWinnerFromRound(int round)`
+- **TC40: Round 0** ( :x: )
+  - **Name of the test**: activateWinnerWinnerFromRound_roundZero_failed
+  - **State of the system**: round = 0
+  - **Expected output**: throw IllegalArgumentException "error.invalidRound"
+
+- **TC41: Round 1** ( :x: )
+  - **Name of the test**: activateWinnerWinnerFromRound_validRound_setWinnerWinnerActivatedRound
+  - **State of the system**: round = 1
+  - **Expected output**: winnerWinnerActivatedRound = 1
+
+- **TC42: Round 2** ( :x: )
+  - **Name of the test**: activateWinnerWinnerFromRound_validRound_setWinnerWinnerActivatedRound
+  - **State of the system**: round = 2
+  - **Expected output**: winnerWinnerActivatedRound = 2
+
+### Method under test: `isWinnerWinnerActivated()`
+- **TC43: Round 0** ( :x: )
+  - **Name of the test**: isWinnerWinnerActivated_roundZero_returnFalse
+  - **State of the system**: winnerWinnerActivatedRound = 0
+  - **Expected output**: return false
+
+- **TC44: Round 1** ( :x: )
+  - **Name of the test**: isWinnerWinnerActivated_roundOne_returnTrue
+  - **State of the system**: winnerWinnerActivatedRound = 1
+  - **Expected output**: return true
+
+### Method under test: `resetWinnerWinner()`
+- **TC45: No change** ( :x: )
+  - **Name of the test**: resetWinnerWinner_winnerwinnerActivatedRoundAnyValue_setToZero
+  - **State of the system**: winnerWinnerActivatedRound = 0
+  - **Expected output**: winnerWinnerActivatedRound = 0
+
+- **TC46: Set to zero** ( :x: )
+  - **Name of the test**: resetWinnerWinner_winnerwinnerActivatedRoundAnyValue_setToZero
+  - **State of the system**: winnerWinnerActivatedRound = 1
+  - **Expected output**: winnerWinnerActivatedRound = 0
