@@ -339,47 +339,31 @@ public class PlayerDeckControllerTests {
 	@Test
 	public void onNameTag_pendingTargetActionPresent_executesAction() {
 		int playerIndex = 1;
+		int initialPlayerIndex = 0;
 		int newPlayerIndex = 2;
 		boolean isGameOngoing = true;
-		boolean canPlaySelected = true;
-		boolean canEndTurn = false;
 
 		Consumer<Integer> mockAction = EasyMock.createMock(Consumer.class);
-
-		PlayerDeckController controller = EasyMock.createMockBuilder(
-				PlayerDeckController.class)
-				.withConstructor(model, view)
-				.addMockedMethod("handleChangeCurrentPlayer")
-				.createMock();
-
+		PlayerDeckController controller = new PlayerDeckController(model, view);
 		controller.pendingTargetAction = Optional.of(mockAction);
 
-		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(CURRENT_PLAYER_INDEX);
-		EasyMock.expect(model.getDeadIndices()).andReturn(DEAD_INDICES);
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(initialPlayerIndex);
 
 		mockAction.accept(playerIndex);
 		EasyMock.expectLastCall();
 
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(newPlayerIndex);
 		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
+		EasyMock.expect(model.getDeadIndices()).andReturn(DEAD_INDICES);
 
 		view.renderPlayerNameTags(newPlayerIndex, isGameOngoing, DEAD_INDICES);
 		EasyMock.expectLastCall();
 
-		controller.handleChangeCurrentPlayer(playerIndex);
-		EasyMock.expectLastCall();
-
-		EasyMock.expect(model.canPlaySelected()).andReturn(canPlaySelected);
-		EasyMock.expect(model.canEndTurn()).andReturn(canEndTurn);
-
-		view.renderTurnControlSection(canPlaySelected, canEndTurn);
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(model, view, mockAction, controller);
+		EasyMock.replay(model, view, mockAction);
 
 		controller.onNameTag(playerIndex);
 
-		EasyMock.verify(model, view, mockAction, controller);
+		EasyMock.verify(model, view, mockAction);
 		assertFalse(controller.pendingTargetAction.isPresent());
 	}
 
@@ -846,7 +830,6 @@ public class PlayerDeckControllerTests {
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM),
 				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM),
 				Arguments.of(CardType.WINNER_WINNER_CATNIP_DINNER),
-				Arguments.of(CardType.RAGEBAIT),
 				Arguments.of(CardType.RECYCLE),
 				Arguments.of(CardType.DOUBLE_UP),
 				Arguments.of(CardType.MILD_SHUFFLE)

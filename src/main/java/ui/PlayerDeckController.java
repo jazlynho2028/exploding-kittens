@@ -90,15 +90,17 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             if (model.getCurrentPlayerIndex() != playerIndex) {
                 if (pendingTargetAction.isPresent()) {
-                    pendingTargetAction.get().accept(playerIndex);
+                    Consumer<Integer> action = pendingTargetAction.get();
                     pendingTargetAction = Optional.empty();
+
+                    action.accept(playerIndex);
 
                     view.renderPlayerNameTags(model.getCurrentPlayerIndex(),
                             model.getIsGameOngoing(), model.getDeadIndices());
+                } else {
+                    handleChangeCurrentPlayer(playerIndex);
+                    updateTurnControls();
                 }
-
-                handleChangeCurrentPlayer(playerIndex);
-                updateTurnControls();
             }
         });
     }
@@ -238,6 +240,12 @@ public class PlayerDeckController {
                 break;
             case TARGETED_ATTACK:
                 pendingTargetAction = Optional.of(model::applyTargetedAttack);
+                view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
+                        model.getDeadIndices());
+                view.renderTurnControlSection(false, false);
+                break;
+            case RAGEBAIT:
+                pendingTargetAction = Optional.of(model::applyRagebait);
                 view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
                         model.getDeadIndices());
                 view.renderTurnControlSection(false, false);
