@@ -228,6 +228,10 @@ public class Game {
     }
 
     public void changeCurrentPlayerIndex(int newPlayerIndex) {
+        if (getDeadIndices().contains(newPlayerIndex)) {
+            throw new IllegalStateException("error.playerIsDead");
+        }
+
         turnManager.setCurrentPlayerIndex(newPlayerIndex);
     }
 

@@ -1161,16 +1161,56 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		int newPlayerIndex = 0;
+
 		turnManager.setCurrentPlayerIndex(newPlayerIndex);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
-		Game game = new Game(players, drawPile, discardPile, turnManager);
+		Set<Integer> deadIndices = Set.of();
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getDeadIndices")
+				.createMock();
+
+		EasyMock.expect(game.getDeadIndices()).andReturn(deadIndices);
+
+		EasyMock.replay(game);
 
 		game.changeCurrentPlayerIndex(newPlayerIndex);
 
-		EasyMock.verify(turnManager);
+		EasyMock.verify(turnManager, game);
+	}
+
+	@Test
+	public void changeCurrentPlayerIndex_deadPlayerIndex_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		int newPlayerIndex = 0;
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Set<Integer> deadIndices = Set.of(0);
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getDeadIndices")
+				.createMock();
+
+		EasyMock.expect(game.getDeadIndices()).andReturn(deadIndices);
+
+		EasyMock.replay(game);
+
+		Exception exception = assertThrows(IllegalStateException.class, () ->
+				game.changeCurrentPlayerIndex(newPlayerIndex));
+
+		String expectedMsg = "error.playerIsDead";
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
+		EasyMock.verify(game);
 	}
 
 	@Test
@@ -1181,6 +1221,7 @@ public class GameTests {
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		int newPlayerIndex = 0;
+		Set<Integer> deadIndices = Set.of();
 		String expectedMsg = "error.invalidPlayerIndex";
 
 		turnManager.setCurrentPlayerIndex(newPlayerIndex);
@@ -1190,7 +1231,14 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
-		Game game = new Game(players, drawPile, discardPile, turnManager);
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getDeadIndices")
+				.createMock();
+
+		EasyMock.expect(game.getDeadIndices()).andReturn(deadIndices);
+
+		EasyMock.replay(game);
 
 		Exception exception = assertThrows(IllegalArgumentException.class, () ->
 				game.changeCurrentPlayerIndex(newPlayerIndex));
@@ -1198,7 +1246,7 @@ public class GameTests {
 		String actualMsg = exception.getMessage();
 		assertEquals(expectedMsg, actualMsg);
 
-		EasyMock.verify(turnManager);
+		EasyMock.verify(turnManager, game);
 	}
 
 	@ParameterizedTest
