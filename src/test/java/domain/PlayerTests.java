@@ -1,5 +1,6 @@
 package domain;
 
+import org.easymock.TestSubject;
 import org.junit.jupiter.api.Test;
 
 import org.easymock.EasyMock;
@@ -620,6 +621,20 @@ public class PlayerTests {
 
         boolean isAlive = player.isAlive();
         assertFalse(isAlive);
+    }
+
+    @Test
+    public void activateWinnerWinnerFromRound_roundZero_failed() {
+        Player player = new Player("Audrey");
+
+        int round = 0;
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                player.activateWinnerWinnerFromRound(round));
+
+        String expectedMsg = "error.invalidRound";
+        String actualMsg = exception.getMessage();
+
+        assertEquals(expectedMsg, actualMsg);
     }
 
 }

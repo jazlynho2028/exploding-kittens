@@ -205,7 +205,7 @@
   - **Expected output**: Player is dead
 
 ### Method under test: `activateWinnerWinnerFromRound(int round)`
-- **TC40: Round 0** ( :x: )
+- **TC40: Round 0** ( :white_check_mark: )
   - **Name of the test**: activateWinnerWinnerFromRound_roundZero_failed
   - **State of the system**: round = 0
   - **Expected output**: throw IllegalArgumentException "error.invalidRound"
