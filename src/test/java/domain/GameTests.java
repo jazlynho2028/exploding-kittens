@@ -3137,9 +3137,7 @@ public class GameTests {
 
 		Card card = mockCardOfType(CardType.SKIP);
 
-		discardPile.shuffle();
-		EasyMock.expectLastCall();
-
+		EasyMock.expect(discardPile.peekBottom()).andReturn(card);
 		EasyMock.expect(discardPile.removeBottom()).andReturn(card);
 
 		String expectedMsg = "error.negativeDrawCount";
@@ -3148,7 +3146,7 @@ public class GameTests {
 				new IllegalStateException(expectedMsg)
 		);
 
-		EasyMock.replay(players, drawPile, discardPile, turnManager, card);
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 

@@ -397,15 +397,6 @@ public class Game {
         return getAliveIndices().size() == 1;
     }
 
-    public CardType drawFromDiscard() {
-        Card card = discardPile.removeBottom();
-        turnManager.decrementDrawCount();
-        getCurrentPlayer().deselectHandCards();
-        getCurrentPlayer().addCardToHand(card);
-        canDrawFromDiscard = false;
-        return card.getType();
-    }
-
     void applyAttack() {
         // TODO
     }
