@@ -1713,7 +1713,7 @@
   - **Expected output**: return "Audrey"
 
 ### Method under test: `applyRecycle()`
-- **TC203: applyRecycle called** ( :x: )
+- **TC203: applyRecycle called** ( :white_check_mark: )
   - **Name of the test**: applyRecycle_called_shufflesDiscardPile
   - **State of the system**: N/A
   - **Expected output**: discardPile.shuffle() is called

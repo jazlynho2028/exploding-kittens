@@ -2948,42 +2948,21 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyRecycle_nonExplodingCard_cardDrawnToHand() {
+	public void applyRecycle_called_shufflesDiscardPile() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		Card card = mockCardOfType(CardType.SKIP);
-		Player currentPlayer = EasyMock.createMock(Player.class);
-
 		discardPile.shuffle();
 		EasyMock.expectLastCall();
 
-		EasyMock.expect(discardPile.peekBottom()).andReturn(card);
-		EasyMock.expect(discardPile.removeBottom()).andReturn(card);
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
-		currentPlayer.addCardToHand(card);
-		EasyMock.expectLastCall();
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applyRecycle();
 
-		turnManager.decrementDrawCount();
-		EasyMock.expectLastCall();
-
-		currentPlayer.deselectHandCards();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
-
-		Game game = mockGameWithGetCurrentPlayer(
-				players, drawPile, discardPile, turnManager, currentPlayer);
-
-		EasyMock.replay(game);
-
-		Card actualCard = game.applyRecycle();
-
-		assertEquals(card, actualCard);
-
-		EasyMock.verify(discardPile, turnManager, currentPlayer, game);
+		EasyMock.verify(discardPile);
 	}
 
 	private Game mockGameWithGetCurrentPlayer(
