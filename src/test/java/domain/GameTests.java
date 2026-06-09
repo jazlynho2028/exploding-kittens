@@ -957,23 +957,22 @@ public class GameTests {
 	}
 
 	@Test
-	public void getTopDiscardId_emptyDiscardPile_failed() {
+	public void getTopDiscardId_emptyDiscardPile_returnEmptyString() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		String expectedMsg = "error.emptyDeck";
-
-		EasyMock.expect(discardPile.peekTop()).andThrow(
-				new IllegalStateException(expectedMsg)
-		);
+		EasyMock.expect(discardPile.isEmpty()).andReturn(true);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		assertThrows(IllegalStateException.class, game::getTopDiscardId);
+		String expectedTopDiscardId = "";
+		String actualTopDiscardId = game.getTopDiscardId();
+
+		assertEquals(expectedTopDiscardId, actualTopDiscardId);
 
 		EasyMock.verify(discardPile);
 	}
@@ -984,6 +983,8 @@ public class GameTests {
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(discardPile.isEmpty()).andReturn(false);
 
 		String expectedId = "SKIP_1";
 		Card topCard = EasyMock.createMock(Card.class);

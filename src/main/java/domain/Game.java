@@ -200,6 +200,9 @@ public class Game {
     }
 
     public String getTopDiscardId() {
+        if (discardPile.isEmpty()) {
+            return "";
+        }
         return discardPile.peekTop().getId();
     }
 
@@ -270,7 +273,7 @@ public class Game {
             throw new IllegalStateException("error.cannotEndTurn");
         }
         getCurrentPlayer().deselectHandCards();
-		turnManager.incrementTurn(getAliveIndices());
+        turnManager.incrementTurn(getAliveIndices());
         turnManager.incrementDrawCount();
     }
 
@@ -460,7 +463,7 @@ public class Game {
     }
 
     void applyWinnerWinnerCatnipDinner() {
-        // TODO
+
     }
 
     void applyRagebait() {

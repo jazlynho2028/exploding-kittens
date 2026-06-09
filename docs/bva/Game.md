@@ -462,14 +462,16 @@
     - returns CardType.MILD_DRAW
 
 ### Method under test: `getTopDiscardId()`
-- **TC60: Empty discard pile** ( :x: )
+- **TC60: Empty discard pile** ( :white_check_mark: )
   - **Name of the test**: getTopDiscardId_emptyDiscardPile_returnEmptyString
   - **State of the system**: discardPile.isEmpty = true
   - **Expected output**: return ""
 
 - **TC61: Non-empty discard pile** ( :white_check_mark: )
   - **Name of the test**: getTopDiscardId_nonEmptyDiscardPile_returnTopCardId
-  - **State of the system**: topDiscardPileId = "SKIP_1"
+  - **State of the system**: 
+    - discardPile.isEmpty = false
+    - topDiscardPileId = "SKIP_1"
   - **Expected output**: returns drawPile.peekTop.getId
 
 ### Method under test: `getCanDrawFromDiscard()`
