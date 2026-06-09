@@ -1719,7 +1719,7 @@
   - **Expected output**: discardPile.shuffle() is called
 
 ### Method under test: `drawnFromRecycle()`
-- **TC204: Drawn card is not Exploding Kitten ** ( :x: )
+- **TC204: Drawn card is not Exploding Kitten ** ( :white_check_mark: )
   - **Name of the test**: drawFromRecycle_nonExplodingCard_cardDrawnToHand
   - **State of the system**: discard pile bottom card is not EXPLODING_KITTEN
   - **Expected output**:
