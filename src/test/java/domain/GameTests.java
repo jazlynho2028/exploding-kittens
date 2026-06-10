@@ -363,6 +363,24 @@ public class GameTests {
 		);
 	}
 
+	@Test
+	public void canPlaySelected_cannotPlay_returnFalse() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		EasyMock.replay(game);
+
+		game.setCanPlay(false);
+
+		assertFalse(game.canPlaySelected());
+	}
+
 	@ParameterizedTest
 	@MethodSource("provideValidCardSelections")
 	public void canPlaySelected_validCards_returnTrue(List<CardType> selectedCardTypes) {

@@ -170,18 +170,9 @@
     - selectedCardTypes = [FERAL_CAT]
   - **Expected output**: returns false
 
-- **TC25: One Feral Cat selected, cannot play** ( :x: )
+- **TC25: Cannot play** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_cannotPlay_returnFalse
-  - **State of the system**: 
-    - canPlay = false
-    - selectedCardTypes = [FERAL_CAT]
-  - **Expected output**: returns false
-
-- **TC26: One Attack selected, cannot play** ( :x: )
-  - **Name of the test**: canPlaySelected_invalidCards_returnFalse
-  - **State of the system**:
-    - canPlay = false
-    - selectedCardTypes = [ATTACK]
+  - **State of the system**: canPlay = false
   - **Expected output**: returns false
 
 - **TC27: One Attack selected** ( :x: )
