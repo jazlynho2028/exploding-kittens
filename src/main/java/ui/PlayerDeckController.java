@@ -100,8 +100,8 @@ public class PlayerDeckController {
                 }
                 else {
                     handleChangeCurrentPlayer(playerIndex);
-                    updateTurnControls();
                 }
+                updateTurnControls();
             }
         });
     }

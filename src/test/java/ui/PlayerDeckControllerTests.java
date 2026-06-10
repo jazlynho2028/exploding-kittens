@@ -344,7 +344,12 @@ public class PlayerDeckControllerTests {
 		boolean isGameOngoing = true;
 
 		Consumer<Integer> mockAction = EasyMock.createMock(Consumer.class);
-		PlayerDeckController controller = new PlayerDeckController(model, view);
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("updateTurnControls")
+				.createMock();
+
 		controller.pendingTargetAction = Optional.of(mockAction);
 
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(initialPlayerIndex);
@@ -359,11 +364,14 @@ public class PlayerDeckControllerTests {
 		view.renderPlayerNameTags(newPlayerIndex, isGameOngoing, DEAD_INDICES);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(model, view, mockAction);
+		controller.updateTurnControls();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, mockAction, controller);
 
 		controller.onNameTag(playerIndex);
 
-		EasyMock.verify(model, view, mockAction);
+		EasyMock.verify(model, view, mockAction, controller);
 		assertFalse(controller.pendingTargetAction.isPresent());
 	}
 
