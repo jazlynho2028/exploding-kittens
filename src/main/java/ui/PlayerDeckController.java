@@ -230,6 +230,14 @@ public class PlayerDeckController {
         });
     }
 
+    private void handleDrawnCard(Card drawnCard) {
+        if (drawnCard.getType() == CardType.EXPLODING_KITTEN) {
+            handleDrawExplodingKitten(drawnCard.getId());
+        } else {
+            updateAll();
+        }
+    }
+
     void updateByCardType(CardType cardType) {
         switch (cardType) {
             case SEE_THE_FUTURE:

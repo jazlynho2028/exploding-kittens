@@ -141,9 +141,6 @@ public class PlayerDeckControllerTests {
 		view.bindPlayerHandCardButtons(EasyMock.anyObject());
 		EasyMock.expectLastCall();
 
-		view.bindDiscardPileButton(EasyMock.anyObject());
-		EasyMock.expectLastCall();
-
 		EasyMock.replay(view);
 
 		PlayerDeckController controller = new PlayerDeckController(model, view);
