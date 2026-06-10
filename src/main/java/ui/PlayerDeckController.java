@@ -95,8 +95,9 @@ public class PlayerDeckController {
 
                     action.accept(playerIndex);
 
-                    view.renderPlayerNameTags(model.getCurrentPlayerIndex(),
-                            model.getIsGameOngoing(), model.getDeadIndices());
+                    updateNameTags();
+                    updateHandVisibilityButton();
+                    updateDrawPile();
                 }
                 else {
                     handleChangeCurrentPlayer(playerIndex);
@@ -241,19 +242,41 @@ public class PlayerDeckController {
                 break;
             case TARGETED_ATTACK:
                 pendingTargetAction = Optional.of(this::applyTargetedAttackAction);
-                view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
-                        model.getDeadIndices());
-                view.renderTurnControlSection(false, false);
+                enablePlayerSelect();
                 break;
             case RAGEBAIT:
                 pendingTargetAction = Optional.of(this::applyRagebaitAction);
-                view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
-                        model.getDeadIndices());
-                view.renderTurnControlSection(false, false);
                 break;
             default:
                 break;
         }
+    }
+
+    private void enablePlayerSelect() {
+        enableNameTags();
+        disableAllButNameTags();
+    }
+
+    private void enableNameTags() {
+        view.renderPlayerNameTags(
+                model.getCurrentPlayerIndex(),
+                false,
+                model.getDeadIndices()
+        );
+    }
+
+    private void disableAllButNameTags() {
+        view.renderDrawPile(false, model.isDrawPileEmpty());
+
+        view.renderHandVisibilityButton(model.getIsFaceUp());
+
+        view.buildAndAddPlayerHandCards(
+                model.getCurrentPlayerHandIds(),
+                model.getIsFaceUp(),
+                false
+        );
+
+        view.renderTurnControlSection(false, false);
     }
 
     void applyTargetedAttackAction(int targetIndex) {
