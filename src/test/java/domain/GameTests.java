@@ -1357,7 +1357,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void endTurn_canEndTurnReachedWinnerWinner_endGame() {
+	public void endTurn_winnerAtIndexZero_endGame() {
 		Player player1 = EasyMock.createMock(Player.class);
 		Player player2 = EasyMock.createMock(Player.class);
 
@@ -1396,6 +1396,57 @@ public class GameTests {
 		assertTrue(game.getIsFaceUp());
 		assertFalse(game.getIsGameOngoing());
 		EasyMock.verify(player1, player2, game);
+	}
+
+	@Test
+	public void endTurn_winnerAtLastIndex_endGame() {
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+		Player player3 = EasyMock.createMock(Player.class);
+		Player player4 = EasyMock.createMock(Player.class);
+
+		List<Player> players = List.of(player1, player2, player3, player4);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		for (int i = 0; i < players.size() - 1; i++) {
+			Player player = players.get(i);
+			player.eliminate();
+			EasyMock.expectLastCall();
+
+			EasyMock.replay(player);
+		}
+
+		player4.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(player4, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canEndTurn")
+				.addMockedMethod("getCurrentPlayer")
+				.addMockedMethod("reachedWinnerWinnerCondition")
+				.createMock();
+
+		EasyMock.expect(game.reachedWinnerWinnerCondition()).andReturn(true);
+		EasyMock.expect(game.canEndTurn()).andReturn(true);
+		EasyMock.expect(game.getCurrentPlayer()).andReturn(player4).atLeastOnce();
+
+		EasyMock.replay(game);
+
+		game.setIsGameOngoing(true);
+		game.setCanPlay(false);
+		game.setIsFaceUp(true);
+		game.endTurn();
+
+		assertFalse(game.getCanPlay());
+		assertTrue(game.getIsFaceUp());
+		assertFalse(game.getIsGameOngoing());
+
+		players.forEach(EasyMock::verify);
+		EasyMock.verify(game);
 	}
 
 	@Test

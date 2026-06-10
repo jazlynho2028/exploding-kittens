@@ -712,8 +712,8 @@
     - turnManager.incrementTurn is called with getAliveIndices
     - turnManager.incrementDrawCount is called
 
-- **TC90: Winner winner condition reached, winner at index 0** ( :x: )
-  - **Name of the test**: endTurn_canEndTurnReachedWinnerWinner_endGame
+- **TC90: Winner winner condition reached, winner at index 0** ( :white_check_mark: )
+  - **Name of the test**: endTurn_winnerAtIndexZero_endGame
   - **State of the system**:
     - canEndTurn = true
     - 2 players
@@ -726,12 +726,12 @@
     - isFaceUp = true
     - isGameOngoing = false
 
-- **TC90: Winner winner condition reached, winner at last index** ( :x: )
-  - **Name of the test**: endTurn_canEndTurnReachedWinnerWinner_endGame
+- **TC90: Winner winner condition reached, winner at last index** ( :white_check_mark: )
+  - **Name of the test**: endTurn_winnerAtLastIndex_endGame
   - **State of the system**:
     - canEndTurn = true
-    - 2 players
-    - currentPlayer at index 1
+    - 4 players
+    - currentPlayer at index 3
   - **Expected output**:
     - getCurrentPlayer.deselectHandCards is called
     - reachedWinnerWinnerCondition returns true
