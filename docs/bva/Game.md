@@ -1594,7 +1594,7 @@
   - **Expected output**: turnManager.drawCount = 4
 
 ### Method under test: `reachedWinnerWinnerCondition()`
-- **TC206: Is not activated** ( :x: )
+- **TC206: Is not activated** ( :white_check_mark: )
   - **Name of the test**: reachedWinnerWinnerCondition_failedRequirement_returnFalse
   - **State of the system**: 
     - getCurrentPlayer.isWinnerWinnerActivated = false
@@ -1602,7 +1602,7 @@
     - turnManager.getRoundCount = WINNER_WINNER_REQUIRED_ROUNDS
   - **Expected output**: return false
 
-- **TC207: Is activated, required rounds not reached** ( :x: )
+- **TC207: Is activated, one more round** ( :x: )
   - **Name of the test**: reachedWinnerWinnerCondition_failedRequirement_returnFalse
   - **State of the system**:
     - getCurrentPlayer.isWinnerWinnerActivated = true
@@ -1610,7 +1610,15 @@
     - turnManager.getRoundCount = WINNER_WINNER_REQUIRED_ROUNDS
   - **Expected output**: return false
 
-- **TC208: Is activated, required rounds not reached** ( :x: )
+- **TC207: Is activated, one round over** ( :x: )
+  - **Name of the test**: reachedWinnerWinnerCondition_failedRequirement_returnFalse
+  - **State of the system**:
+    - getCurrentPlayer.isWinnerWinnerActivated = true
+    - getCurrentPlayer.getWinnerWinnerActivatedRound = 1
+    - turnManager.getRoundCount = WINNER_WINNER_REQUIRED_ROUNDS + 2
+  - **Expected output**: return false
+
+- **TC208: Is activated, required rounds reached** ( :x: )
   - **Name of the test**: reachedWinnerWinnerCondition_reachedRequirement_returnTrue
   - **State of the system**:
     - getCurrentPlayer.isWinnerWinnerActivated = true

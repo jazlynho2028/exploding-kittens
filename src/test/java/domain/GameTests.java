@@ -2554,6 +2554,30 @@ public class GameTests {
 	}
 
 	@Test
+	public void reachedWinnerWinnerCondition_failedRequirement_returnFalse() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		EasyMock.expect(currentPlayer.isWinnerWinnerActivated()).andReturn(false);
+		EasyMock.expect(currentPlayer.getWinnerWinnerActivatedRound()).andReturn(0);
+
+		EasyMock.expect(turnManager.getRoundCount()).andReturn(GameConstants.WINNER_WINNER_REQUIRED_ROUNDS);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				currentPlayer, game);
+
+		assertFalse(game.reachedWinnerWinnerCondition());
+	}
+
+	@Test
 	public void getAliveIndices_noAlivePlayers_returnEmptySet() {
 		Player player1 = EasyMock.createMock(Player.class);
 		Player player2 = EasyMock.createMock(Player.class);

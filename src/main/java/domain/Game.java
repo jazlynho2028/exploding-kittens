@@ -494,7 +494,14 @@ public class Game {
     }
 
     boolean reachedWinnerWinnerCondition() {
-        return true;
+        if (!getCurrentPlayer().isWinnerWinnerActivated()) {
+            return false;
+        }
+
+        int activatedRound = getCurrentPlayer().getWinnerWinnerActivatedRound();
+
+        return ((turnManager.getRoundCount() - activatedRound) ==
+                GameConstants.WINNER_WINNER_REQUIRED_ROUNDS);
     }
 
     void applyWinnerWinnerCatnipDinner() {
