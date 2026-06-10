@@ -297,33 +297,44 @@
     - view.bindGodcatConfirmButton is called
     - view.buildGodcatOverlay is called with GameConstants.GODCAT_CARDTYPE_OPTIONS
 
-- **TC24: Targeted Attack card played** ( :white_check_mark: )
+- **TC24: Targeted Attack card played** ( :x: )
   - **Name of the test**: onPlayCardsButton_targetedAttackPlayed_targetSelectionEnabled
   - **State of the system**:
     - canDrawFromDiscard = true
     - topDiscardId = "TARGETED_ATTACK_1"
-    - canPlaySelected = true
-    - canEndTurn = true
     - currentPlayerIndex = 0
+    - isDrawPileEmpty = false
+    - getIsFaceUp = true
     - playSelectedCards returns CardType.TARGETED_ATTACK
   - **Expected output**:
     - pendingTargetAction becomes present
-    - view.renderPlayerNameTags(0, false, DEAD_INDICES) is called
-    - view.renderTurnControlSection(false, false) is called
+    - view.renderDiscardPile(true, "TARGETED_ATTACK_1") is called.
+    - Mocked controller hooks rebindHandCards() and updateTurnControls() execute
+    - view.renderPlayerNameTags(0, false, deadIndices) is called to enable rival selection
+    - view.renderDrawPile(false, false) is called to freeze the draw deck
+    - view.renderHandVisibilityButton(true) is called
+    - view.buildAndAddPlayerHandCards(handIds, true, false) is called to lock down cards
+    - view.renderTurnControlSection(false, false) is called to force player targeting
 
-- **TC25: Ragebait card played** ( :white_check_mark: )
+- **TC25: Ragebait card played** ( :x: )
   - **Name of the test**: onPlayCardsButton_ragebaitPlayed_targetSelectionEnabled
   - **State of the system**:
     - canDrawFromDiscard = true
     - topDiscardId = "RAGEBAIT_1"
-    - canPlaySelected = true
+    - isDrawPileEmpty = false
     - canEndTurn = true
     - currentPlayerIndex = 0
     - playSelectedCards returns CardType.RAGEBAIT
+    - getIsFaceUp = true
   - **Expected output**:
     - pendingTargetAction becomes present
-    - view.renderPlayerNameTags(0, false, DEAD_INDICES) is called
-    - view.renderTurnControlSection(false, false) is called
+    - view.renderDiscardPile(true, "TARGETED_ATTACK_1") is called
+    - Mocked controller hooks rebindHandCards() and updateTurnControls() execute
+    - view.renderPlayerNameTags(0, false, deadIndices) is called to enable rival selection
+    - view.renderDrawPile(false, false) is called to freeze the draw deck
+    - view.renderHandVisibilityButton(true) is called
+    - view.buildAndAddPlayerHandCards(handIds, true, false) is called to lock down cards
+    - view.renderTurnControlSection(false, false) is called to force player targeting
 
 - **TC30: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed
