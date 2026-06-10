@@ -243,7 +243,6 @@ public class PlayerDeckController {
                 pendingTargetAction = Optional.of(targetIndex -> {
                     model.applyTargetedAttack(targetIndex);
                     handleChangeCurrentPlayer(targetIndex);
-                    updateTurnControls();
                 });
                 view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
                         model.getDeadIndices());

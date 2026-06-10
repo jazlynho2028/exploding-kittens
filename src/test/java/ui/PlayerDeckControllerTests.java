@@ -784,7 +784,7 @@ public class PlayerDeckControllerTests {
 		int targetPlayerIndex = 2;
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(
-				PlayerDeckController.class)
+						PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("rebindHandCards")
 				.addMockedMethod("handleChangeCurrentPlayer")
@@ -798,9 +798,6 @@ public class PlayerDeckControllerTests {
 		EasyMock.expectLastCall();
 
 		controller.handleChangeCurrentPlayer(targetPlayerIndex);
-		EasyMock.expectLastCall();
-
-		controller.updateTurnControls();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view, controller);
