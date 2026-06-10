@@ -138,8 +138,9 @@ public class PlayerDeckController {
 
 					action.accept(playerIndex);
                 }
-
-                model.changeCurrentPlayerIndex(playerIndex);
+                else {
+                    model.changeCurrentPlayerIndex(playerIndex);
+                }
 
                 updateAll();
             }
@@ -235,11 +236,11 @@ public class PlayerDeckController {
                 view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
                 break;
             case TARGETED_ATTACK:
-                pendingTargetAction = Optional.of(this::applyTargetedAttackAction);
+                pendingTargetAction = Optional.of(model::applyTargetedAttack);
                 enablePlayerSelect();
                 break;
             case RAGEBAIT:
-                pendingTargetAction = Optional.of(this::applyRagebaitAction);
+                pendingTargetAction = Optional.of(model::applyRagebait);
                 enablePlayerSelect();
                 break;
             default:
@@ -272,16 +273,6 @@ public class PlayerDeckController {
 
         view.renderTurnControlSection(false, false);
     }
-
-	void applyTargetedAttackAction(int targetIndex) {
-		model.applyTargetedAttack(targetIndex);
-		updateAll();
-	}
-
-	void applyRagebaitAction(int targetIndex) {
-		model.applyRagebait(targetIndex);
-		rebindHandCards();
-	}
 
     void onEndTurnButton() {
         attempt(onError, () -> {
