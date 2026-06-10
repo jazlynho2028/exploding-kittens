@@ -345,7 +345,8 @@ public class PlayerDeckControllerTests {
 
 		Consumer<Integer> mockAction = EasyMock.createMock(Consumer.class);
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("updateTurnControls")
 				.createMock();
@@ -860,6 +861,29 @@ public class PlayerDeckControllerTests {
 		EasyMock.replay(model, view, controller);
 
 		controller.applyTargetedAttackAction(targetIndex);
+
+		EasyMock.verify(model, view, controller);
+	}
+
+	@Test
+	public void applyRagebaitAction_called_appliesRagebaitAndRebindsHand() {
+		int targetIndex = 1;
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("rebindHandCards")
+				.createMock();
+
+		model.applyRagebait(targetIndex);
+		EasyMock.expectLastCall();
+
+		controller.rebindHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.applyRagebaitAction(targetIndex);
 
 		EasyMock.verify(model, view, controller);
 	}
