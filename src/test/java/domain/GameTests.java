@@ -2582,7 +2582,7 @@ public class GameTests {
 			"true,  1, 2"
 	})
 	public void reachedWinnerWinnerCondition_wrongNumberOfRounds_returnFalse(
-			boolean isActivated, int activatedRound, int roundsFromRequirement) {
+			boolean isActivated, int activatedRound, int buffer) {
 
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
@@ -2599,7 +2599,7 @@ public class GameTests {
 		);
 
 		EasyMock.expect(turnManager.getRoundCount()).andReturn(
-				GameConstants.WINNER_WINNER_REQUIRED_ROUNDS + roundsFromRequirement);
+				GameConstants.WINNER_WINNER_REQUIRED_ROUNDS + buffer);
 
 		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer
@@ -2609,6 +2609,33 @@ public class GameTests {
 				currentPlayer, game);
 
 		assertFalse(game.reachedWinnerWinnerCondition());
+
+		EasyMock.verify(currentPlayer, turnManager, game);
+	}
+
+	@Test
+	public void reachedWinnerWinnerCondition_reachedRequirement_returnTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		EasyMock.expect(currentPlayer.isWinnerWinnerActivated()).andReturn(true);
+		EasyMock.expect(currentPlayer.getWinnerWinnerActivatedRound()).andReturn(1);
+
+		EasyMock.expect(turnManager.getRoundCount()).andReturn(
+				GameConstants.WINNER_WINNER_REQUIRED_ROUNDS + 1);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				currentPlayer, game);
+
+		assertTrue(game.reachedWinnerWinnerCondition());
 
 		EasyMock.verify(currentPlayer, turnManager, game);
 	}
