@@ -231,7 +231,7 @@ public class Game {
     }
 
     public boolean getCanPlay() {
-        return canPlay;
+        return isGameOngoing && canPlay;
     }
 
     void setCanPlay(boolean canPlay) {
@@ -240,6 +240,10 @@ public class Game {
 
     public boolean getIsFaceUp() {
         return isFaceUp;
+    }
+
+    void setIsGameOngoing(boolean isGameOngoing) {
+        this.isGameOngoing = isGameOngoing;
     }
 
     public void changeCurrentPlayerIndex(int newPlayerIndex) {
@@ -291,10 +295,6 @@ public class Game {
         isFaceUp = false;;
         turnManager.incrementTurn(getAliveIndices());
         turnManager.incrementDrawCount();
-    }
-
-    void setIsGameOngoing(boolean isGameOngoing) {
-        this.isGameOngoing = isGameOngoing;
     }
 
     public boolean isDefusable() {

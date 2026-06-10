@@ -1170,6 +1170,20 @@ public class GameTests {
 	}
 
 	@Test
+	public void getCanPlay_called_returnFalse() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.setIsGameOngoing(false);
+		game.setCanPlay(false);
+
+		assertFalse(game.getCanPlay());
+	}
+
+	@Test
 	public void changeCurrentPlayerIndex_called_callsTurnManager() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
