@@ -18,6 +18,7 @@ public class Game {
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
+    private boolean canPlay;
 
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2"},
@@ -35,6 +36,7 @@ public class Game {
 
         isGameOngoing = false;
         isFaceUp = false;
+        canPlay = false;
     }
 
     public void setUp() {
@@ -89,7 +91,9 @@ public class Game {
         addExplodingKittens();
         drawPile.shuffle();
 
+        changeCurrentPlayerIndex(GameConstants.STARTING_PLAYER_INDEX);
         isGameOngoing = true;
+        canPlay = true;
     }
 
     private void addExplodingKittens() {
@@ -124,6 +128,10 @@ public class Game {
     }
 
     public boolean canPlaySelected() {
+        if (!canPlay) {
+            return false;
+        }
+
         List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
         if (selectedCards.size() != 1) {
             return false;
@@ -197,11 +205,10 @@ public class Game {
     }
 
     public String getTopDiscardId() {
+        if (discardPile.isEmpty()) {
+            return "global.empty";
+        }
         return discardPile.peekTop().getId();
-    }
-
-    public boolean canDrawFromDiscard() {
-        return false;
     }
 
     public boolean canEndTurn() {
@@ -216,20 +223,37 @@ public class Game {
         return isGameOngoing;
     }
 
+    void setIsGameOngoing(boolean isGameOngoing) {
+        this.isGameOngoing = isGameOngoing;
+    }
+
     public boolean getCanDraw() {
         return isGameOngoing && turnManager.getDrawCount() > 0;
+    }
+
+    public boolean getCanPlay() {
+        return isGameOngoing && canPlay;
+    }
+
+    void setCanPlay(boolean canPlay) {
+        this.canPlay = canPlay;
     }
 
     public boolean getIsFaceUp() {
         return isFaceUp;
     }
 
-    public void changeCurrentPlayerIndex(int newPlayerIndex) {
-        turnManager.setCurrentPlayerIndex(newPlayerIndex);
+    void setIsFaceUp(boolean isFaceUp) {
+        this.isFaceUp = isFaceUp;
     }
 
-    public void setFaceUpToFalse() {
+    public void changeCurrentPlayerIndex(int newPlayerIndex) {
+        if (!getAliveIndices().contains(newPlayerIndex)) {
+            throw new IllegalStateException("error.playerIsDead");
+        }
+
         isFaceUp = false;
+        turnManager.setCurrentPlayerIndex(newPlayerIndex);
     }
 
     public Card drawFromPile() {
@@ -243,6 +267,7 @@ public class Game {
         turnManager.decrementDrawCount();
         getCurrentPlayer().deselectHandCards();
 
+        canPlay = false;
         return card;
     }
 
@@ -258,21 +283,35 @@ public class Game {
         getCurrentPlayer().toggleSelectedHandCardAt(handCardIndex);
     }
 
-    public void advanceTurn() {
+    public void endTurn() {
         if (!canEndTurn()) {
             throw new IllegalStateException("error.cannotEndTurn");
         }
+
         getCurrentPlayer().deselectHandCards();
-		turnManager.incrementTurn(getDeadIndices());
+
+        if (reachedWinnerWinnerCondition()) {
+            eliminateAllButCurrentPlayer();
+            isGameOngoing = false;
+        }
+        else {
+            nextTurn();
+        }
+    }
+
+    private void eliminateAllButCurrentPlayer() {
+        for (Player player : players) {
+            if (player != getCurrentPlayer()) {
+                player.eliminate();
+            }
+        }
+    }
+
+    private void nextTurn() {
+        canPlay = true;
+        isFaceUp = false;;
+        turnManager.incrementTurn(getAliveIndices());
         turnManager.incrementDrawCount();
-    }
-
-    void setIsGameOngoing(boolean isGameOngoing) {
-        this.isGameOngoing = isGameOngoing;
-    }
-
-    void setIsFaceUp(boolean isFaceUp) {
-        this.isFaceUp = isFaceUp;
     }
 
     public boolean isDefusable() {
@@ -338,13 +377,12 @@ public class Game {
             isGameOngoing = false;
         }
         else {
-            turnManager.incrementTurn(getDeadIndices());
-            turnManager.incrementDrawCount();
+            nextTurn();
         }
     }
 
     private boolean hasWinner() {
-        return getDeadIndices().size() >= players.size() - 1;
+        return getAliveIndices().size() == 1;
     }
 
     void applyAttack() {
@@ -358,7 +396,7 @@ public class Game {
     void applySkip() {
         turnManager.decrementDrawCount();
         if (canEndTurn()) {
-            advanceTurn();
+            endTurn();
         }
     }
 
@@ -397,8 +435,8 @@ public class Game {
     }
 
     void applySuperSkip() {
-        turnManager.setDrawCount(0);
-        advanceTurn();
+        turnManager.setDrawCount(GameConstants.NUM_DRAW_COUNT_AFTER_SUPER_SKIP);
+        endTurn();
     }
 
     public void applyGodcat(CardType cardType) {
@@ -436,7 +474,7 @@ public class Game {
     public void applyTargetedAttack(int targetPlayerIndex) {
         getCurrentPlayer().deselectHandCards();
         while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
-            turnManager.incrementTurn(getDeadIndices());
+            turnManager.incrementTurn(getAliveIndices());
         }
         addAttackDrawCount();
     }
@@ -452,9 +490,23 @@ public class Game {
 
     }
 
-    void applyWinnerWinnerCatnipDinner() {
-        // TODO
+    boolean reachedWinnerWinnerCondition() {
+        if (!getCurrentPlayer().isWinnerWinnerActivated()) {
+            return false;
+        }
+
+        int activatedRound = getCurrentPlayer().getWinnerWinnerActivatedRound();
+
+        return ((turnManager.getRoundCount() - activatedRound) ==
+                GameConstants.WINNER_WINNER_REQUIRED_ROUNDS);
     }
+
+    void applyWinnerWinnerCatnipDinner() {
+        int currentRound = turnManager.getRoundCount();
+
+        getCurrentPlayer().activateWinnerWinnerFromRound(currentRound);
+    }
+
 
     public void applyRagebait(int targetPlayerIndex) {
         Player currentPlayer = getCurrentPlayer();
@@ -474,9 +526,9 @@ public class Game {
         // TODO
     }
 
-    public Set<Integer> getDeadIndices() {
+    public Set<Integer> getAliveIndices() {
         return players.stream()
-                .filter(player -> !player.isAlive())
+                .filter(Player::isAlive)
                 .map(players::indexOf)
                 .collect(Collectors.toSet());
     }

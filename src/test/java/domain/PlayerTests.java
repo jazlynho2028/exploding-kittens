@@ -1,5 +1,6 @@
 package domain;
 
+import org.easymock.TestSubject;
 import org.junit.jupiter.api.Test;
 
 import org.easymock.EasyMock;
@@ -140,6 +141,7 @@ public class PlayerTests {
 
         assertEquals(0, player.getHand().size());
         assertFalse(player.getHand().contains(mockExistingCard));
+        assertEquals(0, player.getWinnerWinnerActivatedRound());
 
         EasyMock.verify(mockExistingCard);
     }
@@ -180,6 +182,7 @@ public class PlayerTests {
         assertEquals(maintainHandSize, player.getHand().size());
         assertFalse(player.getHand().contains(mockCardToRemove));
         assertSame(mockCardToKeep, player.getHand().get(0));
+        assertEquals(0, player.getWinnerWinnerActivatedRound());
 
         EasyMock.verify(mockCardToRemove, mockCardToKeep);
     }
@@ -216,6 +219,7 @@ public class PlayerTests {
 
         assertEquals(expectedFinalSize, player.getHandSize());
         assertSame(mockDuplicateCard, player.getHand().get(0));
+        assertEquals(0, player.getWinnerWinnerActivatedRound());
 
         EasyMock.verify(mockDuplicateCard);
     }
@@ -620,6 +624,51 @@ public class PlayerTests {
 
         boolean isAlive = player.isAlive();
         assertFalse(isAlive);
+    }
+
+    @Test
+    public void activateWinnerWinnerFromRound_roundZero_failed() {
+        Player player = new Player("Audrey");
+
+        int round = 0;
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                player.activateWinnerWinnerFromRound(round));
+
+        String expectedMsg = "error.invalidRound";
+        String actualMsg = exception.getMessage();
+
+        assertEquals(expectedMsg, actualMsg);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1",
+            "2"
+    })
+    public void activateWinnerWinnerFromRound_validRound_setWinnerWinnerActivatedRound(
+            int expectedActivatedRound) {
+
+        Player player = new Player("Audrey");
+
+        player.activateWinnerWinnerFromRound(expectedActivatedRound);
+
+        int actualActivatedRound = player.getWinnerWinnerActivatedRound();
+        assertEquals(expectedActivatedRound, actualActivatedRound);
+    }
+
+    @Test
+    public void isWinnerWinnerActivated_roundZero_returnFalse() {
+        Player player = new Player("Audrey");
+        assertFalse(player.isWinnerWinnerActivated());
+    }
+
+    @Test
+    public void isWinnerWinnerActivated_roundOne_returnTrue() {
+        Player player = new Player("Audrey");
+        int round = 1;
+        player.activateWinnerWinnerFromRound(round);
+
+        assertTrue(player.isWinnerWinnerActivated());
     }
 
     @Test
