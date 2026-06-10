@@ -607,7 +607,7 @@
     - canPlay = false
   - **Expected output**: returns false
 
-- **TC77: Game is ongoing, can play** ( :x: )
+- **TC77: Game is ongoing, can play** ( :white_check_mark: )
   - **Name of the test**: getCanPlay_called_returnTrue
   - **State of the system**:
     - isGameOngoing = true
