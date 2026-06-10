@@ -654,7 +654,7 @@
     - canPlay = false
     - returns card
 
-- **TC82: This method is called with exploding kitten** ( :x: )
+- **TC82: This method is called with exploding kitten** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_explodingCard_returnsExplodingCard
   - **State of the system**:
     - card = drawPile.peekTop
