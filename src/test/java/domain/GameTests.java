@@ -1227,6 +1227,7 @@ public class GameTests {
 
 		game.changeCurrentPlayerIndex(newPlayerIndex);
 
+		assertFalse(game.getIsFaceUp());
 		EasyMock.verify(turnManager, game);
 	}
 

@@ -251,6 +251,7 @@ public class Game {
             throw new IllegalStateException("error.playerIsDead");
         }
 
+        isFaceUp = false;
         turnManager.setCurrentPlayerIndex(newPlayerIndex);
     }
 

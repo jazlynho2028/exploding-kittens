@@ -615,7 +615,7 @@
   - **Expected output**: returns true
 
 ### Method under test: `changeCurrentPlayerIndex(int newPlayerIndex)`
-- **TC78: This method is called successfully** ( :x: )
+- **TC78: This method is called successfully** ( :white_check_mark: )
   - **Name of the test**: changeCurrentPlayerIndex_called_callsTurnManager
   - **State of the system**: 
     - newPlayerIndex = 0
