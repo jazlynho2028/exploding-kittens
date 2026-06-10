@@ -60,7 +60,7 @@
   - **State of the system**: model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
-- **TC8: pendingTargetAction is present** ( :white_check_mark: )
+- **TC8: pendingTargetAction is present** ( :x: )
   - **Name of the test**: onNameTag_pendingTargetActionPresent_executesAction
   - **State of the system**:
     - pendingTargetAction = Optional.of(mockAction)
@@ -68,10 +68,15 @@
     - initialPlayerIndex = 0
     - newPlayerIndex = 2
     - model.getIsGameOngoing() returns true
+    - model.getIsFaceUp() returns false
+    - model.getCanDraw() returns true
+    - model.isDrawPileEmpty() returns false
   - **Expected output**:
     - mockAction.accept(1) is called
     - pendingTargetAction becomes empty
     - view.renderPlayerNameTags(2, true, DEAD_INDICES) is called
+    - view.renderHandVisibilityButton(false) is called
+    - view.renderDrawPile(true, false) is called
     - updateTurnControls() is called
 
 ## Method under test: `handleChangeCurrentPlayer(int playerIndex)`
