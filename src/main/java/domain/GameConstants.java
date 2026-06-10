@@ -8,6 +8,7 @@ public final class GameConstants {
 
 	public static final int MIN_PLAYERS = 2;
 	public static final int MAX_PLAYERS = 4;
+	public static final int MAX_PLAYER_INDEX = 3;
 
 	public static final int STARTING_HAND_SIZE = 6;
 	public static final int STARTING_PLAYER_INDEX = 0;
@@ -18,6 +19,8 @@ public final class GameConstants {
 	public static final int FOUR_CARDS = 4;
 
 	public static final int NUM_MILD_SHUFFLE_IN_GAME = 1;
+	public static final int NUM_DRAW_COUNT_AFTER_SUPER_SKIP = 0;
+	public static final int ATTACK_DRAW_COUNT = 2;
 	public static final int NUM_GODCAT_IN_GAME = 1;
 	public static final int NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME = 1;
 	public static final int NUM_RAGEBAIT_IN_GAME = 1;
@@ -38,6 +41,7 @@ public final class GameConstants {
 	public static final int NUM_DEFUSES_IN_GAME = 5;
 
 	public static final int SEE_THE_FUTURE_PEEK_COUNT = 2;
+	public static final int WINNER_WINNER_REQUIRED_ROUNDS = 4;
 
 	public static final List<CardType> CONDITIONAL_PLAY_CARDTYPES = List.of(
 			CardType.DEFUSE,

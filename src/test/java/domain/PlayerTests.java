@@ -1,5 +1,6 @@
 package domain;
 
+import org.easymock.TestSubject;
 import org.junit.jupiter.api.Test;
 
 import org.easymock.EasyMock;
@@ -140,6 +141,7 @@ public class PlayerTests {
 
         assertEquals(0, player.getHand().size());
         assertFalse(player.getHand().contains(mockExistingCard));
+        assertEquals(0, player.getWinnerWinnerActivatedRound());
 
         EasyMock.verify(mockExistingCard);
     }
@@ -180,6 +182,7 @@ public class PlayerTests {
         assertEquals(maintainHandSize, player.getHand().size());
         assertFalse(player.getHand().contains(mockCardToRemove));
         assertSame(mockCardToKeep, player.getHand().get(0));
+        assertEquals(0, player.getWinnerWinnerActivatedRound());
 
         EasyMock.verify(mockCardToRemove, mockCardToKeep);
     }
@@ -216,6 +219,7 @@ public class PlayerTests {
 
         assertEquals(expectedFinalSize, player.getHandSize());
         assertSame(mockDuplicateCard, player.getHand().get(0));
+        assertEquals(0, player.getWinnerWinnerActivatedRound());
 
         EasyMock.verify(mockDuplicateCard);
     }
@@ -594,4 +598,109 @@ public class PlayerTests {
 
         EasyMock.verify(mockCard);
     }
+
+    @Test
+    public void isAlive_playerIsAlive_returnTrue() {
+        Player player = new Player("Audrey");
+
+        boolean isAlive = player.isAlive();
+        assertTrue(isAlive);
+    }
+
+    @Test
+    public void isAlive_playerIsDead_returnFalse() {
+        Player player = new Player("Audrey");
+        player.eliminate();
+
+        boolean isAlive = player.isAlive();
+        assertFalse(isAlive);
+    }
+
+    @Test
+    public void eliminatePlayer_playerCreated_setIsAliveToFalse() {
+        Player player = new Player("Audrey");
+        player.eliminate();
+        player.eliminate();
+
+        boolean isAlive = player.isAlive();
+        assertFalse(isAlive);
+    }
+
+    @Test
+    public void activateWinnerWinnerFromRound_roundZero_failed() {
+        Player player = new Player("Audrey");
+
+        int round = 0;
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                player.activateWinnerWinnerFromRound(round));
+
+        String expectedMsg = "error.invalidRound";
+        String actualMsg = exception.getMessage();
+
+        assertEquals(expectedMsg, actualMsg);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1",
+            "2"
+    })
+    public void activateWinnerWinnerFromRound_validRound_setWinnerWinnerActivatedRound(
+            int expectedActivatedRound) {
+
+        Player player = new Player("Audrey");
+
+        player.activateWinnerWinnerFromRound(expectedActivatedRound);
+
+        int actualActivatedRound = player.getWinnerWinnerActivatedRound();
+        assertEquals(expectedActivatedRound, actualActivatedRound);
+    }
+
+    @Test
+    public void isWinnerWinnerActivated_roundZero_returnFalse() {
+        Player player = new Player("Audrey");
+        assertFalse(player.isWinnerWinnerActivated());
+    }
+
+    @Test
+    public void isWinnerWinnerActivated_roundOne_returnTrue() {
+        Player player = new Player("Audrey");
+        int round = 1;
+        player.activateWinnerWinnerFromRound(round);
+
+        assertTrue(player.isWinnerWinnerActivated());
+    }
+
+    @Test
+    public void swapHandWith_bothPlayersHaveCards_handsSwapped() {
+        Card card1 = new Card("SKIP_1", CardType.SKIP);
+        Card card2 = new Card("ATTACK_1", CardType.ATTACK);
+
+        Player player1 = new Player("Alice");
+        Player player2 = new Player("Bob");
+
+        player1.addCardToHand(card1);
+        player2.addCardToHand(card2);
+
+        player1.swapHandWith(player2);
+
+        assertEquals(List.of(card2), player1.getHand());
+        assertEquals(List.of(card1), player2.getHand());
+    }
+
+    @Test
+    public void swapHandWith_oneEmptyHand_handsSwapped() {
+        Card card1 = new Card("SKIP_1", CardType.SKIP);
+
+        Player player1 = new Player("Alice");
+        Player player2 = new Player("Bob");
+
+        player1.addCardToHand(card1);
+
+        player1.swapHandWith(player2);
+
+        assertTrue(player1.getHand().isEmpty());
+        assertEquals(List.of(card1), player2.getHand());
+    }
+
 }

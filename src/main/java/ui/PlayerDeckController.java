@@ -7,6 +7,7 @@ import domain.GameConstants;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import static ui.ErrorHandler.attempt;
@@ -17,17 +18,20 @@ public class PlayerDeckController {
     private final Game model;
 
     private Consumer<String> onError;
+    private Runnable onRestart;
+    Optional<Consumer<Integer>> pendingTargetAction = Optional.empty();
 
     @SuppressFBWarnings(
-        value = "EI_EXPOSE_REP2",
-        justification = "View and model are injected by for compromise between MVC " +
-                "pattern and testability, defensive copies are not applicable or not " +
-                "desired for JavaFX components and Game objects."
+            value = "EI_EXPOSE_REP2",
+            justification = "View and model are injected by for compromise between MVC " +
+                    "pattern and testability, defensive copies are not applicable or not " +
+                    "desired for JavaFX components and Game objects."
     )
     public PlayerDeckController(Game model, PlayerDeckView view) {
         this.model = model;
         this.view = view;
         this.onError = message -> { };
+        this.onRestart = () -> { };
     }
 
     public Scene buildPlayerDeckScene() {
@@ -45,22 +49,6 @@ public class PlayerDeckController {
     void rebindHandCards() {
         rebuildHandCards();
         bindHandCards();
-    }
-
-    private void rebuildHandCards() {
-        view.buildAndAddPlayerHandCards(
-                model.getCurrentPlayerHandIds(),
-                model.getIsFaceUp(),
-                model.getCanDraw()
-        );
-    }
-
-    private void rebuildNameTags() {
-        view.buildAddRenderPlayerNameTags(
-                model.getPlayerNames(),
-                model.getCurrentPlayerIndex(),
-                model.getIsGameOngoing()
-        );
     }
 
     void bindUI() {
@@ -81,32 +69,82 @@ public class PlayerDeckController {
         onError = handler;
     }
 
-    void onNameTag(int playerIndex) {
-        attempt(onError, () -> {
-            if (model.getCurrentPlayerIndex() != playerIndex) {
-                handleChangeCurrentPlayer(playerIndex);
-            }
-        });
+    public void setOnRestart(Runnable handler) {
+        onRestart = handler;
     }
 
-    void handleChangeCurrentPlayer(int playerIndex) {
-        model.changeCurrentPlayerIndex(playerIndex);
-        model.setFaceUpToFalse();
+    private void rebuildHandCards() {
+        view.buildAndAddPlayerHandCards(
+                model.getCurrentPlayerHandIds(),
+                model.getIsFaceUp(),
+                model.getCanPlay()
+        );
+    }
 
-        updateNameTags();
-        updateHandVisibilityButton();
-        rebindHandCards();
+    private void rebuildNameTags() {
+        view.buildAddRenderPlayerNameTags(
+                model.getPlayerNames(),
+                model.getCurrentPlayerIndex(),
+                !model.getIsGameOngoing(),
+                model.getAliveIndices()
+        );
     }
 
     private void updateNameTags() {
         view.renderPlayerNameTags(
                 model.getCurrentPlayerIndex(),
-                model.getIsGameOngoing()
+                !model.getIsGameOngoing(),
+                model.getAliveIndices()
+        );
+    }
+
+    private void updateDrawPile() {
+        view.renderDrawPile(
+                model.getCanDraw(),
+                model.isDrawPileEmpty()
+        );
+    }
+
+    private void updateTurnControls() {
+        view.renderTurnControlSection(
+                model.canPlaySelected(),
+                model.canEndTurn()
         );
     }
 
     private void updateHandVisibilityButton() {
-        view.renderHandVisibilityButton(model.getIsFaceUp());
+        view.renderHandVisibilityButton(model.getIsFaceUp(), true);
+    }
+
+    private void updateDiscardPile() {
+        view.renderDiscardPile(model.getTopDiscardId());
+    }
+
+    void updateAll() {
+        rebindHandCards();
+        updateTurnControls();
+        updateNameTags();
+        updateDrawPile();
+        updateDiscardPile();
+        updateHandVisibilityButton();
+    }
+
+    void onNameTag(int playerIndex) {
+        attempt(onError, () -> {
+            if (model.getCurrentPlayerIndex() != playerIndex) {
+                if (pendingTargetAction.isPresent()) {
+                    Consumer<Integer> action = pendingTargetAction.get();
+                    pendingTargetAction = Optional.empty();
+
+					action.accept(playerIndex);
+                }
+                else {
+                    model.changeCurrentPlayerIndex(playerIndex);
+                }
+
+                updateAll();
+            }
+        });
     }
 
     void onDrawPile() {
@@ -117,9 +155,7 @@ public class PlayerDeckController {
                 handleDrawExplodingKitten(drawnCard.getId());
             }
             else {
-                rebindHandCards();
-                updateDrawPile();
-                updateTurnControls();
+                updateAll();
             }
         });
     }
@@ -137,13 +173,6 @@ public class PlayerDeckController {
         int drawPileSizeAfterDraw = model.getDrawPileSize() - 1;
         view.buildExplodeOverlay(
                 isDefusable, cardId, drawPileSizeAfterDraw);
-    }
-
-    private void updateDrawPile() {
-        view.renderDrawPile(
-                model.getCanDraw(),
-                model.isDrawPileEmpty()
-        );
     }
 
     void onHandVisibilityButton() {
@@ -168,20 +197,12 @@ public class PlayerDeckController {
         });
     }
 
-    private void updateTurnControls() {
-        view.renderTurnControlSection(
-                model.canPlaySelected(),
-                model.canEndTurn()
-        );
-    }
-
     void onStartGameButton() {
         attempt(onError, () -> {
             model.startGame();
 
-            handleChangeCurrentPlayer(model.getStartingPlayerIndex());
-            updateDrawPile();
             rebuildTurnControl();
+            updateAll();
         });
     }
 
@@ -197,44 +218,77 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             CardType cardType = model.playSelectedCards();
 
-            updateDiscardPile();
-            rebindHandCards();
-            updateTurnControls();
+            updateAll();
 
-            switch (cardType) {
-                case SKIP:
-                    renderNextTurn();
-                    break;
-                case SEE_THE_FUTURE:
-                    view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
-                    break;
-                case GODCAT:
-                    view.bindGodcatConfirmButton(this::onGodcatConfirm);
-                    view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
-                    break;
-                default:
-                    break;
+            if (cardType == CardType.GODCAT) {
+                view.bindGodcatConfirmButton(this::onGodcatConfirm);
+                view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+            }
+            else {
+                updateByCardType(cardType);
             }
         });
     }
 
-    private void updateDiscardPile() {
-        view.renderDiscardPile(model.canDrawFromDiscard(), model.getTopDiscardId());
+    void updateByCardType(CardType cardType) {
+        switch (cardType) {
+            case SEE_THE_FUTURE:
+                view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
+                break;
+            case TARGETED_ATTACK:
+                pendingTargetAction = Optional.of(model::applyTargetedAttack);
+                enablePlayerSelect();
+                break;
+            case RAGEBAIT:
+                pendingTargetAction = Optional.of(model::applyRagebait);
+                enablePlayerSelect();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void enablePlayerSelect() {
+        enableNameTags();
+        disableAllButNameTags();
+    }
+
+    private void enableNameTags() {
+        view.renderPlayerNameTags(
+				model.getCurrentPlayerIndex(),
+				true,
+                model.getAliveIndices());
+    }
+
+    private void disableAllButNameTags() {
+        view.renderDrawPile(false, model.isDrawPileEmpty());
+
+        view.renderHandVisibilityButton(model.getIsFaceUp(), false);
+
+        view.buildAndAddPlayerHandCards(
+                model.getCurrentPlayerHandIds(),
+				model.getIsFaceUp(),
+				false
+        );
+
+        view.renderTurnControlSection(false, false);
     }
 
     void onEndTurnButton() {
         attempt(onError, () -> {
-            model.advanceTurn();
+            model.endTurn();
 
-            renderNextTurn();
+            updateAll();
+
+            checkForGameOver();
         });
     }
 
-    private void renderNextTurn() {
-        int newPlayerIndex = model.getCurrentPlayerIndex();
-        handleChangeCurrentPlayer(newPlayerIndex);
-        updateDrawPile();
-        updateTurnControls();
+    private void checkForGameOver() {
+        if (!model.getIsGameOngoing()) {
+            view.buildWinOverlay(model.getWinnerName());
+            view.bindPlayAgainButton(onRestart);
+        }
     }
 
     void onDefuseButton() {
@@ -242,10 +296,7 @@ public class PlayerDeckController {
             model.playDefuse(view.getExplodingKittenInsertIndex());
 
             view.hideOverlay();
-            updateDiscardPile();
-            rebindHandCards();
-
-            renderNextTurn();
+            updateAll();
         });
     }
 
@@ -254,23 +305,21 @@ public class PlayerDeckController {
             model.playExplode();
 
             view.hideOverlay();
-            updateDrawPile();
+            updateAll();
 
-            renderNextTurn();
+            checkForGameOver();
         });
     }
 
     void onGodcatConfirm() {
         attempt(onError, () -> {
-            CardType selectedCardType = view.getSelectedGodcatCardType();
-            onConfirmGodcatCard(selectedCardType);
-        });
-    }
-
-    void onConfirmGodcatCard(CardType cardType) {
-        attempt(onError, () -> {
+            CardType cardType = view.getSelectedGodcatCardType();
             model.applyGodcat(cardType);
+
             view.hideOverlay();
+            updateAll();
+
+            updateByCardType(cardType);
         });
     }
 

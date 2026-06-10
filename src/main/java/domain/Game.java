@@ -2,7 +2,9 @@ package domain;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static domain.DeckBuilder.createCardId;
@@ -16,6 +18,7 @@ public class Game {
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
+    private boolean canPlay;
 
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2"},
@@ -33,6 +36,7 @@ public class Game {
 
         isGameOngoing = false;
         isFaceUp = false;
+        canPlay = false;
     }
 
     public void setUp() {
@@ -87,7 +91,9 @@ public class Game {
         addExplodingKittens();
         drawPile.shuffle();
 
+        changeCurrentPlayerIndex(GameConstants.STARTING_PLAYER_INDEX);
         isGameOngoing = true;
+        canPlay = true;
     }
 
     private void addExplodingKittens() {
@@ -122,6 +128,10 @@ public class Game {
     }
 
     public boolean canPlaySelected() {
+        if (!canPlay) {
+            return false;
+        }
+
         List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
         if (selectedCards.size() != 1) {
             return false;
@@ -146,6 +156,12 @@ public class Game {
             discardPile.addCardToTop(card);
         }
 
+        applyByCardType(cardType);
+
+        return cardType;
+    }
+
+    private void applyByCardType(CardType cardType) {
         switch (cardType) {
             case ATTACK:
                 applyAttack();
@@ -156,15 +172,11 @@ public class Game {
             case SKIP:
                 applySkip();
                 break;
-            case SEE_THE_FUTURE:
-                break;
             case CATOMIC_BOMB:
                 applyCatomicBomb();
                 break;
             case SUPER_SKIP:
                 applySuperSkip();
-                break;
-            case GODCAT:
                 break;
             case CLONE:
                 applyClone();
@@ -175,13 +187,8 @@ public class Game {
             case DRAW_FROM_THE_BOTTOM:
                 applyDrawFromTheBottom();
                 break;
-            case TARGETED_ATTACK:
-                break;
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
-                break;
-            case RAGEBAIT:
-                applyRagebait();
                 break;
             case RECYCLE:
                 applyRecycle();
@@ -193,22 +200,19 @@ public class Game {
                 applyMildShuffle();
                 break;
             default:
-                throw new IllegalStateException("error.cannotPlaySelectedCards");
+                break;
         }
-
-        return cardType;
     }
 
     public String getTopDiscardId() {
+        if (discardPile.isEmpty()) {
+            return "global.empty";
+        }
         return discardPile.peekTop().getId();
     }
 
-    public boolean canDrawFromDiscard() {
-        return false;
-    }
-
     public boolean canEndTurn() {
-        return isGameOngoing && turnManager.getDrawCount() == 0;
+        return turnManager.getDrawCount() == 0;
     }
 
     public boolean isDrawPileEmpty() {
@@ -219,20 +223,37 @@ public class Game {
         return isGameOngoing;
     }
 
+    void setIsGameOngoing(boolean isGameOngoing) {
+        this.isGameOngoing = isGameOngoing;
+    }
+
     public boolean getCanDraw() {
         return isGameOngoing && turnManager.getDrawCount() > 0;
+    }
+
+    public boolean getCanPlay() {
+        return isGameOngoing && canPlay;
+    }
+
+    void setCanPlay(boolean canPlay) {
+        this.canPlay = canPlay;
     }
 
     public boolean getIsFaceUp() {
         return isFaceUp;
     }
 
-    public void changeCurrentPlayerIndex(int newPlayerIndex) {
-        turnManager.setCurrentPlayerIndex(newPlayerIndex);
+    void setIsFaceUp(boolean isFaceUp) {
+        this.isFaceUp = isFaceUp;
     }
 
-    public void setFaceUpToFalse() {
+    public void changeCurrentPlayerIndex(int newPlayerIndex) {
+        if (!getAliveIndices().contains(newPlayerIndex)) {
+            throw new IllegalStateException("error.playerIsDead");
+        }
+
         isFaceUp = false;
+        turnManager.setCurrentPlayerIndex(newPlayerIndex);
     }
 
     public Card drawFromPile() {
@@ -246,6 +267,7 @@ public class Game {
         turnManager.decrementDrawCount();
         getCurrentPlayer().deselectHandCards();
 
+        canPlay = false;
         return card;
     }
 
@@ -261,20 +283,35 @@ public class Game {
         getCurrentPlayer().toggleSelectedHandCardAt(handCardIndex);
     }
 
-    public void advanceTurn() {
+    public void endTurn() {
         if (!canEndTurn()) {
             throw new IllegalStateException("error.cannotEndTurn");
         }
+
         getCurrentPlayer().deselectHandCards();
-        turnManager.incrementTurn();
+
+        if (reachedWinnerWinnerCondition()) {
+            eliminateAllButCurrentPlayer();
+            isGameOngoing = false;
+        }
+        else {
+            nextTurn();
+        }
     }
 
-    void setIsGameOngoing(boolean isGameOngoing) {
-        this.isGameOngoing = isGameOngoing;
+    private void eliminateAllButCurrentPlayer() {
+        for (Player player : players) {
+            if (player != getCurrentPlayer()) {
+                player.eliminate();
+            }
+        }
     }
 
-    void setIsFaceUp(boolean isFaceUp) {
-        this.isFaceUp = isFaceUp;
+    private void nextTurn() {
+        canPlay = true;
+        isFaceUp = false;
+        turnManager.incrementTurn(getAliveIndices());
+        turnManager.incrementDrawCount();
     }
 
     public boolean isDefusable() {
@@ -334,8 +371,18 @@ public class Game {
         drawPile.removeTop();
 
         getCurrentPlayer().deselectHandCards();
-        turnManager.incrementTurn();
-        // TODO: unalive current player
+        getCurrentPlayer().eliminate();
+
+        if (hasWinner()) {
+            isGameOngoing = false;
+        }
+        else {
+            nextTurn();
+        }
+    }
+
+    private boolean hasWinner() {
+        return getAliveIndices().size() == 1;
     }
 
     void applyAttack() {
@@ -343,13 +390,13 @@ public class Game {
     }
 
     void applyShuffle() {
-        // TODO
+        drawPile.shuffle();
     }
 
     void applySkip() {
         turnManager.decrementDrawCount();
         if (canEndTurn()) {
-            advanceTurn();
+            endTurn();
         }
     }
 
@@ -363,11 +410,45 @@ public class Game {
     }
 
     void applyCatomicBomb() {
-        // TODO
+        List<Card> explodingKittens = new ArrayList<>();
+        List<Card> others = new ArrayList<>();
+
+        while (!drawPile.isEmpty()) {
+            Card card = drawPile.removeTop();
+            if (card.getType() == CardType.EXPLODING_KITTEN) {
+                explodingKittens.add(card);
+            }
+            else {
+                others.add(card);
+            }
+        }
+
+        for (Card card : others) {
+            drawPile.addCardToBottom(card);
+        }
+
+        for (Card card : explodingKittens) {
+            drawPile.addCardToTop(card);
+        }
+
+        applySkip();
     }
 
     void applySuperSkip() {
-        // TODO
+        turnManager.setDrawCount(GameConstants.NUM_DRAW_COUNT_AFTER_SUPER_SKIP);
+        endTurn();
+    }
+
+    public void applyGodcat(CardType cardType) {
+        boolean isValidGodcatPlay = cardType != CardType.GODCAT &&
+                !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(cardType);
+
+        if (isValidGodcatPlay) {
+            applyByCardType(cardType);
+        }
+        else {
+            throw new IllegalArgumentException("error.cannotPlaySelectedCards");
+        }
     }
 
     void applyClone() {
@@ -394,20 +475,51 @@ public class Game {
         getCurrentPlayer().deselectHandCards();
 
         if (canEndTurn()) {
-            advanceTurn();
+            endTurn();
         }
     }
 
-    void applyTargetedAttack() {
-        // TODO
+    public void applyTargetedAttack(int targetPlayerIndex) {
+        getCurrentPlayer().deselectHandCards();
+        while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
+            turnManager.incrementTurn(getAliveIndices());
+        }
+        addAttackDrawCount();
+    }
+
+    void addAttackDrawCount() {
+        if (turnManager.getDrawCount() >= 2) {
+            turnManager.setDrawCount(
+                    turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
+        }
+        else {
+            turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+        }
+
+    }
+
+    boolean reachedWinnerWinnerCondition() {
+        if (!getCurrentPlayer().isWinnerWinnerActivated()) {
+            return false;
+        }
+
+        int activatedRound = getCurrentPlayer().getWinnerWinnerActivatedRound();
+
+        return ((turnManager.getRoundCount() - activatedRound) ==
+                GameConstants.WINNER_WINNER_REQUIRED_ROUNDS);
     }
 
     void applyWinnerWinnerCatnipDinner() {
-        // TODO
+        int currentRound = turnManager.getRoundCount();
+
+        getCurrentPlayer().activateWinnerWinnerFromRound(currentRound);
     }
 
-    void applyRagebait() {
-        // TODO
+
+    public void applyRagebait(int targetPlayerIndex) {
+        Player currentPlayer = getCurrentPlayer();
+        Player targetPlayer = players.get(targetPlayerIndex);
+        currentPlayer.swapHandWith(targetPlayer);
     }
 
     void applyRecycle() {
@@ -422,54 +534,24 @@ public class Game {
         // TODO
     }
 
-    public void applyGodcat(CardType cardType) {
-        switch (cardType) {
-            case ATTACK:
-                applyAttack();
-                break;
-            case SHUFFLE:
-                applyShuffle();
-                break;
-            case SKIP:
-                applySkip();
-                break;
-            case SEE_THE_FUTURE:
-                break;
-            case CATOMIC_BOMB:
-                applyCatomicBomb();
-                break;
-            case SUPER_SKIP:
-                applySuperSkip();
-                break;
-            case CLONE:
-                applyClone();
-                break;
-            case SWAP_TOP_AND_BOTTOM:
-                applySwapTopAndBottom();
-                break;
-            case DRAW_FROM_THE_BOTTOM:
-                applyDrawFromTheBottom();
-                break;
-            case TARGETED_ATTACK:
-                break;
-            case WINNER_WINNER_CATNIP_DINNER:
-                applyWinnerWinnerCatnipDinner();
-                break;
-            case RAGEBAIT:
-                applyRagebait();
-                break;
-            case RECYCLE:
-                applyRecycle();
-                break;
-            case DOUBLE_UP:
-                applyDoubleUp();
-                break;
-            case MILD_SHUFFLE:
-                applyMildShuffle();
-                break;
-            default:
-                throw new IllegalStateException("error.cannotPlaySelectedCards");
+    public Set<Integer> getAliveIndices() {
+        return players.stream()
+                .filter(Player::isAlive)
+                .map(players::indexOf)
+                .collect(Collectors.toSet());
+    }
+
+    public String getWinnerName() {
+        List<String> aliveNames = players.stream()
+                .filter(Player::isAlive)
+                .map(Player::getName)
+                .collect(Collectors.toList());
+
+        if (aliveNames.size() == 1) {
+            return aliveNames.get(0);
         }
+
+        throw new IllegalStateException("error.noWinner");
     }
 
 }

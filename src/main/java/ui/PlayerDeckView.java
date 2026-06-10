@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import static ui.PlayerCreateView.buildBackgroundImage;
@@ -43,6 +44,7 @@ public class PlayerDeckView {
 	private final Slider defuseSlider;
     private final Button godcatConfirmButton;
     private CardType selectedGodcatCardType;
+    private final Button playAgainButton;
 
     public PlayerDeckView(AssetProvider assetProvider) {
         this.assetProvider = assetProvider;
@@ -64,16 +66,13 @@ public class PlayerDeckView {
 		defuseSlider = new Slider();
         godcatConfirmButton = new Button();
         selectedGodcatCardType = CardType.ATTACK;;
+        playAgainButton = new Button();
 
         buildUI();
     }
 
     public void bindDrawPileButton(Runnable handler) {
         drawPileButton.setOnMouseClicked(e -> handler.run());
-    }
-
-    public void bindDiscardPileButton(Runnable handler) {
-        discardPileButton.setOnMouseClicked(e -> handler.run());
     }
 
     public void bindHandVisibilityButton(Runnable handler) {
@@ -125,17 +124,20 @@ public class PlayerDeckView {
 		godcatConfirmButton.setOnMouseClicked(e -> handler.run());
 	}
 
+    public void bindPlayAgainButton(Runnable handler) {
+        playAgainButton.setOnMouseClicked(e -> handler.run());
+    }
+
     public Scene createPlayerDeckScene() {
         return new Scene(root, UIConstants.SCENE_WIDTH, UIConstants.SCENE_HEIGHT);
     }
 
     public void buildAddRenderPlayerNameTags(
-            List<String> playerNames,
-            int currentPlayerIndex,
-            boolean isGameOngoing
-    ) {
+            List<String> playerNames, int currentPlayerIndex,
+            boolean isEnabled, Set<Integer> aliveIndices) {
+
         buildAndAddPlayerNameTags(playerNames);
-        renderPlayerNameTags(currentPlayerIndex, isGameOngoing);
+        renderPlayerNameTags(currentPlayerIndex, isEnabled, aliveIndices);
     }
 
     public void buildAndAddPlayerNameTags(List<String> playerNames) {
@@ -146,7 +148,10 @@ public class PlayerDeckView {
         }
     }
 
-    public void renderPlayerNameTags(int currentPlayerIndex, boolean isGameOngoing) {
+    public void renderPlayerNameTags(
+			int currentPlayerIndex, boolean enableOtherPlayers,
+            Set<Integer> aliveIndices) {
+
         ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
 
         for (int i = 0; i < nameTagButtons.size(); i++) {
@@ -155,7 +160,24 @@ public class PlayerDeckView {
             boolean isAtCurrentPlayerIndex = (i == currentPlayerIndex);
             nameTagButton.setSelected(isAtCurrentPlayerIndex);
 
-            nameTagButton.setDisable(isAtCurrentPlayerIndex || isGameOngoing);
+            boolean isDead = !aliveIndices.contains(i);
+
+            nameTagButton.setDisable(
+					isAtCurrentPlayerIndex || !enableOtherPlayers || isDead);
+
+            if (isDead) {
+                renderDeadPlayerNameTag(nameTagButton);
+            }
+        }
+    }
+
+    private void renderDeadPlayerNameTag(ToggleButton nameTagButton) {
+        if (!nameTagButton.getStyleClass().contains("dead")) {
+            nameTagButton.getStyleClass().add("dead");
+
+            SVGPath skullIcon = buildIcon(assetProvider, "skull");
+            nameTagButton.setGraphic(skullIcon);
+            nameTagButton.setContentDisplay(ContentDisplay.LEFT);
         }
     }
 
@@ -164,8 +186,11 @@ public class PlayerDeckView {
         drawPileButton.setVisible(!isDrawPileEmpty);
     }
 
-    public void renderDiscardPile(boolean canDraw, String topCardId) {
-        if (topCardId.isEmpty()) {
+    public void renderDiscardPile(String topCardId) {
+        boolean isEmpty = Objects.equals(
+                topCardId, assetProvider.getString("global.empty"));
+
+        if (isEmpty) {
             discardPileButton.setVisible(false);
             return;
         }
@@ -173,10 +198,10 @@ public class PlayerDeckView {
         VBox cardFront = buildCardFront(topCardId);
         discardPileButton.setGraphic(cardFront);
         discardPileButton.setVisible(true);
-        discardPileButton.setDisable(!canDraw);
+        discardPileButton.setDisable(false);
     }
 
-    public void renderHandVisibilityButton(boolean isFaceUp) {
+    public void renderHandVisibilityButton(boolean isFaceUp, boolean isEnabled) {
         if (isFaceUp) {
             handVisibilityButton.setText(
                     assetProvider.getString("playerDeckScreen.hideHandLabel"));
@@ -185,10 +210,11 @@ public class PlayerDeckView {
             handVisibilityButton.setText(
                     assetProvider.getString("playerDeckScreen.showHandLabel"));
         }
+        handVisibilityButton.setDisable(!isEnabled);
     }
 
     public void buildAndAddPlayerHandCards(
-            List<String> currentPlayerHand, boolean isFaceUp, boolean isBeforeDraw) {
+            List<String> currentPlayerHand, boolean isFaceUp, boolean isEnabled) {
 
         handCardsContainer.getChildren().clear();
 
@@ -196,7 +222,7 @@ public class PlayerDeckView {
             ToggleButton handCardButton = buildHandCardButton(
                     cardId,
                     isFaceUp,
-                    isBeforeDraw
+                    isEnabled
             );
             handCardsContainer.getChildren().add(handCardButton);
         }
@@ -484,10 +510,8 @@ public class PlayerDeckView {
     }
 
     private ToggleButton buildHandCardButton(
-            String cardId,
-            boolean isFaceUp,
-            boolean isBeforeDraw
-    ) {
+            String cardId, boolean isFaceUp, boolean isEnabled) {
+
         ToggleButton handCardButton = new ToggleButton();
         handCardButton.getStyleClass().add("card");
 
@@ -496,7 +520,7 @@ public class PlayerDeckView {
         if (isFaceUp) {
             handCard = buildCardFront(cardId);
 
-            handCardButton.setDisable(!isBeforeDraw);
+            handCardButton.setDisable(!isEnabled);
             handCardButton.getStyleClass().add("front");
         }
         else {
@@ -726,9 +750,7 @@ public class PlayerDeckView {
     }
 
     public void buildExplodeOverlay(boolean hasDefuse, String explodingCardId, int drawPileSize) {
-        VBox content = new VBox();
-        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        content.getStyleClass().add("overlay-content");
+        VBox content = buildOverlayContent();
 
         Button explodingKittenCard = buildExplodingKittenCard(explodingCardId);
         content.getChildren().add(explodingKittenCard);
@@ -751,6 +773,14 @@ public class PlayerDeckView {
 
         overlayLayer.getChildren().setAll(content);
         showOverlay();
+    }
+
+    private VBox buildOverlayContent() {
+        VBox content = new VBox();
+        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        content.getStyleClass().add("overlay-content");
+
+        return content;
     }
 
     private VBox buildDefuseOptions(int drawPileSize) {
@@ -815,9 +845,7 @@ public class PlayerDeckView {
     }
 
     public void buildSeeTheFutureOverlay(List<String> topCardIds) {
-        VBox content = new VBox();
-        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        content.getStyleClass().add("overlay-content");
+        VBox content = buildOverlayContent();
 
         HBox topCardsContainer = buildTopCardsContainer(topCardIds);
         topCardsContainer.getStyleClass().add("card-options");
@@ -863,9 +891,7 @@ public class PlayerDeckView {
     private void buildCardSelectOverlay(
             List<CardType> cardTypes, Button confirmButton, String titleText) {
 
-        VBox content = new VBox();
-        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        content.getStyleClass().add("overlay-content");
+        VBox content = buildOverlayContent();
 
         Text title = buildOverlayTitle(titleText);
         ScrollPane cardScrollPane = buildCardSelectScrollPane(cardTypes);
@@ -919,6 +945,24 @@ public class PlayerDeckView {
         });
 
         return cardButton;
+    }
+
+    public void buildWinOverlay(String winnerName) {
+        VBox content = buildOverlayContent();
+
+        String winMsg = String.format(
+                assetProvider.getString("playerDeckScreen.winTitle"), winnerName);
+        Text winTitle = new Text(winMsg);
+        winTitle.getStyleClass().addAll("win-title", "h1");
+
+        playAgainButton.setText(
+                assetProvider.getString("playerDeckScreen.playAgainLabel"));
+        playAgainButton.getStyleClass().addAll("play-button", "h2");
+
+        content.getChildren().addAll(winTitle, playAgainButton);
+
+        overlayLayer.getChildren().setAll(content);
+        showOverlay();
     }
 
     private void showOverlay() {
