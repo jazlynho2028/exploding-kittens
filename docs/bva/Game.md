@@ -482,19 +482,6 @@
     - applyRagebait is called
     - returns CardType.RAGEBAIT
 
-- **TC59: Valid play with one Recycle** ( :white_check_mark: )
-  - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [RECYCLE]
-    - getCurrentPlayer = player
-  - **Expected output**:
-    - card1.toggleSelected is called
-    - player.removeCardFromHand with card1 is called
-    - discardPile.addCardToTop(card1) is called
-    - applyRecycle is called
-    - returns CardType.RECYCLE
-
 - **TC60: Valid play with one Double Up** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
   - **State of the system**: 
@@ -1496,7 +1483,7 @@
   - **State of the system**: CardType.RAGEBAIT passed as cardType
   - **Expected output**: applyRagebait() is called
 
-- **TC193: Valid card type Recycle** ( :white_check_mark: )
+- **TC193: Valid card type Recycle** ( :x: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.RECYCLE passed as cardType
   - **Expected output**: applyRecycle() is called

@@ -191,9 +191,6 @@ public class Game {
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
                 break;
-            case RECYCLE:
-                applyRecycle();
-                break;
             case DOUBLE_UP:
                 applyDoubleUp();
                 break;
@@ -524,11 +521,6 @@ public class Game {
         Player currentPlayer = getCurrentPlayer();
         Player targetPlayer = players.get(targetPlayerIndex);
         currentPlayer.swapHandWith(targetPlayer);
-    }
-
-    void applyRecycle() {
-        discardPile.shuffle();
-        canDrawFromDiscard = true;
     }
 
     void applyDoubleUp() {
