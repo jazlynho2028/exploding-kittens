@@ -1484,9 +1484,9 @@
   - **Expected output**: applyRagebait() is called
 
 - **TC193: Valid card type Recycle** ( :x: )
-  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.RECYCLE passed as cardType
-  - **Expected output**: applyRecycle() is called
+  - **Expected output**: N/A
 
 - **TC194: Valid card type Double Up** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
