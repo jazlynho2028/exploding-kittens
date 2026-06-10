@@ -1607,7 +1607,7 @@
     - turnManager.getRoundCount = WINNER_WINNER_REQUIRED_ROUNDS
   - **Expected output**: return false
 
-- **TC207: Is activated, one round over** ( :x: )
+- **TC207: Is activated, one round over** ( :white_check_mark: )
   - **Name of the test**: reachedWinnerWinnerCondition_wrongNumberOfRounds_returnFalse
   - **State of the system**:
     - getCurrentPlayer.isWinnerWinnerActivated = true

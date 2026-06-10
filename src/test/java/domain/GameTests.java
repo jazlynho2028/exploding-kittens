@@ -2578,7 +2578,8 @@ public class GameTests {
 
 	@ParameterizedTest
 	@CsvSource({
-			"true,  1, 0"
+			"true,  1, 0",
+			"true,  1, 2"
 	})
 	public void reachedWinnerWinnerCondition_wrongNumberOfRounds_returnFalse(
 			boolean isActivated, int activatedRound, int roundsFromRequirement) {
