@@ -286,7 +286,7 @@
     - model.drawRecycle() is called 
     - updateAll() is called
 
-- **TC30: Recycle played, exploding card drawn** ( :x: )
+- **TC30: Recycle played, exploding card drawn** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_recyclePlayed_ExplodingCard_success
   - **State of the system**: model.drawRecycle() returns EXPLODING_KITTEN card
   - **Expected output**:

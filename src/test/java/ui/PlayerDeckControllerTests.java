@@ -732,6 +732,34 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
+	public void updateByCardType_recyclePlayed_ExplodingCard_success() {
+		String drawnCardId = "EXPLODINGKITTEN_1";
+		int drawPileSize = 0;
+
+		Card drawnCard = EasyMock.createMock(Card.class);
+
+		EasyMock.expect(model.drawRecycle()).andReturn(drawnCard);
+		EasyMock.expect(drawnCard.getType()).andReturn(CardType.EXPLODING_KITTEN);
+		EasyMock.expect(drawnCard.getId()).andReturn(drawnCardId);
+		EasyMock.expect(model.isDefusable()).andReturn(false);
+		EasyMock.expect(model.getDrawPileSize()).andReturn(drawPileSize);
+
+		view.bindExplodeButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		view.buildExplodeOverlay(false, drawnCardId, drawPileSize - 1);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, drawnCard);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+
+		controller.updateByCardType(CardType.RECYCLE);
+
+		EasyMock.verify(model, view, drawnCard);
+	}
+
+	@Test
 	public void onEndTurnButton_called_advancesTurnAndRendersNext() {
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class)
