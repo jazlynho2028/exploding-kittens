@@ -841,6 +841,29 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, onError);
 	}
 
+	@Test
+	public void applyTargetedAttackAction_called_appliesAttackAndChangesPlayer() {
+		int targetIndex = 1;
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("handleChangeCurrentPlayer")
+				.createMock();
+
+		model.applyTargetedAttack(targetIndex);
+		EasyMock.expectLastCall();
+
+		controller.handleChangeCurrentPlayer(targetIndex);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.applyTargetedAttackAction(targetIndex);
+
+		EasyMock.verify(model, view, controller);
+	}
+
 	@ParameterizedTest
 	@MethodSource("provideCardTypesWithNoAdditionalUIChange")
 	public void updateByCardType_noAdditionalUIChange_success(CardType cardType) {

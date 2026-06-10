@@ -326,7 +326,7 @@
   - **Expected output**: onError accepts exception
 
 ## Method under test: `applyTargetedAttackAction`
-- **TC26: applyTargetedAttackAction called** ( :x: )
+- **TC26: applyTargetedAttackAction called** ( :white_check_mark: )
   - **Name of the test**: applyTargetedAttackAction_called_appliesAttackAndChangesPlayer
   - **State of the system**: targetIndex = 1
   - **Expected output**:

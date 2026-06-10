@@ -256,7 +256,9 @@ public class PlayerDeckController {
         }
     }
 
-    private void applyTargetedAttackAction(Integer integer) {
+    void applyTargetedAttackAction(int targetIndex) {
+        model.applyTargetedAttack(targetIndex);
+        handleChangeCurrentPlayer(targetIndex);
     }
 
     private void applyRagebaitAction(Integer integer) {
