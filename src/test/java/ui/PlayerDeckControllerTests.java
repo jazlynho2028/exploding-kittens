@@ -701,7 +701,7 @@ public class PlayerDeckControllerTests {
 				.addMockedMethod("updateAll")
 				.createMock();
 
-		model.advanceTurn();
+		model.endTurn();
 		EasyMock.expectLastCall();
 		controller.updateAll();
 		EasyMock.expectLastCall();
@@ -727,7 +727,7 @@ public class PlayerDeckControllerTests {
 		Runnable onRestart = EasyMock.createMock(Runnable.class);
 		controller.setOnRestart(onRestart);
 
-		model.advanceTurn();
+		model.endTurn();
 		EasyMock.expectLastCall();
 		controller.updateAll();
 		EasyMock.expectLastCall();
@@ -749,7 +749,7 @@ public class PlayerDeckControllerTests {
 	public void onEndTurnButton_modelThrowsException_callsOnError() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 
-		model.advanceTurn();
+		model.endTurn();
 		EasyMock.expectLastCall().andThrow(new RuntimeException(EXPECTED_ERROR_MSG));
 		onError.accept(EXPECTED_ERROR_MSG);
 		EasyMock.expectLastCall();

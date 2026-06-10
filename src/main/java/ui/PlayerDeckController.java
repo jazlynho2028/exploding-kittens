@@ -262,7 +262,7 @@ public class PlayerDeckController {
 
     void onEndTurnButton() {
         attempt(onError, () -> {
-            model.advanceTurn();
+            model.endTurn();
 
             updateAll();
 
