@@ -60,19 +60,19 @@
   - **State of the system**: model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
-- **TC8: pendingTargetAction is present** ( :white_check_mark: )
+- **TC8: pendingTargetAction is present** ( :x: )
   - **Name of the test**: onNameTag_pendingTargetActionPresent_executesAction
   - **State of the system**:
     - pendingTargetAction = Optional.of(mockAction)
     - playerIndex = 1
     - initialPlayerIndex = 0
+    - newPlayerIndex = 2
     - model.getIsGameOngoing() returns true
-    - model.canPlaySelected() returns true
-    - model.canEndTurn() returns false
   - **Expected output**:
     - mockAction.accept(1) is called
     - pendingTargetAction becomes empty
-    - view.renderPlayerNameTags(2, true, DEAD_INDICES) is called.
+    - view.renderPlayerNameTags(2, true, DEAD_INDICES) is called
+    - updateTurnControls() is called
 
 ## Method under test: `handleChangeCurrentPlayer(int playerIndex)`
 - **TC8: This method is executed successfully** ( :white_check_mark: )
@@ -302,15 +302,14 @@
     - currentPlayerIndex = 0
     - playSelectedCards returns CardType.TARGETED_ATTACK
   - **Expected output**:
-    - pendingTargetAction becomes present.
-    - view.renderPlayerNameTags(0, false, DEAD_INDICES) is called.
-    - view.renderTurnControlSection(false, false) is called.
-    - Lambda action execution behavior
-      - model.applyTargetedAttack(target) 
-      - handleChangeCurrentPlayer(target) 
-      - updateTurnControls()
+    - pendingTargetAction becomes present
+    - view.renderPlayerNameTags(0, false, DEAD_INDICES) is called
+    - view.renderTurnControlSection(false, false) is called
+    - Lambda action execution behavior:
+      - model.applyTargetedAttack(target) is called
+      - handleChangeCurrentPlayer(target) is called
 
-- **TC25: Ragebait card played** ( :white_check_mark: )
+- **TC25: Ragebait card played** ( :x: )
   - **Name of the test**: onPlayCardsButton_ragebaitPlayed_targetSelectionEnabled
   - **State of the system**:
     - canDrawFromDiscard = true
@@ -326,7 +325,6 @@
     - Lambda action execution behavior
       - model.applyRagebait(target)
       - rebindHandCards()
-      - updateTurnControls()
 
 - **TC30: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed
