@@ -783,7 +783,7 @@
     - aliveIndices = {2}
     - isGameOngoing = false;
 
-- **TC97: All three alive, kill one player** ( :x: )
+- **TC97: All three alive, kill one player** ( :white_check_mark: )
   - **Name of the test**: playExplode_threeAlive_gameContinues
   - **State of the system**:
     - 3 players, all alive
@@ -800,8 +800,8 @@
     - turnManager.incrementTurn is called with getAliveIndices
     - turnManager.incrementDrawCount is called
 
-- **TC98: One player is alive, kill one player** ( :x: )
-  - **Name of the test**: playExplode_atLeastTwoAlive_gameContinues
+- **TC98: One player is alive, kill one player** ( :white_check_mark: )
+  - **Name of the test**: playExplode_threeAlive_gameContinues
   - **State of the system**:
     - 4 players, index 0 is dead
     - currentPlayerIndex = 3
