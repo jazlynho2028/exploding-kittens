@@ -241,7 +241,6 @@
     - SWAP_TOP_AND_BOTTOM
     - DRAW_FROM_THE_BOTTOM
     - WINNER_WINNER_CATNIP_DINNER
-    - RECYCLE
     - DOUBLE_UP
     - MILD_SHUFFLE
   - **Expected output**: no model or view interactions occur
@@ -279,6 +278,20 @@
     - view.renderHandVisibilityButton is called with isFaceUp, false
     - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, false
     - view.renderTurnControlSection is called with false, false
+
+- **TC30: Recycle played, non-exploding card drawn** ( :x: )
+  - **Name of the test**: updateByCardType_recyclePlayed_nonExplodingCard_success
+  - **State of the system**: model.drawRecycle() returns non-exploding card
+  - **Expected output**:
+    - model.drawRecycle() is called 
+    - updateAll() is called
+
+- **TC30: Recycle played, exploding card drawn** ( :x: )
+  - **Name of the test**: updateByCardType_recyclePlayed_ExplodingCard_success
+  - **State of the system**: model.drawRecycle() returns EXPLODING_KITTEN card
+  - **Expected output**:
+    - model.drawRecycle() is called 
+    - handleDrawExplodingKitten is called with exploding kitten card id
 
 ## Method under test: `applyTargetedAttackAction(int targetIndex)`
 - **TC32: Targeted attack action applied** ( :white_check_mark: )
