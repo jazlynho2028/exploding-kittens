@@ -1243,6 +1243,7 @@ public class GameTests {
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.setIsFaceUp(initialFaceUp);
 
 		game.toggleFaceUp();
 
