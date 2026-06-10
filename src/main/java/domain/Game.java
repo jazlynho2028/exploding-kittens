@@ -551,4 +551,9 @@ public class Game {
         throw new IllegalStateException("error.noWinner");
     }
 
+    public Card drawRecycle() {
+        discardPile.shuffle();
+        return drawCard(discardPile::peekBottom, discardPile::removeBottom);
+    }
+
 }
