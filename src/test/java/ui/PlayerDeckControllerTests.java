@@ -709,6 +709,29 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
+	public void updateByCardType_recyclePlayed_nonExplodingCard_success() {
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("updateAll")
+				.createMock();
+
+		Card drawnCard = EasyMock.createMock(Card.class);
+
+		EasyMock.expect(model.drawRecycle()).andReturn(drawnCard);
+		EasyMock.expect(drawnCard.getType()).andReturn(CardType.SKIP);
+
+		controller.updateAll();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller, drawnCard);
+
+		controller.updateByCardType(CardType.RECYCLE);
+
+		EasyMock.verify(model, view, controller, drawnCard);
+	}
+
+	@Test
 	public void onEndTurnButton_called_advancesTurnAndRendersNext() {
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class)

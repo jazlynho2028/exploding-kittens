@@ -279,7 +279,7 @@
     - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, false
     - view.renderTurnControlSection is called with false, false
 
-- **TC30: Recycle played, non-exploding card drawn** ( :x: )
+- **TC30: Recycle played, non-exploding card drawn** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_recyclePlayed_nonExplodingCard_success
   - **State of the system**: model.drawRecycle() returns non-exploding card
   - **Expected output**:

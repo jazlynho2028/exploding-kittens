@@ -251,6 +251,9 @@ public class PlayerDeckController {
                 pendingTargetAction = Optional.of(model::applyRagebait);
                 enablePlayerSelect();
                 break;
+            case RECYCLE:
+                handleDrawnCard(model.drawRecycle());
+                break;
             default:
                 break;
         }
