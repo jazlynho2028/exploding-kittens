@@ -93,12 +93,16 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(onError, controller);
 	}
 
-	@Test
-	public void buildDependentUI_called_buildsHandCardsAndNameTags() {
+	@ParameterizedTest
+	@CsvSource({
+			"true",
+			"false"
+	})
+	public void buildDependentUI_called_buildsHandCardsAndNameTags(boolean isGameOngoing) {
 		boolean isFaceUp = true;
-		boolean isGameOngoing = false;
 
-		EasyMock.expect(model.getCurrentPlayerHandIds()).andStubReturn(CURRENT_PLAYER_HAND_IDS);
+		EasyMock.expect(model.getCurrentPlayerHandIds())
+				.andStubReturn(CURRENT_PLAYER_HAND_IDS);
 		EasyMock.expect(model.getIsFaceUp()).andStubReturn(isFaceUp);
 		EasyMock.expect(model.getCanPlay()).andStubReturn(CAN_PLAY);
 		view.buildAndAddPlayerHandCards(CURRENT_PLAYER_HAND_IDS, isFaceUp, CAN_DRAW);
@@ -230,12 +234,16 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, onError);
 	}
 
-	@Test
-	public void updateAll_called_updatesAllViewComponents() {
+	@ParameterizedTest
+	@CsvSource({
+			"true",
+			"false"
+	})
+	public void updateAll_called_updatesAllViewComponents(boolean isGameOngoing) {
 		boolean isFaceUp = false;
-		boolean isGameOngoing = true;
 
-		EasyMock.expect(model.getCurrentPlayerHandIds()).andStubReturn(CURRENT_PLAYER_HAND_IDS);
+		EasyMock.expect(model.getCurrentPlayerHandIds())
+				.andStubReturn(CURRENT_PLAYER_HAND_IDS);
 		EasyMock.expect(model.getIsFaceUp()).andStubReturn(isFaceUp);
 		EasyMock.expect(model.getCanPlay()).andStubReturn(CAN_PLAY);
 		view.buildAndAddPlayerHandCards(CURRENT_PLAYER_HAND_IDS, isFaceUp, CAN_DRAW);
@@ -279,7 +287,8 @@ public class PlayerDeckControllerTests {
 	public void rebindHandCards_called_rebuildsAndBindsHandCards() {
 		boolean isFaceUp = true;
 
-		EasyMock.expect(model.getCurrentPlayerHandIds()).andStubReturn(CURRENT_PLAYER_HAND_IDS);
+		EasyMock.expect(model.getCurrentPlayerHandIds())
+				.andStubReturn(CURRENT_PLAYER_HAND_IDS);
 		EasyMock.expect(model.getIsFaceUp()).andStubReturn(isFaceUp);
 		EasyMock.expect(model.getCanPlay()).andStubReturn(CAN_PLAY);
 		view.buildAndAddPlayerHandCards(CURRENT_PLAYER_HAND_IDS, isFaceUp, CAN_DRAW);
@@ -332,7 +341,8 @@ public class PlayerDeckControllerTests {
 
 		if (isDefusable) {
 			view.bindDefuseButton(EasyMock.anyObject());
-		} else {
+		}
+		else {
 			view.bindExplodeButton(EasyMock.anyObject());
 		}
 		EasyMock.expectLastCall();
@@ -486,7 +496,8 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getIsGameOngoing()).andStubReturn(isGameOngoing);
 		EasyMock.expect(model.canPlaySelected()).andStubReturn(CAN_PLAY_SELECTED);
 		EasyMock.expect(model.canEndTurn()).andStubReturn(CAN_END_TURN);
-		view.buildAndRenderTurnControlSection(isGameOngoing, CAN_PLAY_SELECTED, CAN_END_TURN);
+		view.buildAndRenderTurnControlSection(
+				isGameOngoing, CAN_PLAY_SELECTED, CAN_END_TURN);
 		EasyMock.expectLastCall();
 
 		controller.updateAll();
@@ -675,7 +686,8 @@ public class PlayerDeckControllerTests {
 		EasyMock.expectLastCall();
 
 		EasyMock.expect(model.getIsFaceUp()).andStubReturn(isFaceUp);
-		EasyMock.expect(model.getCurrentPlayerHandIds()).andStubReturn(CURRENT_PLAYER_HAND_IDS);
+		EasyMock.expect(model.getCurrentPlayerHandIds())
+				.andStubReturn(CURRENT_PLAYER_HAND_IDS);
 		view.renderHandVisibilityButton(isFaceUp, false);
 		EasyMock.expectLastCall();
 		view.buildAndAddPlayerHandCards(CURRENT_PLAYER_HAND_IDS, isFaceUp, false);
