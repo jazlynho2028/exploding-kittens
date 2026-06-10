@@ -258,7 +258,8 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getCurrentPlayerIndex()).andStubReturn(CURRENT_PLAYER_INDEX);
 		EasyMock.expect(model.getIsGameOngoing()).andStubReturn(isGameOngoing);
 		EasyMock.expect(model.getAliveIndices()).andStubReturn(ALIVE_INDICES);
-		strictView.renderPlayerNameTags(CURRENT_PLAYER_INDEX, !isGameOngoing, ALIVE_INDICES);
+		strictView.renderPlayerNameTags
+				(CURRENT_PLAYER_INDEX, !isGameOngoing, ALIVE_INDICES);
 		EasyMock.expectLastCall();
 
 		EasyMock.expect(model.getCanDraw()).andStubReturn(CAN_DRAW);
