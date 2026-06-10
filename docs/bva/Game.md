@@ -1624,11 +1624,9 @@
   - **Expected output**: return true
 
 ### Method under test: `applyWinnerWinnerCatnipDinner()`
-- **TC209: Player throws exception** ( :x: )
-  - **Name of the test**: applyWinnerWinnerCatnipDinner_called_activateWinnerWinnerCount
-  - **State of the system**:
-    - turnManager.getRoundCount = 0
-    - getCurrentPlayer.activateWinnerWinnerFromRound called with turnManager.getRoundCount throws IllegalArgumentException "error.invalidRound"
+- **TC209: Player throws exception** ( :white_check_mark: )
+  - **Name of the test**: applyWinnerWinnerCatnipDinner_turnManagerThrows_failed
+  - **State of the system**:turnManager.getRoundCount throws IllegalArgumentException "error.invalidRound"
   - **Expected output**: throw IllegalArgumentException "error.invalidRound" 
 
 - **TC210: Player throws exception** ( :x: )

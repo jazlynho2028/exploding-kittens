@@ -2641,6 +2641,31 @@ public class GameTests {
 	}
 
 	@Test
+	public void applyWinnerWinnerCatnipDinner_called_activateWinnerWinnerCount() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		String expectedMsg = "error.invalidRound";
+		EasyMock.expect(turnManager.getRoundCount()).andThrow(
+				new IllegalArgumentException(expectedMsg)
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		Exception exception = assertThrows(IllegalArgumentException.class,
+				game::applyWinnerWinnerCatnipDinner);
+
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
+
+		EasyMock.verify(turnManager);
+	}
+
+	@Test
 	public void getAliveIndices_noAlivePlayers_returnEmptySet() {
 		Player player1 = EasyMock.createMock(Player.class);
 		Player player2 = EasyMock.createMock(Player.class);

@@ -505,8 +505,11 @@ public class Game {
     }
 
     void applyWinnerWinnerCatnipDinner() {
+        int currentRound = turnManager.getRoundCount();
 
+        getCurrentPlayer().activateWinnerWinnerFromRound(currentRound);
     }
+
 
     void applyRagebait() {
         // TODO
