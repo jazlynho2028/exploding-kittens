@@ -522,7 +522,7 @@
     - returns CardType.MILD_DRAW
 
 ### Method under test: `getTopDiscardId()`
-- **TC62: Empty discard pile** ( :x: )
+- **TC62: Empty discard pile** ( :white_check_mark: )
   - **Name of the test**: getTopDiscardId_emptyDiscardPile_returnEmptyString
   - **State of the system**: discardPile.isEmpty = true
   - **Expected output**: return "global.empty"

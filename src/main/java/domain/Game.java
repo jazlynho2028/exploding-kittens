@@ -209,7 +209,7 @@ public class Game {
 
     public String getTopDiscardId() {
         if (discardPile.isEmpty()) {
-            return "";
+            return "global.empty";
         }
         return discardPile.peekTop().getId();
     }
