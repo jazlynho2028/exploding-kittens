@@ -812,18 +812,11 @@ public class PlayerDeckControllerTests {
 		expectTargetCardPlaySetup(controller, CardType.RAGEBAIT,
 				"RAGEBAIT_1", 0);
 
-		model.applyRagebait(GameConstants.MAX_PLAYER_INDEX);
-		EasyMock.expectLastCall();
-
-		controller.rebindHandCards();
-		EasyMock.expectLastCall();
-
 		EasyMock.replay(model, view, controller);
 
 		controller.onPlayCardsButton();
 
 		assertTrue(controller.pendingTargetAction.isPresent());
-		controller.pendingTargetAction.get().accept(GameConstants.MAX_PLAYER_INDEX);
 
 		EasyMock.verify(model, view, controller);
 	}

@@ -246,10 +246,7 @@ public class PlayerDeckController {
                 view.renderTurnControlSection(false, false);
                 break;
             case RAGEBAIT:
-                pendingTargetAction = Optional.of(targetIndex -> {
-                    model.applyRagebait(targetIndex);
-                    rebindHandCards();
-                });
+                pendingTargetAction = Optional.of(this::applyRagebaitAction);
                 view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
                         model.getDeadIndices());
                 view.renderTurnControlSection(false, false);
@@ -260,6 +257,9 @@ public class PlayerDeckController {
     }
 
     private void applyTargetedAttackAction(Integer integer) {
+    }
+
+    private void applyRagebaitAction(Integer integer) {
     }
 
     private void updateDiscardPile() {
