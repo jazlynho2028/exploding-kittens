@@ -2404,7 +2404,8 @@ public class GameTests {
 	private static Stream<Arguments> provideValidCardTypesForGodcatWithoutApplyMethod() {
 		return Stream.of(
 				Arguments.of(CardType.SEE_THE_FUTURE),
-				Arguments.of(CardType.TARGETED_ATTACK)
+				Arguments.of(CardType.TARGETED_ATTACK),
+				Arguments.of(CardType.RECYCLE)
 		);
 	}
 

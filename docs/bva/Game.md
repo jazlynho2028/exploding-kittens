@@ -1483,7 +1483,7 @@
   - **State of the system**: CardType.RAGEBAIT passed as cardType
   - **Expected output**: applyRagebait() is called
 
-- **TC193: Valid card type Recycle** ( :x: )
+- **TC193: Valid card type Recycle** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.RECYCLE passed as cardType
   - **Expected output**: N/A
