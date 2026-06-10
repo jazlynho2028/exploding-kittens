@@ -802,6 +802,7 @@ public class GameTests {
 		Card topCard = EasyMock.createMock(Card.class);
 		EasyMock.expect(topCard.getId()).andStubReturn(expectedId);
 
+		EasyMock.expect(discardPile.isEmpty()).andReturn(false);
 		EasyMock.expect(discardPile.peekTop()).andReturn(topCard);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, topCard);
