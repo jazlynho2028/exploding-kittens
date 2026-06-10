@@ -60,21 +60,24 @@
   - **State of the system**: model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
-- **TC8: pendingTargetAction is present** ( :white_check_mark: )
+- **TC8: pendingTargetAction is present** ( :x: )
   - **Name of the test**: onNameTag_pendingTargetActionPresent_executesAction
   - **State of the system**:
     - pendingTargetAction = Optional.of(mockAction)
     - playerIndex = 1
-    - model.getCurrentPlayerIndex() returns 2
+    - initialPlayerIndex = 0
+    - newPlayerIndex = 2
     - model.getIsGameOngoing() returns true
-    - model.canPlaySelected() returns true
-    - model.canEndTurn() returns false
+    - model.getIsFaceUp() returns false
+    - model.getCanDraw() returns true
+    - model.isDrawPileEmpty() returns false
   - **Expected output**:
     - mockAction.accept(1) is called
     - pendingTargetAction becomes empty
-    - view.renderPlayerNameTags(2, true) is called
-    - handleChangeCurrentPlayer(2) is called
-    - view.renderTurnControlSection(true, false) is called
+    - view.renderPlayerNameTags(2, true, DEAD_INDICES) is called
+    - view.renderHandVisibilityButton(false) is called
+    - view.renderDrawPile(true, false) is called
+    - updateTurnControls() is called
 
 ## Method under test: `handleChangeCurrentPlayer(int playerIndex)`
 - **TC8: This method is executed successfully** ( :white_check_mark: )
@@ -299,23 +302,60 @@
   - **State of the system**:
     - canDrawFromDiscard = true
     - topDiscardId = "TARGETED_ATTACK_1"
-    - canPlaySelected = true
-    - canEndTurn = true
     - currentPlayerIndex = 0
+    - isDrawPileEmpty = false
+    - getIsFaceUp = true
     - playSelectedCards returns CardType.TARGETED_ATTACK
   - **Expected output**:
-    - model.playSelectedCards is called
-    - view.renderDiscardPile(canDrawFromDiscard, topDiscardId) is called
-    - rebindHandCards is called
-    - view.renderTurnControlSection(canPlaySelected, canEndTurn) is called
     - pendingTargetAction becomes present
-    - view.renderPlayerNameTags(currentPlayerIndex, false) is called
-    - view.renderTurnControlSection(false, false) is called
+    - view.renderDiscardPile(true, "TARGETED_ATTACK_1") is called.
+    - Mocked controller hooks rebindHandCards() and updateTurnControls() execute
+    - view.renderPlayerNameTags(0, false, deadIndices) is called to enable rival selection
+    - view.renderDrawPile(false, false) is called to freeze the draw deck
+    - view.renderHandVisibilityButton(true) is called
+    - view.buildAndAddPlayerHandCards(handIds, true, false) is called to lock down cards
+    - view.renderTurnControlSection(false, false) is called to force player targeting
+
+- **TC25: Ragebait card played** ( :white_check_mark: )
+  - **Name of the test**: onPlayCardsButton_ragebaitPlayed_targetSelectionEnabled
+  - **State of the system**:
+    - canDrawFromDiscard = true
+    - topDiscardId = "RAGEBAIT_1"
+    - isDrawPileEmpty = false
+    - canEndTurn = true
+    - currentPlayerIndex = 0
+    - playSelectedCards returns CardType.RAGEBAIT
+    - getIsFaceUp = true
+  - **Expected output**:
+    - pendingTargetAction becomes present
+    - view.renderDiscardPile(true, "TARGETED_ATTACK_1") is called
+    - Mocked controller hooks rebindHandCards() and updateTurnControls() execute
+    - view.renderPlayerNameTags(0, false, deadIndices) is called to enable rival selection
+    - view.renderDrawPile(false, false) is called to freeze the draw deck
+    - view.renderHandVisibilityButton(true) is called
+    - view.buildAndAddPlayerHandCards(handIds, true, false) is called to lock down cards
+    - view.renderTurnControlSection(false, false) is called to force player targeting
 
 - **TC30: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed
   - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
+
+## Method under test: `applyTargetedAttackAction`
+- **TC26: applyTargetedAttackAction called** ( :white_check_mark: )
+  - **Name of the test**: applyTargetedAttackAction_called_appliesAttackAndChangesPlayer
+  - **State of the system**: targetIndex = 1
+  - **Expected output**:
+    - model.applyTargetedAttack(1) is called
+    - handleChangeCurrentPlayer(1) is called
+
+## Method under test: `applyRagebaitAction()`
+- **TC27: applyRagebaitAction called** ( :white_check_mark: )
+  - **Name of the test**: applyRagebaitAction_called_appliesRagebaitAndRebindsHand
+  - **State of the system**: targetIndex = 1
+  - **Expected output**:
+    - model.applyRagebait(1) is called
+    - rebindHandCards() is called
 
 ## Method under test: `onEndTurnButton()`
 - **TC31: Turn ends successfully** ( :white_check_mark: )

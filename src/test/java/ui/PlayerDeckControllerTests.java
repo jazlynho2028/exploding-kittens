@@ -339,40 +339,45 @@ public class PlayerDeckControllerTests {
 	@Test
 	public void onNameTag_pendingTargetActionPresent_executesAction() {
 		int playerIndex = 1;
+		int initialPlayerIndex = 0;
 		int newPlayerIndex = 2;
 		boolean isGameOngoing = true;
-		boolean canPlaySelected = true;
-		boolean canEndTurn = false;
+		boolean isFaceUp = false;
+		boolean canDraw = true;
+		boolean isDrawPileEmpty = false;
 
 		Consumer<Integer> mockAction = EasyMock.createMock(Consumer.class);
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(
-				PlayerDeckController.class)
+						PlayerDeckController.class)
 				.withConstructor(model, view)
-				.addMockedMethod("handleChangeCurrentPlayer")
+				.addMockedMethod("updateTurnControls")
 				.createMock();
 
 		controller.pendingTargetAction = Optional.of(mockAction);
 
-		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(CURRENT_PLAYER_INDEX);
-		EasyMock.expect(model.getDeadIndices()).andReturn(DEAD_INDICES);
+		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(initialPlayerIndex);
 
 		mockAction.accept(playerIndex);
 		EasyMock.expectLastCall();
 
 		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(newPlayerIndex);
 		EasyMock.expect(model.getIsGameOngoing()).andReturn(isGameOngoing);
+		EasyMock.expect(model.getDeadIndices()).andReturn(DEAD_INDICES);
 
 		view.renderPlayerNameTags(newPlayerIndex, isGameOngoing, DEAD_INDICES);
 		EasyMock.expectLastCall();
 
-		controller.handleChangeCurrentPlayer(playerIndex);
+		EasyMock.expect(model.getIsFaceUp()).andReturn(isFaceUp);
+		view.renderHandVisibilityButton(isFaceUp);
 		EasyMock.expectLastCall();
 
-		EasyMock.expect(model.canPlaySelected()).andReturn(canPlaySelected);
-		EasyMock.expect(model.canEndTurn()).andReturn(canEndTurn);
+		EasyMock.expect(model.getCanDraw()).andReturn(canDraw);
+		EasyMock.expect(model.isDrawPileEmpty()).andReturn(isDrawPileEmpty);
+		view.renderDrawPile(canDraw, isDrawPileEmpty);
+		EasyMock.expectLastCall();
 
-		view.renderTurnControlSection(canPlaySelected, canEndTurn);
+		controller.updateTurnControls();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view, mockAction, controller);
@@ -758,52 +763,88 @@ public class PlayerDeckControllerTests {
 		);
 	}
 
-	@Test
-	public void onPlayCardsButton_targetedAttackPlayed_targetSelectionEnabled() {
-		boolean canDrawFromDiscard = true;
-		String topDiscardId = "TARGETED_ATTACK_1";
-		boolean canPlaySelected = true;
-		boolean canEndTurn = true;
-		int currentPlayerIndex = 0;
-		boolean isGameOngoing = false;
+	private void expectTargetCardPlaySetup(
+			PlayerDeckController controller,
+			CardType cardType,
+			String discardId,
+			int currentPlayerIndex) {
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(
-						PlayerDeckController.class)
-				.withConstructor(model, view)
-				.addMockedMethod("rebindHandCards")
-				.createMock();
-
-		EasyMock.expect(model.playSelectedCards()).andReturn(CardType.TARGETED_ATTACK);
-		EasyMock.expect(model.canDrawFromDiscard()).andReturn(canDrawFromDiscard);
-		EasyMock.expect(model.getTopDiscardId()).andReturn(topDiscardId);
-
-		view.renderDiscardPile(canDrawFromDiscard, topDiscardId);
+		EasyMock.expect(model.playSelectedCards()).andReturn(cardType);
+		EasyMock.expect(model.canDrawFromDiscard()).andReturn(true);
+		EasyMock.expect(model.getTopDiscardId()).andReturn(discardId);
+		view.renderDiscardPile(true, discardId);
 		EasyMock.expectLastCall();
 
 		controller.rebindHandCards();
 		EasyMock.expectLastCall();
 
-		EasyMock.expect(model.canPlaySelected()).andReturn(canPlaySelected);
-		EasyMock.expect(model.canEndTurn()).andReturn(canEndTurn);
-
-		view.renderTurnControlSection(canPlaySelected, canEndTurn);
+		controller.updateTurnControls();
 		EasyMock.expectLastCall();
 
-		EasyMock.expect(model.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		EasyMock.expect(model.getCurrentPlayerIndex())
+				.andReturn(currentPlayerIndex);
 		EasyMock.expect(model.getDeadIndices()).andReturn(DEAD_INDICES);
 
-		view.renderPlayerNameTags(currentPlayerIndex, isGameOngoing, DEAD_INDICES);
+		view.renderPlayerNameTags(currentPlayerIndex, false, DEAD_INDICES);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.isDrawPileEmpty()).andReturn(false);
+		view.renderDrawPile(false, false);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.getIsFaceUp()).andReturn(true).times(2);
+		view.renderHandVisibilityButton(true);
+		EasyMock.expectLastCall();
+
+		java.util.List<String> mockHandIds = java.util.Collections.emptyList();
+		EasyMock.expect(model.getCurrentPlayerHandIds()).andReturn(mockHandIds);
+		view.buildAndAddPlayerHandCards(mockHandIds, true, false);
 		EasyMock.expectLastCall();
 
 		view.renderTurnControlSection(false, false);
 		EasyMock.expectLastCall();
+	}
+
+	@Test
+	public void onPlayCardsButton_targetedAttackPlayed_targetSelectionEnabled() {
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("rebindHandCards")
+				.addMockedMethod("updateTurnControls")
+				.createMock();
+
+		expectTargetCardPlaySetup(controller, CardType.TARGETED_ATTACK,
+				"TARGETED_ATTACK_1", 0);
 
 		EasyMock.replay(model, view, controller);
 
 		controller.onPlayCardsButton();
 
-		EasyMock.verify(model, view, controller);
 		assertTrue(controller.pendingTargetAction.isPresent());
+
+		EasyMock.verify(model, view, controller);
+	}
+
+	@Test
+	public void onPlayCardsButton_ragebaitPlayed_targetSelectionEnabled() {
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("rebindHandCards")
+				.addMockedMethod("updateTurnControls")
+				.createMock();
+
+		expectTargetCardPlaySetup(controller, CardType.RAGEBAIT,
+				"RAGEBAIT_1", 0);
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onPlayCardsButton();
+
+		assertTrue(controller.pendingTargetAction.isPresent());
+
+		EasyMock.verify(model, view, controller);
 	}
 
 	@Test
@@ -826,6 +867,52 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, onError);
 	}
 
+	@Test
+	public void applyTargetedAttackAction_called_appliesAttackAndChangesPlayer() {
+		int targetIndex = 1;
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("handleChangeCurrentPlayer")
+				.createMock();
+
+		model.applyTargetedAttack(targetIndex);
+		EasyMock.expectLastCall();
+
+		controller.handleChangeCurrentPlayer(targetIndex);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.applyTargetedAttackAction(targetIndex);
+
+		EasyMock.verify(model, view, controller);
+	}
+
+	@Test
+	public void applyRagebaitAction_called_appliesRagebaitAndRebindsHand() {
+		int targetIndex = 1;
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("rebindHandCards")
+				.createMock();
+
+		model.applyRagebait(targetIndex);
+		EasyMock.expectLastCall();
+
+		controller.rebindHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.applyRagebaitAction(targetIndex);
+
+		EasyMock.verify(model, view, controller);
+	}
+
 	@ParameterizedTest
 	@MethodSource("provideCardTypesWithNoAdditionalUIChange")
 	public void updateByCardType_noAdditionalUIChange_success(CardType cardType) {
@@ -846,7 +933,6 @@ public class PlayerDeckControllerTests {
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM),
 				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM),
 				Arguments.of(CardType.WINNER_WINNER_CATNIP_DINNER),
-				Arguments.of(CardType.RAGEBAIT),
 				Arguments.of(CardType.RECYCLE),
 				Arguments.of(CardType.DOUBLE_UP),
 				Arguments.of(CardType.MILD_SHUFFLE)

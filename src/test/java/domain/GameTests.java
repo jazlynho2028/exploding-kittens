@@ -586,8 +586,6 @@ public class GameTests {
 						"applyWinnerWinnerCatnipDinner",
 						(Consumer<Game>) Game::applyWinnerWinnerCatnipDinner
 				),
-				Arguments.of(CardType.RAGEBAIT, "applyRagebait",
-						(Consumer<Game>) Game::applyRagebait),
 				Arguments.of(CardType.RECYCLE, "applyRecycle",
 						(Consumer<Game>) Game::applyRecycle),
 				Arguments.of(CardType.DOUBLE_UP, "applyDoubleUp",
@@ -2805,6 +2803,45 @@ public class GameTests {
 		game.addAttackDrawCount();
 
 		EasyMock.verify(players, drawPile, discardPile, turnManager);
+	}
+
+	static Stream<Arguments> applyRagebaitArgs() {
+		return Stream.of(
+				Arguments.of(0, 1),
+				Arguments.of(0, GameConstants.MAX_PLAYER_INDEX),
+				Arguments.of(GameConstants.MAX_PLAYER_INDEX, 0)
+		);
+	}
+
+	@ParameterizedTest
+	@MethodSource("applyRagebaitArgs")
+	public void applyRagebait_validTargets_swapsHands(
+			int currentPlayerIndex, int targetPlayerIndex) {
+
+		List<Player> players = EasyMock.createMock(List.class);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		Player targetPlayer = EasyMock.createMock(Player.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(currentPlayerIndex);
+		EasyMock.expect(players.get(currentPlayerIndex)).andReturn(currentPlayer);
+		EasyMock.expect(players.get(targetPlayerIndex)).andReturn(targetPlayer);
+
+		currentPlayer.swapHandWith(targetPlayer);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, currentPlayer,
+				targetPlayer, drawPile,
+				discardPile, turnManager);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.applyRagebait(targetPlayerIndex);
+
+		EasyMock.verify(players, currentPlayer,
+				targetPlayer, drawPile,
+				discardPile, turnManager);
 	}
 
 	@Test

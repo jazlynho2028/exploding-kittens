@@ -182,9 +182,6 @@ public class Game {
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
                 break;
-            case RAGEBAIT:
-                applyRagebait();
-                break;
             case RECYCLE:
                 applyRecycle();
                 break;
@@ -459,8 +456,10 @@ public class Game {
         // TODO
     }
 
-    void applyRagebait() {
-        // TODO
+    public void applyRagebait(int targetPlayerIndex) {
+        Player currentPlayer = getCurrentPlayer();
+        Player targetPlayer = players.get(targetPlayerIndex);
+        currentPlayer.swapHandWith(targetPlayer);
     }
 
     void applyRecycle() {

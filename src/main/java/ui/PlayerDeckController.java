@@ -90,14 +90,18 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             if (model.getCurrentPlayerIndex() != playerIndex) {
                 if (pendingTargetAction.isPresent()) {
-                    pendingTargetAction.get().accept(playerIndex);
+                    Consumer<Integer> action = pendingTargetAction.get();
                     pendingTargetAction = Optional.empty();
 
-                    view.renderPlayerNameTags(model.getCurrentPlayerIndex(),
-                            model.getIsGameOngoing(), model.getDeadIndices());
-                }
+                    action.accept(playerIndex);
 
-                handleChangeCurrentPlayer(playerIndex);
+                    updateNameTags();
+                    updateHandVisibilityButton();
+                    updateDrawPile();
+                }
+                else {
+                    handleChangeCurrentPlayer(playerIndex);
+                }
                 updateTurnControls();
             }
         });
@@ -183,7 +187,7 @@ public class PlayerDeckController {
         });
     }
 
-    private void updateTurnControls() {
+    void updateTurnControls() {
         view.renderTurnControlSection(
                 model.canPlaySelected(),
                 model.canEndTurn()
@@ -229,22 +233,61 @@ public class PlayerDeckController {
     void updateByCardType(CardType cardType) {
         switch (cardType) {
             case SKIP:
-			case SUPER_SKIP:
-			case CATOMIC_BOMB:
-				renderNextTurn();
+            case SUPER_SKIP:
+            case CATOMIC_BOMB:
+                renderNextTurn();
                 break;
             case SEE_THE_FUTURE:
                 view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
                 break;
             case TARGETED_ATTACK:
-                pendingTargetAction = Optional.of(model::applyTargetedAttack);
-                view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
-                        model.getDeadIndices());
-                view.renderTurnControlSection(false, false);
+                pendingTargetAction = Optional.of(this::applyTargetedAttackAction);
+                enablePlayerSelect();
                 break;
-			default:
+            case RAGEBAIT:
+                pendingTargetAction = Optional.of(this::applyRagebaitAction);
+                enablePlayerSelect();
+                break;
+            default:
                 break;
         }
+    }
+
+    private void enablePlayerSelect() {
+        enableNameTags();
+        disableAllButNameTags();
+    }
+
+    private void enableNameTags() {
+        view.renderPlayerNameTags(
+                model.getCurrentPlayerIndex(),
+                false,
+                model.getDeadIndices()
+        );
+    }
+
+    private void disableAllButNameTags() {
+        view.renderDrawPile(false, model.isDrawPileEmpty());
+
+        view.renderHandVisibilityButton(model.getIsFaceUp());
+
+        view.buildAndAddPlayerHandCards(
+                model.getCurrentPlayerHandIds(),
+                model.getIsFaceUp(),
+                false
+        );
+
+        view.renderTurnControlSection(false, false);
+    }
+
+    void applyTargetedAttackAction(int targetIndex) {
+        model.applyTargetedAttack(targetIndex);
+        handleChangeCurrentPlayer(targetIndex);
+    }
+
+    void applyRagebaitAction(int targetIndex) {
+        model.applyRagebait(targetIndex);
+        rebindHandCards();
     }
 
     private void updateDiscardPile() {

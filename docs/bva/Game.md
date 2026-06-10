@@ -1435,6 +1435,22 @@
   - **Expected output**:
     - turnManager.drawCount = 4
 
+### Method under test: `applyRagebait(int targetPlayerIndex)`
+- **TC196: First player targets adjacent player** ( :white_check_mark: )
+  - **Name of the test**: applyRagebait_validTargets_swapsHands
+  - **State of the system**: currentPlayerIndex = 0, targetPlayerIndex = 1
+  - **Expected output**: currentPlayer.swapHandWith(targetPlayer) is called
+
+- **TC197: First player targets last player** ( :white_check_mark: )
+  - **Name of the test**: applyRagebait_validTargets_swapsHands
+  - **State of the system**: currentPlayerIndex = 0, targetPlayerIndex = LAST_PLAYER_INDEX
+  - **Expected output**: currentPlayer.swapHandWith(targetPlayer) is called
+
+- **TC198: Last player targets first player** ( :white_check_mark: )
+  - **Name of the test**: applyRagebait_validTargets_swapsHands
+  - **State of the system**: currentPlayerIndex = LAST_PLAYER_INDEX, targetPlayerIndex = 0
+  - **Expected output**: currentPlayer.swapHandWith(targetPlayer) is called
+
 ### Method under test: `getDeadIndices()`
 - **TC194: No dead players** ( :white_check_mark: )
   - **Name of the test**: getDeadIndices_noDeadPlayers_returnEmptySet

@@ -203,3 +203,14 @@
   - **Name of the test**: eliminatePlayer_playerCreated_setIsAliveToFalse
   - **State of the system**: Player is dead
   - **Expected output**: Player is dead
+
+### Method under test: `swapHandWith(Player other)`
+- **TC40: Both players have cards** ( :white_check_mark: )
+  - **Name of the test**: swapHandWith_bothPlayersHaveCards_handsSwapped
+  - **State of the system**: player1 has [card1], player2 has [card2]
+  - **Expected output**: player1 has [card2], player2 has [card1]
+
+- **TC41: One player has empty hand** ( :white_check_mark: )
+  - **Name of the test**: swapHandWith_oneEmptyHand_handsSwapped
+  - **State of the system**: player1 has [card1], player2 has []
+  - **Expected output**: player1 has [], player2 has [card1]
