@@ -794,8 +794,6 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		EasyMock.expect(discardPile.isEmpty()).andReturn(false);
-
 		String expectedId = "SKIP_1";
 		Card topCard = EasyMock.createMock(Card.class);
 		EasyMock.expect(topCard.getId()).andStubReturn(expectedId);
