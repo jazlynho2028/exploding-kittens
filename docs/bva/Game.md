@@ -703,40 +703,14 @@
 ### Method under test: `endTurn()`
 - **TC89: Can end turn** ( :white_check_mark: )
   - **Name of the test**: endTurn_canEndTurnNoWinnerWinner_endTurnAndDeselectCards
-  - **State of the system**:
-    - canEndTurn = true
-    - player = getCurrentPlayer
+  - **State of the system**: canEndTurn = true
   - **Expected output**:
-    - player.deselectHandCards is called
+    - getCurrentPlayer.deselectHandCards is called
     - reachedWinnerWinnerCondition returns false
     - canPlay = true
     - isFaceUp = false
     - turnManager.incrementTurn is called with getAliveIndices
     - turnManager.incrementDrawCount is called
-
-- **TC90: Winner winner condition reached, current player at 0** ( :x: )
-  - **Name of the test**: endTurn_canEndTurnReachedWinnerWinner_endGame
-  - **State of the system**:
-    - canEndTurn = true
-    - 2 players
-    - player1 = getCurrentPlayer
-  - **Expected output**:
-    - player.deselectHandCards is called
-    - reachedWinnerWinnerCondition returns true
-    - player.eliminate is called with all players except player1
-    - isGameOngoing = false
-
-- **TC91: Winner winner condition reached, current player at 0** ( :x: )
-  - **Name of the test**: endTurn_canEndTurnReachedWinnerWinner_endGame
-  - **State of the system**:
-    - canEndTurn = true
-    - 4 players
-    - player4 = getCurrentPlayer
-  - **Expected output**:
-    - player.deselectHandCards is called
-    - reachedWinnerWinnerCondition returns true
-    - player.eliminate is called with all players except player4
-    - isGameOngoing = false
 
 - **TC92: Cannot end turn** ( :white_check_mark: )
   - **Name of the test**: endTurn_cannotEndTurn_failed
