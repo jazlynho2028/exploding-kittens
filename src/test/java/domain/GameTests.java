@@ -1524,7 +1524,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void endTurn_canEndTurn_endTurnAndDeselectCards() {
+	public void endTurn_canEndTurnNoWinnerWinner_endTurnAndDeselectCards() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1558,8 +1558,11 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
+		game.setIsGameOngoing(true);
 		game.endTurn();
 
+		assertTrue(game.getCanPlay());
+		assertFalse(game.getIsFaceUp());
 		EasyMock.verify(turnManager, currentPlayer, game);
 	}
 

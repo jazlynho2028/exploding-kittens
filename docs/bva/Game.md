@@ -701,7 +701,7 @@
   - **Expected output**: throws InvalidArgumentException "error.handCardIndexOutOfBounds"
 
 ### Method under test: `endTurn()`
-- **TC89: Can end turn** ( :x: )
+- **TC89: Can end turn** ( :white_check_mark: )
   - **Name of the test**: endTurn_canEndTurnNoWinnerWinner_endTurnAndDeselectCards
   - **State of the system**:
     - canEndTurn = true
