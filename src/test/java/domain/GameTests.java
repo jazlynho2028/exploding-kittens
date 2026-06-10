@@ -30,6 +30,7 @@ public class GameTests {
 
 		assertFalse(game.getIsGameOngoing());
 		assertFalse(game.getIsFaceUp());
+		assertFalse(game.getCanPlay());
 	}
 
 	@ParameterizedTest
@@ -969,7 +970,7 @@ public class GameTests {
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		String expectedTopDiscardId = "";
+		String expectedTopDiscardId = "global.empty";
 		String actualTopDiscardId = game.getTopDiscardId();
 
 		assertEquals(expectedTopDiscardId, actualTopDiscardId);
@@ -1001,20 +1002,6 @@ public class GameTests {
 		assertEquals(expectedId, actualId);
 
 		EasyMock.verify(discardPile);
-	}
-
-	@Test
-	public void canDrawFromDiscard_none_returnFalse() {
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
-
-		Game game = new Game(players, drawPile, discardPile, turnManager);
-
-		assertFalse(game.canDrawFromDiscard());
 	}
 
 	@ParameterizedTest
@@ -1250,27 +1237,6 @@ public class GameTests {
 		EasyMock.verify(turnManager, game);
 	}
 
-	@ParameterizedTest
-	@CsvSource({
-			"true",
-			"false"
-	})
-	public void setFaceUpToFalse_called_setToFalse(boolean initialFaceUp) {
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
-
-		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.setIsFaceUp(initialFaceUp);
-
-		game.setFaceUpToFalse();
-
-		assertFalse(game.getIsFaceUp());
-	}
-
 	@Test
 	public void drawFromPile_nonExplodingCard_returnsDrawnCard() {
 		List<Player> players = EasyMock.createMock(List.class);
@@ -1429,7 +1395,6 @@ public class GameTests {
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.setIsFaceUp(initialFaceUp);
 
 		game.toggleFaceUp();
 
@@ -1496,7 +1461,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void advanceTurn_canEndTurn_advanceTurnAndDeselectCards() {
+	public void endTurn_canEndTurn_endTurnAndDeselectCards() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1530,13 +1495,13 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		game.advanceTurn();
+		game.endTurn();
 
 		EasyMock.verify(turnManager, currentPlayer, game);
 	}
 
 	@Test
-	public void advanceTurn_cannotEndTurn_failed() {
+	public void endTurn_cannotEndTurn_failed() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -1555,7 +1520,7 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		Exception exception = assertThrows(IllegalStateException.class, game::advanceTurn);
+		Exception exception = assertThrows(IllegalStateException.class, game::endTurn);
 
 		String actualMsg = exception.getMessage();
 		assertEquals(expectedMsg, actualMsg);
@@ -2336,12 +2301,12 @@ public class GameTests {
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("advanceTurn")
+				.addMockedMethod("endTurn")
 				.addMockedMethod("canEndTurn")
 				.createMock();
 
 		EasyMock.expect(game.canEndTurn()).andReturn(true);
-		game.advanceTurn();
+		game.endTurn();
 		EasyMock.expectLastCall();
 		EasyMock.replay(game);
 		game.applyCatomicBomb();
@@ -2425,12 +2390,12 @@ public class GameTests {
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("advanceTurn")
+				.addMockedMethod("endTurn")
 				.addMockedMethod("canEndTurn")
 				.createMock();
 
 		EasyMock.expect(game.canEndTurn()).andReturn(true);
-		game.advanceTurn();
+		game.endTurn();
 		EasyMock.expectLastCall();
 		EasyMock.replay(game);
 		game.applyCatomicBomb();
@@ -2528,12 +2493,12 @@ public class GameTests {
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("advanceTurn")
+				.addMockedMethod("endTurn")
 				.addMockedMethod("canEndTurn")
 				.createMock();
 
 		EasyMock.expect(game.canEndTurn()).andReturn(true);
-		game.advanceTurn();
+		game.endTurn();
 		EasyMock.expectLastCall();
 		EasyMock.replay(game);
 		game.applyCatomicBomb();

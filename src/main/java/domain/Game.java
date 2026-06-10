@@ -18,6 +18,7 @@ public class Game {
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
+    private boolean canPlay;
 
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2"},
@@ -35,6 +36,7 @@ public class Game {
 
         isGameOngoing = false;
         isFaceUp = false;
+        canPlay = false;
     }
 
     public void setUp() {
@@ -206,10 +208,6 @@ public class Game {
         return discardPile.peekTop().getId();
     }
 
-    public boolean canDrawFromDiscard() {
-        return false;
-    }
-
     public boolean canEndTurn() {
         return turnManager.getDrawCount() == 0;
     }
@@ -226,6 +224,10 @@ public class Game {
         return isGameOngoing && turnManager.getDrawCount() > 0;
     }
 
+    public boolean getCanPlay() {
+        return true;
+    }
+
     public boolean getIsFaceUp() {
         return isFaceUp;
     }
@@ -236,10 +238,6 @@ public class Game {
         }
 
         turnManager.setCurrentPlayerIndex(newPlayerIndex);
-    }
-
-    public void setFaceUpToFalse() {
-        isFaceUp = false;
     }
 
     public Card drawFromPile() {
@@ -268,21 +266,25 @@ public class Game {
         getCurrentPlayer().toggleSelectedHandCardAt(handCardIndex);
     }
 
-    public void advanceTurn() {
+    public void endTurn() {
         if (!canEndTurn()) {
             throw new IllegalStateException("error.cannotEndTurn");
         }
+
         getCurrentPlayer().deselectHandCards();
+
+        nextTurn();
+    }
+
+    private void nextTurn() {
+        canPlay = true;
+        isFaceUp = false;;
         turnManager.incrementTurn(getAliveIndices());
         turnManager.incrementDrawCount();
     }
 
     void setIsGameOngoing(boolean isGameOngoing) {
         this.isGameOngoing = isGameOngoing;
-    }
-
-    void setIsFaceUp(boolean isFaceUp) {
-        this.isFaceUp = isFaceUp;
     }
 
     public boolean isDefusable() {
@@ -348,8 +350,7 @@ public class Game {
             isGameOngoing = false;
         }
         else {
-            turnManager.incrementTurn(getAliveIndices());
-            turnManager.incrementDrawCount();
+            nextTurn();
         }
     }
 
@@ -368,7 +369,7 @@ public class Game {
     void applySkip() {
         turnManager.decrementDrawCount();
         if (canEndTurn()) {
-            advanceTurn();
+            endTurn();
         }
     }
 
@@ -408,7 +409,7 @@ public class Game {
 
     void applySuperSkip() {
         turnManager.setDrawCount(0);
-        advanceTurn();
+        endTurn();
     }
 
     public void applyGodcat(CardType cardType) {
