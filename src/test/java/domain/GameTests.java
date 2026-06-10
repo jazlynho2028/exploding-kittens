@@ -2554,7 +2554,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void reachedWinnerWinnerCondition_failedRequirement_returnFalse() {
+	public void reachedWinnerWinnerCondition_notActivated_returnFalse() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -2563,9 +2563,6 @@ public class GameTests {
 		Player currentPlayer = EasyMock.createMock(Player.class);
 
 		EasyMock.expect(currentPlayer.isWinnerWinnerActivated()).andReturn(false);
-		EasyMock.expect(currentPlayer.getWinnerWinnerActivatedRound()).andReturn(0);
-
-		EasyMock.expect(turnManager.getRoundCount()).andReturn(GameConstants.WINNER_WINNER_REQUIRED_ROUNDS);
 
 		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer
@@ -2575,6 +2572,44 @@ public class GameTests {
 				currentPlayer, game);
 
 		assertFalse(game.reachedWinnerWinnerCondition());
+
+		EasyMock.verify(currentPlayer, game);
+	}
+
+	@ParameterizedTest
+	@CsvSource({
+			"true,  1, 0"
+	})
+	public void reachedWinnerWinnerCondition_wrongNumberOfRounds_returnFalse(
+			boolean isActivated, int activatedRound, int roundsFromRequirement) {
+
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		EasyMock.expect(currentPlayer.isWinnerWinnerActivated()).andReturn(
+				isActivated
+		);
+		EasyMock.expect(currentPlayer.getWinnerWinnerActivatedRound()).andReturn(
+				activatedRound
+		);
+
+		EasyMock.expect(turnManager.getRoundCount()).andReturn(
+				GameConstants.WINNER_WINNER_REQUIRED_ROUNDS + roundsFromRequirement);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer
+		);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				currentPlayer, game);
+
+		assertFalse(game.reachedWinnerWinnerCondition());
+
+		EasyMock.verify(currentPlayer, turnManager, game);
 	}
 
 	@Test

@@ -1595,15 +1595,12 @@
 
 ### Method under test: `reachedWinnerWinnerCondition()`
 - **TC206: Is not activated** ( :white_check_mark: )
-  - **Name of the test**: reachedWinnerWinnerCondition_failedRequirement_returnFalse
-  - **State of the system**: 
-    - getCurrentPlayer.isWinnerWinnerActivated = false
-    - getCurrentPlayer.getWinnerWinnerActivatedRound = 0
-    - turnManager.getRoundCount = WINNER_WINNER_REQUIRED_ROUNDS
+  - **Name of the test**: reachedWinnerWinnerCondition_notActivated_returnFalse
+  - **State of the system**: getCurrentPlayer.isWinnerWinnerActivated = false
   - **Expected output**: return false
 
-- **TC207: Is activated, one more round** ( :x: )
-  - **Name of the test**: reachedWinnerWinnerCondition_failedRequirement_returnFalse
+- **TC207: Is activated, one more round** ( :white_check_mark: )
+  - **Name of the test**: reachedWinnerWinnerCondition_wrongNumberOfRounds_returnFalse
   - **State of the system**:
     - getCurrentPlayer.isWinnerWinnerActivated = true
     - getCurrentPlayer.getWinnerWinnerActivatedRound = 1
@@ -1611,7 +1608,7 @@
   - **Expected output**: return false
 
 - **TC207: Is activated, one round over** ( :x: )
-  - **Name of the test**: reachedWinnerWinnerCondition_failedRequirement_returnFalse
+  - **Name of the test**: reachedWinnerWinnerCondition_wrongNumberOfRounds_returnFalse
   - **State of the system**:
     - getCurrentPlayer.isWinnerWinnerActivated = true
     - getCurrentPlayer.getWinnerWinnerActivatedRound = 1
