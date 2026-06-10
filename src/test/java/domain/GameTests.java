@@ -2641,7 +2641,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyWinnerWinnerCatnipDinner_called_activateWinnerWinnerCount() {
+	public void applyWinnerWinnerCatnipDinner_turnManagerThrows_failed() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -2663,6 +2663,32 @@ public class GameTests {
 		assertEquals(expectedMsg, actualMsg);
 
 		EasyMock.verify(turnManager);
+	}
+
+	@Test
+	public void applyWinnerWinnerCatnipDinner_called_activateWinnerWinnerCount() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		int currentRound = 1;
+		EasyMock.expect(turnManager.getRoundCount()).andReturn(currentRound);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		currentPlayer.activateWinnerWinnerFromRound(currentRound);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer
+		);
+
+		EasyMock.replay(game);
+
+		game.applyWinnerWinnerCatnipDinner();
+
+		EasyMock.verify(turnManager, currentPlayer, game);
 	}
 
 	@Test
