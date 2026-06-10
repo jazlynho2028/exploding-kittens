@@ -19,10 +19,10 @@
   - **Name of the test**: buildDependentUI_called_buildsHandCardsAndNameTags
   - **State of the system**:
     - isFaceUp = true
-    - isGameOngoing = true
+    - isGameOngoing = false
   - **Expected output**:
-    - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, CAN_DRAW
-    - view.buildAddRenderPlayerNameTags is called with PLAYER_NAMES, CURRENT_PLAYER_INDEX, isGameOngoing, ALIVE_INDICES
+    - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, CAN_PLAY
+    - view.buildAddRenderPlayerNameTags is called with PLAYER_NAMES, CURRENT_PLAYER_INDEX, !isGameOngoing, ALIVE_INDICES
 
 ## Method under test: `bindUI()`
 - **TC4: This method is called** ( :white_check_mark: )
@@ -52,12 +52,9 @@
   - **State of the system**:
     - playerIndex = 1
     - model.getCurrentPlayerIndex returns CURRENT_PLAYER_INDEX (0)
-    - isFaceUp = false
   - **Expected output**:
     - model.changeCurrentPlayerIndex is called with playerIndex
-    - model.setFaceUpToFalse is called
-    - rebindHandCards is called
-    - renderAll is called
+    - updateAll is called (rebindHandCards, updateTurnControls, updateNameTags, updateDrawPile, updateDiscardPile, updateHandVisibilityButton)
 
 - **TC7: pendingTargetAction is present** ( :white_check_mark: )
   - **Name of the test**: onNameTag_pendingTargetActionPresent_executesActionThenChangesPlayer
@@ -65,32 +62,31 @@
     - pendingTargetAction = Optional.of(mockAction)
     - playerIndex = 1
     - model.getCurrentPlayerIndex returns CURRENT_PLAYER_INDEX (0)
-    - isFaceUp = false
   - **Expected output**:
     - mockAction.accept(playerIndex) is called
     - pendingTargetAction becomes empty
     - model.changeCurrentPlayerIndex is called with playerIndex
-    - model.setFaceUpToFalse is called
-    - rebindHandCards is called
-    - renderAll is called
+    - updateAll is called
 
 - **TC8: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onNameTag_modelThrowsException_callsOnError
   - **State of the system**: model.getCurrentPlayerIndex throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
-## Method under test: `renderAll()`
+## Method under test: `updateAll()`
 - **TC9: This method is executed successfully** ( :white_check_mark: )
-  - **Name of the test**: renderAll_called_rendersAllViewComponents
+  - **Name of the test**: updateAll_called_updatesAllViewComponents
   - **State of the system**:
-    - isGameOngoing = true
     - isFaceUp = false
-  - **Expected output**:
-    - view.renderPlayerNameTags is called with CURRENT_PLAYER_INDEX, isGameOngoing, ALIVE_INDICES
-    - view.renderHandVisibilityButton is called with isFaceUp
+    - isGameOngoing = true
+  - **Expected output** (in order):
+    - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, CAN_PLAY
+    - view.bindPlayerHandCardButtons is called
+    - view.renderTurnControlSection is called with CAN_PLAY_SELECTED, CAN_END_TURN
+    - view.renderPlayerNameTags is called with CURRENT_PLAYER_INDEX, !isGameOngoing, ALIVE_INDICES
     - view.renderDrawPile is called with CAN_DRAW, IS_DRAW_PILE_EMPTY
     - view.renderDiscardPile is called with TOP_DISCARD_ID
-    - view.renderTurnControlSection is called with CAN_PLAY_SELECTED, CAN_END_TURN
+    - view.renderHandVisibilityButton is called with isFaceUp, true
 
 ## Method under test: `rebindHandCards()`
 - **TC10: This method is called** ( :white_check_mark: )
@@ -98,20 +94,19 @@
   - **State of the system**:
     - isFaceUp = true
   - **Expected output**:
-    - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, CAN_DRAW
+    - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, CAN_PLAY
     - view.bindPlayerHandCardButtons is called
 
 ## Method under test: `onDrawPile()`
 - **TC11: Draw non-exploding card successfully** ( :white_check_mark: )
-  - **Name of the test**: onDrawPile_nonExplodingCardDrawn_rebindsAndRendersAll
+  - **Name of the test**: onDrawPile_nonExplodingCardDrawn_callsUpdateAll
   - **State of the system**:
     - drawnCard type = DEFUSE
   - **Expected output**:
-    - rebindHandCards is called
-    - renderAll is called
+    - updateAll is called
 
 - **TC12: Draw Exploding Kitten, has Defuse** ( :white_check_mark: )
-  - **Name of the test**: onDrawPile_explodingKittenDrawn_buildsExplodeOverlay
+  - **Name of the test**: onDrawPile_explodingKittenDrawn_defusable_buildsExplodeOverlay
   - **State of the system**:
     - isDefusable = true
     - drawnCardId = "EXPLODINGKITTEN_1"
@@ -121,7 +116,7 @@
     - view.buildExplodeOverlay is called with isDefusable, drawnCardId, drawPileSize - 1
 
 - **TC13: Draw Exploding Kitten, no Defuse** ( :white_check_mark: )
-  - **Name of the test**: onDrawPile_explodingKittenDrawn_buildsExplodeOverlay
+  - **Name of the test**: onDrawPile_explodingKittenDrawn_notDefusable_buildsExplodeOverlay
   - **State of the system**:
     - isDefusable = false
     - drawnCardId = "EXPLODINGKITTEN_1"
@@ -139,11 +134,12 @@
 - **TC15: This method is executed successfully** ( :white_check_mark: )
   - **Name of the test**: onHandVisibilityButton_called_togglesAndRebinds
   - **State of the system**:
-    - isFaceUp = true
+    - isFaceUp = true (before toggle)
   - **Expected output**:
     - model.toggleFaceUp is called
-    - view.renderHandVisibilityButton is called with isFaceUp
-    - rebindHandCards is called
+    - view.renderHandVisibilityButton is called with isFaceUp, true
+    - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, CAN_DRAW
+    - view.bindPlayerHandCardButtons is called
 
 - **TC16: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onHandVisibilityButton_modelThrowsException_callsOnError
@@ -152,13 +148,13 @@
 
 ## Method under test: `onPlayerHandCardButton(int handCardIndex)`
 - **TC17: Cards are face up** ( :white_check_mark: )
-  - **Name of the test**: onPlayerHandCardButton_cardsFaceUp_togglesSelectionAndRendersAll
+  - **Name of the test**: onPlayerHandCardButton_cardsFaceUp_togglesSelectionAndUpdatesTurnControls
   - **State of the system**:
     - handCardIndex = 2
     - isFaceUp = true
   - **Expected output**:
     - model.toggleSelectedPlayerCardAt is called with handCardIndex
-    - renderAll is called
+    - view.renderTurnControlSection is called with CAN_PLAY_SELECTED, CAN_END_TURN
 
 - **TC18: Cards are face down** ( :white_check_mark: )
   - **Name of the test**: onPlayerHandCardButton_cardsFaceDown_delegatesToHandVisibilityButton
@@ -176,16 +172,11 @@
 - **TC20: Game starts successfully** ( :white_check_mark: )
   - **Name of the test**: onStartGameButton_called_startsGameAndRendersUI
   - **State of the system**:
-    - startingPlayerIndex = 2
-    - isFaceUp = false
     - isGameOngoing = true
   - **Expected output**:
     - model.startGame is called
-    - model.changeCurrentPlayerIndex is called with startingPlayerIndex
-    - model.setFaceUpToFalse is called
-    - renderAll is called
-    - rebindHandCards is called
     - view.buildAndRenderTurnControlSection is called with isGameOngoing, CAN_PLAY_SELECTED, CAN_END_TURN
+    - updateAll is called
 
 - **TC21: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onStartGameButton_modelThrowsException_callsOnError
@@ -198,8 +189,7 @@
   - **State of the system**:
     - model.playSelectedCards returns GODCAT
   - **Expected output**:
-    - rebindHandCards is called
-    - renderAll is called
+    - updateAll is called
     - view.bindGodcatConfirmButton is called
     - view.buildGodcatOverlay is called with GameConstants.GODCAT_CARDTYPE_OPTIONS
 
@@ -208,22 +198,21 @@
   - **State of the system**:
     - model.playSelectedCards returns SKIP or SUPER_SKIP
   - **Expected output**:
-    - rebindHandCards is called
-    - renderAll is called
-    - updateByCardType is called with cardType
+    - updateAll is called
+    - updateByCardType is called with cardType (no additional view interactions for SKIP/SUPER_SKIP)
 
 - **TC24: Targeted Attack card played** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_targetedAttackPlayed_enablesPlayerSelectMode
   - **State of the system**:
     - model.playSelectedCards returns TARGETED_ATTACK
-    - currentPlayerIndex = 1
+    - currentPlayerIndex = CURRENT_PLAYER_INDEX
   - **Expected output**:
-    - rebindHandCards is called
-    - renderAll is called
-    - pendingTargetAction becomes present
-    - view.renderPlayerNameTags is called with currentPlayerIndex, false, ALIVE_INDICES
+    - updateAll is called
+    - pendingTargetAction becomes present (set to model::applyTargetedAttack)
+    - view.renderPlayerNameTags is called with CURRENT_PLAYER_INDEX, true, ALIVE_INDICES
     - view.renderDrawPile is called with false, IS_DRAW_PILE_EMPTY
-    - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, false, false
+    - view.renderHandVisibilityButton is called with isFaceUp, false
+    - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, false
     - view.renderTurnControlSection is called with false, false
 
 - **TC25: Caught exception from model** ( :white_check_mark: )
@@ -258,102 +247,102 @@
   - **Expected output**:
     - view.buildSeeTheFutureOverlay is called with futureCardIds
 
+- **TC28: Targeted Attack card type** ( :white_check_mark: )
+  - **Name of the test**: updateByCardType_targetedAttackPlayed_enablesPlayerSelectMode
+  - **State of the system**:
+    - cardType = TARGETED_ATTACK
+    - currentPlayerIndex = CURRENT_PLAYER_INDEX
+  - **Expected output**:
+    - pendingTargetAction becomes present (set to model::applyTargetedAttack)
+    - view.renderPlayerNameTags is called with CURRENT_PLAYER_INDEX, true, ALIVE_INDICES
+    - view.renderDrawPile is called with false, IS_DRAW_PILE_EMPTY
+    - view.renderHandVisibilityButton is called with isFaceUp, false
+    - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, false
+    - view.renderTurnControlSection is called with false, false
+
 ## Method under test: `onEndTurnButton()`
-- **TC28: Turn ends successfully, game ongoing** ( :white_check_mark: )
+- **TC29: Turn ends successfully, game ongoing** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_advancesTurnAndRendersNext
   - **State of the system**:
-    - isFaceUp = false
     - model.getIsGameOngoing returns true
   - **Expected output**:
     - model.advanceTurn is called
-    - model.setFaceUpToFalse is called
-    - renderAll is called
-    - rebindHandCards is called
+    - updateAll is called
 
-- **TC29: Turn ends, game over** ( :white_check_mark: )
+- **TC30: Turn ends, game over** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_gameOver_showsWinOverlay
   - **State of the system**:
-    - isFaceUp = false
     - model.getIsGameOngoing returns false
     - winnerName = "Audrey"
   - **Expected output**:
     - model.advanceTurn is called
-    - model.setFaceUpToFalse is called
-    - renderAll is called
-    - rebindHandCards is called
+    - updateAll is called
     - view.buildWinOverlay is called with winnerName
     - view.bindPlayAgainButton is called with onRestart
 
-- **TC30: Caught exception from model** ( :white_check_mark: )
+- **TC31: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_modelThrowsException_callsOnError
   - **State of the system**: model.advanceTurn throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onDefuseButton()`
-- **TC31: Defuse Exploding Kitten successfully** ( :white_check_mark: )
+- **TC32: Defuse Exploding Kitten successfully** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_defusesAndAdvancesTurn
   - **State of the system**:
     - insertIndex = 2
-    - isFaceUp = false
   - **Expected output**:
     - view.getExplodingKittenInsertIndex is called
     - model.playDefuse is called with insertIndex
     - view.hideOverlay is called
-    - model.setFaceUpToFalse is called
-    - renderAll is called
-    - rebindHandCards is called
+    - updateAll is called
 
-- **TC32: Caught exception from model** ( :white_check_mark: )
+- **TC33: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_modelThrowsException_callsOnError
   - **State of the system**: model.playDefuse throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onExplodeButton()`
-- **TC33: Explode successfully, game ongoing** ( :white_check_mark: )
+- **TC34: Explode successfully, game ongoing** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_gameOngoing_advancesToNextTurn
   - **State of the system**:
-    - isFaceUp = false
     - model.getIsGameOngoing returns true
   - **Expected output**:
     - model.playExplode is called
     - view.hideOverlay is called
-    - model.setFaceUpToFalse is called
-    - renderAll is called
-    - rebindHandCards is called
+    - updateAll is called
 
-- **TC34: Explode successfully, game over** ( :white_check_mark: )
+- **TC35: Explode successfully, game over** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_gameOver_showsWinOverlay
   - **State of the system**:
-    - isFaceUp = false
     - model.getIsGameOngoing returns false
     - winnerName = "Audrey"
   - **Expected output**:
     - model.playExplode is called
     - view.hideOverlay is called
-    - model.setFaceUpToFalse is called
-    - renderAll is called
-    - rebindHandCards is called
+    - updateAll is called
     - view.buildWinOverlay is called with winnerName
     - view.bindPlayAgainButton is called with onRestart
 
-- **TC35: Caught exception from model** ( :white_check_mark: )
+- **TC36: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_modelThrowsException_callsOnError
   - **State of the system**: model.playExplode throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onGodcatConfirm()`
-- **TC36: Valid card type** ( :white_check_mark: )
+- **TC37: Valid card type** ( :white_check_mark: )
   - **Name of the test**: onGodcatConfirm_validCardType_appliesGodcatAndRendersAll
-  - **State of the system**: cardType = ATTACK
+  - **State of the system**:
+    - view.getSelectedGodcatCardType returns ATTACK
   - **Expected output**:
+    - view.getSelectedGodcatCardType is called
     - model.applyGodcat is called with ATTACK
     - view.hideOverlay is called
-    - renderAll is called
+    - updateAll is called
     - updateByCardType is called with ATTACK
 
-- **TC37: Caught exception from model** ( :white_check_mark: )
+- **TC38: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onGodcatConfirm_modelThrowsException_callsOnError
   - **State of the system**:
-    - cardType = ATTACK
+    - view.getSelectedGodcatCardType returns ATTACK
     - model.applyGodcat throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
