@@ -292,7 +292,7 @@
     - view.bindGodcatConfirmButton is called
     - view.buildGodcatOverlay is called with GameConstants.GODCAT_CARDTYPE_OPTIONS
 
-- **TC24: Targeted Attack card played** ( :white_check_mark: )
+- **TC24: Targeted Attack card played** ( :x: )
   - **Name of the test**: onPlayCardsButton_targetedAttackPlayed_targetSelectionEnabled
   - **State of the system**:
     - canDrawFromDiscard = true
@@ -305,11 +305,8 @@
     - pendingTargetAction becomes present
     - view.renderPlayerNameTags(0, false, DEAD_INDICES) is called
     - view.renderTurnControlSection(false, false) is called
-    - Lambda action execution behavior:
-      - model.applyTargetedAttack(target) is called
-      - handleChangeCurrentPlayer(target) is called
 
-- **TC25: Ragebait card played** ( :white_check_mark: )
+- **TC25: Ragebait card played** ( :x: )
   - **Name of the test**: onPlayCardsButton_ragebaitPlayed_targetSelectionEnabled
   - **State of the system**:
     - canDrawFromDiscard = true
@@ -319,17 +316,30 @@
     - currentPlayerIndex = 0
     - playSelectedCards returns CardType.RAGEBAIT
   - **Expected output**:
-    - pendingTargetAction becomes present.
-    - view.renderPlayerNameTags(0, false, DEAD_INDICES) is called.
-    - view.renderTurnControlSection(false, false) is called.
-    - Lambda action execution behavior
-      - model.applyRagebait(target)
-      - rebindHandCards()
+    - pendingTargetAction becomes present
+    - view.renderPlayerNameTags(0, false, DEAD_INDICES) is called
+    - view.renderTurnControlSection(false, false) is called
 
 - **TC30: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_called_failed
   - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
+
+## Method under test: `applyTargetedAttackAction`
+- **TC26: applyTargetedAttackAction called** ( :x: )
+  - **Name of the test**: applyTargetedAttackAction_called_appliesAttackAndChangesPlayer
+  - **State of the system**: targetIndex = 1
+  - **Expected output**:
+    - model.applyTargetedAttack(1) is called
+    - handleChangeCurrentPlayer(1) is called
+
+## Method under test: `applyRagebaitAction()`
+- **TC27: applyRagebaitAction called** ( :x: )
+  - **Name of the test**: applyRagebaitAction_called_appliesRagebaitAndRebindsHand
+  - **State of the system**: targetIndex = 1
+  - **Expected output**:
+    - model.applyRagebait(1) is called
+    - rebindHandCards() is called
 
 ## Method under test: `onEndTurnButton()`
 - **TC31: Turn ends successfully** ( :white_check_mark: )
