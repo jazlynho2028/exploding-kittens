@@ -374,8 +374,6 @@ public class GameTests {
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		EasyMock.replay(game);
-
 		game.setCanPlay(false);
 
 		assertFalse(game.canPlaySelected());
@@ -399,6 +397,8 @@ public class GameTests {
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
+
+		game.setCanPlay(true);
 
 		assertTrue(game.canPlaySelected());
 

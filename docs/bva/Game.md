@@ -175,7 +175,7 @@
   - **State of the system**: canPlay = false
   - **Expected output**: returns false
 
-- **TC27: One Attack selected** ( :x: )
+- **TC27: One Attack selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
   - **State of the system**: 
     - canPlay = true
