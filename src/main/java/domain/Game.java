@@ -225,7 +225,7 @@ public class Game {
     }
 
     public boolean getCanPlay() {
-        return true;
+        return canPlay;
     }
 
     public boolean getIsFaceUp() {
