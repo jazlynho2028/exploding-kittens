@@ -187,10 +187,7 @@ public class PlayerDeckView {
     }
 
     public void renderDiscardPile(String topCardId) {
-        boolean isEmpty = Objects.equals(
-                topCardId, assetProvider.getString("global.empty"));
-
-        if (isEmpty) {
+        if (topCardId.equals("global.empty")) {
             discardPileButton.setVisible(false);
             return;
         }
@@ -198,7 +195,7 @@ public class PlayerDeckView {
         VBox cardFront = buildCardFront(topCardId);
         discardPileButton.setGraphic(cardFront);
         discardPileButton.setVisible(true);
-        discardPileButton.setDisable(false);
+        discardPileButton.setDisable(true);
     }
 
     public void renderHandVisibilityButton(boolean isFaceUp, boolean isEnabled) {
