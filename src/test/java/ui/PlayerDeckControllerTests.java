@@ -827,6 +827,27 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
+	public void onPlayCardsButton_ragebaitPlayed_targetSelectionEnabled() {
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("rebindHandCards")
+				.addMockedMethod("updateTurnControls")
+				.createMock();
+
+		expectTargetCardPlaySetup(controller, CardType.RAGEBAIT,
+				"RAGEBAIT_1", 0);
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onPlayCardsButton();
+
+		assertTrue(controller.pendingTargetAction.isPresent());
+
+		EasyMock.verify(model, view, controller);
+	}
+
+	@Test
 	public void onPlayCardsButton_called_failed() {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 

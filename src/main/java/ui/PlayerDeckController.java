@@ -246,6 +246,7 @@ public class PlayerDeckController {
                 break;
             case RAGEBAIT:
                 pendingTargetAction = Optional.of(this::applyRagebaitAction);
+                enablePlayerSelect();
                 break;
             default:
                 break;

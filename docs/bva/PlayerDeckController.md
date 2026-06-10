@@ -316,7 +316,7 @@
     - view.buildAndAddPlayerHandCards(handIds, true, false) is called to lock down cards
     - view.renderTurnControlSection(false, false) is called to force player targeting
 
-- **TC25: Ragebait card played** ( :x: )
+- **TC25: Ragebait card played** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_ragebaitPlayed_targetSelectionEnabled
   - **State of the system**:
     - canDrawFromDiscard = true
