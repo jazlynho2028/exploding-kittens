@@ -133,8 +133,10 @@ public class PlayerDeckController {
         attempt(onError, () -> {
             if (model.getCurrentPlayerIndex() != playerIndex) {
                 if (pendingTargetAction.isPresent()) {
-                    pendingTargetAction.get().accept(playerIndex);
+                    Consumer<Integer> action = pendingTargetAction.get();
                     pendingTargetAction = Optional.empty();
+
+					action.accept(playerIndex);
                 }
 
                 model.changeCurrentPlayerIndex(playerIndex);
@@ -233,7 +235,11 @@ public class PlayerDeckController {
                 view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
                 break;
             case TARGETED_ATTACK:
-                pendingTargetAction = Optional.of(model::applyTargetedAttack);
+                pendingTargetAction = Optional.of(this::applyTargetedAttackAction);
+                enablePlayerSelect();
+                break;
+            case RAGEBAIT:
+                pendingTargetAction = Optional.of(this::applyRagebaitAction);
                 enablePlayerSelect();
                 break;
             default:
@@ -247,18 +253,35 @@ public class PlayerDeckController {
     }
 
     private void enableNameTags() {
-        view.renderPlayerNameTags(model.getCurrentPlayerIndex(), true,
+        view.renderPlayerNameTags(
+				model.getCurrentPlayerIndex(),
+				true,
                 model.getAliveIndices());
     }
 
     private void disableAllButNameTags() {
         view.renderDrawPile(false, model.isDrawPileEmpty());
+
         view.renderHandVisibilityButton(model.getIsFaceUp(), false);
+
         view.buildAndAddPlayerHandCards(
-                model.getCurrentPlayerHandIds(), model.getIsFaceUp(), false
+                model.getCurrentPlayerHandIds(),
+				model.getIsFaceUp(),
+				false
         );
+
         view.renderTurnControlSection(false, false);
     }
+
+	void applyTargetedAttackAction(int targetIndex) {
+		model.applyTargetedAttack(targetIndex);
+		updateAll();
+	}
+
+	void applyRagebaitAction(int targetIndex) {
+		model.applyRagebait(targetIndex);
+		rebindHandCards();
+	}
 
     void onEndTurnButton() {
         attempt(onError, () -> {

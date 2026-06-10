@@ -1630,66 +1630,82 @@
   - **Expected output**: throw IllegalArgumentException "error.invalidRound" 
 
 - **TC210: Player throws exception** ( :white_check_mark: )
-  - **Name of the test**: applyWinnerWinnerCatnipDinner_called_activateWinnerWinnerCount
-  - **State of the system**: turnManager.getRoundCount = 1
-  - **Expected output**: getCurrentPlayer.activateWinnerWinnerFromRound is called with turnManager.getRoundCount
+    - **Name of the test**: applyWinnerWinnerCatnipDinner_called_activateWinnerWinnerCount
+    - **State of the system**: turnManager.getRoundCount = 1
+    - **Expected output**: getCurrentPlayer.activateWinnerWinnerFromRound is called with turnManager.getRoundCount
+
+### Method under test: `applyRagebait(int targetPlayerIndex)`
+- **TC211: First player targets adjacent player** ( :white_check_mark: )
+  - **Name of the test**: applyRagebait_validTargets_swapsHands
+  - **State of the system**: currentPlayerIndex = 0, targetPlayerIndex = 1
+  - **Expected output**: currentPlayer.swapHandWith(targetPlayer) is called
+
+- **TC212: First player targets last player** ( :white_check_mark: )
+  - **Name of the test**: applyRagebait_validTargets_swapsHands
+  - **State of the system**: currentPlayerIndex = 0, targetPlayerIndex = LAST_PLAYER_INDEX
+  - **Expected output**: currentPlayer.swapHandWith(targetPlayer) is called
+
+- **TC213: Last player targets first player** ( :white_check_mark: )
+  - **Name of the test**: applyRagebait_validTargets_swapsHands
+  - **State of the system**: currentPlayerIndex = LAST_PLAYER_INDEX, targetPlayerIndex = 0
+  - **Expected output**: currentPlayer.swapHandWith(targetPlayer) is called
 
 ### Method under test: `getAliveIndices()`
-- **TC211: No alive players** ( :white_check_mark: )
+- **TC214: No alive players** ( :white_check_mark: )
   - **Name of the test**: getAliveIndices_noAlivePlayers_returnEmptySet
   - **State of the system**: 2 dead players
   - **Expected output**: return {}
 
-- **TC212: One alive player** ( :white_check_mark: )
+- **TC215: One alive player** ( :white_check_mark: )
   - **Name of the test**: getAliveIndices_oneAlivePlayer_returnAliveIndices
   - **State of the system**:
     - 2 dead players
     - 1 alive player at index 0
   - **Expected output**: return {0}
 
-- **TC213: Two alive players** ( :white_check_mark: )
+- **TC216: Two alive players** ( :white_check_mark: )
   - **Name of the test**: getAliveIndices_twoAlivePlayers_returnAliveIndices
   - **State of the system**:
     - 1 dead player
     - 2 alive players at indices 0 and 2
   - **Expected output**: return {0, 2}
 
-- **TC214: All alive players** ( :white_check_mark: )
+- **TC217: All alive players** ( :white_check_mark: )
   - **Name of the test**: getAliveIndices_allAlivePlayers_returnAliveIndices
   - **State of the system**:
     - 4 alive players at indices 0, 1, 2, 3
   - **Expected output**: return {0, 1, 2, 3}
 
 ### Method under test: `getWinnerName()`
-- **TC215: All players are alive** ( :white_check_mark: )
+- **TC218: All players are alive** ( :white_check_mark: )
   - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
   - **State of the system**: 
     - playerNames = ["Alice", "Bob"]
     - 2 alive players
   - **Expected output**: throw IllegalStateException "error.noWinner"
 
-- **TC216: One player is alive** ( :white_check_mark: )
+- **TC219: One player is alive** ( :white_check_mark: )
   - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
   - **State of the system**: 
     - playerNames = ["Alice", "Bob", "Bob"]
     - one alive player at index 2 
   - **Expected output**: throw IllegalStateException "error.noWinner"
 
-- **TC217: All players alive** ( :white_check_mark: )
+- **TC220: All players alive** ( :white_check_mark: )
   - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
   - **State of the system**:
     - playerNames = ["Alice", "Bob", "Alice", "Steve"]
     - 4 alive players
   - **Expected output**: throw IllegalStateException "error.noWinner"
 
-- **TC218: Two players, has winner** ( :white_check_mark: )
+- **TC221: Two players, has winner** ( :white_check_mark: )
   - **Name of the test**: getWinnerName_oneAlive_returnWinnerName
   - **State of the system**: 
     - playerNames = ["Jeff", "Jeff"]
     - winner at index 1
   - **Expected output**: return "Jeff"
 
-- **TC219: Three players, has winner** ( :white_check_mark: )
+- **TC222: Three players, has winner** ( :white_check_mark: )
   - **Name of the test**: getWinnerName_oneAlive_returnWinnerName
   - **State of the system**:
     - playerNames = ["Audrey", "Jeff", "Chicken"]

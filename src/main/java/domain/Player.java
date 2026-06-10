@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Player {
 
     private final String name;
-    private final List<Card> hand;
+    private List<Card> hand;
     private boolean isAlive;
     private int winnerWinnerActivatedRound;
 
@@ -38,6 +38,12 @@ public class Player {
             throw new IllegalArgumentException("error.invalidHandCardIndex");
         }
         hand.get(handCardIndex).toggleSelected();
+    }
+
+    public void swapHandWith(Player other) {
+        List<Card> temp = this.hand;
+        this.hand = other.hand;
+        other.hand = temp;
     }
 
     public void removeCardFromHand(Card card) {
