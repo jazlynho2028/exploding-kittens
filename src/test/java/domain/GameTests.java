@@ -1169,16 +1169,20 @@ public class GameTests {
 		EasyMock.verify(turnManager);
 	}
 
-	@Test
-	public void getCanPlay_called_returnFalse() {
+	@ParameterizedTest
+	@CsvSource({
+			"false, false",
+			"true, false"
+	})
+	public void getCanPlay_called_returnFalse(boolean isGameOngoing, boolean canPlay) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.setIsGameOngoing(false);
-		game.setCanPlay(false);
+		game.setIsGameOngoing(isGameOngoing);
+		game.setCanPlay(canPlay);
 
 		assertFalse(game.getCanPlay());
 	}
