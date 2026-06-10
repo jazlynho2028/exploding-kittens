@@ -102,10 +102,10 @@
 8. [Done] Jazlyn: Defuse implementation
 9. [Done] Jazlyn: See The Future implementation
 10. [not started] Jazlyn: Winner Winner Catnip Dinner implementation
-11. [not started] Ejean: Attack implementation
-12. [not started] Ejean: Feral Cat implementation
-13. [not started] Ejean: Cat Cards 1-4 implementation
-14. [not started] Ejean: Double Up implementation
+11. [95% Done] Ejean: Attack implementation
+12. [90% Done] Ejean: Feral Cat implementation
+13. [90% Done] Ejean: Cat Cards 1-4 implementation
+14. [Done] Ejean: Double Up implementation
 15. [Done] Luke: Skip implementation
 16. [Done] Luke: Super Skip implementation
 17. [Done] Luke: Targeted Attack implementation
