@@ -95,7 +95,7 @@
 1. [Done] Jazlyn: Refactored game, turnManager, and main app (including BVA and test rewrites) to only pass in numPlayers to turnManager to store
 2. [Done] Jazlyn: Changed return type of game playSelectedCards and drawFromPile methods from void to CardType for controller card effect display
 3. [Done] Jazlyn: Refactored controller tests to use helper expectation methods
-4. [not started] Ejean: Game rules documentation
+4. [50% Done] Ejean: Game rules documentation
 5. [50% Done] Luke: README.md special cases documentation
 6. [50% Done] DJ: Design documentation
 7. [Done] Jazlyn: Exploding Kitten implementation
