@@ -671,40 +671,25 @@ public class GameTests {
 	}
 
 	@Test
-	public void applySuperSkip_drawCountOne_TurnAdvances() {
-		final int expectedIntZero = 0;
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		List<Player> players = new ArrayList<>();
-		players.add(player1);
-		players.add(player2);
-
-		Set<Integer> aliveIndices = EasyMock.createMock(Set.class);
+	public void applySuperSkip_called_endTurn() {
+		List<Player> players = EasyMock.createMock(List.class);
 
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
-		EasyMock.expectLastCall();
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedIntZero);
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(expectedIntZero);
-		player1.deselectHandCards();
-		EasyMock.expectLastCall();
-		turnManager.incrementTurn(aliveIndices);
-		EasyMock.expectLastCall();
-		turnManager.incrementDrawCount();
+		turnManager.setDrawCount(GameConstants.NUM_DRAW_COUNT_AFTER_SUPER_SKIP);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(player1, player2, aliveIndices,
-				drawPile, discardPile, turnManager);
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getAliveIndices")
+				.addMockedMethod("endTurn")
 				.createMock();
 
-		EasyMock.expect(game.getAliveIndices()).andReturn(aliveIndices);
+		game.endTurn();
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(game);
 
@@ -712,244 +697,44 @@ public class GameTests {
 
 		game.applySuperSkip();
 
-		EasyMock.verify(player1,
-				player2, drawPile,
-				discardPile, turnManager, game);
+		EasyMock.verify(turnManager, game);
 	}
 
 	@Test
-	public void applySuperSkip_drawCountTwo_TurnAdvances() {
-		final int expectedIntZero = 0;
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		List<Player> players = new ArrayList<>();
-		players.add(player1);
-		players.add(player2);
-
-		Set<Integer> aliveIndices = EasyMock.createMock(Set.class);
+	public void applySuperSkip_endTurnThrows_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
 
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
-		EasyMock.expectLastCall();
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedIntZero);
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(expectedIntZero);
-		player1.deselectHandCards();
-		EasyMock.expectLastCall();
-		turnManager.incrementTurn(aliveIndices);
-		EasyMock.expectLastCall();
-		turnManager.incrementDrawCount();
+		turnManager.setDrawCount(GameConstants.NUM_DRAW_COUNT_AFTER_SUPER_SKIP);
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(player1, player2, aliveIndices,
-				drawPile, discardPile, turnManager);
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getAliveIndices")
+				.addMockedMethod("endTurn")
 				.createMock();
 
-		EasyMock.expect(game.getAliveIndices()).andReturn(aliveIndices);
+		String expectedMsg = "error.cannotEndTurn";
+		game.endTurn();
+		EasyMock.expectLastCall().andThrow(
+				new IllegalStateException(expectedMsg)
+		);
 
 		EasyMock.replay(game);
 
 		game.setIsGameOngoing(true);
 
-		game.applySuperSkip();
+		Exception exception = assertThrows(IllegalStateException.class,
+				game::applySuperSkip);
 
-		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager,
-				game);
-	}
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
 
-	@Test
-	public void applySuperSkip_drawCountThree_TurnAdvances() {
-		final int expectedIntZero = 0;
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		List<Player> players = new ArrayList<>();
-		players.add(player1);
-		players.add(player2);
-
-		Set<Integer> aliveIndices = EasyMock.createMock(Set.class);
-
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
-		EasyMock.expectLastCall();
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedIntZero);
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(expectedIntZero);
-		player1.deselectHandCards();
-		EasyMock.expectLastCall();
-		turnManager.incrementTurn(aliveIndices);
-		EasyMock.expectLastCall();
-		turnManager.incrementDrawCount();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(player1, player2, aliveIndices,
-				drawPile, discardPile, turnManager);
-
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getAliveIndices")
-				.createMock();
-
-		EasyMock.expect(game.getAliveIndices()).andReturn(aliveIndices);
-
-		EasyMock.replay(game);
-
-		game.setIsGameOngoing(true);
-
-		game.applySuperSkip();
-
-		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager,
-				game);
-	}
-
-	@Test
-	public void applySuperSkip_lastPlayer_turnWraps() {
-		final int expectIntOne = 1;
-		final int expectIntZero = 0;
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		List<Player> players = new ArrayList<>();
-		players.add(player1);
-		players.add(player2);
-
-		Set<Integer> aliveIndices = EasyMock.createMock(Set.class);
-
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
-		EasyMock.expectLastCall();
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectIntZero);
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(expectIntOne);
-		player2.deselectHandCards();
-		EasyMock.expectLastCall();
-		turnManager.incrementTurn(aliveIndices);
-		EasyMock.expectLastCall();
-		turnManager.incrementDrawCount();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(player1, player2, aliveIndices,
-				drawPile, discardPile, turnManager);
-
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getAliveIndices")
-				.createMock();
-
-		EasyMock.expect(game.getAliveIndices()).andReturn(aliveIndices);
-
-		EasyMock.replay(game);
-
-		game.setIsGameOngoing(true);
-
-		game.applySuperSkip();
-
-		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager,
-				game);
-	}
-
-	@Test
-	public void applySuperSkip_twoPlayers_turnAdvances() {
-		final int expectIntZero = 0;
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		List<Player> players = new ArrayList<>();
-		players.add(player1);
-		players.add(player2);
-
-		Set<Integer> aliveIndices = EasyMock.createMock(Set.class);
-
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
-		EasyMock.expectLastCall();
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectIntZero);
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(expectIntZero);
-		player1.deselectHandCards();
-		EasyMock.expectLastCall();
-		turnManager.incrementTurn(aliveIndices);
-		EasyMock.expectLastCall();
-		turnManager.incrementDrawCount();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(player1, player2, aliveIndices,
-				drawPile, discardPile, turnManager);
-
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getAliveIndices")
-				.createMock();
-
-		EasyMock.expect(game.getAliveIndices()).andReturn(aliveIndices);
-
-		EasyMock.replay(game);
-
-		game.setIsGameOngoing(true);
-
-		game.applySuperSkip();
-
-		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager,
-				game);
-	}
-
-	@Test
-	public void applySuperSkip_fourPlayers_turnAdvances() {
-		final int expectIntZero = 0;
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		Player player3 = EasyMock.createMock(Player.class);
-		Player player4 = EasyMock.createMock(Player.class);
-		List<Player> players = new ArrayList<>();
-		players.add(player1);
-		players.add(player2);
-		players.add(player3);
-		players.add(player4);
-
-		Set<Integer> aliveIndices = EasyMock.createMock(Set.class);
-
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		turnManager.setDrawCount(GameConstants.NUM_SUPER_SKIP_DRAW_COUNT);
-		EasyMock.expectLastCall();
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectIntZero);
-		EasyMock.expect(turnManager.getCurrentPlayerIndex()).andReturn(expectIntZero);
-		player1.deselectHandCards();
-		EasyMock.expectLastCall();
-		turnManager.incrementTurn(aliveIndices);
-		EasyMock.expectLastCall();
-		turnManager.incrementDrawCount();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(player1, player2, player3, player4, aliveIndices,
-				drawPile, discardPile, turnManager);
-
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getAliveIndices")
-				.createMock();
-
-		EasyMock.expect(game.getAliveIndices()).andReturn(aliveIndices);
-
-		EasyMock.replay(game);
-
-		game.setIsGameOngoing(true);
-
-		game.applySuperSkip();
-
-		EasyMock.verify(player1, player2, player3, player4,
-				drawPile, discardPile, turnManager, game);
+		EasyMock.verify(turnManager, game);
 	}
 
 	@Test
@@ -1550,20 +1335,66 @@ public class GameTests {
 				.addMockedMethod("canEndTurn")
 				.addMockedMethod("getCurrentPlayer")
 				.addMockedMethod("getAliveIndices")
+				.addMockedMethod("reachedWinnerWinnerCondition")
 				.createMock();
 
+		EasyMock.expect(game.reachedWinnerWinnerCondition()).andReturn(false);
 		EasyMock.expect(game.getAliveIndices()).andReturn(aliveIndices);
 		EasyMock.expect(game.canEndTurn()).andReturn(true);
 		EasyMock.expect(game.getCurrentPlayer()).andReturn(currentPlayer);
 
 		EasyMock.replay(game);
 
+		game.setIsFaceUp(false);
+		game.setCanPlay(true);
 		game.setIsGameOngoing(true);
 		game.endTurn();
 
 		assertTrue(game.getCanPlay());
 		assertFalse(game.getIsFaceUp());
 		EasyMock.verify(turnManager, currentPlayer, game);
+	}
+
+	@Test
+	public void endTurn_canEndTurnReachedWinnerWinner_endGame() {
+		Player player1 = EasyMock.createMock(Player.class);
+		Player player2 = EasyMock.createMock(Player.class);
+
+		List<Player> players = List.of(player1, player2);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		player1.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		player2.eliminate();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(player1, player2, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canEndTurn")
+				.addMockedMethod("getCurrentPlayer")
+				.addMockedMethod("reachedWinnerWinnerCondition")
+				.createMock();
+
+		EasyMock.expect(game.reachedWinnerWinnerCondition()).andReturn(true);
+		EasyMock.expect(game.canEndTurn()).andReturn(true);
+		EasyMock.expect(game.getCurrentPlayer()).andReturn(player1).atLeastOnce();
+
+		EasyMock.replay(game);
+
+		game.setIsGameOngoing(true);
+		game.setCanPlay(false);
+		game.setIsFaceUp(true);
+		game.endTurn();
+
+		assertFalse(game.getCanPlay());
+		assertTrue(game.getIsFaceUp());
+		assertFalse(game.getIsGameOngoing());
+		EasyMock.verify(player1, player2, game);
 	}
 
 	@Test
@@ -2064,254 +1895,88 @@ public class GameTests {
 	}
 
 	@Test
-	public void applySkip_drawCountOne_TurnAdvances() {
-		final int expectedReturnValue = 0;
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		List<Player> players = new ArrayList<>();
-		players.add(player1);
-		players.add(player2);
-
-		Set<Integer> aliveIndices = EasyMock.createMock(Set.class);
-
+	public void applySkip_cannotEndTurn_decrementDrawCount() {
+		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedReturnValue);
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedReturnValue);
-		EasyMock.expect(turnManager.getCurrentPlayerIndex())
-				.andReturn(expectedReturnValue);
-		player1.deselectHandCards();
-		EasyMock.expectLastCall();
-		turnManager.incrementTurn(aliveIndices);
-		EasyMock.expectLastCall();
-		turnManager.incrementDrawCount();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(player1, player2, aliveIndices,
-				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getAliveIndices")
+				.addMockedMethod("canEndTurn")
 				.createMock();
 
-		EasyMock.expect(game.getAliveIndices()).andReturn(aliveIndices);
+		EasyMock.expect(game.canEndTurn()).andReturn(false);
 
-		EasyMock.replay(game);
-
-		game.setIsGameOngoing(true);
+		EasyMock.replay(players, drawPile, discardPile, turnManager, game);
 
 		game.applySkip();
 
-		EasyMock.verify(player1, player2,
-				drawPile, discardPile, turnManager, game);
+		EasyMock.verify(turnManager, game);
 	}
 
 	@Test
-	public void applySkip_drawCountTwo_TurnNotAdvanced() {
-		final int expectedDrawCount = 1;
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		List<Player> players = new ArrayList<>();
-		players.add(player1);
-		players.add(player2);
-
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		turnManager.decrementDrawCount();
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount);
-
-		EasyMock.replay(player1, player2,
-				drawPile, discardPile, turnManager);
-
-		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.setIsGameOngoing(true);
-
-		game.applySkip();
-
-		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager);
-	}
-
-	@Test
-	public void applySkip_drawCountThree_TurnNotAdvanced() {
-		final int expectedDrawCount = 2;
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		List<Player> players = new ArrayList<>();
-		players.add(player1);
-		players.add(player2);
-
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		turnManager.decrementDrawCount();
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount);
-
-		EasyMock.replay(player1, player2,
-				drawPile, discardPile, turnManager);
-
-		Game game = new Game(players, drawPile, discardPile, turnManager);
-		game.setIsGameOngoing(true);
-
-		game.applySkip();
-
-		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager);
-	}
-
-	@Test
-	public void applySkip_lastPlayer_turnWraps() {
-		final int expectedDrawCount = 0;
-		final int expectedPlayerIndex = 1;
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		List<Player> players = new ArrayList<>();
-		players.add(player1);
-		players.add(player2);
-
-		Set<Integer> aliveIndices = EasyMock.createMock(Set.class);
-
+	public void applySkip_canEndTurn_decrementDrawCountAndEndTurn() {
+		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount);
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount);
-		EasyMock.expect(turnManager.getCurrentPlayerIndex())
-				.andReturn(expectedPlayerIndex);
-		player2.deselectHandCards();
-		EasyMock.expectLastCall();
-		turnManager.incrementTurn(aliveIndices);
-		EasyMock.expectLastCall();
-		turnManager.incrementDrawCount();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(player1, player2, aliveIndices,
-				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getAliveIndices")
+				.addMockedMethod("canEndTurn")
+				.addMockedMethod("endTurn")
 				.createMock();
 
-		EasyMock.expect(game.getAliveIndices()).andReturn(aliveIndices);
+		EasyMock.expect(game.canEndTurn()).andReturn(true);
+		game.endTurn();
+		EasyMock.expectLastCall();
 
-		EasyMock.replay(game);
-
-		game.setIsGameOngoing(true);
+		EasyMock.replay(players, drawPile, discardPile, turnManager, game);
 
 		game.applySkip();
 
-		EasyMock.verify(player1, player2,
-				drawPile, discardPile, turnManager, game);
+		EasyMock.verify(turnManager, game);
 	}
 
 	@Test
-	public void applySkip_twoPlayers_turnAdvances() {
-		final int expectedReturnZero = 0;
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		List<Player> players = new ArrayList<>();
-		players.add(player1);
-		players.add(player2);
-
-		Set<Integer> aliveIndices = EasyMock.createMock(Set.class);
-
+	public void applySkip_canEndTurnThrows_failed() {
+		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
 		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedReturnZero);
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedReturnZero);
-		EasyMock.expect(turnManager.getCurrentPlayerIndex())
-				.andReturn(expectedReturnZero);
-		player1.deselectHandCards();
-		EasyMock.expectLastCall();
-		turnManager.incrementTurn(aliveIndices);
-		EasyMock.expectLastCall();
-		turnManager.incrementDrawCount();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(player1, player2, aliveIndices,
-				drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getAliveIndices")
+				.addMockedMethod("canEndTurn")
+				.addMockedMethod("endTurn")
 				.createMock();
 
-		EasyMock.expect(game.getAliveIndices()).andReturn(aliveIndices);
+		EasyMock.expect(game.canEndTurn()).andReturn(true);
 
-		EasyMock.replay(game);
+		String expectedMsg = "error.cannotEndTurn";
+		game.endTurn();
+		EasyMock.expectLastCall().andThrow(
+				new IllegalStateException(expectedMsg)
+		);
 
-		game.setIsGameOngoing(true);
+		EasyMock.replay(players, drawPile, discardPile, turnManager, game);
 
-		game.applySkip();
+		Exception exception = assertThrows(IllegalStateException.class, game::applySkip);
 
-		EasyMock.verify(player1, player2, drawPile, discardPile, turnManager,
-				game);
-	}
+		String actualMsg = exception.getMessage();
+		assertEquals(expectedMsg, actualMsg);
 
-	@Test
-	public void applySkip_fourPlayers_turnAdvances() {
-		final int expectedReturnZero = 0;
-		Player player1 = EasyMock.createMock(Player.class);
-		Player player2 = EasyMock.createMock(Player.class);
-		Player player3 = EasyMock.createMock(Player.class);
-		Player player4 = EasyMock.createMock(Player.class);
-		List<Player> players = new ArrayList<>();
-		players.add(player1);
-		players.add(player2);
-		players.add(player3);
-		players.add(player4);
-
-		Set<Integer> aliveIndices = EasyMock.createMock(Set.class);
-
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		turnManager.decrementDrawCount();
-		EasyMock.expectLastCall();
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedReturnZero);
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedReturnZero);
-		EasyMock.expect(turnManager.getCurrentPlayerIndex())
-				.andReturn(expectedReturnZero);
-		player1.deselectHandCards();
-		EasyMock.expectLastCall();
-		turnManager.incrementTurn(aliveIndices);
-		EasyMock.expectLastCall();
-		turnManager.incrementDrawCount();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(player1, player2, player3, player4, aliveIndices,
-				drawPile, discardPile, turnManager);
-
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getAliveIndices")
-				.createMock();
-
-		EasyMock.expect(game.getAliveIndices()).andReturn(aliveIndices);
-
-		EasyMock.replay(game);
-
-		game.setIsGameOngoing(true);
-
-		game.applySkip();
-
-		EasyMock.verify(player1, player2, player3, player4,
-				drawPile, discardPile, turnManager, game);
+		EasyMock.verify(turnManager, game);
 	}
 
 	@ParameterizedTest

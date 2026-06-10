@@ -226,6 +226,10 @@ public class Game {
         return isGameOngoing;
     }
 
+    void setIsGameOngoing(boolean isGameOngoing) {
+        this.isGameOngoing = isGameOngoing;
+    }
+
     public boolean getCanDraw() {
         return isGameOngoing && turnManager.getDrawCount() > 0;
     }
@@ -242,8 +246,8 @@ public class Game {
         return isFaceUp;
     }
 
-    void setIsGameOngoing(boolean isGameOngoing) {
-        this.isGameOngoing = isGameOngoing;
+    void setIsFaceUp(boolean isFaceUp) {
+        this.isFaceUp = isFaceUp;
     }
 
     public void changeCurrentPlayerIndex(int newPlayerIndex) {
@@ -289,7 +293,21 @@ public class Game {
 
         getCurrentPlayer().deselectHandCards();
 
-        nextTurn();
+        if (reachedWinnerWinnerCondition()) {
+            eliminateAllButCurrentPlayer();
+            isGameOngoing = false;
+        }
+        else {
+            nextTurn();
+        }
+    }
+
+    private void eliminateAllButCurrentPlayer() {
+        for (Player player : players) {
+            if (player != getCurrentPlayer()) {
+                player.eliminate();
+            }
+        }
     }
 
     private void nextTurn() {
@@ -420,7 +438,7 @@ public class Game {
     }
 
     void applySuperSkip() {
-        turnManager.setDrawCount(0);
+        turnManager.setDrawCount(GameConstants.NUM_DRAW_COUNT_AFTER_SUPER_SKIP);
         endTurn();
     }
 
@@ -473,6 +491,10 @@ public class Game {
             turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
         }
 
+    }
+
+    boolean reachedWinnerWinnerCondition() {
+        return true;
     }
 
     void applyWinnerWinnerCatnipDinner() {

@@ -712,28 +712,32 @@
     - turnManager.incrementTurn is called with getAliveIndices
     - turnManager.incrementDrawCount is called
 
-- **TC90: Winner winner condition reached, current player at 0** ( :x: )
+- **TC90: Winner winner condition reached, winner at index 0** ( :x: )
   - **Name of the test**: endTurn_canEndTurnReachedWinnerWinner_endGame
   - **State of the system**:
     - canEndTurn = true
     - 2 players
-    - player1 = getCurrentPlayer
+    - currentPlayer at index 0
   - **Expected output**:
-    - player.deselectHandCards is called
+    - getCurrentPlayer.deselectHandCards is called
     - reachedWinnerWinnerCondition returns true
-    - player.eliminate is called with all players except player1
+    - player.eliminate is called with all players except currentPlayer
+    - canPlay = false
+    - isFaceUp = true
     - isGameOngoing = false
 
-- **TC91: Winner winner condition reached, current player at 0** ( :x: )
+- **TC90: Winner winner condition reached, winner at last index** ( :x: )
   - **Name of the test**: endTurn_canEndTurnReachedWinnerWinner_endGame
   - **State of the system**:
     - canEndTurn = true
-    - 4 players
-    - player4 = getCurrentPlayer
+    - 2 players
+    - currentPlayer at index 1
   - **Expected output**:
-    - player.deselectHandCards is called
+    - getCurrentPlayer.deselectHandCards is called
     - reachedWinnerWinnerCondition returns true
-    - player.eliminate is called with all players except player4
+    - player.eliminate is called with all players except currentPlayer
+    - canPlay = false
+    - isFaceUp = true
     - isGameOngoing = false
 
 - **TC92: Cannot end turn** ( :white_check_mark: )
@@ -1288,35 +1292,26 @@
     - draw pile has four cards; card order is ['EXPLODING KITTEN 2', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 1']
 
 ### Method under test: `applySkip()`
-- **TC155: Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
-  - **Name of the test:** applySkip_drawCountOne_TurnAdvances
-  - **State of the system:** game is ongoing, drawCount = 1 (normal, unattacked turn)
-  - **Expected output:** drawCount resets to 1 (from incrementDrawCount), currentPlayerIndex becomes 1, turn has advanced automatically
+- **TC155: Cannot end turn** ( :white_check_mark: )
+  - **Name of the test:** applySkip_cannotEndTurn_decrementDrawCount
+  - **State of the system:** canEndTurn = false
+  - **Expected output:** turnManager.decrementDrawCount is called
 
-- **TC156: Skip while under attack (drawCount = 2)** ( :white_check_mark: )
-  - **Name of the test:** applySkip_drawCountTwo_TurnNotAdvanced
-  - **State of the system:** game is ongoing, drawCount = 2, currentPlayerIndex = 0
-  - **Expected output:** drawCount becomes 1, currentPlayerIndex remains 0, turn is NOT advanced, player must still draw a card
+- **TC156: Can end turn** ( :white_check_mark: )
+  - **Name of the test:** applySkip_canEndTurn_decrementDrawCountAndEndTurn
+  - **State of the system:** canEndTurn = true
+  - **Expected output:** 
+    - turnManager.decrementDrawCount is called
+    - endTurn is called
 
-- **TC157: Skip under stacked attacks (drawCount = 3+)** ( :white_check_mark: )
-  - **Name of the test:** applySkip_drawCountThree_TurnNotAdvanced
-  - **State of the system:** game is ongoing, drawCount = 3, currentPlayerIndex = 0
-  - **Expected output:** drawCount becomes 2, currentPlayerIndex remains 0, turn is NOT advanced
-
-- **TC158: Skip completes turn for the last player in order (wraparound)** ( :white_check_mark: )
-  - **Name of the test:** applySkip_lastPlayer_turnWraps
-  - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
-  - **Expected output:** currentPlayerIndex wraps to 0, drawCount resets to 1 (from incrementDrawCount)
-
-- **TC159: Skip with minimum player count (2 players)** ( :white_check_mark: )
-  - **Name of the test:** applySkip_twoPlayers_turnAdvances
-  - **State of the system:**  game is ongoing, 2 players, drawCount = 1, currentPlayerIndex = 0
-  - **Expected output:** currentPlayerIndex becomes 1, drawCount resets to 1, the single other player is now active
-
-- **TC160: Skip on a standard single turn with maximum players (4 players)** ( :white_check_mark: )
-  - **Name of the test:** applySkip_fourPlayers_turnAdvances
-  - **State of the system:**  game is ongoing, drawCount = 1, 4 players, currentPlayerIndex = 0
-  - **Expected output:** drawCount resets to 1 (from incrementDrawCount), currentPlayerIndex = 1, turn has advanced automatically
+- **TC157: Game method end turn throws** ( :white_check_mark: )
+  - **Name of the test:** applySkip_canEndTurnThrows_failed
+  - **State of the system:** 
+    - canEndTurn = true
+    - endTurn throws IllegalStateException "error.cannotEndTurn"
+  - **Expected output:**
+    - turnManager.decrementDrawCount is called
+    - throw IllegalStateException "error.cannotEndTurn"
 
 ### Method under test: `getSeeTheFutureCardIds()`
 - **TC161: Empty list** ( :white_check_mark: )
@@ -1411,35 +1406,19 @@
     - turnManager.decrementDrawCount is called
 
 ### Method under test: `applySuperSkip()`
-- **TC172: Super Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
-  - **Name of the test:** applySuperSkip_drawCountOne_TurnAdvances
-  - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = 0
-  - **Expected output:** decrementDrawCount() called once, turn advances to currentPlayerIndex = 1
+- **TC172: Super Skip called** ( :white_check_mark: )
+  - **Name of the test:** applySuperSkip_called_endTurn
+  - **State of the system:** N/A
+  - **Expected output:** 
+    - turnManager.setDrawCount is called with NUM_DRAW_COUNT_AFTER_SUPER_SKIP
+    - endTurn is called
 
-- **TC173: Super Skip while under attack (drawCount = 2)** ( :white_check_mark: )
-  - **Name of the test:** applySuperSkip_drawCountTwo_TurnAdvances
-  - **State of the system:** game is ongoing, drawCount = 2, currentPlayerIndex = 0
-  - **Expected output:** decrementDrawCount() called twice, turn advances to currentPlayerIndex = 1
-
-- **TC174: Super Skip under stacked attacks (drawCount = 3+)** ( :white_check_mark: )
-  - **Name of the test:** applySuperSkip_drawCountThree_TurnAdvances
-  - **State of the system:** game is ongoing, drawCount = 3, currentPlayerIndex = 0
-  - **Expected output:** decrementDrawCount() called three times, turn advances to currentPlayerIndex = 1
-
-- **TC175: Super Skip completes turn for the last player in order (wraparound)** ( :white_check_mark: )
-  - **Name of the test:** applySuperSkip_lastPlayer_turnWraps
-  - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
-  - **Expected output:** decrementDrawCount() called once, currentPlayerIndex wraps to 0
-
-- **TC176: Super Skip with minimum player count (2 players)** ( :white_check_mark: )
-  - **Name of the test:** applySuperSkip_twoPlayers_turnAdvances
-  - **State of the system:** game is ongoing, 2 players, drawCount = 1, currentPlayerIndex = 0
-  - **Expected output:** decrementDrawCount() called once, currentPlayerIndex wraps to 0
-
-- **TC177: Super Skip with maximum player count (4 players)** ( :white_check_mark: )
-  - **Name of the test:** applySuperSkip_fourPlayers_turnAdvances
-  - **State of the system:**  game is ongoing, 4 players, drawCount = 1, currentPlayerIndex = 0
-  - **Expected output:** decrementDrawCount() called once, turn advances to currentPlayerIndex = 1
+- **TC172: game method end turn throws exception** ( :white_check_mark: )
+  - **Name of the test:** applySuperSkip_endTurnThrows_failed
+  - **State of the system:** endTurn throws IllegalStateException "error.cannotEndTurn"
+  - **Expected output:**
+    - turnManager.setDrawCount is called with NUM_DRAW_COUNT_AFTER_SUPER_SKIP
+    - throw IllegalStateException "error.cannotEndTurn"
 
 ### Method under test: `applyGodcat(CardType cardType)`
 - **TC178: Invalid card type Godcat** ( :white_check_mark: )
