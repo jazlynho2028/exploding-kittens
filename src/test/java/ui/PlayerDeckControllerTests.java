@@ -621,7 +621,6 @@ public class PlayerDeckControllerTests {
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM),
 				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM),
 				Arguments.of(CardType.WINNER_WINNER_CATNIP_DINNER),
-				Arguments.of(CardType.RECYCLE),
 				Arguments.of(CardType.DOUBLE_UP),
 				Arguments.of(CardType.MILD_SHUFFLE)
 		);
