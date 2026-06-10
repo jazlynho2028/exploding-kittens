@@ -1713,7 +1713,7 @@
   - **Expected output**: return "Audrey"
 
 ### Method under test: `drawRecycle()`
-- **TC203: Drawn card is not Exploding Kitten** ( :x: )
+- **TC203: Drawn card is not Exploding Kitten** ( :white_check_mark: )
   - **Name of the test**: drawRecycle_nonExplodingCard_cardDrawnToHand
   - **State of the system**: discard pile bottom card is not EXPLODING_KITTEN
   - **Expected output**: 
