@@ -128,6 +128,10 @@ public class Game {
     }
 
     public boolean canPlaySelected() {
+        if (!canPlay) {
+            return false;
+        }
+
         List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
         if (selectedCards.size() != 1) {
             return false;
@@ -228,6 +232,10 @@ public class Game {
 
     public boolean getCanPlay() {
         return canPlay;
+    }
+
+    void setCanPlay(boolean canPlay) {
+        this.canPlay = canPlay;
     }
 
     public boolean getIsFaceUp() {

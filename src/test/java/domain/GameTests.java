@@ -343,6 +343,8 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
+		game.setCanPlay(true);
+
 		assertFalse(game.canPlaySelected());
 
 		EasyMock.verify(currentPlayer, game);
