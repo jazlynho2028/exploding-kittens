@@ -266,6 +266,7 @@ public class Game {
         turnManager.decrementDrawCount();
         getCurrentPlayer().deselectHandCards();
 
+        canPlay = false;
         return card;
     }
 

@@ -1336,6 +1336,7 @@ public class GameTests {
 		Card actualCard = game.drawFromPile();
 		assertEquals(expectedCard, actualCard);
 
+		assertFalse(game.getCanPlay());
 		EasyMock.verify(drawPile, turnManager, currentPlayer, game);
 	}
 
