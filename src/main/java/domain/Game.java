@@ -91,7 +91,9 @@ public class Game {
         addExplodingKittens();
         drawPile.shuffle();
 
+        changeCurrentPlayerIndex(GameConstants.STARTING_PLAYER_INDEX);
         isGameOngoing = true;
+        canPlay = true;
     }
 
     private void addExplodingKittens() {

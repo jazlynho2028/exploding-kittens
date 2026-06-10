@@ -179,14 +179,22 @@ public class GameTests {
 		drawPile.shuffle();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("changeCurrentPlayerIndex")
+				.createMock();
 
-		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.changeCurrentPlayerIndex(GameConstants.STARTING_PLAYER_INDEX);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, game);
+
 		game.startGame();
 
 		assertTrue(game.getIsGameOngoing());
+		assertTrue(game.getCanPlay());
 
-		EasyMock.verify(drawPile);
+		EasyMock.verify(drawPile, game);
 	}
 
 	@ParameterizedTest
