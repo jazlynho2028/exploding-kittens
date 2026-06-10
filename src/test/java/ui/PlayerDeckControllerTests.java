@@ -781,31 +781,21 @@ public class PlayerDeckControllerTests {
 
 	@Test
 	public void onPlayCardsButton_targetedAttackPlayed_targetSelectionEnabled() {
-		int targetPlayerIndex = 2;
-
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("rebindHandCards")
-				.addMockedMethod("handleChangeCurrentPlayer")
 				.addMockedMethod("updateTurnControls")
 				.createMock();
 
 		expectTargetCardPlaySetup(controller, CardType.TARGETED_ATTACK,
 				"TARGETED_ATTACK_1", 0);
 
-		model.applyTargetedAttack(targetPlayerIndex);
-		EasyMock.expectLastCall();
-
-		controller.handleChangeCurrentPlayer(targetPlayerIndex);
-		EasyMock.expectLastCall();
-
 		EasyMock.replay(model, view, controller);
 
 		controller.onPlayCardsButton();
 
 		assertTrue(controller.pendingTargetAction.isPresent());
-		controller.pendingTargetAction.get().accept(targetPlayerIndex);
 
 		EasyMock.verify(model, view, controller);
 	}

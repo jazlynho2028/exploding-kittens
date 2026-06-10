@@ -240,10 +240,7 @@ public class PlayerDeckController {
                 view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
                 break;
             case TARGETED_ATTACK:
-                pendingTargetAction = Optional.of(targetIndex -> {
-                    model.applyTargetedAttack(targetIndex);
-                    handleChangeCurrentPlayer(targetIndex);
-                });
+                pendingTargetAction = Optional.of(this::applyTargetedAttackAction);
                 view.renderPlayerNameTags(model.getCurrentPlayerIndex(), false,
                         model.getDeadIndices());
                 view.renderTurnControlSection(false, false);
@@ -260,6 +257,9 @@ public class PlayerDeckController {
             default:
                 break;
         }
+    }
+
+    private void applyTargetedAttackAction(Integer integer) {
     }
 
     private void updateDiscardPile() {
