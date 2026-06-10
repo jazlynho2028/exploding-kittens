@@ -309,7 +309,7 @@
       - model.applyTargetedAttack(target) is called
       - handleChangeCurrentPlayer(target) is called
 
-- **TC25: Ragebait card played** ( :x: )
+- **TC25: Ragebait card played** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_ragebaitPlayed_targetSelectionEnabled
   - **State of the system**:
     - canDrawFromDiscard = true

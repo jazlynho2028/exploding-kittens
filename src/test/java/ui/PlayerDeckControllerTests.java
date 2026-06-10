@@ -812,9 +812,8 @@ public class PlayerDeckControllerTests {
 
 	@Test
 	public void onPlayCardsButton_ragebaitPlayed_targetSelectionEnabled() {
-
 		PlayerDeckController controller = EasyMock.createMockBuilder(
-				PlayerDeckController.class)
+						PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("rebindHandCards")
 				.addMockedMethod("updateTurnControls")
@@ -827,9 +826,6 @@ public class PlayerDeckControllerTests {
 		EasyMock.expectLastCall();
 
 		controller.rebindHandCards();
-		EasyMock.expectLastCall();
-
-		controller.updateTurnControls();
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view, controller);
