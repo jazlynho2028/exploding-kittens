@@ -2944,7 +2944,6 @@ public class GameTests {
 		);
 	}
 
-
 	@Test
 	public void drawRecycle_nonExplodingCard_cardDrawnToHand() {
 		List<Player> players = EasyMock.createMock(List.class);
@@ -2963,6 +2962,41 @@ public class GameTests {
 
 		currentPlayer.addCardToHand(card);
 		EasyMock.expectLastCall();
+
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall();
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		Card actualCard = game.drawRecycle();
+
+		assertEquals(card, actualCard);
+
+		EasyMock.verify(discardPile, turnManager, currentPlayer, game);
+	}
+
+	@Test
+	public void drawRecycle_explodingKitten_cardNotAddedToHand() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card card = mockCardOfType(CardType.EXPLODING_KITTEN);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		discardPile.shuffle();
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(discardPile.peekBottom()).andReturn(card);
 
 		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
