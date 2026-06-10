@@ -261,7 +261,9 @@ public class PlayerDeckController {
         handleChangeCurrentPlayer(targetIndex);
     }
 
-    private void applyRagebaitAction(Integer integer) {
+    void applyRagebaitAction(int targetIndex) {
+        model.applyRagebait(targetIndex);
+        rebindHandCards();
     }
 
     private void updateDiscardPile() {

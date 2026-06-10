@@ -334,7 +334,7 @@
     - handleChangeCurrentPlayer(1) is called
 
 ## Method under test: `applyRagebaitAction()`
-- **TC27: applyRagebaitAction called** ( :x: )
+- **TC27: applyRagebaitAction called** ( :white_check_mark: )
   - **Name of the test**: applyRagebaitAction_called_appliesRagebaitAndRebindsHand
   - **State of the system**: targetIndex = 1
   - **Expected output**:
