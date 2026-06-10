@@ -134,10 +134,10 @@ public class PlayerDeckView {
 
     public void buildAddRenderPlayerNameTags(
             List<String> playerNames, int currentPlayerIndex,
-            boolean isGameOngoing, Set<Integer> aliveIndices) {
+            boolean isEnabled, Set<Integer> aliveIndices) {
 
         buildAndAddPlayerNameTags(playerNames);
-        renderPlayerNameTags(currentPlayerIndex, isGameOngoing, aliveIndices);
+        renderPlayerNameTags(currentPlayerIndex, isEnabled, aliveIndices);
     }
 
     public void buildAndAddPlayerNameTags(List<String> playerNames) {
@@ -149,7 +149,7 @@ public class PlayerDeckView {
     }
 
     public void renderPlayerNameTags(
-			int currentPlayerIndex, boolean disableOtherPlayers,
+			int currentPlayerIndex, boolean enableOtherPlayers,
             Set<Integer> aliveIndices) {
 
         ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
@@ -163,7 +163,7 @@ public class PlayerDeckView {
             boolean isDead = !aliveIndices.contains(i);
 
             nameTagButton.setDisable(
-					isAtCurrentPlayerIndex || disableOtherPlayers || isDead);
+					isAtCurrentPlayerIndex || !enableOtherPlayers || isDead);
 
             if (isDead) {
                 renderDeadPlayerNameTag(nameTagButton);
@@ -187,7 +187,10 @@ public class PlayerDeckView {
     }
 
     public void renderDiscardPile(String topCardId) {
-        if (topCardId.isEmpty()) {
+        boolean isEmpty = Objects.equals(
+                topCardId, assetProvider.getString("global.empty"));
+
+        if (isEmpty) {
             discardPileButton.setVisible(false);
             return;
         }
@@ -198,7 +201,7 @@ public class PlayerDeckView {
         discardPileButton.setDisable(false);
     }
 
-    public void renderHandVisibilityButton(boolean isFaceUp) {
+    public void renderHandVisibilityButton(boolean isFaceUp, boolean isEnabled) {
         if (isFaceUp) {
             handVisibilityButton.setText(
                     assetProvider.getString("playerDeckScreen.hideHandLabel"));
@@ -207,10 +210,11 @@ public class PlayerDeckView {
             handVisibilityButton.setText(
                     assetProvider.getString("playerDeckScreen.showHandLabel"));
         }
+        handVisibilityButton.setDisable(!isEnabled);
     }
 
     public void buildAndAddPlayerHandCards(
-            List<String> currentPlayerHand, boolean isFaceUp, boolean isBeforeDraw) {
+            List<String> currentPlayerHand, boolean isFaceUp, boolean isEnabled) {
 
         handCardsContainer.getChildren().clear();
 
@@ -218,7 +222,7 @@ public class PlayerDeckView {
             ToggleButton handCardButton = buildHandCardButton(
                     cardId,
                     isFaceUp,
-                    isBeforeDraw
+                    isEnabled
             );
             handCardsContainer.getChildren().add(handCardButton);
         }
@@ -506,10 +510,8 @@ public class PlayerDeckView {
     }
 
     private ToggleButton buildHandCardButton(
-            String cardId,
-            boolean isFaceUp,
-            boolean isBeforeDraw
-    ) {
+            String cardId, boolean isFaceUp, boolean isEnabled) {
+
         ToggleButton handCardButton = new ToggleButton();
         handCardButton.getStyleClass().add("card");
 
@@ -518,7 +520,7 @@ public class PlayerDeckView {
         if (isFaceUp) {
             handCard = buildCardFront(cardId);
 
-            handCardButton.setDisable(!isBeforeDraw);
+            handCardButton.setDisable(!isEnabled);
             handCardButton.getStyleClass().add("front");
         }
         else {
