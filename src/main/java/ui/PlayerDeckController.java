@@ -7,6 +7,7 @@ import domain.GameConstants;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.scene.Scene;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import static ui.ErrorHandler.attempt;
@@ -17,17 +18,20 @@ public class PlayerDeckController {
     private final Game model;
 
     private Consumer<String> onError;
+    private Runnable onRestart;
+    Optional<Consumer<Integer>> pendingTargetAction = Optional.empty();
 
     @SuppressFBWarnings(
-        value = "EI_EXPOSE_REP2",
-        justification = "View and model are injected by for compromise between MVC " +
-                "pattern and testability, defensive copies are not applicable or not " +
-                "desired for JavaFX components and Game objects."
+            value = "EI_EXPOSE_REP2",
+            justification = "View and model are injected by for compromise between MVC " +
+                    "pattern and testability, defensive copies are not applicable or not " +
+                    "desired for JavaFX components and Game objects."
     )
     public PlayerDeckController(Game model, PlayerDeckView view) {
         this.model = model;
         this.view = view;
         this.onError = message -> { };
+        this.onRestart = () -> { };
     }
 
     public Scene buildPlayerDeckScene() {
@@ -59,7 +63,8 @@ public class PlayerDeckController {
         view.buildAddRenderPlayerNameTags(
                 model.getPlayerNames(),
                 model.getCurrentPlayerIndex(),
-                model.getIsGameOngoing()
+                model.getIsGameOngoing(),
+                model.getDeadIndices()
         );
     }
 
@@ -84,7 +89,20 @@ public class PlayerDeckController {
     void onNameTag(int playerIndex) {
         attempt(onError, () -> {
             if (model.getCurrentPlayerIndex() != playerIndex) {
-                handleChangeCurrentPlayer(playerIndex);
+                if (pendingTargetAction.isPresent()) {
+                    Consumer<Integer> action = pendingTargetAction.get();
+                    pendingTargetAction = Optional.empty();
+
+                    action.accept(playerIndex);
+
+                    updateNameTags();
+                    updateHandVisibilityButton();
+                    updateDrawPile();
+                }
+                else {
+                    handleChangeCurrentPlayer(playerIndex);
+                }
+                updateTurnControls();
             }
         });
     }
@@ -101,7 +119,8 @@ public class PlayerDeckController {
     private void updateNameTags() {
         view.renderPlayerNameTags(
                 model.getCurrentPlayerIndex(),
-                model.getIsGameOngoing()
+                model.getIsGameOngoing(),
+                model.getDeadIndices()
         );
     }
 
@@ -168,7 +187,7 @@ public class PlayerDeckController {
         });
     }
 
-    private void updateTurnControls() {
+    void updateTurnControls() {
         view.renderTurnControlSection(
                 model.canPlaySelected(),
                 model.canEndTurn()
@@ -214,14 +233,61 @@ public class PlayerDeckController {
     void updateByCardType(CardType cardType) {
         switch (cardType) {
             case SKIP:
+            case SUPER_SKIP:
+            case CATOMIC_BOMB:
                 renderNextTurn();
                 break;
             case SEE_THE_FUTURE:
                 view.buildSeeTheFutureOverlay(model.getSeeTheFutureCardIds());
                 break;
+            case TARGETED_ATTACK:
+                pendingTargetAction = Optional.of(this::applyTargetedAttackAction);
+                enablePlayerSelect();
+                break;
+            case RAGEBAIT:
+                pendingTargetAction = Optional.of(this::applyRagebaitAction);
+                enablePlayerSelect();
+                break;
             default:
                 break;
         }
+    }
+
+    private void enablePlayerSelect() {
+        enableNameTags();
+        disableAllButNameTags();
+    }
+
+    private void enableNameTags() {
+        view.renderPlayerNameTags(
+                model.getCurrentPlayerIndex(),
+                false,
+                model.getDeadIndices()
+        );
+    }
+
+    private void disableAllButNameTags() {
+        view.renderDrawPile(false, model.isDrawPileEmpty());
+
+        view.renderHandVisibilityButton(model.getIsFaceUp());
+
+        view.buildAndAddPlayerHandCards(
+                model.getCurrentPlayerHandIds(),
+                model.getIsFaceUp(),
+                false
+        );
+
+        view.renderTurnControlSection(false, false);
+    }
+
+    void applyTargetedAttackAction(int targetIndex) {
+        model.applyTargetedAttack(targetIndex);
+        handleChangeCurrentPlayer(targetIndex);
+    }
+
+    void applyRagebaitAction(int targetIndex) {
+        model.applyRagebait(targetIndex);
+        rebindHandCards();
     }
 
     private void updateDiscardPile() {
@@ -263,6 +329,11 @@ public class PlayerDeckController {
             updateDrawPile();
 
             renderNextTurn();
+
+            if (!model.getIsGameOngoing()) {
+                view.buildWinOverlay(model.getWinnerName());
+                view.bindPlayAgainButton(onRestart);
+            }
         });
     }
 
@@ -277,6 +348,10 @@ public class PlayerDeckController {
 
             updateByCardType(cardType);
         });
+    }
+
+    public void setOnRestart(Runnable handler) {
+        onRestart = handler;
     }
 
 }

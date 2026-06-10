@@ -124,11 +124,6 @@
   - **State of the system**: Player hand has 0 cards, index provided is 0
   - **Expected output**: IllegalArgumentException called with "error.invalidHandCardIndex"
 
-- **TC25: Baseline validation of name property** ( :white_check_mark: )
-  - **Name of the test**: getName_validName_returnsExactString
-  - **State of the system**: Player initialized with a specific name string (e.g., "Alice")
-  - **Expected output**: getName() returns exactly "Alice"
-
 ### Method under test: `getSelectedCards()`
 - **TC25: Get selected cards from empty hand** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_emptyHand_returnsEmptyList
@@ -150,7 +145,7 @@
   - **State of the system**: player hand has three cards; all cards have isSelected = false
   - **Expected output**: returns an empty list
 
-  - **TC29: Get selected cards when more than one card is selected** ( :white_check_mark: )
+- **TC29: Get selected cards when more than one card is selected** ( :white_check_mark: )
   - **Name of the test**: getSelectedCards_multipleCardsSomeSelected_returnsOnlySelectedCards
   - **State of the system**: player hand has three cards; some but not all have isSelected = true (two cards have isSelected = true, one card has isSelected = false)
   - **Expected output**: returns a list containing only the two selected cards; the one unselected card is not included
@@ -182,7 +177,40 @@
   - **Expected output**: returns a list of all cards where the duplicate ID appears twice for the two duplicate cards 
 
 ### Method under test: `getName()`
-- **TC35: Get name from a person** ( :x: )
-  - **Name of the test**: getName_existingPerson_success
-  - **State of the system**: Player created with name 'Alice'
-  - **Expected output**: returns the string 'Alice'
+- **TC35: Baseline validation of name property** ( :white_check_mark: )
+  - **Name of the test**: getName_validName_returnsExactString
+  - **State of the system**: Player initialized with a specific name string (e.g., "Alice")
+  - **Expected output**: getName() returns exactly "Alice"
+
+### Method under test: `isAlive()`
+- **TC36: Player is alive** ( :white_check_mark: )
+  - **Name of the test**: isAlive_playerIsAlive_returnTrue
+  - **State of the system**: Player is alive
+  - **Expected output**: return true
+
+- **TC37: Player is dead** ( :white_check_mark: )
+  - **Name of the test**: isAlive_playerIsDead_returnFalse
+  - **State of the system**: Player is dead
+  - **Expected output**: return false
+
+### Method under test: `eliminate()`
+- **TC38: Player is alive** ( implemented in TC37 )
+  - **Name of the test**: isAlive_playerIsDead_returnFalse
+  - **State of the system**: Player is alive
+  - **Expected output**: Player is dead
+
+- **TC39: Player is dead** ( :white_check_mark: )
+  - **Name of the test**: eliminatePlayer_playerCreated_setIsAliveToFalse
+  - **State of the system**: Player is dead
+  - **Expected output**: Player is dead
+
+### Method under test: `swapHandWith(Player other)`
+- **TC40: Both players have cards** ( :white_check_mark: )
+  - **Name of the test**: swapHandWith_bothPlayersHaveCards_handsSwapped
+  - **State of the system**: player1 has [card1], player2 has [card2]
+  - **Expected output**: player1 has [card2], player2 has [card1]
+
+- **TC41: One player has empty hand** ( :white_check_mark: )
+  - **Name of the test**: swapHandWith_oneEmptyHand_handsSwapped
+  - **State of the system**: player1 has [card1], player2 has []
+  - **Expected output**: player1 has [], player2 has [card1]

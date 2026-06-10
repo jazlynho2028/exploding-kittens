@@ -29,6 +29,9 @@ public class AssetManager implements AssetProvider {
         loadIcon("left-bracket",
                 "/icons/left-bracket.txt"
         );
+        loadIcon("skull",
+                "/icons/skull.txt"
+        );
 
         loadFont("/fonts/koulen-regular.ttf");
         loadFont("/fonts/national-park.ttf");
