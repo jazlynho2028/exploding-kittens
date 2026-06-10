@@ -1712,8 +1712,27 @@
     - winner at index 0
   - **Expected output**: return "Audrey"
 
-### Method under test: `applyRecycle()`
-- **TC203: applyRecycle called** ( :white_check_mark: )
-  - **Name of the test**: applyRecycle_called_shufflesDiscardPile
-  - **State of the system**: N/A
-  - **Expected output**: discardPile.shuffle() is called
+### Method under test: `drawRecycle()`
+- **TC203: Drawn card is not Exploding Kitten** ( :x: )
+  - **Name of the test**: drawRecycle_nonExplodingCard_cardDrawnToHand
+  - **State of the system**: discard pile bottom card is not EXPLODING_KITTEN
+  - **Expected output**: 
+    - discardPile.shuffle() is called 
+    - discardPile.peekBottom() is called 
+    - discardPile.removeBottom() is called 
+    - getCurrentPlayer().addCardToHand(card) is called 
+    - turnManager.decrementDrawCount() is called 
+    - getCurrentPlayer().deselectHandCards() is called 
+    - returns card
+
+- **TC204: Drawn card is Exploding Kitten** ( :x: )
+  - **Name of the test**: drawRecycle_explodingKitten_cardNotAddedToHand
+  - **State of the system**: discard pile bottom card is EXPLODING_KITTEN
+  - **Expected output**:
+    - discardPile.shuffle() is called 
+    - discardPile.peekBottom() is called 
+    - discardPile.removeBottom() is NOT called 
+    - getCurrentPlayer().addCardToHand() is NOT called 
+    - turnManager.decrementDrawCount() is called 
+    - getCurrentPlayer().deselectHandCards() is called 
+    - returns exploding kitten card
