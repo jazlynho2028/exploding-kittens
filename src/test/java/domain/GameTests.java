@@ -2944,6 +2944,7 @@ public class GameTests {
 		);
 	}
 
+
 	@Test
 	public void drawRecycle_nonExplodingCard_cardDrawnToHand() {
 		List<Player> players = EasyMock.createMock(List.class);
