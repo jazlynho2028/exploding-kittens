@@ -313,8 +313,8 @@ public class PlayerDeckControllerTests {
 				.createMock();
 
 		Card drawnCard = EasyMock.createMock(Card.class);
-		EasyMock.expect(model.drawFromPile()).andStubReturn(drawnCard);
-		EasyMock.expect(drawnCard.getType()).andStubReturn(CardType.DEFUSE);
+		EasyMock.expect(model.drawFromPile()).andReturn(drawnCard);
+		EasyMock.expect(drawnCard.getType()).andReturn(CardType.DEFUSE);
 
 		controller.updateAll();
 		EasyMock.expectLastCall();

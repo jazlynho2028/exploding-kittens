@@ -120,15 +120,15 @@
     - view.bindPlayerHandCardButtons is called
 
 ## Method under test: `onDrawPile()`
-- **TC13: Draw non-exploding card successfully** ( :x: )
-  - **Name of the test**: onDrawPile_nonExplodingCardDrawn_callsHandleDrawnCard
+- **TC13: Draw non-exploding card successfully** ( :white_check_mark: )
+  - **Name of the test**: onDrawPile_nonExplodingCardDrawn_callsUpdateAll
   - **State of the system**:
     - drawnCard type = DEFUSE
   - **Expected output**:
     - model.drawFromPile() is called 
-    - handleDrawnCard is called with drawnCard
+    - updateAll is called
 
-- **TC14: Draw Exploding Kitten, has Defuse** ( :x: )
+- **TC14: Draw Exploding Kitten, has Defuse** ( :white_check_mark: )
   - **Name of the test**: onDrawPile_explodingKittenDrawn_buildsExplodeOverlay
   - **State of the system**:
     - isDefusable = true 
@@ -138,7 +138,7 @@
     - view.bindDefuseButton is called 
     - view.buildExplodeOverlay is called with isDefusable, drawnCardId, drawPileSize - 1
 
-- **TC15: Draw Exploding Kitten, no Defuse** ( :x: )
+- **TC15: Draw Exploding Kitten, no Defuse** ( :white_check_mark: )
   - **Name of the test**: onDrawPile_explodingKittenDrawn_buildsExplodeOverlay
   - **State of the system**:
     - isDefusable = false
@@ -148,7 +148,7 @@
     - view.bindExplodeButton is called 
     - view.buildExplodeOverlay is called with isDefusable, drawnCardId, drawPileSize - 1
 
-- **TC16: Caught exception from model** ( :x: )
+- **TC16: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDrawPile_modelThrowsException_callsOnError
   - **State of the system**: model.drawFromPile throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception

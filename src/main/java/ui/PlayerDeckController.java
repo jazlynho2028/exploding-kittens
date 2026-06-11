@@ -149,14 +149,7 @@ public class PlayerDeckController {
 
     void onDrawPile() {
         attempt(onError, () -> {
-            Card drawnCard = model.drawFromPile();
-
-            if (drawnCard.getType() == CardType.EXPLODING_KITTEN) {
-                handleDrawExplodingKitten(drawnCard.getId());
-            }
-            else {
-                updateAll();
-            }
+            handleDrawnCard(model.drawFromPile());
         });
     }
 
