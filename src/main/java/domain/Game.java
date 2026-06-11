@@ -5,6 +5,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static domain.DeckBuilder.createCardId;
@@ -190,9 +191,6 @@ public class Game {
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
                 break;
-            case RECYCLE:
-                applyRecycle();
-                break;
             case DOUBLE_UP:
                 applyDoubleUp();
                 break;
@@ -268,6 +266,17 @@ public class Game {
         getCurrentPlayer().deselectHandCards();
 
         canPlay = false;
+        return card;
+    }
+
+    private Card drawCard(Supplier<Card> peek, Runnable remove) {
+        Card card = peek.get();
+        if (card.getType() != CardType.EXPLODING_KITTEN) {
+            remove.run();
+            getCurrentPlayer().addCardToHand(card);
+        }
+        turnManager.decrementDrawCount();
+        getCurrentPlayer().deselectHandCards();
         return card;
     }
 
@@ -514,10 +523,6 @@ public class Game {
         currentPlayer.swapHandWith(targetPlayer);
     }
 
-    void applyRecycle() {
-        // TODO
-    }
-
     void applyDoubleUp() {
         // TODO
     }
@@ -544,6 +549,11 @@ public class Game {
         }
 
         throw new IllegalStateException("error.noWinner");
+    }
+
+    public Card drawRecycle() {
+        discardPile.shuffle();
+        return drawCard(discardPile::peekBottom, discardPile::removeBottom);
     }
 
 }

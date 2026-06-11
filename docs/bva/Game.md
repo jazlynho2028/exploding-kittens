@@ -482,19 +482,6 @@
     - applyRagebait is called
     - returns CardType.RAGEBAIT
 
-- **TC59: Valid play with one Recycle** ( :white_check_mark: )
-  - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [RECYCLE]
-    - getCurrentPlayer = player
-  - **Expected output**:
-    - card1.toggleSelected is called
-    - player.removeCardFromHand with card1 is called
-    - discardPile.addCardToTop(card1) is called
-    - applyRecycle is called
-    - returns CardType.RECYCLE
-
 - **TC60: Valid play with one Double Up** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
   - **State of the system**: 
@@ -1497,9 +1484,9 @@
   - **Expected output**: applyRagebait() is called
 
 - **TC193: Valid card type Recycle** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.RECYCLE passed as cardType
-  - **Expected output**: applyRecycle() is called
+  - **Expected output**: N/A
 
 - **TC194: Valid card type Double Up** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
@@ -1711,3 +1698,28 @@
     - playerNames = ["Audrey", "Jeff", "Chicken"]
     - winner at index 0
   - **Expected output**: return "Audrey"
+
+### Method under test: `drawRecycle()`
+- **TC203: Drawn card is not Exploding Kitten** ( :white_check_mark: )
+  - **Name of the test**: drawRecycle_nonExplodingCard_cardDrawnToHand
+  - **State of the system**: discard pile bottom card is not EXPLODING_KITTEN
+  - **Expected output**: 
+    - discardPile.shuffle() is called 
+    - discardPile.peekBottom() is called 
+    - discardPile.removeBottom() is called 
+    - getCurrentPlayer().addCardToHand(card) is called 
+    - turnManager.decrementDrawCount() is called 
+    - getCurrentPlayer().deselectHandCards() is called 
+    - returns card
+
+- **TC204: Drawn card is Exploding Kitten** ( :white_check_mark: )
+  - **Name of the test**: drawRecycle_explodingKitten_cardNotAddedToHand
+  - **State of the system**: discard pile bottom card is EXPLODING_KITTEN
+  - **Expected output**:
+    - discardPile.shuffle() is called 
+    - discardPile.peekBottom() is called 
+    - discardPile.removeBottom() is NOT called 
+    - getCurrentPlayer().addCardToHand() is NOT called 
+    - turnManager.decrementDrawCount() is called 
+    - getCurrentPlayer().deselectHandCards() is called 
+    - returns exploding kitten card

@@ -615,8 +615,6 @@ public class GameTests {
 						"applyWinnerWinnerCatnipDinner",
 						(Consumer<Game>) Game::applyWinnerWinnerCatnipDinner
 				),
-				Arguments.of(CardType.RECYCLE, "applyRecycle",
-						(Consumer<Game>) Game::applyRecycle),
 				Arguments.of(CardType.DOUBLE_UP, "applyDoubleUp",
 						(Consumer<Game>) Game::applyDoubleUp),
 				Arguments.of(CardType.MILD_SHUFFLE, "applyMildShuffle",
@@ -796,12 +794,11 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		EasyMock.expect(discardPile.isEmpty()).andReturn(false);
-
 		String expectedId = "SKIP_1";
 		Card topCard = EasyMock.createMock(Card.class);
 		EasyMock.expect(topCard.getId()).andStubReturn(expectedId);
 
+		EasyMock.expect(discardPile.isEmpty()).andReturn(false);
 		EasyMock.expect(discardPile.peekTop()).andReturn(topCard);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, topCard);
@@ -933,7 +930,7 @@ public class GameTests {
 			"1",
 			"2"
 	})
-	public void getCanDraw_called_returnTrue(int drawCount) {
+	public void getCanDraw_canDrawFalse_returnTrue(int drawCount) {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -2407,7 +2404,8 @@ public class GameTests {
 	private static Stream<Arguments> provideValidCardTypesForGodcatWithoutApplyMethod() {
 		return Stream.of(
 				Arguments.of(CardType.SEE_THE_FUTURE),
-				Arguments.of(CardType.TARGETED_ATTACK)
+				Arguments.of(CardType.TARGETED_ATTACK),
+				Arguments.of(CardType.RECYCLE)
 		);
 	}
 
@@ -2945,6 +2943,80 @@ public class GameTests {
 				Arguments.of(List.of("Audrey", "Jeff", "Chicken"),
 						Set.of(1, 2), "Audrey")
 		);
+	}
+
+	@Test
+	public void drawRecycle_nonExplodingCard_cardDrawnToHand() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card card = mockCardOfType(CardType.SKIP);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		discardPile.shuffle();
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(discardPile.peekBottom()).andReturn(card);
+		EasyMock.expect(discardPile.removeBottom()).andReturn(card);
+
+		currentPlayer.addCardToHand(card);
+		EasyMock.expectLastCall();
+
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall();
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		Card actualCard = game.drawRecycle();
+
+		assertEquals(card, actualCard);
+
+		EasyMock.verify(discardPile, turnManager, currentPlayer, game);
+	}
+
+	@Test
+	public void drawRecycle_explodingKitten_cardNotAddedToHand() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card card = mockCardOfType(CardType.EXPLODING_KITTEN);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		discardPile.shuffle();
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(discardPile.peekBottom()).andReturn(card);
+
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall();
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		Card actualCard = game.drawRecycle();
+
+		assertEquals(card, actualCard);
+
+		EasyMock.verify(discardPile, turnManager, currentPlayer, game);
 	}
 
 	private Game mockGameWithGetCurrentPlayer(

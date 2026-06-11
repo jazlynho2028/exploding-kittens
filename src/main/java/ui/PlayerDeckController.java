@@ -149,14 +149,7 @@ public class PlayerDeckController {
 
     void onDrawPile() {
         attempt(onError, () -> {
-            Card drawnCard = model.drawFromPile();
-
-            if (drawnCard.getType() == CardType.EXPLODING_KITTEN) {
-                handleDrawExplodingKitten(drawnCard.getId());
-            }
-            else {
-                updateAll();
-            }
+            handleDrawnCard(model.drawFromPile());
         });
     }
 
@@ -230,6 +223,15 @@ public class PlayerDeckController {
         });
     }
 
+    private void handleDrawnCard(Card drawnCard) {
+        if (drawnCard.getType() == CardType.EXPLODING_KITTEN) {
+            handleDrawExplodingKitten(drawnCard.getId());
+        }
+        else {
+            updateAll();
+        }
+    }
+
     void updateByCardType(CardType cardType) {
         switch (cardType) {
             case SEE_THE_FUTURE:
@@ -242,6 +244,9 @@ public class PlayerDeckController {
             case RAGEBAIT:
                 pendingTargetAction = Optional.of(model::applyRagebait);
                 enablePlayerSelect();
+                break;
+            case RECYCLE:
+                handleDrawnCard(model.drawRecycle());
                 break;
             default:
                 break;
