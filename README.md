@@ -64,12 +64,6 @@ conflicted with project design requirements or testability
     - `src/main/java/domain/Game.java`
     - `src/main/java/domain/TurnManager.java`
 
-The constructor in `src/main/java/domain/TurnManager.java` performs validation
-of inputs and may throw an IllegalArgumentException when invalid data
-is provided. This is intentional as validating constructor arguments is
-the responsibility of `TurnManager.java`, and this class can't be made final
-because doing so would reduce testability.
-
 **Game Rule Clarifications**
 There are two rules pertaining to cards that we want to specify as
 special exceptions.
