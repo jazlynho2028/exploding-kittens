@@ -1,0 +1,56 @@
+### Feature under test: `Winner Winner Catnip Dinner`
+- **TC1: Not activated yet, completes required rounds** ( :x: )
+  - **Name of the test**: winnerWinnerCatnipDinner_winnerWinnerNotActivatedAndRequirementFulfilled_win
+  - **State of the system**: 
+    - 2 players
+    - player under test at index 0
+    - player has winnerWinnerCatnipDinner in hand
+    - player's winnerWinnerActivatedRound is at 0
+    - round 1
+  - **Expected output**:
+    - player's winnerWinnerActivatedRound is at 1
+    - player does not play any cards for the next four rounds
+    - after player ends their turn four rounds later (round 5), game ends (all other players are dead) and player wins
+
+- **TC2: Already activated, completes required rounds** ( :x: )
+  - **Name of the test**: winnerWinnerCatnipDinner_winnerWinnerActivatedAndRequirementFulfilled_win
+  - **State of the system**: 
+    - 3 players
+    - player under test at index 2
+    - player has winnerWinnerCatnipDinner in hand
+    - player's winnerWinnerActivatedRound is at 1
+    - round 2
+  - **Expected output**:
+    - player's winnerWinnerActivatedRound is at 2
+    - player does not play any cards for the next four rounds
+    - after player ends their turn four rounds later (round 6)
+      - game ends (all other players are dead)
+      - player wins
+
+- **TC3: Not activated yet, fails requirement right after activation** ( :x: )
+  - **Name of the test**: winnerWinnerCatnipDinner_winnerWinnerNotActivatedAndRequirementNotFulfilled_reset
+  - **State of the system**: 
+    - 4 players
+    - player under test at index 0
+    - player has winnerWinnerCatnipDinner in hand
+    - player's winnerWinnerActivatedRound is at 0
+    - round 1
+  - **Expected output**:
+    - player's winnerWinnerActivatedRound is at 1
+    - player plays a card in the same round after winner winner catnip dinner
+    - player's winnerWinnerActivatedRound is reset to 0
+
+- **TC4: Already activated, fails requirement just before fulfillment** ( :x: )
+  - **Name of the test**: winnerWinnerCatnipDinner_winnerWinnerActivatedAndRequirementNotFulfilled_reset
+  - **State of the system**:
+    - 2 players
+    - player under test at index 1
+    - player has winnerWinnerCatnipDinner in hand
+    - player's winnerWinnerActivatedRound is at 1
+    - round 2
+  - **Expected output**:
+    - player's winnerWinnerActivatedRound is at 2
+    - player does not play any cards for the next three rounds
+    - player draws an exploding kitten during the fourth round after activation (round 6)
+    - player plays a defuse
+    - player's winnerWinnerActivatedRound is reset to 0
