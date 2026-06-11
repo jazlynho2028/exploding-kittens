@@ -1,56 +1,62 @@
 ### Feature under test: `Winner Winner Catnip Dinner`
 - **TC1: Not activated yet, completes required rounds** ( :x: )
-  - **Name of the test**: winnerWinnerCatnipDinner_winnerWinnerNotActivatedAndRequirementFulfilled_win
+  - **Name of the test**: winnerWinnerCatnipDinner_notActivatedAndRequirementFulfilled_win
   - **State of the system**: 
     - 2 players
     - player under test at index 0
     - player has winnerWinnerCatnipDinner in hand
     - player's winnerWinnerActivatedRound is at 0
-    - round 1
+    - activated in round 1
+    - no Exploding Kittens in rounds 1 to 5
   - **Expected output**:
-    - player's winnerWinnerActivatedRound is at 1
+    - player's winnerWinnerActivatedRound is at 1 at the end of round 1
     - player does not play any cards for the next four rounds
-    - after player ends their turn four rounds later (round 5), game ends (all other players are dead) and player wins
+    - after player ends their turn four rounds later (round 5)
+      - game ends (all other players are dead) 
+      - player wins
 
 - **TC2: Already activated, completes required rounds** ( :x: )
-  - **Name of the test**: winnerWinnerCatnipDinner_winnerWinnerActivatedAndRequirementFulfilled_win
+  - **Name of the test**: winnerWinnerCatnipDinner_activatedAndRequirementFulfilled_win
   - **State of the system**: 
     - 3 players
     - player under test at index 2
     - player has winnerWinnerCatnipDinner in hand
     - player's winnerWinnerActivatedRound is at 1
-    - round 2
+    - activated in round 2
+    - no Exploding Kittens in rounds 1 to 5
+    - player does not play any cards from rounds 2 to 6
   - **Expected output**:
-    - player's winnerWinnerActivatedRound is at 2
-    - player does not play any cards for the next four rounds
+    - player's winnerWinnerActivatedRound is at 2 at the end of round 2
     - after player ends their turn four rounds later (round 6)
       - game ends (all other players are dead)
       - player wins
 
 - **TC3: Not activated yet, fails requirement right after activation** ( :x: )
-  - **Name of the test**: winnerWinnerCatnipDinner_winnerWinnerNotActivatedAndRequirementNotFulfilled_reset
+  - **Name of the test**: winnerWinnerCatnipDinner_notActivatedAndRequirementNotFulfilled_reset
   - **State of the system**: 
     - 4 players
     - player under test at index 0
     - player has winnerWinnerCatnipDinner in hand
     - player's winnerWinnerActivatedRound is at 0
-    - round 1
-  - **Expected output**:
-    - player's winnerWinnerActivatedRound is at 1
+    - activated in round 1
+    - no Exploding Kittens in round 1
     - player plays a card in the same round after winner winner catnip dinner
-    - player's winnerWinnerActivatedRound is reset to 0
+  - **Expected output**:
+    - player's winnerWinnerActivatedRound is 0 at the end of round 1
 
 - **TC4: Already activated, fails requirement just before fulfillment** ( :x: )
-  - **Name of the test**: winnerWinnerCatnipDinner_winnerWinnerActivatedAndRequirementNotFulfilled_reset
+  - **Name of the test**: winnerWinnerCatnipDinner_activatedAndRequirementNotFulfilled_reset
   - **State of the system**:
     - 2 players
     - player under test at index 1
-    - player has winnerWinnerCatnipDinner in hand
+    - player has winnerWinnerCatnipDinner and defuse in hand
     - player's winnerWinnerActivatedRound is at 1
-    - round 2
-  - **Expected output**:
-    - player's winnerWinnerActivatedRound is at 2
+    - activated in round 2
+    - no Exploding Kitten in rounds 1 to 5
+    - Exploding kitten is at 12 cards from the top
     - player does not play any cards for the next three rounds
     - player draws an exploding kitten during the fourth round after activation (round 6)
+  - **Expected output**:
+    - player's winnerWinnerActivatedRound is at 2
     - player plays a defuse
     - player's winnerWinnerActivatedRound is reset to 0
