@@ -125,16 +125,17 @@
   - **State of the system**:
     - drawnCard type = DEFUSE
   - **Expected output**:
+    - model.drawFromPile() is called 
     - updateAll is called
 
 - **TC14: Draw Exploding Kitten, has Defuse** ( :white_check_mark: )
   - **Name of the test**: onDrawPile_explodingKittenDrawn_buildsExplodeOverlay
   - **State of the system**:
-    - isDefusable = true
+    - isDefusable = true 
     - drawnCardId = "EXPLODINGKITTEN_1"
     - drawPileSize = 3
   - **Expected output**:
-    - view.bindDefuseButton is called
+    - view.bindDefuseButton is called 
     - view.buildExplodeOverlay is called with isDefusable, drawnCardId, drawPileSize - 1
 
 - **TC15: Draw Exploding Kitten, no Defuse** ( :white_check_mark: )
@@ -144,7 +145,7 @@
     - drawnCardId = "EXPLODINGKITTEN_1"
     - drawPileSize = 3
   - **Expected output**:
-    - view.bindExplodeButton is called
+    - view.bindExplodeButton is called 
     - view.buildExplodeOverlay is called with isDefusable, drawnCardId, drawPileSize - 1
 
 - **TC16: Caught exception from model** ( :white_check_mark: )
@@ -241,7 +242,6 @@
     - SWAP_TOP_AND_BOTTOM
     - DRAW_FROM_THE_BOTTOM
     - WINNER_WINNER_CATNIP_DINNER
-    - RECYCLE
     - DOUBLE_UP
     - MILD_SHUFFLE
   - **Expected output**: no model or view interactions occur
@@ -279,6 +279,20 @@
     - view.renderHandVisibilityButton is called with isFaceUp, false
     - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, false
     - view.renderTurnControlSection is called with false, false
+
+- **TC30: Recycle played, non-exploding card drawn** ( :white_check_mark: )
+  - **Name of the test**: updateByCardType_recyclePlayed_nonExplodingCard_success
+  - **State of the system**: model.drawRecycle() returns non-exploding card
+  - **Expected output**:
+    - model.drawRecycle() is called 
+    - updateAll() is called
+
+- **TC30: Recycle played, exploding card drawn** ( :white_check_mark: )
+  - **Name of the test**: updateByCardType_recyclePlayed_ExplodingCard_success
+  - **State of the system**: model.drawRecycle() returns EXPLODING_KITTEN card
+  - **Expected output**:
+    - model.drawRecycle() is called 
+    - handleDrawExplodingKitten is called with exploding kitten card id
 
 ## Method under test: `applyTargetedAttackAction(int targetIndex)`
 - **TC32: Targeted attack action applied** ( :white_check_mark: )

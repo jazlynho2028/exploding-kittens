@@ -5,8 +5,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static domain.DeckBuilder.createCardId;
 
@@ -187,9 +187,6 @@ public class Game {
                 break;
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
-                break;
-            case RECYCLE:
-                applyRecycle();
                 break;
             case DOUBLE_UP:
                 applyDoubleUp();
@@ -516,10 +513,6 @@ public class Game {
         currentPlayer.swapHandWith(targetPlayer);
     }
 
-    void applyRecycle() {
-        // TODO
-    }
-
     void applyDoubleUp() {
         // TODO
     }
@@ -546,6 +539,11 @@ public class Game {
         }
 
         throw new IllegalStateException("error.noWinner");
+    }
+
+    public Card drawRecycle() {
+        discardPile.shuffle();
+        return drawCard(discardPile::peekBottom, discardPile::removeBottom);
     }
 
 }

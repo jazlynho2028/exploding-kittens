@@ -137,7 +137,7 @@ public class PlayerDeckController {
                     Consumer<Integer> action = pendingTargetAction.get();
                     pendingTargetAction = Optional.empty();
 
-					action.accept(playerIndex);
+                    action.accept(playerIndex);
                 }
                 else {
                     model.changeCurrentPlayerIndex(playerIndex);
@@ -237,6 +237,15 @@ public class PlayerDeckController {
         });
     }
 
+    private void handleDrawnCard(Card drawnCard) {
+        if (drawnCard.getType() == CardType.EXPLODING_KITTEN) {
+            handleDrawExplodingKitten(drawnCard.getId());
+        }
+        else {
+            updateAll();
+        }
+    }
+
     void updateByCardType(CardType cardType) {
         switch (cardType) {
             case SEE_THE_FUTURE:
@@ -253,6 +262,9 @@ public class PlayerDeckController {
             case DRAW_FROM_THE_BOTTOM:
                 handleDraw(model::applyDrawFromTheBottom);
                 break;
+            case RECYCLE:
+                handleDrawnCard(model.drawRecycle());
+                break;
             default:
                 break;
         }
@@ -265,9 +277,9 @@ public class PlayerDeckController {
 
     private void enableNameTags() {
         view.renderPlayerNameTags(
-				model.getCurrentPlayerIndex(),
-				true,
-                model.getAliveIndices());
+            model.getCurrentPlayerIndex(),
+            true,
+            model.getAliveIndices());
     }
 
     private void disableAllButNameTags() {
@@ -276,9 +288,9 @@ public class PlayerDeckController {
         view.renderHandVisibilityButton(model.getIsFaceUp(), false);
 
         view.buildAndAddPlayerHandCards(
-                model.getCurrentPlayerHandIds(),
-				model.getIsFaceUp(),
-				false
+            model.getCurrentPlayerHandIds(),
+            model.getIsFaceUp(),
+            false
         );
 
         view.renderTurnControlSection(false, false);
