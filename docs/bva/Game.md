@@ -431,8 +431,8 @@
     - returns CardType.SWAP_TOP_AND_BOTTOM
 
 - **TC55: Valid play with one Draw From The Bottom** ( :white_check_mark: )
-  - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
+  - **Name of the test**: playSelectedCards_validPlayWithoutApplyMethod_cardsMovedFromHandToDiscard
+  - **State of the system**:
     - canPlaySelected returns true
     - selectedCardTypes = [DRAW_FROM_THE_BOTTOM]
     - getCurrentPlayer = player
@@ -440,7 +440,7 @@
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
-    - applyDrawFromTheBottom is called
+    - applyDrawFromTheBottom is not called
     - returns CardType.DRAW_FROM_THE_BOTTOM
 
 - **TC56: Valid play with one Targeted Attack** ( :white_check_mark: )
@@ -1477,9 +1477,9 @@
   - **Expected output**: applySwapTopAndBottom() is called
 
 - **TC189: Valid card type Draw From the Bottom** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.DRAW_FROM_THE_BOTTOM passed as cardType
-  - **Expected output**: applyDrawFromTheBottom() is called
+  - **Expected output**: no immediate apply method is called; controller handles Draw From The Bottom after the card type is returned
 
 - **TC190: Valid card type Targeted Attack** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled

@@ -606,11 +606,6 @@ public class GameTests {
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM, "applySwapTopAndBottom",
 						(Consumer<Game>) Game::applySwapTopAndBottom),
 				Arguments.of(
-						CardType.DRAW_FROM_THE_BOTTOM,
-						"applyDrawFromTheBottom",
-						(Consumer<Game>) Game::applyDrawFromTheBottom
-				),
-				Arguments.of(
 						CardType.WINNER_WINNER_CATNIP_DINNER,
 						"applyWinnerWinnerCatnipDinner",
 						(Consumer<Game>) Game::applyWinnerWinnerCatnipDinner
@@ -664,6 +659,7 @@ public class GameTests {
 		return Stream.of(
 				Arguments.of(CardType.SEE_THE_FUTURE),
 				Arguments.of(CardType.GODCAT),
+				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM),
 				Arguments.of(CardType.TARGETED_ATTACK)
 		);
 	}
@@ -2509,17 +2505,21 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyDrawFromTheBottom_drawCountZero_drawsBottomAndEndsTurn() {
+	public void applyDrawFromTheBottom_nonExplodingCard_returnsDrawnCard() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card expectedCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(expectedCard.getType()).andStubReturn(CardType.ATTACK);
+
 		Player currentPlayer = EasyMock.createMock(Player.class);
-		Card card = EasyMock.createMock(Card.class);
 
-		EasyMock.expect(drawPile.removeBottom()).andReturn(card);
+		EasyMock.expect(drawPile.peekBottom()).andReturn(expectedCard);
+		EasyMock.expect(drawPile.removeBottom()).andReturn(expectedCard);
 
-		currentPlayer.addCardToHand(card);
+		currentPlayer.addCardToHand(expectedCard);
 		EasyMock.expectLastCall();
 
 		turnManager.decrementDrawCount();
@@ -2528,24 +2528,55 @@ public class GameTests {
 		currentPlayer.deselectHandCards();
 		EasyMock.expectLastCall();
 
-		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer, card);
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				expectedCard, currentPlayer);
 
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getCurrentPlayer")
-				.addMockedMethod("canEndTurn")
-				.addMockedMethod("endTurn")
-				.createMock();
-
-		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
-		EasyMock.expect(game.canEndTurn()).andReturn(true);
-
-		game.endTurn();
-		EasyMock.expectLastCall();
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
 
-		game.applyDrawFromTheBottom();
+		Card actualCard = game.applyDrawFromTheBottom();
+
+		assertEquals(expectedCard, actualCard);
+		assertFalse(game.getCanPlay());
+
+		EasyMock.verify(drawPile, turnManager, currentPlayer, game);
+	}
+
+	@Test
+	public void applyDrawFromTheBottom_explodingCard_returnsExplodingCard() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card expectedCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(expectedCard.getType())
+				.andStubReturn(CardType.EXPLODING_KITTEN);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		EasyMock.expect(drawPile.peekBottom()).andReturn(expectedCard);
+
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall();
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				expectedCard, currentPlayer);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		Card actualCard = game.applyDrawFromTheBottom();
+
+		assertEquals(expectedCard, actualCard);
+		assertFalse(game.getCanPlay());
 
 		EasyMock.verify(drawPile, turnManager, currentPlayer, game);
 	}
@@ -2606,45 +2637,6 @@ public class GameTests {
 				Arguments.of(GameConstants.MAX_PLAYER_INDEX, 0,
 						new int[]{GameConstants.MAX_PLAYER_INDEX, 0})
 		);
-	}
-
-	@Test
-	public void applyDrawFromTheBottom_drawCountPositive_drawsBottomNoEndTurn() {
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-		Player currentPlayer = EasyMock.createMock(Player.class);
-		Card card = EasyMock.createMock(Card.class);
-
-		EasyMock.expect(drawPile.removeBottom()).andReturn(card);
-
-		currentPlayer.addCardToHand(card);
-		EasyMock.expectLastCall();
-
-		turnManager.decrementDrawCount();
-		EasyMock.expectLastCall();
-
-		currentPlayer.deselectHandCards();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer, card);
-
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("getCurrentPlayer")
-				.addMockedMethod("canEndTurn")
-				.addMockedMethod("endTurn")
-				.createMock();
-
-		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
-		EasyMock.expect(game.canEndTurn()).andReturn(false);
-
-		EasyMock.replay(game);
-
-		game.applyDrawFromTheBottom();
-
-		EasyMock.verify(drawPile, turnManager, currentPlayer, game);
 	}
 
 	@Test

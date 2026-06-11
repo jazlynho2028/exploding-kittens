@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.function.Supplier;
 
 import static domain.DeckBuilder.createCardId;
 
@@ -184,9 +185,6 @@ public class Game {
             case SWAP_TOP_AND_BOTTOM:
                 applySwapTopAndBottom();
                 break;
-            case DRAW_FROM_THE_BOTTOM:
-                applyDrawFromTheBottom();
-                break;
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
                 break;
@@ -256,11 +254,11 @@ public class Game {
         turnManager.setCurrentPlayerIndex(newPlayerIndex);
     }
 
-    public Card drawFromPile() {
-        Card card = drawPile.peekTop();
+    private Card drawCard(Supplier<Card> peek, Runnable remove) {
+        Card card = peek.get();
 
         if (card.getType() != CardType.EXPLODING_KITTEN) {
-            drawPile.removeTop();
+            remove.run();
             getCurrentPlayer().addCardToHand(card);
         }
 
@@ -269,6 +267,14 @@ public class Game {
 
         canPlay = false;
         return card;
+    }
+
+    public Card drawFromPile() {
+        return drawCard(drawPile::peekTop, drawPile::removeTop);
+    }
+
+    public Card applyDrawFromTheBottom() {
+        return drawCard(drawPile::peekBottom, drawPile::removeBottom);
     }
 
     public int getDrawPileSize() {
@@ -465,18 +471,6 @@ public class Game {
 
         drawPile.addCardToTop(bottom);
         drawPile.addCardToBottom(top);
-    }
-
-    void applyDrawFromTheBottom() {
-        Card card = drawPile.removeBottom();
-
-        getCurrentPlayer().addCardToHand(card);
-        turnManager.decrementDrawCount();
-        getCurrentPlayer().deselectHandCards();
-
-        if (canEndTurn()) {
-            endTurn();
-        }
     }
 
     public void applyTargetedAttack(int targetPlayerIndex) {

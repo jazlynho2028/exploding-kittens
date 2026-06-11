@@ -305,18 +305,28 @@ public class PlayerDeckControllerTests {
 	}
 
 	@Test
-	public void onDrawPile_nonExplodingCardDrawn_callsUpdateAll() {
+	public void onDrawPile_nonExplodingCardDrawn_updatesDrawUI() {
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class)
 				.withConstructor(model, view)
-				.addMockedMethod("updateAll")
+				.addMockedMethod("rebindHandCards")
 				.createMock();
 
 		Card drawnCard = EasyMock.createMock(Card.class);
 		EasyMock.expect(model.drawFromPile()).andStubReturn(drawnCard);
 		EasyMock.expect(drawnCard.getType()).andStubReturn(CardType.DEFUSE);
 
-		controller.updateAll();
+		controller.rebindHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.getCanDraw()).andStubReturn(CAN_DRAW);
+		EasyMock.expect(model.isDrawPileEmpty()).andStubReturn(IS_DRAW_PILE_EMPTY);
+		view.renderDrawPile(CAN_DRAW, IS_DRAW_PILE_EMPTY);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.canPlaySelected()).andStubReturn(CAN_PLAY_SELECTED);
+		EasyMock.expect(model.canEndTurn()).andStubReturn(CAN_END_TURN);
+		view.renderTurnControlSection(CAN_PLAY_SELECTED, CAN_END_TURN);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view, controller, drawnCard);
@@ -619,7 +629,6 @@ public class PlayerDeckControllerTests {
 				Arguments.of(CardType.SUPER_SKIP),
 				Arguments.of(CardType.CLONE),
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM),
-				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM),
 				Arguments.of(CardType.WINNER_WINNER_CATNIP_DINNER),
 				Arguments.of(CardType.RECYCLE),
 				Arguments.of(CardType.DOUBLE_UP),
