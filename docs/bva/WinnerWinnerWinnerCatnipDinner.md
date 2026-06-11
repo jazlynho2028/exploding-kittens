@@ -1,5 +1,5 @@
 ### Feature under test: `Winner Winner Catnip Dinner`
-- **TC1: Not activated yet, completes required rounds** ( :x: )
+- **TC1: Not activated yet, completes required rounds** ( :white_check_mark: )
   - **Name of the test**: winnerWinnerCatnipDinner_notActivatedAndRequirementFulfilled_win
   - **State of the system**: 
     - 2 players
