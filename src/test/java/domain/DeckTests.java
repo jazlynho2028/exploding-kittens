@@ -106,6 +106,30 @@ public class DeckTests {
     }
 
     @Test
+    public void shuffleTopNCards_negativeCount_throwsIllegalArgumentException() {
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        Random mockRandom = EasyMock.createMock(Random.class);
+
+        EasyMock.replay(card1, card2, mockRandom);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+        cards.addLast(card2);
+
+        Deck deck = new Deck(cards, mockRandom);
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> deck.shuffleTopNCards(-1));
+
+        assertEquals("error.shuffleNegativeCards", exception.getMessage());
+        assertEquals(List.of(card1, card2), deck.getCards());
+
+        EasyMock.verify(card1, card2, mockRandom);
+    }
+
+    @Test
     public void peekTop_emptyDeck_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards, new Random());

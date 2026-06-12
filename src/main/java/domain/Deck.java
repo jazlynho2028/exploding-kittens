@@ -35,6 +35,12 @@ public class Deck {
         deck.addAll(cards);
     }
 
+    public void shuffleTopNCards(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("error.shuffleNegativeCards");
+        }
+    }
+
     public Card peekTop() {
         checkNotEmpty();
 

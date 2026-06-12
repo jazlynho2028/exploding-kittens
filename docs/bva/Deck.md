@@ -344,7 +344,7 @@
     - deck size is 3
 
 ### Method under test: `shuffleTopNCards(int n)`
-- **TC51: Shuffle top N cards when n is negative** ( :x: )
+- **TC51: Shuffle top N cards when n is negative** ( :white_check_mark: )
   - **Name of the test**: `shuffleTopNCards_negativeCount_throwsIllegalArgumentException`
   - **State of the system**: Deck has cards: [card1, card2]; n = -1
   - **Expected output**:
