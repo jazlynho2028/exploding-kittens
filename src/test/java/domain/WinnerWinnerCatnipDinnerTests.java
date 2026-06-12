@@ -59,7 +59,7 @@ public class WinnerWinnerCatnipDinnerTests {
 
 	@Test
 	public void winnerWinnerCatnipDinner_activatedAndRequirementFulfilled_win() {
-		int numPlayers = 3;
+		int numPlayers = GameConstants.MAX_PLAYERS - 1;
 		int targetPlayerIndex = 2;
 		String expectedWinnerName = "Monkey";
 
@@ -109,7 +109,7 @@ public class WinnerWinnerCatnipDinnerTests {
 
 	@Test
 	public void winnerWinnerCatnipDinner_notActivatedAndRequirementNotFulfilled_reset() {
-		int numPlayers = 4;
+		int numPlayers = GameConstants.MAX_PLAYERS;
 		int targetPlayerIndex = 0;
 		String expectedWinnerName = "Monkey";
 
