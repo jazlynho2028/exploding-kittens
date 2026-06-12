@@ -15,7 +15,7 @@
       - game ends (all other players are dead) 
       - player wins
 
-- **TC2: Already activated, completes required rounds** ( :x: )
+- **TC2: Already activated, completes required rounds** ( :white_check_mark: )
   - **Name of the test**: winnerWinnerCatnipDinner_activatedAndRequirementFulfilled_win
   - **State of the system**: 
     - 3 players

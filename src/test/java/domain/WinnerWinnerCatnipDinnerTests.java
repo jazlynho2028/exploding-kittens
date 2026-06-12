@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WinnerWinnerCatnipDinnerTests {
 
@@ -28,9 +27,9 @@ public class WinnerWinnerCatnipDinnerTests {
 		setUpStartGame(numPlayers, targetPlayerIndex, expectedWinnerName);
 
 		int numRoundsBeforeTest = GameConstants.WINNER_WINNER_REQUIRED_ROUNDS;
-		int numTurns = calculateNumTurns(
+		int numTurnsBeforeTest = calculateNumTurns(
 				numPlayers, numRoundsBeforeTest, targetPlayerIndex);
-		allocateCards(numTurns);
+		allocateCards(numTurnsBeforeTest);
 
 		int expectedPriorActivationRound = 0;
 		int actualPriorActivationRound = targetPlayer.getWinnerWinnerActivatedRound();
@@ -46,7 +45,55 @@ public class WinnerWinnerCatnipDinnerTests {
 
 		assertEquals(expectedActivationRound, actualActivationRound);
 
-		advanceTurns(game, numTurns);
+		advanceTurns(game, numTurnsBeforeTest);
+
+		assertIsAliveOnWin(players, targetPlayerIndex);
+
+		assertFalse(game.getIsGameOngoing());
+
+		String actualWinnerName = game.getWinnerName();
+		assertEquals(expectedWinnerName, actualWinnerName);
+	}
+
+	@Test
+	public void winnerWinnerCatnipDinner_activatedAndRequirementFulfilled_win() {
+		int numPlayers = 3;
+		int targetPlayerIndex = 2;
+		String expectedWinnerName = "Monkey";
+
+		setUpStartGame(numPlayers, targetPlayerIndex, expectedWinnerName);
+
+		int numRoundsBeforeTest = 2 + GameConstants.WINNER_WINNER_REQUIRED_ROUNDS;
+		int numTurnsBeforeTest = calculateNumTurns(
+				numPlayers, numRoundsBeforeTest, targetPlayerIndex);
+		allocateCards(numTurnsBeforeTest);
+
+		addWinnerWinnerCardToPlayerHand(targetPlayer);
+
+		advanceTurns(game, targetPlayerIndex);
+
+		targetPlayer.toggleSelectedHandCardAt(0);
+		game.playSelectedCards();
+
+		int expectedPriorActivationRound = 1;
+		int actualPriorActivationRound = targetPlayer.getWinnerWinnerActivatedRound();
+
+		assertEquals(expectedPriorActivationRound,
+				actualPriorActivationRound);
+
+		advanceTurns(game, numPlayers);
+
+		targetPlayer.toggleSelectedHandCardAt(0);
+		game.playSelectedCards();
+
+		int expectedActivationRound = 2;
+		int actualActivationRound = targetPlayer.getWinnerWinnerActivatedRound();
+
+		assertEquals(expectedActivationRound, actualActivationRound);
+
+		int numRemainingRounds = GameConstants.WINNER_WINNER_REQUIRED_ROUNDS;
+		int numRemainingTurns = numPlayers * numRemainingRounds + 1;
+		advanceTurns(game, numRemainingTurns);
 
 		assertIsAliveOnWin(players, targetPlayerIndex);
 
@@ -103,7 +150,7 @@ public class WinnerWinnerCatnipDinnerTests {
 			int numPlayers, int numRoundsBeforeTest, int targetPlayerIndex) {
 
 		return numPlayers * numRoundsBeforeTest +
-				targetPlayerIndex + 2;
+				targetPlayerIndex + 1;
 	}
 
 	private void allocateCards(int numTurns) {
@@ -132,7 +179,7 @@ public class WinnerWinnerCatnipDinnerTests {
 	}
 
 	private void advanceTurns(Game game, int numTurns) {
-		for (int i = 0; i < numTurns - 1; i++) {
+		for (int i = 0; i < numTurns; i++) {
 			game.drawFromPile();
 			game.endTurn();
 		}
