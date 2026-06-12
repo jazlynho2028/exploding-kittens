@@ -4,10 +4,7 @@
 - **TC1: Constructor called** ( :white_check_mark: )
   - **Name of the test**: constructor_anyInput_initializeFieldsFalse
   - **State of the system**: N/A
-  - **Expected output**: 
-    - isGameOngoing = false
-    - isFaceUp = false
-    - canPlay = false
+  - **Expected output**: isGameOngoing = false, isFaceUp = false
 
 ### Method under test: `setUp()`
 - **TC2: Set up for 1 player** ( :white_check_mark: )
@@ -55,9 +52,7 @@
   - **Expected output**:
     - drawPile.addCardToTop called once (N-1=1) with EXPLODINGKITTEN_1
     - drawPile.shuffle called
-    - changeCurrentPlayerIndex is called with STARTING_PLAYER_INDEX
     - isGameOngoing = true
-    - canPlay = true
 
 - **TC9: Start game with 4 players** ( :white_check_mark: )
   - **Name of the test**: startGame_gameIsNotOngoing_startFirstRound
@@ -65,9 +60,7 @@
   - **Expected output**:
     - drawPile.addCardToTop called three times (N-1=3) with EXPLODINGKITTEN_1 to 3
     - drawPile.shuffle called
-    - changeCurrentPlayerIndex is called with STARTING_PLAYER_INDEX
     - isGameOngoing = true
-    - canPlay = true
 
 ### Method under test: `getPlayerNames()`
 - **TC10: Get names for two players** ( :white_check_mark: )
@@ -95,7 +88,7 @@
 ### Method under test: `getCurrentPlayer()`
 - **TC14: Current player is 0** ( :white_check_mark: )
   - **Name of the test**: getCurrentPlayer_called_returnCurrentPlayer
-  - **State of the system**:
+  - **State of the system**: 
     - players = [player1, player2]
     - turnManager.getCurrentPlayerIndex = 0
   - **Expected output**: returns player1
@@ -116,210 +109,147 @@
 ### Method under test: `canPlaySelected()`
 - **TC17: No cards selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = []
+  - **State of the system**: selectedCardTypes = []
   - **Expected output**: returns false
 
 - **TC18: One Defuse selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [DEFUSE]
+  - **State of the system**: selectedCardTypes = [DEFUSE]
   - **Expected output**: returns false
 
 - **TC19: One Exploding Kitten selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [EXPLODING_KITTEN]
+  - **State of the system**: selectedCardTypes = [EXPLODING_KITTEN]
   - **Expected output**: returns false
 
 - **TC20: One Cat Card 1 selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [CAT_CARD_1]
+  - **State of the system**: selectedCardTypes = [CAT_CARD_1]
   - **Expected output**: returns false
 
 - **TC21: One Cat Card 2 selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [CAT_CARD_2]
+  - **State of the system**: selectedCardTypes = [CAT_CARD_2]
   - **Expected output**: returns false
 
 - **TC22: One Cat Card 3 selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [CAT_CARD_3]
+  - **State of the system**: selectedCardTypes = [CAT_CARD_3]
   - **Expected output**: returns false
 
 - **TC23: One Cat Card 4 selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [CAT_CARD_4]
+  - **State of the system**: selectedCardTypes = [CAT_CARD_4]
   - **Expected output**: returns false
 
 - **TC24: One Feral Cat selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_invalidCards_returnFalse
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [FERAL_CAT]
+  - **State of the system**: selectedCardTypes = [FERAL_CAT]
   - **Expected output**: returns false
 
-- **TC25: Cannot play** ( :white_check_mark: )
-  - **Name of the test**: canPlaySelected_cannotPlay_returnFalse
-  - **State of the system**: canPlay = false
-  - **Expected output**: returns false
-
-- **TC27: One Attack selected** ( :white_check_mark: )
+- **TC25: One Attack selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [ATTACK]
+  - **State of the system**: selectedCardTypes = [ATTACK]
   - **Expected output**: returns true
 
-- **TC28: One Shuffle selected** ( :white_check_mark: )
+- **TC26: One Shuffle selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [SHUFFLE]
+  - **State of the system**: selectedCardTypes = [SHUFFLE]
   - **Expected output**: returns true
 
-- **TC29: One Skip selected** ( :white_check_mark: )
+- **TC27: One Skip selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [SKIP]
+  - **State of the system**: selectedCardTypes = [SKIP]
   - **Expected output**: returns true
 
-- **TC30: One See The Future selected** ( :white_check_mark: )
+- **TC28: One See The Future selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [SEE_THE_FUTURE]
+  - **State of the system**: selectedCardTypes = [SEE_THE_FUTURE]
   - **Expected output**: returns true
 
-- **TC31: One Catomic Bomb selected** ( :white_check_mark: )
+- **TC29: One Catomic Bomb selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [CATOMIC_BOMB]
+  - **State of the system**: selectedCardTypes = [CATOMIC_BOMB]
   - **Expected output**: returns true
 
-- **TC32: One Super Skip selected** ( :white_check_mark: )
+- **TC30: One Super Skip selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [SUPER_SKIP]
+  - **State of the system**: selectedCardTypes = [SUPER_SKIP]
   - **Expected output**: returns true
 
-- **TC33: One Godcat selected** ( :white_check_mark: )
+- **TC31: One Godcat selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [GODCAT]
+  - **State of the system**: selectedCardTypes = [GODCAT]
   - **Expected output**: returns true
 
-- **TC34: One Clone selected** ( :white_check_mark: )
+- **TC32: One Clone selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [CLONE]
+  - **State of the system**: selectedCardTypes = [CLONE]
   - **Expected output**: returns true
 
-- **TC35: One Swap Top And Bottom selected** ( :white_check_mark: )
+- **TC33: One Swap Top And Bottom selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [SWAP_TOP_AND_BOTTOM]
+  - **State of the system**: selectedCardTypes = [SWAP_TOP_AND_BOTTOM]
   - **Expected output**: returns true
 
-- **TC36: One Draw From The Bottom selected** ( :white_check_mark: )
+- **TC34: One Draw From The Bottom selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [DRAW_FROM_THE_BOTTOM]
+  - **State of the system**: selectedCardTypes = [DRAW_FROM_THE_BOTTOM]
   - **Expected output**: returns true
 
-- **TC37: One Targeted Attack selected** ( :white_check_mark: )
+- **TC35: One Targeted Attack selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [TARGETED_ATTACK]
+  - **State of the system**: selectedCardTypes = [TARGETED_ATTACK]
   - **Expected output**: returns true
 
-- **TC38: One Winner Winner Catnip Dinner selected** ( :white_check_mark: )
+- **TC36: One Winner Winner Catnip Dinner selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [WINNER_WINNER_CATNIP_DINNER]
+  - **State of the system**: selectedCardTypes = [WINNER_WINNER_CATNIP_DINNER]
   - **Expected output**: returns true
 
-- **TC39: One Ragebait selected** ( :white_check_mark: )
+- **TC37: One Ragebait selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [RAGEBAIT]
+  - **State of the system**: selectedCardTypes = [RAGEBAIT]
   - **Expected output**: returns true
 
-- **TC40: One Recycle selected** ( :white_check_mark: )
+- **TC438: One Recycle selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [RECYCLE]
+  - **State of the system**: selectedCardTypes = [RECYCLE]
   - **Expected output**: returns true
 
-- **TC41: One Double Up selected** ( :white_check_mark: )
+- **TC39: One Double Up selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [DOUBLE_UP]
+  - **State of the system**: selectedCardTypes = [DOUBLE_UP]
   - **Expected output**: returns true
 
-- **TC42: One Mild Shuffle selected** ( :white_check_mark: )
+- **TC40: One Mild Shuffle selected** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validCards_returnTrue
-  - **State of the system**: 
-    - canPlay = true
-    - selectedCardTypes = [MILD_SHUFFLE]
+  - **State of the system**: selectedCardTypes = [MILD_SHUFFLE]
   - **Expected output**: returns true
 
 ### Method under test: `playSelectedCards()`
-- **TC43: Selected cards cannot be played** ( :white_check_mark: )
+- **TC41: Selected cards cannot be played** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_invalidPlay_failed
   - **State of the system**: canPlaySelected returns false
   - **Expected output**: throws IllegalStateException "error.cannotPlaySelectedCards"
 
-- **TC44: Valid play with unknown card type** ( :white_check_mark: )
+- **TC42: Valid play with unknown card type** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithUnknownCardType_failed
-  - **State of the system**:
-    - canPlaySelected returns true
-    - selectedCardTypes = [DEFUSE]
-    - getCurrentPlayer = player
-  - **Expected output**:
-    - card1.toggleSelected is called
-    - player.removeCardFromHand with card1 is called
-    - discardPile.addCardToTop(card1) is called
-    - returns CardType.DEFUSE
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DEFUSE]
+  - **Expected output**: throws IllegalStateException "error.cannotPlaySelectedCards"
 
-- **TC45: Player method throws exception** ( :white_check_mark: )
+- **TC43: Player method throws exception** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlay_failed
-  - **State of the system**:
+  - **State of the system**: 
     - canPlaySelected returns true
     - selectedCardTypes = [ATTACK]
     - getCurrentPlayer = player
     - player.removeCardFromHand with card1 throws IllegalStateException "error.cardNotInHand"
   - **Expected output**: throw IllegalStateException "error.cardNotInHand"
 
-- **TC46: Valid play with one Attack** ( :white_check_mark: )
+- **TC44: Valid play with one Attack** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [ATTACK]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [ATTACK]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -327,12 +257,9 @@
     - applyAttack is called
     - returns CardType.ATTACK
 
-- **TC47: Valid play with one Shuffle** ( :white_check_mark: )
+- **TC45: Valid play with one Shuffle** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [SHUFFLE]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SHUFFLE]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -340,12 +267,9 @@
     - applyShuffle is called
     - returns CardType.SHUFFLE
 
-- **TC48: Valid play with one Skip** ( :white_check_mark: )
+- **TC46: Valid play with one Skip** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [SKIP]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SKIP]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -353,12 +277,9 @@
     - applySkip is called
     - returns CardType.SKIP
 
-- **TC49: Valid play with one See The Future** ( :white_check_mark: )
+- **TC47: Valid play with one See The Future** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithoutApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [SEE_THE_FUTURE]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SEE_THE_FUTURE]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -366,12 +287,9 @@
     - applySeeTheFuture is called
     - returns CardType.SEE_THE_FUTURE
 
-- **TC50: Valid play with one Catomic Bomb** ( :white_check_mark: )
+- **TC48: Valid play with one Catomic Bomb** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [CATOMIC_BOMB]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [CATOMIC_BOMB]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -379,12 +297,9 @@
     - applyCatomicBomb is called
     - returns CardType.CATOMIC_BOMB
 
-- **TC51: Valid play with one Super Skip** ( :white_check_mark: )
+- **TC49: Valid play with one Super Skip** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [SUPER_SKIP]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SUPER_SKIP]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -392,12 +307,9 @@
     - applySuperSkip is called
     - returns CardType.SUPER_SKIP
 
-- **TC52: Valid play with one Godcat** ( :white_check_mark: )
+- **TC50: Valid play with one Godcat** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_godcatPlayed_returnsGodcat
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [GODCAT]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [GODCAT]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -405,11 +317,9 @@
     - applyGodcat is called
     - returns CardType.GODCAT
 
-- **TC53: Valid play with one Clone** ( :white_check_mark: )
+- **TC51: Valid play with one Clone** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns trueselectedCardTypes = [CLONE]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [CLONE]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -417,12 +327,9 @@
     - applyClone is called
     - returns CardType.CLONE
 
-- **TC54: Valid play with one Swap Top And Bottom** ( :white_check_mark: )
+- **TC52: Valid play with one Swap Top And Bottom** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [SWAP_TOP_AND_BOTTOM]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [SWAP_TOP_AND_BOTTOM]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -430,25 +337,19 @@
     - applySwapTopAndBottom is called
     - returns CardType.SWAP_TOP_AND_BOTTOM
 
-- **TC55: Valid play with one Draw From The Bottom** ( :white_check_mark: )
-  - **Name of the test**: playSelectedCards_validPlayWithoutApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**:
-    - canPlaySelected returns true
-    - selectedCardTypes = [DRAW_FROM_THE_BOTTOM]
-    - getCurrentPlayer = player
+- **TC53: Valid play with one Draw From The Bottom** ( :white_check_mark: )
+  - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DRAW_FROM_THE_BOTTOM]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
-    - applyDrawFromTheBottom is not called
+    - applyDrawFromTheBottom is called
     - returns CardType.DRAW_FROM_THE_BOTTOM
 
-- **TC56: Valid play with one Targeted Attack** ( :white_check_mark: )
+- **TC54: Valid play with one Targeted Attack** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithoutApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [TARGETED_ATTACK]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [TARGETED_ATTACK]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -456,12 +357,9 @@
     - applyTargetedAttack is called
     - returns CardType.TARGETED_ATTACK
 
-- **TC57: Valid play with one Winner Winner Catnip Dinner** ( :white_check_mark: )
+- **TC55: Valid play with one Winner Winner Catnip Dinner** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [WINNER_WINNER_CATNIP_DINNER]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [WINNER_WINNER_CATNIP_DINNER]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -469,12 +367,9 @@
     - applyWinnerWinnerCatnipDinner is called
     - returns CardType.WINNER_WINNER_CATNIP_DINNER
 
-- **TC58: Valid play with one Ragebait** ( :white_check_mark: )
+- **TC56: Valid play with one Ragebait** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [RAGEBAIT]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [RAGEBAIT]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -482,12 +377,19 @@
     - applyRagebait is called
     - returns CardType.RAGEBAIT
 
-- **TC60: Valid play with one Double Up** ( :white_check_mark: )
+- **TC57: Valid play with one Recycle** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [DOUBLE_UP]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [RECYCLE]
+  - **Expected output**:
+    - card1.toggleSelected is called
+    - player.removeCardFromHand with card1 is called
+    - discardPile.addCardToTop(card1) is called
+    - applyRecycle is called
+    - returns CardType.RECYCLE
+
+- **TC58: Valid play with one Double Up** ( :white_check_mark )
+  - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [DOUBLE_UP]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -495,12 +397,9 @@
     - applyDoubleUp is called
     - returns CardType.DOUBLE_UP
 
-- **TC61: Valid play with one Mild Shuffle** ( :white_check_mark: )
+- **TC59: Valid play with one Mild Shuffle** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns true
-    - selectedCardTypes = [MILD_SHUFFLE]
-    - getCurrentPlayer = player
+  - **State of the system**: canPlaySelected returns true, selectedCardTypes = [MILD_SHUFFLE]
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
@@ -509,127 +408,121 @@
     - returns CardType.MILD_DRAW
 
 ### Method under test: `getTopDiscardId()`
-- **TC62: Empty discard pile** ( :white_check_mark: )
-  - **Name of the test**: getTopDiscardId_emptyDiscardPile_returnEmptyString
-  - **State of the system**: discardPile.isEmpty = true
-  - **Expected output**: return "global.empty"
+- **TC60: Empty discard pile** ( :white_check_mark: )
+  - **Name of the test**: getTopDiscardId_emptyDiscardPile_failed
+  - **State of the system**: discardPile.peekTop throws InvalidStateException "error.emptyDeck"
+  - **Expected output**: throws IllegalStateException "error.emptyDeck"
 
-- **TC63: Non-empty discard pile** ( :white_check_mark: )
+- **TC61: Non-empty discard pile** ( :white_check_mark: )
   - **Name of the test**: getTopDiscardId_nonEmptyDiscardPile_returnTopCardId
-  - **State of the system**: 
-    - discardPile.isEmpty = false
-    - topDiscardPileId = "SKIP_1"
+  - **State of the system**: topDiscardPileId = "SKIP_1"
   - **Expected output**: returns drawPile.peekTop.getId
 
+### Method under test: `getCanDrawFromDiscard()`
+- **TC62: Empty discard pile** ( :white_check_mark: )
+  - **Name of the test**: canDrawFromDiscard_none_returnFalse
+  - **State of the system**: N/A
+  - **Expected output**: returns false
+
 ### Method under test: `canEndTurn()`
-- **TC64: Draw count is 0** ( :white_check_mark: )
-  - **Name of the test**: canEndTurn_drawCountZero_returnTrue
-  - **State of the system**: turnManager.getDrawCount = 0
+- **TC63: Game is not ongoing, draw count is 0** ( :white_check_mark: )
+  - **Name of the test**: canEndTurn_called_returnFalse
+  - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 0
+  - **Expected output**: returns false
+
+- **TC64: Game is not ongoing, draw count is 1** ( :white_check_mark: )
+  - **Name of the test**: canEndTurn_called_returnFalse
+  - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 1
+  - **Expected output**: returns false
+
+- **TC65: Game is not ongoing, draw count is 2** ( :white_check_mark: )
+  - **Name of the test**: canEndTurn_called_returnFalse
+  - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 2
+  - **Expected output**: returns false
+
+- **TC66: Game is ongoing, draw count is 1** ( :white_check_mark: )
+  - **Name of the test**: canEndTurn_called_returnFalse
+  - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 1
+  - **Expected output**: returns false
+
+- **TC67: Game is ongoing, draw count is 2** ( :white_check_mark: )
+  - **Name of the test**: canEndTurn_called_returnFalse
+  - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 1
+  - **Expected output**: returns false
+
+- **TC68: Game is ongoing, draw count is 0** ( :white_check_mark: )
+  - **Name of the test**: canEndTurn_gameIsOngoingAndDrawCountZero_returnTrue
+  - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 0
   - **Expected output**: returns true
 
-- **TC65: Draw count is 1** ( :white_check_mark: )
-  - **Name of the test**: canEndTurn_positiveDrawCount_returnFalse
-  - **State of the system**: turnManager.getDrawCount = 1
-  - **Expected output**: returns false
-
-- **TC66: Draw count is 2** ( :white_check_mark: )
-  - **Name of the test**: canEndTurn_positiveDrawCount_returnFalse
-  - **State of the system**: turnManager.getDrawCount = 2
-  - **Expected output**: returns false
-
 ### Method under test: `isDrawPileEmpty()`
-- **TC67: Empty draw pile** ( :white_check_mark: )
+- **TC69: Empty draw pile** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_emptyDrawPile_returnTrue
   - **State of the system**: drawPile.isEmpty = true
   - **Expected output**: returns true
 
-- **TC68: Non-empty draw pile** ( :white_check_mark: )
+- **TC70: Non-empty draw pile** ( :white_check_mark: )
   - **Name of the test**: isDrawPileEmpty_called_returnFalse
   - **State of the system**: drawPile.isEmpty = false
   - **Expected output**: returns false
 
 ### Method under test: `getCanDraw()`
-- **TC69: Game is not ongoing, draw count is 0** ( :white_check_mark: )
+- **TC71: Game is not ongoing, draw count is 0** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 0
   - **Expected output**: returns false
 
-- **TC70: Game is not ongoing, draw count is 1** ( :white_check_mark: )
+- **TC72: Game is not ongoing, draw count is 1** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 1
   - **Expected output**: returns false
 
-- **TC71: Game is not ongoing, draw count is 2** ( :white_check_mark: )
+- **TC73: Game is not ongoing, draw count is 2** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = false, turnManager.getDrawCount = 2
   - **Expected output**: returns false
 
-- **TC72: Game is ongoing, draw count is 0** ( :white_check_mark: )
+- **TC74: Game is ongoing, draw count is 0** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnFalse
   - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 0
   - **Expected output**: returns false
 
-- **TC73: Game is ongoing, draw count is 1** ( :white_check_mark: )
+- **TC75: Game is ongoing, draw count is 1** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnTrue
   - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 1
   - **Expected output**: returns true
 
-- **TC74: Game is ongoing, draw count is 2** ( :white_check_mark: )
+- **TC76: Game is ongoing, draw count is 2** ( :white_check_mark: )
   - **Name of the test**: getCanDraw_called_returnTrue
   - **State of the system**: isGameOngoing = true, turnManager.getDrawCount = 1
-  - **Expected output**: returns true
-
-### Method under test: `getCanPlay()`
-- **TC75: Game is not ongoing, cannot play** ( :white_check_mark: )
-  - **Name of the test**: getCanPlay_called_returnFalse
-  - **State of the system**: 
-    - isGameOngoing = false
-    - canPlay = false
-  - **Expected output**: returns false
-
-- **TC76: Game is ongoing, cannot play** ( :white_check_mark: )
-  - **Name of the test**: getCanPlay_called_returnFalse
-  - **State of the system**:
-    - isGameOngoing = true
-    - canPlay = false
-  - **Expected output**: returns false
-
-- **TC77: Game is ongoing, can play** ( :white_check_mark: )
-  - **Name of the test**: getCanPlay_called_returnTrue
-  - **State of the system**:
-    - isGameOngoing = true
-    - canPlay = true
   - **Expected output**: returns true
 
 ### Method under test: `changeCurrentPlayerIndex(int newPlayerIndex)`
-- **TC78: This method is called successfully** ( :white_check_mark: )
+- **TC77: This method is called successfully** ( :white_check_mark: )
   - **Name of the test**: changeCurrentPlayerIndex_called_callsTurnManager
-  - **State of the system**: 
-    - newPlayerIndex = 0
-    - aliveIndices = {0}
-  - **Expected output**: 
-    - isFaceUp = false
-    - calls turnManager.setCurrentPlayerIndex with newPlayerIndex
+  - **State of the system**: newPlayerIndex = 0
+  - **Expected output**: calls turnManager.setCurrentPlayerIndex with newPlayerIndex
 
-- **TC79: Player at index is dead** ( :white_check_mark: )
-  - **Name of the test**: changeCurrentPlayerIndex_alivePlayerIndex_failed
-  - **State of the system**: 
-    - newPlayerIndex = 0
-    - aliveIndices = {1}
-  - **Expected output**: throw IllegalStateException "error.playerIsDead"
-
-- **TC80: Turn manager method throws exception** ( :white_check_mark: )
+- **TC78: Turn manager method throws exception** ( :white_check_mark: )
   - **Name of the test**: changeCurrentPlayerIndex_called_failed
-  - **State of the system**: 
-    - newPlayerIndex = 1
-    - aliveIndices = {0, 1}
-    - turnManager.setCurrentPlayerIndex with newPlayerIndex throws IllegalArgumentException "error.invalidPlayerIndex"
+  - **State of the system**: turnManager.setCurrentPlayerIndex with newPlayerIndex throws IllegalArgumentException "error.invalidPlayerIndex"
   - **Expected output**: throw IllegalArgumentException "error.invalidPlayerIndex"
+
+### Method under test: `setFaceUpToFalse()`
+- **TC79: Is face up** ( :white_check_mark: )
+  - **Name of the test**: setFaceUpToFalse_called_setToFalse
+  - **State of the system**: isFaceUp = true
+  - **Expected output**: isFaceUp = false
+
+- **TC80: Is face down** ( :white_check_mark: )
+  - **Name of the test**: setFaceUpToFalse_called_setToFalse
+  - **State of the system**: isFaceUp = false
+  - **Expected output**: isFaceUp = false
 
 ### Method under test: `drawFromPile()`
 - **TC81: This method is called with non-exploding card** ( :white_check_mark: )
   - **Name of the test**: drawFromPile_nonExplodingCard_returnsDrawnCard
-  - **State of the system**:
+  - **State of the system**: 
     - card = drawPile.peekTop
     - card.getType = ATTACK
     - player = getCurrentPlayer
@@ -638,7 +531,6 @@
     - player.addCardToHand is called with card
     - turnManager.decrementDrawCount is called
     - player.deselectHandCards is called
-    - canPlay = false
     - returns card
 
 - **TC82: This method is called with exploding kitten** ( :white_check_mark: )
@@ -650,7 +542,6 @@
   - **Expected output**:
     - turnManager.decrementDrawCount is called
     - player.deselectHandCards is called
-    - canPlay = false
     - returns card
 
 - **TC83: Throw exception from drawPile** ( :white_check_mark: )
@@ -677,7 +568,7 @@
 ### Method under test: `toggleSelectedCurrentPlayerCardAt(int handCardIndex)`
 - **TC87: Hand card index at 0** ( :white_check_mark: )
   - **Name of the test**: toggleSelectedCurrentPlayerCardAt_called_calledPlayerToggle
-  - **State of the system**:
+  - **State of the system**: 
     - player = getCurrentPlayer
     - handCardIndex = 0
   - **Expected output**: player.toggleSelectedPlayerCardAt is called with handCardIndex
@@ -687,161 +578,79 @@
   - **State of the system**: player.toggleSelectedPlayerCardAt throws InvalidArgumentException "error.handCardIndexOutOfBounds"
   - **Expected output**: throws InvalidArgumentException "error.handCardIndexOutOfBounds"
 
-### Method under test: `endTurn()`
+### Method under test: `advanceTurn()`
 - **TC89: Can end turn** ( :white_check_mark: )
-  - **Name of the test**: endTurn_canEndTurnNoWinnerWinner_endTurnAndDeselectCards
-  - **State of the system**: canEndTurn = true
-  - **Expected output**:
-    - currenPlayer.deselectHandCards is called
-    - reachedWinnerWinnerCondition returns false
-    - canPlay = true
-    - isFaceUp = false
-    - turnManager.incrementTurn is called with getAliveIndices
-    - turnManager.incrementDrawCount is called
-
-- **TC90: Winner winner condition reached, winner at index 0** ( :white_check_mark: )
-  - **Name of the test**: endTurn_winnerAtIndexZero_endGame
-  - **State of the system**:
+  - **Name of the test**: advanceTurn_canEndTurn_advanceTurnAndDeselectCards
+  - **State of the system**: 
     - canEndTurn = true
-    - 2 players
-    - currentPlayer at index 0
-  - **Expected output**:
-    - getCurrentPlayer.deselectHandCards is called
-    - reachedWinnerWinnerCondition returns true
-    - player.eliminate is called with all players except currentPlayer
-    - canPlay = false
-    - isFaceUp = true
-    - isGameOngoing = false
+    - player = getCurrentPlayer
+  - **Expected output**: 
+    - player.deselectHandCards is called
+    - turnManager.incrementTurn is called
 
-- **TC90: Winner winner condition reached, winner at last index** ( :white_check_mark: )
-  - **Name of the test**: endTurn_winnerAtLastIndex_endGame
-  - **State of the system**:
-    - canEndTurn = true
-    - 4 players
-    - currentPlayer at index 3
-  - **Expected output**:
-    - getCurrentPlayer.deselectHandCards is called
-    - reachedWinnerWinnerCondition returns true
-    - player.eliminate is called with all players except currentPlayer
-    - canPlay = false
-    - isFaceUp = true
-    - isGameOngoing = false
-
-- **TC92: Cannot end turn** ( :white_check_mark: )
-  - **Name of the test**: endTurn_cannotEndTurn_failed
+- **TC90: Cannot end turn** ( :white_check_mark: )
+  - **Name of the test**: advanceTurn_cannotEndTurn_failed
   - **State of the system**: canEndTurn = false
   - **Expected output**: throws InvalidStateException "error.cannotEndTurn"
 
 ### Method under test: `getDrawPileSize()`
-- **TC93: This method is called** ( :white_check_mark: )
+- **TC91: This method is called** ( :white_check_mark: )
   - **Name of the test**: getDrawPileSize_called_returnDrawPileMethodCall
   - **State of the system**: drawPile.size = N, N = [0, 1, 2]
   - **Expected output**: returns drawPile.size
 
 ### Method under test: `playExplode()`
-- **TC94: Empty draw pile** ( :white_check_mark: )
+- **TC92: Empty draw pile** ( :white_check_mark: )
   - **Name of the test**: playExplode_emptyDrawPile_failed
   - **State of the system**: drawPile.removeTop throws IllegalStateException "error.emptyDeck"
   - **Expected output**: throws IllegalStateException "error.emptyDeck"
 
-- **TC95: All two alive, kill one player** ( :white_check_mark: )
-  - **Name of the test**: playExplode_twoAlivePlayers_oneWins
-  - **State of the system**: 
-    - 2 players, both alive
-    - currentPlayerIndex = 0
-    - isGameOngoing = true
+- **TC93: This method is called successfully** ( :white_check_mark: )
+  - **Name of the test**: playExplode_called_success
+  - **State of the system**: N/A
   - **Expected output**:
     - drawPile.removeTop is called
     - getCurrentPlayer.deselectHandCards is called
-    - getCurrentPlayer.eliminate is called
-    - aliveIndices = {1}
-    - isGameOngoing = false
-
-- **TC96: Three players, one wins** ( :white_check_mark: )
-  - **Name of the test**: playExplode_twoAlivePlayers_oneWins
-  - **State of the system**:
-    - 3 players, index 1 is dead
-    - currentPlayerIndex = 0
-    - isGameOngoing = true
-  - **Expected output**:
-    - drawPile.removeTop is called
-    - getCurrentPlayer.deselectHandCards is called
-    - getCurrentPlayer.eliminate is called
-    - aliveIndices = {2}
-    - isGameOngoing = false;
-
-- **TC97: All three alive, kill one player** ( :white_check_mark: )
-  - **Name of the test**: playExplode_threeAlive_gameContinues
-  - **State of the system**:
-    - 3 players, all alive
-    - currentPlayerIndex = 2
-    - isGameOngoing = true
-  - **Expected output**:
-    - drawPile.removeTop is called
-    - getCurrentPlayer.deselectHandCards is called
-    - getCurrentPlayer.eliminate is called
-    - aliveIndices = {0, 1}
-    - isGameOngoing = true
-    - canPlay = true
-    - isFaceUp = false
-    - turnManager.incrementTurn is called with getAliveIndices
-    - turnManager.incrementDrawCount is called
-
-- **TC98: One player is alive, kill one player** ( :white_check_mark: )
-  - **Name of the test**: playExplode_threeAlive_gameContinues
-  - **State of the system**:
-    - 4 players, index 0 is dead
-    - currentPlayerIndex = 3
-    - isGameOngoing = true
-  - **Expected output**:
-    - drawPile.removeTop is called
-    - getCurrentPlayer.deselectHandCards is called
-    - getCurrentPlayer.eliminate is called
-    - aliveIndices = {1, 2}
-    - isGameOngoing = true
-    - canPlay = true
-    - isFaceUp = false
-    - turnManager.incrementTurn is called with getAliveIndices
-    - turnManager.incrementDrawCount is called
+    - turnManager.incrementTurn is called
 
 ### Method under test: `isDefusable()`
-- **TC99: Empty hand** ( :white_check_mark: )
+- **TC94: Empty hand** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = []
     - topDiscardType = DEFUSE
-  - **Expected output**:
+  - **Expected output**: 
     - discardCard.peekTop returns topDiscardCard
     - return false
 
-- **TC100: Hand with one card type, no Defuse** ( :white_check_mark: )
+- **TC95: Hand with one card type, no Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [ATTACK]
     - topDiscardType = ATTACK
   - **Expected output**:
     - discardCard.peekTop returns topDiscardCard
     - return false
 
-- **TC101: Hand with two different card types, no Defuse** ( :white_check_mark: )
+- **TC96: Hand with two different card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [ATTACK, SKIP]
     - topDiscardType = DEFUSE
   - **Expected output**:
     - discardCard.peekTop returns topDiscardCard
     - return false
 
-- **TC102: Hand with two same card types, no Defuse** ( :white_check_mark: )
+- **TC97: Hand with two same card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [SKIP, SKIP]
     - topDiscardType = ATTACK
   - **Expected output**:
     - discardCard.peekTop returns topDiscardCard
     - return false
 
-- **TC103: Hand with Clone, top discard type is not Defuse** ( :white_check_mark: )
+- **TC97: Hand with Clone, top discard type is not Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, SKIP]
@@ -850,7 +659,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return false
 
-- **TC104: Hand with two Clones, top discard type is not Defuse** ( :white_check_mark: )
+- **TC97: Hand with two Clones, top discard type is not Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_noDefuser_returnFalse
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, CLONE]
@@ -859,95 +668,95 @@
     - discardCard.peekTop returns topDiscardCard
     - return false
 
-- **TC105: Hand with one card type, has Defuse** ( :white_check_mark: )
+- **TC98: Hand with one card type, has Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [DEFUSE]
     - topDiscardType = DEFUSE
   - **Expected output**:
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC106: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
+- **TC99: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [SKIP, DEFUSE]
     - topDiscardType = SKIP
   - **Expected output**:
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC107: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
+- **TC100: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [DEFUSE, SKIP]
     - topDiscardType = ATTACK
   - **Expected output**:
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC108: Hand with two same card types, has Defuse** ( :white_check_mark: )
+- **TC101: Hand with two same card types, has Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
     - topDiscardType = DEFUSE
   - **Expected output**:
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC109: Hand with one card type, has Godcat** ( :white_check_mark: )
+- **TC98: Hand with one card type, has Godcat** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [GODCAT]
     - topDiscardType = DEFUSE
   - **Expected output**:
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC110: Hand with two different card types, has Godcat at end** ( :white_check_mark: )
+- **TC99: Hand with two different card types, has Godcat at end** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [SKIP, GODCAT]
     - topDiscardType = SKIP
   - **Expected output**:
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC111: Hand with two different card types, has Godcat at front** ( :white_check_mark: )
+- **TC100: Hand with two different card types, has Godcat at front** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [GODCAT, SKIP]
     - topDiscardType = ATTACK
   - **Expected output**:
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC112: Hand with two same card types, has Godcat** ( :white_check_mark: )
+- **TC101: Hand with two same card types, has Godcat** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [GODCAT, GODCAT]
     - topDiscardType = DEFUSE
   - **Expected output**: return true
 
-- **TC113: Hand with Defuse and Godcat** ( :white_check_mark: )
+- **TC100: Hand with Defuse and Godcat** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [DEFUSE, GODCAT]
     - topDiscardType = DEFUSE
   - **Expected output**:
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC114: Hand with Godcat and Defuse** ( :white_check_mark: )
+- **TC100: Hand with Godcat and Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [GODCAT, DEFUSE]
     - topDiscardType = ATTACK
   - **Expected output**:
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC115: Hand with one card type, has Clone** ( :white_check_mark: )
+- **TC98: Hand with one card type, has Clone** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE]
@@ -956,7 +765,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC116: Hand with two different card types, has Clone at end** ( :white_check_mark: )
+- **TC99: Hand with two different card types, has Clone at end** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [SKIP, CLONE]
@@ -965,7 +774,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC117: Hand with two different card types, has Clone at front** ( :white_check_mark: )
+- **TC100: Hand with two different card types, has Clone at front** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, SKIP]
@@ -974,14 +783,14 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC118: Hand with two same card types, has Clone** ( :white_check_mark: )
+- **TC101: Hand with two same card types, has Clone** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, CLONE]
     - topDiscardType = DEFUSE
   - **Expected output**: return true
 
-- **TC119: Hand with Defuse and Clone** ( :white_check_mark: )
+- **TC100: Hand with Defuse and Clone** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [DEFUSE, CLONE]
@@ -990,7 +799,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC120: Hand with Clone and Defuse** ( :white_check_mark: )
+- **TC100: Hand with Clone and Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, DEFUSE]
@@ -999,7 +808,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC121: Hand with Clone and Godcat, use Godcat** ( :white_check_mark: )
+- **TC100: Hand with Clone and Godcat, use Godcat** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, GODCAT]
@@ -1008,7 +817,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC122: Hand with Godcat and Clone, use Clone** ( :white_check_mark: )
+- **TC100: Hand with Godcat and Clone, use Clone** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [GODCAT, CLONE]
@@ -1017,7 +826,7 @@
     - discardCard.peekTop returns topDiscardCard
     - return true
 
-- **TC123: Hand with Godcat, Clone, Defuse** ( :white_check_mark: )
+- **TC100: Hand with Godcat, Clone, Defuse** ( :white_check_mark: )
   - **Name of the test**: isDefusable_hasDefuser_returnTrue
   - **State of the system**:
     - currentPlayerHandCardTypes = [GODCAT, CLONE, DEFUSE]
@@ -1027,49 +836,27 @@
     - return true
 
 ### Method under test: `playDefuse(int drawPileIndex)`
-- **TC124: Empty hand** ( :white_check_mark: )
+- **TC102: Empty hand** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
-  - **State of the system**: 
-    - currentPlayerHandCardTypes = []
-    - topDiscardType = DEFUSE
+  - **State of the system**: getCurrentPlayer.getHand = []
   - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
 
-- **TC125: Hand with one card type, no Defuse** ( :white_check_mark: )
+- **TC103: Hand with one card type, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
-  - **State of the system**: 
-    - currentPlayerHandCardTypes = [ATTACK]
-    - topDiscardType = ATTACK
-  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
+  - **State of the system**: currentPlayerHandCardTypes = [ATTACK]
+  - **Expected output**: return false
 
-- **TC126: Hand with two different card types, no Defuse** ( :white_check_mark: )
+- **TC104: Hand with two different card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
-  - **State of the system**: 
-    - currentPlayerHandCardTypes = [ATTACK, SKIP]
-    - topDiscardType = DEFUSE
-  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
+  - **State of the system**: currentPlayerHandCardTypes = [ATTACK, SKIP]
+  - **Expected output**: return false
 
-- **TC127: Hand with two same card types, no Defuse** ( :white_check_mark: )
+- **TC105: Hand with two same card types, no Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_noDefuser_failed
-  - **State of the system**:
-    - currentPlayerHandCardTypes = [SKIP, SKIP]
-    - topDiscardType = ATTACK
-  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
+  - **State of the system**: currentPlayerHandCardTypes = [SKIP, SKIP]
+  - **Expected output**: return false
 
-- **TC128: Hand with Clone, top discard type is not Defuse** ( :white_check_mark: )
-  - **Name of the test**: playDefuse_noDefuser_failed
-  - **State of the system**:
-    -  currentPlayerHandCardTypes = [CLONE, SKIP]
-    - topDiscardType = ATTACK
-  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
-
-- **TC129: Hand with two Clones, top discard type is not Defuse** ( :white_check_mark: )
-  - **Name of the test**: playDefuse_noDefuser_failed
-  - **State of the system**:
-    - currentPlayerHandCardTypes = [CLONE, CLONE]
-    - topDiscardType = ATTACK
-  - **Expected output**: throws IllegalStateException "error.currentPlayerNoDefuser"
-
-- **TC130: Hand with one card type, has Defuse** ( :white_check_mark: )
+- **TC106: Hand with one card type, has Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE]
   - **Expected output**:
@@ -1077,7 +864,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC131: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
+- **TC107: Hand with two different card types, has Defuse at end** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, DEFUSE]
   - **Expected output**:
@@ -1085,7 +872,7 @@
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC132: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
+- **TC108: Hand with two different card types, has Defuse at front** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, SKIP]
   - **Expected output**:
@@ -1093,7 +880,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC133: Hand with two same card types, has Defuse** ( :white_check_mark: )
+- **TC109: Hand with two same card types, has Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
   - **Expected output**:
@@ -1101,7 +888,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC134: Hand with one card type, has Godcat** ( :white_check_mark: )
+- **TC98: Hand with one card type, has Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT]
   - **Expected output**:
@@ -1109,47 +896,47 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC135: Hand with two different card types, has Godcat at end** ( :white_check_mark: )
+- **TC99: Hand with two different card types, has Godcat at end** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [SKIP, GODCAT]
-  - **Expected output**:
+  - **Expected output**: 
     - getCurrentPlayer.removeCardFromHand with card at index 1 is called
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC136: Hand with two different card types, has Godcat at front** ( :white_check_mark: )
+- **TC100: Hand with two different card types, has Godcat at front** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, SKIP]
-  - **Expected output**:
+  - **Expected output**: 
     - getCurrentPlayer.removeCardFromHand with card at index 0 is called
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC137: Hand with two same card types, has Godcat** ( :white_check_mark: )
+- **TC101: Hand with two same card types, has Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, GODCAT]
-  - **Expected output**:
+  - **Expected output**: 
     - getCurrentPlayer.removeCardFromHand with card at index 0 is called
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC138: Hand with Defuse and Godcat** ( :white_check_mark: )
+- **TC100: Hand with Defuse and Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [DEFUSE, GODCAT]
-  - **Expected output**:
+  - **Expected output**: 
     - getCurrentPlayer.removeCardFromHand with card at index 0 is called
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC139: Hand with Godcat and Defuse** ( :white_check_mark: )
+- **TC100: Hand with Godcat and Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**: currentPlayerHandCardTypes = [GODCAT, DEFUSE]
-  - **Expected output**:
+  - **Expected output**: 
     - getCurrentPlayer.removeCardFromHand with card at index 1 is called
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC140: Hand with one card type, has Clone** ( :white_check_mark: )
+- **TC98: Hand with one card type, has Clone** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE]
@@ -1159,7 +946,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC141: Hand with two different card types, has Clone at end** ( :white_check_mark: )
+- **TC99: Hand with two different card types, has Clone at end** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [SKIP, CLONE]
@@ -1169,7 +956,7 @@
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC142: Hand with two different card types, has Clone at front** ( :white_check_mark: )
+- **TC100: Hand with two different card types, has Clone at front** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, SKIP]
@@ -1179,17 +966,17 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC143: Hand with two same card types, has Clone** ( :white_check_mark: )
+- **TC101: Hand with two same card types, has Clone** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, CLONE]
     - topDiscardType = DEFUSE
-  - **Expected output**:
+  - **Expected output**: 
     - getCurrentPlayer.removeCardFromHand with card at index 0 is called
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC144: Hand with Defuse and Clone** ( :white_check_mark: )
+- **TC100: Hand with Defuse and Clone** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [DEFUSE, CLONE]
@@ -1199,7 +986,7 @@
     - discardPile.addCard with card at index 0 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC145: Hand with Clone and Defuse** ( :white_check_mark: )
+- **TC100: Hand with Clone and Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, DEFUSE]
@@ -1209,7 +996,7 @@
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC146: Hand with Clone and Godcat, use Godcat** ( :white_check_mark: )
+- **TC100: Hand with Clone and Godcat, use Godcat** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [CLONE, GODCAT]
@@ -1219,7 +1006,7 @@
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC147: Hand with Godcat and Clone, use Clone** ( :white_check_mark: )
+- **TC100: Hand with Godcat and Clone, use Clone** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [GODCAT, CLONE]
@@ -1229,7 +1016,7 @@
     - discardPile.addCard with card at index 1 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC148: Hand with Godcat, Clone, Defuse** ( :white_check_mark: )
+- **TC100: Hand with Godcat, Clone, Defuse** ( :white_check_mark: )
   - **Name of the test**: playDefuse_hasDefuser_reinsertExplodingKitten
   - **State of the system**:
     - currentPlayerHandCardTypes = [GODCAT, CLONE, DEFUSE]
@@ -1239,496 +1026,180 @@
     - discardPile.addCard with card at index 2 is called
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex is called
 
-- **TC149: Invalid draw pile index** ( :white_check_mark: )
+- **TC110: Invalid draw pile index** ( :white_check_mark: )
   - **Name of the test**: playDefuse_invalidDrawPileIndex_failed
-  - **State of the system**:
+  - **State of the system**: 
     - currentPlayerHandCardTypes = [DEFUSE, DEFUSE]
     - drawPile.insertCardAt with drawPile.removeTop and drawPileIndex throws IllegalArgumentException "error.invalidDeckIndex"
   - **Expected output**: throws IllegalArgumentException "error.invalidDeckIndex"
 
-### Method under test: `applyShuffle()`
-- **TC150: Apply shuffle card effect** ( :white_check_mark: )
-  - **Name of the test**: applyShuffle_called_shufflesDrawPile
-  - **State of the system**: Shuffle card effect is applied
-  - **Expected output**: drawPile.shuffle() is called
-
-- **TC151: Draw pile has zero cards** ( :white_check_mark: )
-  - **Name of the test**: applySwapTopAndBottom_emptyDeck_remainsEmpty
-  - **State of the system**: draw pile is empty
-  - **Expected output**: draw pile remains empty
-
-- **TC152: Draw pile has exactly one card** ( :white_check_mark: )
-  - **Name of the test**: applySwapTopAndBottom_oneCard_deckUnchanged
-  - **State of the system**: draw pile has two cards ['CARD 1']
-  - **Expected output**: draw pile has two cards; card order is ['CARD 1']
-
-- **TC153: Draw pile has more than one card** ( :white_check_mark: )
-  - **Name of the test**: applySwapTopAndBottom_moreThanOneCard_swapped
-  - **State of the system**: draw pile has four cards ['CARD 1', 'CARD 2', 'CARD 3', 'CARD 4']
-  - **Expected output**:
-    - drawPile.addCardToTop(CARD_4) called
-    - drawPile.addCardToBottom(CARD_1) called
-    - draw pile has four cards and card order is ['CARD 4', 'CARD 2', 'CARD 3', 'CARD']
-
-- **TC154: Top and bottom cards are the same type** ( :white_check_mark: )
-  - **Name of the test**: applySwapTopAndBottom_sameType_swapped
-  - **State of the system**: draw pile has four cards ['EXPLODING KITTEN 1', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 2']
-  - **Expected output**:
-    - drawPile.addCardToTop(EXPLODINGKITTEN_2) called
-    - drawPile.addCardToBottom(EXPLODINGKITTEN_1) called;
-    - draw pile has four cards; card order is ['EXPLODING KITTEN 2', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 1']
-
 ### Method under test: `applySkip()`
-- **TC155: Cannot end turn** ( :white_check_mark: )
-  - **Name of the test:** applySkip_cannotEndTurn_decrementDrawCount
-  - **State of the system:** canEndTurn = false
-  - **Expected output:** turnManager.decrementDrawCount is called
+- **TC111: Skip on a standard single turn (drawCount = 1)** ( :white_check_mark: )
+  - **Name of the test:** applySkip_drawCountOne_TurnAdvances
+  - **State of the system:** game is ongoing, drawCount = 1 (normal, unattacked turn)
+  - **Expected output:** drawCount resets to 1 (from incrementTurn), currentPlayerIndex becomes 1, turn has advanced automatically
 
-- **TC156: Can end turn** ( :white_check_mark: )
-  - **Name of the test:** applySkip_canEndTurn_decrementDrawCountAndEndTurn
-  - **State of the system:** canEndTurn = true
-  - **Expected output:** 
-    - turnManager.decrementDrawCount is called
-    - endTurn is called
+- **TC112: Skip while under attack (drawCount = 2)** ( :white_check_mark: )
+  - **Name of the test:** applySkip_drawCountTwo_TurnNotAdvanced
+  - **State of the system:** game is ongoing, drawCount = 2, currentPlayerIndex = 0
+  - **Expected output:** drawCount becomes 1, currentPlayerIndex remains 0, turn is NOT advanced, player must still draw a card
 
-- **TC157: Game method end turn throws** ( :white_check_mark: )
-  - **Name of the test:** applySkip_canEndTurnThrows_failed
-  - **State of the system:** 
-    - canEndTurn = true
-    - endTurn throws IllegalStateException "error.cannotEndTurn"
-  - **Expected output:**
-    - turnManager.decrementDrawCount is called
-    - throw IllegalStateException "error.cannotEndTurn"
+- **TC113: Skip under stacked attacks (drawCount = 3+)** ( :white_check_mark: )
+  - **Name of the test:** applySkip_drawCountThree_TurnNotAdvanced
+  - **State of the system:** game is ongoing, drawCount = 3, currentPlayerIndex = 0
+  - **Expected output:** drawCount becomes 2, currentPlayerIndex remains 0, turn is NOT advanced
+
+- **TC114: Skip completes turn for the last player in order (wraparound)** ( :white_check_mark: )
+  - **Name of the test:** applySkip_lastPlayer_turnWraps
+  - **State of the system:** game is ongoing, drawCount = 1, currentPlayerIndex = numPlayers - 1
+  - **Expected output:** currentPlayerIndex wraps to 0, drawCount resets to 1 (from incrementTurn)
+
+- **TC115: Skip with minimum player count (2 players)** ( :white_check_mark: )
+  - **Name of the test:** applySkip_twoPlayers_turnAdvances
+  - **State of the system:**  game is ongoing, 2 players, drawCount = 1, currentPlayerIndex = 0
+  - **Expected output:** currentPlayerIndex becomes 1, drawCount resets to 1, the single other player is now active
+
+- **TC116: Skip on a standard single turn with maximum players (4 players)** ( :white_check_mark: )
+  - **Name of the test:** applySkip_fourPlayers_turnAdvances
+  - **State of the system:**  game is ongoing, drawCount = 1, 4 players, currentPlayerIndex = 0
+  - **Expected output:** drawCount resets to 1 (from incrementTurn), currentPlayerIndex = 1, turn has advanced automatically
 
 ### Method under test: `getSeeTheFutureCardIds()`
-- **TC161: Empty list** ( :white_check_mark: )
+- **TC117: Empty list** ( :white_check_mark: )
   - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
   - **State of the system:** topCards = []
   - **Expected output:** return []
 
-- **TC162: One card** ( :white_check_mark: )
+- **TC118: One card** ( :white_check_mark: )
   - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
   - **State of the system:** topCards = [SKIP_1]
   - **Expected output:** return ["SKIP_1"]
 
-- **TC163: Two different card ids** ( :white_check_mark: )
+- **TC119: Two different card ids** ( :white_check_mark: )
   - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
   - **State of the system:** topCards = [SKIP_1, SKIP_2]
   - **Expected output:** return ["SKIP_1", "SKIP_2"]
 
-- **TC164: Two different card types** ( :white_check_mark: )
+- **TC120: Two different card types** ( :white_check_mark: )
   - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
   - **State of the system:** topCards = [SKIP_1, ATTACK_1]
   - **Expected output:** return ["SKIP_1", "ATTACK_1"]
 
-- **TC165: Two same cards** ( :white_check_mark: )
+- **TC121: Two same cards** ( :white_check_mark: )
   - **Name of the test:** getSeeTheFutureCardIds_called_returnTopDrawPileCards
   - **State of the system:** topCards = [SKIP_1, SKIP_1]
   - **Expected output:** return ["SKIP_1", "SKIP_1"]
 
-### Method under test: `applyCatomicBomb()`
-- **TC166: Draw pile is empty** ( :white_check_mark: )
-  - **Name of the test**: applyCatomicBomb_emptyDeck_remainsEmpty
-  - **State of the system**:
-    - draw pile has no cards
-    - canEndTurn returns true
-  - **Expected output**:
-    - draw pile remains empty
-    - turnManager.decrementDrawCount is called
-    - endTurn is called
-
-- **TC167: No Exploding Kittens in draw pile** ( :white_check_mark: )
-  - **Name of the test**: applyCatomicBomb_noExplodingKittens_deckUnchanged
-  - **State of the system**:
-    - draw pile contains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1'], none are CardType 'EXPLODING_KITTEN'
-    - canEndTurn returns false
-  - **Expected output**:
-    - addCardToBottom called for SKIP_1, ATTACK_1, SHUFFLE_1 in order
-    - draw pile order is unchanged and remains ['SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
-    - turnManager.decrementDrawCount is called
-
-- **TC168: One Exploding Kitten at top of draw pile** ( :white_check_mark: )
-  - **Name of the test**: applyCatomicBomb_oneExplodingKittenAlreadyOnTop_deckUnchanged
-  - **State of the system**:
-    - top card of draw pile has one CardType 'EXPLODING_KITTEN' with order ['EXPLODING_KITTEN_1' , 'ATTACK_1', 'SHUFFLE_1']
-    - canEndTurn returns true
-  - **Expected output**:
-    - addCardToBottom called for ATTACK_1, SHUFFLE_1
-    - addCardToTop called for EXPLODINGKITTEN_1
-    - draw pile order remains ['EXPLODINGKITTEN_1', 'ATTACK_1', 'SHUFFLE_1']
-    - turnManager.decrementDrawCount is called
-    - endTurn is called
-
-- **TC169: One Exploding Kitten in the middle of draw pile** ( :white_check_mark: )
-  - **Name of the test**: applyCatomicBomb_oneExplodingKittenInMiddle_movedToTop
-  - **State of the system**:
-    - draw pile contains ['SKIP_1', 'ATTACK_1', 'EXPLODING_KITTEN_1', 'SHUFFLE_1']
-    - canEndTurn returns false
-  - **Expected output**:
-    - addCardToBottom called for SKIP_1, ATTACK_1, SHUFFLE_1
-    - addCardToTop called for EXPLODINGKITTEN_1
-    - draw pile order is ['EXPLODINGKITTEN_1', 'SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
-    - turnManager.decrementDrawCount is called
-
-- **TC170: Multiple Exploding Kittens scattered throughput draw pile** ( :white_check_mark: )
-  - **Name of the test**: applyCatomicBomb_multipleExplodingKittens_allMovedToTop
-  - **State of the system**:
-    - draw pile contains ['SKIP_1', 'EXPLODING KITTEN_1', 'ATTACK_1', 'EXPLODING KITTEN_2', 'SHUFFLE_1']
-    - canEndTurn returns true
-  - **Expected output**:
-    - addCardToBottom called for SKIP_1, ATTACK_1, SHUFFLE_1
-    - addCardToTop called for EXPLODINGKITTEN_1, EXPLODINGKITTEN_2
-    - draw pile order is ['EXPLODINGKITTEN_1', 'EXPLODINGKITTEN_2', 'SKIP_1', 'ATTACK_1', 'SHUFFLE_1']
-    - turnManager.decrementDrawCount is called
-    - endTurn is called
-
-- **TC171: All cards in draw pile are Exploding Kittens** ( :white_check_mark: )
-  - **Name of the test**: applyCatomicBomb_allExplodingKittens_deckOrderUnchanged
-  - **State of the system**:
-    - draw pile contains ['EXPLODING KITTEN_1', 'EXPLODING KITTEN_2', 'EXPLODING KITTEN_3']
-    - canEndTurn returns false
-  - **Expected output**:
-    - addCardToTop called for EXPLODINGKITTEN_1, EXPLODINGKITTEN_2, EXPLODINGKITTEN_3
-    - draw pile order unchanged
-    - turnManager.decrementDrawCount is called
-
-### Method under test: `applySuperSkip()`
-- **TC172: Super Skip called** ( :white_check_mark: )
-  - **Name of the test:** applySuperSkip_called_endTurn
-  - **State of the system:** N/A
-  - **Expected output:** 
-    - turnManager.setDrawCount is called with NUM_DRAW_COUNT_AFTER_SUPER_SKIP
-    - endTurn is called
-
-- **TC172: game method end turn throws exception** ( :white_check_mark: )
-  - **Name of the test:** applySuperSkip_endTurnThrows_failed
-  - **State of the system:** endTurn throws IllegalStateException "error.cannotEndTurn"
-  - **Expected output:**
-    - turnManager.setDrawCount is called with NUM_DRAW_COUNT_AFTER_SUPER_SKIP
-    - throw IllegalStateException "error.cannotEndTurn"
-
 ### Method under test: `applyGodcat(CardType cardType)`
-- **TC178: Invalid card type Godcat** ( :white_check_mark: )
+- **TC117: Invalid card type** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_invalidCardType_throwsException
   - **State of the system**: CardType.GODCAT passed as cardType
-  - **Expected output**: throws exception "error.cannotPlaySelectedCards"
+  - **Expected output**: throws IllegalArgumentException with message "error.cannotPlaySelectedCards"
 
-- **TC179: Invalid card type Exploding Kitten** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_invalidCardType_throwsException
-  - **State of the system**: CardType.EXPLODING_KITTEN passed as cardType
-  - **Expected output**: throws exception "error.cannotPlaySelectedCards"
-
-- **TC180: Invalid card type Defuse** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_invalidCardType_throwsException
-  - **State of the system**: CardType.DEFUSE passed as cardType
-  - **Expected output**: throws exception "error.cannotPlaySelectedCards"
-
-- **TC181: Valid card type Attack** ( :white_check_mark: )
+- **TC118: Valid card type Attack** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.ATTACK passed as cardType
   - **Expected output**: applyAttack() is called
 
-- **TC182: Valid card type Shuffle** ( :white_check_mark: )
+- **TC119: Valid card type Shuffle** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SHUFFLE passed as cardType
   - **Expected output**: applyShuffle() is called
 
-- **TC183: Valid card type Skip** ( :white_check_mark: )
+- **TC120: Valid card type Skip** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SKIP passed as cardType
   - **Expected output**: applySkip() is called
 
-- **TC184: Valid card type See the Future** ( :white_check_mark: )
+- **TC121: Valid card type See the Future** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.SEE_THE_FUTURE passed as cardType
   - **Expected output**: N/A
 
-- **TC185: Valid card type Catomic Bomb** ( :white_check_mark: )
+- **TC122: Valid card type Catomic Bomb** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.CATOMIC_BOMB passed as cardType
   - **Expected output**: applyCatomicBomb() is called
 
-- **TC186: Valid card type Super Skip** ( :white_check_mark: )
+- **TC123: Valid card type Super Skip** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SUPER_SKIP passed as cardType
   - **Expected output**: applySuperSkip() is called
 
-- **TC187: Valid card type Clone** ( :white_check_mark: )
+- **TC124: Valid card type Clone** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.CLONE passed as cardType
   - **Expected output**: applyClone() is called
 
-- **TC188: Valid card type Swap Top and Bottom** ( :white_check_mark: )
+- **TC125: Valid card type Swap Top and Bottom** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.SWAP_TOP_AND_BOTTOM passed as cardType
   - **Expected output**: applySwapTopAndBottom() is called
 
-- **TC189: Valid card type Draw From the Bottom** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
+- **TC126: Valid card type Draw From the Bottom** ( :white_check_mark: )
+  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.DRAW_FROM_THE_BOTTOM passed as cardType
-  - **Expected output**: no immediate apply method is called; controller handles Draw From The Bottom after the card type is returned
+  - **Expected output**: applyDrawFromTheBottom() is called
 
-- **TC190: Valid card type Targeted Attack** ( :white_check_mark: )
+- **TC127: Valid card type Targeted Attack** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.TARGETED_ATTACK passed as cardType
   - **Expected output**: N/A
 
-- **TC191: Valid card type Winner Winner Catnip Dinner** ( :white_check_mark: )
+- **TC128: Valid card type Winner Winner Catnip Dinner** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.WINNER_WINNER_CATNIP_DINNER passed as cardType
   - **Expected output**: applyWinnerWinnerCatnipDinner() is called
 
-- **TC192: Valid card type Ragebait** ( :white_check_mark: )
+- **TC129: Valid card type Ragebait** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.RAGEBAIT passed as cardType
   - **Expected output**: applyRagebait() is called
 
-- **TC193: Valid card type Recycle** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
+- **TC103: Valid card type Recycle** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
   - **State of the system**: CardType.RECYCLE passed as cardType
-  - **Expected output**: N/A
+  - **Expected output**: applyRecycle() is called
 
-- **TC194: Valid card type Double Up** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
+- **TC104: Valid card type Double Up** ( :white_check_mark: )
+  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
   - **State of the system**: CardType.DOUBLE_UP passed as cardType
   - **Expected output**: applyDoubleUp() is called
 
-- **TC195: Valid card type Mild Shuffle** ( :white_check_mark: )
+- **TC132: Valid card type Mild Shuffle** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
   - **State of the system**: CardType.MILD_SHUFFLE passed as cardType
   - **Expected output**: applyMildShuffle() is called
 
 ### Method under test: `applySwapTopAndBottom()`
-- **TC196: Draw pile has zero cards** ( :white_check_mark: )
-  - **Name of the test**: applySwapTopAndBottom_emptyDeck_remainsEmpty
-  - **State of the system**: draw pile is empty
-  - **Expected output**: draw pile remains empty
+- **TC90: Draw pile has zero cards** ( :white_check_mark: )
+    - **Name of the test**: applySwapTopAndBottom_emptyDeck_remainsEmpty
+    - **State of the system**: draw pile is empty
+    - **Expected output**: draw pile remains empty
 
-- **TC197: Draw pile has exactly one card** ( :white_check_mark: )
-  - **Name of the test**: applySwapTopAndBottom_oneCard_deckUnchanged
-  - **State of the system**: draw pile has two cards ['CARD 1']
-  - **Expected output**: draw pile has two cards; card order is ['CARD 1']
+- **TC91: Draw pile has exactly one card** ( :white_check_mark: )
+    - **Name of the test**: applySwapTopAndBottom_oneCard_deckUnchanged
+    - **State of the system**: draw pile has two cards ['CARD 1']
+    - **Expected output**: draw pile has two cards; card order is ['CARD 1']
 
-- **TC198: Draw pile has more than one card** ( :white_check_mark: )
-  - **Name of the test**: applySwapTopAndBottom_moreThanOneCard_swapped
-  - **State of the system**: draw pile has four cards ['CARD 1', 'CARD 2', 'CARD 3', 'CARD 4']
-  - **Expected output**:
-    - drawPile.addCardToTop(CARD_4) called
-    - drawPile.addCardToBottom(CARD_1) called
-    - draw pile has four cards and card order is ['CARD 4', 'CARD 2', 'CARD 3', 'CARD']
+- **TC92: Draw pile has more than one card** ( :white_check_mark: )
+    - **Name of the test**: applySwapTopAndBottom_moreThanOneCard_swapped
+    - **State of the system**: draw pile has four cards ['CARD 1', 'CARD 2', 'CARD 3', 'CARD 4']
+    - **Expected output**:
+        - drawPile.addCardToTop(CARD_4) called
+        - drawPile.addCardToBottom(CARD_1) called
+        - draw pile has four cards and card order is ['CARD 4', 'CARD 2', 'CARD 3', 'CARD']
 
-- **TC199: Top and bottom cards are the same type** ( :white_check_mark: )
-  - **Name of the test**: applySwapTopAndBottom_sameType_swapped
-  - **State of the system**: draw pile has four cards ['EXPLODING KITTEN 1', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 2']
-  - **Expected output**:
-    - drawPile.addCardToTop(EXPLODINGKITTEN_2) called
-    - drawPile.addCardToBottom(EXPLODINGKITTEN_1) called;
-    - draw pile has four cards; card order is ['EXPLODING KITTEN 2', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 1']
-
-# Method under test: `applyTargetedAttack(int targetPlayerIndex)`
-- **TC200: Targeted Attack with minimum players (2), first player targets next player** ( :white_check_mark: )
-  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-  - **State of the system**: 
-    - 2 players
-    - currentPlayerIndex = 0
-    - targetPlayerIndex = 1
-  - **Expected output**:
-    - deselectHandCards() called on player 0
-    - incrementTurn() called 1 time with getAliveIndices
-    - addAttackDrawCount() called
-
-- **TC201: Targeted Attack with minimum players (2), last player targets first player (wrap)** ( :white_check_mark: )
-  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-  - **State of the system**: 
-    - 2 players
-    - currentPlayerIndex = 1
-    - targetPlayerIndex = 0
-  - **Expected output**:
-    - deselectHandCards() called on player 1
-    - incrementTurn() called 1 time with getAliveIndices
-    - addAttackDrawCount() called
-
-- **TC202: Targeted Attack with maximum players (4), first player targets last player** ( :white_check_mark: )
-  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-  - **State of the system**: 
-    - 4 players
-    - currentPlayerIndex = 0
-    - targetPlayerIndex = 3
-  - **Expected output**:
-    - deselectHandCards() called on player 0
-    - incrementTurn() called 3 times with getAliveIndices
-    - addAttackDrawCount() called
-
-- **TC203: Targeted Attack with maximum players (4), last player targets first player (wrap)** ( :white_check_mark: )
-  - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
-  - **State of the system**: 
-    - 4 players, currentPlayerIndex = 3
-    - targetPlayerIndex = 0
-  - **Expected output**:
-    - deselectHandCards() called on player 3
-    - incrementTurn() called 1 time with getAliveIndices
-    - addAttackDrawCount() called
-
-### Method under test: `addAttackDrawCount()`
-- **TC204: Draw count is below the attack threshold** ( :white_check_mark: )
-  - **Name of the test**: addAttackDrawCount_drawCountZero_SetTwo
-  - **State of the system**: turnManager.drawCount = 1
-  - **Expected output**: turnManager.drawCount = 2
-
-- **TC205: Draw count is at or above the attack threshold** ( :white_check_mark: )
-  - **Name of the test**: addAttackDrawCount_drawCountTwo_addsTwo
-  - **State of the system**: turnManager.drawCount = 2
-  - **Expected output**: turnManager.drawCount = 4
-
-### Method under test: `reachedWinnerWinnerCondition()`
-- **TC206: Is not activated** ( :white_check_mark: )
-  - **Name of the test**: reachedWinnerWinnerCondition_notActivated_returnFalse
-  - **State of the system**: getCurrentPlayer.isWinnerWinnerActivated = false
-  - **Expected output**: return false
-
-- **TC207: Is activated, one more round** ( :white_check_mark: )
-  - **Name of the test**: reachedWinnerWinnerCondition_wrongNumberOfRounds_returnFalse
-  - **State of the system**:
-    - getCurrentPlayer.isWinnerWinnerActivated = true
-    - getCurrentPlayer.getWinnerWinnerActivatedRound = 1
-    - turnManager.getRoundCount = WINNER_WINNER_REQUIRED_ROUNDS
-  - **Expected output**: return false
-
-- **TC207: Is activated, one round over** ( :white_check_mark: )
-  - **Name of the test**: reachedWinnerWinnerCondition_wrongNumberOfRounds_returnFalse
-  - **State of the system**:
-    - getCurrentPlayer.isWinnerWinnerActivated = true
-    - getCurrentPlayer.getWinnerWinnerActivatedRound = 1
-    - turnManager.getRoundCount = WINNER_WINNER_REQUIRED_ROUNDS + 2
-  - **Expected output**: return false
-
-- **TC208: Is activated, required rounds reached** ( :white_check_mark: )
-  - **Name of the test**: reachedWinnerWinnerCondition_reachedRequirement_returnTrue
-  - **State of the system**:
-    - getCurrentPlayer.isWinnerWinnerActivated = true
-    - getCurrentPlayer.getWinnerWinnerActivatedRound = 1
-    - turnManager.getRoundCount = WINNER_WINNER_REQUIRED_ROUNDS + 1
-  - **Expected output**: return true
-
-### Method under test: `applyWinnerWinnerCatnipDinner()`
-- **TC209: Player throws exception** ( :white_check_mark: )
-  - **Name of the test**: applyWinnerWinnerCatnipDinner_turnManagerThrows_failed
-  - **State of the system**:turnManager.getRoundCount throws IllegalArgumentException "error.invalidRound"
-  - **Expected output**: throw IllegalArgumentException "error.invalidRound" 
-
-- **TC210: Player throws exception** ( :white_check_mark: )
-    - **Name of the test**: applyWinnerWinnerCatnipDinner_called_activateWinnerWinnerCount
-    - **State of the system**: turnManager.getRoundCount = 1
-    - **Expected output**: getCurrentPlayer.activateWinnerWinnerFromRound is called with turnManager.getRoundCount
-
-### Method under test: `applyRagebait(int targetPlayerIndex)`
-- **TC211: First player targets adjacent player** ( :white_check_mark: )
-  - **Name of the test**: applyRagebait_validTargets_swapsHands
-  - **State of the system**: currentPlayerIndex = 0, targetPlayerIndex = 1
-  - **Expected output**: currentPlayer.swapHandWith(targetPlayer) is called
-
-- **TC212: First player targets last player** ( :white_check_mark: )
-  - **Name of the test**: applyRagebait_validTargets_swapsHands
-  - **State of the system**: currentPlayerIndex = 0, targetPlayerIndex = LAST_PLAYER_INDEX
-  - **Expected output**: currentPlayer.swapHandWith(targetPlayer) is called
-
-- **TC213: Last player targets first player** ( :white_check_mark: )
-  - **Name of the test**: applyRagebait_validTargets_swapsHands
-  - **State of the system**: currentPlayerIndex = LAST_PLAYER_INDEX, targetPlayerIndex = 0
-  - **Expected output**: currentPlayer.swapHandWith(targetPlayer) is called
-
-### Method under test: `getAliveIndices()`
-- **TC214: No alive players** ( :white_check_mark: )
-  - **Name of the test**: getAliveIndices_noAlivePlayers_returnEmptySet
-  - **State of the system**: 2 dead players
-  - **Expected output**: return {}
-
-- **TC215: One alive player** ( :white_check_mark: )
-  - **Name of the test**: getAliveIndices_oneAlivePlayer_returnAliveIndices
-  - **State of the system**:
-    - 2 dead players
-    - 1 alive player at index 0
-  - **Expected output**: return {0}
-
-- **TC216: Two alive players** ( :white_check_mark: )
-  - **Name of the test**: getAliveIndices_twoAlivePlayers_returnAliveIndices
-  - **State of the system**:
-    - 1 dead player
-    - 2 alive players at indices 0 and 2
-  - **Expected output**: return {0, 2}
-
-- **TC217: All alive players** ( :white_check_mark: )
-  - **Name of the test**: getAliveIndices_allAlivePlayers_returnAliveIndices
-  - **State of the system**:
-    - 4 alive players at indices 0, 1, 2, 3
-  - **Expected output**: return {0, 1, 2, 3}
-
-### Method under test: `getWinnerName()`
-- **TC218: All players are alive** ( :white_check_mark: )
-  - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
-  - **State of the system**: 
-    - playerNames = ["Alice", "Bob"]
-    - 2 alive players
-  - **Expected output**: throw IllegalStateException "error.noWinner"
-
-- **TC219: One player is alive** ( :white_check_mark: )
-  - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
-  - **State of the system**: 
-    - playerNames = ["Alice", "Bob", "Bob"]
-    - one alive player at index 2 
-  - **Expected output**: throw IllegalStateException "error.noWinner"
-
-- **TC220: All players alive** ( :white_check_mark: )
-  - **Name of the test**: getWinnerName_notExactlyOneAlive_failed
-  - **State of the system**:
-    - playerNames = ["Alice", "Bob", "Alice", "Steve"]
-    - 4 alive players
-  - **Expected output**: throw IllegalStateException "error.noWinner"
-
-- **TC221: Two players, has winner** ( :white_check_mark: )
-  - **Name of the test**: getWinnerName_oneAlive_returnWinnerName
-  - **State of the system**: 
-    - playerNames = ["Jeff", "Jeff"]
-    - winner at index 1
-  - **Expected output**: return "Jeff"
-
-- **TC222: Three players, has winner** ( :white_check_mark: )
-  - **Name of the test**: getWinnerName_oneAlive_returnWinnerName
-  - **State of the system**:
-    - playerNames = ["Audrey", "Jeff", "Chicken"]
-    - winner at index 0
-  - **Expected output**: return "Audrey"
-
-### Method under test: `drawFromTheBottom()`
-- **TC223: Bottom card is not an Exploding Kitten** ( :white_check_mark: )
-  - **Name of the test**: `drawFromTheBottom_nonExplodingCard_returnsDrawnCard`
-  - **State of the system**:
-    - `drawPile.peekBottom()` returns a non-Exploding Kitten card
-    - `drawPile.removeBottom()` returns that card
-    - `getCurrentPlayer()` returns player
-  - **Expected output**:
-    - `drawPile.removeBottom()` is called
-    - player.addCardToHand is called with the drawn card
-    - turnManager.decrementDrawCount is called
-    - player.deselectHandCards is called
-    - canPlay = false
-    - drawn card is returned
-
-- **TC224: Bottom card is an Exploding Kitten** ( :white_check_mark: )
-  - **Name of the test**: `drawFromTheBottom_explodingCard_returnsExplodingCard`
-  - **State of the system**:
-    - `drawPile.peekBottom()` returns an Exploding Kitten
-    - `getCurrentPlayer()` returns player
-  - **Expected output**:
-    - `drawPile.removeBottom()` is not called
-    - player.addCardToHand is not called
-    - turnManager.decrementDrawCount is called
-    - player.deselectHandCards is called
-    - canPlay = false
-    - Exploding Kitten card is returned
+- **TC93: Top and bottom cards are the same type** ( :white_check_mark: )
+    - **Name of the test**: applySwapTopAndBottom_sameType_swapped
+    - **State of the system**: draw pile has four cards ['EXPLODING KITTEN 1', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 2']
+    - **Expected output**:
+        - drawPile.addCardToTop(EXPLODINGKITTEN_2) called
+        - drawPile.addCardToBottom(EXPLODINGKITTEN_1) called;
+        - draw pile has four cards; card order is ['EXPLODING KITTEN 2', 'CARD 2', 'CARD 3', 'EXPLODING KITTEN 1']
 
 ### Method under test: `applyDoubleUp()`
-- **TC225: Double up once, relays drawCount increase to TurnManager** ( :white_check_mark: )
+- **TC90: Double up once, relays drawCount increase to TurnManager** ( :white_check_mark: )
   - **Name of the test**: applyDoubleUp_standardCall_callsTurnManagerIncrementDrawCount
   - **State of the system**: drawCount = 1
   - **Expected output**: calls turn manager to increment drawCount to 2
