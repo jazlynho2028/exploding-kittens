@@ -490,11 +490,6 @@ public class Game {
         }
     }
 
-    void addStackingAttackDrawCount() {
-        turnManager.setDrawCount(
-                turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
-    }
-
     boolean reachedWinnerWinnerCondition() {
         if (!getCurrentPlayer().isWinnerWinnerActivated()) {
             return false;
