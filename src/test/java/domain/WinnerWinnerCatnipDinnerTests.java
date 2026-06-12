@@ -65,7 +65,7 @@ public class WinnerWinnerCatnipDinnerTests {
 
 		setUpStartGame(numPlayers, targetPlayerIndex, expectedWinnerName);
 
-		int numRoundsBeforeTest = 2 + GameConstants.WINNER_WINNER_REQUIRED_ROUNDS;
+		int numRoundsBeforeTest = 1 + GameConstants.WINNER_WINNER_REQUIRED_ROUNDS;
 		int numTurnsBeforeTest = calculateNumTurns(
 				numPlayers, numRoundsBeforeTest, targetPlayerIndex);
 
@@ -140,6 +140,68 @@ public class WinnerWinnerCatnipDinnerTests {
 		int actualActivationRound = targetPlayer.getWinnerWinnerActivatedRound();
 
 		assertEquals(expectedActivationRound, actualActivationRound);
+
+		assertAllAlive(players);
+
+		assertTrue(game.getIsGameOngoing());
+
+		Exception exception = assertThrows(IllegalStateException.class, () ->
+				game.getWinnerName());
+
+		String expectedMsg = "error.noWinner";
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
+	}
+
+	@Test
+	public void winnerWinnerCatnipDinner_activatedAndRequirementNotFulfilled_reset() {
+		int numPlayers = 2;
+		int targetPlayerIndex = 1;
+		String expectedWinnerName = "Monkey";
+
+		setUpStartGame(numPlayers, targetPlayerIndex, expectedWinnerName);
+
+		int numRoundsBeforeTest = 1 + GameConstants.WINNER_WINNER_REQUIRED_ROUNDS;
+		int numTurnsBeforeTest = calculateNumTurns(
+				numPlayers, numRoundsBeforeTest, targetPlayerIndex);
+
+		addCardsToDrawPile(drawPile, numTurnsBeforeTest - 1);
+		String cardId = DeckBuilder.createCardId(CardType.EXPLODING_KITTEN, 1);
+		Card explodingKitten = new Card(cardId, CardType.EXPLODING_KITTEN);
+		drawPile.addCardToBottom(explodingKitten);
+
+		addCardToPlayerHand(targetPlayer, CardType.WINNER_WINNER_CATNIP_DINNER);
+		addCardToPlayerHand(targetPlayer, CardType.WINNER_WINNER_CATNIP_DINNER);
+		addCardToPlayerHand(targetPlayer, CardType.DEFUSE);
+
+		advanceTurns(game, targetPlayerIndex);
+		targetPlayer.toggleSelectedHandCardAt(0);
+		game.playSelectedCards();
+
+		int expectedPriorActivationRound = 1;
+		int actualPriorActivationRound = targetPlayer.getWinnerWinnerActivatedRound();
+
+		assertEquals(expectedPriorActivationRound,
+				actualPriorActivationRound);
+
+		advanceTurns(game, numPlayers);
+
+		targetPlayer.toggleSelectedHandCardAt(0);
+		game.playSelectedCards();
+
+		int expectedActivationRound = 2;
+		int actualActivationRound = targetPlayer.getWinnerWinnerActivatedRound();
+
+		assertEquals(expectedActivationRound, actualActivationRound);
+
+		int numRemainingRounds = GameConstants.WINNER_WINNER_REQUIRED_ROUNDS;
+		int numRemainingTurns = numPlayers * numRemainingRounds;
+		advanceTurns(game, numRemainingTurns);
+
+		game.drawFromPile();
+		game.playDefuse(0);
+		game.endTurn();
 
 		assertAllAlive(players);
 

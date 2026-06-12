@@ -47,7 +47,7 @@
     - game is ongoing
     - getWinnerName throws IllegalStateException "error.noWinner"
 
-- **TC4: Already activated, fails requirement just before fulfillment** ( :x: )
+- **TC4: Already activated, fails requirement just before fulfillment** ( :white_check_mark: )
   - **Name of the test**: winnerWinnerCatnipDinner_activatedAndRequirementNotFulfilled_reset
   - **State of the system**:
     - 2 players
