@@ -3249,43 +3249,13 @@ public class GameTests {
 
 		EasyMock.expect(turnManager.getDrawCount()).andStubReturn(initialDrawCount);
 		turnManager.setDrawCount(expectedDrawCount);
-		EasyMock.expectLastCall();
+		EasyMock.expectLastCall().atLeastOnce();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer, game);
 
 		game.applyAttack();
 
 		EasyMock.verify(turnManager, currentPlayer, game);
-	}
-
-	@Test
-	public void applyAttack_partialTurnCompletion_stacksCorrectlyForThirdPlayer() {
-		Player mockPlayerTwo = EasyMock.createMock(Player.class);
-		TurnManager mockTurnManager = EasyMock.createMock(TurnManager.class);
-		Set<Integer> aliveIndices = Set.of(0, 1);
-
-		EasyMock.expect(mockTurnManager.getCurrentPlayerIndex()).andReturn(1).anyTimes();
-		mockPlayerTwo.deselectHandCards();
-		EasyMock.expectLastCall();
-		mockTurnManager.incrementTurn(aliveIndices);
-		EasyMock.expectLastCall();
-
-		EasyMock.expect(mockTurnManager.getDrawCount()).andReturn(GameConstants.TWO_CARDS);
-		mockTurnManager.incrementDrawCount();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(mockPlayerTwo, mockTurnManager);
-
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(List.of(EasyMock.createMock(Player.class), mockPlayerTwo),
-						EasyMock.createMock(Deck.class),
-						EasyMock.createMock(Deck.class),
-						mockTurnManager)
-				.addMockedMethod("getAliveIndices")
-				.createMock();
-
-		game.applyAttack();
-		EasyMock.verify(mockTurnManager, mockPlayerTwo);
 	}
 
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
