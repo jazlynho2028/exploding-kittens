@@ -45,8 +45,6 @@ These classes support the View and Controller layers.
   - Responsibility: Holds display information for a card, including its title, subtitle, and description. Used by the view to render card fronts.
 - ErrorHandler.java
   - Responsibility: Wraps controller actions in a try-catch and routes any thrown exceptions to the error handler callback.
-- GameConstants.java
-  - Responsibility: Defines constant values used throughout the game logic, including player limits, hand sizes, and draw counts.
 
 # **View Classes**
 These classes build the UI for their screen and pass any button or input events to their paired Controller.
@@ -78,7 +76,7 @@ The Model layer contains all game logic.
 - Game.java
   - Responsibility: The core game state. Holds the players, the draw pile, and a TurnManager. Deals starting hands, inserts Exploding Kittens when the game starts, and handles drawing and playing cards. Does **not** reference `DeckBuilder`.
 - TurnManager.java
-  - Responsibility: Tracks whose turn it is, how many draws the current player has left, and the current round. Advances to the next player when a turn ends. Also fetches information from the current player. Passed into Game as a parameter rather than created inside it.
+  - Responsibility: Tracks whose turn it is, how many draws the current player has left, and the current round. Takes numPlayers as an int to validate and manage currentPlayerIndex. Advances to the next player when a turn ends. 
 - DeckBuilder.java
   - Responsibility: Builds the starting draw pile with the correct number of each card type, then shuffles and returns it. Called only by ExplodingKittensApp. Game never touches or interacts with it.
 - Player.java
@@ -89,6 +87,8 @@ The Model layer contains all game logic.
   - Responsibility: Represents a single card. Holds a unique `cardId` and a `CardType` enum value. Also tracks whether the card is currently selected by the player, which is used to determine what action they want to take on their turn.
 - CardType.java
   - Responsibility: An enum that defines all card types in the game. Used throughout the model to identify and categorize cards.
+- GameConstants.java
+  - Responsibility: Defines constant values used throughout the game logic, such as player limits, starting hand size, and draw counts.
 
 # **Class Relationships**
 - `ExplodingKittensApp` creates `DeckBuilder`, gets back a `Deck`, then creates `Game(deck, players, discardPile, turnManager)`
