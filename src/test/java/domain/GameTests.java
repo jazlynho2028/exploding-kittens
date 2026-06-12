@@ -2503,7 +2503,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyDrawFromTheBottom_nonExplodingCard_returnsDrawnCard() {
+	public void drawFromTheBottom_nonExplodingCard_returnsDrawnCard() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -2534,7 +2534,7 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		Card actualCard = game.applyDrawFromTheBottom();
+		Card actualCard = game.drawFromTheBottom();
 
 		assertEquals(expectedCard, actualCard);
 		assertFalse(game.getCanPlay());
@@ -2543,7 +2543,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyDrawFromTheBottom_explodingCard_returnsExplodingCard() {
+	public void drawFromTheBottom_explodingCard_returnsExplodingCard() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -2571,7 +2571,7 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		Card actualCard = game.applyDrawFromTheBottom();
+		Card actualCard = game.drawFromTheBottom();
 
 		assertEquals(expectedCard, actualCard);
 		assertFalse(game.getCanPlay());

@@ -270,10 +270,6 @@ public class Game {
         return drawCard(drawPile::peekTop, drawPile::removeTop);
     }
 
-    public Card applyDrawFromTheBottom() {
-        return drawCard(drawPile::peekBottom, drawPile::removeBottom);
-    }
-
     public int getDrawPileSize() {
         return drawPile.size();
     }
@@ -468,6 +464,10 @@ public class Game {
 
         drawPile.addCardToTop(bottom);
         drawPile.addCardToBottom(top);
+    }
+
+    public Card drawFromTheBottom() {
+        return drawCard(drawPile::peekBottom, drawPile::removeBottom);
     }
 
     public void applyTargetedAttack(int targetPlayerIndex) {

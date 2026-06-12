@@ -260,7 +260,7 @@ public class PlayerDeckController {
                 enablePlayerSelect();
                 break;
             case DRAW_FROM_THE_BOTTOM:
-                handleDraw(model::applyDrawFromTheBottom);
+                handleDraw(model::drawFromTheBottom);
                 break;
             case RECYCLE:
                 handleDrawnCard(model.drawRecycle());

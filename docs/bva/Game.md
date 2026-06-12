@@ -1699,9 +1699,9 @@
     - winner at index 0
   - **Expected output**: return "Audrey"
 
-### Method under test: `applyDrawFromTheBottom()`
+### Method under test: `drawFromTheBottom()`
 - **TC223: Bottom card is not an Exploding Kitten** ( :white_check_mark: )
-  - **Name of the test**: `applyDrawFromTheBottom_nonExplodingCard_returnsDrawnCard`
+  - **Name of the test**: `drawFromTheBottom_nonExplodingCard_returnsDrawnCard`
   - **State of the system**:
     - `drawPile.peekBottom()` returns a non-Exploding Kitten card
     - `drawPile.removeBottom()` returns that card
@@ -1715,7 +1715,7 @@
     - drawn card is returned
 
 - **TC224: Bottom card is an Exploding Kitten** ( :white_check_mark: )
-  - **Name of the test**: `applyDrawFromTheBottom_explodingCard_returnsExplodingCard`
+  - **Name of the test**: `drawFromTheBottom_explodingCard_returnsExplodingCard`
   - **State of the system**:
     - `drawPile.peekBottom()` returns an Exploding Kitten
     - `getCurrentPlayer()` returns player
