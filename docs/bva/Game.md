@@ -1727,13 +1727,8 @@
     - canPlay = false
     - Exploding Kitten card is returned
 
-- **TC225: Valid card type Mild Draw** ( :white_check_mark: )
-  - **Name of the test**: applyCardType_validCardType_correctApplyCalled
-  - **State of the system**: CardType.MILD_DRAW passed as cardType
-  - **Expected output**: applyMildDraw() is called
-
 ## Method under test: `applyAttack()`
-- **TC226: Non-stacked standard attack** ( :white_check_mark: )
+- **TC225: Non-stacked standard attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
     - drawCount = 1
@@ -1742,7 +1737,7 @@
     - increments turn
     - drawCount = 2
 
-- **TC227: One-time stacked attack** ( :white_check_mark: )
+- **TC226: One-time stacked attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
     - drawCount = 2
@@ -1751,7 +1746,7 @@
     - increments turn
     - drawCount = 4
 
-- **TC228: Two-time stacked attack** ( :white_check_mark: )
+- **TC227: Two-time stacked attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
     - drawCount = 4
