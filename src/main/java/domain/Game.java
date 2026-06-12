@@ -451,7 +451,12 @@ public class Game {
     }
 
     void applyClone() {
-        // TODO
+        List<Card> topDiscardCards = discardPile.peekTopNCards(
+                GameConstants.CLONE_PEEK_COUNT);
+
+        if (topDiscardCards.size() < GameConstants.CLONE_PEEK_COUNT) {
+            throw new IllegalStateException("error.noCardToClone");
+        }
     }
 
     void applySwapTopAndBottom() {

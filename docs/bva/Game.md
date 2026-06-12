@@ -1729,7 +1729,7 @@
     - Exploding Kitten card is returned
 
 ### Method under test: `applyClone()`
-- **TC225: Apply Clone when there is no card under Clone** ( :x: )
+- **TC225: Apply Clone when there is no card under Clone** ( :white_check_mark: )
   - **Name of the test**: applyClone_noCardUnderClone_failed
   - **State of the system**: discardPile.peekTopNCards(GameConstants.CLONE_PEEK_COUNT) returns [CLONE]
   - **Expected output**: throws IllegalStateException with message `error.noCardToClone`

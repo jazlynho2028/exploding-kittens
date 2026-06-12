@@ -31,6 +31,8 @@ public final class GameConstants {
 	public static final int NUM_ATTACK_IN_GAME = 3;
 	public static final int NUM_SKIP_IN_GAME = 3;
 	public static final int NUM_CLONE_IN_GAME = 3;
+	public static final int CLONE_PEEK_COUNT = 2;
+	public static final int CLONE_CARD_INDEX = 1;
 	public static final int NUM_SWAP_TOP_AND_BOTTOM_IN_GAME = 3;
 	public static final int NUM_DRAW_FROM_THE_BOTTOM_IN_GAME = 3;
 	public static final int NUM_FERAL_CAT_IN_GAME = 4;
