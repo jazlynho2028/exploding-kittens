@@ -351,14 +351,14 @@
     - Throws IllegalArgumentException with message `error.shuffleNegativeCards`
     - Deck remains [card1, card2]
 
-- **TC52: Shuffle top N cards when n is zero** ( :x: )
+- **TC52: Shuffle top N cards when n is zero** ( :white_check_mark: )
   - **Name of the test**: `shuffleTopNCards_zeroCount_deckOrderUnchanged`
   - **State of the system**: Deck has cards: [card1, card2, card3]; n = 0
   - **Expected output**:
     - Deck remains [card1, card2, card3]
     - random.nextInt is not called
 
-- **TC53: Shuffle top N cards in empty deck** ( :x: )
+- **TC53: Shuffle top N cards in empty deck** ( :white_check_mark: )
   - **Name of the test**: `shuffleTopNCards_emptyDeck_deckStaysEmpty`
   - **State of the system**: Deck is empty: []; n = 3
   - **Expected output**:
@@ -366,7 +366,7 @@
     - deck size is 0
     - random.nextInt is not called
 
-- **TC54: Shuffle top N cards in one-card deck** ( :x: )
+- **TC54: Shuffle top N cards in one-card deck** ( :white_check_mark: )
   - **Name of the test**: `shuffleTopNCards_oneCardDeck_deckOrderUnchanged`
   - **State of the system**: Deck has exactly one card: [card1]; n = 3
   - **Expected output**:

@@ -129,6 +129,67 @@ public class DeckTests {
         EasyMock.verify(card1, card2, mockRandom);
     }
 
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("shuffleTopNCardsNoOpCases")
+    public void shuffleTopNCards_noOpCases_deckOrderUnchanged(
+            String caseName,
+            Deque<Card> cards,
+            int n,
+            List<Card> expectedCards,
+            Card[] mocksToVerify) {
+        Random mockRandom = EasyMock.createMock(Random.class);
+        EasyMock.replay(mockRandom);
+
+        Deck deck = new Deck(cards, mockRandom);
+
+        deck.shuffleTopNCards(n);
+
+        assertEquals(expectedCards, deck.getCards());
+        assertEquals(expectedCards.size(), deck.size());
+
+        EasyMock.verify(mockRandom);
+        EasyMock.verify((Object[]) mocksToVerify);
+    }
+
+    private static Stream<Arguments> shuffleTopNCardsNoOpCases() {
+        Card zeroCountCard1 = EasyMock.createMock(Card.class);
+        Card zeroCountCard2 = EasyMock.createMock(Card.class);
+        Card zeroCountCard3 = EasyMock.createMock(Card.class);
+        EasyMock.replay(zeroCountCard1, zeroCountCard2, zeroCountCard3);
+        Deque<Card> zeroCountDeck = new ArrayDeque<>();
+        zeroCountDeck.addLast(zeroCountCard1);
+        zeroCountDeck.addLast(zeroCountCard2);
+        zeroCountDeck.addLast(zeroCountCard3);
+
+        Deque<Card> emptyDeck = new ArrayDeque<>();
+
+        Card oneCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(oneCard);
+        Deque<Card> oneCardDeck = new ArrayDeque<>();
+        oneCardDeck.addLast(oneCard);
+
+        return Stream.of(
+                Arguments.of(
+                        "zero count",
+                        zeroCountDeck,
+                        0,
+                        List.of(zeroCountCard1, zeroCountCard2, zeroCountCard3),
+                        new Card[] {zeroCountCard1, zeroCountCard2, zeroCountCard3}),
+                Arguments.of(
+                        "empty deck",
+                        emptyDeck,
+                        THREE_CARDS,
+                        List.of(),
+                        new Card[] {}),
+                Arguments.of(
+                        "one-card deck",
+                        oneCardDeck,
+                        THREE_CARDS,
+                        List.of(oneCard),
+                        new Card[] {oneCard})
+        );
+    }
+
     @Test
     public void peekTop_emptyDeck_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();

@@ -39,6 +39,12 @@ public class Deck {
         if (n < 0) {
             throw new IllegalArgumentException("error.shuffleNegativeCards");
         }
+
+        int numCards = Math.min(n, deck.size());
+
+        if (numCards <= 1) {
+            return;
+        }
     }
 
     public Card peekTop() {
