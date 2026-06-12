@@ -407,15 +407,16 @@
 
 - **TC53: Valid play with one Clone** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns trueselectedCardTypes = [CLONE]
+  - **State of the system**:
+    - canPlaySelected returns true
+    - selectedCardTypes = [CLONE]
     - getCurrentPlayer = player
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
     - applyClone is called
-    - returns CardType.CLONE
+    - returns the CardType of the card under Clone
 
 - **TC54: Valid play with one Swap Top And Bottom** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
@@ -1726,3 +1727,33 @@
     - player.deselectHandCards is called
     - canPlay = false
     - Exploding Kitten card is returned
+
+### Method under test: `applyClone()`
+- **TC225: Apply Clone when there is no card under Clone** ( :x: )
+  - **Name of the test**: applyClone_noCardUnderClone_failed
+  - **State of the system**: discardPile.peekTopNCards(GameConstants.CLONE_PEEK_COUNT) returns [CLONE]
+  - **Expected output**: throws IllegalStateException with message `error.noCardToClone`
+
+- **TC226: Apply Clone with Attack under Clone** ( :x: )
+  - **Name of the test**: applyClone_attackUnderClone_appliesAttackAndReturnsAttack
+  - **State of the system**: discardPile.peekTopNCards(GameConstants.CLONE_PEEK_COUNT) returns [CLONE, ATTACK]
+  - **Expected output**:
+    - applyAttack is called
+    - returns CardType.ATTACK
+
+- **TC227: Apply Clone with See The Future under Clone** ( :x: )
+  - **Name of the test**: applyClone_seeTheFutureUnderClone_returnsSeeTheFuture
+  - **State of the system**: discardPile.peekTopNCards(GameConstants.CLONE_PEEK_COUNT) returns [CLONE, SEE_THE_FUTURE]
+  - **Expected output**: returns CardType.SEE_THE_FUTURE
+
+- **TC228: Play Clone returns cloned card type** ( :x: )
+  - **Name of the test**: playSelectedCards_clonePlayed_returnsClonedCardType
+  - **State of the system**:
+    - canPlaySelected returns true
+    - selectedCardTypes = [CLONE]
+    - getCurrentPlayer = player
+    - applyClone returns CardType.ATTACK
+  - **Expected output**:
+    - Clone card is moved from hand to discard pile
+    - applyClone is called
+    - returns CardType.ATTACK
