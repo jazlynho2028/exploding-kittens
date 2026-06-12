@@ -185,9 +185,6 @@ public class Game {
             case SWAP_TOP_AND_BOTTOM:
                 applySwapTopAndBottom();
                 break;
-            case DRAW_FROM_THE_BOTTOM:
-                applyDrawFromTheBottom();
-                break;
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
                 break;
@@ -254,11 +251,11 @@ public class Game {
         turnManager.setCurrentPlayerIndex(newPlayerIndex);
     }
 
-    public Card drawFromPile() {
-        Card card = drawPile.peekTop();
+    private Card drawCard(Supplier<Card> peek, Runnable remove) {
+        Card card = peek.get();
 
         if (card.getType() != CardType.EXPLODING_KITTEN) {
-            drawPile.removeTop();
+            remove.run();
             getCurrentPlayer().addCardToHand(card);
         }
 
@@ -269,15 +266,8 @@ public class Game {
         return card;
     }
 
-    private Card drawCard(Supplier<Card> peek, Runnable remove) {
-        Card card = peek.get();
-        if (card.getType() != CardType.EXPLODING_KITTEN) {
-            remove.run();
-            getCurrentPlayer().addCardToHand(card);
-        }
-        turnManager.decrementDrawCount();
-        getCurrentPlayer().deselectHandCards();
-        return card;
+    public Card drawFromPile() {
+        return drawCard(drawPile::peekTop, drawPile::removeTop);
     }
 
     public int getDrawPileSize() {
@@ -318,7 +308,7 @@ public class Game {
 
     private void nextTurn() {
         canPlay = true;
-        isFaceUp = false;;
+        isFaceUp = false;
         turnManager.incrementTurn(getAliveIndices());
         turnManager.incrementDrawCount();
     }
@@ -380,7 +370,7 @@ public class Game {
         drawPile.removeTop();
 
         getCurrentPlayer().deselectHandCards();
-		getCurrentPlayer().eliminate();
+        getCurrentPlayer().eliminate();
 
         if (hasWinner()) {
             isGameOngoing = false;
@@ -476,8 +466,8 @@ public class Game {
         drawPile.addCardToBottom(top);
     }
 
-    void applyDrawFromTheBottom() {
-        // TODO
+    public Card drawFromTheBottom() {
+        return drawCard(drawPile::peekBottom, drawPile::removeBottom);
     }
 
     public void applyTargetedAttack(int targetPlayerIndex) {
