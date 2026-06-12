@@ -37,14 +37,14 @@ This layer handles all the file loading.
 These classes support the View and Controller layers. 
 
 - AssetManager.java implements AssetProvider
-  - Responsibility: Manages all loaded assets and provides them to the View and Controller layers.
+  - Responsibility: Loads and stores all game assets including images, icons, fonts, stylesheets, localized string bundles, and card metadata, and provides them to the View and Controller layers.
 - interface AssetProvider.java
-  - Responsibility: Defines methods for accessing loaded assets such as images, strings, stylesheets, and card metadata.
+  - Responsibility: Defines methods for accessing loaded assets, including images, stylesheets, localized strings, and card metadata.
 - UIConstants.java
 - CardMetadata.java
   - Responsibility: Holds display information for a card, including its title, subtitle, and description. Used by the view to render card fronts.
 - ErrorHandler.java
-  - Responsibility: Wraps controller actions in a try-catch and routes any thrown exceptions to the error handler callback.
+  - Responsibility: Wraps controller actions in a try-catch and forwards any exception messages to the controller's error callback.
 
 # **View Classes**
 These classes build the UI for their screen and pass any button or input events to their paired Controller.
@@ -88,7 +88,7 @@ The Model layer contains all game logic.
 - CardType.java
   - Responsibility: An enum that defines all card types in the game. Used throughout the model to identify and categorize cards.
 - GameConstants.java
-  - Responsibility: Defines constant values used throughout the game logic, such as player limits, starting hand size, and draw counts.
+  - Responsibility: Defines constant values used throughout the game logic, such as player limits, starting hand size, draw counts, and lists of card types.
 
 # **Class Relationships**
 - `ExplodingKittensApp` creates `DeckBuilder`, gets back a `Deck`, then creates `Game(deck, players, discardPile, turnManager)`
