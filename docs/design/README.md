@@ -21,12 +21,17 @@ This layer handles all the file loading.
 - FontLoader.java implements FileLoader
   - Responsibility: Loads a font file and returns its URL. 
 - ImageLoader.java implements FileLoader
-  - Responsibility: Loads an image file and returns its URL. 
-- PathLoader.java implements FileLoader
+  - Responsibility: Loads an image file and returns its URL.
 - interface PathLoader.java
   - Responsibility: Defines methods for loading a file and reading its contents. 
 - IconLoader.java implements PathLoader
   - Responsibility: Reads an icon file and returns its contents to display icons in the UI. 
+- CardMetadataLoader.java implements FileLoader
+  - Responsibility: Loads a card metadata JSON file and returns a map of card IDs to CardMetadata objects, providing display information (title, subtitle, description) for each card type. 
+- StringsBundleLoader.java
+  - Responsibility: Loads a localized strings bundle for the given locale and returns the current ResourceBundle, providing UI strings for the current language.
+- StyleSheetLoader.java implements FileLoader
+  - Responsibility: Loads a CSS stylesheet file and returns its URL to apply styling to the UI.
 
 # **Additional UI Classes**
 These classes support the View and Controller layers. 
