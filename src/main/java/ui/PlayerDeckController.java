@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static ui.ErrorHandler.attempt;
 
@@ -148,23 +147,10 @@ public class PlayerDeckController {
         });
     }
 
-    private void handleDraw(Supplier<Card> draw) {
-        attempt(onError, () -> {
-            Card drawnCard = draw.get();
-
-            if (drawnCard.getType() == CardType.EXPLODING_KITTEN) {
-                handleDrawExplodingKitten(drawnCard.getId());
-            }
-            else {
-                rebindHandCards();
-                updateDrawPile();
-                updateTurnControls();
-            }
-        });
-    }
-
     void onDrawPile() {
-        handleDraw(model::drawFromPile);
+        attempt(onError, () -> {
+            handleDrawnCard(model.drawFromPile());
+        });
     }
 
     private void handleDrawExplodingKitten(String cardId) {
@@ -260,7 +246,7 @@ public class PlayerDeckController {
                 enablePlayerSelect();
                 break;
             case DRAW_FROM_THE_BOTTOM:
-                handleDraw(model::drawFromTheBottom);
+                handleDrawnCard(model.drawFromTheBottom());
                 break;
             case RECYCLE:
                 handleDrawnCard(model.drawRecycle());
