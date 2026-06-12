@@ -1,10 +1,10 @@
 package ui;
 
+import javafx.beans.binding.Bindings;
 import domain.CardType;
 import domain.DeckBuilder;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import static ui.PlayerCreateView.buildBackgroundImage;
@@ -25,28 +26,30 @@ public class PlayerDeckView {
 
     private final AssetProvider assetProvider;
 
-    public final Button restartButton;
-    public final HBox playerNamesContainer;
-    public final Button drawPileButton;
-    public final Button discardPileButton;
-    public final HBox handCardsContainer;
-    public final Button handVisibilityButton;
-    public final Button startGameButton;
-    public final Button playCardsButton;
-    public final Button endTurnButton;
+    private final HBox playerNamesContainer;
+    private final Button drawPileButton;
+    private final Button discardPileButton;
+    private final HBox handCardsContainer;
+    private final Button handVisibilityButton;
+	private final HBox turnControlSection;
+	private final Button startGameButton;
+	private final Button playCardsButton;
+	private final Button endTurnButton;
 
     private final StackPane root;
-    private final HBox turnControlSection;
 
     private final StackPane overlayLayer;
-    public final Button godcatConfirmButton;
+	private final Button explodeButton;
+	private final Button defuseButton;
+	private final Slider defuseSlider;
+    private final Button godcatConfirmButton;
     private CardType selectedGodcatCardType;
+    private final Button playAgainButton;
 
     public PlayerDeckView(AssetProvider assetProvider) {
         this.assetProvider = assetProvider;
 
         root = new StackPane();
-        restartButton = new Button();
         playerNamesContainer = new HBox();
         drawPileButton = new Button();
         discardPileButton = new Button();
@@ -56,19 +59,20 @@ public class PlayerDeckView {
         playCardsButton = new Button();
         endTurnButton = new Button();
         turnControlSection = new HBox();
+
         overlayLayer = new StackPane();
+		explodeButton = new Button();
+		defuseButton = new Button();
+		defuseSlider = new Slider();
         godcatConfirmButton = new Button();
         selectedGodcatCardType = CardType.ATTACK;;
+        playAgainButton = new Button();
 
         buildUI();
     }
 
     public void bindDrawPileButton(Runnable handler) {
         drawPileButton.setOnMouseClicked(e -> handler.run());
-    }
-
-    public void bindDiscardPileButton(Runnable handler) {
-        discardPileButton.setOnMouseClicked(e -> handler.run());
     }
 
     public void bindHandVisibilityButton(Runnable handler) {
@@ -90,23 +94,38 @@ public class PlayerDeckView {
     public void bindNameTags(Consumer<Integer> handler) {
         ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
 
-        for (int i = 0; i < nameTagButtons.size(); i++) {
-            int index = i;
-            nameTagButtons.get(i).setOnMouseClicked((e ->
-                    handler.accept(index)
-            ));
-        }
+        bindListOfNodes(handler, nameTagButtons);
     }
 
     public void bindPlayerHandCardButtons(Consumer<Integer> handler) {
         ObservableList<Node> handCards = handCardsContainer.getChildren();
 
-        for (int i = 0; i < handCards.size(); i++) {
+        bindListOfNodes(handler, handCards);
+    }
+
+    private void bindListOfNodes(Consumer<Integer> handler, ObservableList<Node> nodes) {
+        for (int i = 0; i < nodes.size(); i++) {
             int index = i;
-            handCards.get(i).setOnMouseClicked((e ->
+            nodes.get(i).setOnMouseClicked((e ->
                     handler.accept(index)
             ));
         }
+    }
+
+	public void bindDefuseButton(Runnable handler) {
+		defuseButton.setOnMouseClicked(e -> handler.run());
+	}
+
+	public void bindExplodeButton(Runnable handler) {
+		explodeButton.setOnMouseClicked(e -> handler.run());
+	}
+
+	public void bindGodcatConfirmButton(Runnable handler) {
+		godcatConfirmButton.setOnMouseClicked(e -> handler.run());
+	}
+
+    public void bindPlayAgainButton(Runnable handler) {
+        playAgainButton.setOnMouseClicked(e -> handler.run());
     }
 
     public Scene createPlayerDeckScene() {
@@ -114,12 +133,11 @@ public class PlayerDeckView {
     }
 
     public void buildAddRenderPlayerNameTags(
-            List<String> playerNames,
-            int currentPlayerIndex,
-            boolean isGameOngoing
-    ) {
+            List<String> playerNames, int currentPlayerIndex,
+            boolean isEnabled, Set<Integer> aliveIndices) {
+
         buildAndAddPlayerNameTags(playerNames);
-        renderPlayerNameTags(currentPlayerIndex, isGameOngoing);
+        renderPlayerNameTags(currentPlayerIndex, isEnabled, aliveIndices);
     }
 
     public void buildAndAddPlayerNameTags(List<String> playerNames) {
@@ -130,7 +148,10 @@ public class PlayerDeckView {
         }
     }
 
-    public void renderPlayerNameTags(int currentPlayerIndex, boolean isGameOngoing) {
+    public void renderPlayerNameTags(
+			int currentPlayerIndex, boolean enableOtherPlayers,
+            Set<Integer> aliveIndices) {
+
         ObservableList<Node> nameTagButtons = playerNamesContainer.getChildren();
 
         for (int i = 0; i < nameTagButtons.size(); i++) {
@@ -139,7 +160,24 @@ public class PlayerDeckView {
             boolean isAtCurrentPlayerIndex = (i == currentPlayerIndex);
             nameTagButton.setSelected(isAtCurrentPlayerIndex);
 
-            nameTagButton.setDisable(isAtCurrentPlayerIndex || isGameOngoing);
+            boolean isDead = !aliveIndices.contains(i);
+
+            nameTagButton.setDisable(
+					isAtCurrentPlayerIndex || !enableOtherPlayers || isDead);
+
+            if (isDead) {
+                renderDeadPlayerNameTag(nameTagButton);
+            }
+        }
+    }
+
+    private void renderDeadPlayerNameTag(ToggleButton nameTagButton) {
+        if (!nameTagButton.getStyleClass().contains("dead")) {
+            nameTagButton.getStyleClass().add("dead");
+
+            SVGPath skullIcon = buildIcon(assetProvider, "skull");
+            nameTagButton.setGraphic(skullIcon);
+            nameTagButton.setContentDisplay(ContentDisplay.LEFT);
         }
     }
 
@@ -148,8 +186,8 @@ public class PlayerDeckView {
         drawPileButton.setVisible(!isDrawPileEmpty);
     }
 
-    public void renderDiscardPile(boolean canDraw, String topCardId) {
-        if (topCardId.isEmpty()) {
+    public void renderDiscardPile(String topCardId) {
+        if (topCardId.equals("global.empty")) {
             discardPileButton.setVisible(false);
             return;
         }
@@ -157,10 +195,10 @@ public class PlayerDeckView {
         VBox cardFront = buildCardFront(topCardId);
         discardPileButton.setGraphic(cardFront);
         discardPileButton.setVisible(true);
-        discardPileButton.setDisable(!canDraw);
+        discardPileButton.setDisable(true);
     }
 
-    public void renderHandVisibilityButton(boolean isFaceUp) {
+    public void renderHandVisibilityButton(boolean isFaceUp, boolean isEnabled) {
         if (isFaceUp) {
             handVisibilityButton.setText(
                     assetProvider.getString("playerDeckScreen.hideHandLabel"));
@@ -169,30 +207,27 @@ public class PlayerDeckView {
             handVisibilityButton.setText(
                     assetProvider.getString("playerDeckScreen.showHandLabel"));
         }
+        handVisibilityButton.setDisable(!isEnabled);
     }
 
     public void buildAndAddPlayerHandCards(
-            List<String> currentPlayerHand,
-            boolean isFaceUp,
-            boolean isBeforeDraw
-    ) {
+            List<String> currentPlayerHand, boolean isFaceUp, boolean isEnabled) {
+
         handCardsContainer.getChildren().clear();
 
         for (String cardId : currentPlayerHand) {
             ToggleButton handCardButton = buildHandCardButton(
                     cardId,
                     isFaceUp,
-                    isBeforeDraw
+                    isEnabled
             );
             handCardsContainer.getChildren().add(handCardButton);
         }
     }
 
     public void buildAndRenderTurnControlSection(
-            boolean isGameOngoing,
-            boolean canPlaySelected,
-            boolean canEndTurn
-    ) {
+            boolean isGameOngoing, boolean canPlaySelected, boolean canEndTurn) {
+
         buildTurnControlSection(isGameOngoing);
         renderTurnControlSection(canPlaySelected, canEndTurn);
     }
@@ -215,9 +250,7 @@ public class PlayerDeckView {
         buildOverlayLayer();
 
         gameScreen.getChildren().addAll(
-                backgroundImage,
-                contentSection,
-                overlayLayer);
+                backgroundImage, contentSection, overlayLayer);
 
         return gameScreen;
     }
@@ -231,9 +264,7 @@ public class PlayerDeckView {
 
         VBox.setVgrow(gameBoardSection, Priority.ALWAYS);
         contentSection.getChildren().addAll(
-                gameBoardSection,
-                playerChoiceSection
-        );
+                gameBoardSection, playerChoiceSection);
 
         return contentSection;
     }
@@ -246,16 +277,13 @@ public class PlayerDeckView {
         HBox cardPileSection = buildCardPilesSection();
 
         gameBoardSection.getChildren().addAll(
-                playerHeaderSection,
-                cardPileSection
-        );
+                playerHeaderSection, cardPileSection);
 
         return gameBoardSection;
     }
 
     private VBox buildPlayerHeaderSection() {
         VBox playerHeaderSection = new VBox();
-        playerHeaderSection.setAlignment(Pos.CENTER);
         playerHeaderSection.getStyleClass().add("player-header-section");
 
         renderPlayerNamesContainer();
@@ -263,9 +291,7 @@ public class PlayerDeckView {
                 assetProvider.getString("playerDeckScreen.playerHeaderCaption"));
 
         playerHeaderSection.getChildren().addAll(
-                playerNamesContainer,
-                playerHeaderCaption
-        );
+                playerNamesContainer, playerHeaderCaption);
 
         return playerHeaderSection;
     }
@@ -277,9 +303,8 @@ public class PlayerDeckView {
     private ToggleButton buildNameTag(String playerName) {
         ToggleButton nameTag = new ToggleButton(playerName);
         nameTag.getStyleClass().addAll(
-                "name-tag",
-                "h4"
-        );
+				"name-tag", "h4");
+
         return nameTag;
     }
 
@@ -292,22 +317,18 @@ public class PlayerDeckView {
 
     private HBox buildCardPilesSection() {
         HBox cardPileSection = new HBox();
-        cardPileSection.setAlignment(Pos.CENTER);
         cardPileSection.getStyleClass().add("card-piles-section");
 
         VBox drawPileSection = buildDrawPileSection();
         VBox discardPileSection = buildDiscardPileSection();
         cardPileSection.getChildren().addAll(
-                drawPileSection,
-                discardPileSection
-        );
+                drawPileSection, discardPileSection);
 
         return cardPileSection;
     }
 
     private VBox buildDrawPileSection() {
         VBox drawPileSection = new VBox();
-        drawPileSection.setAlignment(Pos.CENTER);
         drawPileSection.getStyleClass().add("card-pile-section");
 
         StackPane drawPileContainer = buildDrawPileContainer();
@@ -317,9 +338,7 @@ public class PlayerDeckView {
                 assetProvider.getString("playerDeckScreen.drawPileFromTopCaption"));
 
         drawPileSection.getChildren().addAll(
-                drawPileContainer,
-                drawPileCaption
-        );
+                drawPileContainer, drawPileCaption);
 
         return drawPileSection;
     }
@@ -331,9 +350,7 @@ public class PlayerDeckView {
         buildDrawPileButton();
 
         drawPileContainer.getChildren().addAll(
-                emptyCard,
-                drawPileButton
-        );
+				emptyCard, drawPileButton);
 
         return drawPileContainer;
     }
@@ -350,26 +367,21 @@ public class PlayerDeckView {
 
     private VBox buildEmptyPile() {
         VBox discardPile = new VBox();
-        discardPile.setAlignment(Pos.CENTER);
         discardPile.getStyleClass().addAll(
-                "card",
-                "empty"
-        );
+				"card", "empty");
 
         return discardPile;
     }
 
     private VBox buildCardBack() {
         VBox drawPile = new VBox();
-        drawPile.setAlignment(Pos.CENTER);
+        drawPile.getStyleClass().add("draw-pile");
 
         ImageView cardBackIconView = buildCardBackIconView();
         VBox explodingKittensText = buildExplodingKittensText();
 
         drawPile.getChildren().addAll(
-                cardBackIconView,
-                explodingKittensText
-        );
+				cardBackIconView, explodingKittensText);
 
         return drawPile;
     }
@@ -386,7 +398,6 @@ public class PlayerDeckView {
 
     private VBox buildExplodingKittensText() {
         VBox explodingKittensText = new VBox();
-        explodingKittensText.setAlignment(Pos.CENTER);
         explodingKittensText.getStyleClass().add("exploding-kittens-text");
 
         Text explodingText = buildExplodingText(
@@ -395,9 +406,7 @@ public class PlayerDeckView {
                 assetProvider.getString("playerDeckScreen.kittens"));
 
         explodingKittensText.getChildren().addAll(
-                explodingText,
-                kittensText
-        );
+				explodingText, kittensText);
 
         return explodingKittensText;
     }
@@ -405,9 +414,7 @@ public class PlayerDeckView {
     private Text buildExplodingText(String text) {
         Text explodingText = new Text(text);
         explodingText.getStyleClass().addAll(
-                "exploding-text",
-                "h5"
-        );
+				"exploding-text", "h5");
 
         return explodingText;
     }
@@ -415,16 +422,13 @@ public class PlayerDeckView {
     private Text buildKittensText(String text) {
         Text kittensText = new Text(text);
         kittensText.getStyleClass().addAll(
-                "kittens-text",
-                "h3"
-        );
+				"kittens-text", "h3");
 
         return kittensText;
     }
 
     private VBox buildDiscardPileSection() {
         VBox discardPileSection = new VBox();
-        discardPileSection.setAlignment(Pos.CENTER);
         discardPileSection.getStyleClass().add("card-pile-section");
 
         StackPane discardPileContainer = buildDiscardPileContainer();
@@ -432,9 +436,7 @@ public class PlayerDeckView {
                 assetProvider.getString("playerDeckScreen.discardPileCaption"));
 
         discardPileSection.getChildren().addAll(
-                discardPileContainer,
-                discardPileCaption
-        );
+                discardPileContainer, discardPileCaption);
 
         return discardPileSection;
     }
@@ -446,15 +448,14 @@ public class PlayerDeckView {
         buildDiscardPileButton();
 
         discardPileContainer.getChildren().addAll(
-                discardPileButton,
-                emptyCard
-        );
+                emptyCard, discardPileButton);
 
         return discardPileContainer;
     }
 
     private void buildDiscardPileButton() {
-        discardPileButton.getStyleClass().addAll("card", "front");
+        discardPileButton.getStyleClass().addAll(
+				"card", "front");
         discardPileButton.setVisible(false);
         discardPileButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
     }
@@ -466,16 +467,14 @@ public class PlayerDeckView {
         buildTurnControlSection(false);
 
         playerChoiceSection.getChildren().addAll(
-                playerHandSection,
-                turnControlSection
-        );
+                playerHandSection, turnControlSection);
 
         return playerChoiceSection;
     }
 
     private VBox buildPlayerHandSection() {
         VBox playerHandSection = new VBox();
-        playerHandSection.setAlignment(Pos.CENTER);
+        playerHandSection.getStyleClass().add("player-hand-section");
 
         renderHandVisibilityToggle();
         ScrollPane handScrollPane = buildCardScrollPane(handCardsContainer);
@@ -483,10 +482,7 @@ public class PlayerDeckView {
                 assetProvider.getString("playerDeckScreen.handCaption"));
 
         playerHandSection.getChildren().addAll(
-                handVisibilityButton,
-                handScrollPane,
-                handCaption
-        );
+                handVisibilityButton, handScrollPane, handCaption);
 
         return playerHandSection;
     }
@@ -495,35 +491,24 @@ public class PlayerDeckView {
         handVisibilityButton.setText(
                 assetProvider.getString("playerDeckScreen.showHandLabel"));
         handVisibilityButton.getStyleClass().addAll(
-                "hand-visibility-toggle",
-                "h6"
-        );
+                "hand-visibility-toggle", "h6");
     }
 
     private ScrollPane buildCardScrollPane(HBox content) {
-        ScrollPane handScrollPane = new ScrollPane(content);
-        handScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        handScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        handScrollPane.getStyleClass().add("scroll-pane");
+        ScrollPane cardScrollPane = new ScrollPane(content);
+        cardScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        cardScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        cardScrollPane.getStyleClass().add("scroll-pane");
 
-        content.setAlignment(Pos.CENTER);
         content.setMinWidth(UIConstants.SCENE_WIDTH);
-        content.getStyleClass().add("hand-cards-container");
+        content.getStyleClass().add("card-options");
 
-        return handScrollPane;
-    }
-
-    private void renderHandCardsContainer() {
-        handCardsContainer.setAlignment(Pos.CENTER);
-        handCardsContainer.setMinWidth(UIConstants.SCENE_WIDTH);
-        handCardsContainer.getStyleClass().add("hand-cards-container");
+        return cardScrollPane;
     }
 
     private ToggleButton buildHandCardButton(
-            String cardId,
-            boolean isFaceUp,
-            boolean isBeforeDraw
-    ) {
+            String cardId, boolean isFaceUp, boolean isEnabled) {
+
         ToggleButton handCardButton = new ToggleButton();
         handCardButton.getStyleClass().add("card");
 
@@ -532,7 +517,7 @@ public class PlayerDeckView {
         if (isFaceUp) {
             handCard = buildCardFront(cardId);
 
-            handCardButton.setDisable(!isBeforeDraw);
+            handCardButton.setDisable(!isEnabled);
             handCardButton.getStyleClass().add("front");
         }
         else {
@@ -566,10 +551,8 @@ public class PlayerDeckView {
         StackPane cardVisualSection = buildCardVisualSection(cardId);
 
         cardFrontContent.getChildren().addAll(
-                cardHeader,
-                spacer,
-                cardVisualSection
-        );
+                cardHeader, spacer, cardVisualSection);
+
         return cardFrontContent;
     }
 
@@ -582,8 +565,7 @@ public class PlayerDeckView {
 
     private void addCardStyleById(Node cardFrontContent, String cardId) {
         cardFrontContent.getStyleClass().add(
-                cardIdToCssClass(cardId)
-        );
+                cardIdToCssClass(cardId));
     }
 
     private String cardIdToCssClass(String cardId) {
@@ -592,16 +574,14 @@ public class PlayerDeckView {
 
     private HBox buildCardHeader(String cardId) {
         HBox cardHeader = new HBox();
-        cardHeader.setAlignment(Pos.CENTER_LEFT);
         cardHeader.getStyleClass().add("card-header");
 
         StackPane cardCircle = buildCardCircle(cardId);
         VBox cardTitleSection = buildCardTitleSection(cardId);
 
         cardHeader.getChildren().addAll(
-                cardCircle,
-                cardTitleSection
-        );
+				cardCircle, cardTitleSection);
+
         return cardHeader;
     }
 
@@ -614,7 +594,6 @@ public class PlayerDeckView {
 
     private VBox buildCardTitleSection(String cardId) {
         VBox cardTitleSection = new VBox();
-        cardTitleSection.setAlignment(Pos.CENTER_LEFT);
         cardTitleSection.getStyleClass().add("card-title-section");
 
         CardMetadata cardMetadata = assetProvider.getCardMetadata(cardId);
@@ -634,9 +613,7 @@ public class PlayerDeckView {
         Text cardTitle = new Text(title);
         cardTitle.setWrappingWidth(UIConstants.CARD_HEADER_WRAPPING_WIDTH);
         cardTitle.getStyleClass().addAll(
-                "card-title",
-                "b1"
-        );
+				"card-title", "b1");
 
         return cardTitle;
     }
@@ -645,9 +622,7 @@ public class PlayerDeckView {
         Text cardSubtitle = new Text(subtitle);
         cardSubtitle.setWrappingWidth(UIConstants.CARD_HEADER_WRAPPING_WIDTH);
         cardSubtitle.getStyleClass().addAll(
-                "card-subtitle",
-                "b2"
-        );
+				"card-subtitle", "b2");
 
         return cardSubtitle;
     }
@@ -671,9 +646,8 @@ public class PlayerDeckView {
         StackPane.setMargin(cardDescriptionSection, inset);
 
         cardVisualSection.getChildren().addAll(
-                cardImageView,
-                cardDescriptionSection
-        );
+                cardImageView, cardDescriptionSection);
+
         return cardVisualSection;
     }
 
@@ -690,7 +664,6 @@ public class PlayerDeckView {
 
     private HBox buildCardDescriptionSection(String description) {
         HBox cardDescriptionSection = new HBox();
-        cardDescriptionSection.setAlignment(Pos.BOTTOM_CENTER);
         cardDescriptionSection.getStyleClass().add("card-description-section");
 
         SVGPath leftBracketIcon = buildLeftBracketIcon();
@@ -698,10 +671,8 @@ public class PlayerDeckView {
         SVGPath rightBracketIcon = buildRightBracketIcon();
 
         cardDescriptionSection.getChildren().addAll(
-                leftBracketIcon,
-                cardDescription,
-                rightBracketIcon
-        );
+                leftBracketIcon, cardDescription, rightBracketIcon);
+
         return cardDescriptionSection;
     }
 
@@ -724,9 +695,7 @@ public class PlayerDeckView {
 
         cardDescription.setWrappingWidth(UIConstants.CARD_DESCRIPTION_WRAPPING_WIDTH);
         cardDescription.getStyleClass().addAll(
-                "card-description",
-                "b2"
-        );
+				"card-description", "b2");
 
         return cardDescription;
     }
@@ -734,7 +703,6 @@ public class PlayerDeckView {
     private void buildTurnControlSection(boolean isGameOngoing) {
         turnControlSection.getChildren().clear();
 
-        turnControlSection.setAlignment(Pos.CENTER_RIGHT);
         turnControlSection.getStyleClass().add("turn-control-section");
 
         if (isGameOngoing) {
@@ -752,9 +720,7 @@ public class PlayerDeckView {
                 assetProvider.getString("playerDeckScreen.endTurnLabel"));
 
         turnControlSection.getChildren().addAll(
-                playCardsButton,
-                endTurnButton
-        );
+                playCardsButton, endTurnButton);
     }
 
     private void buildAndAddTurnControlButtonsBeforeGameStart() {
@@ -767,16 +733,151 @@ public class PlayerDeckView {
     private void renderTurnControlButton(Button turnControlButton, String label) {
         turnControlButton.setText(label);
         turnControlButton.getStyleClass().addAll(
-                "button-secondary",
-                "h5"
-        );
+				"turn-control-button", "h5");
     }
 
     private void buildOverlayLayer() {
-        overlayLayer.setAlignment(Pos.CENTER);
         overlayLayer.getStyleClass().add("overlay");
-        overlayLayer.setVisible(false);
-        overlayLayer.setMouseTransparent(true);
+
+        hideOverlay();
+    }
+
+    public int getExplodingKittenInsertIndex() {
+        return (int) defuseSlider.getValue();
+    }
+
+    public void buildExplodeOverlay(boolean hasDefuse, String explodingCardId, int drawPileSize) {
+        VBox content = buildOverlayContent();
+
+        Button explodingKittenCard = buildExplodingKittenCard(explodingCardId);
+        content.getChildren().add(explodingKittenCard);
+
+        Button overlayButton;
+
+        if (hasDefuse) {
+            VBox defuseOptions = buildDefuseOptions(drawPileSize);
+            content.getChildren().add(defuseOptions);
+
+            overlayButton = renderExplodingOverlayButton(defuseButton,
+                    "playerDeckScreen.defuseLabel", "defuse");
+        }
+        else {
+            overlayButton = renderExplodingOverlayButton(explodeButton,
+                    "playerDeckScreen.explodeLabel", "explode");
+        }
+
+        content.getChildren().add(overlayButton);
+
+        overlayLayer.getChildren().setAll(content);
+        showOverlay();
+    }
+
+    private VBox buildOverlayContent() {
+        VBox content = new VBox();
+        content.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        content.getStyleClass().add("overlay-content");
+
+        return content;
+    }
+
+    private VBox buildDefuseOptions(int drawPileSize) {
+        VBox defuseOptions = new VBox();
+        defuseOptions.getStyleClass().add("defuse-options");
+
+        renderDrawPileIndexSlider(drawPileSize);
+        Text caption = buildDefuseSliderCaption(defuseSlider);
+
+        defuseOptions.getChildren().addAll(defuseSlider, caption);
+
+        return defuseOptions;
+    }
+
+    private Text buildDefuseSliderCaption(Slider slider) {
+        Text caption = new Text();
+        caption.getStyleClass().addAll("caption", "defuse-caption");
+
+        caption.textProperty().bind(
+                Bindings.createStringBinding(
+                        () -> formatDefuseCaption(slider),
+                        slider.valueProperty()
+                )
+        );
+        return caption;
+    }
+
+    private String formatDefuseCaption(Slider slider) {
+        return String.format(
+                assetProvider.getString("playerDeckScreen.defuseAtIndexCaption"),
+                (int) slider.getValue()
+        );
+    }
+
+    private void renderDrawPileIndexSlider(int drawPileSize) {
+        defuseSlider.setMin(0);
+        defuseSlider.setMax(drawPileSize);
+        defuseSlider.setValue(0);
+        defuseSlider.setMajorTickUnit(1);
+        defuseSlider.setMinorTickCount(0);
+        defuseSlider.setBlockIncrement(1);
+        defuseSlider.setSnapToTicks(true);
+    }
+
+    private Button buildExplodingKittenCard(String explodingCardId) {
+        Button explodingKittenCard = new Button();
+
+        explodingKittenCard.getStyleClass().addAll("card", "front");
+
+        VBox cardFront = buildCardFront(explodingCardId);
+        explodingKittenCard.setGraphic(cardFront);
+        explodingKittenCard.setDisable(true);
+
+        return explodingKittenCard;
+    }
+
+    private Button renderExplodingOverlayButton(Button button, String key, String styleClass) {
+        button.setText(assetProvider.getString(key));
+        button.getStyleClass().addAll(
+                "overlay-button", styleClass, "h4");
+        return button;
+    }
+
+    public void buildSeeTheFutureOverlay(List<String> topCardIds) {
+        VBox content = buildOverlayContent();
+
+        HBox topCardsContainer = buildTopCardsContainer(topCardIds);
+        topCardsContainer.getStyleClass().add("card-options");
+
+        Button closeButton = buildAndBindCloseButton();
+
+        content.getChildren().addAll(topCardsContainer, closeButton);
+
+        overlayLayer.getChildren().setAll(content);
+        showOverlay();
+    }
+
+    private HBox buildTopCardsContainer(List<String> topCardIds) {
+        HBox topCardsContainer = new HBox();
+
+        for (String cardId : topCardIds) {
+            ToggleButton handCardButton = buildHandCardButton(
+                    cardId,
+                    true,
+                    false
+            );
+            topCardsContainer.getChildren().add(handCardButton);
+        }
+
+        return topCardsContainer;
+    }
+
+    private Button buildAndBindCloseButton() {
+        Button closeButton = new Button();
+
+        closeButton.setText(assetProvider.getString("playerDeckScreen.closeLabel"));
+        closeButton.getStyleClass().addAll("overlay-button", "h5");
+        closeButton.setOnMouseClicked(e -> hideOverlay());
+
+        return closeButton;
     }
 
     public void buildGodcatOverlay(List<CardType> cardTypeOptions) {
@@ -787,19 +888,17 @@ public class PlayerDeckView {
     private void buildCardSelectOverlay(
             List<CardType> cardTypes, Button confirmButton, String titleText) {
 
-        VBox overlayContent = new VBox();
-        overlayContent.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        overlayContent.getStyleClass().add("overlay-content");
+        VBox content = buildOverlayContent();
 
         Text title = buildOverlayTitle(titleText);
         ScrollPane cardScrollPane = buildCardSelectScrollPane(cardTypes);
 
-        confirmButton.setText("Confirm");
+        confirmButton.setText(assetProvider.getString("playerDeckScreen.confirmLabel"));
         confirmButton.setDisable(true);
-        confirmButton.getStyleClass().addAll("overlay-button", "confirm", "h5");
+        confirmButton.getStyleClass().addAll("overlay-button", "h5");
 
-        overlayContent.getChildren().addAll(title, cardScrollPane, confirmButton);
-        overlayLayer.getChildren().setAll(overlayContent);
+        content.getChildren().addAll(title, cardScrollPane, confirmButton);
+        overlayLayer.getChildren().setAll(content);
         showOverlay();
     }
 
@@ -816,7 +915,6 @@ public class PlayerDeckView {
 
     private HBox buildCardOptions(List<CardType> cardTypes) {
         HBox cardOptions = new HBox();
-        cardOptions.getStyleClass().add("card-options");
 
         for (CardType cardType : cardTypes) {
             ToggleButton cardButton = buildCardOptionButton(cardType, cardOptions);
@@ -846,9 +944,22 @@ public class PlayerDeckView {
         return cardButton;
     }
 
-    public void hideGodcatOverlay() {
-        selectedGodcatCardType = CardType.ATTACK;
-        hideOverlay();
+    public void buildWinOverlay(String winnerName) {
+        VBox content = buildOverlayContent();
+
+        String winMsg = String.format(
+                assetProvider.getString("playerDeckScreen.winTitle"), winnerName);
+        Text winTitle = new Text(winMsg);
+        winTitle.getStyleClass().addAll("win-title", "h1");
+
+        playAgainButton.setText(
+                assetProvider.getString("playerDeckScreen.playAgainLabel"));
+        playAgainButton.getStyleClass().addAll("play-button", "h2");
+
+        content.getChildren().addAll(winTitle, playAgainButton);
+
+        overlayLayer.getChildren().setAll(content);
+        showOverlay();
     }
 
     private void showOverlay() {
@@ -866,7 +977,4 @@ public class PlayerDeckView {
         return selectedGodcatCardType;
     }
 
-    public void bindGodcatConfirmButton(Runnable handler) {
-        godcatConfirmButton.setOnMouseClicked(e -> handler.run());
-    }
 }
