@@ -45,6 +45,22 @@ public class Deck {
         if (numCards <= 1) {
             return;
         }
+
+        List<Card> cards = new ArrayList<>(deck);
+        List<Card> topCards = new ArrayList<>(cards.subList(0, numCards));
+        List<Card> remainingCards = new ArrayList<>(
+                cards.subList(numCards, cards.size()));
+
+        for (int i = topCards.size() - 1; i > 0; i--) {
+            int randomIndex = random.nextInt(i + 1);
+            Card currentCard = topCards.get(i);
+            topCards.set(i, topCards.get(randomIndex));
+            topCards.set(randomIndex, currentCard);
+        }
+
+        deck.clear();
+        deck.addAll(topCards);
+        deck.addAll(remainingCards);
     }
 
     public Card peekTop() {

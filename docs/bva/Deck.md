@@ -374,7 +374,7 @@
     - deck size is 1
     - random.nextInt is not called
 
-- **TC55: Shuffle top N cards when n is less than deck size** ( :x: )
+- **TC55: Shuffle top N cards when n is less than deck size** ( :white_check_mark: )
   - **Name of the test**: `shuffleTopNCards_countLessThanDeckSize_onlyTopCardsShuffled`
   - **State of the system**: Deck has cards: [card1, card2, card3, card4]; n = 3; mocked random values reorder the top three cards
   - **Expected output**:
@@ -382,7 +382,7 @@
     - The remaining cards stay in the same order
     - Deck becomes [card2, card3, card1, card4]
 
-- **TC56: Shuffle top N cards when n is greater than deck size** ( :x: )
+- **TC56: Shuffle top N cards when n is greater than deck size** ( :white_check_mark: )
   - **Name of the test**: `shuffleTopNCards_countGreaterThanDeckSize_shufflesAllCards`
   - **State of the system**: Deck has cards: [card1, card2]; n = 3; mocked random value reorders the available cards
   - **Expected output**:
