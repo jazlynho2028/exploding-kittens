@@ -80,8 +80,9 @@ The Model layer contains all game logic.
   - Responsibility: An enum that defines all card types in the game. Used throughout the model to identify and categorize cards.
 
 # **Class Relationships**
-- `ExplodingKittensApp` creates `DeckBuilder`, gets back a `Deck`, then creates `Game(players, drawPile, discardPile, turnManager)`
-- `Game` owns `TurnManager` and both the draw pile and discard pile `Deck`s
+- `ExplodingKittensApp` creates `DeckBuilder`, gets back a `Deck`, then creates `Game(deck, players, discardPile, turnManager)`
+- `Game` owns `TurnManager`. a list of players, and both the draw pile and discard pile `Deck`s
+- `TurnManager` takes numPlayers (int), not a players list
 - `Deck` stores a collection of `Card`s
 - `Card` holds a `CardType`
 - Each Controller holds a reference to its paired View; `PlayerDeckController` also holds a reference to `Game`
