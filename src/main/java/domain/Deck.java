@@ -22,17 +22,7 @@ public class Deck {
     }
 
     public void shuffle() {
-        List<Card> cards = new ArrayList<>(deck);
-
-        for (int i = cards.size() - 1; i > 0; i--) {
-            int randomIndex = random.nextInt(i + 1);
-            Card currentCard = cards.get(i);
-            cards.set(i, cards.get(randomIndex));
-            cards.set(randomIndex, currentCard);
-        }
-
-        deck.clear();
-        deck.addAll(cards);
+        shuffleTopNCards(deck.size());
     }
 
     public void shuffleTopNCards(int n) {
