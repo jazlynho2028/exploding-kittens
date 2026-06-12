@@ -22,17 +22,35 @@ public class Deck {
     }
 
     public void shuffle() {
-        List<Card> cards = new ArrayList<>(deck);
+        shuffleTopNCards(deck.size());
+    }
 
-        for (int i = cards.size() - 1; i > 0; i--) {
+    public void shuffleTopNCards(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("error.shuffleNegativeCards");
+        }
+
+        int numCards = Math.min(n, deck.size());
+
+        if (numCards <= 1) {
+            return;
+        }
+
+        List<Card> cards = new ArrayList<>(deck);
+        List<Card> topCards = new ArrayList<>(cards.subList(0, numCards));
+        List<Card> remainingCards = new ArrayList<>(
+                cards.subList(numCards, cards.size()));
+
+        for (int i = topCards.size() - 1; i > 0; i--) {
             int randomIndex = random.nextInt(i + 1);
-            Card currentCard = cards.get(i);
-            cards.set(i, cards.get(randomIndex));
-            cards.set(randomIndex, currentCard);
+            Card currentCard = topCards.get(i);
+            topCards.set(i, topCards.get(randomIndex));
+            topCards.set(randomIndex, currentCard);
         }
 
         deck.clear();
-        deck.addAll(cards);
+        deck.addAll(topCards);
+        deck.addAll(remainingCards);
     }
 
     public Card peekTop() {

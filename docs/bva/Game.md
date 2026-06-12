@@ -505,8 +505,8 @@
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
-    - applyMildDraw is called
-    - returns CardType.MILD_DRAW
+    - applyMildShuffle is called
+    - returns CardType.MILD_SHUFFLE
 
 ### Method under test: `getTopDiscardId()`
 - **TC62: Empty discard pile** ( :white_check_mark: )
@@ -1726,3 +1726,10 @@
     - player.deselectHandCards is called
     - canPlay = false
     - Exploding Kitten card is returned
+
+### Method under test: `applyMildShuffle()`
+- **TC205: Apply Mild Shuffle card effect** ( :white_check_mark: )
+  - **Name of the test**: `applyMildShuffle_called_shufflesTopThreeCards`
+  - **State of the system**: Mild Shuffle card effect is applied
+  - **Expected output**:
+    - drawPile.shuffleTopNCards(GameConstants.MILD_SHUFFLE_SHUFFLE_COUNT) is called
