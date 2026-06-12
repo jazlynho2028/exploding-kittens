@@ -606,11 +606,6 @@ public class GameTests {
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM, "applySwapTopAndBottom",
 						(Consumer<Game>) Game::applySwapTopAndBottom),
 				Arguments.of(
-						CardType.DRAW_FROM_THE_BOTTOM,
-						"applyDrawFromTheBottom",
-						(Consumer<Game>) Game::applyDrawFromTheBottom
-				),
-				Arguments.of(
 						CardType.WINNER_WINNER_CATNIP_DINNER,
 						"applyWinnerWinnerCatnipDinner",
 						(Consumer<Game>) Game::applyWinnerWinnerCatnipDinner
@@ -662,6 +657,7 @@ public class GameTests {
 		return Stream.of(
 				Arguments.of(CardType.SEE_THE_FUTURE),
 				Arguments.of(CardType.GODCAT),
+				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM),
 				Arguments.of(CardType.TARGETED_ATTACK)
 		);
 	}
@@ -894,7 +890,7 @@ public class GameTests {
 				Arguments.of(List.of(CardType.SKIP)),
 				Arguments.of(List.of(CardType.SKIP, CardType.SKIP)),
 				Arguments.of(List.of(CardType.SKIP, CardType.ATTACK))
-				);
+		);
 	}
 
 	@ParameterizedTest
@@ -1735,8 +1731,11 @@ public class GameTests {
 						CardType.ATTACK),
 				Arguments.of(List.of(CardType.GODCAT, CardType.CLONE),
 						CardType.DEFUSE),
-				Arguments.of(List.of(
-						CardType.GODCAT, CardType.CLONE, CardType.DEFUSE),
+				Arguments.of(
+						List.of(
+								CardType.GODCAT,
+								CardType.CLONE,
+								CardType.DEFUSE),
 						CardType.DEFUSE)
 		);
 	}
@@ -1830,7 +1829,8 @@ public class GameTests {
 
 	private static Stream<Arguments> provideCurrentPlayerHandWithDefuserIndex() {
 		return Stream.of(
-				Arguments.of(List.of(CardType.DEFUSE),
+				Arguments.of(
+						List.of(CardType.DEFUSE),
 						0, CardType.DEFUSE),
 				Arguments.of(List.of(CardType.SKIP, CardType.DEFUSE),
 						1, CardType.DEFUSE),
@@ -1864,10 +1864,13 @@ public class GameTests {
 						1, CardType.DEFUSE),
 				Arguments.of(List.of(CardType.CLONE, CardType.GODCAT),
 						1, CardType.ATTACK),
-				Arguments.of(List.of(CardType.GODCAT, CardType.CLONE),
+				Arguments.of(
+						List.of(CardType.GODCAT, CardType.CLONE),
 						1, CardType.DEFUSE),
 				Arguments.of(List.of(
-						CardType.GODCAT, CardType.CLONE, CardType.DEFUSE),
+								CardType.GODCAT,
+								CardType.CLONE,
+								CardType.DEFUSE),
 						2, CardType.DEFUSE)
 		);
 	}
@@ -2499,6 +2502,83 @@ public class GameTests {
 		EasyMock.verify(drawPile);
 	}
 
+	@Test
+	public void drawFromTheBottom_nonExplodingCard_returnsDrawnCard() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card expectedCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(expectedCard.getType()).andStubReturn(CardType.ATTACK);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		EasyMock.expect(drawPile.peekBottom()).andReturn(expectedCard);
+		EasyMock.expect(drawPile.removeBottom()).andReturn(expectedCard);
+
+		currentPlayer.addCardToHand(expectedCard);
+		EasyMock.expectLastCall();
+
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall();
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				expectedCard, currentPlayer);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		Card actualCard = game.drawFromTheBottom();
+
+		assertEquals(expectedCard, actualCard);
+		assertFalse(game.getCanPlay());
+
+		EasyMock.verify(drawPile, turnManager, currentPlayer, game);
+	}
+
+	@Test
+	public void drawFromTheBottom_explodingCard_returnsExplodingCard() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card expectedCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(expectedCard.getType())
+				.andStubReturn(CardType.EXPLODING_KITTEN);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+
+		EasyMock.expect(drawPile.peekBottom()).andReturn(expectedCard);
+
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall();
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				expectedCard, currentPlayer);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		Card actualCard = game.drawFromTheBottom();
+
+		assertEquals(expectedCard, actualCard);
+		assertFalse(game.getCanPlay());
+
+		EasyMock.verify(drawPile, turnManager, currentPlayer, game);
+	}
+
 	@ParameterizedTest
 	@MethodSource("applyTargetedAttackArgs")
 	public void applyTargetedAttack_validTargets_successfullyCalled(
@@ -3022,7 +3102,6 @@ public class GameTests {
 	private Game mockGameWithGetCurrentPlayer(
 			List<Player> players, Deck drawPile, Deck discardPile,
 			TurnManager turnManager, Player currentPlayer) {
-
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("getCurrentPlayer")

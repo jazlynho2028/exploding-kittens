@@ -431,8 +431,8 @@
     - returns CardType.SWAP_TOP_AND_BOTTOM
 
 - **TC55: Valid play with one Draw From The Bottom** ( :white_check_mark: )
-  - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
+  - **Name of the test**: playSelectedCards_validPlayWithoutApplyMethod_cardsMovedFromHandToDiscard
+  - **State of the system**:
     - canPlaySelected returns true
     - selectedCardTypes = [DRAW_FROM_THE_BOTTOM]
     - getCurrentPlayer = player
@@ -440,7 +440,7 @@
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
-    - applyDrawFromTheBottom is called
+    - applyDrawFromTheBottom is not called
     - returns CardType.DRAW_FROM_THE_BOTTOM
 
 - **TC56: Valid play with one Targeted Attack** ( :white_check_mark: )
@@ -1464,9 +1464,9 @@
   - **Expected output**: applySwapTopAndBottom() is called
 
 - **TC189: Valid card type Draw From the Bottom** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
   - **State of the system**: CardType.DRAW_FROM_THE_BOTTOM passed as cardType
-  - **Expected output**: applyDrawFromTheBottom() is called
+  - **Expected output**: no immediate apply method is called; controller handles Draw From The Bottom after the card type is returned
 
 - **TC190: Valid card type Targeted Attack** ( :white_check_mark: )
   - **Name of the test**: applyGodcat_validPlayWithoutApplyMethod_noApplyCalled
@@ -1699,27 +1699,30 @@
     - winner at index 0
   - **Expected output**: return "Audrey"
 
-### Method under test: `drawRecycle()`
-- **TC203: Drawn card is not Exploding Kitten** ( :white_check_mark: )
-  - **Name of the test**: drawRecycle_nonExplodingCard_cardDrawnToHand
-  - **State of the system**: discard pile bottom card is not EXPLODING_KITTEN
-  - **Expected output**: 
-    - discardPile.shuffle() is called 
-    - discardPile.peekBottom() is called 
-    - discardPile.removeBottom() is called 
-    - getCurrentPlayer().addCardToHand(card) is called 
-    - turnManager.decrementDrawCount() is called 
-    - getCurrentPlayer().deselectHandCards() is called 
-    - returns card
-
-- **TC204: Drawn card is Exploding Kitten** ( :white_check_mark: )
-  - **Name of the test**: drawRecycle_explodingKitten_cardNotAddedToHand
-  - **State of the system**: discard pile bottom card is EXPLODING_KITTEN
+### Method under test: `drawFromTheBottom()`
+- **TC223: Bottom card is not an Exploding Kitten** ( :white_check_mark: )
+  - **Name of the test**: `drawFromTheBottom_nonExplodingCard_returnsDrawnCard`
+  - **State of the system**:
+    - `drawPile.peekBottom()` returns a non-Exploding Kitten card
+    - `drawPile.removeBottom()` returns that card
+    - `getCurrentPlayer()` returns player
   - **Expected output**:
-    - discardPile.shuffle() is called 
-    - discardPile.peekBottom() is called 
-    - discardPile.removeBottom() is NOT called 
-    - getCurrentPlayer().addCardToHand() is NOT called 
-    - turnManager.decrementDrawCount() is called 
-    - getCurrentPlayer().deselectHandCards() is called 
-    - returns exploding kitten card
+    - `drawPile.removeBottom()` is called
+    - player.addCardToHand is called with the drawn card
+    - turnManager.decrementDrawCount is called
+    - player.deselectHandCards is called
+    - canPlay = false
+    - drawn card is returned
+
+- **TC224: Bottom card is an Exploding Kitten** ( :white_check_mark: )
+  - **Name of the test**: `drawFromTheBottom_explodingCard_returnsExplodingCard`
+  - **State of the system**:
+    - `drawPile.peekBottom()` returns an Exploding Kitten
+    - `getCurrentPlayer()` returns player
+  - **Expected output**:
+    - `drawPile.removeBottom()` is not called
+    - player.addCardToHand is not called
+    - turnManager.decrementDrawCount is called
+    - player.deselectHandCards is called
+    - canPlay = false
+    - Exploding Kitten card is returned
