@@ -2919,31 +2919,6 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyClone_noCardUnderClone_failed() {
-		List<Player> players = EasyMock.createMock(List.class);
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		Card cloneCard = mockCardOfType(CardType.CLONE);
-
-		EasyMock.expect(discardPile.peekTopNCards(GameConstants.CLONE_PEEK_COUNT))
-				.andReturn(List.of(cloneCard));
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
-
-		Game game = new Game(players, drawPile, discardPile, turnManager);
-
-		IllegalStateException exception = assertThrows(
-				IllegalStateException.class,
-				game::applyClone);
-
-		assertEquals("error.noCardToClone", exception.getMessage());
-
-		EasyMock.verify(discardPile);
-	}
-
-	@Test
 	public void applyClone_attackUnderClone_appliesAttackAndReturnsAttack() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);

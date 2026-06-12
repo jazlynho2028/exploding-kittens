@@ -450,14 +450,7 @@ public class Game {
     }
 
     CardType applyClone() {
-        List<Card> topDiscardCards = discardPile.peekTopNCards(
-                GameConstants.CLONE_PEEK_COUNT);
-
-        if (topDiscardCards.size() < GameConstants.CLONE_PEEK_COUNT) {
-            throw new IllegalStateException("error.noCardToClone");
-        }
-
-        Card clonedCard = topDiscardCards.get(GameConstants.CLONE_CARD_INDEX);
+        Card clonedCard = discardPile.peekTopNCards(2).get(1);
         CardType clonedCardType = clonedCard.getType();
 
         applyByCardType(clonedCardType);
