@@ -36,11 +36,17 @@ This layer handles all the file loading.
 # **Additional UI Classes**
 These classes support the View and Controller layers. 
 
-- SceneManager.java
-- AssetManager.java
+- AssetManager.java implements AssetProvider
+  - Responsibility: Manages all loaded assets and provides them to the View and Controller layers.
+- interface AssetProvider.java
+  - Responsibility: Defines methods for accessing loaded assets such as images, strings, stylesheets, and card metadata.
 - UIConstants.java
 - CardMetadata.java
   - Responsibility: Holds display information for a card, including its title, subtitle, and description. Used by the view to render card fronts.
+- ErrorHandler.java
+  - Responsibility: Wraps controller actions in a try-catch and routes any thrown exceptions to the error handler callback.
+- GameConstants.java
+  - Responsibility: Defines constant values used throughout the game logic, including player limits, hand sizes, and draw counts.
 
 # **View Classes**
 These classes build the UI for their screen and pass any button or input events to their paired Controller.
