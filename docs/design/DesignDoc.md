@@ -98,3 +98,6 @@ The Model layer contains all game logic.
 - `Card` holds a `CardType`
 - Each Controller holds a reference to its paired View; `PlayerDeckController` also holds a reference to `Game`
 - `AssetManager` holds instances of `FontLoader`, `ImageLoader`, and `IconLoader` 
+
+# **Design Diagram**
+<img width="2244" height="2904" alt="exploding kittens-1 3" src="https://github.com/user-attachments/assets/bc157a2a-1ce4-48ff-8096-6ad8f10d7a74" />
