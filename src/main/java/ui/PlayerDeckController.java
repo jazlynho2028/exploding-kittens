@@ -136,7 +136,7 @@ public class PlayerDeckController {
                     Consumer<Integer> action = pendingTargetAction.get();
                     pendingTargetAction = Optional.empty();
 
-					action.accept(playerIndex);
+                    action.accept(playerIndex);
                 }
                 else {
                     model.changeCurrentPlayerIndex(playerIndex);
@@ -245,6 +245,9 @@ public class PlayerDeckController {
                 pendingTargetAction = Optional.of(model::applyRagebait);
                 enablePlayerSelect();
                 break;
+            case DRAW_FROM_THE_BOTTOM:
+                handleDrawnCard(model.drawFromTheBottom());
+                break;
             case RECYCLE:
                 handleDrawnCard(model.drawRecycle());
                 break;
@@ -260,9 +263,9 @@ public class PlayerDeckController {
 
     private void enableNameTags() {
         view.renderPlayerNameTags(
-				model.getCurrentPlayerIndex(),
-				true,
-                model.getAliveIndices());
+            model.getCurrentPlayerIndex(),
+            true,
+            model.getAliveIndices());
     }
 
     private void disableAllButNameTags() {
@@ -271,9 +274,9 @@ public class PlayerDeckController {
         view.renderHandVisibilityButton(model.getIsFaceUp(), false);
 
         view.buildAndAddPlayerHandCards(
-                model.getCurrentPlayerHandIds(),
-				model.getIsFaceUp(),
-				false
+            model.getCurrentPlayerHandIds(),
+            model.getIsFaceUp(),
+            false
         );
 
         view.renderTurnControlSection(false, false);

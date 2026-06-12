@@ -619,7 +619,6 @@ public class PlayerDeckControllerTests {
 				Arguments.of(CardType.SUPER_SKIP),
 				Arguments.of(CardType.CLONE),
 				Arguments.of(CardType.SWAP_TOP_AND_BOTTOM),
-				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM),
 				Arguments.of(CardType.WINNER_WINNER_CATNIP_DINNER),
 				Arguments.of(CardType.DOUBLE_UP),
 				Arguments.of(CardType.MILD_SHUFFLE)
@@ -755,6 +754,57 @@ public class PlayerDeckControllerTests {
 		PlayerDeckController controller = new PlayerDeckController(model, view);
 
 		controller.updateByCardType(CardType.RECYCLE);
+
+		EasyMock.verify(model, view, drawnCard);
+	}
+
+	@Test
+	public void updateByCardType_drawFromTheBottomPlayed_nonExplodingCard_success() {
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("updateAll")
+				.createMock();
+
+		Card drawnCard = EasyMock.createMock(Card.class);
+
+		EasyMock.expect(model.drawFromTheBottom()).andReturn(drawnCard);
+		EasyMock.expect(drawnCard.getType()).andReturn(CardType.SKIP);
+
+		controller.updateAll();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller, drawnCard);
+
+		controller.updateByCardType(CardType.DRAW_FROM_THE_BOTTOM);
+
+		EasyMock.verify(model, view, controller, drawnCard);
+	}
+
+	@Test
+	public void updateByCardType_drawFromTheBottomPlayed_explodingCard_success() {
+		String drawnCardId = "EXPLODINGKITTEN_1";
+		int drawPileSize = 2;
+
+		Card drawnCard = EasyMock.createMock(Card.class);
+
+		EasyMock.expect(model.drawFromTheBottom()).andReturn(drawnCard);
+		EasyMock.expect(drawnCard.getType()).andReturn(CardType.EXPLODING_KITTEN);
+		EasyMock.expect(drawnCard.getId()).andReturn(drawnCardId);
+		EasyMock.expect(model.isDefusable()).andReturn(false);
+		EasyMock.expect(model.getDrawPileSize()).andReturn(drawPileSize);
+
+		view.bindExplodeButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+
+		view.buildExplodeOverlay(false, drawnCardId, drawPileSize - 1);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, drawnCard);
+
+		PlayerDeckController controller = new PlayerDeckController(model, view);
+
+		controller.updateByCardType(CardType.DRAW_FROM_THE_BOTTOM);
 
 		EasyMock.verify(model, view, drawnCard);
 	}
