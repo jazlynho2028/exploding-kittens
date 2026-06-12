@@ -518,7 +518,7 @@ public class Game {
     }
 
     void applyMildShuffle() {
-        // TODO
+        drawPile.shuffleTopNCards(GameConstants.THREE_CARDS);
     }
 
     public Set<Integer> getAliveIndices() {

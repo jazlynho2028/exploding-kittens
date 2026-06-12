@@ -1728,7 +1728,7 @@
     - Exploding Kitten card is returned
 
 ### Method under test: `applyMildShuffle()`
-- **TC205: Apply Mild Shuffle card effect** ( :x: )
+- **TC205: Apply Mild Shuffle card effect** ( :white_check_mark: )
   - **Name of the test**: `applyMildShuffle_called_shufflesTopThreeCards`
   - **State of the system**: Mild Shuffle card effect is applied
   - **Expected output**:
