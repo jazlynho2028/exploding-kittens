@@ -29,7 +29,9 @@ public class WinnerWinnerCatnipDinnerTests {
 		int numRoundsBeforeTest = GameConstants.WINNER_WINNER_REQUIRED_ROUNDS;
 		int numTurnsBeforeTest = calculateNumTurns(
 				numPlayers, numRoundsBeforeTest, targetPlayerIndex);
-		allocateCards(numTurnsBeforeTest);
+
+		addCardsToDrawPile(drawPile, numTurnsBeforeTest);
+		addCardToPlayerHand(targetPlayer, CardType.WINNER_WINNER_CATNIP_DINNER);
 
 		int expectedPriorActivationRound = 0;
 		int actualPriorActivationRound = targetPlayer.getWinnerWinnerActivatedRound();
@@ -66,9 +68,11 @@ public class WinnerWinnerCatnipDinnerTests {
 		int numRoundsBeforeTest = 2 + GameConstants.WINNER_WINNER_REQUIRED_ROUNDS;
 		int numTurnsBeforeTest = calculateNumTurns(
 				numPlayers, numRoundsBeforeTest, targetPlayerIndex);
-		allocateCards(numTurnsBeforeTest);
 
-		addWinnerWinnerCardToPlayerHand(targetPlayer);
+		addCardsToDrawPile(drawPile, numTurnsBeforeTest);
+
+		addCardToPlayerHand(targetPlayer, CardType.WINNER_WINNER_CATNIP_DINNER);
+		addCardToPlayerHand(targetPlayer, CardType.WINNER_WINNER_CATNIP_DINNER);
 
 		advanceTurns(game, targetPlayerIndex);
 
@@ -101,6 +105,53 @@ public class WinnerWinnerCatnipDinnerTests {
 
 		String actualWinnerName = game.getWinnerName();
 		assertEquals(expectedWinnerName, actualWinnerName);
+	}
+
+	@Test
+	public void winnerWinnerCatnipDinner_notActivatedAndRequirementNotFulfilled_reset() {
+		int numPlayers = 4;
+		int targetPlayerIndex = 0;
+		String expectedWinnerName = "Monkey";
+
+		setUpStartGame(numPlayers, targetPlayerIndex, expectedWinnerName);
+
+		int numRoundsBeforeTest = GameConstants.WINNER_WINNER_REQUIRED_ROUNDS;
+		int numTurnsBeforeTest = calculateNumTurns(
+				numPlayers, numRoundsBeforeTest, targetPlayerIndex);
+
+		addCardsToDrawPile(drawPile, numTurnsBeforeTest);
+
+		addCardToPlayerHand(targetPlayer, CardType.WINNER_WINNER_CATNIP_DINNER);
+		addCardToPlayerHand(targetPlayer, CardType.SEE_THE_FUTURE);
+
+		int expectedPriorActivationRound = 0;
+		int actualPriorActivationRound = targetPlayer.getWinnerWinnerActivatedRound();
+
+		assertEquals(expectedPriorActivationRound,
+				actualPriorActivationRound);
+
+		targetPlayer.toggleSelectedHandCardAt(0);
+		game.playSelectedCards();
+
+		targetPlayer.toggleSelectedHandCardAt(0);
+		game.playSelectedCards();
+
+		int expectedActivationRound = 0;
+		int actualActivationRound = targetPlayer.getWinnerWinnerActivatedRound();
+
+		assertEquals(expectedActivationRound, actualActivationRound);
+
+		assertAllAlive(players);
+
+		assertTrue(game.getIsGameOngoing());
+
+		Exception exception = assertThrows(IllegalStateException.class, () ->
+				game.getWinnerName());
+
+		String expectedMsg = "error.noWinner";
+		String actualMsg = exception.getMessage();
+
+		assertEquals(expectedMsg, actualMsg);
 	}
 
 	private List<Player> createPlayers(
@@ -153,12 +204,6 @@ public class WinnerWinnerCatnipDinnerTests {
 				targetPlayerIndex + 1;
 	}
 
-	private void allocateCards(int numTurns) {
-		addCardsToDrawPile(drawPile, numTurns);
-
-		addWinnerWinnerCardToPlayerHand(targetPlayer);
-	}
-
 	private void addCardsToDrawPile(Deck drawPile, int numCardsToAdd) {
 		CardType cardType = CardType.SEE_THE_FUTURE;
 
@@ -169,11 +214,10 @@ public class WinnerWinnerCatnipDinnerTests {
 		}
 	}
 
-	private void addWinnerWinnerCardToPlayerHand(Player player) {
-		CardType winnerWinnerCardType = CardType.WINNER_WINNER_CATNIP_DINNER;
-		String winnerWinnerCardId = DeckBuilder.createCardId(
-				winnerWinnerCardType, 1);
-		Card card = new Card(winnerWinnerCardId, winnerWinnerCardType);
+	private void addCardToPlayerHand(Player player, CardType cardType) {
+		String cardId = DeckBuilder.createCardId(
+				cardType, 1);
+		Card card = new Card(cardId, cardType);
 
 		player.addCardToHand(card);
 	}
@@ -190,6 +234,12 @@ public class WinnerWinnerCatnipDinnerTests {
 			Player player = players.get(i);
 			boolean isTargetPlayer = (i == targetPlayerIndex);
 			assertEquals(player.isAlive(), isTargetPlayer);
+		}
+	}
+
+	private void assertAllAlive(List<Player> players) {
+		for (Player player : players) {
+			assertTrue(player.isAlive());
 		}
 	}
 

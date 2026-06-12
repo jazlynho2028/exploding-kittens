@@ -9,7 +9,7 @@
     - activated in round 1
     - no Exploding Kittens in rounds 1 to 5
   - **Expected output**:
-    - player's winnerWinnerActivatedRound is at 1 at the end of round 1
+    - player's winnerWinnerActivatedRound is at 1 at the end of player's round 1 turn
     - player does not play any cards for the next four rounds
     - after player ends their turn four rounds later (round 5)
       - game ends (all other players are dead) 
@@ -26,23 +26,26 @@
     - no Exploding Kittens in rounds 1 to 5
     - player does not play any cards from rounds 2 to 6
   - **Expected output**:
-    - player's winnerWinnerActivatedRound is at 2 at the end of round 2
+    - player's winnerWinnerActivatedRound is at 2 at the end of player's round 2 turn
     - after player ends their turn four rounds later (round 6)
       - game ends (all other players are dead)
       - player wins
 
-- **TC3: Not activated yet, fails requirement right after activation** ( :x: )
+- **TC3: Not activated yet, fails requirement right after activation** ( :white_check_mark: )
   - **Name of the test**: winnerWinnerCatnipDinner_notActivatedAndRequirementNotFulfilled_reset
   - **State of the system**: 
     - 4 players
     - player under test at index 0
-    - player has winnerWinnerCatnipDinner in hand
+    - player has winnerWinnerCatnipDinner and seeTheFuture in hand
     - player's winnerWinnerActivatedRound is at 0
     - activated in round 1
     - no Exploding Kittens in round 1
     - player plays a card in the same round after winner winner catnip dinner
   - **Expected output**:
-    - player's winnerWinnerActivatedRound is 0 at the end of round 1
+    - player's winnerWinnerActivatedRound is 0 at the end of player's round 1 turn
+    - all players are alive
+    - game is ongoing
+    - getWinnerName throws IllegalStateException "error.noWinner"
 
 - **TC4: Already activated, fails requirement just before fulfillment** ( :x: )
   - **Name of the test**: winnerWinnerCatnipDinner_activatedAndRequirementNotFulfilled_reset
@@ -58,5 +61,5 @@
     - player draws an exploding kitten during the fourth round after activation (round 6)
   - **Expected output**:
     - player's winnerWinnerActivatedRound is at 2
-    - player plays a defuse
-    - player's winnerWinnerActivatedRound is reset to 0
+    - player plays a defuse four rounds later (round 6)
+    - player's winnerWinnerActivatedRound is reset to 0 at the end of player's round 6 turn
