@@ -406,7 +406,7 @@
     - returns CardType.GODCAT
 
 - **TC53: Valid play with one Clone** ( :white_check_mark: )
-  - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
+  - **Name of the test**: playSelectedCards_clonePlayed_returnsClonedCardType
   - **State of the system**:
     - canPlaySelected returns true
     - selectedCardTypes = [CLONE]
@@ -1455,7 +1455,7 @@
   - **Expected output**: applySuperSkip() is called
 
 - **TC187: Valid card type Clone** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_cloneCardType_callsApplyClone
   - **State of the system**: CardType.CLONE passed as cardType
   - **Expected output**: applyClone() is called
 
@@ -1734,7 +1734,7 @@
   - **State of the system**: discardPile.peekTopNCards(GameConstants.CLONE_PEEK_COUNT) returns [CLONE]
   - **Expected output**: throws IllegalStateException with message `error.noCardToClone`
 
-- **TC226: Apply Clone with Attack under Clone** ( :x: )
+- **TC226: Apply Clone with Attack under Clone** ( :white_check_mark: )
   - **Name of the test**: applyClone_attackUnderClone_appliesAttackAndReturnsAttack
   - **State of the system**: discardPile.peekTopNCards(GameConstants.CLONE_PEEK_COUNT) returns [CLONE, ATTACK]
   - **Expected output**:
@@ -1745,15 +1745,3 @@
   - **Name of the test**: applyClone_seeTheFutureUnderClone_returnsSeeTheFuture
   - **State of the system**: discardPile.peekTopNCards(GameConstants.CLONE_PEEK_COUNT) returns [CLONE, SEE_THE_FUTURE]
   - **Expected output**: returns CardType.SEE_THE_FUTURE
-
-- **TC228: Play Clone returns cloned card type** ( :x: )
-  - **Name of the test**: playSelectedCards_clonePlayed_returnsClonedCardType
-  - **State of the system**:
-    - canPlaySelected returns true
-    - selectedCardTypes = [CLONE]
-    - getCurrentPlayer = player
-    - applyClone returns CardType.ATTACK
-  - **Expected output**:
-    - Clone card is moved from hand to discard pile
-    - applyClone is called
-    - returns CardType.ATTACK

@@ -157,12 +157,10 @@ public class Game {
             discardPile.addCardToTop(card);
         }
 
-        applyByCardType(cardType);
-
-        return cardType;
+        return applyByCardType(cardType);
     }
 
-    private void applyByCardType(CardType cardType) {
+    CardType applyByCardType(CardType cardType) {
         switch (cardType) {
             case ATTACK:
                 applyAttack();
@@ -180,8 +178,7 @@ public class Game {
                 applySuperSkip();
                 break;
             case CLONE:
-                applyClone();
-                break;
+                return applyClone();
             case SWAP_TOP_AND_BOTTOM:
                 applySwapTopAndBottom();
                 break;
@@ -197,6 +194,8 @@ public class Game {
             default:
                 break;
         }
+
+        return cardType;
     }
 
     public String getTopDiscardId() {
@@ -450,13 +449,20 @@ public class Game {
         }
     }
 
-    void applyClone() {
+    CardType applyClone() {
         List<Card> topDiscardCards = discardPile.peekTopNCards(
                 GameConstants.CLONE_PEEK_COUNT);
 
         if (topDiscardCards.size() < GameConstants.CLONE_PEEK_COUNT) {
             throw new IllegalStateException("error.noCardToClone");
         }
+
+        Card clonedCard = topDiscardCards.get(GameConstants.CLONE_CARD_INDEX);
+        CardType clonedCardType = clonedCard.getType();
+
+        applyByCardType(clonedCardType);
+
+        return clonedCardType;
     }
 
     void applySwapTopAndBottom() {
