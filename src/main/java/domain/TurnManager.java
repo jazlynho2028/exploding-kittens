@@ -75,10 +75,6 @@ public class TurnManager {
         while (!aliveIndices.contains(currentPlayerIndex));
     }
 
-    public void incrementDrawCount() {
-        this.drawCount++;
-    }
-
     void setRoundCount(int roundCount) {
         this.roundCount = roundCount;
     }

@@ -386,11 +386,8 @@ public class Game {
 
     void applyAttack() {
         getCurrentPlayer().deselectHandCards();
-        turnManager.incrementTurn();
-
-        if (turnManager.getDrawCount() > 1) {
-            turnManager.incrementDrawCount();
-        }
+        turnManager.incrementTurn(getAliveIndices());
+        addAttackDrawCount();
     }
 
     void applyShuffle() {
@@ -491,7 +488,6 @@ public class Game {
         else {
             turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
         }
-
     }
 
     boolean reachedWinnerWinnerCondition() {

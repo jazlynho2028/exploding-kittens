@@ -1749,7 +1749,7 @@
   - **Expected output**:
     - ends current player's turn
     - increments turn
-    - draCount = 4
+    - drawCount = 4
 
 - **TC92: Two-time stacked attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
@@ -1760,7 +1760,7 @@
     - increments turn
     - drawCount = 6
 
-- **TC93: Partial-turn stacked attack** ( :white_check_mark: )
+- **TC93: Partial-turn stacked attack** ( :x: )
   - **Name of the test**: applyAttack_partialTurnCompletion_stacksCorrectlyForThirdPlayer
   - **State of the system**:
     - (starting) drawCount = 2
