@@ -1741,7 +1741,7 @@
     - applyAttack is called
     - returns CardType.ATTACK
 
-- **TC227: Apply Clone with See The Future under Clone** ( :x: )
+- **TC227: Apply Clone with See The Future under Clone** ( :white_check_mark: )
   - **Name of the test**: applyClone_seeTheFutureUnderClone_returnsSeeTheFuture
   - **State of the system**: discardPile.peekTopNCards(GameConstants.CLONE_PEEK_COUNT) returns [CLONE, SEE_THE_FUTURE]
   - **Expected output**: returns CardType.SEE_THE_FUTURE
