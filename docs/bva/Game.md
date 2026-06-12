@@ -1732,4 +1732,4 @@
   - **Name of the test**: `applyMildShuffle_called_shufflesTopThreeCards`
   - **State of the system**: Mild Shuffle card effect is applied
   - **Expected output**:
-    - drawPile.shuffleTopNCards(GameConstants.THREE_CARDS) is called
+    - drawPile.shuffleTopNCards(GameConstants.MILD_SHUFFLE_SHUFFLE_COUNT) is called

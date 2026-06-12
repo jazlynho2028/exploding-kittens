@@ -1951,7 +1951,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		drawPile.shuffleTopNCards(GameConstants.THREE_CARDS);
+		drawPile.shuffleTopNCards(GameConstants.MILD_SHUFFLE_SHUFFLE_COUNT);
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
