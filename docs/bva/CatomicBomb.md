@@ -1,5 +1,5 @@
 ### Feature under test: `Catomic Bomb`
-- **TC1: Normal turn, pile has EK mixed with regular cards** ( :x: )
+- **TC1: Normal turn, pile has EK mixed with regular cards** ( :white_check_mark: )
     - **Name of the test**: catomicBomb_normalTurn_sortsKittensToTopAndEndsTurn
     - **State of the system**:
         - 2 players
