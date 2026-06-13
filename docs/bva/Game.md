@@ -506,8 +506,8 @@
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
-    - applyMildDraw is called
-    - returns CardType.MILD_DRAW
+    - applyMildShuffle is called
+    - returns CardType.MILD_SHUFFLE
 
 ### Method under test: `getTopDiscardId()`
 - **TC62: Empty discard pile** ( :white_check_mark: )
@@ -1617,7 +1617,7 @@
   - **State of the system**:turnManager.getRoundCount throws IllegalArgumentException "error.invalidRound"
   - **Expected output**: throw IllegalArgumentException "error.invalidRound" 
 
-- **TC210: Player throws exception** ( :white_check_mark: )
+- **TC210: Winner winner activated** ( :white_check_mark: )
     - **Name of the test**: applyWinnerWinnerCatnipDinner_called_activateWinnerWinnerCount
     - **State of the system**: turnManager.getRoundCount = 1
     - **Expected output**: getCurrentPlayer.activateWinnerWinnerFromRound is called with turnManager.getRoundCount
@@ -1731,14 +1731,14 @@
 ### Method under test: `applyClone()`
 - **TC226: Apply Clone with Attack under Clone** ( :white_check_mark: )
   - **Name of the test**: applyClone_attackUnderClone_appliesAttackAndReturnsAttack
-  - **State of the system**: discardPile.peekTopNCards(GameConstants.CLONE_PEEK_COUNT) returns [CLONE, ATTACK]
+  - **State of the system**: discardPile.peekTopNCards(2) returns [CLONE, ATTACK]
   - **Expected output**:
     - applyAttack is called
     - returns CardType.ATTACK
 
 - **TC227: Apply Clone with See The Future under Clone** ( :white_check_mark: )
   - **Name of the test**: applyClone_seeTheFutureUnderClone_returnsSeeTheFuture
-  - **State of the system**: discardPile.peekTopNCards(GameConstants.CLONE_PEEK_COUNT) returns [CLONE, SEE_THE_FUTURE]
+  - **State of the system**: discardPile.peekTopNCards(2) returns [CLONE, SEE_THE_FUTURE]
   - **Expected output**: returns CardType.SEE_THE_FUTURE
 
 - **TC228: Apply Clone with another Clone under Clone and Skip under second Clone** ( :white_check_mark: )
@@ -1746,3 +1746,10 @@
   - **State of the system**: discard pile top cards are Clone, Clone, Skip
   - **Expected behavior**: first Clone activates the second Clone, second Clone activates Skip
   - **Expected output**: returns CardType.CLONE
+
+### Method under test: `applyMildShuffle()`
+- **TC229: Apply Mild Shuffle card effect** ( :white_check_mark: )
+  - **Name of the test**: `applyMildShuffle_called_shufflesTopThreeCards`
+  - **State of the system**: Mild Shuffle card effect is applied
+  - **Expected output**:
+    - drawPile.shuffleTopNCards(GameConstants.MILD_SHUFFLE_SHUFFLE_COUNT) is called
