@@ -25,7 +25,7 @@
         - turn manager's drawCount is decremented to 2
         - the top card of the draw pile is an EXPLODING_KITTEN
 
-- **TC3: Under attack, next draw after bomb is the EK** ( :x: )
+- **TC3: Under attack, next draw after bomb is the EK** ( :white_check_mark: )
     - **Name of the test**: catomicBomb_underAttack_nextDrawIsExplodingKitten
     - **State of the system**:
         - 2 players
