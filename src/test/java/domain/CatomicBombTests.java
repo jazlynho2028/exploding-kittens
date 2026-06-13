@@ -60,6 +60,13 @@ public class CatomicBombTests {
         }
     }
 
+    private void advanceTurns(int numTurns) {
+        for (int i = 0; i < numTurns; i++) {
+            game.drawFromPile();
+            game.endTurn();
+        }
+    }
+
     @Test
     public void catomicBomb_normalTurn_sortsKittensToTopAndEndsTurn() {
         setUpStartGame(SMALL_GAME_NUM_PLAYERS, INITIAL_PLAYER_INDEX);
@@ -137,4 +144,27 @@ public class CatomicBombTests {
         }
     }
 
+    @Test
+    public void catomicBomb_playerNotFirst_sortsKittensAndEndsTurn() {
+        int numPlayers = GameConstants.MAX_PLAYERS;
+        int targetPlayerIndex = 2;
+        setUpStartGame(numPlayers, targetPlayerIndex);
+
+        int extraCards = 3;
+        int totalCards = targetPlayerIndex + extraCards;
+        addCardsToDrawPile(totalCards);
+        addCatomicBombToHand(targetPlayer);
+
+        advanceTurns(targetPlayerIndex);
+        assertEquals(targetPlayerIndex, game.getCurrentPlayerIndex());
+
+        selectCatomicBomb(targetPlayer);
+        game.playSelectedCards();
+
+        int expectedNextPlayer = targetPlayerIndex + 1;
+
+        assertEquals(DRAW_COUNT_POST_TURN_END, turnManager.getDrawCount());
+        assertEquals(expectedNextPlayer, game.getCurrentPlayerIndex());
+        assertEquals(CardType.EXPLODING_KITTEN, drawPile.peekTop().getType());
+    }
 }

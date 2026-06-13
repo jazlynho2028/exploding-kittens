@@ -47,7 +47,7 @@
     - **Expected output**:
         - the top 3 cards of the draw pile (numPlayers - 1) are all EXPLODING_KITTENs
 
-- **TC5: Target player is not first, game mid-turn** ( :x: )
+- **TC5: Target player is not first, game mid-turn** ( :white_check_mark: )
     - **Name of the test**: catomicBomb_playerNotFirst_sortsKittensAndEndsTurn
     - **State of the system**:
         - 4 players
