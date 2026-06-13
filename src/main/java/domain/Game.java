@@ -150,20 +150,11 @@ public class Game {
         List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
         CardType cardType = selectedCards.get(0).getType();
 
-        Card clonedCard = null;
-        if (cardType == CardType.CLONE) {
-            clonedCard = discardPile.peekTop();
-        }
-
         for (Card card : selectedCards) {
             card.toggleSelected();
 
             getCurrentPlayer().removeCardFromHand(card);
             discardPile.addCardToTop(card);
-        }
-
-        if (cardType == CardType.CLONE) {
-            return applyClone(clonedCard);
         }
 
         return applyByCardType(cardType);
@@ -187,7 +178,7 @@ public class Game {
                 applySuperSkip();
                 break;
             case CLONE:
-                return applyClone(discardPile.peekTop());
+                return applyClone();
             case SWAP_TOP_AND_BOTTOM:
                 applySwapTopAndBottom();
                 break;
@@ -458,7 +449,9 @@ public class Game {
         }
     }
 
-    CardType applyClone(Card clonedCard) {
+    CardType applyClone() {
+        List<Card> topDiscardCards = discardPile.peekTopNCards(2);
+        Card clonedCard = topDiscardCards.get(1);
         CardType clonedCardType = clonedCard.getType();
 
         applyByCardType(clonedCardType);

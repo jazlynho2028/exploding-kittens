@@ -625,13 +625,9 @@ public class GameTests {
 		Card cloneCard = EasyMock.createMock(Card.class);
 		EasyMock.expect(cloneCard.getType()).andStubReturn(CardType.CLONE);
 
-		Card clonedCard = mockCardOfType(CardType.ATTACK);
-
 		List<Card> selectedCards = List.of(cloneCard);
 		Player currentPlayer = EasyMock.createMock(Player.class);
 		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(selectedCards);
-
-		EasyMock.expect(discardPile.peekTop()).andReturn(clonedCard);
 
 		setMoveCardToDiscardExpectations(selectedCards, discardPile, currentPlayer);
 
@@ -641,12 +637,12 @@ public class GameTests {
 				.withConstructor(players, drawPile, discardPile, turnManager)
 				.addMockedMethod("canPlaySelected")
 				.addMockedMethod("getCurrentPlayer")
-				.addMockedMethod("applyClone", Card.class)
+				.addMockedMethod("applyClone")
 				.createMock();
 
 		EasyMock.expect(game.canPlaySelected()).andStubReturn(true);
 		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
-		EasyMock.expect(game.applyClone(clonedCard)).andReturn(CardType.ATTACK);
+		EasyMock.expect(game.applyClone()).andReturn(CardType.ATTACK);
 
 		EasyMock.replay(game);
 
@@ -2436,23 +2432,20 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		Card clonedCard = mockCardOfType(CardType.ATTACK);
-		EasyMock.expect(discardPile.peekTop()).andReturn(clonedCard);
-
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = EasyMock.createMockBuilder(Game.class)
 				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("applyClone", Card.class)
+				.addMockedMethod("applyClone")
 				.createMock();
 
-		EasyMock.expect(game.applyClone(clonedCard)).andReturn(CardType.ATTACK);
+		EasyMock.expect(game.applyClone()).andReturn(CardType.ATTACK);
 
 		EasyMock.replay(game);
 
 		game.applyGodcat(CardType.CLONE);
 
-		EasyMock.verify(discardPile, game);
+		EasyMock.verify(game);
 	}
 
 	@ParameterizedTest
@@ -2932,7 +2925,11 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
+		Card cloneCard = mockCardOfType(CardType.CLONE);
 		Card attackCard = mockCardOfType(CardType.ATTACK);
+
+		EasyMock.expect(discardPile.peekTopNCards(2))
+				.andReturn(List.of(cloneCard, attackCard));
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
@@ -2946,11 +2943,11 @@ public class GameTests {
 
 		EasyMock.replay(game);
 
-		CardType actualCardType = game.applyClone(attackCard);
+		CardType actualCardType = game.applyClone();
 
 		assertEquals(CardType.ATTACK, actualCardType);
 
-		EasyMock.verify(game);
+		EasyMock.verify(discardPile, game);
 	}
 
 	@Test
@@ -2960,15 +2957,21 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
+		Card cloneCard = mockCardOfType(CardType.CLONE);
 		Card seeTheFutureCard = mockCardOfType(CardType.SEE_THE_FUTURE);
+
+		EasyMock.expect(discardPile.peekTopNCards(2))
+				.andReturn(List.of(cloneCard, seeTheFutureCard));
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
 
-		CardType actualCardType = game.applyClone(seeTheFutureCard);
+		CardType actualCardType = game.applyClone();
 
 		assertEquals(CardType.SEE_THE_FUTURE, actualCardType);
+
+		EasyMock.verify(discardPile);
 	}
 
 	@Test
