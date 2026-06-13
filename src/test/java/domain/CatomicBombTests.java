@@ -16,6 +16,7 @@ public class CatomicBombTests {
     private static final int DEFAULT_DECK_ADDITION = 5;
     private static final int DRAW_COUNT_POST_TURN_END = 1;
     private static final int SINGLE_CARD_OFFSET = 1;
+    private static final int EXPECT_THREE = 3;
 
     private List<Player> players;
     private Deck drawPile;
@@ -41,7 +42,8 @@ public class CatomicBombTests {
 
     private void addCardsToDrawPile(int numCards) {
         for (int i = 0; i < numCards; i++) {
-            String cardId = DeckBuilder.createCardId(CardType.SEE_THE_FUTURE, i + SINGLE_CARD_OFFSET);
+            String cardId = DeckBuilder.createCardId(CardType.SEE_THE_FUTURE,
+                    i + SINGLE_CARD_OFFSET);
             drawPile.addCardToTop(new Card(cardId, CardType.SEE_THE_FUTURE));
         }
     }
@@ -91,7 +93,7 @@ public class CatomicBombTests {
         addCardsToDrawPile(DEFAULT_DECK_ADDITION);
         addCatomicBombToHand(targetPlayer);
 
-        int initialDrawCount = 3;
+        int initialDrawCount = EXPECT_THREE;
         turnManager.setDrawCount(initialDrawCount);
 
         selectCatomicBomb(targetPlayer);
@@ -150,7 +152,7 @@ public class CatomicBombTests {
         int targetPlayerIndex = 2;
         setUpStartGame(numPlayers, targetPlayerIndex);
 
-        int extraCards = 3;
+        int extraCards = EXPECT_THREE;
         int totalCards = targetPlayerIndex + extraCards;
         addCardsToDrawPile(totalCards);
         addCatomicBombToHand(targetPlayer);
