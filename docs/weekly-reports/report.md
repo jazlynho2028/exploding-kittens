@@ -127,12 +127,13 @@
 3. [50% Done] DJ: Design documentation
 4. [Done] Jazlyn: Winner Winner Catnip Dinner implementation
 5. [not started] Jazlyn: Integration testing
-6. [95% Done] Ejean: Attack implementation
-7. [90% Done] Ejean: Feral Cat implementation
-8. [90% Done] Ejean: Cat Cards 1-4 implementation
-9. [Done] Luke: Ragebait implementation
-10. [Done] DJ: Recycle implementation
-11. [Done] Irene: Shuffle implementation
-12. [80%] Irene: Clone implementation
-13. [Done] Irene: Draw From The Bottom implementation
-14. [Done] Irene: Mild Draw implementation
+6. [50% Done] Ejean: Game rules documentation
+7. [95% Done] Ejean: Attack implementation
+8. [90% Done] Ejean: Feral Cat implementation
+9. [90% Done] Ejean: Cat Cards 1-4 implementation
+10. [Done] Luke: Ragebait implementation
+11. [Done] DJ: Recycle implementation
+12. [Done] Irene: Shuffle implementation
+13. [80%] Irene: Clone implementation
+14. [Done] Irene: Draw From The Bottom implementation
+15. [Done] Irene: Mild Draw implementation
