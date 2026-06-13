@@ -70,7 +70,7 @@ public class CatomicBombTests {
         selectCatomicBomb(targetPlayer);
         game.playSelectedCards();
 
-        int expectedNextPlayer = INITIAL_PLAYER_INDEX + SINGLE_CARD_OFFSET;
+        int expectedNextPlayer = INITIAL_PLAYER_INDEX + 1;
 
         assertEquals(DRAW_COUNT_POST_TURN_END, turnManager.getDrawCount());
         assertEquals(expectedNextPlayer, game.getCurrentPlayerIndex());
@@ -90,7 +90,7 @@ public class CatomicBombTests {
         selectCatomicBomb(targetPlayer);
         game.playSelectedCards();
 
-        int expectedDrawCount = initialDrawCount - SINGLE_CARD_OFFSET;
+        int expectedDrawCount = initialDrawCount - 1;
 
         assertEquals(expectedDrawCount, turnManager.getDrawCount());
         assertEquals(INITIAL_PLAYER_INDEX, game.getCurrentPlayerIndex());
@@ -115,6 +115,26 @@ public class CatomicBombTests {
 
         Card drawnCard = game.drawFromPile();
         assertEquals(CardType.EXPLODING_KITTEN, drawnCard.getType());
+    }
+
+    @Test
+    public void catomicBomb_fourPlayers_allKittensConsolidatedAtTop() {
+        int numPlayers = GameConstants.MAX_PLAYERS;
+        setUpStartGame(numPlayers, INITIAL_PLAYER_INDEX);
+
+        addCardsToDrawPile(DEFAULT_DECK_ADDITION);
+        addCatomicBombToHand(targetPlayer);
+
+        selectCatomicBomb(targetPlayer);
+        game.playSelectedCards();
+
+        assertEquals(DRAW_COUNT_POST_TURN_END, turnManager.getDrawCount());
+
+        int numExpectedKittens = numPlayers - 1;
+        List<Card> topCards = drawPile.peekTopNCards(numExpectedKittens);
+        for (Card card : topCards) {
+            assertEquals(CardType.EXPLODING_KITTEN, card.getType());
+        }
     }
 
 }

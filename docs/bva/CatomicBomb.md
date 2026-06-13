@@ -37,7 +37,7 @@
     - **Expected output**:
         - a subsequent call to drawFromPile() returns a card of type EXPLODING_KITTEN
 
-- **TC4: Four players, all three EKs consolidated at top** ( :x: )
+- **TC4: Four players, all three EKs consolidated at top** ( :white_check_mark: )
     - **Name of the test**: catomicBomb_fourPlayers_allKittensConsolidatedAtTop
     - **State of the system**:
         - 4 players
