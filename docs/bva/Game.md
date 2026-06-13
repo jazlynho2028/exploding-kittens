@@ -1740,3 +1740,9 @@
   - **Name of the test**: applyClone_seeTheFutureUnderClone_returnsSeeTheFuture
   - **State of the system**: discardPile.peekTopNCards(GameConstants.CLONE_PEEK_COUNT) returns [CLONE, SEE_THE_FUTURE]
   - **Expected output**: returns CardType.SEE_THE_FUTURE
+
+- **TC228: Apply Clone with another Clone under Clone and Skip under second Clone** ( :white_check_mark: )
+  - **Name of the test**: applyClone_cloneUnderClone_appliesCardUnderSecondCloneAndReturnsClone
+  - **State of the system**: discard pile top cards are Clone, Clone, Skip
+  - **Expected behavior**: first Clone activates the second Clone, second Clone activates Skip
+  - **Expected output**: returns CardType.CLONE

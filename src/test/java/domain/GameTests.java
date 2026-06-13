@@ -2975,6 +2975,41 @@ public class GameTests {
 	}
 
 	@Test
+	public void applyClone_cloneUnderClone_appliesCardUnderSecondCloneAndReturnsClone() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card topCloneCard = mockCardOfType(CardType.CLONE);
+		Card secondCloneCard = mockCardOfType(CardType.CLONE);
+		Card skipCard = mockCardOfType(CardType.SKIP);
+
+		EasyMock.expect(discardPile.peekTopNCards(2))
+				.andReturn(List.of(topCloneCard, secondCloneCard));
+		EasyMock.expect(discardPile.peekTopNCards(2))
+				.andReturn(List.of(secondCloneCard, skipCard));
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("applySkip")
+				.createMock();
+
+		game.applySkip();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(game);
+
+		CardType actualCardType = game.applyClone();
+
+		assertEquals(CardType.CLONE, actualCardType);
+
+		EasyMock.verify(discardPile, game);
+	}
+
+	@Test
 	public void getAliveIndices_noAlivePlayers_returnEmptySet() {
 		Player player1 = EasyMock.createMock(Player.class);
 		Player player2 = EasyMock.createMock(Player.class);
