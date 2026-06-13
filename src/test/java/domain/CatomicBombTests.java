@@ -77,4 +77,24 @@ public class CatomicBombTests {
         assertEquals(CardType.EXPLODING_KITTEN, drawPile.peekTop().getType());
     }
 
+    @Test
+    public void catomicBomb_underAttack_sortsKittensAndDecrementsCount() {
+        setUpStartGame(SMALL_GAME_NUM_PLAYERS, INITIAL_PLAYER_INDEX);
+
+        addCardsToDrawPile(DEFAULT_DECK_ADDITION);
+        addCatomicBombToHand(targetPlayer);
+
+        int initialDrawCount = 3;
+        turnManager.setDrawCount(initialDrawCount);
+
+        selectCatomicBomb(targetPlayer);
+        game.playSelectedCards();
+
+        int expectedDrawCount = initialDrawCount - SINGLE_CARD_OFFSET;
+
+        assertEquals(expectedDrawCount, turnManager.getDrawCount());
+        assertEquals(INITIAL_PLAYER_INDEX, game.getCurrentPlayerIndex());
+        assertEquals(CardType.EXPLODING_KITTEN, drawPile.peekTop().getType());
+    }
+
 }

@@ -12,17 +12,17 @@
         - drawCount = 1
         - the top card of the draw pile is an EXPLODING_KITTEN
 
-- **TC2: Under attack (drawCount > 1), pile has EK** ( :x: )
+- **TC2: Under attack (drawCount > 1), pile has EK** ( :white_check_mark: )
     - **Name of the test**: catomicBomb_underAttack_sortsKittensAndDecrementsCount
     - **State of the system**:
         - 2 players
         - player under test at index 0
         - player has catomicBomb in hand and it is selected
         - 5 regular cards (SEE_THE_FUTURE) are added to the top of the draw pile
-        - player is under an attack (drawCount = ATTACK_DRAW_COUNT)
+        - player is under an attack (drawCount = 3)
     - **Expected output**:
         - current player index remains 0 (it is still the target player's turn)
-        - turn manager's drawCount is decremented to ATTACK_DRAW_COUNT - 1
+        - turn manager's drawCount is decremented to 2
         - the top card of the draw pile is an EXPLODING_KITTEN
 
 - **TC3: Under attack, next draw after bomb is the EK** ( :x: )
