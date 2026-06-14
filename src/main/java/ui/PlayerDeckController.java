@@ -77,7 +77,7 @@ public class PlayerDeckController {
         view.buildAndAddPlayerHandCards(
                 model.getCurrentPlayerHandIds(),
                 model.getIsFaceUp(),
-                model.getCanPlay()
+                model.getCanDraw()
         );
     }
 

@@ -19,7 +19,6 @@ public class Game {
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
-    private boolean canPlay;
     private boolean isAttackOngoing;
 
     @SuppressFBWarnings(
@@ -38,7 +37,6 @@ public class Game {
 
         isGameOngoing = false;
         isFaceUp = false;
-        canPlay = false;
         isAttackOngoing = false;
     }
 
@@ -96,7 +94,6 @@ public class Game {
 
         changeCurrentPlayerIndex(GameConstants.STARTING_PLAYER_INDEX);
         isGameOngoing = true;
-        canPlay = true;
     }
 
     private void addExplodingKittens() {
@@ -131,7 +128,7 @@ public class Game {
     }
 
     public boolean canPlaySelected() {
-        if (!canPlay) {
+        if (!getCanDraw()) {
             return false;
         }
 
@@ -227,14 +224,6 @@ public class Game {
         return isGameOngoing && turnManager.getDrawCount() > 0;
     }
 
-    public boolean getCanPlay() {
-        return isGameOngoing && canPlay;
-    }
-
-    void setCanPlay(boolean canPlay) {
-        this.canPlay = canPlay;
-    }
-
     public boolean getIsFaceUp() {
         return isFaceUp;
     }
@@ -272,7 +261,6 @@ public class Game {
 
         getCurrentPlayer().deselectHandCards();
 
-        canPlay = getCanDraw();
         return card;
     }
 
@@ -317,7 +305,6 @@ public class Game {
     }
 
     private void nextTurn() {
-        canPlay = true;
         isFaceUp = false;
         turnManager.incrementTurn(getAliveIndices());
         turnManager.incrementDrawCount();
