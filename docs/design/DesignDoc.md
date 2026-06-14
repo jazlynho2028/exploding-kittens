@@ -80,7 +80,7 @@ The Model layer contains all game logic.
 - DeckBuilder.java
   - Responsibility: Builds the starting draw pile with the correct number of each card type, then shuffles and returns it. Called only by ExplodingKittensApp. Game never touches or interacts with it.
 - Player.java
-  - Responsibility: Represents a player. Stores their name and hand of cards, and supports adding, removing, and selecting cards so the controller knows what the player wants to play.
+  - Responsibility: Represents a player. Stores their name and hand of cards, and supports adding, removing, selecting, and swapping cards with other players so the controller knows what the player wants to play.
 - Deck.java
   - Responsibility: Represents an ordered pile of cards. Supports drawing, peeking, inserting at a specific position, and shuffling. Used for both the draw and discard piles.
 - Card.java
@@ -92,7 +92,8 @@ The Model layer contains all game logic.
 
 # **Class Relationships**
 - `ExplodingKittensApp` creates `DeckBuilder`, gets back a `Deck`, then creates `Game(players, drawPile, discardPile, turnManager)`. 
-- `Game` owns `TurnManager`. a list of players, and both the draw pile and discard pile `Deck`s. 
+- `Game` owns `TurnManager`, a list of players, and both the draw pile and discard pile `Deck`s. 
+- Each `Player` holds a list of unique `Card` objects.
 - `TurnManager` takes numPlayers (int), not a players list. 
 - `Deck` stores a collection of `Card`s. 
 - `Card` holds a `CardType`. 
