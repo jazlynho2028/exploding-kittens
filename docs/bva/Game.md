@@ -1720,6 +1720,12 @@
     - player.deselectHandCards is called
     - Exploding Kitten card is returned
 
+### Method under test: `applyDoubleUp()`
+- **TC230: Double up once, relays drawCount increase to TurnManager** ( :white_check_mark: )
+    - **Name of the test**: applyDoubleUp_standardCall_callsTurnManagerIncrementDrawCount
+    - **State of the system**: drawCount = 1
+    - **Expected output**: calls turn manager to increment drawCount to 2
+
 ### Method under test: `applyMildShuffle()`
 - **TC219: Apply Mild Shuffle card effect** ( :white_check_mark: )
   - **Name of the test**: applyMildShuffle_called_shufflesTopThreeCards

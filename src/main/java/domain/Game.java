@@ -519,7 +519,7 @@ public class Game {
     }
 
     void applyDoubleUp() {
-        // TODO
+        turnManager.incrementDrawCount();
     }
 
     void applyMildShuffle() {
