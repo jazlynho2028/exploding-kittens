@@ -170,7 +170,6 @@ public class Game {
 
         for (Card card : selectedCards) {
             card.toggleSelected();
-
             getCurrentPlayer().removeCardFromHand(card);
             discardPile.addCardToTop(card);
         }

@@ -537,7 +537,7 @@
     - applyMildShuffle is called
     - returns CardType.MILD_SHUFFLE
 
-- **TC68: Play mismatched cat card two-of-a-kind combo** ( :x: )
+- **TC68: Play mismatched cat card two-of-a-kind combo** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_invalidComboPlay_throwsException
   - **State of the system**: 
     - isGameOngoing = true
