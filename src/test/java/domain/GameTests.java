@@ -514,6 +514,33 @@ public class GameTests {
 		EasyMock.verify(player, game);
 	}
 
+	@Test
+	public void canPlaySelected_mismatchedComboCards_returnsFalse() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+		
+		List<CardType> cardTypes = List.of(CardType.CAT_CARD_1, CardType.CAT_CARD_3);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		game.setCanPlay(true);
+
+		assertFalse(game.canPlaySelected());
+
+		EasyMock.verify(currentPlayer, game);
+	}
+
 	private static Stream<Arguments> provideValidCardSelections() {
 		return Stream.of(
 				Arguments.of(List.of(CardType.ATTACK)),

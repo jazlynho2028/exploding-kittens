@@ -310,7 +310,7 @@
     - (e.g., [CAT_CARD_1, CAT_CARD_1, CAT_CARD_1, CAT_CARD_1])
   - **Expected output**: returns false
 
-- **TC47: Multiple cards selected with mismatched types (size = 2)** ( :x: )
+- **TC47: Multiple cards selected with mismatched types (size = 2)** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_mismatchedComboCards_returnsFalse
   - **State of the system**: two cards of different cat card types are selected (e.g., [CAT_CARD_1, CAT_CARD_3])
   - **Expected output**: returns false
