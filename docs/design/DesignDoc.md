@@ -36,10 +36,10 @@ This layer handles all the file loading.
 # **Additional UI Classes**
 These classes support the View and Controller layers. 
 
-- AssetManager.java implements AssetProvider
-  - Responsibility: Loads and stores all game assets including images, icons, fonts, stylesheets, localized string bundles, and card metadata, and provides them to the View and Controller layers.
 - interface AssetProvider.java
   - Responsibility: Defines methods for accessing loaded assets, including images, stylesheets, localized strings, and card metadata.
+- AssetManager.java implements AssetProvider
+  - Responsibility: Loads and stores all game assets including images, icons, fonts, stylesheets, localized string bundles, and card metadata, and provides them to the View and Controller layers.
 - UIConstants.java
 - CardMetadata.java
   - Responsibility: Holds display information for a card, including its title, subtitle, and description. Used by the view to render card fronts.
@@ -53,7 +53,7 @@ These classes build the UI for their screen and pass any button or input events 
   - Responsibility: Builds the title screen with two play buttons, one for English and one for Spanish.
 - PlayerCreateView.java
   - Responsibility: Builds the player name entry screen. Shows a list of text fields for player names, an add player button that gets disabled once the max number of players is reached, and a confirm button.
-- PlayerDecksView.java
+- PlayerDeckView.java
   - Responsibility: Builds the main game screen. Shows the players, card piles, the current player's hand, and turn controls. 
 - ErrorView.java
   - Responsibility: Builds an error screen that shows a description of the error and a restart button. This screen should never appear unless there is an implementation problem.
@@ -65,7 +65,7 @@ These classes sit between the View and Model layers. They handle events from the
   - Responsibility: Connects the two language buttons in StartView to their handlers, which tell ExplodingKittensApp which language to load.
 - PlayerCreateController.java
   - Responsibility: Handles the player creation screen. Adds name fields up to the max player count, then triggers game initialization on confirm.
-- PlayerDecksController.java
+- PlayerDeckController.java
   - Responsibility: The main game controller. Handles all player interactions on the game screen and updates the view after each action.
 - ErrorController.java
   - Responsibility: Handles the error screen. Binds the restart button to bring the user back to the start screen.
@@ -91,13 +91,13 @@ The Model layer contains all game logic.
   - Responsibility: Defines constant values used throughout the game logic, such as player limits, starting hand size, draw counts, and lists of card types.
 
 # **Class Relationships**
-- `ExplodingKittensApp` creates `DeckBuilder`, gets back a `Deck`, then creates `Game(deck, players, discardPile, turnManager)`
-- `Game` owns `TurnManager`. a list of players, and both the draw pile and discard pile `Deck`s
-- `TurnManager` takes numPlayers (int), not a players list
-- `Deck` stores a collection of `Card`s
-- `Card` holds a `CardType`
-- Each Controller holds a reference to its paired View; `PlayerDeckController` also holds a reference to `Game`
-- `AssetManager` holds instances of `FontLoader`, `ImageLoader`, and `IconLoader` 
+- `ExplodingKittensApp` creates `DeckBuilder`, gets back a `Deck`, then creates `Game(players, drawPile, discardPile, turnManager)`. 
+- `Game` owns `TurnManager`. a list of players, and both the draw pile and discard pile `Deck`s. 
+- `TurnManager` takes numPlayers (int), not a players list. 
+- `Deck` stores a collection of `Card`s. 
+- `Card` holds a `CardType`. 
+- Each Controller holds a reference to its paired View; `PlayerDeckController` also holds a reference to `Game`. 
+- `AssetManager` stores maps of loaded images, SVG paths, and card metadata, and provides them to the View and Controller layers via `AssetProvider`. 
 
 # **Design Diagram**
 <img width="2244" height="2904" alt="exploding kittens-1 3" src="https://github.com/user-attachments/assets/bc157a2a-1ce4-48ff-8096-6ad8f10d7a74" />
