@@ -158,12 +158,10 @@ public class Game {
             discardPile.addCardToTop(card);
         }
 
-        applyByCardType(cardType);
-
-        return cardType;
+        return applyByCardType(cardType);
     }
 
-    private void applyByCardType(CardType cardType) {
+    CardType applyByCardType(CardType cardType) {
         switch (cardType) {
             case ATTACK:
                 applyAttack();
@@ -181,8 +179,7 @@ public class Game {
                 applySuperSkip();
                 break;
             case CLONE:
-                applyClone();
-                break;
+                return applyClone();
             case SWAP_TOP_AND_BOTTOM:
                 applySwapTopAndBottom();
                 break;
@@ -198,6 +195,8 @@ public class Game {
             default:
                 break;
         }
+
+        return cardType;
     }
 
     public String getTopDiscardId() {
@@ -458,8 +457,14 @@ public class Game {
         }
     }
 
-    void applyClone() {
-        // TODO
+    CardType applyClone() {
+        List<Card> topDiscardCards = discardPile.peekTopNCards(2);
+        Card clonedCard = topDiscardCards.get(1);
+        CardType clonedCardType = clonedCard.getType();
+
+        applyByCardType(clonedCardType);
+
+        return clonedCardType;
     }
 
     void applySwapTopAndBottom() {
@@ -526,7 +531,7 @@ public class Game {
     }
 
     void applyMildShuffle() {
-        // TODO
+        drawPile.shuffleTopNCards(GameConstants.MILD_SHUFFLE_SHUFFLE_COUNT);
     }
 
     public Set<Integer> getAliveIndices() {

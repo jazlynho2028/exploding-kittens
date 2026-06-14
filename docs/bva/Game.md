@@ -406,16 +406,17 @@
     - returns CardType.GODCAT
 
 - **TC53: Valid play with one Clone** ( :white_check_mark: )
-  - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
-  - **State of the system**: 
-    - canPlaySelected returns trueselectedCardTypes = [CLONE]
+  - **Name of the test**: playSelectedCards_clonePlayed_returnsClonedCardType
+  - **State of the system**:
+    - canPlaySelected returns true
+    - selectedCardTypes = [CLONE]
     - getCurrentPlayer = player
   - **Expected output**:
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
     - applyClone is called
-    - returns CardType.CLONE
+    - returns the CardType of the card under Clone
 
 - **TC54: Valid play with one Swap Top And Bottom** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validPlayWithApplyMethod_cardsMovedFromHandToDiscard
@@ -505,8 +506,8 @@
     - card1.toggleSelected is called
     - player.removeCardFromHand with card1 is called
     - discardPile.addCardToTop(card1) is called
-    - applyMildDraw is called
-    - returns CardType.MILD_DRAW
+    - applyMildShuffle is called
+    - returns CardType.MILD_SHUFFLE
 
 ### Method under test: `getTopDiscardId()`
 - **TC62: Empty discard pile** ( :white_check_mark: )
@@ -1454,7 +1455,7 @@
   - **Expected output**: applySuperSkip() is called
 
 - **TC187: Valid card type Clone** ( :white_check_mark: )
-  - **Name of the test**: applyGodcat_validCardType_correctApplyCalled
+  - **Name of the test**: applyGodcat_cloneCardType_callsApplyClone
   - **State of the system**: CardType.CLONE passed as cardType
   - **Expected output**: applyClone() is called
 
@@ -1616,7 +1617,7 @@
   - **State of the system**:turnManager.getRoundCount throws IllegalArgumentException "error.invalidRound"
   - **Expected output**: throw IllegalArgumentException "error.invalidRound" 
 
-- **TC210: Player throws exception** ( :white_check_mark: )
+- **TC210: Winner winner activated** ( :white_check_mark: )
     - **Name of the test**: applyWinnerWinnerCatnipDinner_called_activateWinnerWinnerCount
     - **State of the system**: turnManager.getRoundCount = 1
     - **Expected output**: getCurrentPlayer.activateWinnerWinnerFromRound is called with turnManager.getRoundCount
@@ -1726,6 +1727,32 @@
     - player.deselectHandCards is called
     - canPlay = false
     - Exploding Kitten card is returned
+
+### Method under test: `applyClone()`
+- **TC226: Apply Clone with Attack under Clone** ( :white_check_mark: )
+  - **Name of the test**: applyClone_attackUnderClone_appliesAttackAndReturnsAttack
+  - **State of the system**: discardPile.peekTopNCards(2) returns [CLONE, ATTACK]
+  - **Expected output**:
+    - applyAttack is called
+    - returns CardType.ATTACK
+
+- **TC227: Apply Clone with See The Future under Clone** ( :white_check_mark: )
+  - **Name of the test**: applyClone_seeTheFutureUnderClone_returnsSeeTheFuture
+  - **State of the system**: discardPile.peekTopNCards(2) returns [CLONE, SEE_THE_FUTURE]
+  - **Expected output**: returns CardType.SEE_THE_FUTURE
+
+- **TC228: Apply Clone with another Clone under Clone and Skip under second Clone** ( :white_check_mark: )
+  - **Name of the test**: applyClone_cloneUnderClone_appliesCardUnderSecondCloneAndReturnsClone
+  - **State of the system**: discard pile top cards are Clone, Clone, Skip
+  - **Expected behavior**: first Clone activates the second Clone, second Clone activates Skip
+  - **Expected output**: returns CardType.CLONE
+
+### Method under test: `applyMildShuffle()`
+- **TC229: Apply Mild Shuffle card effect** ( :white_check_mark: )
+  - **Name of the test**: `applyMildShuffle_called_shufflesTopThreeCards`
+  - **State of the system**: Mild Shuffle card effect is applied
+  - **Expected output**:
+    - drawPile.shuffleTopNCards(GameConstants.MILD_SHUFFLE_SHUFFLE_COUNT) is called
 
 ## Method under test: `applyAttack()`
 - **TC225: Non-stacked standard attack** ( :white_check_mark: )

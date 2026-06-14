@@ -19,6 +19,7 @@ public final class GameConstants {
 	public static final int FOUR_CARDS = 4;
 
 	public static final int NUM_MILD_SHUFFLE_IN_GAME = 1;
+	public static final int MILD_SHUFFLE_SHUFFLE_COUNT = 3;
 	public static final int NUM_DRAW_COUNT_AFTER_SUPER_SKIP = 0;
 	public static final int ATTACK_DRAW_COUNT = 2;
 	public static final int NUM_GODCAT_IN_GAME = 1;
