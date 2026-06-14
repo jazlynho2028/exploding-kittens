@@ -304,7 +304,7 @@
     - (e.g., [CAT_CARD_3, CAT_CARD_3, CAT_CARD_3])
   - **Expected output**: returns true
 
-- **TC46: Multiple matching cards over max valid combo size (size = 4)** ( :x: )
+- **TC46: Multiple matching cards over max valid combo size (size = 4)** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_comboSizeTooLarge_returnsFalse
   - **State of the system**: four cat cards of the exact same type are selected 
     - (e.g., [CAT_CARD_1, CAT_CARD_1, CAT_CARD_1, CAT_CARD_1])

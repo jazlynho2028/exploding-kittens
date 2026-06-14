@@ -482,6 +482,37 @@ public class GameTests {
 		EasyMock.verify(player, game);
 	}
 
+	@Test
+	public void canPlaySelected_comboSizeTooLarge_returnsFalse() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<CardType> cardTypes = List.of(
+				CardType.CAT_CARD_1,
+				CardType.CAT_CARD_1,
+				CardType.CAT_CARD_1,
+				CardType.CAT_CARD_1
+		);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		game.setCanPlay(true);
+
+		assertFalse(game.canPlaySelected());
+
+		EasyMock.verify(player, game);
+	}
 
 	private static Stream<Arguments> provideValidCardSelections() {
 		return Stream.of(
