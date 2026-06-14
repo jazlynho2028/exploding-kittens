@@ -149,6 +149,12 @@ public class DeckBuilderTests {
     }
 
     @Test
+    void calculateDefusesToAdd_OneOverMaximumPlayers_ReturnsZero() {
+        int numDefuses = DeckBuilder.calculateDefusesToAdd(MAX_PLAYERS + 1);
+        assertEquals(0, numDefuses);
+    }
+
+    @Test
     void createCardID_LowerValidInput_ReturnsCorrectString() {
         String actualID = DeckBuilder.createCardId(CardType.FERAL_CAT, 1);
         assertEquals("FERALCAT_1", actualID);
