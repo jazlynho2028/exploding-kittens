@@ -134,12 +134,12 @@ public class Game {
         }
 
         List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
-        if (selectedCards.size() != 1) {
-            return false;
+        if (selectedCards.size() == GameConstants.ONE_CARD) {
+            CardType type = selectedCards.get(0).getType();
+            return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type);
         }
 
-        CardType type = selectedCards.get(0).getType();
-        return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type);
+        return false;
     }
 
     public CardType playSelectedCards() {

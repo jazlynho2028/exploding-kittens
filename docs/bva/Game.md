@@ -287,7 +287,7 @@
     - selectedCardTypes = [MILD_SHUFFLE]
   - **Expected output**: returns true
 
-- **TC43: Combo size is below the minimum matching threshold (size = 1)** ( :x: )
+- **TC43: Combo size is below the minimum matching threshold (size = 1)** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_singleCatCard_returnsFalse
   - **State of the system**: a single cat card is selected
   - **Expected output**: returns false, cat cards must be played in pairs/tripes
