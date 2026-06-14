@@ -126,10 +126,10 @@ public class DeckBuilderTests {
         verifyCardTypeGroup(baseCards, CardType.SHUFFLE, NUM_SHUFFLE_IN_GAME, "SHUFFLE");
         verifyCardTypeGroup(baseCards, CardType.TARGETED_ATTACK,
                 NUM_TARGETED_ATTACK_IN_GAME, "TARGETEDATTACK");
-        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_1, NUM_CAT_CARD_IN_GAME, "CATCARD1");
-        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_2, NUM_CAT_CARD_IN_GAME, "CATCARD2");
-        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_3, NUM_CAT_CARD_IN_GAME, "CATCARD3");
-        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_4, NUM_CAT_CARD_IN_GAME, "CATCARD4");
+        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_1, NUM_CAT_CARD_PER_TYPE_IN_GAME, "CATCARD1");
+        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_2, NUM_CAT_CARD_PER_TYPE_IN_GAME, "CATCARD2");
+        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_3, NUM_CAT_CARD_PER_TYPE_IN_GAME, "CATCARD3");
+        verifyCardTypeGroup(baseCards, CardType.CAT_CARD_4, NUM_CAT_CARD_PER_TYPE_IN_GAME, "CATCARD4");
     }
 
     @Test
@@ -205,6 +205,6 @@ public class DeckBuilderTests {
                 + NUM_SEE_THE_FUTURE_IN_GAME
                 + NUM_SHUFFLE_IN_GAME
                 + NUM_TARGETED_ATTACK_IN_GAME
-                + (NUM_CAT_CARD_IN_GAME * FOUR_CARDS);
+                + (NUM_CAT_CARD_PER_TYPE_IN_GAME * NUM_CAT_CARD_TYPES_IN_GAME);
     }
 }
