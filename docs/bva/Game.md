@@ -1753,3 +1753,9 @@
   - **State of the system**: Mild Shuffle card effect is applied
   - **Expected output**:
     - drawPile.shuffleTopNCards(GameConstants.MILD_SHUFFLE_SHUFFLE_COUNT) is called
+
+### Method under test: `applyDoubleUp()`
+- **TC230: Double up once, relays drawCount increase to TurnManager** ( :white_check_mark: )
+  - **Name of the test**: applyDoubleUp_standardCall_callsTurnManagerIncrementDrawCount
+  - **State of the system**: drawCount = 1
+  - **Expected output**: calls turn manager to increment drawCount to 2
