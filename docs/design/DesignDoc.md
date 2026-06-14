@@ -74,13 +74,13 @@ These classes sit between the View and Model layers. They handle events from the
 The Model layer contains all game logic.
 
 - Game.java
-  - Responsibility: The core game state. Holds the players, the draw pile, and a TurnManager. Deals starting hands, inserts Exploding Kittens when the game starts, and handles drawing and playing cards. Does **not** reference `DeckBuilder`.
+  - Responsibility: The core game state. Holds the players, the draw pile, and a TurnManager. Deals starting hands from a deck that does not yet contain Exploding Kittens, then inserts them before the game starts, and handles drawing and playing cards. Does not reference `DeckBuilder`.
 - TurnManager.java
   - Responsibility: Tracks whose turn it is, how many draws the current player has left, and the current round. Takes numPlayers as an int to validate and manage currentPlayerIndex. Advances to the next player when a turn ends. 
 - DeckBuilder.java
   - Responsibility: Builds the starting draw pile with the correct number of each card type, then shuffles and returns it. Called only by ExplodingKittensApp. Game never touches or interacts with it.
 - Player.java
-  - Responsibility: Represents a player. Stores their name and hand of cards, and supports adding, removing, selecting, and swapping cards with other players so the controller knows what the player wants to play.
+  - Responsibility: Represents a player. Stores their name, hand of cards, and whether they are still alive, and supports adding, removing, selecting, and swapping cards with other players so the controller knows what the player wants to play.
 - Deck.java
   - Responsibility: Represents an ordered pile of cards. Supports drawing, peeking, inserting at a specific position, and shuffling. Used for both the draw and discard piles.
 - Card.java
@@ -94,11 +94,11 @@ The Model layer contains all game logic.
 - `ExplodingKittensApp` creates `DeckBuilder`, gets back a `Deck`, then creates `Game(players, drawPile, discardPile, turnManager)`. 
 - `Game` owns `TurnManager`, a list of players, and both the draw pile and discard pile `Deck`s. 
 - Each `Player` holds a list of unique `Card` objects.
-- `TurnManager` takes numPlayers (int), not a players list. 
+- `TurnManager` takes numPlayers as an int to manage currentPlayerIndex.
 - `Deck` stores a collection of `Card`s. 
 - `Card` holds a `CardType`. 
 - Each Controller holds a reference to its paired View; `PlayerDeckController` also holds a reference to `Game`. 
-- `AssetManager` stores maps of loaded images, SVG paths, and card metadata, and provides them to the View and Controller layers via `AssetProvider`. 
+- `AssetManager` stores maps of loaded images, SVG paths, card metadata, a CSS stylesheet URL, and localized strings, and provides them to the View and Controller layers via `AssetProvider`. 
 
 # **Design Diagram**
 <img width="2244" height="2904" alt="exploding kittens-1 3" src="https://github.com/user-attachments/assets/bc157a2a-1ce4-48ff-8096-6ad8f10d7a74" />
