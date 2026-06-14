@@ -3454,7 +3454,8 @@ public class GameTests {
 	}
 
 	@Test
-	public void applyAttack_partialTurnCompletion_stacksCorrectlyForThirdPlayer() throws Exception {
+	public void applyAttack_partialTurnCompletion_stacksCorrectlyForThirdPlayer()
+			throws Exception {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
@@ -3498,7 +3499,7 @@ public class GameTests {
 		currentPlayer.deselectHandCards();
 		EasyMock.expectLastCall();
 
-		turnManager.setDrawCount(3);
+		turnManager.setDrawCount(GameConstants.THREE_CARDS);
 		EasyMock.expectLastCall();
 
 		turnManager.incrementTurn(aliveIndices);
