@@ -1755,7 +1755,7 @@
     - drawPile.shuffleTopNCards(GameConstants.MILD_SHUFFLE_SHUFFLE_COUNT) is called
 
 ## Method under test: `applyAttack()`
-- **TC225: Non-stacked standard attack** ( :white_check_mark: )
+- **TC230: Non-stacked standard attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
     - drawCount = 1
@@ -1764,7 +1764,7 @@
     - increments turn
     - drawCount = 2
 
-- **TC226: One-time stacked attack** ( :white_check_mark: )
+- **TC231: One-time stacked attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
     - drawCount = 2
@@ -1773,7 +1773,7 @@
     - increments turn
     - drawCount = 4
 
-- **TC227: Two-time stacked attack** ( :white_check_mark: )
+- **TC232: Two-time stacked attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
   - **State of the system**:
     - drawCount = 4
@@ -1782,7 +1782,7 @@
     - increments turn
     - drawCount = 6
 
-- **TC228: Partial-turn stacked attack** ( :white_check_mark: )
+- **TC233: Partial-turn stacked attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_partialTurnCompletion_stacksCorrectlyForThirdPlayer
   - **State of the system**:
     - (starting) drawCount = 2
