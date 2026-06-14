@@ -7,11 +7,14 @@ import java.util.stream.Collectors;
 public class Player {
 
     private final String name;
-    private final List<Card> hand;
+    private List<Card> hand;
+    private boolean isAlive;
+    private int winnerWinnerActivatedRound;
 
     public Player(String name) {
         this.name = name;
         this.hand = new ArrayList<>();
+        this.isAlive = true;
     }
 
     int getHandSize() {
@@ -37,11 +40,18 @@ public class Player {
         hand.get(handCardIndex).toggleSelected();
     }
 
+    public void swapHandWith(Player other) {
+        List<Card> temp = this.hand;
+        this.hand = other.hand;
+        other.hand = temp;
+    }
+
     public void removeCardFromHand(Card card) {
         if (!this.hand.contains(card)) {
             throw new IllegalStateException("error.cardNotInHand");
         }
         hand.remove(card);
+        winnerWinnerActivatedRound = 0;
     }
 
     public void deselectHandCards() {
@@ -63,4 +73,29 @@ public class Player {
                 .map(Card::getId)
                 .collect(Collectors.toList());
     }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void eliminate() {
+        isAlive = false;
+    }
+
+    public int getWinnerWinnerActivatedRound() {
+        return winnerWinnerActivatedRound;
+    }
+
+    public void activateWinnerWinnerFromRound(int round) {
+        if (round < 1) {
+            throw new IllegalArgumentException("error.invalidRound");
+        }
+
+        winnerWinnerActivatedRound = round;
+    }
+
+    public boolean isWinnerWinnerActivated() {
+        return winnerWinnerActivatedRound > 0;
+    }
+
 }

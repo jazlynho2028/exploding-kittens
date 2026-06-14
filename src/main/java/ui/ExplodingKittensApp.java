@@ -69,13 +69,17 @@ public class ExplodingKittensApp extends Application {
 
     private void initializeGame(PlayerCreateController createController, Stage stage) {
         List<Player> players = createPlayers(createController.getConfirmedNames());
+
         DeckBuilder builder = new DeckBuilder();
         Deck drawPile = builder.initializeDeck(players.size());
+
         Random random = new Random();
         Deck discardPile = new Deck(new ArrayDeque<>(), random);
-        TurnManager turnManager = new TurnManager(players);
+
+        TurnManager turnManager = new TurnManager(players.size());
 
         Game model = new Game(players, drawPile, discardPile, turnManager);
+        model.setUp();
 
         showPlayerDeckScreen(model, stage);
     }
@@ -95,6 +99,7 @@ public class ExplodingKittensApp extends Application {
         PlayerDeckController controller = new PlayerDeckController(model, view);
 
         controller.setOnError(errorHandler);
+        controller.setOnRestart(() -> showStartScreen(stage));
 
         Scene playerDeckScene = controller.buildPlayerDeckScene();
         setScene(playerDeckScene, stage);

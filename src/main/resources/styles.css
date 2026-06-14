@@ -3,7 +3,7 @@
     gray-1: #E4E3E9;
     gray-2: #B7B4BE;
     gray-4: #4E4E4E;
-    gray-6-tr: #01010120;
+    gray-6-tr: #01010195;
     gray-6: #010101;
 
     beige-2: #D2C3AA;
@@ -11,6 +11,7 @@
 
     yellow-0-tr-1: #FFFAF228;
     yellow-0-tr-2: #FFFAF250;
+    yellow-0-tr-3: #FFFAF275;
     yellow-0: #FFFAF2;
     yellow-1: #F0EAD3;
     yellow-2: #D0B95E;
@@ -51,7 +52,7 @@
     ragebait: #C82014;
     recycle: #2EC7A1;
     double-up: #A05FAA;
-    mild-draw: #F97371;
+    mild-shuffle: #F97371;
 
     -fx-background-color: magenta-6;
 }
@@ -120,11 +121,13 @@
 }
 
 .start-content-section {
+    -fx-alignment: center;
     -fx-padding: 36px 16px 64px 16px;
     -fx-spacing: 480px;
 }
 
 .play-buttons-container {
+    -fx-alignment: center;
     -fx-spacing: 16px;
 }
 
@@ -140,8 +143,9 @@
 }
 
 .content-section {
+    -fx-alignment: center;
     -fx-padding: 16px;
-    -fx-spacing: 24px;
+    -fx-spacing: 16px;
 }
 
 .content-section > * {
@@ -149,14 +153,16 @@
 }
 
 .player-fields-container {
+    -fx-alignment: center;
     -fx-spacing: inherit;
 }
 
 .game-board-section {
-    -fx-spacing: 64px;
+    -fx-spacing: 36px;
 }
 
 .player-header-section {
+    -fx-alignment: center;
     -fx-spacing: 12px;
 }
 
@@ -166,6 +172,7 @@
 }
 
 .name-enter {
+    -fx-alignment: center-left;
     -fx-background-color: yellow-1;
     -fx-max-width: 600px;
     -fx-prompt-text-fill: beige-2;
@@ -203,6 +210,10 @@
     -fx-background-color: yellow-0-tr-2;
 }
 
+.player-create-overlay {
+    -fx-alignment: top-right;
+}
+
 .name-tag {
     -fx-background-color: magenta-5;
     -fx-border-width: 2;
@@ -234,17 +245,35 @@
     -fx-text-fill: yellow-0-tr-2;
 }
 
+.name-tag.dead,
+.name-tag.dead:disabled {
+    -fx-opacity: 1.0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-text-fill: yellow-0-tr-1;
+    -fx-graphic-text-gap: 8;
+}
+
+.skull-icon {
+    -fx-fill: yellow-0-tr-1;
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
+}
+
 .card-piles-section {
+    -fx-alignment: center;
     -fx-spacing: 164px;
 }
 
 .card-pile-section {
+    -fx-alignment: center;
     -fx-spacing: 12px;
 }
 
 .card {
-    -fx-pref-width: 176px;
-    -fx-pref-height: 230px;
+    -fx-pref-width: 180px;
+    -fx-pref-height: 234px;
+    -fx-padding: 8px;
     -fx-background-radius: 8;
     -fx-border-radius: 4;
     -fx-border-color: linear-gradient(to bottom, yellow-1, yellow-4);
@@ -252,6 +281,7 @@
 }
 
 .card.empty {
+    -fx-alignment: center;
     -fx-border-color: yellow-0-tr-2;
     -fx-border-width: 2;
     -fx-border-style: dashed;
@@ -259,12 +289,14 @@
 }
 
 .card.back {
+    -fx-alignment: center;
     -fx-background-color: red-4;
 }
 
 .card.front {
+    -fx-max-width: 180px;
+    -fx-max-height: 234px;
     -fx-background-color: gray-0;
-    -fx-padding: 8px;
 }
 
 .card:disabled {
@@ -293,7 +325,7 @@
 }
 
 .card-front-content.explodingkitten {
-    -fx-border-color: exploding-kitten;
+    -fx-border-color: linear-gradient(to bottom right, red-3, orange-3, yellow-3, orange-3, red-3);
 }
 
 .card-front-content.defuse {
@@ -368,11 +400,12 @@
     -fx-border-color: double-up;
 }
 
-.card-front-content.milddraw {
-    -fx-border-color: mild-draw;
+.card-front-content.mildshuffle {
+    -fx-border-color: mild-shuffle;
 }
 
 .card-header {
+    -fx-alignment: center-left;
     -fx-spacing: 4px;
     -fx-pref-height: 28px;
 }
@@ -386,7 +419,7 @@
 }
 
 .card-circle.explodingkitten {
-    -fx-background-color: linear-gradient(to bottom, yellow-3, orange-3, red-3);;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 50%, yellow-3, red-3);
 }
 
 .card-circle.defuse {
@@ -461,11 +494,12 @@
     -fx-background-color: double-up;
 }
 
-.card-circle.milddraw {
-    -fx-background-color: mild-draw;
+.card-circle.mildshuffle {
+    -fx-background-color: mild-shuffle;
 }
 
 .card-title-section {
+    -fx-alignment: center-left;
     -fx-spacing: -8px;
 }
 
@@ -477,6 +511,10 @@
 .card-subtitle {
     -fx-fill: gray-2;
     -fx-line-spacing: -8px;
+}
+
+.card-description-section {
+    -fx-alignment: bottom-center;
 }
 
 .card-description {
@@ -492,6 +530,7 @@
 }
 
 .exploding-kittens-text {
+    -fx-alignment: center;
     -fx-spacing: -20px;
 }
 
@@ -503,7 +542,12 @@
     -fx-fill: gray-0;
 }
 
+.draw-pile {
+    -fx-alignment: center;
+}
+
 .player-hand-section {
+    -fx-alignment: center;
     -fx-spacing: 12;
 }
 
@@ -530,26 +574,28 @@
     -fx-opacity: 0;
 }
 
-.hand-cards-container {
+.card-options {
     -fx-spacing: 8px;
+    -fx-alignment: center;
 }
 
 .turn-control-section {
+    -fx-alignment: center-right;
     -fx-spacing: 8;
 }
 
-.turn-control-button {
+.button-secondary {
     -fx-border-radius: 8;
     -fx-padding: 0px 16px;
     -fx-effect: dropshadow(gaussian, magenta-5-tr, 2, 0, 0, 2);
 }
 
-.turn-control-button {
+.button-secondary {
     -fx-background-color: linear-gradient(to bottom, yellow-1, yellow-4);
     -fx-text-fill: magenta-6;
 }
 
-.turn-control-button:disabled {
+.button-secondary:disabled {
     -fx-opacity: 1;
     -fx-background-color: beige-2;
     -fx-text-fill: beige-3;
@@ -566,16 +612,11 @@
     -fx-scale-x: 1.2;
     -fx-scale-y: 1.2;
 }
-
 
 .kittens-text {
     -fx-fill: gray-0;
 }
 
-.player-hand-section {
-    -fx-spacing: 12;
-}
-
 .hand-visibility-toggle {
     -fx-text-fill: gray-0;
     -fx-background-color: transparent;
@@ -599,10 +640,6 @@
     -fx-opacity: 0;
 }
 
-.hand-cards-container {
-    -fx-spacing: 8px;
-}
-
 .turn-control-section {
     -fx-spacing: 8;
 }
@@ -611,9 +648,6 @@
     -fx-border-radius: 8;
     -fx-padding: 0px 16px;
     -fx-effect: dropshadow(gaussian, magenta-5-tr, 2, 0, 0, 2);
-}
-
-.turn-control-button {
     -fx-background-color: linear-gradient(to bottom, yellow-1, yellow-4);
     -fx-text-fill: magenta-6;
 }
@@ -630,8 +664,78 @@
     -fx-effect: none;
 }
 
+.overlay {
+    -fx-background-color: gray-6-tr;
+}
+
+.overlay-content {
+    -fx-spacing: 24px;
+    -fx-padding: 20px;
+    -fx-alignment: center;
+}
+
+.overlay-title {
+    -fx-fill: yellow-0;
+}
+
+.card-options {
+    -fx-spacing: 8px;
+    -fx-alignment: center;
+}
+
 .restart-icon {
     -fx-fill: yellow-1;
     -fx-scale-x: 1.2;
     -fx-scale-y: 1.2;
+}
+
+.overlay-button {
+    -fx-background-color: linear-gradient(to bottom, yellow-3, yellow-4);
+    -fx-text-fill: magenta-6;
+    -fx-background-radius: 8;
+    -fx-border-width: 2;
+    -fx-border-radius: 16;
+    -fx-pref-width: 256px;
+    -fx-padding: -2 0 -2 0;
+}
+
+.overlay-button:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: beige-2;
+    -fx-text-fill: beige-3;
+}
+
+.overlay-button.defuse {
+    -fx-background-color: linear-gradient(to bottom, yellow-3, defuse, recycle);
+    -fx-text-fill: yellow-0;
+}
+
+.overlay-button.explode {
+    -fx-background-color: linear-gradient(to bottom, yellow-3, red-3, orange-3);
+    -fx-text-fill: magenta-6;
+}
+
+.defuse-options {
+    -fx-spacing: 8px;
+}
+
+.defuse-caption {
+    -fx-fill: yellow-1;
+}
+
+.slider .track {
+    -fx-background-color: yellow-0-tr-3;
+    -fx-background-radius: 4px;
+    -fx-pref-height: 6px;
+}
+
+.slider .thumb {
+    -fx-background-color: yellow-1;
+    -fx-background-radius: 16%;
+    -fx-pref-width: 8px;
+    -fx-pref-height: 16px;
+}
+
+.win-title {
+    -fx-fill: linear-gradient(to bottom, yellow-1, yellow-4);
 }

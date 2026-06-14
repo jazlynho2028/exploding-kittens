@@ -28,6 +28,8 @@ public class PlayerCreateController {
         this.view = view;
         this.confirmedNames = new ArrayList<>();
         this.onError = message -> { };
+        this.onSuccess = () -> { };
+        this.onRestart = () -> { };
     }
 
     public Scene buildPlayerCreateScene() {
