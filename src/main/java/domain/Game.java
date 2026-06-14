@@ -39,6 +39,7 @@ public class Game {
         isGameOngoing = false;
         isFaceUp = false;
         canPlay = false;
+        isAttackOngoing = false;
     }
 
     public void setUp() {
@@ -240,6 +241,10 @@ public class Game {
 
     void setIsFaceUp(boolean isFaceUp) {
         this.isFaceUp = isFaceUp;
+    }
+
+    void setIsAttackOngoing(boolean isAttackOngoing) {
+        this.isAttackOngoing = isAttackOngoing;
     }
 
     public void changeCurrentPlayerIndex(int newPlayerIndex) {

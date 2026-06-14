@@ -2748,7 +2748,7 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount).times(2);
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount);
 
 		turnManager.setDrawCount(finalDrawCount);
 		EasyMock.expectLastCall();
@@ -2756,6 +2756,7 @@ public class GameTests {
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
 
 		Game game = new Game(players, drawPile, discardPile, turnManager);
+		game.setIsAttackOngoing(true);
 		game.addAttackDrawCount();
 
 		EasyMock.verify(players, drawPile, discardPile, turnManager);
