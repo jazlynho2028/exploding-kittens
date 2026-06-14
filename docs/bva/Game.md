@@ -1754,3 +1754,15 @@
     - ends current player's turn
     - increments turn
     - drawCount = 6
+
+- **TC228: Partial-turn stacked attack** ( :white_check_mark: )
+  - **Name of the test**: applyAttack_partialTurnCompletion_stacksCorrectlyForThirdPlayer
+  - **State of the system**:
+    - (starting) drawCount = 2
+    - current player draws 1 card, leaving 1 remaining attack turn, then
+      plays an attack themselves
+  - **Expected output**:
+    - ends current player's turn
+    - increments turn
+    - next player's drawCount = 3
+    - drawCount = 6

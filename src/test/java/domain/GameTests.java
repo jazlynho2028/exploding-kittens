@@ -3258,6 +3258,82 @@ public class GameTests {
 		EasyMock.verify(turnManager, currentPlayer, game);
 	}
 
+	@Test
+	public void applyAttack_partialTurnCompletion_stacksCorrectlyForThirdPlayer() throws Exception {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		Card safeCard = mockCardOfType(CardType.SKIP);
+
+		Card attackCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(attackCard.getType()).andStubReturn(CardType.ATTACK);
+
+		Set<Integer> aliveIndices = Set.of(0, 1, 2);
+
+		EasyMock.expect(drawPile.peekTop()).andReturn(safeCard);
+		EasyMock.expect(drawPile.removeTop()).andReturn(safeCard);
+
+		currentPlayer.addCardToHand(safeCard);
+		EasyMock.expectLastCall();
+
+		turnManager.decrementDrawCount();
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(turnManager.getDrawCount()).andStubReturn(1);
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		List<Card> selectedCards = List.of(attackCard);
+		EasyMock.expect(currentPlayer.getSelectedCards()).andStubReturn(selectedCards);
+
+		attackCard.toggleSelected();
+		EasyMock.expectLastCall();
+		EasyMock.replay(attackCard);
+
+		currentPlayer.removeCardFromHand(attackCard);
+		EasyMock.expectLastCall();
+
+		discardPile.addCardToTop(attackCard);
+		EasyMock.expectLastCall();
+
+		currentPlayer.deselectHandCards();
+		EasyMock.expectLastCall();
+
+		turnManager.setDrawCount(3);
+		EasyMock.expectLastCall();
+
+		turnManager.incrementTurn(aliveIndices);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getCurrentPlayer")
+				.addMockedMethod("getAliveIndices")
+				.createMock();
+
+		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
+		EasyMock.expect(game.getAliveIndices()).andStubReturn(aliveIndices);
+
+		EasyMock.replay(game);
+
+		game.setIsGameOngoing(true);
+		game.setCanPlay(true);
+		java.lang.reflect.Field attackFlag = Game.class.getDeclaredField("isAttackOngoing");
+		attackFlag.setAccessible(true);
+		attackFlag.setBoolean(game, true);
+
+		game.drawFromPile();
+		game.playSelectedCards();
+
+		EasyMock.verify(drawPile, discardPile, turnManager, currentPlayer, game);
+	}
+
 	private static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override

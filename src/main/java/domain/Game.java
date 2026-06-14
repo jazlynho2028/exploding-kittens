@@ -20,6 +20,7 @@ public class Game {
     private boolean isGameOngoing;
     private boolean isFaceUp;
     private boolean canPlay;
+    private boolean isAttackOngoing;
 
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2"},
@@ -260,9 +261,14 @@ public class Game {
         }
 
         turnManager.decrementDrawCount();
+
+        if (turnManager.getDrawCount() == 0) {
+            isAttackOngoing = false;
+        }
+
         getCurrentPlayer().deselectHandCards();
 
-        canPlay = false;
+        canPlay = getCanDraw();
         return card;
     }
 
@@ -386,8 +392,8 @@ public class Game {
 
     void applyAttack() {
         getCurrentPlayer().deselectHandCards();
-        turnManager.incrementTurn(getAliveIndices());
         addAttackDrawCount();
+        turnManager.incrementTurn(getAliveIndices());
     }
 
     void applyShuffle() {
@@ -474,19 +480,20 @@ public class Game {
 
     public void applyTargetedAttack(int targetPlayerIndex) {
         getCurrentPlayer().deselectHandCards();
+        addAttackDrawCount();
         while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
             turnManager.incrementTurn(getAliveIndices());
         }
-        addAttackDrawCount();
     }
 
     void addAttackDrawCount() {
-        if (turnManager.getDrawCount() >= 2) {
+        if (isAttackOngoing) {
             turnManager.setDrawCount(
                     turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
         }
         else {
             turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+            isAttackOngoing = true;
         }
     }
 
