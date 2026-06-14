@@ -298,10 +298,10 @@
     - (e.g., [CAT_CARD_2, CAT_CARD_2])
   - **Expected output**: returns true
 
-- **TC45: Exactly three matching cards selected (size = 3)** ( :x: )
+- **TC45: Exactly three matching cards selected (size = 3)** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validThreeOfAKindCombo_returnsTrue
   - **State of the system**: three cat cards of the exact same type are selected 
-    - (e.g., [CAT_CARD_1, CAT_CARD_1, CAT_CARD_1])
+    - (e.g., [CAT_CARD_3, CAT_CARD_3, CAT_CARD_3])
   - **Expected output**: returns true
 
 - **TC46: Multiple matching cards over max valid combo size (size = 4)** ( :x: )

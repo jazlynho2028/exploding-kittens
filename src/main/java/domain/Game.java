@@ -140,7 +140,7 @@ public class Game {
             CardType type = selectedCards.get(0).getType();
             return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type);
         }
-        else if (size == GameConstants.TWO_CARDS) {
+        else if (size == GameConstants.TWO_CARDS || size == GameConstants.THREE_CARDS) {
             CardType firstCardType = selectedCards.get(0).getType();
             boolean isCatCard = GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
                     && firstCardType != CardType.DEFUSE
