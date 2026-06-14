@@ -2728,8 +2728,6 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		EasyMock.expect(turnManager.getDrawCount()).andReturn(expectedDrawCount);
-
 		turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
 		EasyMock.expectLastCall();
 
