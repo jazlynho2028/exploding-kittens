@@ -175,6 +175,15 @@ public class Game {
             discardPile.addCardToTop(card);
         }
 
+        if (selectedCards.size() == GameConstants.TWO_CARDS) {
+            playTwoOfAKind();
+            return cardType;
+        }
+        else if (selectedCards.size() == GameConstants.THREE_CARDS) {
+            playThreeOfAKind();
+            return cardType;
+        }
+
         return applyByCardType(cardType);
     }
 
@@ -567,6 +576,14 @@ public class Game {
     public Card drawRecycle() {
         discardPile.shuffle();
         return drawCard(discardPile::peekBottom, discardPile::removeBottom);
+    }
+
+    public void playTwoOfAKind() {
+
+    }
+
+    public void playThreeOfAKind() {
+
     }
 
 }

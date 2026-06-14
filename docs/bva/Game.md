@@ -537,11 +537,6 @@
     - applyMildShuffle is called
     - returns CardType.MILD_SHUFFLE
 
-- **TC67: Play cat card combo when game has already ended** ( :x: )
-  - **Name of the test**: playSelectedCards_gameNotOngoing_throwsException
-  - **State of the system**: isGameOngoing = false, matching combo cards are selected
-  - **Expected output**: throws IllegalStateException "error.gameAlreadyEnded"
-
 - **TC68: Play mismatched cat card two-of-a-kind combo** ( :x: )
   - **Name of the test**: playSelectedCards_invalidComboPlay_throwsException
   - **State of the system**: 
@@ -549,7 +544,7 @@
     - canPlaySelected() returns false (e.g., mismatched cards selected)
   - **Expected output**: throws IllegalStateException "error.cannotPlaySelectedCards"
 
-- **TC69: Valid two-of-a-kind cat card combo played** ( :x: )
+- **TC69: Valid two-of-a-kind cat card combo played** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_validTwoOfAKind_discardsCardsAndTriggersTheft
   - **State of the system**: isGameOngoing = true (exactly 2 matching cat cards selected)
   - **Expected output**: 

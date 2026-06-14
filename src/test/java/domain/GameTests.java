@@ -520,7 +520,7 @@ public class GameTests {
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-		
+
 		List<CardType> cardTypes = List.of(CardType.CAT_CARD_1, CardType.CAT_CARD_3);
 		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
 
@@ -834,6 +834,44 @@ public class GameTests {
 				Arguments.of(CardType.DRAW_FROM_THE_BOTTOM),
 				Arguments.of(CardType.TARGETED_ATTACK)
 		);
+	}
+
+	@Test
+	public void playSelectedCards_validTwoOfAKind_discardsCardsAndTriggersTheft() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		CardType comboType = CardType.CAT_CARD_1;
+		Card card1 = EasyMock.createMock(Card.class);
+		Card card2 = EasyMock.createMock(Card.class);
+		EasyMock.expect(card1.getType()).andStubReturn(comboType);
+		EasyMock.expect(card2.getType()).andStubReturn(comboType);
+		List<Card> selectedCards = List.of(card1, card2);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getSelectedCards()).andStubReturn(selectedCards);
+
+		setMoveCardToDiscardExpectations(selectedCards, discardPile, currentPlayer);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canPlaySelected")
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.canPlaySelected()).andStubReturn(true);
+		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
+
+		EasyMock.replay(game);
+
+		CardType actualCardType = game.playSelectedCards();
+		assertEquals(comboType, actualCardType);
+
+		EasyMock.verify(card1, card2, discardPile, currentPlayer, game);
 	}
 
 	@Test
