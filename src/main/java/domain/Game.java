@@ -134,12 +134,30 @@ public class Game {
         }
 
         List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
-        if (selectedCards.size() == GameConstants.ONE_CARD) {
+        int size = selectedCards.size();
+
+        if (size == GameConstants.ONE_CARD) {
             CardType type = selectedCards.get(0).getType();
             return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type);
         }
+        else if (size == GameConstants.TWO_CARDS) {
+            CardType firstCardType = selectedCards.get(0).getType();
+            boolean isCatCard = GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
+                    && firstCardType != CardType.DEFUSE
+                    && firstCardType != CardType.EXPLODING_KITTEN;
 
+            return isCatCard && doAllCardsMatch(selectedCards, firstCardType);
+        }
         return false;
+    }
+
+    private boolean doAllCardsMatch(List<Card> selectedCards, CardType cardType) {
+        for (Card card : selectedCards) {
+            if (card.getType() != cardType) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public CardType playSelectedCards() {

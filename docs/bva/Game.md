@@ -292,7 +292,7 @@
   - **State of the system**: a single cat card is selected
   - **Expected output**: returns false, cat cards must be played in pairs/tripes
 
-- **TC44: Exactly two matching cards selected (size = 2)** ( :x: )
+- **TC44: Exactly two matching cards selected (size = 2)** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_validTwoOfAKindCombo_returnsTrue
   - **State of the system**: two cat cards of the exact same type are selected 
     - (e.g., [CAT_CARD_2, CAT_CARD_2])
