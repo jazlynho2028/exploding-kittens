@@ -18,25 +18,25 @@
   - **Expected output**: returns a list containing exactly 56 baseline cards.
 
 - **TC4: Single-card counts ** ( :white_check_mark: )
-  - **Name of the test**: initializeDeckWithoutDefuses_SingleCountCards_PopulateCorrectQuantitiesAndIDs
+  - **Name of the test**: initializeDeckWithoutDefuses_SingleCountCards_PopulateCorrectCards
   - **State of the system**: no inputs because deck of non-defuse cards does not depend on player count
   - **Expected output**: validates that all 1-count cards (e.g., `MILD_SHUFFLE`, `GODCAT`, `CATOMIC_BOMB`) 
     only exist once in deck and are mapped sequentially to cardID containing 1.
 
 - **TC5: Double-card counts ** ( :white_check_mark: )
-  - **Name of the test**: initializeDeckWithoutDefuses_DoubleInstanceCards_PopulateCorrectQuantitiesAndIDs
+  - **Name of the test**: initializeDeckWithoutDefuses_DoubleInstanceCards_PopulateCorrectCards
   - **State of the system**: no inputs because deck of non-defuse cards does not depend on player count
   - **Expected output**: validates that all double-allocation cards (`SUPER_SKIP`) exist exactly twice 
     and scale string sequence IDs sequentially from 1 to 2.
 
 - **TC6: Triple-card counts ** ( :white_check_mark: )
-  - **Name of the test**: initializeDeckWithoutDefuses_TripleInstanceCards_PopulateCorrectQuantitiesAndIDs
+  - **Name of the test**: initializeDeckWithoutDefuses_TripleInstanceCards_PopulateCorrectCards
   - **State of the system**: no inputs because deck of non-defuse cards does not depend on player count
   - **Expected output**: validates that all triple-allocation cards (`ATTACK`, `SKIP`, `CLONE`, `SWAP_TOP_AND_BOTTOM`,
     `DRAW_FROM_THE_BOTTOM`) exist exactly three times and scale sequence IDs sequentially from 1 to 3.
 
 - **TC7: Quadruple-card counts ** ( :white_check_mark: )
-  - **Name of the test**: initializeDeckWithoutDefuses_QuadrupleInstanceCards_PopulateCorrectQuantitiesAndIDs
+  - **Name of the test**: initializeDeckWithoutDefuses_QuadrupleInstanceCards_PopulateCorrectCards
   - **State of the system**: no inputs because deck of non-defuse cards does not depend on player count
   - **Expected output**: validates that all quadruple-allocation cards (`FERAL_CAT`, `SEE_THE_FUTURE`, `SHUFFLE`,
     `TARGETED_ATTACK`, and `CAT_CARD` variants) exist exactly three times and scale sequence IDs sequentially from 1 to 3.

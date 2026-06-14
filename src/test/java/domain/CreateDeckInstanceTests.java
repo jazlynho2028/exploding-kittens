@@ -15,10 +15,12 @@ public class CreateDeckInstanceTests {
 		Random mockRandom = EasyMock.createMock(Random.class);
 		EasyMock.replay(mockRandom);
 
-		DeckBuilder deckBuilder = new DeckBuilder(mockRandom);
-		Deck result = deckBuilder.createDeckInstance(List.of());
+		List<Card> originalList = List.of();
 
-		assertEquals(List.of(), result.getCards());
+		DeckBuilder deckBuilder = new DeckBuilder(mockRandom);
+		Deck result = deckBuilder.createDeckInstance(originalList);
+
+		assertEquals(originalList, result.getCards());
 
 		EasyMock.verify(mockRandom);
 	}
@@ -30,9 +32,10 @@ public class CreateDeckInstanceTests {
 
 		EasyMock.replay(mockRandom);
 
-		Deck result = new DeckBuilder(mockRandom).createDeckInstance(List.of(card1));
+		List<Card> originalList = List.of(card1);
+		Deck result = new DeckBuilder(mockRandom).createDeckInstance(originalList);
 
-		assertEquals(List.of(card1), result.getCards());
+		assertEquals(originalList, result.getCards());
 
 		EasyMock.verify(mockRandom);
 	}
@@ -47,9 +50,11 @@ public class CreateDeckInstanceTests {
 
 		EasyMock.replay(mockRandom);
 
-		Deck result = new DeckBuilder(mockRandom).createDeckInstance(List.of(card1, card2));
+		List<Card> originalList = List.of(card1, card2);
+		Deck result = new DeckBuilder(mockRandom).createDeckInstance(originalList);
 
-		assertEquals(List.of(card2, card1), result.getCards());
+		List<Card> expectedList = List.of(card2, card1);
+		assertEquals(expectedList, result.getCards());
 
 		EasyMock.verify(mockRandom);
 	}
@@ -65,9 +70,11 @@ public class CreateDeckInstanceTests {
 
 		EasyMock.replay(mockRandom);
 
-		Deck result = new DeckBuilder(mockRandom).createDeckInstance(List.of(card1, card2, card1));
+		List<Card> originalList = List.of(card1, card2, card1);
+		Deck result = new DeckBuilder(mockRandom).createDeckInstance(originalList);
 
-		assertEquals(List.of(card2, card1, card1), result.getCards());
+		List<Card> expectedList = List.of(card2, card1, card1);
+		assertEquals(expectedList, result.getCards());
 
 		EasyMock.verify(mockRandom);
 	}

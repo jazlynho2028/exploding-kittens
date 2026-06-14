@@ -89,7 +89,7 @@ public class DeckBuilderTests {
     }
 
     @Test
-    public void initializeDeckWithoutDefuses_SingleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
+    public void initializeDeckWithoutDefuses_SingleInstanceCards_PopulateCorrectCards() {
         verifyCardTypeGroup(baseCards, CardType.MILD_SHUFFLE,
                 NUM_MILD_SHUFFLE_IN_GAME, "MILDSHUFFLE");
         verifyCardTypeGroup(baseCards, CardType.GODCAT, NUM_GODCAT_IN_GAME, "GODCAT");
@@ -103,12 +103,12 @@ public class DeckBuilderTests {
     }
 
     @Test
-    public void initializeDeckWithoutDefuses_DoubleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
+    public void initializeDeckWithoutDefuses_DoubleInstanceCards_PopulateCorrectCards() {
         verifyCardTypeGroup(baseCards, CardType.SUPER_SKIP, NUM_SUPER_SKIP_IN_GAME, "SUPERSKIP");
     }
 
     @Test
-    public void initializeDeckWithoutDefuses_TripleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
+    public void initializeDeckWithoutDefuses_TripleInstanceCards_PopulateCorrectCards() {
         verifyCardTypeGroup(baseCards, CardType.ATTACK, NUM_ATTACK_IN_GAME, "ATTACK");
         verifyCardTypeGroup(baseCards, CardType.SKIP, NUM_SKIP_IN_GAME, "SKIP");
         verifyCardTypeGroup(baseCards, CardType.CLONE, NUM_CLONE_IN_GAME, "CLONE");
@@ -119,7 +119,7 @@ public class DeckBuilderTests {
     }
 
     @Test
-    public void initializeDeckWithoutDefuses_QuadrupleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
+    public void initializeDeckWithoutDefuses_QuadrupleInstanceCards_PopulateCorrectCards() {
         verifyCardTypeGroup(baseCards, CardType.FERAL_CAT, NUM_FERAL_CAT_IN_GAME, "FERALCAT");
         verifyCardTypeGroup(baseCards, CardType.SEE_THE_FUTURE,
                 NUM_SEE_THE_FUTURE_IN_GAME, "SEETHEFUTURE");
