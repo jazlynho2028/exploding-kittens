@@ -2659,7 +2659,7 @@ public class GameTests {
 		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 		game.setIsGameOngoing(true);
-		
+
 		EasyMock.replay(game);
 
 		Card actualCard = game.drawFromTheBottom();
@@ -3436,9 +3436,13 @@ public class GameTests {
 
 		EasyMock.expect(turnManager.getDrawCount()).andStubReturn(initialDrawCount);
 		turnManager.setDrawCount(expectedDrawCount);
-		EasyMock.expectLastCall().atLeastOnce();
+		EasyMock.expectLastCall();
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer, game);
+
+		if (initialDrawCount > 1) {
+			game.setIsAttackOngoing(true);
+		}
 
 		game.applyAttack();
 
