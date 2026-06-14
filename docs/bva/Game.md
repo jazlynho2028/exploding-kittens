@@ -552,8 +552,8 @@
     - both cards are added to discardPile
     - returns CardType matching the played combo
 
-- **TC70: Valid three-of-a-kind cat card combo played** ( :x: )
-  - **Name of the test**: playSelectedCards_validThreeOfAKind_discardsCardsAndSetsAsynchronousWaitState
+- **TC70: Valid three-of-a-kind cat card combo played** ( :white_check_mark: )
+  - **Name of the test**: playSelectedCards_validThreeOfAKind_discardsCardsAndTriggersTheft
   - **State of the system**: isGameOngoing = true (exactly 3 matching cat cards selected)
   - **Expected output**: 
     - 3 cards are removed from active player's hand

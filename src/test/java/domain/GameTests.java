@@ -902,6 +902,49 @@ public class GameTests {
 	}
 
 	@Test
+	public void playSelectedCards_validThreeOfAKind_discardsCardsAndTriggersTheft() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		CardType comboType = CardType.CAT_CARD_3;
+		Card card1 = EasyMock.createMock(Card.class);
+		Card card2 = EasyMock.createMock(Card.class);
+		Card card3 = EasyMock.createMock(Card.class);
+
+		EasyMock.expect(card1.getType()).andStubReturn(comboType);
+		EasyMock.expect(card2.getType()).andStubReturn(comboType);
+		EasyMock.expect(card3.getType()).andStubReturn(comboType);
+
+		List<Card> selectedCards = List.of(card1, card2, card3);
+
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getSelectedCards()).andStubReturn(selectedCards);
+
+		setMoveCardToDiscardExpectations(selectedCards, discardPile, currentPlayer);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("canPlaySelected")
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.canPlaySelected()).andStubReturn(true);
+		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
+
+		EasyMock.replay(game);
+
+		CardType actualCardType = game.playSelectedCards();
+
+		assertEquals(comboType, actualCardType);
+
+		EasyMock.verify(card1, card2, card3, discardPile, currentPlayer, game);
+	}
+
+	@Test
 	public void applySuperSkip_called_endTurn() {
 		List<Player> players = EasyMock.createMock(List.class);
 
