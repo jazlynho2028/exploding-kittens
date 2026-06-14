@@ -128,6 +128,10 @@ public class Game {
         return getCurrentPlayer().getHandIds();
     }
 
+    public int getSelectedCardsCount() {
+        return getCurrentPlayer().getSelectedCards().size();
+    }
+
     public boolean canPlaySelected() {
         if (!canPlay) {
             return false;
@@ -586,8 +590,16 @@ public class Game {
         }
     }
 
-    public void playThreeOfAKind() {
+    public void playThreeOfAKind(int targetPlayerIndex, CardType requestedCardType) {
+        Player targetPlayer = players.get(targetPlayerIndex);
+        List<Card> targetHand = targetPlayer.getHand();
 
+        for (Card card: targetHand) {
+            if (card.getType() == requestedCardType) {
+                targetPlayer.removeCardFromHand(card);
+                getCurrentPlayer().addCardToHand(card);
+                break;
+            }
+        }
     }
-
 }

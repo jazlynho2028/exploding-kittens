@@ -3743,4 +3743,45 @@ public class GameTests {
 
 		EasyMock.verify(players, targetPlayer, rand);
 	}
+
+	@Test
+	public void playThreeOfAKind_targetHasCard_transfersCard() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		Player targetPlayer = EasyMock.createMock(Player.class);
+
+		Card targetCard = EasyMock.createMock(Card.class);
+
+		int targetPlayerIndex = 1;
+
+		EasyMock.expect(targetCard.getType()).andStubReturn(CardType.ATTACK);
+		List<Card> targetHand = List.of(targetCard);
+
+		EasyMock.expect(players.get(targetPlayerIndex)).andReturn(targetPlayer);
+		EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
+
+		targetPlayer.removeCardFromHand(targetCard);
+		EasyMock.expectLastCall();
+
+		currentPlayer.addCardToHand(targetCard);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				currentPlayer, targetPlayer, targetCard);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
+		EasyMock.replay(game);
+
+		game.playThreeOfAKind(targetPlayerIndex, CardType.ATTACK);
+
+		EasyMock.verify(players, targetPlayer, currentPlayer, game);
+	}
 }

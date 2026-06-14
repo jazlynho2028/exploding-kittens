@@ -1822,29 +1822,22 @@
   - **State of the system**: target player hand size = 0
   - **Expected output**: hand sizes remain unchanged; execution returns cleanly without error
 
-### Method under test: `playThreeOfAKind(int targetPlayerIndex)`
-- **TC232: Initializing state flags for interactive overlay request loop** ( :x: )
-  - **Name of the test**: playThreeOfAKind_setsPendingResolutionFlags
-  - **State of the system**: target player selected (targetPlayerIndex)
-  - **Expected output**: 
-    - isAwaitingCardRequest = true
-
-### Method under test: `resolveThreeOfAKindRequest(CardType requestedType)`
-- **TC233: Target possesses the specific requested card type** ( :x: )
-  - **Name of the test**: resolveThreeOfAKindRequest_targetHasCard_transfersCardAndResetsFlags
-  - **State of the system**: 
-    - isAwaitingCardRequest = true
-    - target player has at least one card matching requestedType in hand
+### Method under test: `playThreeOfAKind(int targetPlayerIndex, CardType requestedCardType)`
+- **TC232: Target has the specific requested card type** ( :white_check_mark: )
+  - **Name of the test**: playThreeOfAKind_targetHasCard_transfersCard
+  - **State of the system**: target player has at least one card matching requestedType in hand
   - **Expected output**: 
     - first matching card removed from target player's hand
     - card added to current player's hand
-    - isAwaitingCardRequest = false
 
-- **TC234: Target does not possess the requested card type** ( :x: )
-  - **Name of the test**: resolveThreeOfAKindRequest_targetDoesNotHaveCard_resetsFlagsWithoutTransfer
-  - **State of the system**: 
-    - isAwaitingCardRequest = true
-    - target player has zero cards matching requestedType in hand
+- **TC233: Target does not have the requested card type** ( :x: )
+  - **Name of the test**: playThreeOfAKind_targetDoesNotHaveCard_noTransfer
+  - **State of the system**: target player has zero cards matching requestedType in hand
   - **Expected output**: 
     - no cards are transferred between hands
-    - isAwaitingCardRequest = false
+
+- **TC234: Target has an empty hand** ( :x: )
+  - **Name of the test**: playThreeOfAKind_targetHandEmpty_noTransfer
+  - **State of the system**: target player has zero cards matching requestedType in hand
+  - **Expected output**:
+    - no cards are transferred between hands
