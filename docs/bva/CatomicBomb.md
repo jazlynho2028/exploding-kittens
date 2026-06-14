@@ -1,0 +1,61 @@
+### Feature under test: `Catomic Bomb`
+- **TC1: Normal turn, pile has EK mixed with regular cards** ( :white_check_mark: )
+    - **Name of the test**: catomicBomb_normalTurn_sortsKittensToTopAndEndsTurn
+    - **State of the system**:
+        - 2 players
+        - player under test at index 0
+        - player has catomicBomb in hand and it is selected
+        - 5 regular cards (SEE_THE_FUTURE) are added to the top of the draw pile
+        - player is taking a normal turn (drawCount = 1)
+    - **Expected output**:
+        - current player index becomes 1 (turn ends and advances to the next player)
+        - drawCount = 1
+        - the top card of the draw pile is an EXPLODING_KITTEN
+
+- **TC2: Under attack (drawCount > 1), pile has EK** ( :white_check_mark: )
+    - **Name of the test**: catomicBomb_underAttack_sortsKittensAndDecrementsCount
+    - **State of the system**:
+        - 2 players
+        - player under test at index 0
+        - player has catomicBomb in hand and it is selected
+        - 5 regular cards (SEE_THE_FUTURE) are added to the top of the draw pile
+        - player is under an attack (drawCount = 3)
+    - **Expected output**:
+        - current player index remains 0 (it is still the target player's turn)
+        - turn manager's drawCount is decremented to 2
+        - the top card of the draw pile is an EXPLODING_KITTEN
+
+- **TC3: Under attack, next draw after bomb is the EK** ( :white_check_mark: )
+    - **Name of the test**: catomicBomb_underAttack_nextDrawIsExplodingKitten
+    - **State of the system**:
+        - 2 players
+        - player under test at index 0
+        - player has catomicBomb in hand and it is selected
+        - 5 regular cards (SEE_THE_FUTURE) are added to the top of the draw pile
+        - player is under an attack (drawCount = ATTACK_DRAW_COUNT)
+        - player plays the selected catomic bomb
+    - **Expected output**:
+        - a subsequent call to drawFromPile() returns a card of type EXPLODING_KITTEN
+
+- **TC4: Four players, all three EKs consolidated at top** ( :white_check_mark: )
+    - **Name of the test**: catomicBomb_fourPlayers_allKittensConsolidatedAtTop
+    - **State of the system**:
+        - 4 players
+        - player under test at index 0
+        - player has catomicBomb in hand and it is selected
+        - 5 regular cards (SEE_THE_FUTURE) are added to the top of the draw pile
+    - **Expected output**:
+        - the top 3 cards of the draw pile (numPlayers - 1) are all EXPLODING_KITTENs
+
+- **TC5: Target player is not first, game mid-turn** ( :white_check_mark: )
+    - **Name of the test**: catomicBomb_playerNotFirst_sortsKittensAndEndsTurn
+    - **State of the system**:
+        - 4 players
+        - player under test at index 2
+        - game has advanced turns so it is currently player 2's turn
+        - player has catomicBomb in hand and it is selected
+        - 5 regular cards (SEE_THE_FUTURE) are added to the top of the draw pile
+        - player is taking a normal turn (drawCount = 1)
+    - **Expected output**:
+        - current player index becomes 3 (turn ends and advances to the next player)
+        - the top card of the draw pile is an EXPLODING_KITTEN
