@@ -43,8 +43,7 @@ conflicted with project design requirements or testability
   mutable domain models, configurations, or UI views. Performing defensive copying
   inside these constructors is intentionally omitted for two primary reasons:
     - One, It would decouple the class from the centralized state, breaking real-time updates
-      across the architecture (especially critical for JavaFX elements and active domain
-      aggregates which cannot or should not be cloned).
+      across the architecture.
     - Two, It would sever the link to the exact mock objects injected by our testing framework
       (EasyMock), making it impossible to verify method interactions or stub dynamic behaviors during unit testing.
       List of affected files below.
@@ -54,6 +53,7 @@ conflicted with project design requirements or testability
         - `src/main/java/ui/ErrorController.java`
         - `src/main/java/domain/Game.java`
         - `src/main/java/domain/Deck.java`
+        - `src/main/java/domain/DeckBuilder.java`
 
 - CT_CONSTRUCTOR_THROW
   Constructors perform validation of inputs and may throw an
