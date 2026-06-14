@@ -19,7 +19,7 @@ public class Game {
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
-    private boolean canPlay;
+    private boolean isAttackOngoing;
 
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2"},
@@ -37,7 +37,7 @@ public class Game {
 
         isGameOngoing = false;
         isFaceUp = false;
-        canPlay = false;
+        isAttackOngoing = false;
     }
 
     public void setUp() {
@@ -94,7 +94,6 @@ public class Game {
 
         changeCurrentPlayerIndex(GameConstants.STARTING_PLAYER_INDEX);
         isGameOngoing = true;
-        canPlay = true;
     }
 
     private void addExplodingKittens() {
@@ -129,7 +128,7 @@ public class Game {
     }
 
     public boolean canPlaySelected() {
-        if (!canPlay) {
+        if (!getCanDraw()) {
             return false;
         }
 
@@ -225,20 +224,16 @@ public class Game {
         return isGameOngoing && turnManager.getDrawCount() > 0;
     }
 
-    public boolean getCanPlay() {
-        return isGameOngoing && canPlay;
-    }
-
-    void setCanPlay(boolean canPlay) {
-        this.canPlay = canPlay;
-    }
-
     public boolean getIsFaceUp() {
         return isFaceUp;
     }
 
     void setIsFaceUp(boolean isFaceUp) {
         this.isFaceUp = isFaceUp;
+    }
+
+    void setIsAttackOngoing(boolean isAttackOngoing) {
+        this.isAttackOngoing = isAttackOngoing;
     }
 
     public void changeCurrentPlayerIndex(int newPlayerIndex) {
@@ -259,9 +254,13 @@ public class Game {
         }
 
         turnManager.decrementDrawCount();
+
+        if (turnManager.getDrawCount() == 0) {
+            isAttackOngoing = false;
+        }
+
         getCurrentPlayer().deselectHandCards();
 
-        canPlay = false;
         return card;
     }
 
@@ -306,7 +305,6 @@ public class Game {
     }
 
     private void nextTurn() {
-        canPlay = true;
         isFaceUp = false;
         turnManager.incrementTurn(getAliveIndices());
         turnManager.incrementDrawCount();
@@ -384,7 +382,20 @@ public class Game {
     }
 
     void applyAttack() {
-        // TODO
+        getCurrentPlayer().deselectHandCards();
+        addAttackDrawCount();
+        turnManager.incrementTurn(getAliveIndices());
+    }
+
+    void addAttackDrawCount() {
+        if (isAttackOngoing) {
+            turnManager.setDrawCount(
+                    turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
+        }
+        else {
+            turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+            isAttackOngoing = true;
+        }
     }
 
     void applyShuffle() {
@@ -477,21 +488,10 @@ public class Game {
 
     public void applyTargetedAttack(int targetPlayerIndex) {
         getCurrentPlayer().deselectHandCards();
+        addAttackDrawCount();
         while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
             turnManager.incrementTurn(getAliveIndices());
         }
-        addAttackDrawCount();
-    }
-
-    void addAttackDrawCount() {
-        if (turnManager.getDrawCount() >= 2) {
-            turnManager.setDrawCount(
-                    turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
-        }
-        else {
-            turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
-        }
-
     }
 
     boolean reachedWinnerWinnerCondition() {
@@ -516,6 +516,11 @@ public class Game {
         Player currentPlayer = getCurrentPlayer();
         Player targetPlayer = players.get(targetPlayerIndex);
         currentPlayer.swapHandWith(targetPlayer);
+    }
+
+    public Card drawRecycle() {
+        discardPile.shuffle();
+        return drawCard(discardPile::peekBottom, discardPile::removeBottom);
     }
 
     void applyDoubleUp() {
@@ -544,11 +549,6 @@ public class Game {
         }
 
         throw new IllegalStateException("error.noWinner");
-    }
-
-    public Card drawRecycle() {
-        discardPile.shuffle();
-        return drawCard(discardPile::peekBottom, discardPile::removeBottom);
     }
 
 }
