@@ -3516,7 +3516,7 @@ public class GameTests {
 		EasyMock.verify(turnManager);
 	}
 
-	private static Card mockSpecificCard(CardType cardType, int idNum) {
+	public static Card mockSpecificCard(CardType cardType, int idNum) {
 		EasyMock.reportMatcher(new IArgumentMatcher() {
 			@Override
 			public boolean matches(Object argument) {

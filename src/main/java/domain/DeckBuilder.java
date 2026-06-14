@@ -6,7 +6,10 @@ import static domain.GameConstants.*;
 
 public class DeckBuilder {
 
-    public DeckBuilder() {
+    private final Random random;
+
+    public DeckBuilder(Random random) {
+        this.random = random;
     }
 
     public Deck initializeDeck(int numPlayers) {
@@ -20,7 +23,7 @@ public class DeckBuilder {
 
     Deck createDeckInstance(List<Card> cardsList) {
         Deque<Card> deckDeque = new ArrayDeque<>(cardsList);
-        Deck baseDeck = new Deck(deckDeque, new Random());
+        Deck baseDeck = new Deck(deckDeque, random);
         baseDeck.shuffle();
 
         return baseDeck;

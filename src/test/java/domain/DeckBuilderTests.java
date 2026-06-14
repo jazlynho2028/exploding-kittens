@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Random;
 
 import static domain.GameConstants.*;
 import static org.easymock.EasyMock.*;
@@ -15,13 +16,14 @@ public class DeckBuilderTests {
     private List<Card> baseCards;
 
     @BeforeEach
-    void setUp() {
-        DeckBuilder builder = new DeckBuilder();
+    public void setUp() {
+        Random mockRandom = EasyMock.createMock(Random.class);
+        DeckBuilder builder = new DeckBuilder(mockRandom);
         baseCards = builder.initializeDeckWithoutDefuses();
     }
 
     @Test
-    void initializeDeck_MinimumPlayers_AppendsThreeDefuses() {
+    public void initializeDeck_MinimumPlayers_AppendsThreeDefuses() {
         Deck mockDeck = mock(Deck.class);
         DeckBuilder deckBuilder = EasyMock.createMockBuilder(DeckBuilder.class)
                 .addMockedMethod("createDeckInstance")
@@ -51,7 +53,7 @@ public class DeckBuilderTests {
     }
 
     @Test
-    void initializeDeck_MaximumPlayers_AppendsOneDefuse() {
+    public void initializeDeck_MaximumPlayers_AppendsOneDefuse() {
         Deck mockDeck = mock(Deck.class);
         DeckBuilder deckBuilder = EasyMock.createMockBuilder(DeckBuilder.class)
                 .addMockedMethod("createDeckInstance")
@@ -81,13 +83,13 @@ public class DeckBuilderTests {
     }
 
     @Test
-    void initializeDeckWithoutDefuses_TotalCardCount_EqualsBaselineConstant() {
+    public void initializeDeckWithoutDefuses_TotalCardCount_EqualsBaselineConstant() {
         int expectedDeckSizeWithoutDefuses = getExpectedDeckSizeWithoutDefuses();
         assertEquals(expectedDeckSizeWithoutDefuses, baseCards.size());
     }
 
     @Test
-    void initializeDeckWithoutDefuses_SingleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
+    public void initializeDeckWithoutDefuses_SingleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
         verifyCardTypeGroup(baseCards, CardType.MILD_SHUFFLE,
                 NUM_MILD_SHUFFLE_IN_GAME, "MILDSHUFFLE");
         verifyCardTypeGroup(baseCards, CardType.GODCAT, NUM_GODCAT_IN_GAME, "GODCAT");
@@ -101,12 +103,12 @@ public class DeckBuilderTests {
     }
 
     @Test
-    void initializeDeckWithoutDefuses_DoubleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
+    public void initializeDeckWithoutDefuses_DoubleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
         verifyCardTypeGroup(baseCards, CardType.SUPER_SKIP, NUM_SUPER_SKIP_IN_GAME, "SUPERSKIP");
     }
 
     @Test
-    void initializeDeckWithoutDefuses_TripleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
+    public void initializeDeckWithoutDefuses_TripleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
         verifyCardTypeGroup(baseCards, CardType.ATTACK, NUM_ATTACK_IN_GAME, "ATTACK");
         verifyCardTypeGroup(baseCards, CardType.SKIP, NUM_SKIP_IN_GAME, "SKIP");
         verifyCardTypeGroup(baseCards, CardType.CLONE, NUM_CLONE_IN_GAME, "CLONE");
@@ -117,7 +119,7 @@ public class DeckBuilderTests {
     }
 
     @Test
-    void initializeDeckWithoutDefuses_QuadrupleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
+    public void initializeDeckWithoutDefuses_QuadrupleInstanceCards_PopulateCorrectQuantitiesAndIDs() {
         verifyCardTypeGroup(baseCards, CardType.FERAL_CAT, NUM_FERAL_CAT_IN_GAME, "FERALCAT");
         verifyCardTypeGroup(baseCards, CardType.SEE_THE_FUTURE,
                 NUM_SEE_THE_FUTURE_IN_GAME, "SEETHEFUTURE");
@@ -131,43 +133,43 @@ public class DeckBuilderTests {
     }
 
     @Test
-    void calculateDefusesToAdd_NegativeDefuses_ThrowsException() {
+    public void calculateDefusesToAdd_NegativeDefuses_ThrowsException() {
         assertThrows(IllegalArgumentException.class, () ->
                 DeckBuilder.calculateDefusesToAdd(NUM_DEFUSES_IN_GAME + 1));
     }
 
     @Test
-    void calculateDefusesToAdd_MinimumPlayers_ReturnsThree() {
+    public void calculateDefusesToAdd_MinimumPlayers_ReturnsThree() {
         int numDefuses = DeckBuilder.calculateDefusesToAdd(MIN_PLAYERS);
         assertEquals(NUM_DEFUSES_IN_GAME - MIN_PLAYERS, numDefuses);
     }
 
     @Test
-    void calculateDefusesToAdd_MaximumPlayers_ReturnsOne() {
+    public void calculateDefusesToAdd_MaximumPlayers_ReturnsOne() {
         int numDefuses = DeckBuilder.calculateDefusesToAdd(MAX_PLAYERS);
         assertEquals(NUM_DEFUSES_IN_GAME - MAX_PLAYERS, numDefuses);
     }
 
     @Test
-    void calculateDefusesToAdd_OneOverMaximumPlayers_ReturnsZero() {
+    public void calculateDefusesToAdd_OneOverMaximumPlayers_ReturnsZero() {
         int numDefuses = DeckBuilder.calculateDefusesToAdd(MAX_PLAYERS + 1);
         assertEquals(0, numDefuses);
     }
 
     @Test
-    void createCardID_LowerValidInput_ReturnsCorrectString() {
+    public void createCardID_LowerValidInput_ReturnsCorrectString() {
         String actualID = DeckBuilder.createCardId(CardType.FERAL_CAT, 1);
         assertEquals("FERALCAT_1", actualID);
     }
 
     @Test
-    void createCardID_UpperValidInput_ReturnsCorrectString() {
+    public void createCardID_UpperValidInput_ReturnsCorrectString() {
         String actualID = DeckBuilder.createCardId(CardType.ATTACK, NUM_ATTACK_IN_GAME);
         assertEquals("ATTACK_3", actualID);
     }
 
     @Test
-    void createCardId_ZeroSequenceNumber_ThrowsException() {
+    public void createCardId_ZeroSequenceNumber_ThrowsException() {
         assertThrows(IllegalArgumentException.class, () ->
                 DeckBuilder.createCardId(CardType.MILD_SHUFFLE, 0));
     }
