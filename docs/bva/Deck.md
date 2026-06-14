@@ -415,7 +415,15 @@
     - deck size is 1
     - random.nextInt is not called
 
-- **TC55: Shuffle top N cards when n is less than deck size** ( :white_check_mark: )
+- **TC55: Shuffle top N cards when exactly one card would be shuffled** ( :white_check_mark: )
+  - **Name of the test**: `shuffleTopNCards_oneCardCount_returnsBeforeRebuildingDeck`
+  - **State of the system**: Deck reports exactly one card available to shuffle; n = 1
+  - **Expected output**:
+    - Method returns after checking deck size
+    - Deck rebuilding methods are not called
+    - random.nextInt is not called
+
+- **TC56: Shuffle top N cards when n is less than deck size** ( :white_check_mark: )
   - **Name of the test**: `shuffleTopNCards_countLessThanDeckSize_onlyTopCardsShuffled`
   - **State of the system**: 
     - Deck has cards: [card1, card2, card3, card4]
@@ -426,7 +434,7 @@
     - The remaining cards stay in the same order
     - Deck becomes [card2, card3, card1, card4]
 
-- **TC56: Shuffle top N cards when n is greater than deck size** ( :white_check_mark: )
+- **TC57: Shuffle top N cards when n is greater than deck size** ( :white_check_mark: )
   - **Name of the test**: `shuffleTopNCards_countGreaterThanDeckSize_shufflesAllCards`
   - **State of the system**: 
     - Deck has cards: [card1, card2]
