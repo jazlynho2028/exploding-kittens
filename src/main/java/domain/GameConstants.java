@@ -54,7 +54,7 @@ public final class GameConstants {
 			CardType.FERAL_CAT
 	);
 
-	public static final List<CardType> GODCAT_CARDTYPE_OPTIONS = List.of(
+	public static final List<CardType> SELECTABLE_CARDTYPE_OPTIONS = List.of(
 			CardType.ATTACK,
 			CardType.SHUFFLE,
 			CardType.SKIP,

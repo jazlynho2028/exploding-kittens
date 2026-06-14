@@ -544,9 +544,9 @@ public class PlayerDeckControllerTests {
 		controller.updateAll();
 		EasyMock.expectLastCall();
 
-		view.bindGodcatConfirmButton(EasyMock.anyObject());
+		view.bindCardSelectConfirmButton(EasyMock.anyObject());
 		EasyMock.expectLastCall();
-		view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+		view.buildCardSelectOverlay(GameConstants.SELECTABLE_CARDTYPE_OPTIONS, EasyMock.anyString());
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view, controller);
@@ -1009,7 +1009,7 @@ public class PlayerDeckControllerTests {
 				.addMockedMethod("updateByCardType")
 				.createMock();
 
-		EasyMock.expect(view.getSelectedGodcatCardType()).andStubReturn(cardType);
+		EasyMock.expect(view.getSelectedOverlayCardType()).andStubReturn(cardType);
 		model.applyGodcat(cardType);
 		EasyMock.expectLastCall();
 		view.hideOverlay();
@@ -1031,7 +1031,7 @@ public class PlayerDeckControllerTests {
 		Consumer<String> onError = EasyMock.createMock(Consumer.class);
 		CardType cardType = CardType.ATTACK;
 
-		EasyMock.expect(view.getSelectedGodcatCardType()).andStubReturn(cardType);
+		EasyMock.expect(view.getSelectedOverlayCardType()).andStubReturn(cardType);
 		model.applyGodcat(cardType);
 		EasyMock.expectLastCall().andThrow(new RuntimeException(EXPECTED_ERROR_MSG));
 		onError.accept(EXPECTED_ERROR_MSG);

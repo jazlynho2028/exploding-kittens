@@ -42,8 +42,8 @@ public class PlayerDeckView {
 	private final Button explodeButton;
 	private final Button defuseButton;
 	private final Slider defuseSlider;
-    private final Button godcatConfirmButton;
-    private CardType selectedGodcatCardType;
+    private final Button cardSelectConfirmButton;
+    private CardType selectedOverlayCardType;
     private final Button playAgainButton;
 
     public PlayerDeckView(AssetProvider assetProvider) {
@@ -64,8 +64,8 @@ public class PlayerDeckView {
 		explodeButton = new Button();
 		defuseButton = new Button();
 		defuseSlider = new Slider();
-        godcatConfirmButton = new Button();
-        selectedGodcatCardType = CardType.ATTACK;;
+        cardSelectConfirmButton = new Button();
+        selectedOverlayCardType = CardType.ATTACK;;
         playAgainButton = new Button();
 
         buildUI();
@@ -120,9 +120,9 @@ public class PlayerDeckView {
 		explodeButton.setOnMouseClicked(e -> handler.run());
 	}
 
-	public void bindGodcatConfirmButton(Runnable handler) {
-		godcatConfirmButton.setOnMouseClicked(e -> handler.run());
-	}
+    public void bindCardSelectConfirmButton(Runnable handler) {
+        cardSelectConfirmButton.setOnMouseClicked(e -> handler.run());
+    }
 
     public void bindPlayAgainButton(Runnable handler) {
         playAgainButton.setOnMouseClicked(e -> handler.run());
@@ -880,12 +880,17 @@ public class PlayerDeckView {
         return closeButton;
     }
 
-    public void buildGodcatOverlay(List<CardType> cardTypeOptions) {
-        buildCardSelectOverlay(cardTypeOptions, godcatConfirmButton,
-                assetProvider.getString("playerDeckScreen.godcatCaption"));
+    public void buildCardSelectOverlay(List<CardType> cardTypeOptions, String titleMode) {
+        String heading;
+        if ("GODCAT".equals(titleMode)) {
+            heading = assetProvider.getString("playerDeckScreen.godcatCaption");
+        } else {
+            heading = assetProvider.getString("playerDeckScreen.cardRequestCaption");
+        }
+        buildCardSelectOverlayInternal(cardTypeOptions, cardSelectConfirmButton, heading);
     }
 
-    private void buildCardSelectOverlay(
+    private void buildCardSelectOverlayInternal(
             List<CardType> cardTypes, Button confirmButton, String titleText) {
 
         VBox content = buildOverlayContent();
@@ -934,11 +939,11 @@ public class PlayerDeckView {
         cardButton.setGraphic(cardFront);
 
         cardButton.setOnMouseClicked(e -> {
-            selectedGodcatCardType = cardType;
+            selectedOverlayCardType = cardType;
             cardOptions.getChildren().forEach(button ->
                     ((ToggleButton) button).setSelected(false));
             cardButton.setSelected(true);
-            godcatConfirmButton.setDisable(false);
+            cardSelectConfirmButton.setDisable(false);
         });
 
         return cardButton;
@@ -973,8 +978,7 @@ public class PlayerDeckView {
         overlayLayer.getChildren().clear();
     }
 
-    public CardType getSelectedGodcatCardType() {
-        return selectedGodcatCardType;
+    public CardType getSelectedOverlayCardType() {
+        return selectedOverlayCardType;
     }
-
 }
