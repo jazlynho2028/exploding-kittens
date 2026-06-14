@@ -1817,7 +1817,7 @@
   - **State of the system**: target player hand size > 0
   - **Expected output**: 1 random card removed from target player's hand and added to current player's hand
 
-- **TC231: Random theft against target with an empty hand** ( :x: )
+- **TC231: Random theft against target with an empty hand** ( :white_check_mark: )
   - **Name of the test**: playTwoOfAKind_targetHasNoCards_noCardTransferred
   - **State of the system**: target player hand size = 0
   - **Expected output**: hand sizes remain unchanged; execution returns cleanly without error

@@ -3720,4 +3720,27 @@ public class GameTests {
 
 		EasyMock.verify(players, targetPlayer, currentPlayer, rand, game);
 	}
+
+	@Test
+	public void playTwoOfAKind_targetHasNoCards_noCardTransferred() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+		Player targetPlayer = EasyMock.createMock(Player.class);
+		java.util.Random rand = EasyMock.createMock(java.util.Random.class);
+
+		int targetPlayerIndex = 2;
+
+		EasyMock.expect(players.get(targetPlayerIndex)).andReturn(targetPlayer);
+		EasyMock.expect(targetPlayer.getHand()).andReturn(Collections.emptyList());
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, targetPlayer, rand);
+
+		Game game = new Game(players, drawPile, discardPile, turnManager);
+
+		assertDoesNotThrow(() -> game.playTwoOfAKind(targetPlayerIndex, rand));
+
+		EasyMock.verify(players, targetPlayer, rand);
+	}
 }
