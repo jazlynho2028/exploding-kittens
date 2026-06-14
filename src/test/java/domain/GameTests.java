@@ -3680,4 +3680,44 @@ public class GameTests {
 
 		return matchesType && matchesId;
 	}
+
+	@Test
+	public void playTwoOfAKind_targetHasCards_transfersRandomCard() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+		java.util.Random rand = EasyMock.createMock(java.util.Random.class);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		Player targetPlayer = EasyMock.createMock(Player.class);
+		Card stolenCard = EasyMock.createMock(Card.class);
+
+		int targetPlayerIndex = 1;
+		List<Card> targetHand = List.of(stolenCard);
+
+		EasyMock.expect(players.get(targetPlayerIndex)).andReturn(targetPlayer);
+		EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
+		EasyMock.expect(rand.nextInt(targetHand.size())).andStubReturn(0);
+
+		targetPlayer.removeCardFromHand(stolenCard);
+		EasyMock.expectLastCall();
+
+		currentPlayer.addCardToHand(stolenCard);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, rand,
+				currentPlayer, targetPlayer, stolenCard);
+
+		Game game = EasyMock.createMockBuilder(Game.class)
+				.withConstructor(players, drawPile, discardPile, turnManager)
+				.addMockedMethod("getCurrentPlayer")
+				.createMock();
+
+		EasyMock.expect(game.getCurrentPlayer()).andStubReturn(currentPlayer);
+		EasyMock.replay(game);
+
+		game.playTwoOfAKind(targetPlayerIndex, rand);
+
+		EasyMock.verify(players, targetPlayer, currentPlayer, rand, game);
+	}
 }

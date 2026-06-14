@@ -174,12 +174,8 @@ public class Game {
             discardPile.addCardToTop(card);
         }
 
-        if (selectedCards.size() == GameConstants.TWO_CARDS) {
-            playTwoOfAKind();
-            return cardType;
-        }
-        else if (selectedCards.size() == GameConstants.THREE_CARDS) {
-            playThreeOfAKind();
+        if (selectedCards.size() == GameConstants.TWO_CARDS ||
+                selectedCards.size() == GameConstants.THREE_CARDS) {
             return cardType;
         }
 
@@ -577,8 +573,17 @@ public class Game {
         return drawCard(discardPile::peekBottom, discardPile::removeBottom);
     }
 
-    public void playTwoOfAKind() {
+    public void playTwoOfAKind(int targetPlayerIndex, java.util.Random random) {
+        Player targetPlayer = players.get(targetPlayerIndex);
+        List<Card> targetHand = targetPlayer.getHand();
 
+        if (!targetHand.isEmpty()) {
+            int randomIndex = random.nextInt(targetHand.size());
+            Card stolenCard = targetHand.get(randomIndex);
+
+            targetPlayer.removeCardFromHand(stolenCard);
+            getCurrentPlayer().addCardToHand(stolenCard);
+        }
     }
 
     public void playThreeOfAKind() {

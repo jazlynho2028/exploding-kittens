@@ -1810,8 +1810,9 @@
   - **Name of the test**: applyDoubleUp_standardCall_callsTurnManagerIncrementDrawCount
   - **State of the system**: drawCount = 1
   - **Expected output**: calls turn manager to increment drawCount to 2
-### Method under test: `playTwoOfAKind(int targetPlayerIndex)`
-- **TC230: Random theft against target with cards remaining** ( :x: )
+  
+### Method under test: `playTwoOfAKind(int targetPlayerIndex, Random random)`
+- **TC230: Random theft against target with cards remaining** ( :white_check_mark: )
   - **Name of the test**: playTwoOfAKind_targetHasCards_transfersRandomCard
   - **State of the system**: target player hand size > 0
   - **Expected output**: 1 random card removed from target player's hand and added to current player's hand
