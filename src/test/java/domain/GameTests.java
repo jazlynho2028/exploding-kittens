@@ -2606,6 +2606,9 @@ public class GameTests {
 		turnManager.decrementDrawCount();
 		EasyMock.expectLastCall();
 
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(1);
+		EasyMock.expect(turnManager.getDrawCount()).andReturn(0);
+
 		currentPlayer.deselectHandCards();
 		EasyMock.expectLastCall();
 
@@ -2614,6 +2617,7 @@ public class GameTests {
 
 		Game game = mockGameWithGetCurrentPlayer(
 				players, drawPile, discardPile, turnManager, currentPlayer);
+		game.setIsGameOngoing(true);
 
 		EasyMock.replay(game);
 
