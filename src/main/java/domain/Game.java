@@ -387,6 +387,17 @@ public class Game {
         turnManager.incrementTurn(getAliveIndices());
     }
 
+    void addAttackDrawCount() {
+        if (isAttackOngoing) {
+            turnManager.setDrawCount(
+                    turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
+        }
+        else {
+            turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+            isAttackOngoing = true;
+        }
+    }
+
     void applyShuffle() {
         drawPile.shuffle();
     }
@@ -483,17 +494,6 @@ public class Game {
         }
     }
 
-    void addAttackDrawCount() {
-        if (isAttackOngoing) {
-            turnManager.setDrawCount(
-                    turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
-        }
-        else {
-            turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
-            isAttackOngoing = true;
-        }
-    }
-
     boolean reachedWinnerWinnerCondition() {
         if (!getCurrentPlayer().isWinnerWinnerActivated()) {
             return false;
@@ -516,6 +516,11 @@ public class Game {
         Player currentPlayer = getCurrentPlayer();
         Player targetPlayer = players.get(targetPlayerIndex);
         currentPlayer.swapHandWith(targetPlayer);
+    }
+
+    public Card drawRecycle() {
+        discardPile.shuffle();
+        return drawCard(discardPile::peekBottom, discardPile::removeBottom);
     }
 
     void applyDoubleUp() {
@@ -544,11 +549,6 @@ public class Game {
         }
 
         throw new IllegalStateException("error.noWinner");
-    }
-
-    public Card drawRecycle() {
-        discardPile.shuffle();
-        return drawCard(discardPile::peekBottom, discardPile::removeBottom);
     }
 
 }
