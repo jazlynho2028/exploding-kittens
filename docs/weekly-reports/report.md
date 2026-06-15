@@ -119,3 +119,21 @@
 25. [30%] Irene: Clone implementation
 26. [50%] Irene: Draw From The Bottom implementation
 27. [30%] Irene: Mild Draw implementation
+
+# Week 11 (06/08/2026-06/14/2026)
+**Planning and Progress Tracking**:
+1. [Done] Ejean: Game rules documentation
+2. [Done] Luke: README.md special cases documentation
+3. [Done] DJ: Design documentation
+4. [Done] Jazlyn: Winner Winner Catnip Dinner implementation
+5. [Done] Jazlyn: Winner Winner Catnip Dinner integration testing
+6. [Done] Ejean: Attack implementation
+7. [Done] Ejean: Feral Cat implementation
+8. [Done] Ejean: Cat Cards 1-4 implementation
+9. [Done] Luke: Ragebait implementation
+10. [Done] Luke: Catomic Bomb integration testing
+11. [Done] DJ: Recycle implementation
+12. [Done] Irene: Shuffle implementation
+13. [Done] Irene: Clone implementation
+14. [Done] Irene: Draw From The Bottom implementation
+15. [Done] Irene: Mild Draw implementation
