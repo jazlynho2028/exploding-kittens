@@ -229,7 +229,7 @@
   - **State of the system**: model.playSelectedCards throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
   
-- **TC27: Cat card Two-of-a-Kind combo played** ( :x: )
+- **TC27: Cat card Two-of-a-Kind combo played** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_twoOfAKind_enablesPlayerSelectMode
   - **State of the system**:
     - model.getSelectedCardsCount returns 2
@@ -244,7 +244,7 @@
       - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, false
       - view.renderTurnControlSection is called with false, false
 
-- **TC27: Cat card Two-of-a-Kind combo played** ( :x: )
+- **TC27: Cat card Three-of-a-Kind combo played** ( :white_check_mark: )
   - **Name of the test**: onPlayCardsButton_threeOfAKind_enablesPlayerSelectMode
   - **State of the system**:
     - model.getSelectedCardsCount returns 3
@@ -257,7 +257,7 @@
         and "REQUEST" header
 
 ## Method under test: `updateByCardType(CardType cardType)`
-- **TC30: No additional UI change** ( :white_check_mark: )
+- **TC28: No additional UI change** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_noAdditionalUIChange_noViewInteractions
   - **State of the system**: cardType =
     - ATTACK
@@ -272,7 +272,7 @@
     - MILD_SHUFFLE
   - **Expected output**: no model or view interactions occur
 
-- **TC31: See The Future card played** ( :white_check_mark: )
+- **TC29: See The Future card played** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_seeTheFuturePlayed_buildsOverlay
   - **State of the system**:
     - cardType = SEE_THE_FUTURE
@@ -280,7 +280,7 @@
   - **Expected output**:
     - view.buildSeeTheFutureOverlay is called with futureCardIds
 
-- **TC32: Targeted Attack card type** ( :white_check_mark: )
+- **TC30: Targeted Attack card type** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_targetedAttackPlayed_enablesPlayerSelectMode
   - **State of the system**:
     - cardType = TARGETED_ATTACK
@@ -293,7 +293,7 @@
     - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, false
     - view.renderTurnControlSection is called with false, false
 
-- **TC33: Ragebait card type** ( :white_check_mark: )
+- **TC31: Ragebait card type** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_ragebaitPlayed_enablesPlayerSelectMode
   - **State of the system**:
     - cardType = RAGEBAIT
@@ -306,21 +306,21 @@
     - view.buildAndAddPlayerHandCards is called with CURRENT_PLAYER_HAND_IDS, isFaceUp, false
     - view.renderTurnControlSection is called with false, false
 
-- **TC34: Recycle played, non-exploding card drawn** ( :white_check_mark: )
+- **TC32: Recycle played, non-exploding card drawn** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_recyclePlayed_nonExplodingCard_success
   - **State of the system**: model.drawRecycle() returns non-exploding card
   - **Expected output**:
     - model.drawRecycle() is called 
     - updateAll() is called
 
-- **TC35: Recycle played, exploding card drawn** ( :white_check_mark: )
+- **TC33: Recycle played, exploding card drawn** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_recyclePlayed_ExplodingCard_success
   - **State of the system**: model.drawRecycle() returns EXPLODING_KITTEN card
   - **Expected output**:
     - model.drawRecycle() is called 
     - handleDrawExplodingKitten is called with exploding kitten card id
 
-- **TC36: Draw From The Bottom played, non-exploding card drawn** ( :white_check_mark: )
+- **TC34: Draw From The Bottom played, non-exploding card drawn** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_drawFromTheBottomPlayed_nonExplodingCard_success
   - **State of the system**:
     - cardType = DRAW_FROM_THE_BOTTOM
@@ -329,7 +329,7 @@
     - model.drawFromTheBottom() is called
     - updateAll() is called
 
-- **TC37: Draw From The Bottom played, exploding card drawn** ( :white_check_mark: )
+- **TC35: Draw From The Bottom played, exploding card drawn** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_drawFromTheBottomPlayed_explodingCard_success
   - **State of the system**:
     - cardType = DRAW_FROM_THE_BOTTOM
@@ -342,7 +342,7 @@
     - view.buildExplodeOverlay is called with false, drawnCardId, drawPileSize - 1
 
 ## Method under test: `applyTargetedAttackAction(int targetIndex)`
-- **TC38: Targeted attack action applied** ( :white_check_mark: )
+- **TC36: Targeted attack action applied** ( :white_check_mark: )
   - **Name of the test**: applyTargetedAttackAction_called_appliesAttackAndChangesPlayer
   - **State of the system**:
     - targetIndex = 1
@@ -351,7 +351,7 @@
     - updateAll is called
 
 ## Method under test: `applyRagebaitAction(int targetIndex)`
-- **TC39: Ragebait action applied** ( :white_check_mark: )
+- **TC37: Ragebait action applied** ( :white_check_mark: )
   - **Name of the test**: applyRagebaitAction_called_appliesRagebaitAndRebindsHand
   - **State of the system**:
     - targetIndex = 1
@@ -360,7 +360,7 @@
     - rebindHandCards is called
 
 ## Method under test: `onEndTurnButton()`
-- **TC40: Turn ends successfully, game ongoing** ( :white_check_mark: )
+- **TC38: Turn ends successfully, game ongoing** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_called_advancesTurnAndRendersNext
   - **State of the system**:
     - model.getIsGameOngoing returns true
@@ -368,7 +368,7 @@
     - model.advanceTurn is called
     - updateAll is called
 
-- **TC41: Turn ends, game over** ( :white_check_mark: )
+- **TC39: Turn ends, game over** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_gameOver_showsWinOverlay
   - **State of the system**:
     - model.getIsGameOngoing returns false
@@ -379,13 +379,13 @@
     - view.buildWinOverlay is called with winnerName
     - view.bindPlayAgainButton is called with onRestart
 
-- **TC42: Caught exception from model** ( :white_check_mark: )
+- **TC40: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onEndTurnButton_modelThrowsException_callsOnError
   - **State of the system**: model.advanceTurn throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onDefuseButton()`
-- **TC43: Defuse Exploding Kitten successfully** ( :white_check_mark: )
+- **TC41: Defuse Exploding Kitten successfully** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_called_defusesAndAdvancesTurn
   - **State of the system**:
     - insertIndex = 2
@@ -395,13 +395,13 @@
     - view.hideOverlay is called
     - updateAll is called
 
-- **TC44: Caught exception from model** ( :white_check_mark: )
+- **TC42: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onDefuseButton_modelThrowsException_callsOnError
   - **State of the system**: model.playDefuse throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onExplodeButton()`
-- **TC45: Explode successfully, game ongoing** ( :white_check_mark: )
+- **TC43: Explode successfully, game ongoing** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_gameOngoing_advancesToNextTurn
   - **State of the system**:
     - model.getIsGameOngoing returns true
@@ -410,7 +410,7 @@
     - view.hideOverlay is called
     - updateAll is called
 
-- **TC46: Explode successfully, game over** ( :white_check_mark: )
+- **TC44: Explode successfully, game over** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_gameOver_showsWinOverlay
   - **State of the system**:
     - model.getIsGameOngoing returns false
@@ -422,13 +422,13 @@
     - view.buildWinOverlay is called with winnerName
     - view.bindPlayAgainButton is called with onRestart
 
-- **TC47: Caught exception from model** ( :white_check_mark: )
+- **TC45: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onExplodeButton_modelThrowsException_callsOnError
   - **State of the system**: model.playExplode throws RuntimeException "An error occurred."
   - **Expected output**: onError accepts exception
 
 ## Method under test: `onGodcatConfirm()`
-- **TC48: Valid card type** ( :white_check_mark: )
+- **TC46: Valid card type** ( :white_check_mark: )
   - **Name of the test**: onGodcatConfirm_validCardType_appliesGodcatAndRendersAll
   - **State of the system**:
     - view.getSelectedOverlayCardType returns ATTACK
@@ -439,7 +439,7 @@
     - updateAll is called
     - updateByCardType is called with ATTACK
 
-- **TC49: Caught exception from model** ( :white_check_mark: )
+- **TC47: Caught exception from model** ( :white_check_mark: )
   - **Name of the test**: onGodcatConfirm_modelThrowsException_callsOnError
   - **State of the system**:
     - view.getSelectedGodcatCardType returns ATTACK
@@ -447,7 +447,7 @@
   - **Expected output**: onError accepts exception
 
 ## Method under test:** `onCardRequestConfirm()`
-- **TC50: Request confirmed successfully** ( :x: )
+- **TC48: Request confirmed successfully** ( :x: )
   - **Name of the test**: onCardRequestConfirm_called_setsPendingActionAndEnablesSelect
   - **State of the system**: view.getSelectedOverlayCardType returns a valid card type 
       (e.g., CardType.DEFUSE)

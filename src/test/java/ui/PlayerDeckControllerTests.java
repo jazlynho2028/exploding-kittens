@@ -652,6 +652,35 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, view, controller);
 	}
 
+	@Test
+	public void onPlayCardsButton_threeOfAKind_showsCardSelectOverlay() {
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("updateAll")
+				.createMock();
+
+		EasyMock.expect(model.getSelectedCardsCount()).andReturn(GameConstants.THREE_CARDS);
+		EasyMock.expect(model.playSelectedCards()).andStubReturn(CardType.CAT_CARD_2);
+
+		controller.updateAll();
+		EasyMock.expectLastCall();
+
+		view.bindCardSelectConfirmButton(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+		view.buildCardSelectOverlay(
+				EasyMock.eq(GameConstants.SELECTABLE_CARDTYPE_OPTIONS),
+				EasyMock.eq("REQUEST")
+		);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onPlayCardsButton();
+
+		EasyMock.verify(model, view, controller);
+	}
+
 	@ParameterizedTest
 	@MethodSource("provideCardTypesWithNoAdditionalUIChange")
 	public void updateByCardType_noAdditionalUIChange_noViewInteractions(CardType cardType) {
