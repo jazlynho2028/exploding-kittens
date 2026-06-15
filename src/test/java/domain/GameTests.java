@@ -2832,8 +2832,7 @@ public class GameTests {
 
 		List<Card> cards = mockCardsWithIds(expectedCardIds);
 
-		EasyMock.expect(
-				drawPile.peekTopNCards(GameConstants.SEE_THE_FUTURE_PEEK_COUNT))
+		EasyMock.expect(drawPile.peekTopNCards(GameConstants.SEE_THE_FUTURE_PEEK_COUNT))
 				.andReturn(cards);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);

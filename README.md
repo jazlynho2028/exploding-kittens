@@ -22,7 +22,7 @@ REFERENCES, SOURCE OF HELP ETC
 **Unachievable 100% Line Coverage due to Empty Lambdas**
 Our project does not achieve 100% code coverage due to the use of
 intentionally empty lambda expressions in several controller classes.
-These lambdas are used as default callback implementations before a 
+These lambdas are used as default callback implementations before a
 controllers event handlers are configured.
 
 Example `src/main/java/ui/PlayerCreateController.java` Line 30
@@ -39,24 +39,39 @@ There were several SpotBug warnings intentionally suppressed as they
 conflicted with project design requirements or testability
 
 - EI_EXPOSE_REP2
-Some classes accept dependencies in their constructors. Defensive
-copying would make unit testing significantly more difficult.
+  These classes utilize Dependency Injection to receive live, shared references to
+  mutable domain models, configurations, or UI views. Performing defensive copying
+  inside these constructors is intentionally omitted for two primary reasons:
+    - One, It would decouple the class from the centralized state, breaking real-time updates
+      across the architecture.
+    - Two, It would sever the link to the exact mock objects injected by our testing framework
+      (EasyMock), making it impossible to verify method interactions or stub dynamic behaviors during unit testing.
+      List of affected files below.
+        - `src/main/java/ui/StartController.java`
+        - `src/main/java/ui/PlayerCreateController.java`
+        - `src/main/java/ui/PlayerDeckController.java`
+        - `src/main/java/ui/ErrorController.java`
+        - `src/main/java/domain/Game.java`
+        - `src/main/java/domain/Deck.java`
+        - `src/main/java/domain/DeckBuilder.java`
 
 - CT_CONSTRUCTOR_THROW
-The constructor in `src/main/java/domain/Game.java` performs validation
-of inputs and may throw an IllegalArgumentException when invalid data
-is provided. This is intentional as validating constructor arguments is
-the responsibility of `Game.java`, and this class can't be made final
-because doing so would reduce testability.
+  Constructors perform validation of inputs and may throw an
+  IllegalArgumentException when invalid data is provided. This is intentional
+  as validating constructor arguments is the responsibility of the respective
+  classes, and they cannot be made final because doing so would reduce testability.
+  List of affected files below.
+    - `src/main/java/domain/Game.java`
+    - `src/main/java/domain/TurnManager.java`
 
 **Game Rule Clarifications**
 There are two rules pertaining to cards that we want to specify as
 special exceptions.
 
 - Exploding Kitten cards are not playable cards, they cannot be selected
-and played during a player's turn
+  and played during a player's turn
 - Defuses are not considered playable cards unless a player draws an
-Exploding Kitten and has to defuse it
+  Exploding Kitten and has to defuse it
 
 **Constructor Design Decisions**
 The `src/main/java/domain/Game.java` constructor accepts four parameters:
