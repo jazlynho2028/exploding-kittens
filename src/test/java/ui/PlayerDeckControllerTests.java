@@ -692,6 +692,27 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, view, controller);
 	}
 
+	@Test
+	public void onPlayCardsButton_invalidCatCardComboSize_fallsThroughSafely() {
+		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("updateAll")
+				.createMock();
+
+		EasyMock.expect(model.getSelectedCardsCount()).andReturn(1);
+		EasyMock.expect(model.playSelectedCards()).andStubReturn(CardType.CAT_CARD_1);
+
+		controller.updateAll();
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		controller.onPlayCardsButton();
+
+		assertFalse(controller.pendingTargetAction.isPresent());
+		EasyMock.verify(model, view, controller);
+	}
+
 	@ParameterizedTest
 	@MethodSource("provideCardTypesWithNoAdditionalUIChange")
 	public void updateByCardType_noAdditionalUIChange_noViewInteractions(CardType cardType) {

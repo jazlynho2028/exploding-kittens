@@ -256,6 +256,19 @@
       - view.buildCardSelectOverlay is called with GameConstants.SELECTABLE_CARDTYPE_OPTIONS 
         and "REQUEST" header
 
+- **TC27: Invalid cat card combo size** ( :white_check_mark: )
+  - **Name of the test**: onPlayCardsButton_invalidCatCardComboSize_fallsThroughSafely
+  - **State of the system**:
+    - model.getSelectedCardsCount returns 1
+    - model.playSelectedCards returns CardType.CAT_CARD_1
+  - **Expected output**:
+    - updateAll is called
+    - handleCatCardCombo is called
+      - comboSize == GameConstants.TWO_CARDS is false
+      - comboSize == GameConstants.THREE_CARDS is false
+      - pendingTargetAction remains empty (Optional.empty())
+      - no view overlays or target selections are initialized
+
 ## Method under test: `updateByCardType(CardType cardType)`
 - **TC28: No additional UI change** ( :white_check_mark: )
   - **Name of the test**: updateByCardType_noAdditionalUIChange_noViewInteractions
