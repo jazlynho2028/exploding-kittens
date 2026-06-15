@@ -377,6 +377,14 @@
     - selected cards have exactly one cat card, one feral cat, and one godcat
   - **Expected output**: returns true
 
+- **TC56: Two-of-a-kind with a Cat Card and Clone, Empty Discard Pile** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_comboWithCloneEmptyDiscardPile_returnsFalse
+  - **State of the system**:
+    - getCanDraw() returns true
+    - selected cards have exactly one cat card, one clone card
+    - discard pile is empty
+  - **Expected output**: returns false
+
 ### Method under test: `playSelectedCards()`
 - **TC43: Selected cards cannot be played** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_invalidPlay_failed
