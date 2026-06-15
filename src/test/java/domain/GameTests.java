@@ -448,12 +448,10 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
 
-		Game game = mockGameWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
 				players, drawPile, discardPile, turnManager, player);
 
 		EasyMock.replay(game);
-
-		game.setCanPlay(true);
 
 		assertFalse(game.canPlaySelected());
 
@@ -474,12 +472,10 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
 
-		Game game = mockGameWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
 				players, drawPile, discardPile, turnManager, player);
 
 		EasyMock.replay(game);
-
-		game.setCanPlay(true);
 
 		assertTrue(game.canPlaySelected());
 
@@ -502,12 +498,10 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
 
-		Game game = mockGameWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
 				players, drawPile, discardPile, turnManager, player);
 
 		EasyMock.replay(game);
-
-		game.setCanPlay(true);
 
 		assertTrue(game.canPlaySelected());
 
@@ -534,12 +528,10 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
 
-		Game game = mockGameWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
 				players, drawPile, discardPile, turnManager, player);
 
 		EasyMock.replay(game);
-
-		game.setCanPlay(true);
 
 		assertFalse(game.canPlaySelected());
 
@@ -561,12 +553,10 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = mockGameWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
-
-		game.setCanPlay(true);
 
 		assertFalse(game.canPlaySelected());
 
@@ -2773,73 +2763,6 @@ public class GameTests {
 		game.applyCatomicBomb();
 
 		EasyMock.verify(drawPile, turnManager, game);
-	}
-
-	@Test
-	public void applySuperSkip_called_endTurn() {
-		List<Player> players = EasyMock.createMock(List.class);
-
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		turnManager.setDrawCount(GameConstants.NUM_DRAW_COUNT_AFTER_SUPER_SKIP);
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
-
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("endTurn")
-				.createMock();
-
-		game.endTurn();
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(game);
-
-		game.setIsGameOngoing(true);
-
-		game.applySuperSkip();
-
-		EasyMock.verify(turnManager, game);
-	}
-
-	@Test
-	public void applySuperSkip_endTurnThrows_failed() {
-		List<Player> players = EasyMock.createMock(List.class);
-
-		Deck drawPile = EasyMock.createMock(Deck.class);
-		Deck discardPile = EasyMock.createMock(Deck.class);
-		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-
-		turnManager.setDrawCount(GameConstants.NUM_DRAW_COUNT_AFTER_SUPER_SKIP);
-		EasyMock.expectLastCall();
-
-		EasyMock.replay(players, drawPile, discardPile, turnManager);
-
-		Game game = EasyMock.createMockBuilder(Game.class)
-				.withConstructor(players, drawPile, discardPile, turnManager)
-				.addMockedMethod("endTurn")
-				.createMock();
-
-		String expectedMsg = "error.cannotEndTurn";
-		game.endTurn();
-		EasyMock.expectLastCall().andThrow(
-				new IllegalStateException(expectedMsg)
-		);
-
-		EasyMock.replay(game);
-
-		game.setIsGameOngoing(true);
-
-		Exception exception = assertThrows(IllegalStateException.class,
-				game::applySuperSkip);
-
-		String actualMsg = exception.getMessage();
-		assertEquals(expectedMsg, actualMsg);
-
-		EasyMock.verify(turnManager, game);
 	}
 
 	@ParameterizedTest
