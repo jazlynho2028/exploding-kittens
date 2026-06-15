@@ -448,12 +448,10 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
 
-		Game game = mockGameWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
 				players, drawPile, discardPile, turnManager, player);
 
 		EasyMock.replay(game);
-
-		game.setCanPlay(true);
 
 		assertFalse(game.canPlaySelected());
 
@@ -474,12 +472,10 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
 
-		Game game = mockGameWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
 				players, drawPile, discardPile, turnManager, player);
 
 		EasyMock.replay(game);
-
-		game.setCanPlay(true);
 
 		assertTrue(game.canPlaySelected());
 
@@ -502,12 +498,10 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
 
-		Game game = mockGameWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
 				players, drawPile, discardPile, turnManager, player);
 
 		EasyMock.replay(game);
-
-		game.setCanPlay(true);
 
 		assertTrue(game.canPlaySelected());
 
@@ -534,12 +528,10 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
 
-		Game game = mockGameWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
 				players, drawPile, discardPile, turnManager, player);
 
 		EasyMock.replay(game);
-
-		game.setCanPlay(true);
 
 		assertFalse(game.canPlaySelected());
 
@@ -561,12 +553,10 @@ public class GameTests {
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
 
-		Game game = mockGameWithGetCurrentPlayer(
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
 				players, drawPile, discardPile, turnManager, currentPlayer);
 
 		EasyMock.replay(game);
-
-		game.setCanPlay(true);
 
 		assertFalse(game.canPlaySelected());
 
@@ -2486,8 +2476,7 @@ public class GameTests {
 
 		List<Card> cards = mockCardsWithIds(expectedCardIds);
 
-		EasyMock.expect(
-						drawPile.peekTopNCards(GameConstants.SEE_THE_FUTURE_PEEK_COUNT))
+		EasyMock.expect(drawPile.peekTopNCards(GameConstants.SEE_THE_FUTURE_PEEK_COUNT))
 				.andReturn(cards);
 
 		EasyMock.replay(players, drawPile, discardPile, turnManager);
