@@ -370,7 +370,7 @@
     - top card of discard pile matches cat card type
   - **Expected output**: returns true
 
-- **TC55: Three-of-a-kind with a Cat Card, a Godcat, and Feral Cat** ( :x: )
+- **TC55: Three-of-a-kind with a Cat Card, a Godcat, and Feral Cat** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_oneCatCardOneGodcatOneFeralCat_returnsTrue
   - **State of the system**:
     - getCanDraw() returns true
