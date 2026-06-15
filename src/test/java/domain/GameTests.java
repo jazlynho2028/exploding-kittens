@@ -586,7 +586,7 @@ public class GameTests {
 
 	@Test
 	public void canPlaySelected_catCardWithFeralCat_returnsTrue() {
-		List<Player> players = EasyMock.createMock(List.class); // FIX: pass List.class directly
+		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
@@ -608,6 +608,7 @@ public class GameTests {
 
 		EasyMock.verify(player, game);
 	}
+
 	@Test
 	public void canPlaySelected_catCardWithGodcat_returnsTrue() {
 		List<Player> players = EasyMock.createMock(List.class);
