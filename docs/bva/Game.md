@@ -326,12 +326,12 @@
     - selected cards have exactly one cat card and one godcat card
   - **Expected output**: returns true
 
-- **TC50: Two-of-a-kind with a Cat Card and Clone** ( :x: )
+- **TC50: Two-of-a-kind with a Cat Card and Clone** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_catCardWithMatchingClone_returnsTrue
   - **State of the system**:
     - getCanDraw() returns true
     - selected cards have exactly one cat card and one clone card
-    - top of discard pile is matching cat card
+    - top of discard pile is a matching cat card
   - **Expected output**: returns true
 
 - **TC51: Two-of-a-kind with a Feral Cat and Godcat** ( :x: )

@@ -149,7 +149,8 @@ public class Game {
 
             boolean isCatComboCard = (GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
                     || firstCardType == CardType.FERAL_CAT
-                    || firstCardType == CardType.GODCAT)
+                    || firstCardType == CardType.GODCAT
+                    || firstCardType == CardType.CLONE)
                     && firstCardType != CardType.DEFUSE
                     && firstCardType != CardType.EXPLODING_KITTEN;
 
@@ -164,6 +165,13 @@ public class Game {
 
         for (Card card : selectedCards) {
             CardType currentType = card.getType();
+
+            if (currentType == CardType.CLONE) {
+                if (discardPile.isEmpty()) {
+                    return false;
+                }
+                currentType = discardPile.peekTop().getType();
+            }
 
             if (currentType == CardType.FERAL_CAT || currentType == CardType.GODCAT) {
                 continue;
