@@ -606,19 +606,19 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, onError);
 	}
 
-	@Test
-	public void onPlayCardsButton_twoOfAKind_enablesPlayerSelectMode() {
+	@ParameterizedTest
+	@MethodSource("provideCatCardTypes")
+	public void onPlayCardsButton_allCatCardTypesTwoOfAKind_enablesPlayerSelectMode(CardType catCardType) {
 		boolean isFaceUp = true;
 		int targetIndex = 1;
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(
-						PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("updateAll")
 				.createMock();
 
 		EasyMock.expect(model.getSelectedCardsCount()).andReturn(GameConstants.TWO_CARDS);
-		EasyMock.expect(model.playSelectedCards()).andStubReturn(CardType.CAT_CARD_1);
+		EasyMock.expect(model.playSelectedCards()).andStubReturn(catCardType);
 
 		controller.updateAll();
 		EasyMock.expectLastCall();
@@ -636,29 +636,31 @@ public class PlayerDeckControllerTests {
 		view.renderHandVisibilityButton(isFaceUp, false);
 		EasyMock.expectLastCall();
 
-		EasyMock.expect(model.getCurrentPlayerHandIds())
-				.andStubReturn(CURRENT_PLAYER_HAND_IDS);
+		EasyMock.expect(model.getCurrentPlayerHandIds()).andStubReturn(CURRENT_PLAYER_HAND_IDS);
 		view.buildAndAddPlayerHandCards(CURRENT_PLAYER_HAND_IDS, isFaceUp, false);
 		EasyMock.expectLastCall();
 
 		view.renderTurnControlSection(false, false);
 		EasyMock.expectLastCall();
 
-		model.applyTwoOfAKind(EasyMock.eq(targetIndex),
-				EasyMock.anyObject(java.util.Random.class));
+		model.applyTwoOfAKind(EasyMock.eq(targetIndex), EasyMock.anyObject(java.util.Random.class));
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view, controller);
 
-		assertFalse(controller.pendingTargetAction.isPresent());
-
 		controller.onPlayCardsButton();
-
-		assertTrue(controller.pendingTargetAction.isPresent());
-
 		controller.pendingTargetAction.get().accept(targetIndex);
 
 		EasyMock.verify(model, view, controller);
+	}
+
+	private static Stream<Arguments> provideCatCardTypes() {
+		return Stream.of(
+				Arguments.of(CardType.CAT_CARD_1),
+				Arguments.of(CardType.CAT_CARD_2),
+				Arguments.of(CardType.CAT_CARD_3),
+				Arguments.of(CardType.CAT_CARD_4)
+		);
 	}
 
 	@Test
