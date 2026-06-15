@@ -348,7 +348,7 @@
     - selected cards have exactly two matching cat cards and one feral cat
   - **Expected output**: returns true
 
-- **TC53: Three-of-a-kind with two Feral Cats and one Godcat** ( :x: )
+- **TC53: Three-of-a-kind with two Feral Cats and one Godcat** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_twoFeralCatsAndOneGodcat_returnsTrue
   - **State of the system**:
     - getCanDraw() returns true
