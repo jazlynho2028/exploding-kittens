@@ -141,24 +141,38 @@ public class Game {
 
         if (size == GameConstants.ONE_CARD) {
             CardType type = selectedCards.get(0).getType();
-            return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type);
+            return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type)
+                    && type != CardType.FERAL_CAT;
         }
         else if (size == GameConstants.TWO_CARDS || size == GameConstants.THREE_CARDS) {
             CardType firstCardType = selectedCards.get(0).getType();
 
-            boolean isCatCard = (GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
+            boolean isCatComboCard = (GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
                     || firstCardType == CardType.FERAL_CAT)
                     && firstCardType != CardType.DEFUSE
                     && firstCardType != CardType.EXPLODING_KITTEN;
 
-            return isCatCard && doAllCardsMatch(selectedCards, firstCardType);
+            return isCatComboCard && doAllCardsMatch(selectedCards);
         }
         return false;
     }
 
-    private boolean doAllCardsMatch(List<Card> selectedCards, CardType cardType) {
+    private boolean doAllCardsMatch(List<Card> selectedCards) {
+        CardType representativeType = CardType.FERAL_CAT;
+        boolean hasRepresentative = false;
+
         for (Card card : selectedCards) {
-            if (card.getType() != cardType) {
+            CardType currentType = card.getType();
+
+            if (currentType == CardType.FERAL_CAT) {
+                continue;
+            }
+
+            if (!hasRepresentative) {
+                representativeType = currentType;
+                hasRepresentative = true;
+            }
+            else if (currentType != representativeType) {
                 return false;
             }
         }
