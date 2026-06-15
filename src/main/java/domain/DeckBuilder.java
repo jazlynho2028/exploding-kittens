@@ -1,12 +1,22 @@
 package domain;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.*;
 
 import static domain.GameConstants.*;
 
 public class DeckBuilder {
 
-    public DeckBuilder() {
+    private final Random random;
+
+    @SuppressFBWarnings(
+            value = "EI_EXPOSE_REP2",
+            justification = "DeckBuilder intentionally stores mutable dependency " +
+                    "to support controlled deck state and deterministic shuffle testing."
+    )
+    public DeckBuilder(Random random) {
+        this.random = random;
     }
 
     public Deck initializeDeck(int numPlayers) {
@@ -20,7 +30,7 @@ public class DeckBuilder {
 
     Deck createDeckInstance(List<Card> cardsList) {
         Deque<Card> deckDeque = new ArrayDeque<>(cardsList);
-        Deck baseDeck = new Deck(deckDeque, new Random());
+        Deck baseDeck = new Deck(deckDeque, random);
         baseDeck.shuffle();
 
         return baseDeck;
@@ -47,10 +57,10 @@ public class DeckBuilder {
         addCards(cardsList, CardType.SEE_THE_FUTURE, NUM_SEE_THE_FUTURE_IN_GAME);
         addCards(cardsList, CardType.SHUFFLE, NUM_SHUFFLE_IN_GAME);
         addCards(cardsList, CardType.TARGETED_ATTACK, NUM_TARGETED_ATTACK_IN_GAME);
-        addCards(cardsList, CardType.CAT_CARD_1, NUM_CAT_CARD_IN_GAME);
-        addCards(cardsList, CardType.CAT_CARD_2, NUM_CAT_CARD_IN_GAME);
-        addCards(cardsList, CardType.CAT_CARD_3, NUM_CAT_CARD_IN_GAME);
-        addCards(cardsList, CardType.CAT_CARD_4, NUM_CAT_CARD_IN_GAME);
+        addCards(cardsList, CardType.CAT_CARD_1, NUM_CAT_CARD_PER_TYPE_IN_GAME);
+        addCards(cardsList, CardType.CAT_CARD_2, NUM_CAT_CARD_PER_TYPE_IN_GAME);
+        addCards(cardsList, CardType.CAT_CARD_3, NUM_CAT_CARD_PER_TYPE_IN_GAME);
+        addCards(cardsList, CardType.CAT_CARD_4, NUM_CAT_CARD_PER_TYPE_IN_GAME);
 
         return cardsList;
     }

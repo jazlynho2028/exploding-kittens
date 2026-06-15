@@ -19,7 +19,7 @@ public class Game {
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
-    private boolean canPlay;
+    private boolean isAttackOngoing;
 
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2"},
@@ -37,7 +37,7 @@ public class Game {
 
         isGameOngoing = false;
         isFaceUp = false;
-        canPlay = false;
+        isAttackOngoing = false;
     }
 
     public void setUp() {
@@ -94,7 +94,6 @@ public class Game {
 
         changeCurrentPlayerIndex(GameConstants.STARTING_PLAYER_INDEX);
         isGameOngoing = true;
-        canPlay = true;
     }
 
     private void addExplodingKittens() {
@@ -128,18 +127,42 @@ public class Game {
         return getCurrentPlayer().getHandIds();
     }
 
+    public int getSelectedCardsCount() {
+        return getCurrentPlayer().getSelectedCards().size();
+    }
+
     public boolean canPlaySelected() {
-        if (!canPlay) {
+        if (!getCanDraw()) {
             return false;
         }
 
         List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
-        if (selectedCards.size() != 1) {
-            return false;
-        }
+        int size = selectedCards.size();
 
-        CardType type = selectedCards.get(0).getType();
-        return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type);
+        if (size == GameConstants.ONE_CARD) {
+            CardType type = selectedCards.get(0).getType();
+            return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type);
+        }
+        else if (size == GameConstants.TWO_CARDS || size == GameConstants.THREE_CARDS) {
+            CardType firstCardType = selectedCards.get(0).getType();
+
+            boolean isCatCard = (GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
+                    || firstCardType == CardType.FERAL_CAT)
+                    && firstCardType != CardType.DEFUSE
+                    && firstCardType != CardType.EXPLODING_KITTEN;
+
+            return isCatCard && doAllCardsMatch(selectedCards, firstCardType);
+        }
+        return false;
+    }
+
+    private boolean doAllCardsMatch(List<Card> selectedCards, CardType cardType) {
+        for (Card card : selectedCards) {
+            if (card.getType() != cardType) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public CardType playSelectedCards() {
@@ -152,9 +175,13 @@ public class Game {
 
         for (Card card : selectedCards) {
             card.toggleSelected();
-
             getCurrentPlayer().removeCardFromHand(card);
             discardPile.addCardToTop(card);
+        }
+
+        if (selectedCards.size() == GameConstants.TWO_CARDS ||
+                selectedCards.size() == GameConstants.THREE_CARDS) {
+            return cardType;
         }
 
         return applyByCardType(cardType);
@@ -225,20 +252,16 @@ public class Game {
         return isGameOngoing && turnManager.getDrawCount() > 0;
     }
 
-    public boolean getCanPlay() {
-        return isGameOngoing && canPlay;
-    }
-
-    void setCanPlay(boolean canPlay) {
-        this.canPlay = canPlay;
-    }
-
     public boolean getIsFaceUp() {
         return isFaceUp;
     }
 
     void setIsFaceUp(boolean isFaceUp) {
         this.isFaceUp = isFaceUp;
+    }
+
+    void setIsAttackOngoing(boolean isAttackOngoing) {
+        this.isAttackOngoing = isAttackOngoing;
     }
 
     public void changeCurrentPlayerIndex(int newPlayerIndex) {
@@ -259,9 +282,13 @@ public class Game {
         }
 
         turnManager.decrementDrawCount();
+
+        if (turnManager.getDrawCount() == 0) {
+            isAttackOngoing = false;
+        }
+
         getCurrentPlayer().deselectHandCards();
 
-        canPlay = false;
         return card;
     }
 
@@ -306,7 +333,6 @@ public class Game {
     }
 
     private void nextTurn() {
-        canPlay = true;
         isFaceUp = false;
         turnManager.incrementTurn(getAliveIndices());
         turnManager.incrementDrawCount();
@@ -384,7 +410,20 @@ public class Game {
     }
 
     void applyAttack() {
-        // TODO
+        getCurrentPlayer().deselectHandCards();
+        addAttackDrawCount();
+        turnManager.incrementTurn(getAliveIndices());
+    }
+
+    void addAttackDrawCount() {
+        if (isAttackOngoing) {
+            turnManager.setDrawCount(
+                    turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
+        }
+        else {
+            turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+            isAttackOngoing = true;
+        }
     }
 
     void applyShuffle() {
@@ -477,21 +516,10 @@ public class Game {
 
     public void applyTargetedAttack(int targetPlayerIndex) {
         getCurrentPlayer().deselectHandCards();
+        addAttackDrawCount();
         while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
             turnManager.incrementTurn(getAliveIndices());
         }
-        addAttackDrawCount();
-    }
-
-    void addAttackDrawCount() {
-        if (turnManager.getDrawCount() >= 2) {
-            turnManager.setDrawCount(
-                    turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
-        }
-        else {
-            turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
-        }
-
     }
 
     boolean reachedWinnerWinnerCondition() {
@@ -518,12 +546,43 @@ public class Game {
         currentPlayer.swapHandWith(targetPlayer);
     }
 
+    public Card drawRecycle() {
+        discardPile.shuffle();
+        return drawCard(discardPile::peekBottom, discardPile::removeBottom);
+    }
+
     void applyDoubleUp() {
         turnManager.incrementDrawCount();
     }
 
     void applyMildShuffle() {
         drawPile.shuffleTopNCards(GameConstants.MILD_SHUFFLE_SHUFFLE_COUNT);
+    }
+
+    public void applyTwoOfAKind(int targetPlayerIndex, java.util.Random random) {
+        Player targetPlayer = players.get(targetPlayerIndex);
+        List<Card> targetHand = targetPlayer.getHand();
+
+        if (!targetHand.isEmpty()) {
+            int randomIndex = random.nextInt(targetHand.size());
+            Card stolenCard = targetHand.get(randomIndex);
+
+            targetPlayer.removeCardFromHand(stolenCard);
+            getCurrentPlayer().addCardToHand(stolenCard);
+        }
+    }
+
+    public void applyThreeOfAKind(int targetPlayerIndex, CardType requestedCardType) {
+        Player targetPlayer = players.get(targetPlayerIndex);
+        List<Card> targetHand = targetPlayer.getHand();
+
+        for (Card card: targetHand) {
+            if (card.getType() == requestedCardType) {
+                targetPlayer.removeCardFromHand(card);
+                getCurrentPlayer().addCardToHand(card);
+                break;
+            }
+        }
     }
 
     public Set<Integer> getAliveIndices() {
@@ -544,11 +603,6 @@ public class Game {
         }
 
         throw new IllegalStateException("error.noWinner");
-    }
-
-    public Card drawRecycle() {
-        discardPile.shuffle();
-        return drawCard(discardPile::peekBottom, discardPile::removeBottom);
     }
 
 }
