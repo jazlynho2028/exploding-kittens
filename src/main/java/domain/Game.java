@@ -127,18 +127,69 @@ public class Game {
         return getCurrentPlayer().getHandIds();
     }
 
+    public int getSelectedCardsCount() {
+        return getCurrentPlayer().getSelectedCards().size();
+    }
+
     public boolean canPlaySelected() {
         if (!getCanDraw()) {
             return false;
         }
 
         List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
-        if (selectedCards.size() != 1) {
-            return false;
-        }
+        int size = selectedCards.size();
 
-        CardType type = selectedCards.get(0).getType();
-        return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type);
+        if (size == GameConstants.ONE_CARD) {
+            CardType type = selectedCards.get(0).getType();
+            return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type);
+        }
+        else if (size == GameConstants.TWO_CARDS || size == GameConstants.THREE_CARDS) {
+            CardType firstCardType = selectedCards.get(0).getType();
+
+            if (firstCardType == CardType.DEFUSE || firstCardType == CardType.EXPLODING_KITTEN) {
+                return false;
+            }
+
+            boolean isValidComboCard =
+                    GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
+                    || firstCardType == CardType.GODCAT
+                    || firstCardType == CardType.CLONE;
+
+            if (!isValidComboCard) {
+                return false;
+            }
+            return doAllCardsMatch(selectedCards);
+        }
+        return false;
+    }
+
+    private boolean doAllCardsMatch(List<Card> selectedCards) {
+        CardType representativeType = CardType.FERAL_CAT;
+        boolean hasRepresentative = false;
+
+        for (Card card : selectedCards) {
+            CardType currentType = card.getType();
+
+            if (currentType == CardType.CLONE) {
+                if (discardPile.isEmpty()) {
+                    return false;
+                }
+                currentType = discardPile.peekTop().getType();
+            }
+
+            if (currentType == CardType.FERAL_CAT || currentType == CardType.GODCAT) {
+                continue;
+            }
+
+            if (!hasRepresentative) {
+                representativeType = currentType;
+                hasRepresentative = true;
+            }
+            else if (currentType != representativeType) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public CardType playSelectedCards() {
@@ -151,9 +202,13 @@ public class Game {
 
         for (Card card : selectedCards) {
             card.toggleSelected();
-
             getCurrentPlayer().removeCardFromHand(card);
             discardPile.addCardToTop(card);
+        }
+
+        if (selectedCards.size() == GameConstants.TWO_CARDS ||
+                selectedCards.size() == GameConstants.THREE_CARDS) {
+            return cardType;
         }
 
         return applyByCardType(cardType);
@@ -529,6 +584,32 @@ public class Game {
 
     void applyMildShuffle() {
         drawPile.shuffleTopNCards(GameConstants.MILD_SHUFFLE_SHUFFLE_COUNT);
+    }
+
+    public void applyTwoOfAKind(int targetPlayerIndex, java.util.Random random) {
+        Player targetPlayer = players.get(targetPlayerIndex);
+        List<Card> targetHand = targetPlayer.getHand();
+
+        if (!targetHand.isEmpty()) {
+            int randomIndex = random.nextInt(targetHand.size());
+            Card stolenCard = targetHand.get(randomIndex);
+
+            targetPlayer.removeCardFromHand(stolenCard);
+            getCurrentPlayer().addCardToHand(stolenCard);
+        }
+    }
+
+    public void applyThreeOfAKind(int targetPlayerIndex, CardType requestedCardType) {
+        Player targetPlayer = players.get(targetPlayerIndex);
+        List<Card> targetHand = targetPlayer.getHand();
+
+        for (Card card: targetHand) {
+            if (card.getType() == requestedCardType) {
+                targetPlayer.removeCardFromHand(card);
+                getCurrentPlayer().addCardToHand(card);
+                break;
+            }
+        }
     }
 
     public Set<Integer> getAliveIndices() {
