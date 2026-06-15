@@ -644,7 +644,8 @@ public class PlayerDeckControllerTests {
 		view.renderTurnControlSection(false, false);
 		EasyMock.expectLastCall();
 
-		model.applyTwoOfAKind(EasyMock.eq(targetIndex), EasyMock.anyObject(java.util.Random.class));
+		model.applyTwoOfAKind(EasyMock.eq(targetIndex),
+				EasyMock.anyObject(java.util.Random.class));
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view, controller);
@@ -1140,6 +1141,7 @@ public class PlayerDeckControllerTests {
 	public void onCardRequestConfirm_called_setsPendingActionAndEnablesSelect() {
 		CardType chosenType = CardType.DEFUSE;
 		boolean isFaceUp = true;
+		int targetIndex = 1;
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class)
@@ -1175,6 +1177,9 @@ public class PlayerDeckControllerTests {
 		view.renderTurnControlSection(false, false);
 		EasyMock.expectLastCall();
 
+		model.applyThreeOfAKind(targetIndex, chosenType);
+		EasyMock.expectLastCall().once();
+
 		EasyMock.replay(model, view, controller);
 
 		assertFalse(controller.pendingTargetAction.isPresent());
@@ -1182,6 +1187,9 @@ public class PlayerDeckControllerTests {
 		controller.onCardRequestConfirm();
 
 		assertTrue(controller.pendingTargetAction.isPresent());
+
+		controller.pendingTargetAction.get().accept(targetIndex);
+
 		EasyMock.verify(model, view, controller);
 	}
 }
