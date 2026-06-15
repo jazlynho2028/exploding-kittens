@@ -266,13 +266,12 @@ public class PlayerDeckController {
     private void handleCatCardCombo(int comboSize) {
         if (comboSize == GameConstants.TWO_CARDS) {
             pendingTargetAction = Optional.of(targetIndex ->
-                    model.playTwoOfAKind(targetIndex, new java.util.Random())
+                    model.applyTwoOfAKind(targetIndex, new java.util.Random())
             );
             enablePlayerSelect();
         }
         else if (comboSize == GameConstants.THREE_CARDS) {
             view.bindCardSelectConfirmButton(this::onCardRequestConfirm);
-
             view.buildCardSelectOverlay(GameConstants.SELECTABLE_CARDTYPE_OPTIONS, "REQUEST");
         }
     }
@@ -360,7 +359,7 @@ public class PlayerDeckController {
             updateAll();
 
             pendingTargetAction = Optional.of(targetIndex ->
-                    model.playThreeOfAKind(targetIndex, chosenType));
+                    model.applyThreeOfAKind(targetIndex, chosenType));
 
             enablePlayerSelect();
         });

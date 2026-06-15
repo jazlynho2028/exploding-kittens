@@ -606,6 +606,52 @@ public class PlayerDeckControllerTests {
 		EasyMock.verify(model, onError);
 	}
 
+	@Test
+	public void onPlayCardsButton_twoOfAKind_enablesPlayerSelectMode() {
+		boolean isFaceUp = true;
+
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+						PlayerDeckController.class)
+				.withConstructor(model, view)
+				.addMockedMethod("updateAll")
+				.createMock();
+
+		EasyMock.expect(model.getSelectedCardsCount()).andReturn(GameConstants.TWO_CARDS);
+		EasyMock.expect(model.playSelectedCards()).andStubReturn(CardType.CAT_CARD_1);
+
+		controller.updateAll();
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.getCurrentPlayerIndex()).andStubReturn(CURRENT_PLAYER_INDEX);
+		EasyMock.expect(model.getAliveIndices()).andStubReturn(ALIVE_INDICES);
+		view.renderPlayerNameTags(CURRENT_PLAYER_INDEX, true, ALIVE_INDICES);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.isDrawPileEmpty()).andStubReturn(IS_DRAW_PILE_EMPTY);
+		view.renderDrawPile(false, IS_DRAW_PILE_EMPTY);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.getIsFaceUp()).andStubReturn(isFaceUp);
+		view.renderHandVisibilityButton(isFaceUp, false);
+		EasyMock.expectLastCall();
+
+		EasyMock.expect(model.getCurrentPlayerHandIds()).andStubReturn(CURRENT_PLAYER_HAND_IDS);
+		view.buildAndAddPlayerHandCards(CURRENT_PLAYER_HAND_IDS, isFaceUp, false);
+		EasyMock.expectLastCall();
+
+		view.renderTurnControlSection(false, false);
+		EasyMock.expectLastCall();
+
+		EasyMock.replay(model, view, controller);
+
+		assertFalse(controller.pendingTargetAction.isPresent());
+
+		controller.onPlayCardsButton();
+
+		assertTrue(controller.pendingTargetAction.isPresent());
+		EasyMock.verify(model, view, controller);
+	}
+
 	@ParameterizedTest
 	@MethodSource("provideCardTypesWithNoAdditionalUIChange")
 	public void updateByCardType_noAdditionalUIChange_noViewInteractions(CardType cardType) {
@@ -1052,4 +1098,6 @@ public class PlayerDeckControllerTests {
 
 		EasyMock.verify(model, view, onError);
 	}
+
+
 }
