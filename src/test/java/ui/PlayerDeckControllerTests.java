@@ -608,11 +608,13 @@ public class PlayerDeckControllerTests {
 
 	@ParameterizedTest
 	@MethodSource("provideCatCardTypes")
-	public void onPlayCardsButton_allCatCardTypesTwoOfAKind_enablesPlayerSelectMode(CardType catCardType) {
+	public void onPlayCardsButton_allCatCardTypesTwoOfAKind_enablesPlayerSelectMode(
+			CardType catCardType) {
 		boolean isFaceUp = true;
 		int targetIndex = 1;
 
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("updateAll")
 				.createMock();
@@ -636,14 +638,16 @@ public class PlayerDeckControllerTests {
 		view.renderHandVisibilityButton(isFaceUp, false);
 		EasyMock.expectLastCall();
 
-		EasyMock.expect(model.getCurrentPlayerHandIds()).andStubReturn(CURRENT_PLAYER_HAND_IDS);
+		EasyMock.expect(model.getCurrentPlayerHandIds()).
+				andStubReturn(CURRENT_PLAYER_HAND_IDS);
 		view.buildAndAddPlayerHandCards(CURRENT_PLAYER_HAND_IDS, isFaceUp, false);
 		EasyMock.expectLastCall();
 
 		view.renderTurnControlSection(false, false);
 		EasyMock.expectLastCall();
 
-		model.applyTwoOfAKind(EasyMock.eq(targetIndex), EasyMock.anyObject(java.util.Random.class));
+		model.applyTwoOfAKind(EasyMock.eq(targetIndex),
+				EasyMock.anyObject(java.util.Random.class));
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view, controller);
@@ -694,7 +698,8 @@ public class PlayerDeckControllerTests {
 
 	@Test
 	public void onPlayCardsButton_invalidCatCardComboSize_fallsThroughSafely() {
-		PlayerDeckController controller = EasyMock.createMockBuilder(PlayerDeckController.class)
+		PlayerDeckController controller = EasyMock.createMockBuilder(
+				PlayerDeckController.class)
 				.withConstructor(model, view)
 				.addMockedMethod("updateAll")
 				.createMock();

@@ -324,6 +324,34 @@ public class GameTests {
 		EasyMock.verify(currentPlayer, game);
 	}
 
+	@Test
+	public void getSelectedCardsCount_called_returnPlayerMethodCall() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<Card> mockSelectedCards = List.of(
+				EasyMock.createMock(Card.class),
+				EasyMock.createMock(Card.class)
+		);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		EasyMock.expect(currentPlayer.getSelectedCards()).andReturn(mockSelectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, currentPlayer);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		int actualCount = game.getSelectedCardsCount();
+
+		assertEquals(2, actualCount);
+
+		EasyMock.verify(currentPlayer, game);
+	}
+
 	@ParameterizedTest
 	@MethodSource("provideInvalidCardSelections")
 	public void canPlaySelected_invalidCards_returnFalse(List<CardType> selectedCardTypes) {
@@ -359,7 +387,11 @@ public class GameTests {
 				Arguments.of(List.of(CardType.CAT_CARD_2)),
 				Arguments.of(List.of(CardType.CAT_CARD_3)),
 				Arguments.of(List.of(CardType.CAT_CARD_4)),
-				Arguments.of(List.of(CardType.FERAL_CAT))
+				Arguments.of(List.of(CardType.FERAL_CAT)),
+				Arguments.of(List.of(CardType.DEFUSE, CardType.DEFUSE)),
+				Arguments.of(List.of(CardType.EXPLODING_KITTEN,
+						CardType.EXPLODING_KITTEN)),
+				Arguments.of(List.of(CardType.ATTACK, CardType.ATTACK))
 		);
 	}
 
