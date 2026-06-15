@@ -1811,7 +1811,7 @@
   - **State of the system**: drawCount = 1
   - **Expected output**: calls turn manager to increment drawCount to 2
   
-### Method under test: `playTwoOfAKind(int targetPlayerIndex, Random random)`
+### Method under test: `applyTwoOfAKind(int targetPlayerIndex, Random random)`
 - **TC230: Random theft against target with cards remaining** ( :white_check_mark: )
   - **Name of the test**: playTwoOfAKind_targetHasCards_transfersRandomCard
   - **State of the system**: target player hand size > 0
@@ -1822,7 +1822,7 @@
   - **State of the system**: target player hand size = 0
   - **Expected output**: hand sizes remain unchanged; execution returns cleanly without error
 
-### Method under test: `playThreeOfAKind(int targetPlayerIndex, CardType requestedCardType)`
+### Method under test: `applyThreeOfAKind(int targetPlayerIndex, CardType requestedCardType)`
 - **TC232: Target has the specific requested card type** ( :white_check_mark: )
   - **Name of the test**: playThreeOfAKind_targetHasCard_transfersCard
   - **State of the system**: target player has at least one card matching requestedType in hand
@@ -1830,12 +1830,12 @@
     - first matching card removed from target player's hand
     - card added to current player's hand
 
-- **TC233: Target does not have the requested card type** ( :x: )
-  - **Name of the test**: playThreeOfAKind_targetDoesNotHaveCard_noTransfer
+- **TC233: Target does not have the requested card type** ( :white_check_mark: )
+  - **Name of the test**: applyThreeOfAKind_targetDoesNotHaveCard_noTransfer
   - **State of the system**: target player has zero cards matching requestedType in hand
   - **Expected output**: no cards are transferred between hands
 
-- **TC234: Target has an empty hand** ( :x: )
-  - **Name of the test**: playThreeOfAKind_targetHandEmpty_noTransfer
+- **TC234: Target has an empty hand** ( :white_check_mark: )
+  - **Name of the test**: applyThreeOfAKind_targetHandEmpty_noTransfer
   - **State of the system**: target player has zero cards matching requestedType in hand
   - **Expected output**: no cards are transferred between hands
