@@ -17,14 +17,18 @@
 
 - **TC3: Shuffle deck with more than one different card using controlled random value** ( :white_check_mark: )
   - **Name of the test**: `shuffle_multipleDifferentCards_controlledRandomReordersDeck`
-  - **State of the system**: Deck has more than one different card: [card2, card1]; mocked random value returns 0
+  - **State of the system**: 
+    - Deck has more than one different card: [card2, card1]
+    - mocked random value returns 0
   - **Expected output**: 
     - Deck still contains card1 and card2
     - card1 is at index 0 after shuffle
 
 - **TC4: Shuffle deck with more than one duplicate card using controlled random values** ( :white_check_mark: )
   - **Name of the test**: `shuffle_multipleDuplicateCards_controlledRandomReordersDeck`
-  - **State of the system**: Deck has more than one card with duplicates: [card1, card1, card2]; mocked random values return 0 and 0
+  - **State of the system**: 
+    - Deck has more than one card with duplicates: [card1, card1, card2]
+    - mocked random values return 0 and 0
   - **Expected output**: 
     - Deck becomes [card1, card2, card1]
     - deck size is 3
@@ -277,39 +281,60 @@
 ### Method under test: `insertCardAt(Card card, int index)`
 - **TC40: Insert card into empty deck at index zero** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_validIndex_insertsCardAtIndex` with case `empty deck at index zero`
-  - **State of the system**: Deck is empty: []; card = card1; index = 0
+  - **State of the system**: 
+    - Deck is empty: []
+    - card = card1
+    - index = 0
   - **Expected output**: Deck becomes [card1]
 
 - **TC41: Insert card at top of non-empty deck** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_validIndex_insertsCardAtIndex` with case `insert at top`
-  - **State of the system**: Deck has cards: [card1, card2]; card = card3; index = 0
+  - **State of the system**: 
+    - Deck has cards: [card1, card2]
+    - card = card3
+    - index = 0
   - **Expected output**: Deck becomes [card3, card1, card2]
 
 - **TC42: Insert card in middle of deck** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_validIndex_insertsCardAtIndex` with case `insert in middle`
-  - **State of the system**: Deck has cards: [card1, card2]; card = card3; index = 1
+  - **State of the system**: 
+    - Deck has cards: [card1, card2]
+    - card = card3
+    - index = 1
   - **Expected output**: Deck becomes [card1, card3, card2]
 
 - **TC43: Insert card at end of deck** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_validIndex_insertsCardAtIndex` with case `insert at end`
-  - **State of the system**: Deck has cards: [card1, card2]; card = card3; index = 2
+  - **State of the system**: 
+    - Deck has cards: [card1, card2]
+    - card = card3
+    - index = 2
   - **Expected output**: Deck becomes [card1, card2, card3]
 
 - **TC44: Insert duplicate card into deck** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_validIndex_insertsCardAtIndex` with case `insert duplicate card`
-  - **State of the system**: Deck has cards: [card1, card2]; card = card1; index = 1
+  - **State of the system**: 
+    - Deck has cards: [card1, card2]
+    - card = card1
+    - index = 1
   - **Expected output**: Deck becomes [card1, card1, card2]
 
 - **TC45: Insert card at negative index** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_invalidIndex_throwsIllegalArgumentException` with case `negative index`
-  - **State of the system**: Deck has cards: [card1, card2]; card = card3; index = -1
+  - **State of the system**: 
+    - Deck has cards: [card1, card2]
+    - card = card3
+    - index = -1
   - **Expected output**: 
     - Throws IllegalArgumentException with message `error.invalidDeckIndex`
     - deck is still [card1, card2]
 
 - **TC46: Insert card at index greater than deck size** ( :white_check_mark: )
   - **Name of the test**: `insertCardAt_invalidIndex_throwsIllegalArgumentException` with case `index greater than size`
-  - **State of the system**: Deck has cards: [card1, card2]; card = card3; index = 3
+  - **State of the system**: 
+    - Deck has cards: [card1, card2]
+    - card = card3
+    - index = 3
   - **Expected output**: 
     - Throws IllegalArgumentException with message `error.invalidDeckIndex`
     - deck is still [card1, card2]
@@ -317,28 +342,104 @@
 ### Method under test: `addCardtoBottom(Card card)`
 - **TC47: Add card to empty deck** ( :white_check_mark: )
   - **Name of the test**: `addCardToBottom_validCard_addsCardToBottom` with case `empty deck`
-  - **State of the system**: Deck is empty: []; card = card1
+  - **State of the system**: 
+    - Deck is empty: []
+    - card = card1
   - **Expected output**:
     - Deck becomes [card1]
     - deck size is 1
 
 - **TC48: Add card to deck with one card** ( :white_check_mark: )
   - **Name of the test**: `addCardToBottom_validCard_addsCardToBottom` with case `one-card deck`
-  - **State of the system**: Deck has exactly one card: [card1]; card = card2
+  - **State of the system**: 
+    - Deck has exactly one card: [card1]
+    - card = card2
   - **Expected output**:
     - Deck becomes [card1, card2]
     - deck size is 2
 
 - **TC49: Add card to deck with multiple different cards** ( :white_check_mark: )
   - **Name of the test**: `addCardToBottom_validCard_addsCardToTop` with case `multiple different cards`
-  - **State of the system**: Deck has cards: [card1, card2]; card = card3
+  - **State of the system**: 
+    - Deck has cards: [card1, card2]
+    - card = card3
   - **Expected output**:
     - Deck becomes [card1, card2, card3]
     - deck size is 3
 
 - **TC50: Add duplicate card to deck** ( :white_check_mark: )
   - **Name of the test**: `addCardToTopBottom_validCard_addsCardToTop` with case `duplicate card`
-  - **State of the system**: Deck has cards: [card1, card2]; card = card1
+  - **State of the system**: 
+    - Deck has cards: [card1, card2]
+    - card = card1
   - **Expected output**:
     - Deck becomes [card1, card2, card1]
     - deck size is 3
+
+### Method under test: `shuffleTopNCards(int n)`
+- **TC51: Shuffle top N cards when n is negative** ( :white_check_mark: )
+  - **Name of the test**: `shuffleTopNCards_negativeCount_throwsIllegalArgumentException`
+  - **State of the system**: 
+    - Deck has cards: [card1, card2]
+    - n = -1
+  - **Expected output**:
+    - Throws IllegalArgumentException with message `error.shuffleNegativeCards`
+    - Deck remains [card1, card2]
+
+- **TC52: Shuffle top N cards when n is zero** ( :white_check_mark: )
+  - **Name of the test**: `shuffleTopNCards_zeroCount_deckOrderUnchanged`
+  - **State of the system**: 
+    - Deck has cards: [card1, card2, card3]
+    - n = 0
+  - **Expected output**:
+    - Deck remains [card1, card2, card3]
+    - random.nextInt is not called
+
+- **TC53: Shuffle top N cards in empty deck** ( :white_check_mark: )
+  - **Name of the test**: `shuffleTopNCards_emptyDeck_deckStaysEmpty`
+  - **State of the system**: 
+    - Deck is empty: []
+    - n = 3
+  - **Expected output**:
+    - Deck remains empty: []
+    - deck size is 0
+    - random.nextInt is not called
+
+- **TC54: Shuffle top N cards in one-card deck** ( :white_check_mark: )
+  - **Name of the test**: `shuffleTopNCards_oneCardDeck_deckOrderUnchanged`
+  - **State of the system**: 
+    - Deck has exactly one card: [card1]
+    - n = 3
+  - **Expected output**:
+    - Deck remains [card1]
+    - deck size is 1
+    - random.nextInt is not called
+
+- **TC55: Shuffle top N cards when exactly one card would be shuffled** ( :white_check_mark: )
+  - **Name of the test**: `shuffleTopNCards_oneCardCount_returnsBeforeRebuildingDeck`
+  - **State of the system**: Deck reports exactly one card available to shuffle; n = 1
+  - **Expected output**:
+    - Method returns after checking deck size
+    - Deck rebuilding methods are not called
+    - random.nextInt is not called
+
+- **TC56: Shuffle top N cards when n is less than deck size** ( :white_check_mark: )
+  - **Name of the test**: `shuffleTopNCards_countLessThanDeckSize_onlyTopCardsShuffled`
+  - **State of the system**: 
+    - Deck has cards: [card1, card2, card3, card4]
+    - n = 3
+    - mocked random values reorder the top three cards
+  - **Expected output**:
+    - Only the top three cards are shuffled
+    - The remaining cards stay in the same order
+    - Deck becomes [card2, card3, card1, card4]
+
+- **TC57: Shuffle top N cards when n is greater than deck size** ( :white_check_mark: )
+  - **Name of the test**: `shuffleTopNCards_countGreaterThanDeckSize_shufflesAllCards`
+  - **State of the system**: 
+    - Deck has cards: [card1, card2]
+    - n = 3
+    - mocked random value reorders the available cards
+  - **Expected output**:
+    - All available cards are shuffled
+    - Deck becomes [card2, card1]

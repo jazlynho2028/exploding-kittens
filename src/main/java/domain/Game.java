@@ -5,6 +5,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static domain.DeckBuilder.createCardId;
@@ -18,6 +19,7 @@ public class Game {
 
     private boolean isGameOngoing;
     private boolean isFaceUp;
+    private boolean isAttackOngoing;
 
     @SuppressFBWarnings(
             value = {"EI_EXPOSE_REP2"},
@@ -35,6 +37,7 @@ public class Game {
 
         isGameOngoing = false;
         isFaceUp = false;
+        isAttackOngoing = false;
     }
 
     public void setUp() {
@@ -89,6 +92,7 @@ public class Game {
         addExplodingKittens();
         drawPile.shuffle();
 
+        changeCurrentPlayerIndex(GameConstants.STARTING_PLAYER_INDEX);
         isGameOngoing = true;
     }
 
@@ -124,6 +128,10 @@ public class Game {
     }
 
     public boolean canPlaySelected() {
+        if (!getCanDraw()) {
+            return false;
+        }
+
         List<Card> selectedCards = getCurrentPlayer().getSelectedCards();
         if (selectedCards.size() != 1) {
             return false;
@@ -148,12 +156,10 @@ public class Game {
             discardPile.addCardToTop(card);
         }
 
-        applyByCardType(cardType);
-
-        return cardType;
+        return applyByCardType(cardType);
     }
 
-    private void applyByCardType(CardType cardType) {
+    CardType applyByCardType(CardType cardType) {
         switch (cardType) {
             case ATTACK:
                 applyAttack();
@@ -171,19 +177,12 @@ public class Game {
                 applySuperSkip();
                 break;
             case CLONE:
-                applyClone();
-                break;
+                return applyClone();
             case SWAP_TOP_AND_BOTTOM:
                 applySwapTopAndBottom();
                 break;
-            case DRAW_FROM_THE_BOTTOM:
-                applyDrawFromTheBottom();
-                break;
             case WINNER_WINNER_CATNIP_DINNER:
                 applyWinnerWinnerCatnipDinner();
-                break;
-            case RECYCLE:
-                applyRecycle();
                 break;
             case DOUBLE_UP:
                 applyDoubleUp();
@@ -194,14 +193,15 @@ public class Game {
             default:
                 break;
         }
+
+        return cardType;
     }
 
     public String getTopDiscardId() {
+        if (discardPile.isEmpty()) {
+            return "global.empty";
+        }
         return discardPile.peekTop().getId();
-    }
-
-    public boolean canDrawFromDiscard() {
-        return false;
     }
 
     public boolean canEndTurn() {
@@ -216,6 +216,10 @@ public class Game {
         return isGameOngoing;
     }
 
+    void setIsGameOngoing(boolean isGameOngoing) {
+        this.isGameOngoing = isGameOngoing;
+    }
+
     public boolean getCanDraw() {
         return isGameOngoing && turnManager.getDrawCount() > 0;
     }
@@ -224,26 +228,44 @@ public class Game {
         return isFaceUp;
     }
 
+    void setIsFaceUp(boolean isFaceUp) {
+        this.isFaceUp = isFaceUp;
+    }
+
+    void setIsAttackOngoing(boolean isAttackOngoing) {
+        this.isAttackOngoing = isAttackOngoing;
+    }
+
     public void changeCurrentPlayerIndex(int newPlayerIndex) {
+        if (!getAliveIndices().contains(newPlayerIndex)) {
+            throw new IllegalStateException("error.playerIsDead");
+        }
+
+        isFaceUp = false;
         turnManager.setCurrentPlayerIndex(newPlayerIndex);
     }
 
-    public void setFaceUpToFalse() {
-        isFaceUp = false;
-    }
-
-    public Card drawFromPile() {
-        Card card = drawPile.peekTop();
+    private Card drawCard(Supplier<Card> peek, Runnable remove) {
+        Card card = peek.get();
 
         if (card.getType() != CardType.EXPLODING_KITTEN) {
-            drawPile.removeTop();
+            remove.run();
             getCurrentPlayer().addCardToHand(card);
         }
 
         turnManager.decrementDrawCount();
+
+        if (turnManager.getDrawCount() == 0) {
+            isAttackOngoing = false;
+        }
+
         getCurrentPlayer().deselectHandCards();
 
         return card;
+    }
+
+    public Card drawFromPile() {
+        return drawCard(drawPile::peekTop, drawPile::removeTop);
     }
 
     public int getDrawPileSize() {
@@ -258,21 +280,34 @@ public class Game {
         getCurrentPlayer().toggleSelectedHandCardAt(handCardIndex);
     }
 
-    public void advanceTurn() {
+    public void endTurn() {
         if (!canEndTurn()) {
             throw new IllegalStateException("error.cannotEndTurn");
         }
+
         getCurrentPlayer().deselectHandCards();
-		turnManager.incrementTurn(getDeadIndices());
+
+        if (reachedWinnerWinnerCondition()) {
+            eliminateAllButCurrentPlayer();
+            isGameOngoing = false;
+        }
+        else {
+            nextTurn();
+        }
+    }
+
+    private void eliminateAllButCurrentPlayer() {
+        for (Player player : players) {
+            if (player != getCurrentPlayer()) {
+                player.eliminate();
+            }
+        }
+    }
+
+    private void nextTurn() {
+        isFaceUp = false;
+        turnManager.incrementTurn(getAliveIndices());
         turnManager.incrementDrawCount();
-    }
-
-    void setIsGameOngoing(boolean isGameOngoing) {
-        this.isGameOngoing = isGameOngoing;
-    }
-
-    void setIsFaceUp(boolean isFaceUp) {
-        this.isFaceUp = isFaceUp;
     }
 
     public boolean isDefusable() {
@@ -332,23 +367,35 @@ public class Game {
         drawPile.removeTop();
 
         getCurrentPlayer().deselectHandCards();
-		getCurrentPlayer().eliminate();
+        getCurrentPlayer().eliminate();
 
         if (hasWinner()) {
             isGameOngoing = false;
         }
         else {
-            turnManager.incrementTurn(getDeadIndices());
-            turnManager.incrementDrawCount();
+            nextTurn();
         }
     }
 
     private boolean hasWinner() {
-        return getDeadIndices().size() >= players.size() - 1;
+        return getAliveIndices().size() == 1;
     }
 
     void applyAttack() {
-        // TODO
+        getCurrentPlayer().deselectHandCards();
+        addAttackDrawCount();
+        turnManager.incrementTurn(getAliveIndices());
+    }
+
+    void addAttackDrawCount() {
+        if (isAttackOngoing) {
+            turnManager.setDrawCount(
+                    turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
+        }
+        else {
+            turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+            isAttackOngoing = true;
+        }
     }
 
     void applyShuffle() {
@@ -358,7 +405,7 @@ public class Game {
     void applySkip() {
         turnManager.decrementDrawCount();
         if (canEndTurn()) {
-            advanceTurn();
+            endTurn();
         }
     }
 
@@ -397,8 +444,8 @@ public class Game {
     }
 
     void applySuperSkip() {
-        turnManager.setDrawCount(0);
-        advanceTurn();
+        turnManager.setDrawCount(GameConstants.NUM_DRAW_COUNT_AFTER_SUPER_SKIP);
+        endTurn();
     }
 
     public void applyGodcat(CardType cardType) {
@@ -413,8 +460,14 @@ public class Game {
         }
     }
 
-    void applyClone() {
-        // TODO
+    CardType applyClone() {
+        List<Card> topDiscardCards = discardPile.peekTopNCards(2);
+        Card clonedCard = topDiscardCards.get(1);
+        CardType clonedCardType = clonedCard.getType();
+
+        applyByCardType(clonedCardType);
+
+        return clonedCardType;
     }
 
     void applySwapTopAndBottom() {
@@ -429,32 +482,35 @@ public class Game {
         drawPile.addCardToBottom(top);
     }
 
-    void applyDrawFromTheBottom() {
-        // TODO
+    public Card drawFromTheBottom() {
+        return drawCard(drawPile::peekBottom, drawPile::removeBottom);
     }
 
     public void applyTargetedAttack(int targetPlayerIndex) {
         getCurrentPlayer().deselectHandCards();
-        while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
-            turnManager.incrementTurn(getDeadIndices());
-        }
         addAttackDrawCount();
+        while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
+            turnManager.incrementTurn(getAliveIndices());
+        }
     }
 
-    void addAttackDrawCount() {
-        if (turnManager.getDrawCount() >= 2) {
-            turnManager.setDrawCount(
-                    turnManager.getDrawCount() + GameConstants.ATTACK_DRAW_COUNT);
-        }
-        else {
-            turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
+    boolean reachedWinnerWinnerCondition() {
+        if (!getCurrentPlayer().isWinnerWinnerActivated()) {
+            return false;
         }
 
+        int activatedRound = getCurrentPlayer().getWinnerWinnerActivatedRound();
+
+        return ((turnManager.getRoundCount() - activatedRound) ==
+                GameConstants.WINNER_WINNER_REQUIRED_ROUNDS);
     }
 
     void applyWinnerWinnerCatnipDinner() {
-        // TODO
+        int currentRound = turnManager.getRoundCount();
+
+        getCurrentPlayer().activateWinnerWinnerFromRound(currentRound);
     }
+
 
     public void applyRagebait(int targetPlayerIndex) {
         Player currentPlayer = getCurrentPlayer();
@@ -462,21 +518,22 @@ public class Game {
         currentPlayer.swapHandWith(targetPlayer);
     }
 
-    void applyRecycle() {
-        // TODO
+    public Card drawRecycle() {
+        discardPile.shuffle();
+        return drawCard(discardPile::peekBottom, discardPile::removeBottom);
     }
 
     void applyDoubleUp() {
-        // TODO
+        turnManager.incrementDrawCount();
     }
 
     void applyMildShuffle() {
-        // TODO
+        drawPile.shuffleTopNCards(GameConstants.MILD_SHUFFLE_SHUFFLE_COUNT);
     }
 
-    public Set<Integer> getDeadIndices() {
+    public Set<Integer> getAliveIndices() {
         return players.stream()
-                .filter(player -> !player.isAlive())
+                .filter(Player::isAlive)
                 .map(players::indexOf)
                 .collect(Collectors.toSet());
     }

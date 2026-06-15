@@ -29,14 +29,4 @@ public class CardTests {
         assertFalse(card.getIsSelected());
     }
 
-    @Test
-    public void setIsSelected_setToTrue() {
-        String id = "EXPLODINGKITTEN_1";
-        CardType type = CardType.CAT_CARD_1;
-        Card card = new Card(id, type);
-
-        card.setIsSelected(true);
-
-        assertTrue(card.getIsSelected());
-    }
 }

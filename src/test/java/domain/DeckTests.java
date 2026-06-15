@@ -106,6 +106,159 @@ public class DeckTests {
     }
 
     @Test
+    public void shuffleTopNCards_negativeCount_throwsIllegalArgumentException() {
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        Random mockRandom = EasyMock.createMock(Random.class);
+
+        EasyMock.replay(card1, card2, mockRandom);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+        cards.addLast(card2);
+
+        Deck deck = new Deck(cards, mockRandom);
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> deck.shuffleTopNCards(-1));
+
+        assertEquals("error.shuffleNegativeCards", exception.getMessage());
+        assertEquals(List.of(card1, card2), deck.getCards());
+
+        EasyMock.verify(card1, card2, mockRandom);
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("shuffleTopNCardsNoOpCases")
+    public void shuffleTopNCards_noOpCases_deckOrderUnchanged(
+            String caseName,
+            Deque<Card> cards,
+            int n,
+            List<Card> expectedCards,
+            Card[] mocksToVerify) {
+        Random mockRandom = EasyMock.createMock(Random.class);
+        EasyMock.replay(mockRandom);
+
+        Deck deck = new Deck(cards, mockRandom);
+
+        deck.shuffleTopNCards(n);
+
+        assertEquals(expectedCards, deck.getCards());
+        assertEquals(expectedCards.size(), deck.size());
+
+        EasyMock.verify(mockRandom);
+        EasyMock.verify((Object[]) mocksToVerify);
+    }
+
+    private static Stream<Arguments> shuffleTopNCardsNoOpCases() {
+        Card zeroCountCard1 = EasyMock.createMock(Card.class);
+        Card zeroCountCard2 = EasyMock.createMock(Card.class);
+        Card zeroCountCard3 = EasyMock.createMock(Card.class);
+        EasyMock.replay(zeroCountCard1, zeroCountCard2, zeroCountCard3);
+        Deque<Card> zeroCountDeck = new ArrayDeque<>();
+        zeroCountDeck.addLast(zeroCountCard1);
+        zeroCountDeck.addLast(zeroCountCard2);
+        zeroCountDeck.addLast(zeroCountCard3);
+
+        Deque<Card> emptyDeck = new ArrayDeque<>();
+
+        Card oneCard = EasyMock.createMock(Card.class);
+        EasyMock.replay(oneCard);
+        Deque<Card> oneCardDeck = new ArrayDeque<>();
+        oneCardDeck.addLast(oneCard);
+
+        return Stream.of(
+                Arguments.of(
+                        "zero count",
+                        zeroCountDeck,
+                        0,
+                        List.of(zeroCountCard1, zeroCountCard2, zeroCountCard3),
+                        new Card[] {zeroCountCard1, zeroCountCard2, zeroCountCard3}),
+                Arguments.of(
+                        "empty deck",
+                        emptyDeck,
+                        THREE_CARDS,
+                        List.of(),
+                        new Card[] {}),
+                Arguments.of(
+                        "one-card deck",
+                        oneCardDeck,
+                        THREE_CARDS,
+                        List.of(oneCard),
+                        new Card[] {oneCard})
+        );
+    }
+
+    @Test
+    public void shuffleTopNCards_countLessThanDeckSize_onlyTopCardsShuffled() {
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        Card card3 = EasyMock.createMock(Card.class);
+        Card card4 = EasyMock.createMock(Card.class);
+        Random mockRandom = EasyMock.createMock(Random.class);
+
+        EasyMock.expect(mockRandom.nextInt(THREE_CARDS)).andReturn(0);
+        EasyMock.expect(mockRandom.nextInt(TWO_CARDS)).andReturn(0);
+
+        EasyMock.replay(card1, card2, card3, card4, mockRandom);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+        cards.addLast(card2);
+        cards.addLast(card3);
+        cards.addLast(card4);
+
+        Deck deck = new Deck(cards, mockRandom);
+
+        deck.shuffleTopNCards(THREE_CARDS);
+
+        assertEquals(List.of(card2, card3, card1, card4), deck.getCards());
+
+        EasyMock.verify(card1, card2, card3, card4, mockRandom);
+    }
+
+    @Test
+    public void shuffleTopNCards_countGreaterThanDeckSize_shufflesAllCards() {
+        Card card1 = EasyMock.createMock(Card.class);
+        Card card2 = EasyMock.createMock(Card.class);
+        Random mockRandom = EasyMock.createMock(Random.class);
+
+        EasyMock.expect(mockRandom.nextInt(TWO_CARDS)).andReturn(0);
+
+        EasyMock.replay(card1, card2, mockRandom);
+
+        Deque<Card> cards = new ArrayDeque<>();
+        cards.addLast(card1);
+        cards.addLast(card2);
+
+        Deck deck = new Deck(cards, mockRandom);
+
+        deck.shuffleTopNCards(THREE_CARDS);
+
+        assertEquals(List.of(card2, card1), deck.getCards());
+
+        EasyMock.verify(card1, card2, mockRandom);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void shuffleTopNCards_oneCardCount_returnsBeforeRebuildingDeck() {
+        Deque<Card> cards = EasyMock.createMock(Deque.class);
+        Random mockRandom = EasyMock.createMock(Random.class);
+
+        EasyMock.expect(cards.size()).andReturn(ONE_CARD);
+
+        EasyMock.replay(cards, mockRandom);
+
+        Deck deck = new Deck(cards, mockRandom);
+
+        deck.shuffleTopNCards(ONE_CARD);
+
+        EasyMock.verify(cards, mockRandom);
+    }
+
+    @Test
     public void peekTop_emptyDeck_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards, new Random());

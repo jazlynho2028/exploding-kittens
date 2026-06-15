@@ -145,7 +145,7 @@
 .content-section {
     -fx-alignment: center;
     -fx-padding: 16px;
-    -fx-spacing: 24px;
+    -fx-spacing: 16px;
 }
 
 .content-section > * {

@@ -19,7 +19,8 @@ public final class GameConstants {
 	public static final int FOUR_CARDS = 4;
 
 	public static final int NUM_MILD_SHUFFLE_IN_GAME = 1;
-	public static final int NUM_SUPER_SKIP_DRAW_COUNT = 0;
+	public static final int MILD_SHUFFLE_SHUFFLE_COUNT = 3;
+	public static final int NUM_DRAW_COUNT_AFTER_SUPER_SKIP = 0;
 	public static final int ATTACK_DRAW_COUNT = 2;
 	public static final int NUM_GODCAT_IN_GAME = 1;
 	public static final int NUM_WINNER_WINNER_CATNIP_DINNER_IN_GAME = 1;
@@ -37,10 +38,12 @@ public final class GameConstants {
 	public static final int NUM_SEE_THE_FUTURE_IN_GAME = 4;
 	public static final int NUM_SHUFFLE_IN_GAME = 4;
 	public static final int NUM_TARGETED_ATTACK_IN_GAME = 4;
-	public static final int NUM_CAT_CARD_IN_GAME = 4;
+	public static final int NUM_CAT_CARD_PER_TYPE_IN_GAME = 4;
+	public static final int NUM_CAT_CARD_TYPES_IN_GAME = 4;
 	public static final int NUM_DEFUSES_IN_GAME = 5;
 
 	public static final int SEE_THE_FUTURE_PEEK_COUNT = 2;
+	public static final int WINNER_WINNER_REQUIRED_ROUNDS = 4;
 
 	public static final List<CardType> CONDITIONAL_PLAY_CARDTYPES = List.of(
 			CardType.DEFUSE,

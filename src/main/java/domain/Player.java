@@ -9,6 +9,7 @@ public class Player {
     private final String name;
     private List<Card> hand;
     private boolean isAlive;
+    private int winnerWinnerActivatedRound;
 
     public Player(String name) {
         this.name = name;
@@ -50,6 +51,7 @@ public class Player {
             throw new IllegalStateException("error.cardNotInHand");
         }
         hand.remove(card);
+        winnerWinnerActivatedRound = 0;
     }
 
     public void deselectHandCards() {
@@ -78,6 +80,22 @@ public class Player {
 
     public void eliminate() {
         isAlive = false;
+    }
+
+    public int getWinnerWinnerActivatedRound() {
+        return winnerWinnerActivatedRound;
+    }
+
+    public void activateWinnerWinnerFromRound(int round) {
+        if (round < 1) {
+            throw new IllegalArgumentException("error.invalidRound");
+        }
+
+        winnerWinnerActivatedRound = round;
+    }
+
+    public boolean isWinnerWinnerActivated() {
+        return winnerWinnerActivatedRound > 0;
     }
 
 }
