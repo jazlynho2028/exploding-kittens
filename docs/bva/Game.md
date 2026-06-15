@@ -1833,11 +1833,9 @@
 - **TC233: Target does not have the requested card type** ( :x: )
   - **Name of the test**: playThreeOfAKind_targetDoesNotHaveCard_noTransfer
   - **State of the system**: target player has zero cards matching requestedType in hand
-  - **Expected output**: 
-    - no cards are transferred between hands
+  - **Expected output**: no cards are transferred between hands
 
 - **TC234: Target has an empty hand** ( :x: )
   - **Name of the test**: playThreeOfAKind_targetHandEmpty_noTransfer
   - **State of the system**: target player has zero cards matching requestedType in hand
-  - **Expected output**:
-    - no cards are transferred between hands
+  - **Expected output**: no cards are transferred between hands

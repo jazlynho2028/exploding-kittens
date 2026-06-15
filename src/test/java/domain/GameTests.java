@@ -3786,4 +3786,35 @@ public class GameTests {
 
 		EasyMock.verify(players, targetPlayer, currentPlayer, game);
 	}
+
+	@Test
+	public void applyThreeOfAKind_targetDoesNotHaveCard_noTransfer() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+		Player currentPlayer = EasyMock.createMock(Player.class);
+		Player targetPlayer = EasyMock.createMock(Player.class);
+
+		Card differentCard = EasyMock.createMock(Card.class);
+		EasyMock.expect(differentCard.getType()).andStubReturn(CardType.SKIP);
+		List<Card> targetHand = List.of(differentCard);
+
+		int targetPlayerIndex = 1;
+
+		EasyMock.expect(players.get(targetPlayerIndex)).andReturn(targetPlayer);
+		EasyMock.expect(targetPlayer.getHand()).andReturn(targetHand);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager,
+				currentPlayer, targetPlayer, differentCard);
+
+		Game game = mockGameWithGetCurrentPlayer(
+				players, drawPile, discardPile, turnManager, currentPlayer);
+
+		EasyMock.replay(game);
+
+		game.applyThreeOfAKind(targetPlayerIndex, CardType.DEFUSE);
+
+		EasyMock.verify(players, targetPlayer, currentPlayer, game);
+	}
 }
