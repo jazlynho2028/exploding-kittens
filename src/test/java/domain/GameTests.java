@@ -775,6 +775,39 @@ public class GameTests {
 	}
 
 	@Test
+	public void canPlaySelected_twoCatCardsAndOneMatchingClone_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card topDiscardCard = mockCardOfType(CardType.CAT_CARD_3);
+		EasyMock.expect(discardPile.isEmpty()).andReturn(false);
+		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
+
+		List<CardType> cardTypes = List.of(
+				CardType.CAT_CARD_3,
+				CardType.CAT_CARD_3,
+				CardType.CLONE
+		);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(discardPile, player, game);
+	}
+
+	@Test
 	public void playSelectedCards_invalidPlay_failed() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);

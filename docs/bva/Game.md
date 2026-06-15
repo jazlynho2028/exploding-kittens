@@ -362,7 +362,7 @@
     - selected cards have exactly two matching cat cards and one godcat
   - **Expected output**: returns true
 
-- **TC54: Three-of-a-kind with two Cat Cards and a Clone card** ( :x: )
+- **TC54: Three-of-a-kind with two Cat Cards and a Clone card** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_twoCatCardsAndOneMatchingClone_returnsTrue
   - **State of the system**:
     - getCanDraw() returns true
