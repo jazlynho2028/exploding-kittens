@@ -145,7 +145,9 @@ public class Game {
         }
         else if (size == GameConstants.TWO_CARDS || size == GameConstants.THREE_CARDS) {
             CardType firstCardType = selectedCards.get(0).getType();
-            boolean isCatCard = GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
+
+            boolean isCatCard = (GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
+                    || firstCardType == CardType.FERAL_CAT)
                     && firstCardType != CardType.DEFUSE
                     && firstCardType != CardType.EXPLODING_KITTEN;
 
