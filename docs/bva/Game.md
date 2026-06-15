@@ -341,29 +341,29 @@
     - selected cards have exactly one feral cat card and one godcat card
   - **Expected output**: returns true
 
-- **TC52: Three-of-a-kind with two Cat Cards and a Feral Cat** ( :x: )
-  - **Name of the test**: canPlaySelected_twoCatCardsWithFeralCat_returnsTrue
+- **TC52: Three-of-a-kind with two Cat Cards and a Feral Cat** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_twoCatCardsAndOneFeralCat_returnsTrue
   - **State of the system**:
     - getCanDraw() returns true
     - selected cards have exactly two matching cat cards and one feral cat
   - **Expected output**: returns true
 
 - **TC53: Three-of-a-kind with two Feral Cats and one Godcat** ( :x: )
-  - **Name of the test**: canPlaySelected_twoFeralCatsWithGodcat_returnsTrue
+  - **Name of the test**: canPlaySelected_twoFeralCatsAndOneGodcat_returnsTrue
   - **State of the system**:
     - getCanDraw() returns true
     - selected cards have exactly two feral cards and one godcat that is any cat card
   - **Expected output**: returns true
 
 - **TC54: Three-of-a-kind with two Cat Cards and a Godcat** ( :x: )
-  - **Name of the test**: canPlaySelected_twoCatCardsWithGodcat_returnsTrue
+  - **Name of the test**: canPlaySelected_twoCatCardsAndOneGodcat_returnsTrue
   - **State of the system**:
     - getCanDraw() returns true
     - selected cards have exactly two matching cat cards and one godcat
   - **Expected output**: returns true
 
 - **TC54: Three-of-a-kind with two Cat Cards and a Clone card** ( :x: )
-  - **Name of the test**: canPlaySelected_twoCatCardsWithMatchingClone_returnsTrue
+  - **Name of the test**: canPlaySelected_twoCatCardsAndOneMatchingClone_returnsTrue
   - **State of the system**:
     - getCanDraw() returns true
     - selected cards have exactly two matching cat cards and one clone
