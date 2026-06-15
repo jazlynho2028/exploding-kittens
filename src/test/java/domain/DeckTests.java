@@ -242,6 +242,23 @@ public class DeckTests {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
+    public void shuffleTopNCards_oneCardCount_returnsBeforeRebuildingDeck() {
+        Deque<Card> cards = EasyMock.createMock(Deque.class);
+        Random mockRandom = EasyMock.createMock(Random.class);
+
+        EasyMock.expect(cards.size()).andReturn(ONE_CARD);
+
+        EasyMock.replay(cards, mockRandom);
+
+        Deck deck = new Deck(cards, mockRandom);
+
+        deck.shuffleTopNCards(ONE_CARD);
+
+        EasyMock.verify(cards, mockRandom);
+    }
+
+    @Test
     public void peekTop_emptyDeck_throwsIllegalStateException() {
         Deque<Card> cards = new ArrayDeque<>();
         Deck deck = new Deck(cards, new Random());

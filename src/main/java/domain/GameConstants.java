@@ -38,7 +38,8 @@ public final class GameConstants {
 	public static final int NUM_SEE_THE_FUTURE_IN_GAME = 4;
 	public static final int NUM_SHUFFLE_IN_GAME = 4;
 	public static final int NUM_TARGETED_ATTACK_IN_GAME = 4;
-	public static final int NUM_CAT_CARD_IN_GAME = 4;
+	public static final int NUM_CAT_CARD_PER_TYPE_IN_GAME = 4;
+	public static final int NUM_CAT_CARD_TYPES_IN_GAME = 4;
 	public static final int NUM_DEFUSES_IN_GAME = 5;
 
 	public static final int SEE_THE_FUTURE_PEEK_COUNT = 2;

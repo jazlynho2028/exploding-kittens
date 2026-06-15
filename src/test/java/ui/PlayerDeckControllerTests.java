@@ -26,7 +26,6 @@ public class PlayerDeckControllerTests {
 	private static final List<String> CURRENT_PLAYER_HAND_IDS = List.of();
 	private static final List<String> PLAYER_NAMES = List.of();
 	private static final boolean CAN_DRAW = true;
-	private static final boolean CAN_PLAY = true;
 	private static final int CURRENT_PLAYER_INDEX = 0;
 	private static final boolean IS_DRAW_PILE_EMPTY = true;
 	private static final boolean CAN_PLAY_SELECTED = true;
@@ -104,7 +103,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getCurrentPlayerHandIds())
 				.andStubReturn(CURRENT_PLAYER_HAND_IDS);
 		EasyMock.expect(model.getIsFaceUp()).andStubReturn(isFaceUp);
-		EasyMock.expect(model.getCanPlay()).andStubReturn(CAN_PLAY);
+		EasyMock.expect(model.getCanDraw()).andStubReturn(CAN_DRAW);
 		view.buildAndAddPlayerHandCards(CURRENT_PLAYER_HAND_IDS, isFaceUp, CAN_DRAW);
 		EasyMock.expectLastCall();
 
@@ -244,7 +243,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getCurrentPlayerHandIds())
 				.andStubReturn(CURRENT_PLAYER_HAND_IDS);
 		EasyMock.expect(model.getIsFaceUp()).andStubReturn(isFaceUp);
-		EasyMock.expect(model.getCanPlay()).andStubReturn(CAN_PLAY);
+		EasyMock.expect(model.getCanDraw()).andStubReturn(CAN_DRAW);
 		strictView.buildAndAddPlayerHandCards(CURRENT_PLAYER_HAND_IDS, isFaceUp, CAN_DRAW);
 		EasyMock.expectLastCall();
 		strictView.bindPlayerHandCardButtons(EasyMock.anyObject());
@@ -290,7 +289,7 @@ public class PlayerDeckControllerTests {
 		EasyMock.expect(model.getCurrentPlayerHandIds())
 				.andStubReturn(CURRENT_PLAYER_HAND_IDS);
 		EasyMock.expect(model.getIsFaceUp()).andStubReturn(isFaceUp);
-		EasyMock.expect(model.getCanPlay()).andStubReturn(CAN_PLAY);
+		EasyMock.expect(model.getCanDraw()).andStubReturn(CAN_DRAW);
 		view.buildAndAddPlayerHandCards(CURRENT_PLAYER_HAND_IDS, isFaceUp, CAN_DRAW);
 		EasyMock.expectLastCall();
 		view.bindPlayerHandCardButtons(EasyMock.anyObject());
