@@ -19,7 +19,7 @@
 REFERENCES, SOURCE OF HELP ETC
 
 ## Special Decisions and Exceptions
-**Unachievable 100% Line Coverage due to Empty Lambdas**
+**(1) Unachievable 100% Line Coverage due to Empty Lambdas**
 Our project does not achieve 100% code coverage due to the use of
 intentionally empty lambda expressions in several controller classes.
 These lambdas are used as default callback implementations before a
@@ -32,7 +32,23 @@ this.onError = message -> { };
 
 Because the lambda is empty, executing it doesn't cause anything to happen.
 As a result, coverage tools may report it as uncovered even though it is
-functioning as designed. Team 14 believes this to be a justified use
+functioning as designed. Team 14 believes this to be a justified use.
+
+**(2) Unachievable 100% Line Coverage due to Default Throw**
+Our project does not achieve 100% code coverage in model class Game.java
+because of the use of a default throw, of which no implementation will ever 
+reach. 
+
+Example `src/main/java/domain/Game.java` Line 418
+```
+ throw new IllegalStateException("error.currentPlayerNoCardOfCardtype");
+``` 
+We chose to keep this throw as a defensive fail-safe to ensure 
+the game never enters an undefined state.
+
+**SpotBug Suppressions**
+There were several SpotBug warnings intentionally suppressed as they
+conflicted with project design requirements or testability
 
 **SpotBug Suppressions**
 There were several SpotBug warnings intentionally suppressed as they
