@@ -341,6 +341,20 @@
     - selected cards have exactly one feral cat card and one godcat card
   - **Expected output**: returns true
 
+- **TC52: Three-of-a-kind with two Cat Cards and a Feral Cat** ( :x: )
+  - **Name of the test**: canPlaySelected_twoCatCardsWithFeralCat_returnsTrue
+  - **State of the system**:
+    - getCanDraw() returns true
+    - selected cards have exactly two matching cat cards and one feral cat
+  - **Expected output**: returns true
+
+- **TC53: Three-of-a-kind with two Feral Cats and one Godcat** ( :x: )
+  - **Name of the test**: canPlaySelected_twoFeralCatsWithGodcat_returnsTrue
+  - **State of the system**:
+    - getCanDraw() returns true
+    - selected cards have exactly two feral cards and one godcat that is any cat card
+  - **Expected output**: returns true
+
 ### Method under test: `playSelectedCards()`
 - **TC43: Selected cards cannot be played** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_invalidPlay_failed
