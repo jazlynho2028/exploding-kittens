@@ -884,7 +884,8 @@ public class PlayerDeckView {
         String heading;
         if ("GODCAT".equals(titleMode)) {
             heading = assetProvider.getString("playerDeckScreen.godcatCaption");
-        } else {
+        }
+        else {
             heading = assetProvider.getString("playerDeckScreen.cardRequestCaption");
         }
         buildCardSelectOverlayInternal(cardTypeOptions, cardSelectConfirmButton, heading);

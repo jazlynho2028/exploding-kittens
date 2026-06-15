@@ -436,7 +436,8 @@ public class GameTests {
 		Deck drawPile = EasyMock.createMock(Deck.class);
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
-		List<Card> selectedCards = mockCardsOfTypes(List.of(CardType.CAT_CARD_2, CardType.CAT_CARD_2));
+		List<Card> selectedCards = mockCardsOfTypes(
+				List.of(CardType.CAT_CARD_2, CardType.CAT_CARD_2));
 		Player player = EasyMock.createMock(Player.class);
 
 		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
@@ -462,7 +463,8 @@ public class GameTests {
 		Deck discardPile = EasyMock.createMock(Deck.class);
 		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
 
-		List<CardType> cardTypes = List.of(CardType.CAT_CARD_3, CardType.CAT_CARD_3, CardType.CAT_CARD_3);
+		List<CardType> cardTypes = List.of(
+				CardType.CAT_CARD_3, CardType.CAT_CARD_3, CardType.CAT_CARD_3);
 		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
 
 		Player player = EasyMock.createMock(Player.class);

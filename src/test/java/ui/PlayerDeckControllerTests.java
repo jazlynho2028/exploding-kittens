@@ -609,6 +609,7 @@ public class PlayerDeckControllerTests {
 	@Test
 	public void onPlayCardsButton_twoOfAKind_enablesPlayerSelectMode() {
 		boolean isFaceUp = true;
+		int targetIndex = 1;
 
 		PlayerDeckController controller = EasyMock.createMockBuilder(
 						PlayerDeckController.class)
@@ -635,11 +636,15 @@ public class PlayerDeckControllerTests {
 		view.renderHandVisibilityButton(isFaceUp, false);
 		EasyMock.expectLastCall();
 
-		EasyMock.expect(model.getCurrentPlayerHandIds()).andStubReturn(CURRENT_PLAYER_HAND_IDS);
+		EasyMock.expect(model.getCurrentPlayerHandIds())
+				.andStubReturn(CURRENT_PLAYER_HAND_IDS);
 		view.buildAndAddPlayerHandCards(CURRENT_PLAYER_HAND_IDS, isFaceUp, false);
 		EasyMock.expectLastCall();
 
 		view.renderTurnControlSection(false, false);
+		EasyMock.expectLastCall();
+
+		model.applyTwoOfAKind(EasyMock.eq(targetIndex), EasyMock.anyObject(java.util.Random.class));
 		EasyMock.expectLastCall();
 
 		EasyMock.replay(model, view, controller);
@@ -649,6 +654,9 @@ public class PlayerDeckControllerTests {
 		controller.onPlayCardsButton();
 
 		assertTrue(controller.pendingTargetAction.isPresent());
+
+		controller.pendingTargetAction.get().accept(targetIndex);
+
 		EasyMock.verify(model, view, controller);
 	}
 
@@ -1159,7 +1167,8 @@ public class PlayerDeckControllerTests {
 		view.renderHandVisibilityButton(isFaceUp, false);
 		EasyMock.expectLastCall();
 
-		EasyMock.expect(model.getCurrentPlayerHandIds()).andStubReturn(CURRENT_PLAYER_HAND_IDS);
+		EasyMock.expect(model.getCurrentPlayerHandIds())
+				.andStubReturn(CURRENT_PLAYER_HAND_IDS);
 		view.buildAndAddPlayerHandCards(CURRENT_PLAYER_HAND_IDS, isFaceUp, false);
 		EasyMock.expectLastCall();
 
