@@ -141,21 +141,24 @@ public class Game {
 
         if (size == GameConstants.ONE_CARD) {
             CardType type = selectedCards.get(0).getType();
-            return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type)
-                    && type != CardType.FERAL_CAT;
+            return !GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(type);
         }
         else if (size == GameConstants.TWO_CARDS || size == GameConstants.THREE_CARDS) {
             CardType firstCardType = selectedCards.get(0).getType();
 
-            boolean isValidComboCard =
-                    (GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
-                    || firstCardType == CardType.FERAL_CAT
-                    || firstCardType == CardType.GODCAT
-                    || firstCardType == CardType.CLONE)
-                    && firstCardType != CardType.DEFUSE
-                    && firstCardType != CardType.EXPLODING_KITTEN;
+            if (firstCardType == CardType.DEFUSE || firstCardType == CardType.EXPLODING_KITTEN) {
+                return false;
+            }
 
-            return isValidComboCard && doAllCardsMatch(selectedCards);
+            boolean isValidComboCard =
+                    GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
+                    || firstCardType == CardType.GODCAT
+                    || firstCardType == CardType.CLONE;
+
+            if (!isValidComboCard) {
+                return false;
+            }
+            return doAllCardsMatch(selectedCards);
         }
         return false;
     }
