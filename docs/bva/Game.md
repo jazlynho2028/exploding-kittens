@@ -312,6 +312,28 @@
   - **State of the system**: two cards of different cat card types are selected (e.g., [CAT_CARD_1, CAT_CARD_3])
   - **Expected output**: returns false
 
+- **TC48: Two-of-a-kind with a Cat Card and Feral Cat** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_catCardWithFeralCat_returnsTrue
+  - **State of the system**:
+    - getCanDraw() returns true
+    - selected cards have exactly one cat card and one feral cat card
+  - **Expected output**: returns true
+
+- **TC49: Two-of-a-kind with a Cat Card and Godcat** ( :x: )
+  - **Name of the test**: canPlaySelected_catCardWithGodcat_returnsTrue
+  - **State of the system**:
+    - getCanDraw() returns true
+    - selected cards have exactly one cat card and one godcat card
+  - **Expected output**: returns true
+
+- **TC50: Two-of-a-kind with a Cat Card and Clone** ( :x: )
+  - **Name of the test**: canPlaySelected_catCardWithMatchingClone_returnsTrue
+  - **State of the system**:
+    - getCanDraw() returns true
+    - selected cards have exactly one cat card and one clone card
+    - top of discard pile is matching cat card
+  - **Expected output**: returns true
+
 ### Method under test: `playSelectedCards()`
 - **TC43: Selected cards cannot be played** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_invalidPlay_failed
@@ -1874,3 +1896,5 @@
   - **Name of the test**: applyThreeOfAKind_targetHandEmpty_noTransfer
   - **State of the system**: target player has zero cards matching requestedType in hand
   - **Expected output**: no cards are transferred between hands
+
+### Method under test: `applyFeralCat()`
