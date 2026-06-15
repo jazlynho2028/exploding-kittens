@@ -552,6 +552,32 @@ public class Game {
         drawPile.shuffleTopNCards(GameConstants.MILD_SHUFFLE_SHUFFLE_COUNT);
     }
 
+    public void applyTwoOfAKind(int targetPlayerIndex, java.util.Random random) {
+        Player targetPlayer = players.get(targetPlayerIndex);
+        List<Card> targetHand = targetPlayer.getHand();
+
+        if (!targetHand.isEmpty()) {
+            int randomIndex = random.nextInt(targetHand.size());
+            Card stolenCard = targetHand.get(randomIndex);
+
+            targetPlayer.removeCardFromHand(stolenCard);
+            getCurrentPlayer().addCardToHand(stolenCard);
+        }
+    }
+
+    public void applyThreeOfAKind(int targetPlayerIndex, CardType requestedCardType) {
+        Player targetPlayer = players.get(targetPlayerIndex);
+        List<Card> targetHand = targetPlayer.getHand();
+
+        for (Card card: targetHand) {
+            if (card.getType() == requestedCardType) {
+                targetPlayer.removeCardFromHand(card);
+                getCurrentPlayer().addCardToHand(card);
+                break;
+            }
+        }
+    }
+
     public Set<Integer> getAliveIndices() {
         return players.stream()
                 .filter(Player::isAlive)
@@ -575,31 +601,5 @@ public class Game {
     public Card drawRecycle() {
         discardPile.shuffle();
         return drawCard(discardPile::peekBottom, discardPile::removeBottom);
-    }
-
-    public void playTwoOfAKind(int targetPlayerIndex, java.util.Random random) {
-        Player targetPlayer = players.get(targetPlayerIndex);
-        List<Card> targetHand = targetPlayer.getHand();
-
-        if (!targetHand.isEmpty()) {
-            int randomIndex = random.nextInt(targetHand.size());
-            Card stolenCard = targetHand.get(randomIndex);
-
-            targetPlayer.removeCardFromHand(stolenCard);
-            getCurrentPlayer().addCardToHand(stolenCard);
-        }
-    }
-
-    public void playThreeOfAKind(int targetPlayerIndex, CardType requestedCardType) {
-        Player targetPlayer = players.get(targetPlayerIndex);
-        List<Card> targetHand = targetPlayer.getHand();
-
-        for (Card card: targetHand) {
-            if (card.getType() == requestedCardType) {
-                targetPlayer.removeCardFromHand(card);
-                getCurrentPlayer().addCardToHand(card);
-                break;
-            }
-        }
     }
 }
