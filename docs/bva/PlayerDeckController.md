@@ -447,7 +447,7 @@
   - **Expected output**: onError accepts exception
 
 ## Method under test:** `onCardRequestConfirm()`
-- **TC48: Request confirmed successfully** ( :x: )
+- **TC48: Request confirmed successfully** ( :white_check_mark: )
   - **Name of the test**: onCardRequestConfirm_called_setsPendingActionAndEnablesSelect
   - **State of the system**: view.getSelectedOverlayCardType returns a valid card type 
       (e.g., CardType.DEFUSE)
