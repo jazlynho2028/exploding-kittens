@@ -334,6 +334,13 @@
     - top of discard pile is matching cat card
   - **Expected output**: returns true
 
+- **TC51: Two-of-a-kind with a Feral Cat and Godcat** ( :x: )
+  - **Name of the test**: canPlaySelected_feralCatWithGodcat_returnsTrue
+  - **State of the system**:
+    - getCanDraw() returns true
+    - selected cards have exactly one feral cat card and one godcat card
+  - **Expected output**: returns true
+
 ### Method under test: `playSelectedCards()`
 - **TC43: Selected cards cannot be played** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_invalidPlay_failed
@@ -1896,5 +1903,3 @@
   - **Name of the test**: applyThreeOfAKind_targetHandEmpty_noTransfer
   - **State of the system**: target player has zero cards matching requestedType in hand
   - **Expected output**: no cards are transferred between hands
-
-### Method under test: `applyFeralCat()`
