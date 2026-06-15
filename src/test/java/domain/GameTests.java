@@ -865,6 +865,28 @@ public class GameTests {
 	}
 
 	@Test
+	public void canPlaySelected_singleFeralCat_returnsFalse() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<Card> selectedCards = mockCardsOfTypes(List.of(CardType.FERAL_CAT));
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+		EasyMock.replay(game);
+
+		assertFalse(game.canPlaySelected());
+
+		EasyMock.verify(player, game);
+	}
+
+	@Test
 	public void playSelectedCards_invalidPlay_failed() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);

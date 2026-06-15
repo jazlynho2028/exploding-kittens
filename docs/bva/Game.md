@@ -385,6 +385,20 @@
     - discard pile is empty
   - **Expected output**: returns false
 
+- **TC57: Single Feral Cat Selection** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_singleFeralCat_returnsFalse
+  - **State of the system**:
+    - getCanDraw() returns true
+    - selected card is one feral cat
+  - **Expected output**: returns false
+
+- **TC57: Invalid Combo Pair Selection** ( :x: )
+  - **Name of the test**: canPlaySelected_invalidComboPair_returnsFalse
+  - **State of the system**:
+    - getCanDraw() returns true
+    - selected card is two Attack cards
+  - **Expected output**: returns false
+
 ### Method under test: `playSelectedCards()`
 - **TC43: Selected cards cannot be played** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_invalidPlay_failed

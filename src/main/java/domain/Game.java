@@ -147,15 +147,15 @@ public class Game {
         else if (size == GameConstants.TWO_CARDS || size == GameConstants.THREE_CARDS) {
             CardType firstCardType = selectedCards.get(0).getType();
 
-            boolean isCatComboCard = (
-                    GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
+            boolean isValidComboCard =
+                    (GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
                     || firstCardType == CardType.FERAL_CAT
                     || firstCardType == CardType.GODCAT
                     || firstCardType == CardType.CLONE)
                     && firstCardType != CardType.DEFUSE
                     && firstCardType != CardType.EXPLODING_KITTEN;
 
-            return isCatComboCard && doAllCardsMatch(selectedCards);
+            return isValidComboCard && doAllCardsMatch(selectedCards);
         }
         return false;
     }
