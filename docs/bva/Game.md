@@ -334,7 +334,7 @@
     - top of discard pile is a matching cat card
   - **Expected output**: returns true
 
-- **TC51: Two-of-a-kind with a Feral Cat and Godcat** ( :x: )
+- **TC51: Two-of-a-kind with a Feral Cat and Godcat** ( :white_check_mark: )
   - **Name of the test**: canPlaySelected_feralCatWithGodcat_returnsTrue
   - **State of the system**:
     - getCanDraw() returns true
@@ -353,6 +353,28 @@
   - **State of the system**:
     - getCanDraw() returns true
     - selected cards have exactly two feral cards and one godcat that is any cat card
+  - **Expected output**: returns true
+
+- **TC54: Three-of-a-kind with two Cat Cards and a Godcat** ( :x: )
+  - **Name of the test**: canPlaySelected_twoCatCardsWithGodcat_returnsTrue
+  - **State of the system**:
+    - getCanDraw() returns true
+    - selected cards have exactly two matching cat cards and one godcat
+  - **Expected output**: returns true
+
+- **TC54: Three-of-a-kind with two Cat Cards and a Clone card** ( :x: )
+  - **Name of the test**: canPlaySelected_twoCatCardsWithMatchingClone_returnsTrue
+  - **State of the system**:
+    - getCanDraw() returns true
+    - selected cards have exactly two matching cat cards and one clone
+    - top card of discard pile matches cat card type
+  - **Expected output**: returns true
+
+- **TC55: Three-of-a-kind with a Cat Card, a Godcat, and Feral Cat** ( :x: )
+  - **Name of the test**: canPlaySelected_oneCatCardOneGodcatOneFeralCat_returnsTrue
+  - **State of the system**:
+    - getCanDraw() returns true
+    - selected cards have exactly one cat card, one feral cat, and one godcat
   - **Expected output**: returns true
 
 ### Method under test: `playSelectedCards()`
