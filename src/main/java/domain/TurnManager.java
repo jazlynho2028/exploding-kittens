@@ -82,5 +82,4 @@ public class TurnManager {
     void setDrawCount(int drawCount) {
         this.drawCount = drawCount;
     }
-
 }
