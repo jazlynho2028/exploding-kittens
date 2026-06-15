@@ -608,6 +608,30 @@ public class GameTests {
 
 		EasyMock.verify(player, game);
 	}
+	@Test
+	public void canPlaySelected_catCardWithGodcat_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<CardType> cardTypes = List.of(CardType.CAT_CARD_1, CardType.GODCAT);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(player, game);
+	}
 
 	@Test
 	public void playSelectedCards_invalidPlay_failed() {
