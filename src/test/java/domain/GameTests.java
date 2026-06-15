@@ -585,6 +585,362 @@ public class GameTests {
 	}
 
 	@Test
+	public void canPlaySelected_catCardWithFeralCat_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<CardType> cardTypes = List.of(CardType.CAT_CARD_1, CardType.FERAL_CAT);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(player, game);
+	}
+
+	@Test
+	public void canPlaySelected_catCardWithGodcat_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<CardType> cardTypes = List.of(CardType.CAT_CARD_1, CardType.GODCAT);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(player, game);
+	}
+
+	@Test
+	public void canPlaySelected_catCardWithMatchingClone_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card topDiscardCard = mockCardOfType(CardType.CAT_CARD_3);
+		EasyMock.expect(discardPile.isEmpty()).andReturn(false);
+		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
+
+		List<CardType> cardTypes = List.of(CardType.CAT_CARD_3, CardType.CLONE);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(discardPile, player, game);
+	}
+
+	@Test
+	public void canPlaySelected_feralCatWithGodcat_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<CardType> cardTypes = List.of(CardType.FERAL_CAT, CardType.GODCAT);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(player, game);
+	}
+
+	@Test
+	public void canPlaySelected_twoCatCardsAndOneFeralCat_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<CardType> cardTypes = List.of(
+				CardType.CAT_CARD_1,
+				CardType.CAT_CARD_1,
+				CardType.FERAL_CAT
+		);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(player, game);
+	}
+
+	@Test
+	public void canPlaySelected_twoFeralCatsAndOneGodcat_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<CardType> cardTypes = List.of(
+				CardType.FERAL_CAT,
+				CardType.FERAL_CAT,
+				CardType.GODCAT
+		);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(player, game);
+	}
+
+	@Test
+	public void canPlaySelected_twoCatCardsAndOneGodcat_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<CardType> cardTypes = List.of(
+				CardType.CAT_CARD_2,
+				CardType.CAT_CARD_2,
+				CardType.GODCAT
+		);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(player, game);
+	}
+
+	@Test
+	public void canPlaySelected_twoCatCardsAndOneMatchingClone_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card topDiscardCard = mockCardOfType(CardType.CAT_CARD_3);
+		EasyMock.expect(discardPile.isEmpty()).andReturn(false);
+		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
+
+		List<CardType> cardTypes = List.of(
+				CardType.CAT_CARD_3,
+				CardType.CAT_CARD_3,
+				CardType.CLONE
+		);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(discardPile, player, game);
+	}
+
+	@Test
+	public void canPlaySelected_oneCatCardOneGodcatOneFeralCat_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<CardType> cardTypes = List.of(
+				CardType.CAT_CARD_4,
+				CardType.GODCAT,
+				CardType.FERAL_CAT
+		);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(player, game);
+	}
+
+	@Test
+	public void canPlaySelected_comboWithCloneEmptyDiscardPile_returnsFalse() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		EasyMock.expect(discardPile.isEmpty()).andReturn(true);
+
+		List<CardType> cardTypes = List.of(CardType.CAT_CARD_1, CardType.CLONE);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+
+		EasyMock.replay(game);
+
+		assertFalse(game.canPlaySelected());
+
+		EasyMock.verify(discardPile, player, game);
+	}
+
+	@Test
+	public void canPlaySelected_singleFeralCat_returnsFalse() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<Card> selectedCards = mockCardsOfTypes(List.of(CardType.FERAL_CAT));
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+		EasyMock.replay(game);
+
+		assertFalse(game.canPlaySelected());
+
+		EasyMock.verify(player, game);
+	}
+
+	@Test
+	public void canPlaySelected_validGodcatComboStarter_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		List<CardType> cardTypes = List.of(
+				CardType.GODCAT, CardType.CAT_CARD_1);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(player, game);
+	}
+
+	@Test
+	public void canPlaySelected_validCloneComboStarter_returnsTrue() {
+		List<Player> players = EasyMock.createMock(List.class);
+		Deck drawPile = EasyMock.createMock(Deck.class);
+		Deck discardPile = EasyMock.createMock(Deck.class);
+		TurnManager turnManager = EasyMock.createMock(TurnManager.class);
+
+		Card topDiscardCard = mockCardOfType(CardType.CAT_CARD_1);
+		EasyMock.expect(discardPile.isEmpty()).andReturn(false);
+		EasyMock.expect(discardPile.peekTop()).andStubReturn(topDiscardCard);
+
+		List<CardType> cardTypes = List.of(
+				CardType.CLONE, CardType.CAT_CARD_1);
+		List<Card> selectedCards = mockCardsOfTypes(cardTypes);
+
+		Player player = EasyMock.createMock(Player.class);
+		EasyMock.expect(player.getSelectedCards()).andReturn(selectedCards);
+
+		EasyMock.replay(players, drawPile, discardPile, turnManager, player);
+
+		Game game = mockGameWithGetCurrentPlayerAndCanDraw(
+				players, drawPile, discardPile, turnManager, player);
+		EasyMock.replay(game);
+
+		assertTrue(game.canPlaySelected());
+
+		EasyMock.verify(discardPile, player, game);
+	}
+
+	@Test
 	public void playSelectedCards_invalidPlay_failed() {
 		List<Player> players = EasyMock.createMock(List.class);
 		Deck drawPile = EasyMock.createMock(Deck.class);

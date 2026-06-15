@@ -146,19 +146,46 @@ public class Game {
         else if (size == GameConstants.TWO_CARDS || size == GameConstants.THREE_CARDS) {
             CardType firstCardType = selectedCards.get(0).getType();
 
-            boolean isCatCard = (GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
-                    || firstCardType == CardType.FERAL_CAT)
-                    && firstCardType != CardType.DEFUSE
-                    && firstCardType != CardType.EXPLODING_KITTEN;
+            if (firstCardType == CardType.DEFUSE || firstCardType == CardType.EXPLODING_KITTEN) {
+                return false;
+            }
 
-            return isCatCard && doAllCardsMatch(selectedCards, firstCardType);
+            boolean isValidComboCard =
+                    GameConstants.CONDITIONAL_PLAY_CARDTYPES.contains(firstCardType)
+                    || firstCardType == CardType.GODCAT
+                    || firstCardType == CardType.CLONE;
+
+            if (!isValidComboCard) {
+                return false;
+            }
+            return doAllCardsMatch(selectedCards);
         }
         return false;
     }
 
-    private boolean doAllCardsMatch(List<Card> selectedCards, CardType cardType) {
+    private boolean doAllCardsMatch(List<Card> selectedCards) {
+        CardType representativeType = CardType.FERAL_CAT;
+        boolean hasRepresentative = false;
+
         for (Card card : selectedCards) {
-            if (card.getType() != cardType) {
+            CardType currentType = card.getType();
+
+            if (currentType == CardType.CLONE) {
+                if (discardPile.isEmpty()) {
+                    return false;
+                }
+                currentType = discardPile.peekTop().getType();
+            }
+
+            if (currentType == CardType.FERAL_CAT || currentType == CardType.GODCAT) {
+                continue;
+            }
+
+            if (!hasRepresentative) {
+                representativeType = currentType;
+                hasRepresentative = true;
+            }
+            else if (currentType != representativeType) {
                 return false;
             }
         }
