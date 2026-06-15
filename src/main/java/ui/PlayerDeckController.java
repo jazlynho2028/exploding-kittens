@@ -209,13 +209,20 @@ public class PlayerDeckController {
 
     void onPlayCardsButton() {
         attempt(onError, () -> {
+            int comboSize = model.getSelectedCardsCount();
             CardType cardType = model.playSelectedCards();
 
             updateAll();
 
             if (cardType == CardType.GODCAT) {
-                view.bindGodcatConfirmButton(this::onGodcatConfirm);
-                view.buildGodcatOverlay(GameConstants.GODCAT_CARDTYPE_OPTIONS);
+                view.bindCardSelectConfirmButton(this::onGodcatConfirm);
+                view.buildCardSelectOverlay(GameConstants.SELECTABLE_CARDTYPE_OPTIONS, "GODCAT");
+            }
+            else if (cardType == CardType.CAT_CARD_1 ||
+                    cardType == CardType.CAT_CARD_2 ||
+                    cardType == CardType.CAT_CARD_3 ||
+                    cardType == CardType.CAT_CARD_4) {
+                handleCatCardCombo(comboSize);
             }
             else {
                 updateByCardType(cardType);
@@ -253,6 +260,19 @@ public class PlayerDeckController {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void handleCatCardCombo(int comboSize) {
+        if (comboSize == GameConstants.TWO_CARDS) {
+            pendingTargetAction = Optional.of(targetIndex ->
+                    model.applyTwoOfAKind(targetIndex, new java.util.Random())
+            );
+            enablePlayerSelect();
+        }
+        else if (comboSize == GameConstants.THREE_CARDS) {
+            view.bindCardSelectConfirmButton(this::onCardRequestConfirm);
+            view.buildCardSelectOverlay(GameConstants.SELECTABLE_CARDTYPE_OPTIONS, "REQUEST");
         }
     }
 
@@ -321,13 +341,27 @@ public class PlayerDeckController {
 
     void onGodcatConfirm() {
         attempt(onError, () -> {
-            CardType cardType = view.getSelectedGodcatCardType();
+            CardType cardType = view.getSelectedOverlayCardType();
             model.applyGodcat(cardType);
 
             view.hideOverlay();
             updateAll();
 
             updateByCardType(cardType);
+        });
+    }
+
+    void onCardRequestConfirm() {
+        attempt(onError, () -> {
+            CardType chosenType = view.getSelectedOverlayCardType();
+
+            view.hideOverlay();
+            updateAll();
+
+            pendingTargetAction = Optional.of(targetIndex ->
+                    model.applyThreeOfAKind(targetIndex, chosenType));
+
+            enablePlayerSelect();
         });
     }
 

@@ -284,6 +284,34 @@
     - selectedCardTypes = [MILD_SHUFFLE]
   - **Expected output**: returns true
 
+- **TC43: Combo size is below the minimum matching threshold (size = 1)** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_singleCatCard_returnsFalse
+  - **State of the system**: a single cat card is selected
+  - **Expected output**: returns false, cat cards must be played in pairs/tripes
+
+- **TC44: Exactly two matching cards selected (size = 2)** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_validTwoOfAKindCombo_returnsTrue
+  - **State of the system**: two cat cards of the exact same type are selected 
+    - (e.g., [CAT_CARD_2, CAT_CARD_2])
+  - **Expected output**: returns true
+
+- **TC45: Exactly three matching cards selected (size = 3)** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_validThreeOfAKindCombo_returnsTrue
+  - **State of the system**: three cat cards of the exact same type are selected 
+    - (e.g., [CAT_CARD_3, CAT_CARD_3, CAT_CARD_3])
+  - **Expected output**: returns true
+
+- **TC46: Multiple matching cards over max valid combo size (size = 4)** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_comboSizeTooLarge_returnsFalse
+  - **State of the system**: four cat cards of the exact same type are selected 
+    - (e.g., [CAT_CARD_1, CAT_CARD_1, CAT_CARD_1, CAT_CARD_1])
+  - **Expected output**: returns false
+
+- **TC47: Multiple cards selected with mismatched types (size = 2)** ( :white_check_mark: )
+  - **Name of the test**: canPlaySelected_mismatchedComboCards_returnsFalse
+  - **State of the system**: two cards of different cat card types are selected (e.g., [CAT_CARD_1, CAT_CARD_3])
+  - **Expected output**: returns false
+
 ### Method under test: `playSelectedCards()`
 - **TC43: Selected cards cannot be played** ( :white_check_mark: )
   - **Name of the test**: playSelectedCards_invalidPlay_failed
@@ -505,6 +533,29 @@
     - discardPile.addCardToTop(card1) is called
     - applyMildShuffle is called
     - returns CardType.MILD_SHUFFLE
+
+- **TC68: Play mismatched cat card two-of-a-kind combo** ( :white_check_mark: )
+  - **Name of the test**: playSelectedCards_invalidComboPlay_throwsException
+  - **State of the system**: 
+    - isGameOngoing = true
+    - canPlaySelected() returns false (e.g., mismatched cards selected)
+  - **Expected output**: throws IllegalStateException "error.cannotPlaySelectedCards"
+
+- **TC69: Valid two-of-a-kind cat card combo played** ( :white_check_mark: )
+  - **Name of the test**: playSelectedCards_validTwoOfAKind_discardsCardsAndTriggersTheft
+  - **State of the system**: isGameOngoing = true (exactly 2 matching cat cards selected)
+  - **Expected output**: 
+    - both cards are removed from active player's hand
+    - both cards are added to discardPile
+    - returns CardType matching the played combo
+
+- **TC70: Valid three-of-a-kind cat card combo played** ( :white_check_mark: )
+  - **Name of the test**: playSelectedCards_validThreeOfAKind_discardsCardsAndTriggersTheft
+  - **State of the system**: isGameOngoing = true (exactly 3 matching cat cards selected)
+  - **Expected output**: 
+    - 3 cards are removed from active player's hand
+    - 3 cards are added to discardPile
+    - returns CardType matching the played combo
 
 ### Method under test: `getTopDiscardId()`
 - **TC62: Empty discard pile** ( :white_check_mark: )
@@ -1794,3 +1845,32 @@
     - playerNames = ["Audrey", "Jeff", "Chicken"]
     - winner at index 0
   - **Expected output**: return "Audrey"
+
+### Method under test: `applyTwoOfAKind(int targetPlayerIndex, Random random)`
+- **TC230: Random theft against target with cards remaining** ( :white_check_mark: )
+  - **Name of the test**: playTwoOfAKind_targetHasCards_transfersRandomCard
+  - **State of the system**: target player hand size > 0
+  - **Expected output**: 1 random card removed from target player's hand and added to current player's hand
+
+- **TC231: Random theft against target with an empty hand** ( :white_check_mark: )
+  - **Name of the test**: playTwoOfAKind_targetHasNoCards_noCardTransferred
+  - **State of the system**: target player hand size = 0
+  - **Expected output**: hand sizes remain unchanged; execution returns cleanly without error
+
+### Method under test: `applyThreeOfAKind(int targetPlayerIndex, CardType requestedCardType)`
+- **TC232: Target has the specific requested card type** ( :white_check_mark: )
+  - **Name of the test**: playThreeOfAKind_targetHasCard_transfersCard
+  - **State of the system**: target player has at least one card matching requestedType in hand
+  - **Expected output**: 
+    - first matching card removed from target player's hand
+    - card added to current player's hand
+
+- **TC233: Target does not have the requested card type** ( :white_check_mark: )
+  - **Name of the test**: applyThreeOfAKind_targetDoesNotHaveCard_noTransfer
+  - **State of the system**: target player has zero cards matching requestedType in hand
+  - **Expected output**: no cards are transferred between hands
+
+- **TC234: Target has an empty hand** ( :white_check_mark: )
+  - **Name of the test**: applyThreeOfAKind_targetHandEmpty_noTransfer
+  - **State of the system**: target player has zero cards matching requestedType in hand
+  - **Expected output**: no cards are transferred between hands
