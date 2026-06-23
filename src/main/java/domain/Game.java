@@ -437,8 +437,7 @@ public class Game {
     }
 
     void applyAttack() {
-        getCurrentPlayer().deselectHandCards();
-        addAttackDrawCount();
+        prepareAttack();
         turnManager.incrementTurn(getAliveIndices());
     }
 
@@ -451,6 +450,12 @@ public class Game {
             turnManager.setDrawCount(GameConstants.ATTACK_DRAW_COUNT);
             isAttackOngoing = true;
         }
+    }
+
+    void prepareAttack() {
+        getCurrentPlayer().deselectHandCards();
+        addAttackDrawCount();
+        isFaceUp = false;
     }
 
     void applyShuffle() {
@@ -542,8 +547,8 @@ public class Game {
     }
 
     public void applyTargetedAttack(int targetPlayerIndex) {
-        getCurrentPlayer().deselectHandCards();
-        addAttackDrawCount();
+        prepareAttack();
+
         while (turnManager.getCurrentPlayerIndex() != targetPlayerIndex) {
             turnManager.incrementTurn(getAliveIndices());
         }
