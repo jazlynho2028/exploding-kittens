@@ -2596,6 +2596,7 @@ public class GameTests {
 
 		game.applyAttack();
 
+		assertFalse(game.getIsFaceUp());
 		EasyMock.verify(turnManager, currentPlayer, game);
 	}
 
@@ -2672,6 +2673,7 @@ public class GameTests {
 		game.drawFromPile();
 		game.playSelectedCards();
 
+		assertFalse(game.getIsFaceUp());
 		EasyMock.verify(drawPile, discardPile, turnManager, currentPlayer, game);
 	}
 
@@ -3531,6 +3533,7 @@ public class GameTests {
 
 		game.applyTargetedAttack(targetPlayerIndex);
 
+		assertFalse(game.getIsFaceUp());
 		EasyMock.verify(players, currentPlayer, drawPile, discardPile, turnManager, game);
 	}
 

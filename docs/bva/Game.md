@@ -1348,6 +1348,7 @@
     - ends current player's turn
     - increments turn
     - drawCount = 2
+    - isFaceUp = false
 
 - **TC161: One-time stacked attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
@@ -1357,6 +1358,7 @@
     - ends current player's turn
     - increments turn
     - drawCount = 4
+    - isFaceUp = false
 
 - **TC162: Two-time stacked attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_stackingLogic_calculatesCorrectDrawCount
@@ -1366,6 +1368,7 @@
     - ends current player's turn
     - increments turn
     - drawCount = 6
+    - isFaceUp = false
 
 - **TC163: Partial-turn stacked attack** ( :white_check_mark: )
   - **Name of the test**: applyAttack_partialTurnCompletion_stacksCorrectlyForThirdPlayer
@@ -1378,6 +1381,7 @@
     - increments turn
     - next player's drawCount = 3
     - drawCount = 6
+    - isFaceUp = false
 
 ### Method under test: `addAttackDrawCount()`
 - **TC164: Draw count is below the attack threshold** ( :white_check_mark: )
@@ -1727,6 +1731,7 @@
     - deselectHandCards() called on player 0
     - incrementTurn() called 1 time with getAliveIndices
     - addAttackDrawCount() called
+    - isFaceUp = false
 
 - **TC215: Targeted Attack with minimum players (2), last player targets first player (wrap)** ( :white_check_mark: )
   - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
@@ -1738,6 +1743,7 @@
     - deselectHandCards() called on player 1
     - incrementTurn() called 1 time with getAliveIndices
     - addAttackDrawCount() called
+    - isFaceUp = false
 
 - **TC216: Targeted Attack with maximum players (4), first player targets last player** ( :white_check_mark: )
   - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
@@ -1749,6 +1755,7 @@
     - deselectHandCards() called on player 0
     - incrementTurn() called 3 times with getAliveIndices
     - addAttackDrawCount() called
+    - isFaceUp = false
 
 - **TC217: Targeted Attack with maximum players (4), last player targets first player (wrap)** ( :white_check_mark: )
   - **Name of the test**: applyTargetedAttack_validTargets_successfullyCalled
@@ -1759,6 +1766,7 @@
     - deselectHandCards() called on player 3
     - incrementTurn() called 1 time with getAliveIndices
     - addAttackDrawCount() called
+    - isFaceUp = false
 
 ### Method under test: `reachedWinnerWinnerCondition()`
 - **TC218: Is not activated** ( :white_check_mark: )
